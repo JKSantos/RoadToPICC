@@ -1,0 +1,121 @@
+package com.gss.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.gss.connection.JDBCConnection;
+import com.gss.model.Location;
+
+public class LocationJDBCRepository implements LocationRepository{
+
+	private JDBCConnection jdbc = new JDBCConnection();
+	
+	public boolean createLocation(Location location) {
+
+		Connection con = jdbc.getConnection();
+		String query = "CALL createLocation(?, ?, ?)";
+		
+		try{
+			
+			PreparedStatement pre = con.prepareStatement(query);
+			pre.setString(1, location.getStrBarangay());
+			pre.setString(2, location.getStrCity());
+			pre.setDouble(3, location.getDblLocationPrice());
+			
+			pre.execute();
+			pre.close();
+			con.close();
+			
+			return true;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean updateLocation(Location location) {
+		Connection con = jdbc.getConnection();
+		String query = "CALL updateLocation(?, ?, ?)";
+		
+		try{
+			
+			PreparedStatement pre = con.prepareStatement(query);
+			pre.setInt(1, location.getIntLocationID());
+			pre.setString(2, location.getStrBarangay());
+			pre.setString(3, location.getStrCity());
+			pre.setDouble(4, location.getDblLocationPrice());
+			
+			pre.execute();
+			pre.close();
+			con.close();
+			
+			return true;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean deactivateLocation(int locationID) {
+
+
+		Connection con = jdbc.getConnection();
+		String query = "UPDATE tblLocation SET intLocationStatus = 0 WHERE intLocationID = ?";
+		
+		try{
+			
+			PreparedStatement pre = con.prepareStatement(query);
+			pre.setInt(1, locationID);
+	
+			pre.execute();
+			pre.close();
+			con.close();
+			
+			return true;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public List<Location> getAllLocation() {
+		Connection con = jdbc.getConnection();
+		String query = "SELECT * FROM tblLocation WHERE intLocationStatus = 1";
+		
+		List<Location> locationList = new ArrayList<Location>();
+		
+		try{
+			
+			PreparedStatement pre = con.prepareStatement(query);
+			ResultSet result = pre.executeQuery();
+			
+			while(result.next()){
+				
+				int intID = result.getInt(1);
+				String strBrgy = result.getString(2);
+				String strCity = result.getString(3);
+				double price = result.getDouble(4);
+				int status = result.getInt(5);
+				
+				Location location = new Location(intID, strBrgy, strCity, price, status);
+				locationList.add(location);
+			}
+			
+			pre.close();
+			con.close();
+			
+			return locationList;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+}

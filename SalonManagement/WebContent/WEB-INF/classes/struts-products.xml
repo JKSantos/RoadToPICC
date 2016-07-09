@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation"
+		value="true" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.custom.i18n.resources"
+		value="ApplicationResources"/>
+		
+	<package name="products" extends="struts-default, json-default" namespace="/">
+	
+		<result-types>
+         	<result-type name="tiles" 
+         	class="org.apache.struts2.views.tiles.TilesResult" />
+      	</result-types>
+	
+		<action name="productServiceMaintenance" class="com.gss.actions.CreateProductServiceAction" method="execute">
+			<result name="success" type="tiles">productsAndServices</result>
+		</action>
+		
+		<action name="createProdServ" class="com.gss.actions.CreateServProdAction" method="execute">
+			<result name="success">redirect-maintenance-product.jsp</result>
+			<result name="failed">redirect-maintenance-product.jsp</result>
+		</action>
+
+		<action name="updateItem" class="com.gss.actions.UpdateItemAction" method="execute">
+			<result name="success">redirect-maintenance-product.jsp</result>
+			<result name="failed">maintenance-prodsvc.jsp</result>
+		</action>
+		
+		<action name="deactivateItem" class="com.gss.actions.DeactivateItemAction" method="deactivateProduct">
+			<result name="success">redirect-maintenance-product.jsp</result>
+			<result name="failed">maintenance-prodsvc.jsp</result>
+		</action>
+
+		<action name="deactivateService" class="com.gss.actions.DeactivateItemAction" method="deactivateService">
+			<result name="success">redirect-maintenance-product.jsp</result>
+			<result name="failed">maintenance-prodsvc.jsp</result>
+		</action>
+		
+		<action name="getAllService" class="com.gss.actions.Service.GetAllService" method="execute">
+			<result name="success" type="json"></result>
+		</action>
+		
+		
+		<action name="getAllProduct" class="com.gss.actions.Product.GetAllProduct" method="execute">
+			<result name="success" type="json"></result>
+		</action>
+	</package>	
+		
+		
+</struts>

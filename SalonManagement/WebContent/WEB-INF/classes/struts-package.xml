@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation"
+		value="true" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.custom.i18n.resources"
+		value="ApplicationResources"/>
+		
+	<package name="package" extends="struts-default, json-default" namespace="/">
+	
+		<result-types>
+         	<result-type name="tiles" 
+         	class="org.apache.struts2.views.tiles.TilesResult" />
+      	</result-types>
+	
+		<action name="packageMaintenance" class="com.gss.actions.PackageMaintenance" method="execute">
+			<result name="success" type="tiles">package</result>
+		</action>
+		
+		<action name="createPackage" class="com.gss.actions.CreatePackageAction">
+			<result name="success">redirect-maintenance-package.jsp</result>
+			<result name="failed">maintenance-package.jsp</result>
+		</action>
+		
+		<action name="deactivatePackage" class="com.gss.actions.DeactivatePackageAction" method="execute">
+			<result name="success">redirect-maintenance-package.jsp</result>
+			<result name="failed">maintenance-package.jsp</result>
+		</action>
+		
+		<action name="updatePackage" class="com.gss.actions.UpdatePackageAction" method="execute">
+			<result name="success">redirect-maintenance-package.jsp</result>
+			<result name="failed">maintenance-package.jsp</result>
+		</action>
+		
+		<action name="getAllPackage" class="com.gss.actions.Package.GetAllPackage">
+			<result type="json" name="success"></result>
+		</action>
+	
+	</package>	
+		
+		
+</struts>

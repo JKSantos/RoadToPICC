@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation"
+		value="true" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.custom.i18n.resources"
+		value="ApplicationResources"/>
+		
+	<package name="employee" extends="struts-default, json-default" namespace="/">
+		<result-types>
+			<result-type name="tiles"
+						 class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+	
+		<action name="employeeMaintenance" class="com.gss.actions.EmployeeMaintenanceAction" method="execute">
+			<result name="success" type="tiles">employeePage</result>
+			<result name="input">page-login-first.jsp</result>
+		</action>
+		
+		<action name="createEmployee" class="com.gss.actions.CreateEmployeeAction" method="execute">
+			<result name="success">empMaintenanceRedirect.jsp</result>
+			<result name="failed" type="tiles">employeePage</result>
+		</action>
+
+		<action name="updateEmployee" class="com.gss.actions.UpdateEmployeeAction" method="execute">
+			<result name="success">empMaintenanceRedirect.jsp</result>
+			<result name="failed">maintenance-emp.jsp</result>
+		</action>
+	
+		<action name="getAllEmployee" class="com.gss.actions.GetAllEmployee" method="execute">
+			<result name="success" type="json"/>
+		</action>
+		
+		<action name="getEmployeeByID" class="com.gss.actions.Employee.GetEmployeeByIDAction" method="execute">
+			<result name="success" type="json"/>
+		</action>
+		
+		<action name="deactivateEmployee" class="com.gss.actions.DeactivateEmployeeAction" method="execute">
+			<result name="success">empMaintenanceRedirect.jsp</result>
+			<result name="failed" type="tiles">employeePage</result>
+		</action>
+	
+	</package>	
+		
+		
+</struts>
