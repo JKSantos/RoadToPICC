@@ -29,7 +29,7 @@ public class PromoJDBCRepository implements PromoRepository{
 	public boolean createPromo(Promo promo) {
 		
 		Connection con = jdbc.getConnection();
-		String strQuery1 = "CALL createPromo(?, ?, ?, ?, ?);";
+		String strQuery1 = "CALL createPromo(?, ?, ?, ?, ?, ?);";
 		String strQuery2 = "CALL createProductPromo(?, ?, ?);";
 		String strQuery3 = "CALL createServicePromo(?, ?, ?);";
 		String strQuery4 = "CALL createPackagePromo(?, ?, ?);";
@@ -41,10 +41,11 @@ public class PromoJDBCRepository implements PromoRepository{
 			
 			PreparedStatement pre = con.prepareStatement(strQuery1);
 			pre.setString(1, promo.getStrPromoName());
-			pre.setString(2, promo.getStrPromoDescription());	
-			pre.setInt(3, promo.getIntMaxHeadCount());
-			pre.setDouble(4, promo.getDblPromoPrice());
-			pre.setString(5, promo.getStrPromoAvailability());
+			pre.setString(2, promo.getStrPromoDescription());
+			pre.setString(3, promo.getStrPromoGuidelines());
+			pre.setInt(4, promo.getIntMaxHeadCount());
+			pre.setDouble(5, promo.getDblPromoPrice());
+			pre.setString(6, promo.getStrPromoAvailability());
 			
 			set1 = pre.executeQuery();
 			
@@ -104,7 +105,7 @@ public class PromoJDBCRepository implements PromoRepository{
 	public boolean updatePromo(Promo promo) {
 		
 		Connection con = jdbc.getConnection();
-		String query1 = "CALL updatePromo(?, ?, ?, ?, ?, ?)";
+		String query1 = "CALL updatePromo(?, ?, ?, ?, ?, ?, ?)";
 		String delete = "CALL deleteOldDetail(?)";
 		String strQuery2 = "CALL newProd(?, ?, ?);";
 		String strQuery3 = "CALL createServicePromo(?, ?, ?);";
@@ -117,9 +118,10 @@ public class PromoJDBCRepository implements PromoRepository{
 			pre.setInt(1, promo.getIntPromoID());
 			pre.setString(2, promo.getStrPromoName());
 			pre.setString(3, promo.getStrPromoDescription());
-			pre.setInt(4, promo.getIntMaxHeadCount());
-			pre.setDouble(5, promo.getDblPromoPrice());
-			pre.setString(6, promo.getStrPromoAvailability());
+			pre.setString(4, promo.getStrPromoGuidelines());
+			pre.setInt(5, promo.getIntMaxHeadCount());
+			pre.setDouble(6, promo.getDblPromoPrice());
+			pre.setString(7, promo.getStrPromoAvailability());
 			
 			pre.execute();
 			
@@ -181,11 +183,8 @@ public class PromoJDBCRepository implements PromoRepository{
 		ProductService productService = new ProductServiceImpl();
 		PackageService packageService = new PackageServiceImpl();
 		
-		List<Product> productList = productService.getAllProductsNoImage();
-		List<Service> serviceList = serviceService.getAllServiceNoImage();
-		List<Package> packageList = packageService.getAllPackage();
-		
 		List<Promo> promoList = new ArrayList<Promo>();
+		
 		String query = "SELECT * FROM tblPromo WHERE intPromoStatus = 1;";
 		String query2 = "SELECT * FROM tblServicePromo WHERE intPromoID = ? AND intPromoStatus = 1;";
 		String query3 = "SELECT * FROM tblProductPromo WHERE intPromoID = ? AND intPromoStatus = 1;";
@@ -199,6 +198,10 @@ public class PromoJDBCRepository implements PromoRepository{
 			
 			while(set.next()){
 				
+				List<Product> productList = productService.getAllProductsNoImage();
+				List<Service> serviceList = serviceService.getAllServiceNoImage();
+				List<Package> packageList = packageService.getAllPackage();
+				
 				List<ProductPackage> prodPack = new ArrayList<ProductPackage>();
 				List<ServicePackage> servPack = new ArrayList<ServicePackage>();
 				List<PackagePackage> packPack = new ArrayList<PackagePackage>();
@@ -206,10 +209,11 @@ public class PromoJDBCRepository implements PromoRepository{
 				int intID = set.getInt(1);
 				String name = set.getString(2);
 				String desc = set.getString(3);
-				int max = set.getInt(4);
-				double price = set.getDouble(5);
-				String avail = set.getString(6);
-				int status = set.getInt(7);
+				String guide = set.getString(4);
+				int max = set.getInt(5);
+				double price = set.getDouble(6);
+				String avail = set.getString(7);
+				int status = set.getInt(8);
 				
 				PreparedStatement pre5 = con.prepareStatement(query2);
 				pre5.setInt(1, intID);
@@ -271,7 +275,7 @@ public class PromoJDBCRepository implements PromoRepository{
 					}
 				}
 				
-				Promo promo = new Promo(intID, name, desc, price, max, servPack, prodPack, packPack, avail, status);
+				Promo promo = new Promo(intID, name, desc, guide, price, max, servPack, prodPack, packPack, avail, status);
 				
 				promoList.add(promo);
 			}

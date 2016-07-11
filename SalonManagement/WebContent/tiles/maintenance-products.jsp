@@ -2,21 +2,21 @@
   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
   <%@ page import="com.gss.model.Product" %>
   <%@ page import="com.gss.model.Service" %>
-  
-  <body class="purple lighten-5">
-  <div class="wrapper">
-            
+
+
+
         <article>
         <!-- <div class="container"> -->
           <div class="wrapper">
+<!--                     <div class="aside aside1 z-depth-barts">
+                    
+                    </div> -->
 
                     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
                         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
                         <h3 class="grey-text text-darken-1">Product & Service Maintenance</h3>
                         <a class="waves-effect waves-light modal-trigger btn-flat purple darken-2 left white-text tooltipped" href="#create" style="margin-top: 50px; margin-left: 15px;" data-delay="30" data-position="bottom" data-tooltip="Create"><i class="material-icons">add</i></a>
                         <a class="waves-effect waves-light modal-trigger btn-flat purple darken-2 left white-text tooltipped" href="#empArchive" style="margin-top: 50px; margin-left: 15px;" data-delay="30" data-position="bottom" data-tooltip="Archive"><i class="material-icons">archive</i></a>
-
-                        <h4>Services</h4>
                         <table id="example" class="display centered responsive-table highlight" cellspacing="0" width="100%" style="border: 1px solid #bdbdbd; padding: 10px;" rowspan="10">
                                 <thead>
                                     <tr>
@@ -49,29 +49,6 @@
                                         </td>
                                     </tr>
                                   </c:forEach>
-                                  
-
-
-                                    
-                                </tbody>
-                            </table>
-
-                            <a class="waves-effect waves-light modal-trigger btn-flat purple darken-2 left white-text tooltipped" href="#createProduct" style="margin-top: 50px; margin-left: 15px;" data-delay="30" data-position="bottom" data-tooltip="Create"><i class="material-icons">add</i></a>
-                            <a class="waves-effect waves-light modal-trigger btn-flat purple darken-2 left white-text tooltipped" href="#empArchive" style="margin-top: 50px; margin-left: 15px;" data-delay="30" data-position="bottom" data-tooltip="Archive"><i class="material-icons">archive</i></a>
-
-                            <h4>Products</h4>
-
-                            <table id="example" class="display centered responsive-table highlight" cellspacing="0" width="100%" style="border: 1px solid #bdbdbd; padding: 10px;" rowspan="10">
-                              <thead>
-                                  <tr>
-                                      <th><center>Name</center></th>
-                                      <th><center>Category</center></th>
-                                      <th><center>Price</center></th>
-                                      <th><center>Actions</center></th>
-                                  </tr>
-                              </thead>
-
-                              <tbody>
                                   <c:forEach items="${serviceList}" var="service">
                                     <%! String strService =null; %>
                                     <% Service serv = (Service)pageContext.getAttribute("service");
@@ -94,7 +71,10 @@
                                         </td>
                                     </tr>
                                   </c:forEach>
-                              </tbody>
+
+
+                                    
+                                </tbody>
                             </table>
 
                       </div>
@@ -166,82 +146,7 @@
                             <!-- <div class="container"> -->
                             <div class="wrapper">
                               <div class="input-field col s12">
-                                  <h4 class="grey-text text-darken-1">Create Service</h4>
-                              </div>
-
-                              <div class="aside aside1 z-depth-0">
-                                <div class="row">
-                              <!-- 1st aside -->
-                                  <div class="col s12">
-                                      <img name="prodsvcCreate" id="prodsvcCreate" style="width: 200px; height: 200px; margin-top: 20px;" src="./img/packIcon.png" alt=""/>
-                                  </div>
-                                  <div class="input-field col s12">
-                                      <div class="file-field">
-                                            <div class="btn purple darken-3">
-                                              <span class=""><i class="material-icons">add_a_photo</i></span>
-                                              <input name="upload" type="file" accept="image/.jpg, image/.png" onchange="loadProdSvc(event)">
-                                            </div>
-                                            <div class="file-path-wrapper">
-                                              <input value="image" class="file-path validate" type="text">
-                                            </div>
-                                        </div>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="aside aside2 z-depth-0">
-                                <div class="row">
-                              <!-- 2nd aside -->
-                                    <div class="col s12">
-                                         <label class="red-text left">(*) Indicates required field</label>
-                                    </div>
-                                    
-                                    <div class="input-field col s12" style="margin-top: 28px !important;">
-                                      <input type="text" class="validate tooltipped specialprodsvc noSpace" required id="prodsvcName" name="strItemName" placeholder="Product/Service Name" data-position="bottom" data-delay="30" data-tooltip="Ex: Item 1<br/> ( At least 3 or more characters )" pattern="^[a-zA-Z0-9\-\s]{3,}$" maxlength="15">
-                                      <label for="prodsvcName">Name<span class="red-text">*</span></label>
-                                    </div>
-                                    <div class="input-field col s12">
-                                      <textarea id="prodsvcDetail" name="strItemDetails" class="materialize-textarea tooltipped noSpace" placeholder="Details" data-position="bottom" data-delay="30" data-tooltip="Ex: This item is affordable.<br/> ( At least 5 or more characters )" pattern="^[a-zA-Z0-9.,`-\-\s]{5,}$" maxlength="25"></textarea>
-                                      <label for="prodsvcDetail" class="active">Details</label>
-                                    </div>
-                                    <div class="input-field col s8">
-                                        <select class="browser-default" id="createPSCategory" name="strItemCategory" required>
-                                            <option value="" disabled selected> </option>
-                                            <c:forEach items="${productCategory}" var="product">
-                                              <option value="${product}">${product}</option>
-                                            </c:forEach>
-                                        </select>
-                                        <label for="createPSCategory" class="active">Category<span class="red-text">*</span></label>
-                                    </div>
-                                    <div class="input-field col s4">
-                                      <button data-target="addCategory" class="waves-effect waves-light btn-flat modal-category purple lighten-1"><i class="material-icons white-text">add</i></button>
-                                    </div>
-                                    <div class="input-field col s6" style="margin-top: 28px !important;">
-                                        <input type="text" class="validate right-align tooltipped amountFormat" id="prodsvcPrice" name="dblItemPrice" required placeholder="999.99" data-position="bottom" data-delay="30" data-tooltip="Ex: 99.99<br/>( Numbers only )">
-                                        <label for="prodsvcPrice" class="active">Price<span class="red-text">*</span></label>
-                                    </div>
-                                </div>
-                              </div>
-                            </div>
-
-
-                            
-                          </div>
-                          <div class="modal-footer">
-                              <button type="reset" value="Reset" class=" modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL</button>
-                              <button class="waves-effect waves-light purple darken-3 white-text btn-flat" type="submit" value="Submit">CREATE</button>
-                          </div>
-                          </form>
-                    </div>
-
-                     <!-- Modal Structure -->
-                        <div id="createProduct" class="modal modal-fixed-footer">
-                        <form class="col s12" method="post" id="createProdSvcForm" action="createProdServ" enctype="multipart/form-data">
-                          <div class="modal-content">
-                            <!-- <div class="container"> -->
-                            <div class="wrapper">
-                              <div class="input-field col s12">
-                                  <h4 class="grey-text text-darken-1">Create Product</h4>
+                                  <h4 class="grey-text text-darken-1">Create Product/Service</h4>
                               </div>
 
                               <div class="aside aside1 z-depth-0">
@@ -273,10 +178,10 @@
                                     <div class="input-field col s12">
                                       <select name="strItemCate" class="browser-default" required id="strItemCate">
                                         <option value="" disabled="disabled" selected></option>
-                                        <option value="service">For sale</option>
-                                        <option value="product">Consumables</option>
+                                        <option value="service">Service</option>
+                                        <option value="product">Product</option>
                                       </select>
-                                      <label for="strItemCate" class="active">Availablity<span class="red-text">*</span></label>
+                                      <label for="strItemCate" class="active">Type<span class="red-text">*</span></label>
                                     </div>
                                     <div class="input-field col s12" style="margin-top: 28px !important;">
                                       <input type="text" class="validate tooltipped specialprodsvc noSpace" required id="prodsvcName" name="strItemName" placeholder="Product/Service Name" data-position="bottom" data-delay="30" data-tooltip="Ex: Item 1<br/> ( At least 3 or more characters )" pattern="^[a-zA-Z0-9\-\s]{3,}$" maxlength="15">
@@ -396,7 +301,13 @@
                                       <label for="strItemCate" class="active">Type</label>
                                     </div>
                                     <div class="input-field col s12" style="margin-top: 28px !important;">
+
+                                    <!-- <input type="hidden" name="intItemID" value="${product.intProductID}">
+ -->                                    
+<!--                                       <input value="${product.strProductName}" type="text" class="validate tooltipped" id="prodsvcName" name="strItemName" placeholder="Product/Service Name" data-position="bottom" data-delay="30" data-tooltip="${product.strProductName}" pattern="^[a-zA-Z0-9\-\s]{3,}$" maxlength="15">
+======= -->
                                       <input value="${product.strProductName}" type="text" class="validate tooltipped specialprodsvc noSpace" id="prodsvcName" name="strItemName" placeholder="Product/Service Name" data-position="bottom" data-delay="30" data-tooltip="${product.strProductName}" pattern="^[a-zA-Z0-9\-\s]{3,}$" maxlength="15">
+
                                       <label for="prodsvcName">Name</label>
                                     </div>
                                     <div class="input-field col s12">
@@ -611,6 +522,10 @@
                                       <label for="strItemCate" class="active">Type</label>
                                     </div>
                                     <div class="input-field col s12" style="margin-top: 28px !important;">
+<!-- <<<<<<< HEAD
+                                      <input type="text" name="intItemID" value="${service.intServiceID}">
+                                      <input value="${service.strServiceName}" type="text" class="validate tooltipped" id="prodsvcName" name="strItemName" placeholder="Product/Service Name" data-position="bottom" data-delay="30" data-tooltip="${service.strServiceName}" pattern="^[a-zA-Z0-9\-\s]{3,}$" maxlength="15">
+======= -->
                                       <input value="${service.strServiceName}" type="text" class="validate tooltipped specialprodsvc noSpace" id="prodsvcName" name="strItemName" placeholder="Product/Service Name" data-position="bottom" data-delay="30" data-tooltip="${service.strServiceName}" pattern="^[a-zA-Z0-9\-\s]{3,}$" maxlength="15">
                                       <label for="prodsvcName">Name</label>
                                     </div>
@@ -829,4 +744,58 @@
 
   </div>
 
-  </body>
+  <style type="text/css">
+  #create {
+    width: 60% !important;
+    height: 80% !important;
+    max-height: 100% !important;
+  }
+  #addCategory {
+    width: 40% !important;
+  }
+  #createAddCategorySelect {
+    height: 150px !important;
+  }
+  #updateAddCatProdSelect {
+    height: 150px !important;
+  }
+  #updateAddCatServSelect {
+    height: 150px !important;
+  }
+  #addUpdateServCategory {
+    width: 40% !important;
+  }
+  #addUpdateProdCategory {
+    width: 40% !important;
+  }
+
+  .error{
+    color: red;
+  }
+
+  </style>
+
+    <script type="text/javascript" src="./js/priceformat.js"></script>
+	<script type="text/javascript" src="./js/maintenance-products.js"></script>
+
+    <script type="text/javascript">
+    $('.amountFormat').priceFormat({
+      prefix: '',
+      centsSeparator: '.',
+      centsLimit: 2,
+      limit: 8,
+      thousandsSeparator: ','
+    });
+    </script>
+
+    <script type="text/javascript">
+    $("#updateprodPrice").each(function() {
+    $(this).priceFormat({
+      prefix: '',
+      centsSeparator: '.',
+      centsLimit: 2,
+      limit: 8,
+      thousandsSeparator: ','
+    });
+  });
+    </script>

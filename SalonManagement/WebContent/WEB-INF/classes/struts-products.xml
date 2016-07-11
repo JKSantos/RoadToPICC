@@ -18,7 +18,7 @@
       	</result-types>
 	
 		<action name="productServiceMaintenance" class="com.gss.actions.CreateProductServiceAction" method="execute">
-			<result name="success" type="tiles">productsAndServices</result>
+			<result name="success" type="tiles">products</result>
 		</action>
 		
 		<action name="createProdServ" class="com.gss.actions.CreateServProdAction" method="execute">

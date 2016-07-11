@@ -31,6 +31,7 @@ public class CreatePromoAction {
 	private String strExp;
 	private String strPromoName;
 	private String strPromoDesc;
+	private String strPromoGuidelines;
 	private String strFree = "";
 	private double dblPromoPrice;
 	private String servicePromoSelect = "";
@@ -122,12 +123,12 @@ public class CreatePromoAction {
 			
 			if(strFree.equals("on")){
 				
-				Promo promo = new Promo(1, strPromoName, strPromoDesc, 0, 1, serviceList, productList, packageList, expDate, 1);
+				Promo promo = new Promo(1, strPromoName, strPromoDesc, strPromoGuidelines, 0, 1, serviceList, productList, packageList, expDate, 1);
 				result = promoService.createPromo(promo);
 			}
 			else{
 				
-				Promo promo = new Promo(1, strPromoName, strPromoDesc, dblPromoPrice, 1, serviceList, productList, packageList, expDate, 1);
+				Promo promo = new Promo(1, strPromoName, strPromoDesc, strPromoGuidelines, dblPromoPrice, 1, serviceList, productList, packageList, expDate, 1);
 				result = promoService.createPromo(promo);
 			}
 		}
@@ -135,12 +136,12 @@ public class CreatePromoAction {
 			
 			if(strFree.equals("on")){
 				
-				Promo promo = new Promo(1, strPromoName, strPromoDesc, 0, 1, serviceList, productList, packageList, "NON-EXPIRY", 1);
+				Promo promo = new Promo(1, strPromoName, strPromoDesc, strPromoGuidelines, 0, 1, serviceList, productList, packageList, "NON-EXPIRY", 1);
 				result = promoService.createPromo(promo);
 			}
 			else{
 				
-				Promo promo = new Promo(1, strPromoName, strPromoDesc, dblPromoPrice, 1, serviceList, productList, packageList, "NON-EXPIRY", 1);
+				Promo promo = new Promo(1, strPromoName, strPromoDesc, strPromoGuidelines, dblPromoPrice, 1, serviceList, productList, packageList, "NON-EXPIRY", 1);
 				result = promoService.createPromo(promo);
 			}
 			
@@ -152,100 +153,69 @@ public class CreatePromoAction {
 			return "failed";
 	}
 
-	public String getStrNonExp() {
-		return strNonExp;
-	}
 
 	public void setStrNonExp(String strNonExp) {
 		this.strNonExp = strNonExp;
 	}
 
-	public String getStrExp() {
-		return strExp;
-	}
 
 	public void setStrExp(String strExp) {
 		this.strExp = strExp;
 	}
 
-	public String getStrPromoName() {
-		return strPromoName;
-	}
 
 	public void setStrPromoName(String strPromoName) {
 		this.strPromoName = strPromoName;
 	}
 
-	public String getStrPromoDesc() {
-		return strPromoDesc;
-	}
 
 	public void setStrPromoDesc(String strPromoDesc) {
 		this.strPromoDesc = strPromoDesc;
 	}
 
-	public String getStrFree() {
-		return strFree;
-	}
 
 	public void setStrFree(String strFree) {
 		this.strFree = strFree;
 	}
 
-	public double getDblPromoPrice() {
-		return dblPromoPrice;
-	}
 
 	public void setDblPromoPrice(double dblPromoPrice) {
 		this.dblPromoPrice = dblPromoPrice;
 	}
 
-	public String getServicePromoSelect() {
-		return servicePromoSelect;
-	}
 
 	public void setServicePromoSelect(String servicePromoSelect) {
 		this.servicePromoSelect = servicePromoSelect;
 	}
 
-	public String getProductPromoSelect() {
-		return productPromoSelect;
-	}
 
 	public void setProductPromoSelect(String productPromoSelect) {
 		this.productPromoSelect = productPromoSelect;
 	}
 
-	public String getPackagePromoSelect() {
-		return packagePromoSelect;
-	}
 
 	public void setPackagePromoSelect(String packagePromoSelect) {
 		this.packagePromoSelect = packagePromoSelect;
 	}
 
-	public String getServicePromoQty() {
-		return servicePromoQty;
-	}
 
 	public void setServicePromoQty(String servicePromoQty) {
 		this.servicePromoQty = servicePromoQty;
 	}
 
-	public String getProductPromoQty() {
-		return productPromoQty;
-	}
 
 	public void setProductPromoQty(String productPromoQty) {
 		this.productPromoQty = productPromoQty;
 	}
 
-	public String getPackagePromoQty() {
-		return packagePromoQty;
-	}
 
 	public void setPackagePromoQty(String packagePromoQty) {
 		this.packagePromoQty = packagePromoQty;
+	}
+
+
+	public void setStrPromoGuidelines(String strPromoGuidelines) {
+		this.strPromoGuidelines = strPromoGuidelines;
 	}
 	
 	

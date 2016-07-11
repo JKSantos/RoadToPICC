@@ -34,23 +34,12 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                  <!-- <tr>
-                                      <td>1</td>
-                                      <td>New Year Promo</td>
-                                      <td><button data-target="viewProdSvc" class="waves-effect waves-purple modal-view btn-flat purple lighten-4">View</button></td>
-                                      <td>99.00</td>
-                                      <td>01/01/01</td>
-                                      <td>01/01/01</td>
-                                      <td><a class="waves-effect waves-light modal-trigger btn-flat transparent black-text" title="Update" href="#update" style="padding: 0px;"><i class="material-icons">edit</i></a>
-                                      <a class="waves-effect waves-light modal-trigger btn-flat transparent red-text text-accent-4" href="#delete" title="Deactivate"><i class="material-icons">delete</i></a>
-                                      </td>
-                                  </tr>    -->
                                 <c:forEach items="${promoList}" var="promo">
                                   <tr>
                                       <td style="padding:0; margin:0;"><center>${promo.strPromoName}</center></td>
                                       <td style="padding:0; margin:0;"><center>Php ${promo.dblPromoPrice}</center></td>
                                       <td style="padding:0; margin:0;"><center>${promo.strPromoAvailability}</center></td>
-                                      <td class="center" style="padding:0; margin:0;"><button data-target="viewProdSvc" class="waves-effect waves-purple modal-view btn-flat transparent" style="padding-left: 10px;padding-right:10px; margin: 5px;"><i class="material-icons">visibility</i></button>
+                                      <td class="center" style="padding:0; margin:0;"><button data-target="viewProdSvc${promo.intPromoID}" class="waves-effect waves-purple modal-view btn-flat transparent" style="padding-left: 10px;padding-right:10px; margin: 5px;"><i class="material-icons">visibility</i></button>
                                       <a class="waves-effect waves-purple modal-trigger btn-flat transparent black-text" title="Update" href="#update${promo.intPromoID}" style="padding-left: 10px;padding-right:10px; margin: 5px;"><i class="material-icons">edit</i></a>
                                       <a class="waves-effect waves-purple modal-trigger btn-flat transparent red-text text-accent-4" href="#delete${promo.intPromoID}" title="Deactivate" style="padding-left: 10px;padding-right:10px; margin: 5px;"><i class="material-icons">delete</i></a>
                                       </td>
@@ -62,42 +51,73 @@
                       </div>
 
                       <!-- view product and service modal -->
-                          <div id="viewProdSvc" class="modal">
+                      	<c:forEach items="${promoList}" var="promo">
+                          <div id="viewProdSvc${promo.intPromoID}" class="modal">
                             <div class="modal-content">
                               <!-- <div class="container"> -->
                               <div class="row">
                                 <h5 class="grey-text text-darken-1">Services & Products Included</h5>
                                 <div class="input-field col s8 offset-s2">
-                                  <input type="text" disabled="disabled" id="promoViewName" name="promoViewName">
-                                  <label for="promoViewName">Promo Name</label>
+                                  <input type="text" readonly id="promoViewName" name="promoViewName" value="${promo.strPromoName}">
+                                  <label for="promoViewName">Name</label>
                                 </div>
+
+                                <div class="input-field col s8 offset-s2">
+                                  <input type="text" readonly id="promoViewDesc" name="promoViewName" value="${promo.strPromoDescription}">
+                                  <label for="promoViewDesc">Description</label>
+                                </div>
+
+
+                                <div class="input-field col s8 offset-s2">
+                                  <textarea name="strPromoGuidelines" id="guidelines" class="materialize-textarea noSpace">${promo.strPromoGuidelines}</textarea>
+                                  <label for="guidelines" class="active">Guidelines</label>
+                                </div>
+                                <div class="input-field col s8 offset-s2">
+                                  <input type="text" readonly id="promoViewPrice" name="promoViewName" value="${promo.dblPromoPrice}">
+                                  <label for="promoViewPrice">Price</label>
+                                </div>
+
                                 <table class="centered responsive-table">
                                   <thead>
                                     <tr>
-                                        <th data-field="viewService">Service</th>
-                                        <th data-field="viewServiceQty">Qty</th>
-                                        <th data-field="viewProduct">Product</th>
-                                        <th data-field="viewProductQty">Qty</th>
+                                      <td>Services Included</td>
+                                      <td>Quantity</td>
                                     </tr>
                                   </thead>
-
                                   <tbody>
-                                    <tr>
-                                      <td>Service 1</td>
-                                      <td>1</td>
-                                      <td>Product 1</td>
-                                      <td>1</td>
+                                     <tr>
+                                      <c:forEach items="${promo.serviceList}" var="includedService">
+                                          <th data-field="viewService">${includedService.service.strServiceName}</th>
+                                          <th data-field="viewServiceQty">${includedService.intQuantity}</th>
+                                        </c:forEach>
                                     </tr>
+                                  </tbody>
+                                </table>
+
+                                <table>
+                                    <thead>
+                                    <tr>
+                                      <td>Products Included</td>
+                                      <td>Quantity</td>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                     <c:forEach items="${promo.productList}"  var="includedProduct">
+                                        <tr>
+                                          <th data-field="viewProduct">${includedProduct.product.strProductName}</th>
+                                          <th data-field="viewProductQty">${includedProduct.intProductQuantity}</th>
+                                        </tr>
+                                      </c:forEach>
                                   </tbody>
                                 </table>
                               </div>
                             </div>
                         </div>
-
+					  </c:forEach>
                       <!-- end view product and service modal -->
 
                       <!-- Modal Structure -->
-                        <div id="create" class="modal modal-fixed-footer">
+                        <div id="create" class="modal modal-fixed-footer" style="width: 75% !important; height: 80% !important; max-height: 100% !important;">
                         <form class="col s12" action="createPromo" method="get" id="createPromoForm">
                           <div class="modal-content">
                             <!-- <div class="container"> -->
@@ -129,6 +149,13 @@
                                             <div class="input-field col s12">
                                                 <textarea name="strPromoDesc" id="promodetails" class="materialize-textarea noSpace" minlength="5" placeholder="Description"></textarea>
                                                 <label for="promodetails" class="active">Description</label>
+                                            </div>
+                                            
+                                            <div class="input-field col s12">
+                                                <textarea name="strPromoGuidelines" id="guidelines" class="materialize-textarea noSpace" minlength="5" placeholder="*Sample Guideline1
+*Sample Guideline 2
+*Sample Guideline 3"></textarea>
+                                                <label for="guidelines" class="active">Guidelines</label>
                                             </div>
                                             
                                             <div class="input-field col s5">
