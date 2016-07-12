@@ -138,11 +138,11 @@
         margin-top: -30px !important;
     }
 
-    #empModalUpdate {
+    .empModalUpdate {
         width: 600px !important;
-        height: 590px !important;
+        height: 610px !important;
         max-height: 100% !important;
-        margin-top: -30px !important;
+        margin-top: -40px !important;
     }
 
     #createAddOption {
@@ -152,6 +152,14 @@
 
     label .has-error {
         color: red;
+    }
+
+    .tabs .indicator {
+        display: none;
+    }
+
+    .tabs .tab a.active {
+        border-bottom: 2px solid #6a1b9a;
     }
 
 </style>
@@ -174,7 +182,6 @@
 <script type="text/javascript" src="js/ajax.js"></script>
 
 
-
 <!--<script type="text/javascript" src="js/drag.js"></script>-->
 
 <script type="text/javascript">
@@ -182,7 +189,7 @@
         $(".button-collapse").sideNav();
     });
 
-    $(document).ready(function (){
+    $(document).ready(function () {
         $('select').material_select();
         $("select[required]").css({display: "inline", height: 0, padding: 0, width: 0});
     });
@@ -196,6 +203,17 @@
     $('#createContact').formatter({
         'pattern': '+63 {{999}}-{{999}}-{{9999}}',
         'persistent': true
+    });
+
+    $('.updateContact').each(function (){
+       $(this).formatter({
+           'pattern': '+63 {{999}}-{{999}}-{{9999}}',
+           'persistent': true
+       }) ;
+    });
+
+    $('ul.tabs').each(function(){
+        $(this).tabs();
     });
 
 </script>

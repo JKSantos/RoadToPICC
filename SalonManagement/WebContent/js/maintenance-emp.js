@@ -157,6 +157,11 @@ $('#btnCreateExit').click(function(){
     $('.errorcontainer').hide();
 });
 
+$('.btnUpdateExit').click(function(){
+    $('.updateEmpForm').trigger("reset");
+    $('.updateerror').empty();
+});
+
 //add option
 
 $('#createAddPosition').click(function () {
@@ -555,43 +560,87 @@ function deleteUpdateProdPack(row) {
 // product
 
 // bday BEGIN
-$('.datepicker').pickadate({
-    selectYears: 40,
-    selectMonths: true,
-    labelMonthNext: 'Next month',
-    labelMonthPrev: 'Previous month',
-    labelMonthSelect: 'Select a month',
-    labelYearSelect: 'Select a year',
-    monthsFull: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-    monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    weekdaysFull: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-    weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-    weekdaysLetter: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-    today: 'Today',
-    clear: 'Clear',
-    close: 'Close',
-    format: 'mmmm/d/yyyy',
-    max: 'Today',
-    yearRange: "1970:Today",
-    onSet: function (arg) {
-        if ('select' in arg) { //prevent closing on selecting month/year
-            this.close();
-        }
-        var bdate = $('#createBirthday').val();
-        var dob = new Date(bdate);
-        var today = new Date();
-        var age = today.getTime() - dob.getTime();
-        age = Math.floor(age / (1000 * 60 * 60 * 24 * 365.25));
-        if (age < 18) {
-            $('#createAge').css('color', 'red').val("Not Qualified");
-            $('.nextform').attr('disabled',true);
-        } else {
-            $('#createAge').val(age).css('color', 'black');
-            $('.nextform').attr('disabled',false);
-        }
+$(document).ready(function (){
+    $('.datepicker').pickadate({
+        selectYears: 40,
+        selectMonths: true,
+        labelMonthNext: 'Next month',
+        labelMonthPrev: 'Previous month',
+        labelMonthSelect: 'Select a month',
+        labelYearSelect: 'Select a year',
+        monthsFull: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        weekdaysFull: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        weekdaysLetter: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+        today: 'Today',
+        clear: 'Clear',
+        close: 'Close',
+        format: 'mmmm/d/yyyy',
+        max: 'Today',
+        yearRange: "1970:Today",
+        onSet: function (arg) {
+            if ('select' in arg) { //prevent closing on selecting month/year
+                this.close();
+            }
+            var bdate = $('#createBirthday').val();
+            var dob = new Date(bdate);
+            var today = new Date();
+            var age = today.getTime() - dob.getTime();
+            age = Math.floor(age / (1000 * 60 * 60 * 24 * 365.25));
+            if (age < 18) {
+                $('#createAge').css('color', 'red').val("Not Qualified");
+                $('.nextform').attr('disabled',true);
+            } else {
+                $('#createAge').val(age).css('color', 'black');
+                $('.nextform').attr('disabled',false);
+            }
 
-    }
+        }
+    });
 });
+
+
+$('.pick').each(function (){
+    $('.pick').pickadate({
+        selectYears: 40,
+        selectMonths: true,
+        labelMonthNext: 'Next month',
+        labelMonthPrev: 'Previous month',
+        labelMonthSelect: 'Select a month',
+        labelYearSelect: 'Select a year',
+        monthsFull: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        weekdaysFull: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        weekdaysLetter: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+        today: 'Today',
+        clear: 'Clear',
+        close: 'Close',
+        format: 'mmmm/d/yyyy',
+        max: 'Today',
+        yearRange: "1970:Today",
+        onSet: function (arg1) {
+            if ('select' in arg1) { //prevent closing on selecting month/year
+                this.close();
+            }
+            var bdate1 = $('.updateEmpBirthday').val();
+            var dob1 = new Date(bdate1);
+            var today1 = new Date();
+            var age1 = today1.getTime() - dob1.getTime();
+            age1 = Math.floor(age1 / (1000 * 60 * 60 * 24 * 365.25));
+            if (age1 < 18) {
+                $('.updateEmpAge').css('color', 'red').val("Not Qualified");
+                $('.updateSubmitForm').attr('disabled',true);
+            } else {
+                $('.updateEmpAge').val(age1).css('color', 'black');
+                $('.updateSubmitForm').attr('disabled',false);
+            }
+
+        }
+    });
+});
+
 // bday END
 
 // promo BEGIN
