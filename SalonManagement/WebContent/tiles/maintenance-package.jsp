@@ -82,43 +82,38 @@
                                   <input type="text" readonly="true" id="packageViewName" name="packageViewName" value="${pack.strPackageName}">
                                   <label for="packageViewName">Package Name</label>
                                 </div>
+
                                 <table class="centered responsive-table">
                                   <thead>
                                     <tr>
-                                        
-                                        <th data-field="viewProduct">Product/Service</th>
-                                        <th data-field="viewProductQty">Qty</th>
+                                      <td>Services Included</td>
+                                      <td>Quantity</td>
                                     </tr>
                                   </thead>
-
                                   <tbody>
-                                     <%
-                                                      Package sample = (Package)pageContext.getAttribute("pack");
-                                                        
-                                                      for(int i = 0; i < sample.getServiceList().size(); i++){
-                                                        ServicePackage serv = sample.getServiceList().get(i);
+                                     <tr>
+                                      <c:forEach items="${pack.serviceList}" var="includedService">
+                                          <th data-field="viewService">${includedService.service.strServiceName}</th>
+                                          <th data-field="viewServiceQty">${includedService.intQuantity}</th>
+                                        </c:forEach>
+                                    </tr>
+                                  </tbody>
+                                </table>
 
-                                                        if(serv.getIntPackageID() == id){
-                                                            out.println("<tr>");
-                                                            out.println("   <td>" + serv.getService().getStrServiceName() + "</td>");
-                                                            out.println("   <td>" + serv.getIntQuantity() + "</td>");
-                                                            
-                                                            out.println("</tr>");
-                                                        }
-                                                      }
-
-                                                      for(int i = 0; i < sample.getProductList().size(); i++){
-                                                        ProductPackage serv = sample.getProductList().get(i);
-                                                        System.out.println(serv.getIntPackageID() + ".." + id);
-                                                        if(serv.getIntPackageID() == id){
-                                                        System.out.println("SAME!!");
-                                                            
-                                                            out.println("   <td>" + serv.getProduct().getStrProductName() + "</td>");
-                                                            out.println("   <td>" + serv.getIntProductQuantity() + "</td>");
-                                                             out.println("</tr>");
-                                                        }
-                                                      }
-                                                  %>
+                                <table class="centered responsive-table">
+                                    <thead>
+                                    <tr>
+                                      <td>Products Included</td>
+                                      <td>Quantity</td>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                     <c:forEach items="${pack.productList}"  var="includedProduct">
+                                        <tr>
+                                          <th data-field="viewProduct">${includedProduct.product.strProductName}</th>
+                                          <th data-field="viewProductQty">${includedProduct.intProductQuantity}</th>
+                                        </tr>
+                                      </c:forEach>
                                   </tbody>
                                 </table>
                               </div>

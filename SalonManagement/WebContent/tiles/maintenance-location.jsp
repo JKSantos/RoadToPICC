@@ -21,6 +21,7 @@
                                 <thead>
                                     <tr>
                                         <th><center>Location</center></th>
+                                        <th><center>City</center></th>
                                         <th><center>Price</center></th>
                                         <th><center>Action</center></th>
                                     </tr>
@@ -42,7 +43,8 @@
                                           int id = loca.getIntLocationID();
                                       %>
 
-                                        <td style="padding:0; margin:0;"><center>${loc.strLocationName}</center></td>
+                                        <td style="padding:0; margin:0;"><center>${loc.strBarangay}</center></td>
+                                        <td style="padding:0; margin:0;"><center>${loc.strCity}</center></td>
                                         <td style="padding:0; margin:0;"><center>Php ${loc.dblLocationPrice}</center></td>
                                         <td class="center" style="padding:0; margin:0;"><center>
                                         <!-- <a data-delay="30" data-position="bottom" data-tooltip="View" class="tooltipped waves-effect waves-light modal-trigger btn-flat transparent black-text" href="#viewLocation" style="padding-left: 10px;padding-right:10px; margin: 5px;">
@@ -71,14 +73,14 @@
                                                 <label class="red-text"> (*) Indicates required field</label>
                                             </div>
                                             <div class="input-field col s12" style="margin-top: 25px;">
-                                                <input type="text" class="validate tooltipped specialname" id="createLocationName"
-                                                name="strLocationName" required pattern="^[a-zA-Z\-.\s]{5,}$" minlength="5" maxlength="15" data-delay="30" data-position="bottom" data-tooltip="Ex: Sta. Mesa<br/>( At least 5 or more characters )" placeholder="LocationName">
-                                                <label for="createLocationName" class="active">Barangay<span class="red-text">*</span></label>
+                                                <input type="text" class="validate tooltipped specialname" id="createBarangayName"
+                                                name="strBrgy" required pattern="^[a-zA-Z\-.\s]{5,}$" minlength="5" maxlength="15" data-delay="30" data-position="bottom" data-tooltip="Ex: Sta. Mesa<br/>( At least 5 or more characters )" placeholder="LocationName">
+                                                <label for="createBarangayName" class="active">Barangay<span class="red-text">*</span></label>
                                             </div>
                                             <div class="input-field col s12" style="margin-top: 25px;">
-                                                <input type="text" class="validate tooltipped specialname" id="createLocationName"
-                                                name="strLocationName" required pattern="^[a-zA-Z\-.\s]{5,}$" minlength="5" maxlength="15" data-delay="30" data-position="bottom" data-tooltip="Ex: Sta. Mesa<br/>( At least 5 or more characters )" placeholder="LocationName">
-                                                <label for="createLocationName" class="active">City<span class="red-text">*</span></label>
+                                                <input type="text" class="validate tooltipped specialname" id="createCityName"
+                                                name="strCity" required pattern="^[a-zA-Z\-.\s]{5,}$" minlength="5" maxlength="15" data-delay="30" data-position="bottom" data-tooltip="Ex: Sta. Mesa<br/>( At least 5 or more characters )" placeholder="LocationName">
+                                                <label for="createCityName" class="active">City<span class="red-text">*</span></label>
                                             </div>
                                             <div class="input-field col s6">
                                                 <input id="createEChargeDesc" name="dblLocationPrice" class="materialize-textarea tooltipped" maxlength="15" required minlength="1" data-delay="30" data-position="bottom" data-tooltip="Base Price" placeholder="Price">
@@ -105,8 +107,12 @@
                                             <div class="input-field col s12">
                                                 <input type="hidden" name="intLocationID" value="${loc.intLocationID}">
 
-                                                <input id="updateLocationName" name="strLocationName" type="text" value="${loc.strLocationName}" class="validate tooltipped specialname" pattern="^[a-zA-Z\-.\s]{5,}$" placeholder="Location Name" data-delay="30" data-position="bottom" data-tooltip="Ex: Sta. Mesa" minlength="5" maxlength="15">
-                                                <label for="updateLocationName" class="active">Location</label>
+                                                <input id="updateLocationName" name="strLocationName" type="text" value="${loc.strBarangay}" class="validate tooltipped specialname" pattern="^[a-zA-Z\-.\s]{5,}$" placeholder="Location Name" data-delay="30" data-position="bottom" data-tooltip="Ex: Sta. Mesa" minlength="5" maxlength="15">
+                                                <label for="updateLocationName" class="active">Barangay Name</label>
+                                            </div>
+                                            <div class="input-field col s12">
+                                                <input id="updateLocationName" name="strLocationName" type="text" value="${loc.strCity}" class="validate tooltipped specialname" pattern="^[a-zA-Z\-.\s]{5,}$" placeholder="Location Name" data-delay="30" data-position="bottom" data-tooltip="Ex: Sta. Mesa" minlength="5" maxlength="15">
+                                                <label for="updateLocationName" class="active">City Name</label>
                                             </div>
                                             <div class="input-field col s6">
                                                 <input id="updateLocationPrice" name="dblLocationPrice" value="${loc.dblLocationPrice}" class="materialize-textarea tooltipped" data-delay="30" data-position="bottom" data-tooltip="Ex: 99.99" maxlength="30" minlength="5">
@@ -139,7 +145,7 @@
                               <div class="row">
                                 <h5 class="red-text">Warning!</h5>
                                 <p class="center">Are you sure you want to deactivate</p>
-                                <p class="center">${loc.strLocationName}?</p>
+                                <p class="center">${loc.strBarangay}, ${loc.strCity}?</p>
                               </div>
                             </div>
                               <div class="col s12 center" style="margin-bottom: 30px;">

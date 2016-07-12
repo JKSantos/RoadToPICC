@@ -7,6 +7,7 @@ public class Promo {
 	private int intPromoID;
 	private String strPromoName;
 	private String strPromoDescription;
+	private String strPromoGuidelines;
 	private double dblPromoPrice;
 	private int intMaxHeadCount;
 	private List<ServicePackage> serviceList;
@@ -15,11 +16,12 @@ public class Promo {
 	private String strPromoAvailability;
 	private int intStatus;
 	
-	public Promo(int intPromoID, String strPromoName, String strPromoDescription, double dblPromoPrice, int intMaxHeadCount, List<ServicePackage> serviceList, List<ProductPackage> productList, List<PackagePackage> packageList, String strPromoAvailability, int intStatus){
+	public Promo(int intPromoID, String strPromoName, String strPromoDescription, String strPromoGuidelines, double dblPromoPrice, int intMaxHeadCount, List<ServicePackage> serviceList, List<ProductPackage> productList, List<PackagePackage> packageList, String strPromoAvailability, int intStatus){
 		
 		this.intPromoID = intPromoID;
 		this.strPromoName = strPromoName;
 		this.strPromoDescription = strPromoDescription;
+		this.strPromoGuidelines = strPromoGuidelines;
 		this.dblPromoPrice = dblPromoPrice;
 		this.intMaxHeadCount = intMaxHeadCount;
 		this.serviceList = serviceList;
@@ -106,6 +108,14 @@ public class Promo {
 
 	public void setIntStatus(int intStatus) {
 		this.intStatus = intStatus;
+	}
+
+	public String getStrPromoGuidelines() {
+		return strPromoGuidelines;
+	}
+
+	public void setStrPromoGuidelines(String strPromoGuidelines) {
+		this.strPromoGuidelines = strPromoGuidelines;
 	}
 
 

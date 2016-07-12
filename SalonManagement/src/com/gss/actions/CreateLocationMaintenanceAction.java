@@ -13,7 +13,7 @@ public class CreateLocationMaintenanceAction {
 	public String execute(){
 		
 		LocationService service = new LocationServiceImpl();
-		Location location = new Location(1, this.strBrgy, this.strBrgy, this.dblLocationPrice, 1);
+		Location location = new Location(1, this.strBrgy, this.strCity, this.dblLocationPrice, 1);
 		
 		if(service.createLocation(location) == true)
 			return "success";

@@ -28,7 +28,7 @@
 		</action>
 		
 		<action name="promoMaintenance" class="com.gss.actions.PromoMaintenanceAction">
-			<result name="success">maintenance-promo.jsp</result>
+			<result name="success" type="tiles">promo</result>
 		</action>
 		
 		<action name="deactivatePromo" class="com.gss.actions.DeactivatePromoAction">
