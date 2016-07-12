@@ -12,6 +12,8 @@ $(document).ready(function () {
     });
 });
 
+
+
 $(document).ready(function () {
     $('#serviceTable').DataTable({
         "bLengthChange": false,
@@ -209,40 +211,7 @@ $(document).ready(function () {
 
 });
 
-var loadFile = function (event) {
-    var employeeimg = document.getElementById('employeeimg');
-    employeeimg.src = URL.createObjectURL(event.target.files[0]);
-};
 
-var loadUpdate = function (event) {
-    var empupdatedImg = document.getElementById('empupdatedImg');
-    empupdatedImg.src = URL.createObjectURL(event.target.files[0]);
-};
-
-var loadProdSvc = function (event) {
-    var prodsvcCreate = document.getElementById('prodsvcCreate');
-    prodsvcCreate.src = URL.createObjectURL(event.target.files[0]);
-};
-
-var updateProdImg = function (event) {
-    var updateProdImage = document.getElementById('updateProdImage');
-    updateProdImage.src = URL.createObjectURL(event.target.files[0]);
-};
-
-var LoadSvcImg = function (event) {
-    var updateSvcimg = document.getElementById('updateSvcimg');
-    updateSvcimg.src = URL.createObjectURL(event.target.files[0]);
-};
-
-var loadCreateCatalogue = function (event) {
-    var createCatalogue = document.getElementById('createCatalogue');
-    createCatalogue.src = URL.createObjectURL(event.target.files[0]);
-};
-
-var loadUpdateCatalogue = function (event) {
-    var updateCatalogue = document.getElementById('updateCatalogue');
-    updateCatalogue.src = URL.createObjectURL(event.target.files[0]);
-};
 
 
 // add product / service in table (PROMO)

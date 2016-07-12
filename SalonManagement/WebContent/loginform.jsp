@@ -8,62 +8,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   </head>
 
-  <body style="background: url(./img/login.jpg) no-repeat; background-size: 100%; " class="responsive-img">
-    
-        <header>  
-          <div class="navbar-fixed">
-            <nav class="white z-depth-barts">
-              <div class="container">
-                  <div class="nav-wrapper">
-                    <a href="#" class="brand-logo grey-text">Generic Salon System</a>
-                    <ul class="right hide-on-med-and-down">
-                    </ul>
+  <body class=" purple darken-4">
+  <!-- Start Page Loading -->
+  <div id="loader-wrapper">
+      <div id="loader"></div>
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
+  </div>
+  <!-- End Page Loading -->
+
+
+
+  <div id="login-page" class="row">
+      <div class="col s12 z-depth-4 card-panel">
+          <form class="login-form" action=login>
+              <div class="row">
+                  <div class="input-field col s12 center">
+                      <img src="./img/logo.png" style="height: 180px;" alt="" class="circle responsive-img valign profile-image-login">
                   </div>
               </div>
-            </nav>
-          </div>
-        </header>
-  <div class="container">
-    <div class="wrapper">
-            <aside class="aside aside-1 z-depth-barts">
-                <div class="row">
-                        <form class="col s12" action="login">
-                            <div class="row">
-                                <div class="center">
-                                  <h3>Login</h3>
-                                </div>
-                                <div class="input-field col s8 offset-s2">
-                                  <input type="text" name="username" id="username" class="validate">
-                                  <label for="id">Username</label>
-                                </div>
-                                <div class="input-field col s8 offset-s2">
-                                  <input type="password" name="pass" id="pass" class="validate">
-                                  <label for="pass">Password</label>
-                                </div>
-                                <div class="col s12" style="margin-top: 50px;">
-                                  <button class="waves-effect waves-light orange btn-flat" type="submit" value="Submit" id="submitbtn">Login</button>
-                                  <a href="#" class="waves-effect waves-orange btn-flat" onclick="loginform.jsp">Back</a>
-                                </div>
-                            </div>
-                        </form>
-                </div>
-            </aside>
-            <!-- <main class="main">
-            </main> -->
-            <aside class="aside aside-2 z-depth-barts">
-              <div class="row">
-                <div class="col s12" style="margin-top: 50px;">
-                    <h1>Welcome</h1>
-                    <p>MEHEHEHE</p>
-                </div>
-                <div class="col s12" style="margin-top: 50px; margin-bottom: 60px;">
-                    <a href="#" class="waves-effect waves-light orange btn">Continue as Guest</a>
-                </div>
+              <div class="row margin">
+                  <div class="input-field col s12">
+                      <i class="mdi-social-person-outline prefix"></i>
+                      <input id="username" type="text" name="username" class="validate">
+                      <label for="username" class="center-align">Username</label>
+                  </div>
               </div>
-            </aside>
+              <div class="row margin">
+                  <div class="input-field col s12">
+                      <i class="mdi-action-lock-outline prefix"></i>
+                      <input id="password" type="password" name="pass" class="validate">
+                      <label for="password">Password</label>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="input-field col s12 m12 l12  login-text">
+                      <input type="checkbox" id="remember-me" />
+                      <label for="remember-me">Remember me</label>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="input-field col s12">
+                      <button type="submit" value="Submit" class="btn waves-effect waves-light purple lighten-1 col s12">Login</button>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="input-field col s6 m6 l6">
+                      <p class="margin medium-small"><a href="page-register.html">Register Now!</a></p>
+                  </div>
+                  <div class="input-field col s6 m6 l6">
+                      <p class="margin right-align medium-small"><a href="page-forgot-password.html">Forgot password ?</a></p>
+                  </div>
+              </div>
 
+          </form>
       </div>
-    </div>
+  </div>
 
 
 
@@ -73,10 +73,18 @@
 
 
 <style type="text/css">\
-    body, html, footer {
-      margin: 0;
-      padding: 0;
-    }
+html,
+body {
+    height: 100%;
+}
+html {
+    display: table;
+    margin: auto;
+}
+body {
+    display: table-cell;
+    vertical-align: middle;
+}
 
 
     .wrapper {
@@ -140,33 +148,6 @@
  
 
   </body>
-
-  <footer class="footer page-footer white z-depth-barts">
-        <div class="container">
-            <div class="row">
-              <div class="col l6 s12">
-              <h5 class="orange-text text-darken-3">Follow us!</h5>
-              <p class="orange-text text-darken-3">Like, share, learn!</p>
-              </div>
-              <div class="col l4 offset-l2 s12">
-              <h5>Links</h5>
-              <ul>
-                <li><a class="orange-text text-darken-3" href="#!">www.facebook.com/GenericSalonSystem</a></li>
-                <li><a class="orange-text text-darken-3" href="#!">www.twitter.com/@GenericSalonSystem</a></li>
-                <li><a class="orange-text text-darken-3" href="#!">www.GenericSalonSystem.com</a></li>
-                <li><a class="orange-text text-darken-3" href="#!">www.instagram.com/@GenericSalonSystem</a></li>
-              </ul>
-              </div>
-            </div>
-            </div>
-            <div class="footer-copyright">
-            <div class="container">
-            <span class="orange-text text-darken-3">(c) 2015 Copyright</span>
-            <a class="orange-text text-darken-3 right" href="#!">More Links</a>
-            </div>
-          </div>
-      </div>
-    </footer>
 
 
 </html>
