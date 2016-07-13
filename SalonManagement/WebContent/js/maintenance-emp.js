@@ -12,6 +12,29 @@ $(document).ready(function () {
     });
 });
 
+$(document).ready(function () {
+    var dtable = $('#emptbl').DataTable({
+        "bLengthChange": false,
+        responsive: true,
+        "order": [],
+        "columnDefs": [
+            {"targets": 'no-sort', "orderable": false},
+            {className: "dt-body-left", "targets": [1, 2, 3, 4, 5]},
+            {className: "dt-head-left", "targets": [1, 2, 3, 4, 5]},
+            {className: "dt-body-center", "targets": [0]},
+            {"targets": [5], render: $.fn.dataTable.render.ellipsis(20)},
+            {"targets": [1], render: $.fn.dataTable.render.ellipsis(20)},
+            {"targets": [4], render: $.fn.dataTable.render.ellipsis(20)}
+        ],
+        "rowHeight": '10px'
+    });
+
+    $("#empSearch").bind('keyup search input paste cut', function () {
+        dtable.search(this.value).draw();
+    });
+});
+
+
 
 $(document).ready(function () {
     $('#serviceTable').DataTable({
@@ -746,4 +769,21 @@ $(document).ready(function () {
                 .removeAttr("disabled");
         }
     });
+});
+
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('.empprevimg').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$(".empimgupload").change(function(){
+    readURL(this);
 });

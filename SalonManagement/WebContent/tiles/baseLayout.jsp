@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/material.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/dropify.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/sweetalert.css"/>
+    <link rel="stylesheet" type="text/css" href="css/mainloader.css"/>
     <!--<link rel="stylesheet" type="text/css" href="css/drag.css"/>-->
     <!--<link rel="stylesheet" type="text/css" href="css/animate.css"/>-->
 
@@ -22,7 +23,7 @@
     </title>
 </head>
 
-<body class="purple lighten-5">
+<body class="purple lighten-5 demo">
 <div class="wrapper">
     <header class="headnav">
         <ul id="slide-out" class="side-nav fixed z-depth-0">
@@ -81,12 +82,12 @@
                 </li>
             </ul>
             <!--  <li class="no-padding"> -->
-            <ul class="collapsible" data-collapsible="accordion">
+            <ul class="collapsible" id="mtnc" data-collapsible="accordion">
                 <li>
-                    <a class="collapsible-header"><i class="material-icons">build</i><b>Maintenance</b></a>
+                    <a class="collapsible-header" id="mntchead"><i class="material-icons">build</i><b>Maintenance</b></a>
                     <div class="collapsible-body">
                         <ul class="navul">
-                            <li><a href="employeeMaintenance">Employee</a></li>
+                            <li><a href="employeeMaintenance" id="empmtnc">Employee</a></li>
                             <li><a href="productServiceMaintenance">Product & Service</a></li>
                             <li><a href="catalogueMaintenance">Catalogue</a></li>
                             <li><a href="packageMaintenance">Package</a></li>
@@ -165,6 +166,12 @@
     <!--</ul>-->
     <!--</div>-->
 
+
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
     <tiles:insertAttribute name="body"></tiles:insertAttribute>
 
 </article>
@@ -223,6 +230,13 @@
         margin-left: 40px !important;
     }
 
+    .dataTables_filter {
+        display: none;
+    }
+
+    nav .nav-wrapper form, nav .nav-wrapper form .input-field{
+        height: 100%;
+    }
 </style>
 
 
@@ -242,6 +256,7 @@
 <script type="text/javascript" src="js/dropify.min.js"></script>
 <script type="text/javascript" src="js/sweetalert.min.js"></script>
 <script type="text/javascript" src="js/ajax.js"></script>
+<script type="text/javascript" src="js/ellipsis.js"></script>
 
 
 <!--<script type="text/javascript" src="js/drag.js"></script>-->
@@ -250,6 +265,9 @@
     $(document).ready(function () {
         $(".button-collapse").sideNav();
         $(".dropdown-button").dropdown();
+
+//        $('#emppics').removeClass('sor');
+//        $('#emppics').css('background-image','none');
     });
 
     $(document).ready(function () {
@@ -277,6 +295,18 @@
 
     $('ul.tabs').each(function () {
         $(this).tabs();
+    });
+
+    $(document).ready(function(){
+        $('.tooltipped').tooltip({delay: 5});
+    });
+
+    $(document).ready(function() {
+
+        setTimeout(function(){
+            $('body').addClass('loaded');
+        }, 1000);
+
     });
 
 

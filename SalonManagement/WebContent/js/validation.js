@@ -202,7 +202,7 @@ $(".updateEmpForm").each(function () {
     $(this).validate({
 
         submitHandler: function () {
-            Materialize.toast('Successfully Created!', 5000, 'green');
+            swal("Good job!", "You clicked the button!", "success")
             $(form).ajaxSubmit();
 
             // Materialize.toast('Successfully Created!', 5000, 'green');
