@@ -20,6 +20,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class PromoMaintenanceAction extends ActionSupport {
 	
+	private static final long serialVersionUID = 1L;
 	private List<Product> productList;
 	private List<Service> serviceList;
 	private List<Promo> promoList;

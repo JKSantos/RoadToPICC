@@ -35,10 +35,6 @@
 			<result name="success">redirect-maintenance-package.jsp</result>
 			<result name="failed">maintenance-package.jsp</result>
 		</action>
-		
-		<action name="getAllPackage" class="com.gss.actions.Package.GetAllPackage">
-			<result type="json" name="success"></result>
-		</action>
 	
 	</package>	
 		

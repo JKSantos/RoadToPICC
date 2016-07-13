@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation"
+		value="true" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.custom.i18n.resources"
+		value="ApplicationResources"/>
+		
+	<package name="api" extends="struts-default, json-default" namespace="/api/v1">
+		
+		<!-- EMPLOYEES -->
+		<action name="getAllEmployee" class="com.gss.actions.GetAllEmployee" method="execute">
+			<result name="success" type="json"/>
+		</action>
+		
+		<action name="getEmployeeByID" class="com.gss.actions.Employee.GetEmployeeByIDAction" method="execute">
+			<result name="success" type="json"/>
+		</action>
+		
+		<!-- PRODUCTS -->
+		<action name="getAllProduct" class="com.gss.actions.Product.GetAllProduct" method="execute">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<!-- SERVICES -->
+		<action name="getAllService" class="com.gss.actions.Service.GetAllService" method="execute">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<!-- PACKAGES -->
+		<action name="getAllPackage" class="com.gss.actions.Package.GetAllPackage">
+			<result type="json" name="success"></result>
+		</action>
+		
+		<!-- PROMOS -->
+		<action name="getAllPromo" class="com.gss.actions.Promo.GetAllPromo">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<!-- LOCATION -->
+		<action name="getAllLocation" class="com.gss.actions.Location.GetAllLocationAction">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<!-- OTHER CHARGE -->
+		<action name="getAllOtherCharge" class="com.gss.actions.OtherCharge.GetAllOtherChargeAction">
+			<result name="success" type="json"></result>
+		</action>
+		
+	</package>	
+		
+		
+</struts>

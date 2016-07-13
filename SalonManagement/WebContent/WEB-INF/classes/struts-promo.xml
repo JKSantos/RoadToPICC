@@ -35,10 +35,6 @@
 			<result name="failed">maintenance-promo.jsp</result>
 			<result name="success">redirect-maintenance-promo.jsp</result>
 		</action>
-		
-		<action name="getAllPromo" class="com.gss.actions.Promo.GetAllPromo">
-			<result name="success" type="json"></result>
-		</action>
 	
 	</package>	
 		
