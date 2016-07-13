@@ -191,6 +191,12 @@ $(document).ready(function () {
 });
 // CREATE ADD OPTION END
 
+$('.updateSubmitForm').each(function () {
+    $(this).click(function () {
+        $('.updateEmpForm').valid();
+    })
+});
+
 // UPDATE EMPLOYEE BEGIN
 $(".updateEmpForm").each(function () {
     $(this).validate({
@@ -198,37 +204,50 @@ $(".updateEmpForm").each(function () {
         submitHandler: function () {
             Materialize.toast('Successfully Created!', 5000, 'green');
             $(form).ajaxSubmit();
+
+            // Materialize.toast('Successfully Created!', 5000, 'green');
+
+
         },
+        errorClass: 'invalid',
+        validClass: 'valid',
+        errorElement: 'div',
+        errorLabelContainer: '.updateerror',
         errorPlacement: function (error, element) {
             // Append error within linked label
             $(element)
                 .closest("form")
-                .find("label[for='" + element.attr("id") + "']")
-                .append(error);
+                .find("label[for='" + element.attr("id") + "']");
         },
-        errorElement: "span",
+        ignore: "hidden",
         rules: {
             strEmpFirstName: {
                 required: true,
-                minlength: 2,
-                maxlength: 20
+                regx: "^[A-Za-z '`\s]+$",
+                noSpace: true,
+                minlength: 2
             },
             strEmpMiddleName: {
+                regx: "^[A-Za-z '`]+$",
+                noSpace: true,
                 minlength: 2
             },
             strEmpLastName: {
                 required: true,
+                regx: "^[A-Za-z '`]+$",
+                noSpace: true,
                 minlength: 2
             },
             strBirthdate: {
+                required: true,
+                date: true
+            },
+            createAge: {
                 required: true
             },
             strEmpGender: {
-                required: true
-            },
-            strEmpContactNo: {
-                number: true,
-                minlength: 10
+                required: true,
+                valueNotEquals: "default"
             },
             strEmpEmail: {
                 required: true,
@@ -236,71 +255,93 @@ $(".updateEmpForm").each(function () {
             },
             strEmpAddress: {
                 required: true,
+                regx: "^[a-zA-Z0-9 `#.,-]+$",
+                noSpace: true,
                 minlength: 10
             },
             selectedJob: {
-                required: true
+                required: true,
+                valueNotEquals: "default"
             }
         },
         messages: {
             strEmpFirstName: {
-                required: " (Required)",
-                minlength: " (Must be at least 2 letters)"
+                required: "<span class='white-text'><b>First Name</b>: Required</span><br/>",
+                regx: "<span class='white-text'><b>First Name</b>: Invalid characters</span><br/>",
+                noSpace: "<span class='white-text'><b>First Name</b>: Empty Field</span><br/>",
+                minlength: "<span class='white-text'><b>First Name</b>: Minimum of 2 letters</span><br/>"
             },
             strEmpMiddleName: {
-                minlength: " (Must be at least 2 letters)"
+                regx: "<span class='white-text'><b>Middle Name</b>: Invalid characters</span><br/>",
+                noSpace: "<span class='white-text'><b>Middle Name</b>: Empty Field</span><br/>",
+                minlength: "<span class='white-text'><b>Middle Name</b>: Minimum of 2 letters</span><br/>"
             },
             strEmpLastName: {
-                required: " (Required)",
-                minlength: " (Must be at least 2 letters)"
+                required: "<span class='white-text'><b>Last Name</b>: Required</span><br/>",
+                regx: "<span class='white-text'><b>Last Name</b>: Invalid characters</span><br/>",
+                noSpace: "<span class='white-text'><b>Last Name</b>: Empty Field</span><br/>",
+                minlength: "<span class='white-text'><b>Last Name</b>: Minimum of 2 letters</span><br/>"
             },
             strBirthdate: {
-                required: " (Required)"
+                required: "<span class='white-text'><b>Birthday</b>: Required</span><br/>"
             },
             strEmpGender: {
-                required: " (Required)"
-            },
-            strEmpContactNo: {
-                number: " (Numbers only)",
-                minlength: " (Need 10 numbers)"
+                required: "<span class='white-text'><b>Gender</b>: Required</span><br/>",
+                notEqualTo: "<span class='white-text'><b>Gender</b>: Required</span><br/>"
             },
             strEmpEmail: {
-                required: " (Required)",
-                email: " (Not Valid Email)"
+                required: "<span class='white-text'><b>Email</b>: Required</span><br/>",
+                email: "<span class='white-text'><b>Email</b>: Invalid Email</span><br/>"
             },
             strEmpAddress: {
-                required: " (Required)",
-                minlength: " (Must be at least 10 letters)"
+                required: "<span class='white-text'><b>Address</b>: Required</span><br/>",
+                regx: "<span class='white-text'><b>Address</b>: Invalid characters</span><br/>",
+                noSpace: "<span class='white-text'><b>Address</b>: Empty Field</span><br/>",
+                minlength: "<span class='white-text'><b>Address</b>: Minimum of 10 characters</span><br/>"
             },
             selectedJob: {
-                required: " (Required)"
+                required: "<span class='white-text'><b>Position</b>: Required</span><br/>",
+                valueNotEquals: "<span class='white-text'><b>Position</b>: Required</span><br/>"
             }
         }
 
     });
-    jQuery.validator.addMethod("noSpace", function (value, element) {
+
+    $('form').on('submit', function (e) {
+        $(".error_note").remove();
+        var select = $(this).find('select').filter("[required=required]");
+        $.each(select, function (index, elm) {
+            val = $(this).val();
+            target = $(this).closest('.input-field');
+            if (typeof target !== "undefined") {
+                input_target = target.find('input.select-dropdown');
+                if (typeof input_target !== "undefined") {
+                    if (val == '' || val == false || val == 0 || val == null) {
+
+                        input_target.css({'border-color': '#EA454B', 'box-shadow': '0 1px 0 0 #EA454B'});
+
+                        $('html,body').animate({scrollTop: $("body").offset().top}, 'slow');
+                        e.preventDefault();
+
+                    } else {
+                        input_target.css({'border-color': '#9e9e9e'});
+                    }
+
+                }
+            }
+        });
+    });
+
+    $.validator.addMethod("regx", function(value, element, regexp){
+        var re = new RegExp(regexp);
+        return this.optional(element) || re.test(value);
+    });
+    $.validator.addMethod("noSpace", function (value, element) {
         return value.indexOf(" ") != "";
-    }, " (Empty field)");
-
-    jQuery.validator.addMethod("specialname", function (value, element) {
-        return this.optional(element) || /([a-zA-Z-`'\s])$/.test(value);
-    }, "<span class='red-text'> (A-z ` - ' are allowed)</span>");
-
-    jQuery.validator.addMethod("specialprodsvc", function (value, element) {
-        return this.optional(element) || /([a-zA-Z-`'\s])$/.test(value);
-    }, "<span class='red-text'> (A-z - are allowed)</span>");
-
-    jQuery.validator.addMethod("specialaddress", function (value, element) {
-        return this.optional(element) || /([#A-Za-z0-9\s.,-])$/.test(value);
-    }, "<span class='red-text'> (A-z 0-9 . , - # are allowed)</span>");
-
-    jQuery.validator.addMethod("specialprice", function (value, element) {
-        return this.optional(element) || /([0-9])$/.test(value);
-    }, "<span class='red-text'> (Numbers only)</span>");
-
-    jQuery.validator.addMethod("specialoption", function (value, element) {
-        return this.optional(element) || /([a-zA-Z\s])$/.test(value);
-    }, "<span class='red-text'> (Letters and spaces are allowed)</span>");
+    });
+    $.validator.addMethod("valueNotEquals", function(value, element, arg){
+        return arg != value;
+    });
 });
 
 // UPDATE EMPLOYEE END

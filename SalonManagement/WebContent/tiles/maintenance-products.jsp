@@ -522,10 +522,6 @@
                                       <label for="strItemCate" class="active">Type</label>
                                     </div>
                                     <div class="input-field col s12" style="margin-top: 28px !important;">
-<!-- <<<<<<< HEAD
-                                      <input type="text" name="intItemID" value="${service.intServiceID}">
-                                      <input value="${service.strServiceName}" type="text" class="validate tooltipped" id="prodsvcName" name="strItemName" placeholder="Product/Service Name" data-position="bottom" data-delay="30" data-tooltip="${service.strServiceName}" pattern="^[a-zA-Z0-9\-\s]{3,}$" maxlength="15">
-======= -->
                                       <input value="${service.strServiceName}" type="text" class="validate tooltipped specialprodsvc noSpace" id="prodsvcName" name="strItemName" placeholder="Product/Service Name" data-position="bottom" data-delay="30" data-tooltip="${service.strServiceName}" pattern="^[a-zA-Z0-9\-\s]{3,}$" maxlength="15">
                                       <label for="prodsvcName">Name</label>
                                     </div>
