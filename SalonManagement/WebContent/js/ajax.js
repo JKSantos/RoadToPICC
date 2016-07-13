@@ -73,10 +73,12 @@ function createEmployee() {
 
 }
 
+
+
 function updateTable() {
     $.ajax({
-        type: 'POST',
-        url: 'getAllEmployee',
+        type: 'GET',
+        url: 'http://localhost:8080/SalonManagement/api/v1/getAllEmployee',
         dataType: 'json',
         async: true,
         success: function (data) {
