@@ -6,7 +6,7 @@ $(document).ready(function () {
 
 
         submitHandler: function () {
-        	Materialize.toast('Successfully Created!', 5000, 'green');
+            swal("Successfully created!", "You clicked the button!", "success")
             $(form).ajaxSubmit();
             
             // Materialize.toast('Successfully Created!', 5000, 'green');
