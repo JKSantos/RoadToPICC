@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="css/bartstable.css"/>
     <link rel="stylesheet" type="text/css" href="css/material.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/dropify.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/sweetalert.css"/>
     <!--<link rel="stylesheet" type="text/css" href="css/drag.css"/>-->
     <!--<link rel="stylesheet" type="text/css" href="css/animate.css"/>-->
 
@@ -25,12 +26,53 @@
 <div class="wrapper">
     <header class="headnav">
         <ul id="slide-out" class="side-nav fixed z-depth-0">
-            <div class="center">
-                <img src="<s:url action='getImage'><s:param name='ImageID'>${sessionScope.id}</s:param><s:param name='type'>employee</s:param></s:url>"
-                     class="circle" style="width: 150px; height: 150px; margin-top: 10px; margin-bottom: 5px;">
-                <a href="" style="padding: 0px !important;">${sessionScope.firstName} ${sessionScope.lastName}</a>
-                <a href="logout" style="padding: 0px !important;">Logout</a>
-            </div>
+            <li class="user-details purple darken-1" style="height: 64px !important;">
+                <div class="row">
+                    <div class="col col s4 m4 l4" style="padding: 5px !important;">
+                        <img src="<s:url action='getImage'><s:param name='ImageID'>${sessionScope.id}</s:param><s:param name='type'>employee</s:param></s:url>"
+                             alt="" class="circle responsive-img valign profile-image"
+                             style="width: 50px !important; height: 50px !important; margin-left: 10px !important;">
+                    </div>
+                    <div class="col col s8 m8 l8">
+                        <ul id="profile-dropdown" class="dropdown-content"
+                            style="margin-top: 55px !important; overflow-y: hidden !important; margin-left: -15px !important;">
+                            <li>
+                                <a href="#" style="padding-top: 12px !important;"><i
+                                        class="mdi-action-face-unlock"></i>
+                                    Profile</a>
+                            </li>
+                            <li>
+                                <a href="#" style="padding-top: 12px !important;"><i class="mdi-action-settings"></i>
+                                    Settings</a>
+                            </li>
+                            <li>
+                                <a href="#" style="padding-top: 12px !important;"><i
+                                        class="mdi-communication-live-help"></i> Help</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#" style="padding-top: 12px !important;"><i
+                                        class="mdi-action-lock-outline"></i> Lock</a>
+                            </li>
+                            <li>
+                                <a href="logout" style="padding-top: 12px !important;"><i
+                                        class="mdi-hardware-keyboard-tab"></i> Logout</a>
+                            </li>
+                        </ul>
+                        <a class="truncate btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#"
+                           data-activates="profile-dropdown"
+                           style="margin-top: 5px !important; margin-left: -15px !important; padding-right: 0px !important;">${sessionScope.firstName}<i
+                                class="material-icons right">arrow_drop_down</i></a>
+                        <p class="user-roal">Administrator</p>
+                    </div>
+                </div>
+            </li>
+            <!--<div class="center">-->
+            <!--<img src="<s:url action='getImage'><s:param name='ImageID'>${sessionScope.id}</s:param><s:param name='type'>employee</s:param></s:url>"-->
+            <!--class="circle" style="width: 150px; height: 150px; margin-top: 10px; margin-bottom: 5px;">-->
+            <!--<a href="" style="padding: 0px !important;"></a>-->
+            <!--<a href="logout" style="padding: 0px !important;">Logout</a>-->
+            <!--</div>-->
 
             <ul class="collapsible" data-collapsible="accordion">
                 <li>
@@ -43,7 +85,7 @@
                 <li>
                     <a class="collapsible-header"><i class="material-icons">build</i><b>Maintenance</b></a>
                     <div class="collapsible-body">
-                        <ul>
+                        <ul class="navul">
                             <li><a href="employeeMaintenance">Employee</a></li>
                             <li><a href="productServiceMaintenance">Product & Service</a></li>
                             <li><a href="catalogueMaintenance">Catalogue</a></li>
@@ -58,7 +100,7 @@
                 <li>
                     <a class="collapsible-header"><i class="material-icons">shopping_cart</i><b>Transaction</b></a>
                     <div class="collapsible-body">
-                        <ul>
+                        <ul class="navul">
                             <li><a href="getInventory">Inventory</a></li>
                             <li><a href="transactions-reservation.jsp">Reservation</a></li>
                             <li><a href="transactions-productorder.jsp">Product Sales</a></li>
@@ -162,6 +204,25 @@
         border-bottom: 2px solid #6a1b9a;
     }
 
+    .profile-btn {
+        margin: 0;
+        text-transform: capitalize;
+        padding: 0;
+        text-shadow: 1px 1px 1px #444;
+        font-size: 15px
+    }
+
+    .user-roal {
+        color: #fff;
+        margin-top: -16px;
+        font-size: 13px;
+        text-shadow: 1px 1px 1px #444;
+    }
+
+    .collapsible-body .navul li a {
+        margin-left: 40px !important;
+    }
+
 </style>
 
 
@@ -179,6 +240,7 @@
 <script type="text/javascript" src="js/stepform.js"></script>
 <script type="text/javascript" src="js/jquery.formatter.min.js"></script>
 <script type="text/javascript" src="js/dropify.min.js"></script>
+<script type="text/javascript" src="js/sweetalert.min.js"></script>
 <script type="text/javascript" src="js/ajax.js"></script>
 
 
@@ -187,6 +249,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $(".button-collapse").sideNav();
+        $(".dropdown-button").dropdown();
     });
 
     $(document).ready(function () {
@@ -205,16 +268,17 @@
         'persistent': true
     });
 
-    $('.updateContact').each(function (){
-       $(this).formatter({
-           'pattern': '+63 {{999}}-{{999}}-{{9999}}',
-           'persistent': true
-       }) ;
+    $('.updateContact').each(function () {
+        $(this).formatter({
+            'pattern': '+63 {{999}}-{{999}}-{{9999}}',
+            'persistent': true
+        });
     });
 
-    $('ul.tabs').each(function(){
+    $('ul.tabs').each(function () {
         $(this).tabs();
     });
+
 
 </script>
 

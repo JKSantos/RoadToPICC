@@ -254,7 +254,7 @@ String granAccess = null;
                                                style="margin-top: 20px !important;"><b>Gender</b><i
                                                 class="material-icons red-text tiny">error_outline</i></label>
                                     </div>
-                                    <div class="input-field col s12">
+                                    <div class="input-field col s12" style="margin-top: -10px;">
                                         <input type="text" name="strEmpContactNo" id="createContact"
                                                placeholder="Ex: 09123456789"/>
                                         <label for="createContact"><b>Phone Number</b></label>
@@ -290,7 +290,7 @@ String granAccess = null;
                                                 class="waves-effect waves-light btn-flat modal-option purple darken-3 white-text">
                                             <i class="material-icons">add</i></button>
                                     </div>
-                                    <div class="input-field col s12" style="margin-top: -5px !important;">
+                                    <div class="input-field col s12" style="margin-top: -20px !important;">
                                         <input type="checkbox" name="chkGrantAccess" id="chkGrantAccess"
                                                class="filled-in" style="color: purple;"/>
                                         <label for="chkGrantAccess"><b>Grant Access</b></label>
@@ -392,8 +392,10 @@ String granAccess = null;
                                                 <!--style="width: 200px; height: 200px;" src="./img/anon.jpg" alt=""/>-->
                                                 <!--</div>-->
                                                 <div class="input-field col s12">
+                                                    <img name="empupdatedImg" src=""
+                                                         alt="" class="updateImage" hidden>
                                                     <div class="file-field">
-                                                        <input name="empupdatedImg" class="dropify z-depth-3"
+                                                        <input name="upload" class="updateimgdrop dropify z-depth-3"
                                                                type="file"
                                                                data-allowed-file-extensions="png jpg jpeg"
                                                                data-default-file="<s:url action='getImage'><s:param name='ImageID'>${employee.intEmpID}</s:param><s:param name='type'>employee</s:param></s:url>"
@@ -404,7 +406,12 @@ String granAccess = null;
                                                         <!--<input name="path" value="image" class="file-path validate"-->
                                                         <!--type="text">-->
                                                         <!--</div>-->
+                                                        <div class="file-path-wrapper">
+                                                            <input name="imageName" id="imageName" value="image"
+                                                                   class="file-path validate" type="text">
+                                                        </div>
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -416,7 +423,7 @@ String granAccess = null;
                                                     <input name="strEmpFirstName" id="strUpEmpFname" type="text"
                                                            class="validate" placeholder="Ex: Juan" required
                                                            value="${employee.strEmpFirstName}"/>
-                                                    <label for="strUpEmpFname" class="active" id="strUpEmpFname"><b>First
+                                                    <label for="strUpEmpFname" class="active"><b>First
                                                         Name</b><i
                                                             class="material-icons red-text tiny">error_outline</i></label>
                                                 </div>
@@ -434,10 +441,10 @@ String granAccess = null;
                                                             class="material-icons red-text tiny">error_outline</i></label>
                                                 </div>
                                                 <div class="input-field col s12">
-                                                    <input type="date" name="strBirthdate" class="pick updateEmpBirthday"
-                                                           id="updateBirthday" placeholder="Ex: 01/01/01"
+                                                    <input type="date" name="strBirthdate" id="upbday"
+                                                           class="updateEmpBirthday" placeholder="Ex: 01/01/01"
                                                            required/>
-                                                    <label for="updateBirthday"><b>Birthday</b><i
+                                                    <label for="upbday"><b>Birthday</b><i
                                                             class="material-icons red-text tiny">error_outline</i></label>
                                                 </div>
                                                 <div class="input-field col s12">
