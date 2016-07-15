@@ -2856,8 +2856,9 @@ $(document).ready(function(){
           lastID = $select.data('select-id'); // Tear down structure if Select needs to be rebuilt
 
       if (lastID) {
-        $select.parent().find('span.caret').remove();
-        $select.parent().find('input').remove();
+          $select.parent().find('i').remove();
+          $select.parent().find('span.caret').remove();
+          $select.parent().find('input').remove();
 
         $select.unwrap();
         $('ul#select-options-'+lastID).remove();

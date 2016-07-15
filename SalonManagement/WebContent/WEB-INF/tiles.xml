@@ -18,14 +18,9 @@
         <put-attribute name="body"			value="/tiles/maintenance-emp.jsp"/>
     </definition>
     
-    <definition name="productsAndServices" extends="baseLayout">
-        <put-attribute name="title"			value="ProductsAndService"/>
-        <put-attribute name="body"			value="/tiles/maintenance-prodsvc.jsp"/>
-    </definition>
-    
     <definition name="products" extends="baseLayout">
-        <put-attribute name="title"			value="ProductsAndService"/>
-        <put-attribute name="body"			value="/tiles/maintenance-products.jsp"/>
+        <put-attribute name="title"			value="Product"/>
+        <put-attribute name="body"			value="/tiles/maintenance-product.jsp"/>
     </definition>
     
     <definition name="discount" extends="baseLayout">

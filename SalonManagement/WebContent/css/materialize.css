@@ -2631,6 +2631,10 @@ ul li {
   box-shadow: 0 0px 1px  rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
+.z-white-2, .btn, .btn-large {
+  box-shadow: 0 8px 17px 0 rgba(242, 242, 242, 0.2), 0 6px 20px 0 rgba(242, 242, 242, 0.19);
+}
+
 .z-depth-1, nav, .card-panel, .card, .toast, .btn, .btn-large, .btn-floating, .dropdown-content, .collapsible, .side-nav {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
@@ -2642,6 +2646,7 @@ ul li {
 .z-depth-2 {
   box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
 
 .z-depth-3 {
   box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
@@ -9489,6 +9494,7 @@ select.browser-default {
 select:disabled {
   color: #424242;
 }
+
 
 .select-wrapper input.select-dropdown:disabled {
   color: rgba(0, 0, 0, 0.3);

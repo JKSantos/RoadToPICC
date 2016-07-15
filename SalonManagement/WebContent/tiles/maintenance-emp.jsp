@@ -20,7 +20,6 @@ String granAccess = null;
                         </div> -->
 
 
-
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
             <h3 class="grey-text text-darken-1">Employee Maintenance</h3>
@@ -79,14 +78,16 @@ String granAccess = null;
                     <tr>
                         <td style="padding:0; margin:0;" class="dt-body-center">
                             <center><img name="empupdatedImg" id="empupdatedImg" class="circle"
-                                 style="width: 30px; height: 30px;"
-                                 src="<s:url action='getImage'><s:param name='ImageID'>${employee.intEmpID}</s:param><s:param name='type'>employee</s:param></s:url>"
-                                 alt="${employee.strEmpFirstName}"/></center></td>
-                        <td class="dt-body-left ">${employee.strEmpFirstName} ${employee.strEmpLastName}</td>
-                        <td style="padding:0; margin-left: 5px;" class="dt-body-left ">NONE</td>
-                        <td style="padding:0; margin-right: 5px;" class="dt-body-right ">${employee.strEmpContactNo}</td>
-                        <td style="padding:0; margin-left: 5px;" class="dt-body-left ">${employee.strEmpEmail}</td>
-                        <td style="padding:0; margin-left: 5px;" class="dt-body-left ">${employee.strEmpAddress}</td>
+                                         style="width: 30px; height: 30px;"
+                                         src="<s:url action='getImage'><s:param name='ImageID'>${employee.intEmpID}</s:param><s:param name='type'>employee</s:param></s:url>"
+                                         alt="${employee.strEmpFirstName}"/></center>
+                        </td>
+                        <td class="dt-body-left">${employee.strEmpFirstName} ${employee.strEmpLastName}</td>
+                        <td style="padding-left: 10px !important; margin-left: 0px;" class="dt-body-left">NONE</td>
+                        <td style="padding-right: 10px !important; margin-right: 0px;" class="dt-body-right ">${employee.strEmpContactNo}
+                        </td>
+                        <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-left ">${employee.strEmpEmail}</td>
+                        <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-left ">${employee.strEmpAddress}</td>
                         <td class="center" style="padding:0; margin:0;">
                             <a data-delay="30" data-position="bottom" data-tooltip="View"
                                class="waves-effect waves-purple modal-viewall btn-flat transparent black-text"
@@ -94,7 +95,7 @@ String granAccess = null;
                                 <i class="material-icons">visibility</i>
                             </a>
                             <a data-delay="30" data-position="bottom" data-tooltip="Update"
-                               class="waves-effect waves-purple modal-trigger btn-flat transparent black-text"
+                               class="waves-effect waves-purple modal-trigger btn-flat transparent black-text empUpdatebtn"
                                href="#emp<%=str%>" style="padding-left: 10px;padding-right:10px; margin: 5px;">
                                 <i class="material-icons">edit</i>
                             </a>
@@ -113,71 +114,7 @@ String granAccess = null;
     </div>
 
     <!-- ARCHIVE BEGIN -->
-    <div id="empArchive" class="modal modal-fixed-footer"
-         style="width: 80% !important; height: 86% !important; max-height: 100% !important;">
-        <div class="modal-content">
-            <div class="col s12">
-                <h4 class="grey-text text-darken-1">Archive</h4>
-                <table id="empArchiveTable" class="display centered responsive-table highlight" cellspacing="0"
-                       width="100%" style="border: 1px solid #bdbdbd; padding: 10px;" rowspan="10">
-                    <thead>
-                    <tr>
-                        <th>
-                            <center>Name</center>
-                        </th>
-                        <th>
-                            <center>Position</center>
-                        </th>
-                        <th>
-                            <center>Date Employed</center>
-                        </th>
-                        <th>
-                            <center>Actions</center>
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach items="${empList}" var="employee">
-                        <%! String str1=null; %>
-                        <% Employee emp = (Employee)pageContext.getAttribute("employee");
-                        str=String.valueOf(emp.getIntEmpID());
-                        String de = str1;
-                        %>
-                        <tr>
-                            <td style="padding:0; margin:0;">
-                                <center><img name="empupdatedImg" id="empupdatedImg" class="circle left"
-                                             style="width: 30px; height: 30px; margin-left: 15px !important;"
-                                             src="<s:url action='getImage'><s:param name='ImageID'>${employee.intEmpID}</s:param><s:param name='type'>employee</s:param></s:url>"
-                                             alt="${employee.strEmpFirstName}"/>${employee.strEmpFirstName}
-                                    ${employee.strEmpLastName}
-                                </center>
-                            </td>
-                            <td style="padding:0; margin:0;">
-                                <center>NONE</center>
-                            </td>
-                            <td style="padding:0; margin:0;">
-                                <center>03/17/16</center>
-                            </td>
-                            <td class="center" style="padding:0; margin:0;">
-                                <!-- ACTIVATE -->
-                                <a data-delay="30" data-position="bottom" data-tooltip="Activate"
-                                   class="waves-effect waves-purple modal-trigger btn-flat transparent green-text text-accent-4"
-                                   href="#de<%=de%>" style="padding-left: 10px;padding-right:10px; margin: 5px;"><i
-                                        class="material-icons">check</i></a>
-                                <!-- ACTIVATE END -->
-                            </td>
-                        </tr>
 
-                    </c:forEach>
-
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <a href="#!" class=" modal-action modal-close waves-effect waves-purple btn-flat">BACK</a>
-            </div>
-        </div>
-    </div>
     <!-- ARCHIVE END -->
 
     <!-- Modal Structure -->
@@ -186,7 +123,7 @@ String granAccess = null;
               enctype="multipart/form-data">
             <div class="modal-content">
                 <div class="wrapper">
-                    <h4 class="center grey-text text-darken-1">Create Employee<a id="btnCreateExit"
+                    <h4 class="center grey-text text-darken-1">Create Employee<a id="btnCreateExit" type="reset" value="Reset"
                                                                                  class="modal-action modal-close"><i
                             class="small material-icons right grey-text text-darken-4">close</i></a></h4>
                     <div class="progress">
@@ -323,7 +260,7 @@ String granAccess = null;
                         style="margin:0px !important; padding:0px !important;"><i
                         class="material-icons">error_outline</i>&nbspRequired field
                 </button>
-                <button type="button" class="action backform waves-effect waves-purple transparent btn-flat"
+                <button type="button" id="backbtn" class="action backform waves-effect waves-purple transparent btn-flat"
                         style="margin-left: 3px;margin-right:3px;">BACK
                 </button>
                 <button type="button" id="nextbtn"
@@ -344,7 +281,7 @@ String granAccess = null;
             <div class="modal-content">
                 <h4>Create Position</h4>
                 <div class="row">
-                    <div class="errorCreateoption input-field col s12 red darken-4 white-text z-depth-barts">
+                    <div class="errorCreateoption center input-field col s12 red darken-4 white-text z-depth-barts">
 
                     </div>
                     <div class="col s12">
@@ -365,7 +302,7 @@ String granAccess = null;
                             <a id="createAddPosition"
                                class="modal-action waves-effect waves-light purple darken-3 btn-flat white-text">SAVE
                             </a>
-                            <button type="reset" value="Reset"
+                            <button type="reset" value="Reset" id="crAddOptCancel"
                                     class="modal-close waves-effect waves-purple transparent btn-flat white">CANCEL
                             </button>
                         </div>
@@ -383,24 +320,24 @@ String granAccess = null;
                   enctype="multipart/form-data">
                 <div class="modal-content">
                     <div class="wrapper">
-                        <h4 class="center grey-text text-darken-1">Update Employee<a id="btnUpdateExit"
+                        <h4 class="center grey-text text-darken-1">Update Employee<a id="btnUpdateExit" type="reset" value="Reset"
                                                                                      class="btnUpdateExit modal-action modal-close"><i
                                 class="small material-icons right grey-text text-darken-4">close</i></a></h4>
-                        <div class="updateerror input-field col s12 red darken-4 white-text z-depth-barts">
+                        <div class="updateerror center input-field col s12 red darken-4 white-text z-depth-barts">
 
                         </div>
                         <div class="row">
                             <div class="col s12">
                                 <ul class="tabs tab-demo-active" style="width: 100%; background-color: #fafafa;">
                                     <li class="tab col s6"><a
-                                            class="purple-text text-darken-2 active waves-effect waves-light"
+                                            class="firsttab purple-text text-darken-2 active waves-effect waves-light"
                                             href="#emp${employee.intEmpID}A"><b>INFO 1</b></a></li>
                                     <li class="tab col s6"><a
-                                            class="purple-text text-darken-2 waves-effect waves-light"
+                                            class="secondtab purple-text text-darken-2 waves-effect waves-light"
                                             href="#emp${employee.intEmpID}B"><b>INFO 2</b></a></li>
                                 </ul>
                             </div>
-                            <div id="emp${employee.intEmpID}A" class="col s12">
+                            <div id="emp${employee.intEmpID}A" class="ftab col s12">
                                 <div class="wrapper" style="margin-top: 10px;">
                                     <div class="aside aside1 z-depth-0" style="margin-top: 5px;">
                                         <!-- first -->
@@ -531,8 +468,8 @@ String granAccess = null;
                                             <div class="input-field col s8">
                                                 <select name="selectedJob" id="upSelectedJob" multiple="multiple"
                                                         required
-                                                        class="required">
-                                                    <option value="default" disabled selected>Choose...</option>
+                                                        class="required upSelectedJob">
+                                                    <option value="default" disabled>Choose...</option>
                                                     <c:forEach items="${empCategory}" var="name">
                                                         <%
                                                         Employee empJob =
@@ -550,7 +487,7 @@ String granAccess = null;
                                                             }
                                                             }
                                                             %>
-                                                            <option value="${name.strCategoryName}"
+                                                            <option value="${name.strCategoryName}" class="upOptJava"
                                                             <%out.println(empPosition1);%>>${name.strCategoryName
                                                             }</option>
                                                     </c:forEach>
@@ -560,7 +497,7 @@ String granAccess = null;
                                                         class="material-icons red-text tiny">error_outline</i></label>
                                             </div>
                                             <div class="input-field col s4">
-                                                <button data-target="createAddOption"
+                                                <button data-target="updateOption"
                                                         class="waves-effect waves-light btn-flat modal-option purple darken-3 white-text">
                                                     <i class="material-icons">add</i></button>
                                             </div>
@@ -590,194 +527,37 @@ String granAccess = null;
     </c:forEach>
     <!--UPDATE END-->
 
-    <c:forEach items="${empList}" var="employee">
-        <div id="view${employee.intEmpID}" class="modal modal-fixed-footer transparent z-depth-0"
-             style="width: 70% !important; height: 88% !important; max-height: 100% !important;">
-            <form class="col s12" enctype="multipart/form-data">
-                <div class="modal-content" style="padding-bottom: 0px !important;">
-
-                    <div class="wrapper">
-                        <div class="input-field col s12">
-                            <h3 class="grey-text text-lighten-4">View Employee</h3>
-                        </div>
-                        <div class="aside aside1 z-depth-0">
-                            <!-- first -->
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <!--<input type="file" class="dropify" data-default-file="url_of_your_file"-->
-                                    <!--disabled="disabled"/>-->
-                                    <img name="" id="empupdatedImg"
-                                         style="width: 300px; height: 300px;"
-                                         src="<s:url action='getImage'><s:param name='ImageID'>${employee.intEmpID}</s:param><s:param name='type'>employee</s:param></s:url>"
-                                         alt=""/>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END ASIDE 1 -->
-
-
-                        <div class="aside aside2 z-depth-0">
-                            <!-- second -->
-                            <div class="row">
-                                <div class="input-field col s12" style="margin-top: 39px !important;">
-                                    <input value="${employee.strEmpFirstName}" name="strEmpFirstName"
-                                           placeholder="Ex: Benigno" id="strEmpFirstName" type="text"
-                                           class="white-text" readonly style="border: none;">
-                                    <label for="strEmpFirstName" class="purple-text text-lighten-3"><b>First
-                                        Name</b></label>
-                                </div>
-                                <div class="input-field col s12">
-                                    <input value="${employee.strEmpMiddleName}" name="strEmpMiddleName"
-                                           placeholder="Ex: Cojuangco" id="strEmpMiddleName" type="text"
-                                           class="white-text" readonly style="border: none;">
-                                    <label for="strEmpMiddleName" class="purple-text text-lighten-3"><b>Middle
-                                        Name</b></label>
-                                </div>
-                                <div class="input-field col s12">
-                                    <input value="${employee.strEmpLastName}" name="strEmpLastName"
-                                           placeholder="Ex: Aquino" id="strEmpLastName" type="text"
-                                           class="white-text" readonly style="border: none;">
-                                    <label for="strEmpLastName" class="purple-text text-lighten-3"><b>Last
-                                        Name</b></label>
-                                </div>
-                                <div class="input-field col s12">
-                                    <input type="date" name="strBirthdate" placeholder="January 1, 1996"
-                                           class="datepicker tooltipped" id="" data-position="bottom"
-                                           data-delay="30" data-tooltip="Ex: January 1, 1996" disabled="disabled">
-                                    <label for="" class="active">Birthday</label>
-                                </div>
-                                <div class="input-field col s12">
-                                    <label for="updateAge">Age</label>
-                                    <input type="text" class="validate black-text tooltipped" disabled
-                                           id="updateAge" placeholder="Ex: 18" data-position="bottom"
-                                           data-delay="30"
-                                           data-tooltip="Age 18 and above - Qualified<br/> Age 17 and below - Not Qualified">
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END ASIDE 2 -->
-                        <%
-                        Employee updateEmp = (Employee)pageContext.getAttribute("employee");
-                        String gender = updateEmp.getStrEmpGender();
-                        month = String.valueOf(updateEmp.getStrEmpGender());
-                        String male = null;
-                        String female = null;
-                        List
-                        <Job> job = updateEmp.getJobQualification();
-
-                            if(month.equals("M")){
-                            male = "selected"; female="";
-                            }
-                            else{
-                            female = "selected"; male="";
-                            }
-                            %>
-
-                            <div class="aside aside3 z-depth-0">
-                                <!-- third -->
-                                <div class="row">
-
-                                    <div class="input-field col s12">
-                                        <select class="white-text" name="strEmpGender" id="strEmpGender1"
-                                                disabled="disabled" style="border:none;">
-                                            <option value="" disabled selected></option>
-                                            <option value="M"
-                                            <%out.println(male);%>>Male</option>
-                                            <option value="F"
-                                            <%out.println(female);%>>Female</option>
-                                        </select>
-                                        <label for="strEmpGender1"
-                                               class="active purple-text text-lighten-3"><b>Gender</b></label>
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <input value="${employee.strEmpContactNo}" name="strEmpContactNo"
-                                               placeholder="Ex: 9268806979" type="text" id="contact"
-                                               class="white-text" readonly
-                                               style="border:none;">
-                                        <label for="contact" class="purple-text text-lighten-3"><b>Contact
-                                            Number</b></label>
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <input type="email" name="strEmpEmail" value="${employee.strEmpEmail}"
-                                               placeholder="Ex: salon@yahoo.com" class="white-text" id="emailadd"
-                                               readonly style="border:none;">
-                                        <label for="emailadd"
-                                               class="active purple-text text-lighten-3"><b>Email</b></label>
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <input value="${employee.strEmpAddress}" name="strEmpAddress"
-                                               placeholder="Ex: #20 Julian Eymard St. Sto.Nino Meycauayan, Bulacan"
-                                               type="text" id="address" class="white-text" readonly
-                                               style="border:none;">
-                                        <label for="address"
-                                               class="purple-text text-lighten-3"><b>Address</b></label>
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <select id="slct3" name="selectedJob" class="white-text"
-                                                disabled="disabled" style="border: none;">
-                                            <option value="" disabled selected></option>
-                                            <c:forEach items="${empCategory}" var="name">
-                                                <%
-                                                String empPosition = null;
-                                                EmployeeCategory cate =
-                                                (EmployeeCategory)pageContext.getAttribute("name");
-                                                if(cate.getStrCategoryName().equals(position)){
-                                                empPosition = "selected";
-                                                }
-                                                else{
-                                                empPosition = "";
-                                                }
-                                                %>
-                                                <option value="${name.strCategoryName}"
-                                                <%out.println(empPosition);%>>${name.strCategoryName }</option>
-                                            </c:forEach>
-                                        </select>
-                                        <label for="slct3" class="active purple-text text-lighten-3"
-                                               style="margin-top: 22px !important;"><b>Position</b></label>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <!-- END OF ASIDE3 -->
-
-                    </div>
-                </div>
-                <div class="modal-footer transparent">
-                    <a class="modal-close waves-effect waves-light transparent btn-flat white-text">BACK
-                    </a>
-                </div>
-            </form>
-        </div>
-    </c:forEach>
 
     <!-- update add option -->
     <div id="updateOption" class="modal" style="margin-top: 30px;">
-        <form id="updateOptionForm">
+        <form id="updateOptionForm" class="updateOptionForm">
             <div class="modal-content">
-                <h4>Add Another Position</h4>
+                <h4>Create Position</h4>
                 <div class="row">
+                    <div class="errorUpdateoption center input-field col s12 red darken-4 white-text z-depth-barts">
+
+                    </div>
                     <div class="col s12">
                         <div class="input-field col s8 offset-s2">
-                            <select id="updateAddOptionSelect" class="browser-default" size="10">
+                            <select id="updateAddOptionSelect" class="browser-default" size="10"
+                                    style="height: 150px !important;">
                                 <c:forEach items="${empCategory}" var="name">
                                     <option value="${name.strCategoryName}">${name.strCategoryName }</option>
                                 </c:forEach>
                             </select>
                         </div>
                         <div class="input-field col s8 offset-s2" style="margin-top: 20px;">
-                            <input type="text" class="validate tooltipped specialoption noSpace"
-                                   placeholder="Ex: Cashier" id="updateAddOptionName" name="updateAddOptionName"
-                                   data-position="bottom" data-delay="30"
-                                   data-tooltip="Ex: Cashier<br/>( Atleast 5 or more characters )"
-                                   pattern="^[A-Za-z-\s]{5,}$">
-                            <label for="updateAddOptionName" class="active">Position</label>
+                            <input type="text" class="updateAddOptionName"
+                                   placeholder="Ex: Manager" id="updateAddOptionName" name="updateAddOptionName"
+                                   required>
+                            <label for="updateAddOptionName" class="active"><b>Position</b></label>
                         </div>
                         <div class="input-field col s8 offset-s2 center">
-                            <button type="submit" value="Submit" id="updateAddPosition"
-                                    class="waves-effect waves-light purple darken-3 btn-flat white-text">SAVE
-                            </button>
+                            <a id="updateAddPosition"
+                               class="updateAddPosition modal-action waves-effect waves-light purple darken-3 btn-flat white-text">SAVE
+                            </a>
                             <button type="reset" value="Reset"
-                                    class="modal-close waves-effect waves-purple transparent btn-flat white">CANCEL
+                                    class="upAddOptCancel modal-close waves-effect waves-purple transparent btn-flat white">CANCEL
                             </button>
                         </div>
                     </div>
@@ -785,7 +565,129 @@ String granAccess = null;
             </div>
         </form>
     </div>
+
+
     <!-- update add option END -->
+    <c:forEach items="${empList}" var="employee">
+        <div id="view${employee.intEmpID}" class="modal transparent z-depth-0 viewEmpModal">
+            <div class="modal-content">
+                <div class="wrapper">
+                    <h3 class="center grey-text text-lighten-2">View Employee</h3>
+                    <div class="aside aside1 z-depth-0">
+                        <!-- first -->
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <!--<input type="file" class="dropify" data-default-file="url_of_your_file"-->
+                                <!--disabled="disabled"/>-->
+                                <img name="empupdatedImg" id="empupdatedImg"
+                                     style="width: 300px; height: 350px; border-radius: 10px;" class="z-depth-2"
+                                     src="<s:url action='getImage'><s:param name='ImageID'>${employee.intEmpID}</s:param><s:param name='type'>employee</s:param></s:url>"
+                                     alt=""/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aside aside2 z-depth-0" style="margin-bottom: -30px !important;">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input type="text" name="viewEmpName" id="viewEmpName" disabled class="white-text"
+                                       value="${employee.strEmpFirstName} ${employee.strEmpMiddleName} ${employee.strEmpLastName}"/>
+                                <label for="viewEmpName" class="purple-text text-lighten-2"><b>Name</b></label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input type="date" name="viewEmpBday" placeholder="January 1, 1996"
+                                       class="datepicker white-text" disabled id="viewEmpBday" value="">
+                                <label for="viewEmpBday"
+                                       class="active purple-text text-lighten-2"><b>Birthday</b></label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input type="text" name="viewEmpAge" id="viewEmpAge" class="white-text" disabled
+                                       placeholder="18"/>
+                                <label for="viewEmpAge" class="purple-text text-lighten-2 active"><b>Age</b></label>
+                            </div>
+                            <%
+                            Employee updateEmp = (Employee)pageContext.getAttribute("employee");
+                            String gender = updateEmp.getStrEmpGender();
+                            month = String.valueOf(updateEmp.getStrEmpGender());
+                            String male = null;
+                            String female = null;
+                            List
+                            <Job> job = updateEmp.getJobQualification();
+
+                                if(month.equals("M")){
+                                male = "selected"; female="";
+                                }
+                                else{
+                                female = "selected"; male="";
+                                }
+                                %>
+                                <div class="input-field col s6">
+                                    <!--<select class="white-text" name="viewEmpGender" id="viewEmpGender"-->
+                                    <!--disabled="disabled" style="border:none;">-->
+                                    <!--<option value="" disabled selected></option>-->
+                                    <!--<option style="color: white !important;" value="M"-->
+                                    <!--<%out.println(male);%>>Male</option>-->
+                                    <!--<option class="white-text" value="F"-->
+                                    <!--<%out.println(female);%>>Female</option>-->
+                                    <!--</select>-->
+                                    <!--<label for="viewEmpGender" class="purple-text text-lighten-2"><b>Gender</b></label>-->
+                                    <input type="text" name="viewEmpGender" class=white-text id="viewEmpGender" disabled
+                                           value="${employee.strEmpGender}"/>
+                                    <label for="viewEmpGender"
+                                           class="purple-text text-lighten-2 active"><b>Gender</b></label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input value="${employee.strEmpContactNo}" name="viewEmpContact"
+                                           placeholder="+63 912-345-7897" type="text" id="viewEmpContact"
+                                           class="white-text updateContact" disabled>
+                                    <label for="viewEmpContact" class="purple-text text-lighten-2"><b>Contact
+                                        Number</b></label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <input type="email" name="viewEmpEmail" value="${employee.strEmpEmail}"
+                                           placeholder="Ex: salon@yahoo.com" class="white-text" id="viewEmpEmail"
+                                           disabled>
+                                    <label for="viewEmpEmail"
+                                           class="active purple-text text-lighten-2"><b>Email</b></label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <input value="${employee.strEmpAddress}" name="viewEmpAddress"
+                                           placeholder="Ex: #20 Julian Eymard St. Sto.Nino Meycauayan, Bulacan"
+                                           type="text" id="viewEmpAddress" class="white-text" disabled>
+                                    <label for="viewEmpAddress"
+                                           class="active purple-text text-lighten-2"><b>Address</b></label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <select id="viewEmpJob" name="viewEmpJob" class="white-text"
+                                            disabled>
+                                        <option value="" disabled selected></option>
+                                        <c:forEach items="${empCategory}" var="name">
+                                            <%
+                                            String empPosition = null;
+                                            EmployeeCategory cate =
+                                            (EmployeeCategory)pageContext.getAttribute("name");
+                                            if(cate.getStrCategoryName().equals(position)){
+                                            empPosition = "selected";
+                                            }
+                                            else{
+                                            empPosition = "";
+                                            }
+                                            %>
+                                            <option class="whitetext" value="${name.strCategoryName}"
+                                            <%out.println(empPosition);%>><span class="whitetext">${name.strCategoryName }</span></option>
+                                        </c:forEach>
+                                    </select>
+                                    <label for="viewEmpJob" class="purple-text text-lighten-2"><b>Position</b></label>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer transparent">
+                <a href="#!"
+                   class="modal-action modal-close waves-effect waves-light white-text purple darken-2 btn-large z-depth-1">Close</a>
+            </div>
+        </div>
+    </c:forEach>
 
     <c:forEach items="${empList}" var="employee">
         <div id="de${employee.intEmpID}" class="modal" style="width: 30% !important;">
@@ -800,7 +702,7 @@ String granAccess = null;
                         </div>
                     </div>
                     <div class="col s12 center" style="margin-bottom: 30px;">
-                        <button class="waves-effect waves-light purple darken-3 btn-flat white-text">YES</button>
+                        <a class="waves-effect waves-light purple darken-3 btn-flat white-text">YES</a>
                         <a href="#"
                            class="modal-action modal-close waves-effect waves-purple transparent btn-flat black-text">NO</a>
                     </div>

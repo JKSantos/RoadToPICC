@@ -1,31 +1,31 @@
 /*
 
-* Price Format jQuery Plugin
-* Created By Eduardo Cuducos
-* Currently maintained by Flavio Silveira flavio [at] gmail [dot] com
-* Version: 2.0
-* Release: 2014-01-26
+ * Price Format jQuery Plugin
+ * Created By Eduardo Cuducos
+ * Currently maintained by Flavio Silveira flavio [at] gmail [dot] com
+ * Version: 2.0
+ * Release: 2014-01-26
 
-*/
+ */
 
 (function($) {
 
 	/****************
-	* Main Function *
-	*****************/
+	 * Main Function *
+	 *****************/
 	$.fn.priceFormat = function(options)
 	{
 
 		var defaults =
 		{
 			prefix: 'US$ ',
-            suffix: '',
+			suffix: '',
 			centsSeparator: '.',
 			thousandsSeparator: ',',
 			limit: false,
 			centsLimit: 2,
 			clearPrefix: false,
-            clearSufix: false,
+			clearSufix: false,
 			allowNegative: false,
 			insertPlusSign: false,
 			clearOnEmpty:false
@@ -48,17 +48,17 @@
 
 			// load the pluggings settings
 			var prefix = options.prefix;
-            var suffix = options.suffix;
+			var suffix = options.suffix;
 			var centsSeparator = options.centsSeparator;
 			var thousandsSeparator = options.thousandsSeparator;
 			var limit = options.limit;
 			var centsLimit = options.centsLimit;
 			var clearPrefix = options.clearPrefix;
-            var clearSuffix = options.clearSuffix;
+			var clearSuffix = options.clearSuffix;
 			var allowNegative = options.allowNegative;
 			var insertPlusSign = options.insertPlusSign;
 			var clearOnEmpty = options.clearOnEmpty;
-			
+
 			// If insertPlusSign is on, it automatic turns on allowNegative, to work with Signs
 			if (insertPlusSign) allowNegative = true;
 
@@ -69,14 +69,14 @@
 				else
 					obj.html(nvalue);
 			}
-			
+
 			function get()
 			{
 				if(obj.is('input'))
 					value = obj.val();
 				else
 					value = obj.html();
-					
+
 				return value;
 			}
 
@@ -148,7 +148,7 @@
 						if (thousandsCount%3==0) char_ = thousandsSeparator+char_;
 						thousandsFormatted = char_+thousandsFormatted;
 					}
-					
+
 					//
 					if (thousandsFormatted.substr(0,1)==thousandsSeparator) thousandsFormatted = thousandsFormatted.substring(1,thousandsFormatted.length);
 					formatted = (centsLimit==0) ? thousandsFormatted : thousandsFormatted+centsSeparator+centsVal;
@@ -172,8 +172,8 @@
 
 				// apply the prefix
 				if (prefix) formatted = prefix+formatted;
-                
-                // apply the suffix
+
+				// apply the suffix
 				if (suffix) formatted = formatted+suffix;
 
 				return formatted;
@@ -190,7 +190,7 @@
 
 				// allow key numbers, 0 to 9
 				if((code >= 48 && code <= 57) || (code >= 96 && code <= 105)) functional = true;
-				
+
 				// check Backspace, Tab, Enter, Delete, and left/right arrows
 				if (code ==  8) functional = true;
 				if (code ==  9) functional = true;
@@ -201,10 +201,10 @@
 				// Minus Sign, Plus Sign
 				if (allowNegative && (code == 189 || code == 109 || code == 173)) functional = true;
 				if (insertPlusSign && (code == 187 || code == 107 || code == 61)) functional = true;
-				
+
 				if (!functional)
 				{
-					
+
 					e.preventDefault();
 					e.stopPropagation();
 					if (str!=newValue) set(newValue);
@@ -226,8 +226,8 @@
 			{
 				obj.val(prefix + get());
 			}
-            
-            function add_suffix()
+
+			function add_suffix()
 			{
 				obj.val(get() + suffix);
 			}
@@ -241,8 +241,8 @@
 					set(array[1]);
 				}
 			}
-            
-            // Clear suffix on blur if is set to true
+
+			// Clear suffix on blur if is set to true
 			function clear_suffix()
 			{
 				if($.trim(suffix) != '' && clearSuffix)
@@ -270,18 +270,18 @@
 					add_prefix();
 				});
 			}
-			
+
 			// Clear Suffix and Add Suffix
 			if(clearSuffix)
 			{
 				obj.bind('focusout.price_format', function()
 				{
-                    clear_suffix();
+					clear_suffix();
 				});
 
 				obj.bind('focusin.price_format', function()
 				{
-                    add_suffix();
+					add_suffix();
 				});
 			}
 
@@ -290,39 +290,39 @@
 			{
 				price_it();
 				clear_prefix();
-                clear_suffix();
+				clear_suffix();
 			}
 
 		});
 
 	};
-	
+
 	/**********************
-    * Remove price format *
-    ***********************/
-    $.fn.unpriceFormat = function(){
-      return $(this).unbind(".price_format");
-    };
+	 * Remove price format *
+	 ***********************/
+	$.fn.unpriceFormat = function(){
+		return $(this).unbind(".price_format");
+	};
 
-    /******************
-    * Unmask Function *
-    *******************/
-    $.fn.unmask = function(){
+	/******************
+	 * Unmask Function *
+	 *******************/
+	$.fn.unmask = function(){
 
-        var field;
+		var field;
 		var result = "";
-		
+
 		if($(this).is('input'))
 			field = $(this).val();
 		else
 			field = $(this).html();
 
-        for(var f in field)
-        {
-            if(!isNaN(field[f]) || field[f] == "-") result += field[f];
-        }
+		for(var f in field)
+		{
+			if(!isNaN(field[f]) || field[f] == "-") result += field[f];
+		}
 
-        return result;
-    };
+		return result;
+	};
 
 })(jQuery);
