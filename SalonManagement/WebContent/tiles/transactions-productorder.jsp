@@ -1,110 +1,8 @@
-<!DOCTYPE html>
-<html ng-app>
+
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<head>
-    <link type="text/css" rel="stylesheet" href="./css/materialize.css"/>
-    <!--<link type="text/css" rel="stylesheet" href="./css/style.min.css"/>-->
-    <link rel="stylesheet" type="text/css" href="./css/bartstable.css"/>
-    <link rel="stylesheet" type="text/css" href="./css/material.min.css"/>
-    <link type="text/css" rel="stylesheet" href="./css/mystyle.css"/>
-    <link type="text/css" rel="stylesheet" href="./css/mtnc-catalogue.css"/>
-
-    <!--<link rel="stylesheet" type="text/css" href="./css/material.min.css"/>-->
-
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="icon" type="image/png" href="img/Salon_Icon.ico"/>
-    <title>Product Sales</title>
-    
-</head>
-
-<body class="blue-grey lighten-5">
-<div class="wrapper">
-    <header class="headnav">
-        <ul id="slide-out" class="side-nav fixed z-depth-0">
-            <div class="center">
-                <img src="./img/logo.png" class="circle"
-                     style="width: 100%; height: 100%; margin-top: 40px; margin-bottom: 20px;">
-            </div>
-            <li><a href="admin-home.jsp" class="waves-effect"><b>Home</b></a></li>
-            <!--  <li class="no-padding"> -->
-            <ul class="collapsible" data-collapsible="accordion">
-                <li>
-                    <a class="collapsible-header"><b>Maintenance</b></a>
-                    <div class="collapsible-body">
-                        <ul>
-                            <li><a href="employeeMaintenance">Employee</a></li>
-                            <li><a href="productServiceMaintenance">Product & Service</a></li>
-
-                            <li><a href="packageMaintenance">Package</a></li>
-                            <li><a href="locationMaintenance">Delivery Charge</a></li>
-                            <li><a href="extraChargeMaintenance">Other Charge</a></li>
-                            <li><a href="promoMaintenance">Promo</a></li>
-                            <li><a href="discountMaintenance">Discount</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                    <a class="collapsible-header active"><b>Transaction</b></a>
-                    <div class="collapsible-body">
-                        <ul>
-                            <li><a href="transactions-inventory.jsp">Inventory</a></li>
-                            <li><a href="transactions-reservation.jsp">Reservation</a></li>
-                            <li class="purple lighten-4"><a href="product-sales">Product Sales</a></li>
-
-                            <li><a href="transactions-walkin.jsp">Walk In</a></li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-            <li><a href="utilities.jsp" class="waves-effect"><b>Utilities</b></a></li>
-        </ul>
 
 
-        <nav class="z-depth-0">
-            <div class="nav-wrapper purple">
-                <a href="#!" class="brand-logo white-text" style="margin-left: 30px;">Salon Management System</a>
-
-                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                <ul class="side-nav" id="mobile-demo">
-                    <li><a href="admin-home.jsp" class="waves-effect waves-purple"><b>Home</b></a>
-                        <ul class="collapsible collapsible-accordion">
-                            <li>
-                                <a class="collapsible-header"><b>Maintenance</b></a>
-                                <div class="collapsible-body">
-                                    <ul>
-                                        <li><a href="tiles/maintenance-emp.jsp">Employee</a></li>
-                                        <li><a href="maintenance-prodsvc.jsp">Product & Service</a></li>
-                                        <li><a href="maintenance-promo.jsp">Promo</a></li>
-                                        <li><a href="maintenance-discount.jsp">Discount</a></li>
-                                        <li><a href="maintenance-package.jsp">Package</a></li>
-                                        <li><a href="maintenance-catalogue.jsp">Catalogue</a></li>
-                                        <li><a href="maintenance-extra.jsp">Extra Charge</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li>
-                                <a class="collapsible-header active"><b>Transaction</b></a>
-                                <div class="collapsible-body">
-                                    <ul>
-                                        <li class="purple"><a href="transactions-inventory.jsp">Inventory</a></li>
-                                        <li><a href="transactions-reservation.jsp">Reservation</a></li>
-                                        <li class="purple lighten-4"><a href="transactions-productorder.jsp">Product
-                                            Sales</a></li>
-                                        <li><a href="transactions-walkin.jsp">Walk-In</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                    <li><a href="utilities.jsp" class="waves-effect waves-purple"><b>Utilities</b></a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-
-    <article>
-        <div class="wrapper">
 
             <div class="aside aside2 z-depth-barts">
                 <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
@@ -352,10 +250,6 @@
             <!-- END -->
 
 
-    </article>
-    <!-- Modal Structure -->
-</div>
-
 
 <style type="text/css">
     .wrapper > * {
@@ -400,15 +294,7 @@
 </style>
 
 <!--Import jQuery before materialize.js-->
-<script type="text/javascript" src="./js/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="./js/materialize.js"></script>
-<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="js/bartstable.js"></script>
-<script type="text/javascript" src="./js/maintenance-emp.js"></script>
-<script type="text/javascript" src="./js/angular.min.js"></script>
 <script type="text/javascript" src="./js/productsales.js"></script>
-<script type="text/javascript" src="./js/sweetalert.min.js"></script>
-
 <script type="text/javascript">
 
 window.onload = updateProductTable();
@@ -425,6 +311,8 @@ function createOrder(){
 		return this.value;}).get().toString();
 	var quantity = $("input[name='createPackProdQty']").map(function(){
 		return this.value;}).get().toString();
+	
+	alert(location);
 	
 	$.ajax({
 		type : "POST",
@@ -443,8 +331,8 @@ function createOrder(){
 		success: function(data){
 			
 			if(data.status==="success"){
-				swal("Success!", "Your order was successfully processed!", "success");
-		   		$('#CreateProdSaleModal').closeModal();
+				Materialize.toast('Order Successfully Created!', 3000, 'rounded');
+		   		
 			}
 			else if(data.status==="failed"){
 				Materialize.toast('An error was occured while saving the order!', 3000, 'rounded');
@@ -465,7 +353,7 @@ function updateProductTable(){
 		type : "POST",
 		url : "getAllProduct",
 		dataType : "json",
-		async : true,
+		async : "true",
 		success : function(data){
 			
 			if (data.productList != null){
@@ -501,7 +389,7 @@ function updateOrderTable(){
 		type : "POST",
 		url : "orders",
 		dataType : "json",
-		async : true,
+		async : "true",
 		success : function(data){
 			
 			if (data.orderList != null){
@@ -516,7 +404,7 @@ function updateOrderTable(){
                     var d = "href='#update' style='padding-left: 10px;padding-right:10px; margin: 5px;'><i class='material-icons'>edit</i></a>'";
                     var e = "<a data-delay='30' data-position='bottom' data-tooltip='Cancel Order'";
                     var f = "class='waves-effect waves-purple modal-trigger btn-flat transparent red-text tooltipped'";
-                    var g = "href='#cancel' style='padding-left: 10px;padding-right:10px; margin: 5px;' title='Deactivate'><i class='material-icons'>cancel</i></a>";   
+                    var g = "href='#cancel' style='padding-left: 10px;padding-right:10px; margin: 5px;' title='Deactivate'><i class='material-icons'>cancel</i></a>'";   
                     
                     var buttons = a + b + c + d + e + f + g;
                     
@@ -559,9 +447,3 @@ function updateOrderTable(){
     });
 
 </script>
-
-
-</body>
-
-
-</html>

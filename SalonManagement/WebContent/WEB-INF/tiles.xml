@@ -63,6 +63,10 @@
         <put-attribute name="body"			value="/tiles/transaction-inventory.jsp"/>
     </definition>  
     
+    <definition name="transProductSales" extends="baseLayout">
+        <put-attribute name="title"			value="Product Sales"/>
+        <put-attribute name="body"			value="/tiles/transactions-productorder.jsp"/>
+    </definition> 
     
   
 </tiles-definitions>

@@ -103,7 +103,7 @@
                         <ul class="navul">
                             <li><a href="getInventory">Inventory</a></li>
                             <li><a href="transactions-reservation.jsp">Reservation</a></li>
-                            <li><a href="transactions-productorder.jsp">Product Sales</a></li>
+                            <li><a href="product-sales">Product Sales</a></li>
                             <li><a href="transactions-vip.jsp">VIP</a></li>
                             <li><a href="transactions-walkin.jsp">Walk In</a></li>
                         </ul>
@@ -114,6 +114,12 @@
                 <li>
                     <a class="collapsible-header" href="admin-home.jsp"><i
                             class="material-icons">settings</i><b>Utilities</b></a>
+                </li>
+            </ul>
+            <ul class="collapsible" data-collapsible="accordion">
+                <li>
+                    <a class="collapsible-header" href="admin-home.jsp"><i
+                            class="material-icons">search</i><b>Queries</b></a>
                 </li>
             </ul>
             <ul class="collapsible" data-collapsible="accordion">

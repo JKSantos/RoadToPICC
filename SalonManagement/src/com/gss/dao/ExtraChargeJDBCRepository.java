@@ -17,12 +17,13 @@ public class ExtraChargeJDBCRepository implements ExtraChargeRepository{
 	public boolean createExtraCharge(ExtraCharge extra) {
 
 		Connection con = jdbc.getConnection();
-		String query = "CALL createExtraCharge(?, ?)";
+		String query = "CALL createExtraCharge(?, ?, ?)";
 		
 		try{
 			PreparedStatement pre = con.prepareStatement(query);
 			pre.setString(1, extra.getStrECName());
 			pre.setString(2, extra.getStrECDetails());
+			pre.setDouble(3, extra.getDblECPrice());
 			boolean isRecorded = pre.execute();
 			
 			pre.close();
@@ -51,9 +52,10 @@ public class ExtraChargeJDBCRepository implements ExtraChargeRepository{
 				int intID = set.getInt(1);
 				String name = set.getString(2);
 				String desc = set.getString(3);
-				int stat = set.getInt(4);
+				double price = set.getDouble(4);
+				int stat = set.getInt(5);
 				
-				ExtraCharge extra = new ExtraCharge(intID, name, desc, stat);
+				ExtraCharge extra = new ExtraCharge(intID, name, desc, price, stat);
 				ecList.add(extra);
 			}
 			
@@ -75,7 +77,7 @@ public class ExtraChargeJDBCRepository implements ExtraChargeRepository{
 	public boolean updateExtraCharge(ExtraCharge extra) {
 		
 		Connection con = jdbc.getConnection();
-		String query = "UPDATE tblExtraCharges SET strExtraChargeName = ?, strExtraChargeDesc = ? WHERE intExtraChargeID = ?;";
+		String query = "UPDATE tblExtraCharges SET strExtraChargeName = ?, strExtraChargeDesc = ?, dblExtraChargePrice = ? WHERE intExtraChargeID = ?;";
 		
 		try{
 			PreparedStatement pre = con.prepareStatement(query);

@@ -27,6 +27,7 @@
 	<include file="struts-inventory.xml"></include>
 	<include file="struts-tiles.xml"></include>
 	<include file="struts-api.xml"></include>
+	<include file="struts-productsales.xml"></include>
 
 	<package name="default" extends="struts-default, json-default" namespace="/">
 		<result-types>

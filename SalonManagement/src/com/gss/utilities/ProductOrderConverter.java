@@ -12,11 +12,14 @@ public class ProductOrderConverter {
 		
 		List<ProductOrder> orderList = new ArrayList<ProductOrder>();
 		
-		for(int i = 0; i < productList.size(); i++){
-			if(selectedProduct[i].equals(String.valueOf(productList.get(i).getIntProductID()))){
-				Product product = productList.get(i);
-				ProductOrder order = new ProductOrder(1, product, Integer.parseInt(productQuantity[i]), 1);
-				orderList.add(order);
+		for(int i = 0; i < selectedProduct.length; i++){
+			
+			for(int j = 0; j < productList.size(); j++){
+				if(selectedProduct[i].equals(String.valueOf(productList.get(j).getIntProductID()))){
+					Product product = productList.get(j);
+					ProductOrder order = new ProductOrder(1, product, Integer.parseInt(productQuantity[i]), 1);
+					orderList.add(order);
+				}
 			}
 		}
 		

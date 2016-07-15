@@ -15,11 +15,6 @@
 		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
 	</filter>
 	
-	<filter-mapping>
-		<filter-name>Struts</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	
 	<context-param>
    	<param-name>
 		org.apache.tiles.impl.BasicTilesContainer.DEFINITIONS_CONFIG
@@ -28,6 +23,12 @@
       	/WEB-INF/tiles.xml
    	</param-value>
    	</context-param>
+	
+	
+	<filter-mapping>
+		<filter-name>Struts</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
    <listener>
    <listener-class>
