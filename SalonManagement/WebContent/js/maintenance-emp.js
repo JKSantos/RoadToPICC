@@ -12,6 +12,70 @@ $(document).ready(function () {
     });
 });
 
+$(document).ready(function () {
+    var dtable = $('#emptbl').DataTable({
+        "bLengthChange": false,
+        "sPaginationType": "full_numbers",
+        responsive: true,
+        "order": [],
+        "columnDefs": [
+            {"targets": 'no-sort', "orderable": false},
+            {className: "dt-body-left", "targets": [1, 2, 3, 4, 5]},
+            {className: "dt-head-left", "targets": [1, 2, 3, 4, 5]},
+            {className: "dt-body-center", "targets": [0]},
+            {"targets": [5], render: $.fn.dataTable.render.ellipsis(20)},
+            {"targets": [1], render: $.fn.dataTable.render.ellipsis(15)},
+            {"targets": [4], render: $.fn.dataTable.render.ellipsis(20)}
+        ],
+        "rowHeight": '10px'
+    });
+
+    $("#empSearch").bind('keyup search input paste cut', function () {
+        dtable.search(this.value).draw();
+    });
+});
+
+$(document).ready(function () {
+    var prodtable = $('#prodtbl').DataTable({
+        "bLengthChange": false,
+        "sPaginationType": "full_numbers",
+        responsive: true,
+        "order": [],
+        "columnDefs": [
+            {"targets": 'no-sort', "orderable": false},
+            {"targets": [4], "width": "150px"},
+            {"targets": [0], "width": "200px"},
+            {"targets": [2], render: $.fn.dataTable.render.ellipsis(30)}
+        ],
+        "rowHeight": '10px'
+    });
+
+    $("#prodSearch").bind('keyup search input paste cut', function () {
+        prodtable.search(this.value).draw();
+    });
+});
+
+$(document).ready(function () {
+    var servtable = $('#servtbl').DataTable({
+        "bLengthChange": false,
+        "sPaginationType": "full_numbers",
+        responsive: true,
+        "order": [],
+        "columnDefs": [
+            {"targets": 'no-sort', "orderable": false},
+            {"targets": [4], "width": "150px"},
+            {"targets": [0], "width": "200px"},
+            {"targets": [2], "width": "300px"},
+            {"targets": [2], render: $.fn.dataTable.render.ellipsis(40)}
+        ],
+        "rowHeight": '10px'
+    });
+
+    $("#servSearch").bind('keyup search input paste cut', function () {
+        servtable.search(this.value).draw();
+    });
+});
+
 
 $(document).ready(function () {
     $('#serviceTable').DataTable({
@@ -104,7 +168,7 @@ $('.modal-archive').leanModal({
 
 $('.modal-viewall').leanModal({
         dismissible: true, // Modal can be dismissed by clicking outside of the modal
-        opacity: 0.95, // Opacity of modal background
+        opacity: 0.98, // Opacity of modal background
         in_duration: 200, // Transition in duration
         out_duration: 200, // Transition out duration
     }
@@ -152,28 +216,231 @@ $('.modal-updateCategory').leanModal({
 );
 
 $('#btnCreateExit').click(function () {
+    $("#crSelectedJob .crAddOpt").remove();
     $('#createEmpForm').trigger("reset");
+    $('#createOption').trigger("reset");
+    $('#backbtn').click();
     $('.errorcontainer').hide();
+    $('select').material_select();
+});
+
+$('#btnProdCrExit').click(function () {
+    $('#crItemCategory .crAddCatOpt').remove();
+    $('#createProductForm').trigger("reset");
+    $('#createAddCatForm').trigger("reset");
+    $('.crproderrorcontainer').hide();
+    $('select').material_select();
+});
+
+$('#btnServCrExit').click(function () {
+    $('#crServiceCategory .crServAddCatOpt').remove();
+    $('#createServiceForm').trigger("reset");
+    $('#createServAddCatForm').trigger("reset");
+    $('.crserverrorcontainer').hide();
+    $('select').material_select();
+});
+
+$('.btnProdUpExit').click(function () {
+    $('.upItemCategory .upProdAddCatOpt').remove();
+    $('.updateProdForm').trigger("reset");
+    $('.upProdAddCateForm').trigger("reset");
+    $('.upproderrorcontainer').hide();
+    $('select').material_select();
+});
+
+$('.btnServUpExit').click(function () {
+    $('.updateServCategory .upServAddCatOpt').remove();
+    $('.updateservForm').trigger("reset");
+    $('.upServAddCatForm').trigger("reset");
+    $('.upserverrorcontainer').hide();
+    $('select').material_select();
+});
+
+$('#crProdCancel').click(function () {
+    $('#crItemCategory .crAddCatOpt').remove();
+    $('#createProductForm').trigger("reset");
+    $('#createAddCatForm').trigger("reset");
+    $('.crproderrorcontainer').hide();
+    $('select').material_select();
+});
+
+$('.upServCancel').click(function () {
+    $('.updateServCategory .upServAddCatOpt').remove();
+    $('.updateservForm').trigger("reset");
+    $('.upServAddCatForm').trigger("reset");
+    $('.upserverrorcontainer').hide();
+    $('select').material_select();
+});
+
+$('#crServCancel').click(function () {
+    $('#crServiceCategory .crServAddCatOpt').remove();
+    $('#createServiceForm').trigger("reset");
+    $('#createServAddCatForm').trigger("reset");
+    $('.crserverrorcontainer').hide();
+    $('select').material_select();
+});
+
+$('#crAddProdCatCancel').click(function () {
+    $('#createAddCatForm').trigger("reset");
+    $('.crprodcat').hide();
+});
+
+$('.upAddProdCatCancel').click(function () {
+    $('.upProdAddCateForm').trigger("reset");
+    $('.upprodcat').hide();
+});
+
+$('.upProdCancel').click(function () {
+    $('.upItemCategory .upProdAddCatOpt').remove();
+    $('.updateProdForm').trigger("reset");
+    $('.upProdAddCateForm').trigger("reset");
+    $('.upproderrorcontainer').hide();
+    $('select').material_select();
+});
+
+$('#crAddOptCancel').click(function () {
+    $('#createOption').trigger("reset");
+    $('.errorCreateoption').hide();
+});
+
+$('.upAddOptCancel').click(function () {
+    $('.upProdAddCateForm').trigger("reset");
+    $('.errorUpdateoption').hide();
+});
+
+
+$('.upAddOptExit').click(function () {
+    $('.updateOptionForm').trigger("reset");
+    $('.errorUpdateoption').empty();
 });
 
 $('.btnUpdateExit').click(function () {
+    $(".upSelectedJob .upAddOpt").remove();
     $('.updateEmpForm').trigger("reset");
+    $('.updateOptionForm').trigger("reset");
     $('.updateerror').empty();
+    $('select').material_select();
+
 });
 
+
+// $('.empUpdatebtn').each(function () {
+//     var upSelectedJobVal = [];
+//     var upSelectedJobJavaVal = [];
+//
+//     $(this).click(function () {
+//         var upEmphref = $(this).attr('href');
+//         var upSelectedJob = $('' + upEmphref + ' .upSelectedJob');
+//         var upOptJava = $('' + upEmphref +' .upOptJava');
+//
+//
+//         $.each($("" + upEmphref + " .upSelectedJob .upOptJava"), function () {
+//             upSelectedJobJavaVal.push($(this).val());
+//         });
+//
+//         console.log(upSelectedJobJavaVal);
+//         console.log(upSelectedJob);
+//         console.log(upEmphref);
+//
+//
+//             // $.each($("" + upEmphref + " .upSelectedJob option:selected"), function () {
+//             //     $(this).remove();
+//             // });
+//             $('select').material_select();
+//             // $.each(upSelectedJobJavaVal, function (key, value) {
+//             //     upSelectedJob.append('<option selected>' + value + '</option>').attr('value', value);
+//             //     // $("" + upEmphref + " .upSelectedJob").append($('<option selected/>').val(key).text(value));
+//             // });
+//
+//         });
+//
+//         $.each(upSelectedJobVal, function (key, value) {
+//             upSelectedJob.append($('<option selected/>').val(key).text(value));
+//         });
+//         $.each($("" + upEmphref + " .upSelectedJob option:selected"), function () {
+//             this.remove(upSelectedJobVal);
+//         });
+//
+//
+//     });
+// });
 //add option
 
 $('#createAddPosition').click(function () {
+    var crAddOpt = "crAddOpt";
     if ($('#createOption').valid()) {
+
         $('select').material_select('destroy');
         var addopt = $('#addOptionName').val();
-        $('#crSelectedJob').append('<option selected>' + addopt + '</option>').attr('value', addopt);
+        $('#crSelectedJob').append('<option selected class="' + crAddOpt + '">' + addopt + '</option>').attr('value', addopt);
         $('select').material_select();
 
         $('#createAddOption').closeModal();
     }
 });
 
+$('.updateAddPosition').each(function () {
+    $(this).click(function () {
+        var upAddOpt = "upAddOpt";
+        if ($('#updateOptionForm').valid()) {
+            $('select').material_select('destroy');
+            var addoptupdate = $('.updateAddOptionName').val();
+            $('.upSelectedJob').append('<option selected class="' + upAddOpt + '">' + addoptupdate + '</option>').attr('value', addoptupdate);
+            $('select').material_select();
+
+            $('#updateOption').closeModal();
+        }
+    });
+});
+
+$('#createAddCatBtn').click(function () {
+    var crAddCatOpt = "crAddCatOpt";
+    if ($('#createAddCatForm').valid()) {
+        $('select').material_select('destroy');
+        var addprodcat = $('#crProdAddCatName').val();
+        $('#crItemCategory').append('<option selected class="' + crAddCatOpt + '">' + addprodcat + '</option>').attr('value', addprodcat);
+        $('select').material_select();
+
+        $('#crProdAddCate').closeModal();
+    }
+});
+
+
+$('#upAddProdCatBtn').click(function () {
+    var upProdAddCatOpt = "upProdAddCatOpt";
+    if ($('.upProdAddCateForm').valid()) {
+        $('select').material_select('destroy');
+        var addprodcat = $('.upAddProdCatName').val();
+        $('.upItemCategory').append('<option selected class="' + upProdAddCatOpt + '">' + addprodcat + '</option>').attr('value', addprodcat);
+        $('select').material_select();
+
+        $('#upProdAddCateModal').closeModal();
+    }
+});
+
+$('#createServAddCatBtn').click(function () {
+    var crServAddCatOpt = "crServAddCatOpt";
+    if ($('#createServAddCatForm').valid()) {
+        $('select').material_select('destroy');
+        var addservcat = $('#crServAddCatName').val();
+        $('#crServiceCategory').append('<option selected class="' + crServAddCatOpt + '">' + addservcat + '</option>').attr('value', addservcat);
+        $('select').material_select();
+
+        $('#crServAddCateModal').closeModal();
+    }
+});
+
+$('.updateServAddCatBtn').click(function () {
+    var upServAddCatOpt = "upServAddCatOpt";
+    if ($('.upServAddCatForm').valid()) {
+        $('select').material_select('destroy');
+        var upservcat = $('.upServAddCatName').val();
+        $('.updateServCategory').append('<option selected class="' + upServAddCatOpt + '">' + upservcat + '</option>').attr('value', upservcat);
+        $('select').material_select();
+
+        $('.upServAddCatModal').closeModal();
+    }
+});
 
 //
 // $(document).ready(function(){
@@ -597,7 +864,7 @@ $('#createBirthday').pickadate({
 
 
 $('.updateEmpBirthday').pickadate({
-    selectYears: 40,
+    selectYears: true,
     selectMonths: true,
     labelMonthNext: 'Next month',
     labelMonthPrev: 'Previous month',
@@ -747,3 +1014,54 @@ $(document).ready(function () {
         }
     });
 });
+
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('.empprevimg').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$(".empimgupload").change(function () {
+    readURL(this);
+});
+
+function updateProdImage(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('.updateProdImage').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$(".upProdImg").change(function () {
+    updateProdImage(this);
+});
+
+function updateServImage(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('.updateServImage').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$(".upServImg").change(function () {
+    updateServImage(this);
+});
+
+

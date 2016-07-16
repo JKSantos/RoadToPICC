@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="css/material.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/dropify.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/sweetalert.css"/>
+    <link rel="stylesheet" type="text/css" href="css/mainloader.css"/>
+    <link rel="stylesheet" type="text/css" href="css/animate.css"/>
     <!--<link rel="stylesheet" type="text/css" href="css/drag.css"/>-->
     <!--<link rel="stylesheet" type="text/css" href="css/animate.css"/>-->
 
@@ -22,7 +24,7 @@
     </title>
 </head>
 
-<body class="purple lighten-5">
+<body class="purple lighten-5 demo">
 <div class="wrapper">
     <header class="headnav">
         <ul id="slide-out" class="side-nav fixed z-depth-0">
@@ -36,30 +38,21 @@
                     <div class="col col s8 m8 l8">
                         <ul id="profile-dropdown" class="dropdown-content"
                             style="margin-top: 55px !important; overflow-y: hidden !important; margin-left: -15px !important;">
-                            <li>
-                                <a href="#" style="padding-top: 12px !important;"><i
-                                        class="mdi-action-face-unlock"></i>
-                                    Profile</a>
-                            </li>
-                            <li>
-                                <a href="#" style="padding-top: 12px !important;"><i class="mdi-action-settings"></i>
-                                    Settings</a>
-                            </li>
-                            <li>
-                                <a href="#" style="padding-top: 12px !important;"><i
-                                        class="mdi-communication-live-help"></i> Help</a>
-                            </li>
+                            <li><a href="#" style="padding-top: 12px !important;"><i
+                                    class="mdi-action-face-unlock"></i>
+                                Profile</a></li>
+                            <li><a href="#" style="padding-top: 12px !important;"><i class="mdi-action-settings"></i>
+                                Settings</a></li>
+                            <li><a href="#" style="padding-top: 12px !important;"><i
+                                    class="mdi-communication-live-help"></i> Help</a></li>
                             <li class="divider"></li>
-                            <li>
-                                <a href="#" style="padding-top: 12px !important;"><i
-                                        class="mdi-action-lock-outline"></i> Lock</a>
-                            </li>
-                            <li>
-                                <a href="logout" style="padding-top: 12px !important;"><i
-                                        class="mdi-hardware-keyboard-tab"></i> Logout</a>
-                            </li>
+                            <li><a href="#" style="padding-top: 12px !important;"><i
+                                    class="mdi-action-lock-outline"></i> Lock</a></li>
+                            <li><a href="logout" style="padding-top: 12px !important;"><i
+                                    class="mdi-hardware-keyboard-tab"></i> Logout</a></li>
                         </ul>
-                        <a class="truncate btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#"
+                        <a class="truncate btn-flat dropdown-button waves-effect waves-light white-text profile-btn"
+                           href="#"
                            data-activates="profile-dropdown"
                            style="margin-top: 5px !important; margin-left: -15px !important; padding-right: 0px !important;">${sessionScope.firstName}<i
                                 class="material-icons right">arrow_drop_down</i></a>
@@ -81,14 +74,14 @@
                 </li>
             </ul>
             <!--  <li class="no-padding"> -->
-            <ul class="collapsible" data-collapsible="accordion">
+            <ul class="collapsible" id="mtnc" data-collapsible="accordion">
                 <li>
                     <a class="collapsible-header"><i class="material-icons">build</i><b>Maintenance</b></a>
                     <div class="collapsible-body">
-                        <ul class="navul">
+                        <ul>
                             <li><a href="employeeMaintenance">Employee</a></li>
-                            <li><a href="productServiceMaintenance">Product & Service</a></li>
-                            <li><a href="catalogueMaintenance">Catalogue</a></li>
+                            <li><a href="productMaintenance">Product</a></li>
+                            <li><a href="serviceMaintenance">Service</a></li>
                             <li><a href="packageMaintenance">Package</a></li>
                             <li><a href="locationMaintenance">Delivery Charge</a></li>
                             <li><a href="extraChargeMaintenance">Other Charge</a></li>
@@ -141,36 +134,20 @@
 
 <!--</div>-->
 <!--</nav>-->
-<nav class="z-depth-0">
-    <div class="nav-wrapper purple darken-4">
-        <a href="#" class="brand-logo purple-text text-lighten-5 center">Salon Management System</a>
-    </div>
-</nav>
+
 </header>
 
 <article>
-    <!--<div class="wrapper">-->
-    <!--<div class="col s12 center" style="margin-top: 200px;">-->
-    <!--<button id="welcome" class="btn waves-effect waves-light purple darken-3 animated infinite rubberBand z-depth-3" style="width: 300px; height: 150px;font-size: 30px;">WELCOME</button>-->
-    <!--</div>-->
-    <!--</div>-->
-
-
-    <!--<div class="col s12 center" style="margin-top: 200px;">-->
-    <!--<h3>${ sessionScope.firstName } ${ sessionScope.lastName }, your is ${ sessionScope.id }</h3>-->
-    <!--</div>-->
-    <!--<div id="draggable" class="ui-widget-content fixed-action-btn horizontal transparent" style="border:0px !important; bottom: 45px; right: 24px; z-index: 100000px;">-->
-    <!--<a class="btn-floating btn-large red">-->
-    <!--<i class="large material-icons">mode_edit</i>-->
-    <!--</a>-->
-    <!--<ul>-->
-    <!--<li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>-->
-    <!--<li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>-->
-    <!--<li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>-->
-    <!--<li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>-->
-    <!--</ul>-->
-    <!--</div>-->
-
+    <nav class="z-depth-0">
+        <div class="nav-wrapper purple darken-4">
+            <a href="#" class="brand-logo center purple-text text-lighten-5 ">Salon Management System</a>
+        </div>
+    </nav>
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
     <tiles:insertAttribute name="body"></tiles:insertAttribute>
 
 </article>
@@ -186,6 +163,34 @@
         margin-top: -30px !important;
     }
 
+    #createProduct {
+        width: 600px !important;
+        height: 535px !important;
+        max-height: 100% !important;
+        margin-top: -20px !important;
+    }
+
+    #createService {
+        width: 600px !important;
+        height: 535px !important;
+        max-height: 100% !important;
+        margin-top: -20px !important;
+    }
+
+    .servUpdateModal {
+        width: 600px !important;
+        height: 535px !important;
+        max-height: 100% !important;
+        margin-top: -20px !important;
+    }
+
+    .prodUpdateModal {
+        width: 600px !important;
+        height: 535px !important;
+        max-height: 100% !important;
+        margin-top: -20px !important;
+    }
+
     .empModalUpdate {
         width: 600px !important;
         height: 610px !important;
@@ -193,13 +198,45 @@
         margin-top: -40px !important;
     }
 
+    .viewEmpModal {
+        width: 700px !important;
+        height: 620px !important;
+        max-height: 100% !important;
+        margin-top: -30px !important;
+    }
+
     #createAddOption {
         width: 500px !important;
+        height: 410px !important;
+    }
+
+    #updateOption {
+        width: 500px !important;
+        height: 410px !important;
+    }
+
+    #crProdAddCate {
+        width: 400px !important;
         height: 400px !important;
     }
 
-    label .has-error {
-        color: red;
+    #crServAddCateModal {
+        width: 400px !important;
+        height: 400px !important;
+    }
+
+    .upServAddCatModal {
+        width: 400px !important;
+        height: 400px !important;
+    }
+
+    #upProdAddCate {
+        width: 400px !important;
+        height: 400px !important;
+    }
+
+    .paging_full_numbers a.paginate_active {
+        color: #4a148c !important;
     }
 
     .tabs .indicator {
@@ -229,6 +266,27 @@
         margin-left: 40px !important;
     }
 
+    .dataTables_filter {
+        display: none;
+    }
+
+    nav .nav-wrapper form, nav .nav-wrapper form .input-field {
+        height: 100%;
+    }
+
+    .btnshadow {
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
+    }
+
+    .viewEmpModal {
+        -webkit-animation-duration: 1.5s;
+        -webkit-animation-delay: 0s;
+        -o-animation-duration: 1.5s;
+        -o-animation-delay: 0s;
+        -moz-animation-duration: 1.5s;
+        -moz-animation-delay: 0s;
+    }
+
 </style>
 
 
@@ -248,6 +306,8 @@
 <script type="text/javascript" src="js/dropify.min.js"></script>
 <script type="text/javascript" src="js/sweetalert.min.js"></script>
 <script type="text/javascript" src="js/ajax.js"></script>
+<script type="text/javascript" src="js/ellipsis.js"></script>
+<script type="text/javascript" src="js/priceformat.js"></script>
 
 
 <!--<script type="text/javascript" src="js/drag.js"></script>-->
@@ -256,6 +316,9 @@
     $(document).ready(function () {
         $(".button-collapse").sideNav();
         $(".dropdown-button").dropdown();
+
+//        $('#emppics').removeClass('sor');
+//        $('#emppics').css('background-image','none');
     });
 
     $(document).ready(function () {
@@ -283,6 +346,50 @@
 
     $('ul.tabs').each(function () {
         $(this).tabs();
+    });
+
+    $(document).ready(function () {
+        $('.tooltipped').tooltip({delay: 5});
+    });
+
+    $(document).ready(function () {
+
+        setTimeout(function () {
+            $('body').addClass('loaded');
+        }, 800);
+    });
+
+    $('#crItemPrice').priceFormat({
+        prefix: 'Php ',
+        centsSeparator: '.',
+        thousandsSeparator: ',',
+        limit: 9
+    });
+
+    $('.upProdItemPrice').priceFormat({
+        prefix: 'Php ',
+        centsSeparator: '.',
+        thousandsSeparator: ',',
+        limit: 9
+    });
+
+    $('.prodPrice').priceFormat({
+        prefix: 'Php ',
+        centsSeparator: '.',
+        thousandsSeparator: ','
+    });
+
+    $('.servPrice').priceFormat({
+        prefix: 'Php ',
+        centsSeparator: '.',
+        thousandsSeparator: ','
+    });
+
+    $('#crServicePrice').priceFormat({
+        prefix: 'Php ',
+        centsSeparator: '.',
+        thousandsSeparator: ',',
+        limit: 9
     });
 
 
