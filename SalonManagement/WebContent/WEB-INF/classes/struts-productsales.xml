@@ -34,11 +34,11 @@
 			<result name="failed" type="json"></result>
 		</action>
 		
-		<action name="product-sales" class="com.gss.actions.ProductSales.ProductSalesMaintenance">
+		<action name="product-sales" class="com.gss.actions.ProductSales.ProductSalesMaintenanceAction">
 			<result name="success">transactions-productorder.jsp</result>
 		</action>
 		
-		<action name="orders" class="com.gss.actions.ProductSales.GetAllOrderAction">
+		<action name="orders" class="com.gss.actions.ProductSales.GetAllOrder">
 			<result name="success" type="json"></result>
 		</action>
 		

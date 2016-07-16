@@ -42,12 +42,12 @@
 		</action>
 		
 		<!-- LOCATION -->
-		<action name="getAllLocation" class="com.gss.actions.Location.GetAllLocationAction">
+		<action name="getAllLocation" class="com.gss.actions.Location.GetAllLocation">
 			<result name="success" type="json"></result>
 		</action>
 		
 		<!-- OTHER CHARGE -->
-		<action name="getAllOtherCharge" class="com.gss.actions.OtherCharge.GetAllOtherChargeAction">
+		<action name="getAllOtherCharge" class="com.gss.actions.OtherCharge.GetAllOtherCharge">
 			<result name="success" type="json"></result>
 		</action>
 		

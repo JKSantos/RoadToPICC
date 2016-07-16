@@ -6,7 +6,8 @@ import com.gss.model.ProductSales;
 import com.gss.service.ProductSalesService;
 import com.gss.service.ProductSalesServiceImpl;
 
-public class GetAllOrderAction {
+
+public class GetAllOrder {
 	
 	private List<ProductSales> orderList;
 	private String status;

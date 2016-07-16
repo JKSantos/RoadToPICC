@@ -335,7 +335,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 	@Override
 	public boolean updateEmployee(Employee emp) {
 		
-		String strQuery1 = "CALL updateEmployee( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+		String strQuery1 = "CALL updateEmployee( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		String updateJob = "CALL updateJob(?, ?)";
 		
 		JDBCConnection jdbc = new JDBCConnection();
@@ -347,8 +347,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 			java.sql.Date sqlDate = new java.sql.Date(emp.getDatEmpBirthdate().getTime());
 			
 			PreparedStatement pre = con.prepareStatement(strQuery1);
-			
-			System.out.println(emp.getBlobEmpPhoto() + " " + emp.getStrEmpGender());
+
 			if(emp.getBlobEmpPhoto().equalsIgnoreCase("image")){
 				pre.setInt(1, emp.getIntEmpID());
 				pre.setString(2, emp.getStrEmpLastName());
@@ -363,6 +362,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 				pre.setString(11, emp.getStrEmpUsername());
 				pre.setString(12, emp.getStrEmpPassword());
 				pre.setInt(13, 101);
+				pre.setBoolean(14, emp.isAccessGranted());
 			}
 			else{
 				
@@ -382,6 +382,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 				pre.setString(11, emp.getStrEmpUsername());
 				pre.setString(12, emp.getStrEmpPassword());
 				pre.setBinaryStream(13, (InputStream)fileInput, (int)imageFile.length());
+				pre.setBoolean(14, emp.isAccessGranted());
 			}
 			
 			pre.execute();
@@ -438,6 +439,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 		}
 		catch(Exception e){
 			System.out.println(e.fillInStackTrace());
+			System.out.println("May mali sa create");
 			return null;
 		}
 	}
@@ -470,6 +472,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 		}
 		catch(Exception e){
 			System.out.println(e.fillInStackTrace());
+			System.out.println("May mali sa update");
 			return null;
 		}
 	}
@@ -494,6 +497,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 		}
 		catch(Exception e){
 			System.out.print(e.fillInStackTrace());
+			
 			return false;
 		}
 	}
@@ -569,6 +573,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 			
 			System.out.print(e.getMessage());
 			System.out.print("Null Pointer");
+			System.out.println("May mali sa getemployee");
 			return null;
 		}
 	}

@@ -8,31 +8,33 @@ import com.gss.service.ProductService;
 import com.gss.service.ProductServiceImpl;
 import com.gss.service.ServiceService;
 import com.gss.service.ServiceServiceImpl;
+import com.gss.utilities.PriceFormatHelper;
+
 
 public class UpdateItemAction {
 	
-	private File fileUpload;
-	private String fileUploadContentType;
-	private String fileUploadFileName;
+	private File file;
+	private String contentType;
+	private String filename;
 	private int intItemID;
 	private String strItemCate;
 	private String strItemName;
 	private String strItemDetails;
 	private String strItemCategory;
-	private Double dblItemPrice;
+	private String price;
 	private String imageName;
 	private int intItemQuantity;
 	
-	public String execute(){
+	public String execute() throws Exception{
 	
 		ServiceService service = new ServiceServiceImpl();
 		Service update;
 
 		ProductService prodServ = new ProductServiceImpl();
 		Product prod;
-
+		
+		double dblItemPrice = PriceFormatHelper.convertToDouble(price, "Php ");
 		boolean isUpdated = false;
-		//System.out.println(fileUpload.getAbsolutePath());
 		
 		if(strItemCate.equalsIgnoreCase("service")){
 			
@@ -41,32 +43,33 @@ public class UpdateItemAction {
 				isUpdated = service.updateService(update);
 			}
 			else{
-				update = new Service(intItemID, strItemName, strItemCategory, 1, strItemDetails, dblItemPrice, null, fileUpload.getAbsolutePath());
+				update = new Service(intItemID, strItemName, strItemCategory, 1, strItemDetails, dblItemPrice, null, file.getAbsolutePath());
 				isUpdated = service.updateService(update);
 			}
+			
+			if(isUpdated == false)
+				return "serviceFailed";
+			else
+				return "serviceSuccess";
 		}
 		else{
 
 			if(imageName.equalsIgnoreCase("image")){
 				
-				System.out.println(intItemID + " " + dblItemPrice);
-				prod = new Product(intItemID, strItemName, strItemCategory, strItemDetails, intItemQuantity, null, dblItemPrice, imageName, 1);
+				System.out.println(price);
+				prod = new Product(intItemID, strItemName, strItemCategory, strItemDetails, 0, null, dblItemPrice, imageName, 1);
 				isUpdated = prodServ.updateProduct(prod);
 			}
 			else{
-				prod = new Product(intItemID, strItemName, strItemCategory, strItemDetails, intItemQuantity, null, dblItemPrice, fileUpload.getAbsolutePath(), 1);
+				prod = new Product(intItemID, strItemName, strItemCategory, strItemDetails, intItemQuantity, null, dblItemPrice, file.getAbsolutePath(), 1);
 				isUpdated = prodServ.updateProduct(prod);
 			}
 			
-		}
-		
-		if(isUpdated == true){
-			return "success";
-		}
-		else{
-			return "failed";
-		}
-		
+			if(isUpdated == false)
+				return "failded";
+			else
+				return "success";
+		}	
 	}
 	
 	public int getIntItemQuantity() {
@@ -75,30 +78,6 @@ public class UpdateItemAction {
 
 	public void setIntItemQuantity(int intItemQuantity) {
 		this.intItemQuantity = intItemQuantity;
-	}
-
-	public File getFileUpload() {
-		return fileUpload;
-	}
-
-	public void setFileUpload(File fileUpload) {
-		this.fileUpload = fileUpload;
-	}
-
-	public String getFileUploadContentType() {
-		return fileUploadContentType;
-	}
-
-	public void setFileUploadContentType(String fileUploadContentType) {
-		this.fileUploadContentType = fileUploadContentType;
-	}
-
-	public String getFileUploadFileName() {
-		return fileUploadFileName;
-	}
-
-	public void setFileUploadFileName(String fileUploadFileName) {
-		this.fileUploadFileName = fileUploadFileName;
 	}
 
 	public String getStrItemCate() {
@@ -133,14 +112,6 @@ public class UpdateItemAction {
 		this.strItemCategory = strItemCategory;
 	}
 
-	public Double getDblItemPrice() {
-		return dblItemPrice;
-	}
-
-	public void setDblItemPrice(Double dblItemPrice) {
-		this.dblItemPrice = dblItemPrice;
-	}
-
 	public String getImageName() {
 		return imageName;
 	}
@@ -155,6 +126,26 @@ public class UpdateItemAction {
 
 	public void setIntItemID(int intItemID) {
 		this.intItemID = intItemID;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
+	public void setUpload(File file) {
+		this.file = file;
+	}
+
+	public void setUploadContentType(String contentType) {
+		this.contentType = contentType;
+	}
+
+	public void setUploadFilename(String filename) {
+		this.filename = filename;
 	}
 	
 	

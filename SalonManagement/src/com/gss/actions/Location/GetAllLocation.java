@@ -1,18 +1,18 @@
-package com.gss.actions.ProductSales;
+package com.gss.actions.Location;
 
 import java.util.List;
 
 import com.gss.model.Location;
+import com.gss.service.LocationService;
 import com.gss.service.LocationServiceImpl;
 
-public class ProductSalesMaintenance {
+public class GetAllLocation {
 	
 	private List<Location> locationList;
 	
 	public String execute(){
 		
-		LocationServiceImpl service = new LocationServiceImpl();
-		
+		LocationService service = new LocationServiceImpl();
 		this.locationList = service.getAllLocation();
 		
 		return "success";
@@ -21,4 +21,5 @@ public class ProductSalesMaintenance {
 	public List<Location> getLocationList() {
 		return locationList;
 	}
+
 }

@@ -6,7 +6,7 @@ import com.gss.model.ExtraCharge;
 import com.gss.service.ExtraChargeService;
 import com.gss.service.ExtraChargeServiceImpl;
 
-public class GetAllOtherChargeAction {
+public class GetAllOtherCharge {
 	
 	private List<ExtraCharge> extraChargeList;
 	

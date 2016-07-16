@@ -15,10 +15,10 @@ public class DeactivateItemAction {
 		ProductService service = new ProductServiceImpl();
 		
 		if(service.deactivateProduct(intItemID) == true){
-			return "success";
+			return "successProduct";
 		}
 		else{
-			return "failed";
+			return "failedProduct";
 		}
 	}
 	
@@ -29,10 +29,10 @@ public class DeactivateItemAction {
 		System.out.println(intItemID + ">>>>>>>>>>>>>>");
 
 		if(service.deactivateService(intItemID) == true){
-			return "success";
+			return "successService";
 		}
 		else{
-			return "failed";
+			return "failedService";
 		}
 	}
 

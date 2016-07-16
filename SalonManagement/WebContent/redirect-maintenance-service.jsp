@@ -4,10 +4,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Salon Management System</title>
+<title>Insert title here</title>
 </head>
 <body>
-	<center><h3>You must login first!</h3></center>
-	<center><a href="loginform.jsp">Log In</a></center>
+	<%
+		String action="serviceMaintenance";
+    	response.sendRedirect(action);
+		
+	%>
 </body>
 </html>
