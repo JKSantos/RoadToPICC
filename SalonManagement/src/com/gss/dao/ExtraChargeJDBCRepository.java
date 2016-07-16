@@ -83,7 +83,8 @@ public class ExtraChargeJDBCRepository implements ExtraChargeRepository{
 			PreparedStatement pre = con.prepareStatement(query);
 			pre.setString(1, extra.getStrECName());
 			pre.setString(2, extra.getStrECDetails());
-			pre.setInt(3, extra.getIntECID());
+			pre.setDouble(3, extra.getDblECPrice());
+			pre.setInt(4, extra.getIntECID());
 			
 			pre.execute();
 			pre.close();

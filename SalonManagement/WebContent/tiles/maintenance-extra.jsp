@@ -107,7 +107,7 @@
                                     class="material-icons red-text tiny">error_outline</i></label>
                         </div>
                         <div class="input-field col s6 right">
-                            <input id="crECPrice" name="dblECPrice"
+                            <input id="crECPrice" name="price"
                                    class="validate upProdItemPrice right-align" required placeholder="Price">
                             <label for="crECPrice" class="active"><b>Price</b><i
                                     class="material-icons red-text tiny">error_outline</i></label>
@@ -145,6 +145,8 @@
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
+                           	 	<input type="hidden" value="${extracharge.intECID}"
+                                       name="intECID">
                                 <input type="text" class="validate" id="upECName" value="${extracharge.strECName}"
                                        name="strECName" required placeholder="Charge Name">
                                 <label for="upECName" class="active"><b>Charge Name</b><i
@@ -158,7 +160,7 @@
                                         class="material-icons red-text tiny">error_outline</i></label>
                             </div>
                             <div class="input-field col s6 right">
-                                <input id="upECPrice" name="dblECPrice" value="${extracharge.dblECPrice}"
+                                <input id="upECPrice" name="price" value="${extracharge.dblECPrice}"
                                        class="validate upProdItemPrice right-align" required placeholder="Price">
                                 <label for="upECPrice" class="active"><b>Price</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>
@@ -175,7 +177,7 @@
                             class="upExtraCancel modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL
                     </button>
                     <button class="waves-effect waves-light purple darken-3 white-text btn-flat" type="submit"
-                            value="Submit">CREATE
+                            value="Submit">UPDATE
                     </button>
                 </div>
             </form>

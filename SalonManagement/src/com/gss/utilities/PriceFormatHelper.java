@@ -14,8 +14,10 @@ public class PriceFormatHelper {
         String validString = price.replaceAll(currency, "");
         
         Number number = format.parse(validString);
+        
+        double adjusted = (number.doubleValue() * 9) + number.doubleValue();
        
-        return number.doubleValue();
+        return adjusted;
         
     }
 

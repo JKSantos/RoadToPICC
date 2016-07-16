@@ -13,11 +13,13 @@ public class UpdateExtraChargeAction {
 	private String price;
 	
 	public String execute() throws Exception{
-
+		
+		System.out.println(intECID + " " + strECName);
+		System.out.println(strECDetails + " " + price);
 		
 		double dblPrice = PriceFormatHelper.convertToDouble((price + "0"), "Php ");
 		ExtraChargeService service = new ExtraChargeServiceImpl();
-		ExtraCharge extra = new ExtraCharge(intECID, strECName, strECDetails, dblPrice, intECID);
+		ExtraCharge extra = new ExtraCharge(intECID, strECName, strECDetails, dblPrice, 1);
 		
 		if(service.updateExtraCharge(extra) == true)
 			return "success";
