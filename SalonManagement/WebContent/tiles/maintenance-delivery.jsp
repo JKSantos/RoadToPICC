@@ -33,16 +33,16 @@
                 <tr>
                     <th class="dt-head-left">Baranggay</th>
                     <th class="dt-head-left">City</th>
-                    <th class="dt-head-left">Base Rate</th>
+                    <th class="dt-head-right">Base Rate</th>
                     <th align="center" class="no-sort">Action</th>
                 </tr>
                 </thead>
                 <tfoot style="border: 1px solid #bdbdbd;">
                 <tr>
                     <th class="dt-head-left">Baranggay</th>
-                    <th class="left">City</th>
-                    <th class="dt-head-left">Base Rate</th>
-                    <th align="center" class="no-sort">Action</th>
+                    <th class="dt-head-left">City</th>
+                    <th class="dt-head-right">Base Rate</th>
+                    <th align="dt-head-center" class="no-sort"><center>Action</center></th>
                 </tr>
                 </tfoot>
                 <tbody>
@@ -52,7 +52,7 @@
                     <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-left ">
                         ${location.strCity}
                     </td>
-                    <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-left prodPrice">
+                    <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-right prodPrice">
                         ${location.dblLocationPrice}
                     </td>
                     <td class="center" style="padding:0; margin:0;">
@@ -66,9 +66,9 @@
                            href="#updateDeliveryModal${location.intLocationID}" style="padding-left: 10px;padding-right:10px; margin: 5px;">
                             <i class="material-icons">edit</i>
                         </a>
-                        <button class="empdeacbtn waves-effect waves-purple btn-flat transparent red-text text-accent-4"
+                        <button class="deliverydeacbtn waves-effect waves-purple btn-flat transparent red-text text-accent-4"
                                 style="padding-left: 10px;padding-right:10px; margin: 5px;"
-                                id="" title="Deactivate"><i class="material-icons">delete</i></button>
+                                id="${location.intLocationID}" title="Deactivate"><i class="material-icons">delete</i></button>
                     </td>
                 </tr>
                 </c:forEach>
@@ -118,7 +118,7 @@
                         style="margin:0px !important; padding:0px !important;"><i
                         class="material-icons">error_outline</i>&nbspRequired field
                 </button>
-                <button type="reset" value="Reset"
+                <button type="reset" value="Reset" id="crLocCancel"
                         class="modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL
                 </button>
                 <button class="waves-effect waves-light purple darken-3 white-text btn-flat" type="submit"
@@ -130,13 +130,13 @@
 
     <c:forEach items="${locationList}" var="location">
     <div id="updateDeliveryModal${location.intLocationID}" class="updateDeliveryModal modal modal-fixed-footer">
-        <form class="col s12" id="updateDeliveryForm" method="post" action="updateLocation">
+        <form class="col s12 updateDeliveryForm" id="updateDeliveryForm" method="post" action="updateLocation">
             <div class="modal-content">
                 <!-- <div class="container"> -->
                 <div class="wrapper">
                     <h4 class="center grey-text text-darken-1">Update Location<a id="btnUpLocExit" type="reset"
                                                                                  value="Reset"
-                                                                                 class="modal-action modal-close"><i
+                                                                                 class="btnUpLocExit modal-action modal-close"><i
                             class="small material-icons right grey-text text-darken-4">close</i></a></h4>
                     <div class="updeliveryerrorcontainer card red center input-field col s12 white-text z-depth-barts">
 
@@ -174,7 +174,7 @@
                         class="material-icons">error_outline</i>&nbspRequired field
                 </button>
                 <button type="reset" value="Reset"
-                        class="modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL
+                        class="upLocCancel modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL
                 </button>
                 <button class="waves-effect waves-light purple darken-3 white-text btn-flat" type="submit"
                         value="Submit">UPDATE

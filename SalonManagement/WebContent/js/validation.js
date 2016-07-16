@@ -26,18 +26,18 @@ $(document).ready(function () {
         rules: {
             strEmpFirstName: {
                 required: true,
-                regx: "^[A-Za-z '`\s]+$",
+                regx: "^[A-Za-z\- '`\s]+$",
                 noSpace: true,
                 minlength: 2
             },
             strEmpMiddleName: {
-                regx: "^[A-Za-z '`]+$",
+                regx: "^[A-Za-z\- '`]+$",
                 noSpace: true,
                 minlength: 2
             },
             strEmpLastName: {
                 required: true,
-                regx: "^[A-Za-z '`]+$",
+                regx: "^[A-Za-z\- '`]+$",
                 noSpace: true,
                 minlength: 2
             },
@@ -58,7 +58,7 @@ $(document).ready(function () {
             },
             strEmpAddress: {
                 required: true,
-                regx: "^[a-zA-Z0-9 `#.,-]+$",
+                regx: "^[a-zA-Z0-9\- `#.,]+$",
                 noSpace: true,
                 minlength: 10
             },
@@ -167,7 +167,7 @@ $(document).ready(function () {
             addOptionName: {
                 required: true,
                 noSpace: true,
-                regx: "^[a-zA-Z -]+$",
+                regx: "^[a-zA-Z\- ]+$",
                 minlength: 5
             }
         },
@@ -223,18 +223,18 @@ $(".updateEmpForm").each(function () {
         rules: {
             strEmpFirstName: {
                 required: true,
-                regx: "^[A-Za-z '`\s]+$",
+                regx: "^[A-Za-z\- '`\s]+$",
                 noSpace: true,
                 minlength: 2
             },
             strEmpMiddleName: {
-                regx: "^[A-Za-z '`]+$",
+                regx: "^[A-Za-z\- '`]+$",
                 noSpace: true,
                 minlength: 2
             },
             strEmpLastName: {
                 required: true,
-                regx: "^[A-Za-z '`]+$",
+                regx: "^[A-Za-z\- '`]+$",
                 noSpace: true,
                 minlength: 2
             },
@@ -255,7 +255,7 @@ $(".updateEmpForm").each(function () {
             },
             strEmpAddress: {
                 required: true,
-                regx: "^[a-zA-Z0-9 `#.,-]+$",
+                regx: "^[a-zA-Z0-9\- `#.,]+$",
                 noSpace: true,
                 minlength: 10
             },
@@ -363,7 +363,7 @@ $('#updateOptionForm').each(function () {
             updateAddOptionName: {
                 required: true,
                 noSpace: true,
-                regx: "^[a-zA-Z -]+$",
+                regx: "^[a-zA-Z\- ]+$",
                 minlength: 5
             }
         },
@@ -414,7 +414,7 @@ $(document).ready(function () {
         rules: {
             strItemName: {
                 required: true,
-                regx: "^[A-Za-z0-9 -#'`\s]+$",
+                regx: "^[A-Za-z0-9\- #'`\s]+$",
                 noSpace: true,
                 minlength: 5
             },
@@ -429,6 +429,7 @@ $(document).ready(function () {
             },
             dblItemPrice: {
                 required: true,
+                valueNotEquals: "Php 0.00"
             }
         },
         messages: {
@@ -448,7 +449,8 @@ $(document).ready(function () {
                 valueNotEquals: "<span class='white-text'><b>Category</b>: Required</span><br/>"
             },
             dblItemPrice: {
-                required: "<span class='white-text'><b>Price</b>: Required</span><br/>"
+                required: "<span class='white-text'><b>Price</b>: Required</span><br/>",
+                valueNotEquals: "<span class='white-text'><b>Price</b>: Enter value</span><br/>"
             }
         }
 
@@ -509,7 +511,7 @@ $(document).ready(function () {
         rules: {
             crProdAddCatName: {
                 required: true,
-                regx: "^[A-Za-z -'`\s]+$",
+                regx: "^[A-Za-z\- '`\s]+$",
                 noSpace: true,
                 minlength: 5
             }
@@ -569,7 +571,7 @@ $(".updateProdForm").each(function () {
         rules: {
             strItemName: {
                 required: true,
-                regx: "^[A-Za-z0-9 -#'`\s]+$",
+                regx: "^[A-Za-z0-9\- #'`\s]+$",
                 noSpace: true,
                 minlength: 5
             },
@@ -583,7 +585,8 @@ $(".updateProdForm").each(function () {
                 valueNotEquals: "default"
             },
             dblItemPrice: {
-                required: true
+                required: true,
+                valueNotEquals: "Php 0.00"
             }
         },
         messages: {
@@ -603,7 +606,8 @@ $(".updateProdForm").each(function () {
                 valueNotEquals: "<span class='white-text'><b>Category</b>: Required</span><br/>"
             },
             dblItemPrice: {
-                required: "<span class='white-text'><b>Price</b>: Required</span><br/>"
+                required: "<span class='white-text'><b>Price</b>: Required</span><br/>",
+                valueNotEquals: "<span class='white-text'><b>Price</b>: Enter value</span><br/>"
             }
         }
 
@@ -663,7 +667,7 @@ $(".upProdAddCateForm").each(function () {
         rules: {
             upAddProdCatName: {
                 required: true,
-                regx: "^[A-Za-z -'`\s]+$",
+                regx: "^[A-Za-z\- '`\s]+$",
                 noSpace: true,
                 minlength: 5
             }
@@ -718,7 +722,7 @@ $(document).ready(function () {
         rules: {
             strItemName: {
                 required: true,
-                regx: "^[A-Za-z0-9 -#'`\s]+$",
+                regx: "^[A-Za-z0-9\- #'`\s]+$",
                 noSpace: true,
                 minlength: 5
             },
@@ -733,6 +737,7 @@ $(document).ready(function () {
             },
             dblItemPrice: {
                 required: true,
+                valueNotEquals: "Php 0.00"
             }
         },
         messages: {
@@ -752,7 +757,8 @@ $(document).ready(function () {
                 valueNotEquals: "<span class='white-text'><b>Category</b>: Required</span><br/>"
             },
             dblItemPrice: {
-                required: "<span class='white-text'><b>Price</b>: Required</span><br/>"
+                required: "<span class='white-text'><b>Price</b>: Required</span><br/>",
+                valueNotEquals: "<span class='white-text'><b>Price</b>: Enter value</span><br/>"
             }
         }
 
@@ -812,7 +818,7 @@ $(document).ready(function () {
         rules: {
             crServAddCatName: {
                 required: true,
-                regx: "^[A-Za-z -'`\s]+$",
+                regx: "^[A-Za-z\- '`\s]+$",
                 noSpace: true,
                 minlength: 5
             }
@@ -867,7 +873,7 @@ $('.updateservForm').each(function () {
         rules: {
             strItemName: {
                 required: true,
-                regx: "^[A-Za-z0-9 -#'`\s]+$",
+                regx: "^[A-Za-z0-9\- #'`\s]+$",
                 noSpace: true,
                 minlength: 5
             },
@@ -882,6 +888,7 @@ $('.updateservForm').each(function () {
             },
             dblItemPrice: {
                 required: true,
+                valueNotEquals: "Php 0.00"
             }
         },
         messages: {
@@ -901,7 +908,8 @@ $('.updateservForm').each(function () {
                 valueNotEquals: "<span class='white-text'><b>Category</b>: Required</span><br/>"
             },
             dblItemPrice: {
-                required: "<span class='white-text'><b>Price</b>: Required</span><br/>"
+                required: "<span class='white-text'><b>Price</b>: Required</span><br/>",
+                valueNotEquals: "<span class='white-text'><b>Price</b>: Enter value</span><br/>"
             }
         }
 
@@ -961,7 +969,7 @@ $('.upServAddCatForm').each(function () {
         rules: {
             upServAddCatName: {
                 required: true,
-                regx: "^[A-Za-z -'`\s]+$",
+                regx: "^[A-Za-z\- '`\s]+$",
                 noSpace: true,
                 minlength: 5
             }
@@ -1014,43 +1022,139 @@ $(document).ready(function () {
                 .find("label[for='" + element.attr("id") + "']");
         },
         rules: {
-            strItemName: {
+            strBrgy: {
                 required: true,
-                regx: "^[A-Za-z0-9 -#'`\s]+$",
+                regx: "^[A-Za-z0-9\- #,.'`\s]+$",
                 noSpace: true,
                 minlength: 5
             },
-            strItemDetails: {
+            strCity: {
                 required: true,
+                regx: "^[A-Za-z0-9\- #,.'`\s]+$",
                 noSpace: true,
                 minlength: 2
             },
-            strItemCategory: {
+            price: {
                 required: true,
-                valueNotEquals: "default"
-            },
-            dblItemPrice: {
-                required: true,
+                valueNotEquals: "Php 0.00"
             }
         },
         messages: {
-            strItemName: {
-                required: "<span class='white-text'><b>Name</b>: Required</span><br/>",
-                regx: "<span class='white-text'><b>Name</b>: Invalid characters</span><br/>",
-                noSpace: "<span class='white-text'><b>Name</b>: Empty Field</span><br/>",
-                minlength: "<span class='white-text'><b>Name</b>: Minimum of 5 letters</span><br/>"
+            strBrgy: {
+                required: "<span class='white-text'><b>Barangay</b>: Required</span><br/>",
+                regx: "<span class='white-text'><b>Barangay</b>: Invalid characters</span><br/>",
+                noSpace: "<span class='white-text'><b>Barangay</b>: Empty Field</span><br/>",
+                minlength: "<span class='white-text'><b>Barangay</b>: Minimum of 5 letters</span><br/>"
             },
-            strItemDetails: {
-                required: "<span class='white-text'><b>Details</b>: Required</span><br/>",
-                noSpace: "<span class='white-text'><b>Details</b>: Empty Field</span><br/>",
-                minlength: "<span class='white-text'><b>Details</b>: Minimum of 2 letters</span><br/>"
+            strCity: {
+                required: "<span class='white-text'><b>City</b>: Required</span><br/>",
+                regx: "<span class='white-text'><b>City</b>: Invalid characters</span><br/>",
+                noSpace: "<span class='white-text'><b>City</b>: Empty Field</span><br/>",
+                minlength: "<span class='white-text'><b>City</b>: Minimum of 2 letters</span><br/>"
             },
-            strItemCategory: {
-                required: "<span class='white-text'><b>Category</b>: Required</span><br/>",
-                valueNotEquals: "<span class='white-text'><b>Category</b>: Required</span><br/>"
+            price: {
+                required: "<span class='white-text'><b>Price</b>: Required</span><br/>",
+                valueNotEquals: "<span class='white-text'><b>Price</b>: Enter value</span><br/>"
+            }
+        }
+
+    });
+
+    $('form').on('submit', function (e) {
+        $(".error_note").remove();
+        var select = $(this).find('select').filter("[required=required]");
+        $.each(select, function (index, elm) {
+            val = $(this).val();
+            target = $(this).closest('.input-field');
+            if (typeof target !== "undefined") {
+                input_target = target.find('input.select-dropdown');
+                if (typeof input_target !== "undefined") {
+                    if (val == '' || val == false || val == 0 || val == null) {
+
+                        input_target.css({'border-color': '#EA454B', 'box-shadow': '0 1px 0 0 #EA454B'});
+
+                        $('html,body').animate({scrollTop: $("body").offset().top}, 'slow');
+                        e.preventDefault();
+
+                    } else {
+                        input_target.css({'border-color': '#9e9e9e'});
+                    }
+
+                }
+            }
+        });
+    });
+
+    $.validator.addMethod("regx", function(value, element, regexp){
+        var re = new RegExp(regexp);
+        return this.optional(element) || re.test(value);
+    });
+    $.validator.addMethod("noSpace", function (value, element) {
+        return value.indexOf(" ") != "";
+    });
+    $.validator.addMethod("valueNotEquals", function(value, element, arg){
+        return arg != value;
+    });
+});
+
+
+$('.updateDeliveryForm').each(function () {
+
+    $(this).validate({
+
+
+        submitHandler: function () {
+            swal("Successfully created!", "", "success")
+            $(form).ajaxSubmit();
+
+            // Materialize.toast('Successfully Created!', 5000, 'green');
+
+
+        },
+        errorClass: 'invalid',
+        validClass: 'valid',
+        errorElement: 'div',
+        errorLabelContainer: '.updeliveryerrorcontainer',
+        errorPlacement: function (error, element) {
+            // Append error within linked label
+            $(element)
+                .closest("form")
+                .find("label[for='" + element.attr("id") + "']");
+        },
+        rules: {
+            strBrgy: {
+                required: true,
+                regx: "^[A-Za-z0-9\- #,.'`\s]+$",
+                noSpace: true,
+                minlength: 5
             },
-            dblItemPrice: {
-                required: "<span class='white-text'><b>Price</b>: Required</span><br/>"
+            strCity: {
+                required: true,
+                regx: "^[A-Za-z0-9\- #,.'`\s]+$",
+                noSpace: true,
+                minlength: 2
+            },
+            price: {
+                required: true,
+                valueNotEquals: "Php 0.00"
+            }
+        },
+        messages: {
+            strBrgy: {
+                required: "<span class='white-text'><b>Barangay</b>: Required</span><br/>",
+                regx: "<span class='white-text'><b>Barangay</b>: Invalid characters</span><br/>",
+                noSpace: "<span class='white-text'><b>Barangay</b>: Empty Field</span><br/>",
+                minlength: "<span class='white-text'><b>Barangay</b>: Minimum of 5 letters</span><br/>"
+            },
+            strCity: {
+                required: "<span class='white-text'><b>City</b>: Required</span><br/>",
+                regx: "<span class='white-text'><b>City</b>: Invalid characters</span><br/>",
+                noSpace: "<span class='white-text'><b>City</b>: Empty Field</span><br/>",
+                minlength: "<span class='white-text'><b>City</b>: Minimum of 2 letters</span><br/>"
+            },
+            price: {
+                required: "<span class='white-text'><b>Price</b>: Required</span><br/>",
+                valueNotEquals: "<span class='white-text'><b>Price</b>: Enter value</span><br/>"
             }
         }
 

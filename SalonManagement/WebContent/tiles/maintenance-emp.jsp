@@ -52,9 +52,9 @@ String granAccess = null;
                     <th class="no-sort"></th>
                     <th class="dt-head-left">Name</th>
                     <th class="dt-head-left left-align" align="left">Position</th>
-                    <th class="dt-head-right">Contact</th>
-                    <th class="dt-head-left">Email</th>
-                    <th class="dt-head-left">Address</th>
+                    <th class="dt-head-right no-sort">Contact</th>
+                    <th class="dt-head-left no-sort">Email</th>
+                    <th class="dt-head-left no-sort">Address</th>
                     <th align="center" class="no-sort">Action</th>
                 </tr>
                 </thead>

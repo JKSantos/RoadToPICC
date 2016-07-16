@@ -322,6 +322,7 @@
 <script type="text/javascript" src="js/ajax.js"></script>
 <script type="text/javascript" src="js/ellipsis.js"></script>
 <script type="text/javascript" src="js/priceformat.js"></script>
+<script type="text/javascript" src="js/formatted-numbers.js"></script>
 
 
 <!--<script type="text/javascript" src="js/drag.js"></script>-->

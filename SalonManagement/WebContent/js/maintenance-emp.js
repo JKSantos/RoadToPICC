@@ -45,6 +45,7 @@ $(document).ready(function () {
             {"targets": 'no-sort', "orderable": false},
             {"targets": [4], "width": "150px"},
             {"targets": [0], "width": "200px"},
+            {"targets": [3], "type": "formatted-num"},
             {"targets": [2], render: $.fn.dataTable.render.ellipsis(30)}
         ],
         "rowHeight": '10px'
@@ -66,6 +67,7 @@ $(document).ready(function () {
             {"targets": [4], "width": "150px"},
             {"targets": [0], "width": "200px"},
             {"targets": [2], "width": "300px"},
+            {"targets": [3], "type": "formatted-num"},
             {"targets": [2], render: $.fn.dataTable.render.ellipsis(40)}
         ],
         "rowHeight": '10px'
@@ -83,7 +85,9 @@ $(document).ready(function () {
         responsive: true,
         "order": [],
         "columnDefs": [
-            {"targets": 'no-sort', "orderable": false}
+            {"targets": 'no-sort', "orderable": false},
+            {"targets": [3], "width": "200px"},
+            {"targets": [2], "type": "formatted-num"}
         ],
         "rowHeight": '10px'
     });
@@ -92,7 +96,6 @@ $(document).ready(function () {
         deliverytbl.search(this.value).draw();
     });
 });
-
 
 
 // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
@@ -175,6 +178,26 @@ $('#btnCreateExit').click(function () {
     $('#backbtn').click();
     $('.errorcontainer').hide();
     $('select').material_select();
+});
+
+$('#btnCrLocExit').click(function () {
+    $('#createDeliveryForm').trigger("reset");
+    $('.deliveryerrorcontainer').hide();
+});
+
+$('.btnUpLocExit').click(function () {
+    $('.updateDeliveryForm').trigger("reset");
+    $('.updeliveryerrorcontainer').hide();
+});
+
+$('#crLocCancel').click(function () {
+    $('#createDeliveryForm').trigger("reset");
+    $('.deliveryerrorcontainer').hide();
+});
+
+$('.upLocCancel').click(function () {
+    $('.updateDeliveryForm').trigger("reset");
+    $('.deliveryerrorcontainer').hide();
 });
 
 $('#btnProdCrExit').click(function () {
@@ -1067,13 +1090,12 @@ $('#emptbl').on('click', '.empdeacbtn', function (e) {
                 url: 'deactivateEmployee',
                 data: mydata,
                 success: function (response) {
-                    $tr.find('td').fadeOut(1000,function(){
+                    $tr.find('td').fadeOut(1000, function () {
                         $tr.remove();
                     });
                 }
             });
         });
-
 
 
 });
@@ -1104,7 +1126,7 @@ $('#prodtbl').on('click', '.proddeacbtn', function (e) {
                 url: 'deactivateItem',
                 data: proddata,
                 success: function (response) {
-                    $tr.find('td').fadeOut(1000,function(){
+                    $tr.find('td').fadeOut(1000, function () {
                         $tr.remove();
                     });
                 }
@@ -1138,7 +1160,41 @@ $('#servtbl').on('click', '.servdeacbtn', function (e) {
                 url: 'deactivateService',
                 data: servdata,
                 success: function (response) {
-                    $tr.find('td').fadeOut(1000,function(){
+                    $tr.find('td').fadeOut(1000, function () {
+                        $tr.remove();
+                    });
+                }
+            });
+        });
+});
+
+
+$('#deliverytbl').on('click', '.deliverydeacbtn', function (e) {
+    e.returnValue = false;
+    var deliveryID = $(this).attr('id');
+    console.log(deliveryID);
+    var deliverydata = {
+        'intLocationID': deliveryID
+    }
+    var $tr = $(this).closest('tr');
+
+    swal({
+            title: "Are you sure?",
+            text: "",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        },
+        function () {
+            swal("Deleted!", ".", "success");
+            $.ajax({
+                type: 'post',
+                url: 'deactivateLocation',
+                data: deliverydata,
+                success: function (response) {
+                    $tr.find('td').fadeOut(500, function () {
                         $tr.remove();
                     });
                 }

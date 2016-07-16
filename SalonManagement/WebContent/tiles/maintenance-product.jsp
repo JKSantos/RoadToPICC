@@ -32,9 +32,9 @@
                 <tr>
                     <th class="dt-head-left">Name</th>
                     <th class="dt-head-left">Category</th>
-                    <th class="dt-head-left">Detail</th>
+                    <th class="dt-head-left no-sort">Detail</th>
                     <th class="dt-head-right">Price</th>
-                    <th class="dt-head-center">Actions</th>
+                    <th class="dt-head-center no-sort">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
