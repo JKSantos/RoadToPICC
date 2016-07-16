@@ -91,7 +91,7 @@
                                                                                         class="modal-action modal-close"><i
                                     class="small material-icons right grey-text text-darken-4">close</i></a></h4>
                         </div>
-                        <div class="crserverrorcontainer center input-field col s12 red darken-4 white-text z-depth-barts"
+                        <div class="crserverrorcontainer center input-field col s12 card red white-text z-depth-barts"
                              style="margin-bottom: 15px !important; margin-top: 5px !important;">
 
                         </div>
@@ -186,7 +186,7 @@
                     <h4>Add Another Category</h4>
                     <div class="row">
                         <div class="col s12">
-                            <div class="crservcat center input-field col s12 red darken-4 white-text z-depth-barts">
+                            <div class="crservcat center input-field col s12 card red white-text z-depth-barts">
 
                             </div>
                             <div class="input-field col s8 offset-s2">
@@ -239,7 +239,7 @@
                                                                                             class="btnServUpExit modal-action modal-close"><i
                                         class="small material-icons right grey-text text-darken-4">close</i></a></h4>
                             </div>
-                            <div class="upserverrorcontainer center input-field col s12 red darken-4 white-text z-depth-barts"
+                            <div class="upserverrorcontainer center input-field col s12 card red white-text z-depth-barts"
                                  style="margin-bottom: 15px !important; margin-top: 5px !important;">
 
                             </div>
@@ -357,7 +357,7 @@
                     <h4>Add Another Category</h4>
                     <div class="row">
                         <div class="col s12">
-                            <div class="upservcat center input-field col s12 red darken-4 white-text z-depth-barts">
+                            <div class="upservcat center input-field col s12 card red white-text z-depth-barts">
 
                             </div>
                             <div class="input-field col s8 offset-s2">

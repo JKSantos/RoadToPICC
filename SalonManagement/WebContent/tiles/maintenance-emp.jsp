@@ -42,7 +42,8 @@ String granAccess = null;
                 </div>
             </nav>
 
-            <table id="emptbl" class="hoverable z-depth-1 cell-border row-border display centered responsive-table highlight"
+            <table id="emptbl"
+                   class="hoverable z-depth-1 cell-border row-border display centered responsive-table highlight"
                    cellspacing="0"
                    width="100%"
                    style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;" rowspan="10">
@@ -84,10 +85,15 @@ String granAccess = null;
                         </td>
                         <td class="dt-body-left">${employee.strEmpFirstName} ${employee.strEmpLastName}</td>
                         <td style="padding-left: 10px !important; margin-left: 0px;" class="dt-body-left">NONE</td>
-                        <td style="padding-right: 10px !important; margin-right: 0px;" class="dt-body-right ">${employee.strEmpContactNo}
+                        <td style="padding-right: 10px !important; margin-right: 0px;" class="dt-body-right ">
+                            ${employee.strEmpContactNo}
                         </td>
-                        <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-left ">${employee.strEmpEmail}</td>
-                        <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-left ">${employee.strEmpAddress}</td>
+                        <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-left ">
+                            ${employee.strEmpEmail}
+                        </td>
+                        <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-left ">
+                            ${employee.strEmpAddress}
+                        </td>
                         <td class="center" style="padding:0; margin:0;">
                             <a data-delay="30" data-position="bottom" data-tooltip="View"
                                class="waves-effect waves-purple modal-viewall btn-flat transparent black-text"
@@ -123,7 +129,8 @@ String granAccess = null;
               enctype="multipart/form-data">
             <div class="modal-content">
                 <div class="wrapper">
-                    <h4 class="center grey-text text-darken-1">Create Employee<a id="btnCreateExit" type="reset" value="Reset"
+                    <h4 class="center grey-text text-darken-1">Create Employee<a id="btnCreateExit" type="reset"
+                                                                                 value="Reset"
                                                                                  class="modal-action modal-close"><i
                             class="small material-icons right grey-text text-darken-4">close</i></a></h4>
                     <div class="progress">
@@ -131,7 +138,14 @@ String granAccess = null;
                              aria-valuemin="0"
                              aria-valuemax="100" style="color: white;"></div>
                     </div>
-                    <div class="errorcontainer center input-field col s12 red darken-4 white-text z-depth-barts">
+                    <!--<div id="card-alert" class="card red z-depth-barts">-->
+                    <!--<div class="card-content center white-text errorcontainer">-->
+                    <!--</div>-->
+                    <!--<button type="button" class="close red-text" data-dismiss="alert" aria-label="Close">-->
+                    <!--<span aria-hidden="true"><i class="material-icons">close</i></span>-->
+                    <!--</button>-->
+                    <!--</div>-->
+                    <div class="errorcontainer card red center input-field col s12 white-text z-depth-barts">
 
                     </div>
                     <div class="step well">
@@ -260,7 +274,8 @@ String granAccess = null;
                         style="margin:0px !important; padding:0px !important;"><i
                         class="material-icons">error_outline</i>&nbspRequired field
                 </button>
-                <button type="button" id="backbtn" class="action backform waves-effect waves-purple transparent btn-flat"
+                <button type="button" id="backbtn"
+                        class="action backform waves-effect waves-purple transparent btn-flat"
                         style="margin-left: 3px;margin-right:3px;">BACK
                 </button>
                 <button type="button" id="nextbtn"
@@ -281,7 +296,7 @@ String granAccess = null;
             <div class="modal-content">
                 <h4>Create Position</h4>
                 <div class="row">
-                    <div class="errorCreateoption center input-field col s12 red darken-4 white-text z-depth-barts">
+                    <div class="errorCreateoption center input-field col s12 card red white-text z-depth-barts">
 
                     </div>
                     <div class="col s12">
@@ -320,10 +335,11 @@ String granAccess = null;
                   enctype="multipart/form-data">
                 <div class="modal-content">
                     <div class="wrapper">
-                        <h4 class="center grey-text text-darken-1">Update Employee<a id="btnUpdateExit" type="reset" value="Reset"
+                        <h4 class="center grey-text text-darken-1">Update Employee<a id="btnUpdateExit" type="reset"
+                                                                                     value="Reset"
                                                                                      class="btnUpdateExit modal-action modal-close"><i
                                 class="small material-icons right grey-text text-darken-4">close</i></a></h4>
-                        <div class="updateerror center input-field col s12 red darken-4 white-text z-depth-barts">
+                        <div class="updateerror center input-field col s12 card red white-text z-depth-barts">
 
                         </div>
                         <div class="row">
@@ -534,7 +550,7 @@ String granAccess = null;
             <div class="modal-content">
                 <h4>Create Position</h4>
                 <div class="row">
-                    <div class="errorUpdateoption center input-field col s12 red darken-4 white-text z-depth-barts">
+                    <div class="errorUpdateoption center input-field col s12 card red white-text z-depth-barts">
 
                     </div>
                     <div class="col s12">
@@ -557,7 +573,8 @@ String granAccess = null;
                                class="updateAddPosition modal-action waves-effect waves-light purple darken-3 btn-flat white-text">SAVE
                             </a>
                             <button type="reset" value="Reset"
-                                    class="upAddOptCancel modal-close waves-effect waves-purple transparent btn-flat white">CANCEL
+                                    class="upAddOptCancel modal-close waves-effect waves-purple transparent btn-flat white">
+                                CANCEL
                             </button>
                         </div>
                     </div>
@@ -569,7 +586,7 @@ String granAccess = null;
 
     <!-- update add option END -->
     <c:forEach items="${empList}" var="employee">
-        <div id="view${employee.intEmpID}" class="modal transparent z-depth-0 viewEmpModal">
+        <div id="view${employee.intEmpID}" class="modal transparent z-depth-0 viewEmpModal animated flipInY">
             <div class="modal-content">
                 <div class="wrapper">
                     <h3 class="center grey-text text-lighten-2">View Employee</h3>
@@ -684,7 +701,10 @@ String granAccess = null;
             </div>
             <div class="modal-footer transparent">
                 <a href="#!"
-                   class="modal-action modal-close waves-effect waves-light white-text purple darken-2 btn-large z-depth-1">Close</a>
+                   class="modal-action modal-close waves-effect waves-light purple-text text-lighten-1 btn-large z-depth-1"
+                   style="background-color: transparent !important; border: 3px solid #ab47bc !important; border-radius: 10px !important;"><span
+                        style="padding-top: -10px !important;"><i
+                        class="material-icons left"><b>close</b></i><b>Close</b></span></a>
             </div>
         </div>
     </c:forEach>

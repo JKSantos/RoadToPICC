@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="css/dropify.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/sweetalert.css"/>
     <link rel="stylesheet" type="text/css" href="css/mainloader.css"/>
+    <link rel="stylesheet" type="text/css" href="css/animate.css"/>
     <!--<link rel="stylesheet" type="text/css" href="css/drag.css"/>-->
     <!--<link rel="stylesheet" type="text/css" href="css/animate.css"/>-->
 
@@ -376,6 +377,7 @@
         limit: 9
     });
 
+    $('.viewEmpModal').addClass('animated flipInY');
 
 </script>
 
