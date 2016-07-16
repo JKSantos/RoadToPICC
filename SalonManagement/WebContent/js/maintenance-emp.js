@@ -97,6 +97,25 @@ $(document).ready(function () {
     });
 });
 
+$(document).ready(function () {
+    var extratbl = $('#extratbl').DataTable({
+        "bLengthChange": false,
+        "sPaginationType": "full_numbers",
+        responsive: true,
+        "order": [],
+        "columnDefs": [
+            {"targets": 'no-sort', "orderable": false},
+            {"targets": [3], "width": "200px"},
+            {"targets": [2], "type": "formatted-num"}
+        ],
+        "rowHeight": '10px'
+    });
+
+    $("#extraSearch").bind('keyup search input paste cut', function () {
+        extratbl.search(this.value).draw();
+    });
+});
+
 
 // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
 $('.modal-trigger').leanModal({
@@ -185,10 +204,41 @@ $('#btnCrLocExit').click(function () {
     $('.deliveryerrorcontainer').hide();
 });
 
+$('#btnCrExtraExit').click(function () {
+    $('#createExtraForm').trigger("reset");
+    $('.extraerrorcontainer').hide();
+});
+
+$('.btnUpExtraExit').click(function () {
+    $('.updateExtraForm').trigger("reset");
+    $('.upextraerrorcontainer').hide();
+});
+
+$('.upExtraCancel').click(function () {
+    $('.updateExtraForm').trigger("reset");
+    $('.upextraerrorcontainer').hide();
+});
+
+$('.btnUpExtraExit').click(function () {
+    $('.updateExtraForm').trigger("reset");
+    $('.upextraerrorcontainer').hide();
+});
+
+$('.crExtraCancel').click(function () {
+    $('#createExtraForm').trigger("reset");
+    $('.extraerrorcontainer').hide();
+});
+
+$('.upExtraCancel').click(function () {
+    $('.updateExtraForm').trigger("reset");
+    $('.upextraerrorcontainer').hide();
+});
+
 $('.btnUpLocExit').click(function () {
     $('.updateDeliveryForm').trigger("reset");
     $('.updeliveryerrorcontainer').hide();
 });
+
 
 $('#crLocCancel').click(function () {
     $('#createDeliveryForm').trigger("reset");
@@ -1193,6 +1243,39 @@ $('#deliverytbl').on('click', '.deliverydeacbtn', function (e) {
                 type: 'post',
                 url: 'deactivateLocation',
                 data: deliverydata,
+                success: function (response) {
+                    $tr.find('td').fadeOut(500, function () {
+                        $tr.remove();
+                    });
+                }
+            });
+        });
+});
+
+$('#extratbl').on('click', '.extradeacbtn', function (e) {
+    e.returnValue = false;
+    var extraID = $(this).attr('id');
+    console.log(extraID);
+    var extradata = {
+        'intECID': extraID
+    }
+    var $tr = $(this).closest('tr');
+
+    swal({
+            title: "Are you sure?",
+            text: "",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        },
+        function () {
+            swal("Deleted!", ".", "success");
+            $.ajax({
+                type: 'post',
+                url: 'deactivateExtraCharge',
+                data: extradata,
                 success: function (response) {
                     $tr.find('td').fadeOut(500, function () {
                         $tr.remove();

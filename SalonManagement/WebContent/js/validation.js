@@ -6,7 +6,7 @@ $(document).ready(function () {
 
 
         submitHandler: function () {
-            swal("Successfully created!", "", "success")
+            swal("Successfully created!", "", "success");
             $(form).ajaxSubmit();
             
             // Materialize.toast('Successfully Created!', 5000, 'green');
@@ -60,7 +60,7 @@ $(document).ready(function () {
                 required: true,
                 regx: "^[a-zA-Z0-9\- `#.,]+$",
                 noSpace: true,
-                minlength: 10
+                minlength: 5
             },
             selectedJob: {
                 required: true,
@@ -100,7 +100,7 @@ $(document).ready(function () {
                 required: "<span class='white-text'><b>Address</b>: Required</span><br/>",
                 regx: "<span class='white-text'><b>Address</b>: Invalid characters</span><br/>",
                 noSpace: "<span class='white-text'><b>Address</b>: Empty Field</span><br/>",
-                minlength: "<span class='white-text'><b>Address</b>: Minimum of 10 characters</span><br/>"
+                minlength: "<span class='white-text'><b>Address</b>: Minimum of 5 characters</span><br/>"
             },
             selectedJob: {
                 required: "<span class='white-text'><b>Position</b>: Required</span><br/>",
@@ -168,7 +168,7 @@ $(document).ready(function () {
                 required: true,
                 noSpace: true,
                 regx: "^[a-zA-Z\- ]+$",
-                minlength: 5
+                minlength: 2
             }
         },
         messages: {
@@ -176,7 +176,7 @@ $(document).ready(function () {
                 required: "<span class='white-text'><b>Option Name</b>: Required</span><br/>",
                 noSpace: "<span class='white-text'><b>Option Name</b>: Empty field</span><br/>",
                 regx: "<span class='white-text'><b>Option Name</b>: Invalid characters</span><br/>",
-                minlength: "<span class='white-text'><b>Option Name</b>: Minimum of 5 letters</span><br/>"
+                minlength: "<span class='white-text'><b>Option Name</b>: Minimum of 2 letters</span><br/>"
             }
         }
 
@@ -202,7 +202,7 @@ $(".updateEmpForm").each(function () {
     $(this).validate({
 
         submitHandler: function () {
-            swal("Successfully updated!", "", "success")
+            swal("Successfully updated!", "", "success");
             $(form).ajaxSubmit();
 
             // Materialize.toast('Successfully Created!', 5000, 'green');
@@ -257,7 +257,7 @@ $(".updateEmpForm").each(function () {
                 required: true,
                 regx: "^[a-zA-Z0-9\- `#.,]+$",
                 noSpace: true,
-                minlength: 10
+                minlength: 5
             },
             selectedJob: {
                 required: true,
@@ -297,7 +297,7 @@ $(".updateEmpForm").each(function () {
                 required: "<span class='white-text'><b>Address</b>: Required</span><br/>",
                 regx: "<span class='white-text'><b>Address</b>: Invalid characters</span><br/>",
                 noSpace: "<span class='white-text'><b>Address</b>: Empty Field</span><br/>",
-                minlength: "<span class='white-text'><b>Address</b>: Minimum of 10 characters</span><br/>"
+                minlength: "<span class='white-text'><b>Address</b>: Minimum of 5 characters</span><br/>"
             },
             selectedJob: {
                 required: "<span class='white-text'><b>Position</b>: Required</span><br/>",
@@ -364,7 +364,7 @@ $('#updateOptionForm').each(function () {
                 required: true,
                 noSpace: true,
                 regx: "^[a-zA-Z\- ]+$",
-                minlength: 5
+                minlength: 2
             }
         },
         messages: {
@@ -372,7 +372,7 @@ $('#updateOptionForm').each(function () {
                 required: "<span class='white-text'><b>Option Name</b>: Required</span><br/>",
                 noSpace: "<span class='white-text'><b>Option Name</b>: Empty field</span><br/>",
                 regx: "<span class='white-text'><b>Option Name</b>: Invalid characters</span><br/>",
-                minlength: "<span class='white-text'><b>Option Name</b>: Minimum of 5 letters</span><br/>"
+                minlength: "<span class='white-text'><b>Option Name</b>: Minimum of 2 letters</span><br/>"
             }
         }
 
@@ -394,7 +394,7 @@ $(document).ready(function () {
 
 
         submitHandler: function () {
-            swal("Successfully created!", "", "success")
+            swal("Successfully created!", "", "success");
             $(form).ajaxSubmit();
 
             // Materialize.toast('Successfully Created!', 5000, 'green');
@@ -416,7 +416,7 @@ $(document).ready(function () {
                 required: true,
                 regx: "^[A-Za-z0-9\- #'`\s]+$",
                 noSpace: true,
-                minlength: 5
+                minlength: 2
             },
             strItemDetails: {
                 required: true,
@@ -437,7 +437,7 @@ $(document).ready(function () {
                 required: "<span class='white-text'><b>Name</b>: Required</span><br/>",
                 regx: "<span class='white-text'><b>Name</b>: Invalid characters</span><br/>",
                 noSpace: "<span class='white-text'><b>Name</b>: Empty Field</span><br/>",
-                minlength: "<span class='white-text'><b>Name</b>: Minimum of 5 letters</span><br/>"
+                minlength: "<span class='white-text'><b>Name</b>: Minimum of 2 letters</span><br/>"
             },
             strItemDetails: {
                 required: "<span class='white-text'><b>Details</b>: Required</span><br/>",
@@ -513,7 +513,7 @@ $(document).ready(function () {
                 required: true,
                 regx: "^[A-Za-z\- '`\s]+$",
                 noSpace: true,
-                minlength: 5
+                minlength: 2
             }
         },
         messages: {
@@ -521,7 +521,7 @@ $(document).ready(function () {
                 required: "<span class='white-text'><b>Category Name</b>: Required</span><br/>",
                 regx: "<span class='white-text'><b>Category Name</b>: Invalid character</span><br/>",
                 noSpace: "<span class='white-text'><b>Category Name</b>: Empty Field</span><br/>",
-                minlength: "<span class='white-text'><b>Category Name</b>: Minimum of 5 characters</span><br/>",
+                minlength: "<span class='white-text'><b>Category Name</b>: Minimum of 2 characters</span><br/>",
             }
         }
 
@@ -551,7 +551,7 @@ $(".updateProdForm").each(function () {
     $(this).validate({
 
         submitHandler: function () {
-            swal("Successfully updated!", "", "success")
+            swal("Successfully updated!", "", "success");
             $(form).ajaxSubmit();
 
             // Materialize.toast('Successfully Created!', 5000, 'green');
@@ -573,7 +573,7 @@ $(".updateProdForm").each(function () {
                 required: true,
                 regx: "^[A-Za-z0-9\- #'`\s]+$",
                 noSpace: true,
-                minlength: 5
+                minlength: 2
             },
             strItemDetails: {
                 required: true,
@@ -594,7 +594,7 @@ $(".updateProdForm").each(function () {
                 required: "<span class='white-text'><b>Name</b>: Required</span><br/>",
                 regx: "<span class='white-text'><b>Name</b>: Invalid characters</span><br/>",
                 noSpace: "<span class='white-text'><b>Name</b>: Empty Field</span><br/>",
-                minlength: "<span class='white-text'><b>Name</b>: Minimum of 5 letters</span><br/>"
+                minlength: "<span class='white-text'><b>Name</b>: Minimum of 2 letters</span><br/>"
             },
             strItemDetails: {
                 required: "<span class='white-text'><b>Details</b>: Required</span><br/>",
@@ -669,7 +669,7 @@ $(".upProdAddCateForm").each(function () {
                 required: true,
                 regx: "^[A-Za-z\- '`\s]+$",
                 noSpace: true,
-                minlength: 5
+                minlength: 2
             }
         },
         messages: {
@@ -677,7 +677,7 @@ $(".upProdAddCateForm").each(function () {
                 required: "<span class='white-text'><b>Category Name</b>: Required</span><br/>",
                 regx: "<span class='white-text'><b>Category Name</b>: Invalid character</span><br/>",
                 noSpace: "<span class='white-text'><b>Category Name</b>: Empty Field</span><br/>",
-                minlength: "<span class='white-text'><b>Category Name</b>: Minimum of 5 characters</span><br/>"
+                minlength: "<span class='white-text'><b>Category Name</b>: Minimum of 2 characters</span><br/>"
             }
         }
 
@@ -702,7 +702,7 @@ $(document).ready(function () {
 
 
         submitHandler: function () {
-            swal("Successfully created!", "", "success")
+            swal("Successfully created!", "", "success");
             $(form).ajaxSubmit();
 
             // Materialize.toast('Successfully Created!', 5000, 'green');
@@ -724,7 +724,7 @@ $(document).ready(function () {
                 required: true,
                 regx: "^[A-Za-z0-9\- #'`\s]+$",
                 noSpace: true,
-                minlength: 5
+                minlength: 2
             },
             strItemDetails: {
                 required: true,
@@ -745,7 +745,7 @@ $(document).ready(function () {
                 required: "<span class='white-text'><b>Name</b>: Required</span><br/>",
                 regx: "<span class='white-text'><b>Name</b>: Invalid characters</span><br/>",
                 noSpace: "<span class='white-text'><b>Name</b>: Empty Field</span><br/>",
-                minlength: "<span class='white-text'><b>Name</b>: Minimum of 5 letters</span><br/>"
+                minlength: "<span class='white-text'><b>Name</b>: Minimum of 2 letters</span><br/>"
             },
             strItemDetails: {
                 required: "<span class='white-text'><b>Details</b>: Required</span><br/>",
@@ -820,7 +820,7 @@ $(document).ready(function () {
                 required: true,
                 regx: "^[A-Za-z\- '`\s]+$",
                 noSpace: true,
-                minlength: 5
+                minlength: 2
             }
         },
         messages: {
@@ -828,7 +828,7 @@ $(document).ready(function () {
                 required: "<span class='white-text'><b>Category Name</b>: Required</span><br/>",
                 regx: "<span class='white-text'><b>Category Name</b>: Invalid character</span><br/>",
                 noSpace: "<span class='white-text'><b>Category Name</b>: Empty Field</span><br/>",
-                minlength: "<span class='white-text'><b>Category Name</b>: Minimum of 5 characters</span><br/>",
+                minlength: "<span class='white-text'><b>Category Name</b>: Minimum of 2 characters</span><br/>",
             }
         }
 
@@ -853,7 +853,7 @@ $('.updateservForm').each(function () {
 
 
         submitHandler: function () {
-            swal("Successfully created!", "", "success")
+            swal("Successfully created!", "", "success");
             $(form).ajaxSubmit();
 
             // Materialize.toast('Successfully Created!', 5000, 'green');
@@ -875,7 +875,7 @@ $('.updateservForm').each(function () {
                 required: true,
                 regx: "^[A-Za-z0-9\- #'`\s]+$",
                 noSpace: true,
-                minlength: 5
+                minlength: 2
             },
             strItemDetails: {
                 required: true,
@@ -896,7 +896,7 @@ $('.updateservForm').each(function () {
                 required: "<span class='white-text'><b>Name</b>: Required</span><br/>",
                 regx: "<span class='white-text'><b>Name</b>: Invalid characters</span><br/>",
                 noSpace: "<span class='white-text'><b>Name</b>: Empty Field</span><br/>",
-                minlength: "<span class='white-text'><b>Name</b>: Minimum of 5 letters</span><br/>"
+                minlength: "<span class='white-text'><b>Name</b>: Minimum of 2 letters</span><br/>"
             },
             strItemDetails: {
                 required: "<span class='white-text'><b>Details</b>: Required</span><br/>",
@@ -971,7 +971,7 @@ $('.upServAddCatForm').each(function () {
                 required: true,
                 regx: "^[A-Za-z\- '`\s]+$",
                 noSpace: true,
-                minlength: 5
+                minlength: 2
             }
         },
         messages: {
@@ -979,7 +979,7 @@ $('.upServAddCatForm').each(function () {
                 required: "<span class='white-text'><b>Category Name</b>: Required</span><br/>",
                 regx: "<span class='white-text'><b>Category Name</b>: Invalid character</span><br/>",
                 noSpace: "<span class='white-text'><b>Category Name</b>: Empty Field</span><br/>",
-                minlength: "<span class='white-text'><b>Category Name</b>: Minimum of 5 characters</span><br/>",
+                minlength: "<span class='white-text'><b>Category Name</b>: Minimum of 2 characters</span><br/>",
             }
         }
 
@@ -1004,7 +1004,7 @@ $(document).ready(function () {
 
 
         submitHandler: function () {
-            swal("Successfully created!", "", "success")
+            swal("Successfully created!", "", "success");
             $(form).ajaxSubmit();
 
             // Materialize.toast('Successfully Created!', 5000, 'green');
@@ -1026,7 +1026,7 @@ $(document).ready(function () {
                 required: true,
                 regx: "^[A-Za-z0-9\- #,.'`\s]+$",
                 noSpace: true,
-                minlength: 5
+                minlength: 2
             },
             strCity: {
                 required: true,
@@ -1044,7 +1044,7 @@ $(document).ready(function () {
                 required: "<span class='white-text'><b>Barangay</b>: Required</span><br/>",
                 regx: "<span class='white-text'><b>Barangay</b>: Invalid characters</span><br/>",
                 noSpace: "<span class='white-text'><b>Barangay</b>: Empty Field</span><br/>",
-                minlength: "<span class='white-text'><b>Barangay</b>: Minimum of 5 letters</span><br/>"
+                minlength: "<span class='white-text'><b>Barangay</b>: Minimum of 2 letters</span><br/>"
             },
             strCity: {
                 required: "<span class='white-text'><b>City</b>: Required</span><br/>",
@@ -1104,7 +1104,7 @@ $('.updateDeliveryForm').each(function () {
 
 
         submitHandler: function () {
-            swal("Successfully created!", "", "success")
+            swal("Successfully created!", "", "success");
             $(form).ajaxSubmit();
 
             // Materialize.toast('Successfully Created!', 5000, 'green');
@@ -1126,7 +1126,7 @@ $('.updateDeliveryForm').each(function () {
                 required: true,
                 regx: "^[A-Za-z0-9\- #,.'`\s]+$",
                 noSpace: true,
-                minlength: 5
+                minlength: 2
             },
             strCity: {
                 required: true,
@@ -1144,7 +1144,7 @@ $('.updateDeliveryForm').each(function () {
                 required: "<span class='white-text'><b>Barangay</b>: Required</span><br/>",
                 regx: "<span class='white-text'><b>Barangay</b>: Invalid characters</span><br/>",
                 noSpace: "<span class='white-text'><b>Barangay</b>: Empty Field</span><br/>",
-                minlength: "<span class='white-text'><b>Barangay</b>: Minimum of 5 letters</span><br/>"
+                minlength: "<span class='white-text'><b>Barangay</b>: Minimum of 2 letters</span><br/>"
             },
             strCity: {
                 required: "<span class='white-text'><b>City</b>: Required</span><br/>",
@@ -1198,6 +1198,201 @@ $('.updateDeliveryForm').each(function () {
 });
 //CREATE DELIVERY CHARGE END
 
+//CREATE EXTRA CHARGE
+$(document).ready(function () {
+
+    $('#createExtraForm').validate({
+
+
+        submitHandler: function () {
+            swal("Successfully created!", "", "success");
+            $(form).ajaxSubmit();
+
+            // Materialize.toast('Successfully Created!', 5000, 'green');
+
+
+        },
+        errorClass: 'invalid',
+        validClass: 'valid',
+        errorElement: 'div',
+        errorLabelContainer: '.extraerrorcontainer',
+        errorPlacement: function (error, element) {
+            // Append error within linked label
+            $(element)
+                .closest("form")
+                .find("label[for='" + element.attr("id") + "']");
+        },
+        rules: {
+            strECName: {
+                required: true,
+                regx: "^[A-Za-z\- '`\s]+$",
+                noSpace: true,
+                minlength: 2
+            },
+            strECDetails: {
+                required: true,
+                noSpace: true,
+                minlength: 2
+            },
+            dblECPrice: {
+                required: true,
+                valueNotEquals: "Php 0.00"
+            }
+        },
+        messages: {
+            strECName: {
+                required: "<span class='white-text'><b>Charge Name</b>: Required</span><br/>",
+                regx: "<span class='white-text'><b>Charge Name</b>: Invalid characters</span><br/>",
+                noSpace: "<span class='white-text'><b>Charge Name</b>: Empty Field</span><br/>",
+                minlength: "<span class='white-text'><b>Charge Name</b>: Minimum of 2 letters</span><br/>"
+            },
+            strECDetails: {
+                required: "<span class='white-text'><b>Details</b>: Required</span><br/>",
+                noSpace: "<span class='white-text'><b>Details</b>: Empty Field</span><br/>",
+                minlength: "<span class='white-text'><b>Details</b>: Minimum of 2 letters</span><br/>"
+            },
+            dblECPrice: {
+                required: "<span class='white-text'><b>Price</b>: Required</span><br/>",
+                valueNotEquals: "<span class='white-text'><b>Price</b>: Enter value</span><br/>"
+            }
+        }
+
+    });
+
+    $('form').on('submit', function (e) {
+        $(".error_note").remove();
+        var select = $(this).find('select').filter("[required=required]");
+        $.each(select, function (index, elm) {
+            val = $(this).val();
+            target = $(this).closest('.input-field');
+            if (typeof target !== "undefined") {
+                input_target = target.find('input.select-dropdown');
+                if (typeof input_target !== "undefined") {
+                    if (val == '' || val == false || val == 0 || val == null) {
+
+                        input_target.css({'border-color': '#EA454B', 'box-shadow': '0 1px 0 0 #EA454B'});
+
+                        $('html,body').animate({scrollTop: $("body").offset().top}, 'slow');
+                        e.preventDefault();
+
+                    } else {
+                        input_target.css({'border-color': '#9e9e9e'});
+                    }
+
+                }
+            }
+        });
+    });
+
+    $.validator.addMethod("regx", function(value, element, regexp){
+        var re = new RegExp(regexp);
+        return this.optional(element) || re.test(value);
+    });
+    $.validator.addMethod("noSpace", function (value, element) {
+        return value.indexOf(" ") != "";
+    });
+    $.validator.addMethod("valueNotEquals", function(value, element, arg){
+        return arg != value;
+    });
+});
+
+$('.updateExtraForm').each(function () {
+
+    $(this).validate({
+
+
+        submitHandler: function () {
+            swal("Successfully created!", "", "success");
+            $(form).ajaxSubmit();
+
+            // Materialize.toast('Successfully Created!', 5000, 'green');
+
+
+        },
+        errorClass: 'invalid',
+        validClass: 'valid',
+        errorElement: 'div',
+        errorLabelContainer: '.upextraerrorcontainer',
+        errorPlacement: function (error, element) {
+            // Append error within linked label
+            $(element)
+                .closest("form")
+                .find("label[for='" + element.attr("id") + "']");
+        },
+        rules: {
+            strECName: {
+                required: true,
+                regx: "^[A-Za-z\- '`\s]+$",
+                noSpace: true,
+                minlength: 2
+            },
+            strECDetails: {
+                required: true,
+                noSpace: true,
+                minlength: 2
+            },
+            dblECPrice: {
+                required: true,
+                valueNotEquals: "Php 0.00"
+            }
+        },
+        messages: {
+            strECName: {
+                required: "<span class='white-text'><b>Charge Name</b>: Required</span><br/>",
+                regx: "<span class='white-text'><b>Charge Name</b>: Invalid characters</span><br/>",
+                noSpace: "<span class='white-text'><b>Charge Name</b>: Empty Field</span><br/>",
+                minlength: "<span class='white-text'><b>Charge Name</b>: Minimum of 2 letters</span><br/>"
+            },
+            strECDetails: {
+                required: "<span class='white-text'><b>Details</b>: Required</span><br/>",
+                noSpace: "<span class='white-text'><b>Details</b>: Empty Field</span><br/>",
+                minlength: "<span class='white-text'><b>Details</b>: Minimum of 2 letters</span><br/>"
+            },
+            dblECPrice: {
+                required: "<span class='white-text'><b>Price</b>: Required</span><br/>",
+                valueNotEquals: "<span class='white-text'><b>Price</b>: Enter value</span><br/>"
+            }
+        }
+
+    });
+
+    $('form').on('submit', function (e) {
+        $(".error_note").remove();
+        var select = $(this).find('select').filter("[required=required]");
+        $.each(select, function (index, elm) {
+            val = $(this).val();
+            target = $(this).closest('.input-field');
+            if (typeof target !== "undefined") {
+                input_target = target.find('input.select-dropdown');
+                if (typeof input_target !== "undefined") {
+                    if (val == '' || val == false || val == 0 || val == null) {
+
+                        input_target.css({'border-color': '#EA454B', 'box-shadow': '0 1px 0 0 #EA454B'});
+
+                        $('html,body').animate({scrollTop: $("body").offset().top}, 'slow');
+                        e.preventDefault();
+
+                    } else {
+                        input_target.css({'border-color': '#9e9e9e'});
+                    }
+
+                }
+            }
+        });
+    });
+
+    $.validator.addMethod("regx", function(value, element, regexp){
+        var re = new RegExp(regexp);
+        return this.optional(element) || re.test(value);
+    });
+    $.validator.addMethod("noSpace", function (value, element) {
+        return value.indexOf(" ") != "";
+    });
+    $.validator.addMethod("valueNotEquals", function(value, element, arg){
+        return arg != value;
+    });
+});
+//CREATE EXTRA CHARGE END
 
 // CREATE PACKAGE FORM
 $().ready(function () {

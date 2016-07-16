@@ -1,155 +1,187 @@
-  <%@ taglib uri="/struts-tags" prefix="s" %>
-  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-  <%@ page import="com.gss.model.ExtraCharge"%>
+<%@ taglib uri="/struts-tags" prefix="s" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="com.gss.model.ExtraCharge"%>
 
-  <body class="purple lighten-5">
-  <div class="wrapper">
+<!-- <div class="container"> -->
+<div class="wrapper">
+    <!--                     <div class="aside aside1 z-depth-barts">
 
-        <article>
-        <!-- <div class="container"> -->
-          <div class="wrapper">
-<!--                     <div class="aside aside1 z-depth-barts">
-                    
-                    </div> -->
+                        </div> -->
 
-                    <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
-                        <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
-                        <h3 class="grey-text text-darken-1">Other Charge Maintenance</h3>
-                        <a data-delay="30" data-position="bottom" data-tooltip="Create" class="waves-effect waves-light modal-trigger btn-flat purple darken-3 left white-text tooltipped" href="#create" style="margin-top: 50px; margin-left: 15px;"><i class="material-icons">add</i></a>
-                        <a data-delay="30" data-position="bottom" data-tooltip="Archive" class="waves-effect waves-light modal-trigger btn-flat purple darken-3 left white-text tooltipped" href="#archive" style="margin-top: 50px; margin-left: 15px;"><i class="material-icons">archive</i></a>
-                        <table id="example" class="display centered responsive-table highlight" cellspacing="0" width="100%" style="border: 1px solid #bdbdbd; padding: 10px;" rowspan="10">
-                                <thead>
-                                    <tr>
-                                        <th><center>Charge Name</center></th>
-                                        <th><center>Description</center></th>
-                                        <th><center>Price</center></th>
-                                        <th><center>Action</center></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach items="${ecList}" var="extracharge">
-                                      <tr>
-                                      <%
-                                          ExtraCharge ext = (ExtraCharge)pageContext.getAttribute("extracharge");
-                                          String exID = String.valueOf(ext.getIntECID());
-                                      %>
-
-                                        <td style="padding:0; margin:0;"><center>${extracharge.strECName}</center></td>
-                                        <td style="padding:0; margin:0;"><center>${extracharge.strECDetails}</center></td>
-                                        <td style="padding:0; margin:0;"><center>${extracharge.dblECPrice}</center></td>
-                                        <td class="center" style="padding:0; margin:0;"><center>
-                                        <a data-delay="30" data-position="bottom" data-tooltip="View" class="tooltipped waves-effect waves-light modal-trigger btn-flat transparent black-text" href="#ec${extracharge.intECID}" style="padding-left: 10px;padding-right:10px; margin: 5px;">
-                                        <i class="material-icons">visibility</i></a>
-                                        <a data-delay="30" data-position="bottom" data-tooltip="Update" class="tooltipped waves-effect waves-light modal-trigger btn-flat transparent black-text" href="#ec${extracharge.intECID}" style="padding-left: 10px;padding-right:10px; margin: 5px;">
-                                        <i class="material-icons">edit</i></a>
-                                        <a data-delay="30" data-position="bottom" data-tooltip="Deactivate" class="tooltipped waves-effect waves-light modal-trigger btn-flat transparent red-text text-accent-4" href="#del<%=exID%>" style="padding-left: 10px;padding-right:10px; margin: 5px;">
-                                        <i class="material-icons">delete</i></a></center>
-                                        </td>
-                                      </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
-
-                      </div>
-
-                      <!-- Modal Structure -->
-                        <div id="create" class="modal modal-fixed-footer">
-                        <form class="col s12" id="createExtraForm" method="post" action="createExtraCharge">
-                          <div class="modal-content">
-                            <!-- <div class="container"> -->
-                              <div class="wrapper">
-                                  <h4 class="grey-text text-darken-1" style="margin-bottom: 40px;">Create Charge</h4>
-                                    <div class="row">
-                                            <div class="input-field col s12" style="margin-bottom: 30px;">
-                                                <label class="red-text"> (*) Indicates required field</label>
-                                            </div>
-                                            <div class="input-field col s12" style="margin-top: 25px;">
-                                                <input type="text" class="validate tooltipped specialname noSpace" id="createEChargeName" name="strECName" required pattern="^[a-zA-Z\-'`\s]{5,}$" minlength="5" maxlength="15" data-delay="30" data-position="bottom" data-tooltip="Ex: Missing Equipments<br/>( At least 5 or more characters )" placeholder="Charge Name">
-                                                <label for="createEChargeName" class="active">Charge Name<span class="red-text">*</span></label>
-                                            </div>
-                                            <div class="input-field col s12">
-                                                <textarea id="createEChargeDesc" name="strECDetails" class="materialize-textarea tooltipped noSpace" maxlength="30" minlength="5" data-delay="30" data-position="bottom" data-tooltip="Description" placeholder="Description"></textarea>
-                                                <label for="createEChargeDesc" class="active">Description<span class="red-text">*</span></label>
-                                            </div>
-                                            <div class="input-field col s12">
-                                               	<input type="text" class="validate tooltipped specialname noSpace" id="createECPrice" name="dblECPrice" required data-tooltip="Price" placeholder="99.99">
-                                                <label for="createECPrice" class="active">Price<span class="red-text">*</span></label>
-                                            </div>
-                                    </div>
-                              </div>
-                          </div>
-                          <div class="modal-footer">
-                              <button type="reset" value="Reset" class="modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL</button>
-                              <button class="waves-effect waves-light purple darken-3 white-text btn-flat" type="submit" value="Submit">CREATE</button>
-                          </div>
-                          </form>
-                    </div>
-
-                      <c:forEach items="${ecList}" var="extra">
-                        <div id="ec${extra.intECID}" class="modal modal-fixed-footer" style="width: 30% !important; height: 70% !important; max-height: 100% !important;">
-                        <form class="col s12 updateExtraForm" method="get" id="updateExtraForm" action="updateExtraCharge">
-                          <div class="modal-content">
-                            <!-- <div class="container"> -->
-                              <div class="wrapper">
-                                  <h4 class="grey-text text-darken-1" style="margin-bottom: 40px;">Update Charge</h4>
-                                    <div class="row">
-                                            <div class="input-field col s12">
-                                                <input type="hidden" name="intECID" value="${extra.intECID}">
-
-                                                <input id="updateEChargeName" name="strECName" type="text" value="${extra.strECName}" class="validate tooltipped specialname noSpace" pattern="^[a-zA-Z\-'`\s]{5,}$" placeholder="Charge Name" data-delay="30" data-position="bottom" data-tooltip="Ex: Missing Equipments<br/>( At least 5 or more characters )" minlength="5" maxlength="15">
-                                                <label for="updateEChargeName" class="active">Charge Name</label>
-                                            </div>
-                                            <div class="input-field col s12">
-                                                <textarea id="updateEChargeDesc" name="strECDetails" class="materialize-textarea tooltipped noSpace" data-delay="30" data-position="bottom" data-tooltip="Description<br/>( At least 5 or more characters )" maxlength="30" minlength="5">${extra.strECDetails}</textarea>
-                                                <label for="updateEChargeDesc" class="active">Description</label>
-                                            </div>
-                                    </div>
-                              </div>
-                          </div>
-                          <div class="modal-footer">
-                              <button type="reset" value="Reset" class="modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL</button>
-                              <button class="waves-effect waves-light purple darken-3 white-text btn-flat" type="submit" value="Submit">UPDATE</button>
-                          </div>
-                          </form>
-                    </div>
-                  </c:forEach>
-
-                        <c:forEach items="${ecList}" var="extra">
-                          <%
-                                        
-                              ExtraCharge ext2 = (ExtraCharge)pageContext.getAttribute("extra");
-                              String exID2 = String.valueOf(ext2.getIntECID());
-                         %>
-
-
-                          <div id="del<%=exID2%>" class="modal" style="width: 30% !important;">
-                          <form action="deactivateExtraCharge" method="get">
-                          <div class="container">
-                            <input type="hidden" name="intECID" value="${extra.intECID}">
-                            <div class="modal-content">
-                              <div class="row">
-                                <h5 class="red-text">Warning!</h5>
-                                <p class="center">Are you sure?</p>
-                              </div>
-                            </div>
-                              <div class="col s12 center" style="margin-bottom: 30px;">
-                                <button class="waves-effect waves-light purple btn-flat white-text">YES</button>
-                                <a href="#" class="modal-action modal-close waves-effect waves-light transparent btn-flat black-text">NO</a>
-                              </div>
-                            </div>
-                          </form>
-                      </div>
-                    </c:forEach>
-<!--                     <div class="aside aside2 z-depth-barts">
-                     
-                    </div> -->
+    <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
+        <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
+            <h3 class="grey-text text-darken-1">Other Charge Maintenance</h3>
+            <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
+               href="#createExtraChargeModal" style="margin-top: 30px; margin-left: 15px;"><i
+                    class="material-icons">add</i></a>
+            <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
+               href="#empArchive" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">archive</i></a>
+            <nav class="right white hoverable  z-depth-1" style="width: 300px; margin-right: 20px;">
+                <div class="nav-wrapper col s4">
+                    <form>
+                        <div class="input-field">
+                            <input id="extraSearch" class="grey-text text-darken-4" type="search" required>
+                            <label for="extraSearch" style="margin-top: -20px !important;"><i
+                                    class="material-icons grey-text text-darken-4"
+                                    style="margin-top: 20px;">search</i></label>
+                            <i class="material-icons grey-text text-darken-4">close</i>
+                        </div>
+                    </form>
                 </div>
+            </nav>
+
+            <table id="extratbl"
+                   class="hoverable z-depth-1 cell-border row-border display centered responsive-table highlight"
+                   cellspacing="0"
+                   width="100%"
+                   style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;" rowspan="10">
+                <thead>
+                <tr>
+                    <th class="dt-head-left">Charge Name</th>
+                    <th class="dt-head-left no-sort">Description</th>
+                    <th class="dt-head-right">Price</th>
+                    <th align="dt-head-center" class="no-sort">Action</th>
+                </tr>
+                </thead>
+                <tfoot style="border: 1px solid #bdbdbd;">
+                <tr>
+                    <th class="dt-head-left">Charge Name</th>
+                    <th class="dt-head-left no-sort">Description</th>
+                    <th class="dt-head-right">Price</th>
+                    <th align="dt-head-center" class="no-sort">Action</th>
+                </tr>
+                </tfoot>
+                <tbody>
+                <c:forEach items="${ecList}" var="extracharge">
+                    <%
+                    ExtraCharge ext = (ExtraCharge)pageContext.getAttribute("extracharge");
+                    String exID = String.valueOf(ext.getIntECID());
+                    %>
+                    <tr>
+                        <td style="padding-left: 10px; margin:0;" class="dt-body-left">${extracharge.strECName}</td>
+                        <td style="padding-left: 10px; margin:0;" class="dt-body-left">${extracharge.strECDetails}</td>
+                        <td style="padding-right: 10px; margin:0;" class="dt-body-right servPrice">${extracharge.dblECPrice}</td>
+                        <td class="dt-body-center" style="padding:0; margin:0;">
+                            <a class="waves-effect waves-purple modal-trigger btn-flat transparent black-text empUpdatebtn"
+                               href="#ecupdate${extracharge.intECID}" style="padding-left: 10px;padding-right:10px; margin: 5px;">
+                                <i class="material-icons">edit</i>
+                            </a>
+                            <button class="extradeacbtn waves-effect waves-purple btn-flat transparent red-text text-accent-4"
+                                    style="padding-left: 10px;padding-right:10px; margin: 5px;" id="${extracharge.intECID}"
+                                    title="Deactivate" formaction="deactivateEmployee"><i class="material-icons">delete</i></button>
+                        </td>
+                    </tr>
+
+                </c:forEach>
+
+                </tbody>
+            </table>
         </div>
-      <!-- </div> -->
-        </article>
+    </div>
 
-        
+    <!-- Modal Structure -->
+    <div id="createExtraChargeModal" class="modal modal-fixed-footer">
+        <form class="col s12" id="createExtraForm" method="post" action="createExtraCharge">
+            <div class="modal-content">
+                <!-- <div class="container"> -->
+                <div class="wrapper">
+                    <h4 class="center grey-text text-darken-1">Create Charge<a id="btnCrExtraExit" type="reset"
+                                                                                 value="Reset"
+                                                                                 class="modal-action modal-close"><i
+                            class="small material-icons right grey-text text-darken-4">close</i></a></h4>
+                    <div class="extraerrorcontainer card red center input-field col s12 white-text z-depth-barts">
 
-  </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" class="validate" id="crECName"
+                                   name="strECName" required placeholder="Charge Name">
+                            <label for="crECName" class="active"><b>Charge Name</b><i
+                                    class="material-icons red-text tiny">error_outline</i></label>
+                        </div>
+                        <div class="input-field col s12" style="margin-top: 25px;">
+                            <input type="text" class="validate" id="crECDetails"
+                                   name="strECDetails" required
+                                   placeholder="City">
+                            <label for="crECDetails" class="active"><b>Details</b><i
+                                    class="material-icons red-text tiny">error_outline</i></label>
+                        </div>
+                        <div class="input-field col s6 right">
+                            <input id="crECPrice" name="dblECPrice"
+                                   class="validate upProdItemPrice right-align" required placeholder="Price">
+                            <label for="crECPrice" class="active"><b>Price</b><i
+                                    class="material-icons red-text tiny">error_outline</i></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="red-text btn-flat transparent left" disabled
+                        style="margin:0px !important; padding:0px !important;"><i
+                        class="material-icons">error_outline</i>&nbspRequired field
+                </button>
+                <button type="reset" value="Reset" id="crExtraCancel"
+                        class="crExtraCancel modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL
+                </button>
+                <button class="waves-effect waves-light purple darken-3 white-text btn-flat" type="submit"
+                        value="Submit">CREATE
+                </button>
+            </div>
+        </form>
+    </div>
 
-  </body>
+    <c:forEach items="${ecList}" var="extracharge">
+        <div id="ecupdate${extracharge.intECID}" class="updateExtraModal modal modal-fixed-footer">
+            <form class="col s12 updateExtraForm" id="updateExtraForm" method="post" action="updateExtraCharge">
+                <div class="modal-content">
+                    <!-- <div class="container"> -->
+                    <div class="wrapper">
+                        <h4 class="center grey-text text-darken-1">Update Charge<a id="btnUpExtraExit" type="reset"
+                                                                                   value="Reset"
+                                                                                   class="btnUpExtraExit modal-action modal-close"><i
+                                class="small material-icons right grey-text text-darken-4">close</i></a></h4>
+                        <div class="upextraerrorcontainer card red center input-field col s12 white-text z-depth-barts">
+
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input type="text" class="validate" id="upECName" value="${extracharge.strECName}"
+                                       name="strECName" required placeholder="Charge Name">
+                                <label for="upECName" class="active"><b>Charge Name</b><i
+                                        class="material-icons red-text tiny">error_outline</i></label>
+                            </div>
+                            <div class="input-field col s12" style="margin-top: 25px;">
+                                <input type="text" class="validate" id="upECDetails"
+                                       name="strECDetails" required value="${extracharge.strECDetails}"
+                                       placeholder="City">
+                                <label for="upECDetails" class="active"><b>Details</b><i
+                                        class="material-icons red-text tiny">error_outline</i></label>
+                            </div>
+                            <div class="input-field col s6 right">
+                                <input id="upECPrice" name="dblECPrice" value="${extracharge.dblECPrice}"
+                                       class="validate upProdItemPrice right-align" required placeholder="Price">
+                                <label for="upECPrice" class="active"><b>Price</b><i
+                                        class="material-icons red-text tiny">error_outline</i></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="red-text btn-flat transparent left" disabled
+                            style="margin:0px !important; padding:0px !important;"><i
+                            class="material-icons">error_outline</i>&nbspRequired field
+                    </button>
+                    <button type="reset" value="Reset" id="upExtraCancel"
+                            class="upExtraCancel modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL
+                    </button>
+                    <button class="waves-effect waves-light purple darken-3 white-text btn-flat" type="submit"
+                            value="Submit">CREATE
+                    </button>
+                </div>
+            </form>
+        </div>
+    </c:forEach>
+
+
+</div>
+
