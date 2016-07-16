@@ -58,7 +58,7 @@
                                 <i class="material-icons">visibility</i>
                             </a>
                             <a class="waves-effect waves-purple modal-trigger btn-flat transparent black-text"
-                               href="#serv<%=serviceID%>" style="padding-left: 10px;padding-right:10px; margin: 5px;">
+                               href="#serv${service.intServiceID}" style="padding-left: 10px;padding-right:10px; margin: 5px;">
                                 <i class="material-icons">edit</i>
                             </a>
                             <a class="waves-effect waves-purple modal-trigger btn-flat transparent red-text text-accent-4"
@@ -121,6 +121,8 @@
                         <div class="aside aside2 z-depth-0">
                             <div class="row">
                                 <div class="input-field col s12" style="margin-top: 25px !important;">
+                                    <input type="hidden" name="strItemCate"
+                                           value="Service"/>
                                     <input type="text" name="strItemName" id="crServiceName" required
                                            placeholder="Service Name"/>
                                     <label for="crServiceName" class="active"><b>Name</b><i
@@ -151,7 +153,7 @@
                                 </div>
                                 <div class="input-field col s6 offset-s6" style="margin-bottom: -15px !important;">
                                     <input type="text" class="validate right-align"
-                                           id="crServicePrice" name="dblItemPrice" required placeholder="P9.99"/>
+                                           id="crServicePrice" name="price" required placeholder="P9.99"/>
                                     <label for="crServicePrice" class="active"><b>Price</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
@@ -227,14 +229,14 @@
             String serviceCate = servID.getStrServiceCategory();
             double price = servID.getDblServicePrice();
             %>
-            <div id="serv<%=serviceID%>" class="servUpdateModal modal modal-fixed-footer">
+            <div id="serv${service.intServiceID}" class="servUpdateModal modal modal-fixed-footer">
                 <form class="col s12 updateservForm" method="post" id="updateservForm" action="updateItem"
                       enctype="multipart/form-data">
                     <div class="modal-content">
                         <!-- <div class="container"> -->
                         <div class="wrapper">
                             <div class="input-field col s12" style="margin-top: -5px !important;">
-                                <h4 class="grey-text center text-darken-1">Update Product<a id="btnServUpExit"
+                                <h4 class="grey-text center text-darken-1">Update Service<a id="btnServUpExit"
                                                                                             type="reset" value="Reset"
                                                                                             class="btnServUpExit modal-action modal-close"><i
                                         class="small material-icons right grey-text text-darken-4">close</i></a></h4>
@@ -277,6 +279,7 @@
                                 <div class="row">
                                     <div class="input-field col s12" style="margin-top: 25px !important;">
                                         <input type="hidden" name="intItemID" value="${service.intServiceID}">
+                                        <input type="hidden" name="strItemCate" value="service">
                                         <input value="${service.strServiceName}" type="text" name="strItemName"
                                                id="upServName" required
                                                placeholder="Product Name"/>
@@ -320,9 +323,9 @@
                                                 class="material-icons">add</i></a>
                                     </div>
                                     <div class="input-field col s6 offset-s6" style="margin-bottom: -15px !important;">
-                                        <input value="${service.dblServicePrice}" type="text"
+                                        <input type="text" value="<%=price%>"
                                                class="validate right-align servPrice"
-                                               id="upServPrice" name="dblItemPrice" required placeholder="P9.99"/>
+                                               id="upServPrice" name="price" required placeholder="P9.99"/>
                                         <label for="upServPrice" class="active"><b>Price</b><i
                                                 class="material-icons red-text tiny">error_outline</i></label>
                                     </div>
@@ -343,7 +346,7 @@
                         </button>
                         <button class="waves-effect waves-light purple darken-3 white-text btn-flat upServSubmitBtn"
                                 type="submit"
-                                value="Submit">CREATE
+                                value="Submit">UPDATE
                         </button>
                     </div>
                 </form>

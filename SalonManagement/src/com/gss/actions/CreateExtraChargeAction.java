@@ -8,12 +8,13 @@ public class CreateExtraChargeAction {
 
 	private String strECName;
 	private String strECDetails;
+	private double dblECPrice;
 	
 	public String execute(){
 		
 		ExtraChargeService service = new ExtraChargeServiceImpl();
 		
-		ExtraCharge extra = new ExtraCharge(1, strECName, strECDetails, 1);
+		ExtraCharge extra = new ExtraCharge(1, strECName, strECDetails, dblECPrice, 1);
 		
 		if(service.createExtraCharge(extra) == true)
 			return "success";
@@ -36,6 +37,14 @@ public class CreateExtraChargeAction {
 
 	public void setStrECDetails(String strECDetails) {
 		this.strECDetails = strECDetails;
+	}
+
+	public double getDblECPrice() {
+		return dblECPrice;
+	}
+
+	public void setDblECPrice(double dblECPrice) {
+		this.dblECPrice = dblECPrice;
 	}
 
 }

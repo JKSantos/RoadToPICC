@@ -16,6 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="icon" type="image/png" href="img/Salon_Icon.ico"/>
     <title>Product Sales</title>
+    
 </head>
 
 <body class="blue-grey lighten-5">
@@ -50,7 +51,7 @@
                         <ul>
                             <li><a href="transactions-inventory.jsp">Inventory</a></li>
                             <li><a href="transactions-reservation.jsp">Reservation</a></li>
-                            <li class="purple lighten-4"><a href="transactions-productorder.jsp">Product Sales</a></li>
+                            <li class="purple lighten-4"><a href="product-sales">Product Sales</a></li>
 
                             <li><a href="transactions-walkin.jsp">Walk In</a></li>
                         </ul>
@@ -118,26 +119,37 @@
                            style="border: 1px solid #bdbdbd; padding: 10px;" rowspan="10">
                         <thead>
                         <tr>
-                            <th></th>
                             <th>Name</th>
-                            <th>Description</th>
-                            <th>Price</th>
+                            <th>Address</th>
+                            <th>Contact Number</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
-                        <tfoot>
-                        <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                        </tr>
-                        </tfoot>
                         <tbody>
                         <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
+                            <td>John Angelo Barot</td>
+                            <td>Sto. Niño, Bulacan</td>
+                            <td>09999999999</td>
+                            <td>Delivery</td>
+                            <td>PENDING</td>
+                            <td class="center" style="padding:0; margin:0;">
+                            <a data-delay="30" data-position="bottom" data-tooltip="View Details"
+                               class="waves-effect waves-purple modal-viewall btn-flat transparent black-text tooltipped"
+                               href="#view" style="padding-left: 10px;padding-right:10px; margin: 5px;">
+                                <i class="material-icons">visibility</i>
+                            </a>
+                            <a data-delay="30" data-position="bottom" data-tooltip="Update Order"
+                               class="waves-effect waves-purple modal-trigger btn-flat transparent black-text tooltipped"
+                               href="#update" style="padding-left: 10px;padding-right:10px; margin: 5px;">
+                                <i class="material-icons">edit</i>
+                            </a>
+                            <a data-delay="30" data-position="bottom" data-tooltip="Cancel Order"
+                               class="waves-effect waves-purple modal-trigger btn-flat transparent red-text text-accent-4 tooltipped"
+                               href="#cancel" style="padding-left: 10px; padding-right:10px; margin: 5px;"
+                               title="Deactivate"><i class="material-icons">cancel</i></a>
+                        </td>	
                         </tr>
 
                         </tbody>
@@ -147,7 +159,7 @@
 
             <div id="CreateProdSaleModal" class="modal modal-fixed-footer"
                  style="width: 50% !important; height: 70% !important; max-height: 100% !important; margin-top: -40px;">
-                <form class="col s12" id="crProdSaleForm" name="createWalkinForm" method="post" action="createTag">
+                <form class="col s12" id="crProdSaleForm" name="createWalkinForm">
                     <div class="modal-content">
                         <div class="wrapper">
                             <h4 class="center grey-text text-darken-1">Create Order
@@ -185,6 +197,9 @@
                                         <div class="input-field col s6" id="crDivOrderLoc">
                                             <select name="strOrderLocation" id="crOrderLocation">
                                                 <option value="default">Choose...</option>
+                                                <c:forEach items="${locationList}" var="location">
+                                                	<option value="${location.intLocationID}">${location.strBarangay}, ${location.strCity}</option>
+                                                </c:forEach>
                                             </select>
                                             <label for="crOrderLocation"><b>Location</b><i
                                                     class="material-icons red-text tiny">error_outline</i></label>
@@ -227,19 +242,11 @@
                                                            style="margin-left: 10px !important;"/><label
                                                         style="margin: 0px !important; padding: 0px !important;"
                                                         for="check1"></label></td>
-                                                <td>BARTS</td>
+                                                <td></td>
                                                 <td>BARTS</td>
                                                 <td>1999</td>
                                             </tr>
                                             </tbody>
-                                            <tfoot>
-                                            <tr>
-                                                <th></th>
-                                                <th>Name</th>
-                                                <th>Description</th>
-                                                <th>Price</th>
-                                            </tr>
-                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>
@@ -260,7 +267,7 @@
                         </button>
                         <button type="submit" value="Submit" id="crCreateOrderBtn"
                                 class="action submitform waves-effect waves-light white-text btn-flat purple"
-                                style="margin-left:3px; margin-right:3px;">CREATE
+                                style="margin-left:3px; margin-right:3px;" onclick="createOrder()">CREATE
                         </button>
                     </div>
                 </form>
@@ -400,6 +407,151 @@
 <script type="text/javascript" src="./js/maintenance-emp.js"></script>
 <script type="text/javascript" src="./js/angular.min.js"></script>
 <script type="text/javascript" src="./js/productsales.js"></script>
+<script type="text/javascript" src="./js/sweetalert.min.js"></script>
+
+<script type="text/javascript">
+
+window.onload = updateProductTable();
+window.onload = updateOrderTable();
+
+function createOrder(){
+	
+	var name = $('#crOrderName').val();
+	var street = $('#crOrderStreet').val();
+	var location = $('#crOrderLocation').val();
+	var contact = $('#crOrderContact').val();
+	var type = $('#crOrderType').val();
+	var products = $("input[name='products']:checked").map(function() {
+		return this.value;}).get().toString();
+	var quantity = $("input[name='createPackProdQty']").map(function(){
+		return this.value;}).get().toString();
+	
+	$.ajax({
+		type : "POST",
+		url : "createOrder",
+		dataType : "json",
+		async : "true",
+		data : {
+			"strName" : name,
+			"strStreet" : street,
+			"intLocationID" : location,
+			"strContactNo" : contact,
+			"orderType" : type,
+			"selectedProducts" : products,
+			"productQuantity" : quantity
+		},
+		success: function(data){
+			
+			if(data.status==="success"){
+				swal("Success!", "Your order was successfully processed!", "success");
+		   		$('#CreateProdSaleModal').closeModal();
+			}
+			else if(data.status==="failed"){
+				Materialize.toast('An error was occured while saving the order!', 3000, 'rounded');
+		   		
+			}
+		},
+		error: function(data){
+			Materialize.toast('Fatal Error was occurred, please contact your system administrator to fix this.', 3000, 'rounded');
+	   		
+		}
+		
+	});
+}
+
+function updateProductTable(){
+	
+	$.ajax({ 
+		type : "POST",
+		url : "getAllProduct",
+		dataType : "json",
+		async : true,
+		success : function(data){
+			
+			if (data.productList != null){
+				var table = $('#prodsaleCRTable').DataTable();
+				table.clear().draw();
+				
+				$.each(data.productList, function(i, product){
+					
+					var checkbox = "<input type='checkbox' class='filled-in center' name='products' id='" + product.intProductID + "' value='" + product.intProductID + "' style='margin-left: 10px !important;'/><label style='margin: 0px !important; padding: 0px !important;' for='" + product.intProductID + "'></label>";
+	        		var quantity = "<input type='number' name='createPackProdQty' style='width: 75px' min='1' max='99'>"; 
+					
+					table.row.add( [
+    	        		            checkbox,
+    	        		            product.strProductName,
+    	        		            product.dblProductPrice,
+    	        		            quantity
+    	        		            ]);
+				});
+				table.draw();
+				
+			}
+		},
+		error : function(data){
+			Materialize.toast('Error occured.', 3000, 'rounded');
+		}
+	});
+	
+}
+
+function updateOrderTable(){
+	
+	$.ajax({ 
+		type : "POST",
+		url : "orders",
+		dataType : "json",
+		async : true,
+		success : function(data){
+			
+			if (data.orderList != null){
+				var table = $('#prodsaleTable').DataTable();
+				table.clear().draw();
+				
+				$.each(data.orderList, function(i, order){
+					
+					var a = "<a data-delay='30' data-position='bottom' data-tooltip='View Details' class='waves-effect waves-purple modal-viewall btn-flat transparent black-text tooltipped' href='#view' style='padding-left: 10px;padding-right:10px; margin: 5px;'><i class='material-icons'>visibility</i></a>";
+                    var b = "<a data-delay='30' data-position='bottom' data-tooltip='Update Order'";
+                    var c = "class='waves-effect waves-purple modal-trigger btn-flat transparent black-text tooltipped'";
+                    var d = "href='#update' style='padding-left: 10px;padding-right:10px; margin: 5px;'><i class='material-icons'>edit</i></a>'";
+                    var e = "<a data-delay='30' data-position='bottom' data-tooltip='Cancel Order'";
+                    var f = "class='waves-effect waves-purple modal-trigger btn-flat transparent red-text tooltipped'";
+                    var g = "href='#cancel' style='padding-left: 10px;padding-right:10px; margin: 5px;' title='Deactivate'><i class='material-icons'>cancel</i></a>";   
+                    
+                    var buttons = a + b + c + d + e + f + g;
+                    
+					var type = order.intType;
+					var strType = "";
+					var status = order.intStatus;
+					var strStatus = "";
+					
+					if(type == 1)
+						strType = "DELIVERY";
+					else
+						strType = "PICK-UP";
+
+					table.row.add( [
+    	        		            order.strName,
+    	        		            order.strAddress,
+    	        		            order.strContactNo,
+    	        		            strType,
+    	        		            strStatus,
+    	        		            buttons
+    	        		            ]);
+				});
+				table.draw();
+				updateOrderTable();
+				
+			}
+		},
+		error : function(data){
+			Materialize.toast('Error occured.', 3000, 'rounded');
+		}
+	});
+	
+}
+
+</script>
 
 <script type="text/javascript">
     $(document).ready(function () {

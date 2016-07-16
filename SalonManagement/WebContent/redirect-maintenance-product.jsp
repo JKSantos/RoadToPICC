@@ -8,7 +8,7 @@
 </head>
 <body>
 	<%
-		String action="productServiceMaintenance.action";
+		String action="productMaintenance";
     	response.sendRedirect(action);
 		
 	%>

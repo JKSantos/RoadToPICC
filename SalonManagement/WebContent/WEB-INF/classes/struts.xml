@@ -26,7 +26,8 @@
 	<include file="struts-catalogue.xml"></include>
 	<include file="struts-inventory.xml"></include>
 	<include file="struts-tiles.xml"></include>
-	
+	<include file="struts-api.xml"></include>
+	<include file="struts-productsales.xml"></include>
 
 	<package name="default" extends="struts-default, json-default" namespace="/">
 		<result-types>
@@ -37,7 +38,7 @@
 		<action name="getProducts" class="com.gss.actions.ReservationTransactionAction" method="execute">
 			<result name="success">transactions-productorder.jsp</result>
 		</action>
-
+		
 		<action name="getImage" class="com.gss.actions.GetImageAction">
 		</action>
 		
@@ -55,6 +56,10 @@
 			<result name="success">admin-home.jsp</result>
 			<result name="input">loginform.jsp</result>
 		</action>  
+		
+		<action name="getAllProduct" class="com.gss.actions.Product.GetAllProduct" method="execute">
+			<result name="success" type="json"></result>
+		</action>
 		   
 	</package>
 </struts>

@@ -8,6 +8,7 @@ import com.gss.service.ProductService;
 import com.gss.service.ProductServiceImpl;
 import com.gss.service.ServiceService;
 import com.gss.service.ServiceServiceImpl;
+import com.gss.utilities.PriceFormatHelper;
 
 public class CreateServProdAction {
 	
@@ -18,39 +19,42 @@ public class CreateServProdAction {
 	private String strItemName;
 	private String strItemDetails;
 	private String strItemCategory;
-	private Double dblItemPrice;
+	private String price;
 	private String imageName;
 	
-	public String execute(){
+	public String execute() throws Exception{
 
 		boolean isRecorded = false;
 		String path = file.getAbsolutePath();
-
+		double dblItemPrice = PriceFormatHelper.convertToDouble(price, "Php ");
+		System.out.print(dblItemPrice);
+		
+		
 		if(strItemCate.equalsIgnoreCase("Product")){
 			
-			Product product = new Product(1, strItemName, strItemCategory, strItemDetails, 0, null, dblItemPrice, path, 1);
+			Product product = new Product(1, strItemName.trim().toUpperCase(), strItemCategory, strItemDetails.trim().toUpperCase(), 0, null, dblItemPrice, path, 1);
 		
 			ProductService prodService = new ProductServiceImpl();
 		
 			isRecorded = prodService.createProduct(product);
+			
+			if(isRecorded == true)
+				return "success"; 
+			else
+				return "failed";
 		}
 		else{
 			
-			Service service = new Service(1, strItemName, strItemCategory, 1, strItemDetails, dblItemPrice, null, path);
+			Service service = new Service(1, strItemName.trim().toUpperCase(), strItemCategory, 1, strItemDetails.trim().toUpperCase(), dblItemPrice, null, path);
 		
 			ServiceService servService = new ServiceServiceImpl();
 		
 			isRecorded = servService.createService(service);
-		}
-
-		if(isRecorded == true){
 			
-			System.out.print("success");
-			return "success"; 
-		}
-		else{
-			System.out.print("failed");
-			return "failed";
+			if(isRecorded == true)
+				return "service"; 
+			else
+				return "serviceF";
 		}
 	}
 	
@@ -110,12 +114,13 @@ public class CreateServProdAction {
 		this.strItemCategory = strItemCategory;
 	}
 
-	public Double getDblItemPrice() {
-		return dblItemPrice;
+
+	public String getPrice() {
+		return price;
 	}
 
-	public void setDblItemPrice(Double dblItemPrice) {
-		this.dblItemPrice = dblItemPrice;
+	public void setPrice(String price) {
+		this.price = price;
 	}
 
 	public String getImageName() {

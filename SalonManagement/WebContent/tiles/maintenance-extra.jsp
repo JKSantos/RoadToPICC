@@ -22,19 +22,11 @@
                                     <tr>
                                         <th><center>Charge Name</center></th>
                                         <th><center>Description</center></th>
+                                        <th><center>Price</center></th>
                                         <th><center>Action</center></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                   <!--  <tr>
-                                        <td>1</td>
-                                        <td>Additional 20km</td>
-                                        <td>20km +</td>
-                                        <td>01/01/01</td>
-                                        <td><a class="waves-effect waves-light modal-trigger btn-flat transparent black-text" title="Update" href="#update" style="padding: 0px;"><i class="material-icons">edit</i></a>
-                                        <a class="waves-effect waves-light modal-trigger btn-flat transparent red-text text-accent-4" href="#delete" title="Deactivate"><i class="material-icons">delete</i></a>
-                                        </td>
-                                    </tr> -->
                                     <c:forEach items="${ecList}" var="extracharge">
                                       <tr>
                                       <%
@@ -44,6 +36,7 @@
 
                                         <td style="padding:0; margin:0;"><center>${extracharge.strECName}</center></td>
                                         <td style="padding:0; margin:0;"><center>${extracharge.strECDetails}</center></td>
+                                        <td style="padding:0; margin:0;"><center>${extracharge.dblECPrice}</center></td>
                                         <td class="center" style="padding:0; margin:0;"><center>
                                         <a data-delay="30" data-position="bottom" data-tooltip="View" class="tooltipped waves-effect waves-light modal-trigger btn-flat transparent black-text" href="#ec${extracharge.intECID}" style="padding-left: 10px;padding-right:10px; margin: 5px;">
                                         <i class="material-icons">visibility</i></a>
@@ -77,6 +70,10 @@
                                             <div class="input-field col s12">
                                                 <textarea id="createEChargeDesc" name="strECDetails" class="materialize-textarea tooltipped noSpace" maxlength="30" minlength="5" data-delay="30" data-position="bottom" data-tooltip="Description" placeholder="Description"></textarea>
                                                 <label for="createEChargeDesc" class="active">Description<span class="red-text">*</span></label>
+                                            </div>
+                                            <div class="input-field col s12">
+                                               	<input type="text" class="validate tooltipped specialname noSpace" id="createECPrice" name="dblECPrice" required data-tooltip="Price" placeholder="99.99">
+                                                <label for="createECPrice" class="active">Price<span class="red-text">*</span></label>
                                             </div>
                                     </div>
                               </div>

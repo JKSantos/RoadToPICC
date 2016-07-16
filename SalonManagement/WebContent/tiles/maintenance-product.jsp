@@ -119,6 +119,8 @@
                         <div class="aside aside2 z-depth-0">
                             <div class="row">
                                 <div class="input-field col s12" style="margin-top: 25px !important;">
+                                     <input type="hidden" name="strItemCate"
+                                           value="Product"/>
                                     <input type="text" name="strItemName" id="crItemName" required
                                            placeholder="Product Name"/>
                                     <label for="crItemName" class="active"><b>Name</b><i
@@ -148,11 +150,12 @@
                                             class="material-icons">add</i></a>
                                 </div>
                                 <div class="input-field col s6 offset-s6" style="margin-bottom: -15px !important;">
-                                    <input type="text" class="validate right-align"
-                                           id="crItemPrice" name="dblItemPrice" required placeholder="P9.99"/>
-                                    <label for="crItemPrice" class="active"><b>Price</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
-                                </div>
+                                        <input value="${product.dblProductPrice}" type="text"
+                                               class="validate right-align upProdItemPrice"
+                                               id="ItemPrice" name="price" required placeholder="P9.99"/>
+                                        <label for="ItemPrice" class="active"><b>Price</b><i
+                                                class="material-icons red-text tiny">error_outline</i></label>
+                                    </div>
                             </div>
                         </div>
                     </div>
@@ -273,6 +276,7 @@
                                 <div class="row">
                                     <div class="input-field col s12" style="margin-top: 25px !important;">
                                         <input type="hidden" name="intItemID" value="<%=strProdID%>">
+                                        <input type="hidden" name="strItemCate" value="Product">
                                         <input value="${product.strProductName}" type="text" name="strItemName"
                                                id="upItemName" required
                                                placeholder="Product Name"/>
@@ -319,8 +323,8 @@
                                     <div class="input-field col s6 offset-s6" style="margin-bottom: -15px !important;">
                                         <input value="${product.dblProductPrice}" type="text"
                                                class="validate right-align upProdItemPrice"
-                                               id="upItemPrice" name="dblItemPrice" required placeholder="P9.99"/>
-                                        <label for="upItemPrice" class="active"><b>Price</b><i
+                                               id="ItemPrice" name="price" required placeholder="P9.99"/>
+                                        <label for="ItemPrice" class="active"><b>Price</b><i
                                                 class="material-icons red-text tiny">error_outline</i></label>
                                     </div>
                                 </div>
@@ -339,7 +343,7 @@
                         </button>
                         <button class="waves-effect waves-light purple darken-3 white-text btn-flat upProdSubmitBtn"
                                 type="submit"
-                                value="Submit">CREATE
+                                value="Submit">UPDATE
                         </button>
                     </div>
                 </form>

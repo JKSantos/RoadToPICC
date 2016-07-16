@@ -34,7 +34,7 @@ public class UpdateEmployeeAction extends ActionSupport{
 	private String filename;
 	private List<String> selectedJob;
 	private String imageName;
-	private boolean chkGrantAccess;
+	private String chkGrantAccess = "off";
 	
 	public String execute(){
 		
@@ -43,6 +43,11 @@ public class UpdateEmployeeAction extends ActionSupport{
 		strBirthdate = "March/9/1996";
 		String[] unConvertedDate = strBirthdate.split("/");
 		
+		boolean access = false;
+		
+		if(chkGrantAccess.equalsIgnoreCase("on"))
+			access = true;
+		
 		List<Job> jobList = new JobQualificationHelper().convertToJob(this.selectedJob);
 		
 		this.strBirthdate = new DateHelper().convert(unConvertedDate);
@@ -50,11 +55,11 @@ public class UpdateEmployeeAction extends ActionSupport{
 		this.datEmpBirthdate = DateHelper.parseDate(strBirthdate);
 		
 		if(imageName.equals("image")){
-			emp = new Employee(intEmpID, strEmpLastName.trim().toUpperCase(), strEmpFirstName.trim().toUpperCase(), strEmpMiddleName.trim().toUpperCase(), datEmpBirthdate, strEmpGender, strEmpAddress.trim().toUpperCase(), strEmpContactNo, strEmpEmail, "A", "NO ACCESS", "NO ACCESS", "Image", null, jobList, chkGrantAccess);
+			emp = new Employee(intEmpID, strEmpLastName.trim().toUpperCase(), strEmpFirstName.trim().toUpperCase(), strEmpMiddleName.trim().toUpperCase(), datEmpBirthdate, strEmpGender, strEmpAddress.trim().toUpperCase(), strEmpContactNo, strEmpEmail, "A", "NO ACCESS", "NO ACCESS", "Image", null, jobList, access);
 		}
 		else{
 			imageName = file.getAbsolutePath();
-			emp = new Employee(intEmpID, strEmpLastName.trim().toUpperCase(), strEmpFirstName.trim().toUpperCase(), strEmpMiddleName.trim().toUpperCase(), datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, "A", "NO ACCESS", "NO ACCESS", imageName, null, jobList, chkGrantAccess);
+			emp = new Employee(intEmpID, strEmpLastName.trim().toUpperCase(), strEmpFirstName.trim().toUpperCase(), strEmpMiddleName.trim().toUpperCase(), datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, "A", "NO ACCESS", "NO ACCESS", imageName, null, jobList, access);
 		}
 		
 		if(empService.updateEmployee(emp) == true)
@@ -221,13 +226,9 @@ public class UpdateEmployeeAction extends ActionSupport{
 	}
 
 
-	public boolean isChkGrantAccess() {
-		return chkGrantAccess;
-	}
-
-
-	public void setChkGrantAccess(boolean chkGrantAccess) {
+	public void setChkGrantAccess(String chkGrantAccess) {
 		this.chkGrantAccess = chkGrantAccess;
 	}
+
 	
 }

@@ -43,7 +43,7 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 		String createDetails 						= "CALL createDetail(?, ?, ?)";
 		
 		try{
-			con.setAutoCommit(false);
+//			con.setAutoCommit(false);
 			
 			PreparedStatement insertProductSales 	= con.prepareStatement(createProductSales);
 			PreparedStatement insertDetails 		= con.prepareStatement(createDetails);
@@ -58,10 +58,11 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 			insertProductSales.setString(6, sales.getStrContactNo());
 			salesID = insertProductSales.executeQuery();
 			
+			
 			while(salesID.next()){
 				intID = salesID.getInt(1);
 			}
-			
+			System.out.println(intID + "<<<<<<<<<<<<<");
 			for(int intCtr = 0; intCtr < sales.getProductList().size(); intCtr++){
 				insertDetails.setInt(1, intID);
 				insertDetails.setInt(2, sales.getProductList().get(intCtr).getProduct().getIntProductID());
@@ -73,14 +74,12 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 			insertProductSales.close();
 			salesID.close();
 			insertDetails.close();
-			con.commit();
 			con.close();
 			return true;
 		}
 		catch(Exception e){
 			
 			e.printStackTrace();
-			con.rollback();
 			con.close();
 			
 			return false;
@@ -141,8 +140,8 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 	public List<ProductSales> getAllProductSales() {
 		Connection con = jdbc.getConnection();
 		
-		String getAllOrder 					= "SELECT * FROM tblOrder;";
-		String getAllDet 					= "SELECT * FROM tblOrderDetail WHERE intOrderID = ?";
+		String getAllOrder 					= "SELECT * FROM tblOrder WHERE strOrderStatus <> 'CANCELLED' ;";
+		String getAllDet 					= "SELECT * FROM tblOrderDetails WHERE intOrderID = ?";
 		
 		try{
 			ProductService service = new ProductServiceImpl();
@@ -199,6 +198,7 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 			orders.close();
 			
 			con.close();
+			System.out.println(salesList.size());
 			return salesList;
 		}
 		catch(Exception e){

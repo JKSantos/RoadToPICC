@@ -7,7 +7,7 @@
 <title>Unauthorized Access</title>
 </head>
 <body>
-	<center><h5>Oops! You are not authorized to login to this page, only those who are granted a privileged access can login.</h5></center></center>
-
+	<center><h3>Oops! You are not authorized to login to this page, only those who are granted a privileged access can login.</h3></center></center>
+	<center><a href="loginform.jsp">OK</a></center>
 </body>
 </html>

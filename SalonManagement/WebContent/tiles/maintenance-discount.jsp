@@ -150,7 +150,7 @@
                 </div>
 
                 <!-- Modal Structure -->
-                <div id="create" class="modal modal-fixed-footer">
+                <div id="create" class="modal modal-fixed-footer" style="width: 75% !important; height: 92% !important; margin-top: -23px !important; max-height: 100% !important;">
                     <form class="col s12" method="get" action="createDiscount" id="createDiscountForm">
                         <div class="modal-content">
                             <!-- <div class="container"> -->
@@ -160,7 +160,10 @@
                                     <div class="input-field col s12" style="margin-bottom: 30px;">
                                         <label class="red-text"> (*) Indicates required field</label>
                                     </div>
-                                    <div class="input-field col s12" style="margin-top: 20px !important;">
+                                    
+                                    <div class="aside aside1 z-depth-barts" style="padding: 10px;">
+                                    <div class="row">
+                                            <div class="input-field col s12" style="margin-top: 20px !important;">
                                         <input type="text" name="strDiscountName"
                                                class="validate tooltipped specialname noSpace" id="discountName"
                                                required data-delay="30" data-position="bottom"
@@ -196,6 +199,8 @@
                                                placeholder="Discount Amount" pattern="^[0-9]$" maxlength="10">
                                         <label for="createDiscPrice">Amount<span class="red-text">*</span></label>
                                     </div>
+                                    </div>
+                                  </div>
                                 </div>
                             </div>
                         </div>

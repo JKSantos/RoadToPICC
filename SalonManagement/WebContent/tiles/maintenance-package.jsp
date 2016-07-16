@@ -124,7 +124,7 @@
                       <!-- end view product and service modal -->
 
                       <!-- Modal Structure -->
-                        <div id="create" class="modal modal-fixed-footer">
+                        <div id="create" class="modal modal-fixed-footer" style="width: 75% !important; height: 92% !important; margin-top: -23px !important; max-height: 100% !important;">
                         <form class="col s12" id="createPackageForm" method="get" action="createPackage">
                           <div class="modal-content">
                             <!-- <div class="container"> -->
@@ -132,80 +132,51 @@
                                   <h4 class="grey-text text-darken-1">Create Package</h4>
                                   <div class="aside aside1 z-depth-barts" style="padding: 10px;">
                                     <div class="row">
-                                            <h5 class="grey-text text-darken-1">Package Information</h5>
                                             <div class="input-field col s12" style="margin-bottom: 30px;">
-                                                <label class="red-text"> (*) Indicates required field</label>
-                                            </div>
-                                            <div class="input-field col s12">
-                                                <input type="text" class="validate noSpace" id="createPackageName" name="strPackageName" required placeholder="Package Name">
-                                                <label for="createPackageName" class="active">Package Name<span class="red-text">*</span></label>
-                                            </div>
-                                            <div class="input-field col s12">
-                                                <textarea id="createPackageDesc" name="strPackageDesc" class="materialize-textarea noSpace" length="120" placeholder="Description"></textarea>
-                                                <label for="createPackageDesc" class="active">Description</label>
-                                            </div>
-                                            <div class="input-field col s6">
-                                              <select id="createPackageType" name="intPackageType" required multiple>
-                                                <option disabled selected>Choose your option</option>
-                                                <option value="1">Event</option>
-                                                <option value="2">Home Service</option>
-                                                <option value="3">Walk-In</option>
-                                              </select>
-                                              <label for="createPackageType">Type<span class="red-text">*</span></label>
-                                            </div>
-                                            
-                                            <div class="input-field col s6" >
-                                                <input type="text" class="validate right-align amountFormat noSpace" id="createPackagePrice" placeholder="99.99" readonly>
-                                                <label for="createPackagePrice" class="active">Total Accumulated Price</label>
-                                            </div>
-                                            <div class="input-field col s3 offset-s9" >
-                                                <input name="dblPackagePrice" type="text" class="validate right-align amountFormat noSpace" id="createPackagePrice" required placeholder="99.99">
-                                                <label for="createPackagePrice" class="active">Price<span class="red-text">*</span></label>
-                                            </div>
+                                        <label class="red-text"> (*) Indicates required field</label>
+                                    </div>
+                                    <div class="input-field col s12" style="margin-top: 20px !important;">
+                                        <input type="text" name="strDiscountName"
+                                               class="validate tooltipped specialname noSpace" id="discountName"
+                                               required data-delay="30" data-position="bottom"
+                                               data-tooltip="Ex: Student Discount<br/>( At least 5 or more characters )"
+                                               pattern="^[a-zA-Z\-'`\s]{5,}$" minlength="5" maxlength="20"
+                                               placeholder="Discount Name">
+                                        <label for="discountName" class="active">Discount Name<span
+                                                class="red-text">*</span></label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <textarea id="discountDesc" name="strDiscountDetails"
+                                                  class="tooltipped materialize-textarea noSpace" maxlength="30"
+                                                  data-delay="30" data-position="bottom"
+                                                  data-tooltip="Ex: Valid ID is required<br/>( At least 5 or more characters )"
+                                                  minlength="5" placeholder="Description"></textarea>
+                                        <label for="discountDesc">Description</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <select class="browser-default" required id="createDiscAmtType"
+                                                name="strDiscountType">
+                                            <option value="" selected disabled></option>
+                                            <option value="1">Percentage</option>
+                                            <option value="2">Fixed Amount</option>
+                                        </select>
+                                        <label for="createDiscAmtType" class="active">Type<span
+                                                class="red-text">*</span></label>
+                                    </div>
+                                    <div class="input-field col s4 offset-s2">
+                                        <input type="text"
+                                               class="validate right-align tooltipped specialprice noSpace amountFormat"
+                                               id="createDiscPrice" required name="dblDiscountPrice" data-delay="30"
+                                               data-position="bottom" data-tooltip="Ex: 99.99<br/>( Numbers only )"
+                                               placeholder="Discount Amount" pattern="^[0-9]$" maxlength="10">
+                                        <label for="createDiscPrice">Amount<span class="red-text">*</span></label>
+                                    </div>
                                     </div>
                                   </div>
                                   <div class="aside aside2 z-depth-barts" style="padding: 10px;">
                                       <div class="row">
                                         <!-- service -->
                                           <h5 class="grey-text text-darken-1">Included Service/s and Product/s</h5>
-                                          <!--<div class="input-field col s8">
-                                              <p style="color:#9e9e9e;font-size:12px;">Service</p>
-                                          </div>
-                                          <div class="input-field col s6" style="margin-top: -1px;">
-                                              <select class="browser-default fillone" id="createPackageService">
-                                                    <option value="Choose..." disabled selected>Choose</option>
-                                                    <c:forEach items="${serviceList}" var="service">
-                                                        <option value="${service.strServiceName}">${service.strServiceName}</option>
-                                                    </c:forEach>
-                                                </select>
-                                          </div>
-                                          <div class="input-field col s3" style="margin-top: -1px;">
-                                              <input type="number" id="createPackageServiceQty" name="createPackageServiceQty" class="validate" min="0">
-                                              <label for="createPackageServiceQty">Qty</label>
-                                          </div>
-                                          <div class="input-field col s3 left-align" style="margin-top: -1px;">
-                                              <a class="waves-effect waves-light btn-flat purple" id="createPackageAddSvc" onclick="createPackageService()"><i class="material-icons white-text">add</i></a>
-                                          </div> -->
-                                          <!--product  -->
-                                          <!--<div class="input-field col s8">
-                                              <p style="color:#9e9e9e;font-size:12px;">Product </p>
-                                          </div>
-                                          <div class="input-field col s6" style="margin-top: -1px;">
-                                              <select class="browser-default fillone" id="createPackageProduct">
-                                                    <option value="Choose..." disabled selected>Choose</option>
-                                                    <c:forEach items="${productList}" var="product">
-                                                        <option value="${product.strProductName}">${product.strProductName}</option>
-                                                    </c:forEach>
-                                                </select>
-                                          </div>
-                                          <div class="input-field col s3" style="margin-top: -1px;">
-                                              <input type="number" id="createPackageProductQty" name="createPackageProductQty" class="validate" min="0">
-                                              <label for="createPackageProductQty">Qty</label>
-                                          </div>
-                                          <div class="input-field col s3 left-align" style="margin-top: -1px;">
-                                              <a class="waves-effect waves-light btn-flat purple" onclick="createPackageProduct()"><i class="material-icons white-text">add</i></a>
-                                          </div>-->
-
 
                                           <ul class="collapsible popout" data-collapsible="accordion">
                                             <li>

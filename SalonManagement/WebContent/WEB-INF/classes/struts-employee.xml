@@ -28,15 +28,7 @@
 
 		<action name="updateEmployee" class="com.gss.actions.UpdateEmployeeAction" method="execute">
 			<result name="success">empMaintenanceRedirect.jsp</result>
-			<result name="failed">maintenance-emp.jsp</result>
-		</action>
-	
-		<action name="getAllEmployee" class="com.gss.actions.GetAllEmployee" method="execute">
-			<result name="success" type="json"/>
-		</action>
-		
-		<action name="getEmployeeByID" class="com.gss.actions.Employee.GetEmployeeByIDAction" method="execute">
-			<result name="success" type="json"/>
+			<result name="failed" type="tiles">employeePage</result>
 		</action>
 		
 		<action name="deactivateEmployee" class="com.gss.actions.DeactivateEmployeeAction" method="execute">
