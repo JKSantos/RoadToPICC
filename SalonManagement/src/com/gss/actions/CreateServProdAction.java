@@ -26,8 +26,7 @@ public class CreateServProdAction {
 
 		boolean isRecorded = false;
 		String path = file.getAbsolutePath();
-		double dblItemPrice = PriceFormatHelper.convertToDouble(price, "Php ");
-		System.out.print(dblItemPrice);
+		double dblItemPrice = PriceFormatHelper.convertToDouble((price + "0"), "Php ");
 		
 		
 		if(strItemCate.equalsIgnoreCase("Product")){

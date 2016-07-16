@@ -518,8 +518,16 @@ String granAccess = null;
                                                     <i class="material-icons">add</i></button>
                                             </div>
                                             <div class="input-field col s12" style="margin-top: -15px !important;">
-                                                <input type="checkbox" name="chkGrantAccess" id="chkupGrantAccess${employee.intEmpID}"
-                                                       class="filled-in" style="color: purple;"/>
+                                            	<c:choose>
+                                            		<c:when test="${employee.accessGranted == true}">	
+                                                		<input type="checkbox" name="chkGrantAccess" checked id="chkupGrantAccess${employee.intEmpID}"
+                                                       		class="filled-in" style="color: purple;"/>
+                                                	</c:when>
+                                                	<c:otherwise>
+                                                		<input type="checkbox" name="chkGrantAccess" id="chkupGrantAccess${employee.intEmpID}"
+                                                       		class="filled-in" style="color: purple;"/>
+                                                	</c:otherwise>
+                                                </c:choose>
                                                 <label for="chkupGrantAccess${employee.intEmpID}"><b>Grant Access</b></label>
                                             </div>
                                         </div>

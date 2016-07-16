@@ -3,18 +3,21 @@ package com.gss.actions;
 import com.gss.model.ExtraCharge;
 import com.gss.service.ExtraChargeService;
 import com.gss.service.ExtraChargeServiceImpl;
+import com.gss.utilities.PriceFormatHelper;
 
 public class UpdateExtraChargeAction {
 	
 	private int intECID;
 	private String strECName;
 	private String strECDetails;
+	private String price;
 	
-	public String execute(){
+	public String execute() throws Exception{
 
-		ExtraChargeService service = new ExtraChargeServiceImpl();
 		
-		ExtraCharge extra = new ExtraCharge(intECID, strECName, strECDetails, 1);
+		double dblPrice = PriceFormatHelper.convertToDouble((price + "0"), "Php ");
+		ExtraChargeService service = new ExtraChargeServiceImpl();
+		ExtraCharge extra = new ExtraCharge(intECID, strECName, strECDetails, dblPrice, intECID);
 		
 		if(service.updateExtraCharge(extra) == true)
 			return "success";
@@ -45,6 +48,14 @@ public class UpdateExtraChargeAction {
 
 	public void setStrECDetails(String strECDetails) {
 		this.strECDetails = strECDetails;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
 	}
 	
 	
