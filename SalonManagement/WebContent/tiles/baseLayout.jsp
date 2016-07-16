@@ -80,6 +80,7 @@
                         <ul>
                             <li><a href="employeeMaintenance">Employee</a></li>
                             <li><a href="productMaintenance">Product</a></li>
+                            <li><a href="serviceMaintenance">Service</a></li>
                             <li><a href="packageMaintenance">Package</a></li>
                             <li><a href="locationMaintenance">Delivery Charge</a></li>
                             <li><a href="extraChargeMaintenance">Other Charge</a></li>
@@ -162,6 +163,20 @@
         margin-top: -20px !important;
     }
 
+    #createService {
+        width: 600px !important;
+        height: 535px !important;
+        max-height: 100% !important;
+        margin-top: -20px !important;
+    }
+
+    .servUpdateModal {
+        width: 600px !important;
+        height: 535px !important;
+        max-height: 100% !important;
+        margin-top: -20px !important;
+    }
+
     .prodUpdateModal {
         width: 600px !important;
         height: 535px !important;
@@ -194,6 +209,16 @@
     }
 
     #crProdAddCate {
+        width: 400px !important;
+        height: 400px !important;
+    }
+
+    #crServAddCateModal {
+        width: 400px !important;
+        height: 400px !important;
+    }
+
+    .upServAddCatModal {
         width: 400px !important;
         height: 400px !important;
     }
@@ -328,9 +353,22 @@
     });
 
     $('.prodPrice').priceFormat({
-       prefix: 'Php ',
+        prefix: 'Php ',
         centsSeparator: '.',
         thousandsSeparator: ','
+    });
+
+    $('.servPrice').priceFormat({
+        prefix: 'Php ',
+        centsSeparator: '.',
+        thousandsSeparator: ','
+    });
+
+    $('#crServicePrice').priceFormat({
+        prefix: 'Php ',
+        centsSeparator: '.',
+        thousandsSeparator: ',',
+        limit: 9
     });
 
 

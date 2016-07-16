@@ -20,6 +20,10 @@
 		<action name="productMaintenance" class="com.gss.actions.CreateProductServiceAction" method="execute">
 			<result name="success" type="tiles">products</result>
 		</action>
+
+		<action name="serviceMaintenance" class="com.gss.actions.CreateProductServiceAction" method="execute">
+			<result name="success" type="tiles">service</result>
+		</action>
 		
 		<action name="createProdServ" class="com.gss.actions.CreateServProdAction" method="execute">
 			<result name="success">redirect-maintenance-product.jsp</result>

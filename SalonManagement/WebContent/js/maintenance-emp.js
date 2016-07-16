@@ -54,6 +54,25 @@ $(document).ready(function () {
     });
 });
 
+$(document).ready(function () {
+    var servtable = $('#servtbl').DataTable({
+        "bLengthChange": false,
+        "sPaginationType": "full_numbers",
+        responsive: true,
+        "order": [],
+        "columnDefs": [
+            {"targets": 'no-sort', "orderable": false},
+            {"targets": [4], "width": "150px"},
+            {"targets": [0], "width": "200px"}
+        ],
+        "rowHeight": '10px'
+    });
+
+    $("#servSearch").bind('keyup search input paste cut', function () {
+        servtable.search(this.value).draw();
+    });
+});
+
 
 $(document).ready(function () {
     $('#serviceTable').DataTable({
@@ -210,6 +229,14 @@ $('#btnProdCrExit').click(function () {
     $('select').material_select();
 });
 
+$('#btnServCrExit').click(function () {
+    $('#crServiceCategory .crServAddCatOpt').remove();
+    $('#createServiceForm').trigger("reset");
+    $('#createServAddCatForm').trigger("reset");
+    $('.crserverrorcontainer').hide();
+    $('select').material_select();
+});
+
 $('.btnProdUpExit').click(function () {
     $('.upItemCategory .upProdAddCatOpt').remove();
     $('.updateProdForm').trigger("reset");
@@ -218,11 +245,35 @@ $('.btnProdUpExit').click(function () {
     $('select').material_select();
 });
 
+$('.btnServUpExit').click(function () {
+    $('.updateServCategory .upServAddCatOpt').remove();
+    $('.updateservForm').trigger("reset");
+    $('.upServAddCatForm').trigger("reset");
+    $('.upserverrorcontainer').hide();
+    $('select').material_select();
+});
+
 $('#crProdCancel').click(function () {
     $('#crItemCategory .crAddCatOpt').remove();
     $('#createProductForm').trigger("reset");
     $('#createAddCatForm').trigger("reset");
     $('.crproderrorcontainer').hide();
+    $('select').material_select();
+});
+
+$('.upServCancel').click(function () {
+    $('.updateServCategory .upServAddCatOpt').remove();
+    $('.updateservForm').trigger("reset");
+    $('.upServAddCatForm').trigger("reset");
+    $('.upserverrorcontainer').hide();
+    $('select').material_select();
+});
+
+$('#crServCancel').click(function () {
+    $('#crServiceCategory .crServAddCatOpt').remove();
+    $('#createServiceForm').trigger("reset");
+    $('#createServAddCatForm').trigger("reset");
+    $('.crserverrorcontainer').hide();
     $('select').material_select();
 });
 
@@ -364,6 +415,29 @@ $('#upAddProdCatBtn').click(function () {
     }
 });
 
+$('#createServAddCatBtn').click(function () {
+    var crServAddCatOpt = "crServAddCatOpt";
+    if ($('#createServAddCatForm').valid()) {
+        $('select').material_select('destroy');
+        var addservcat = $('#crServAddCatName').val();
+        $('#crServiceCategory').append('<option selected class="' + crServAddCatOpt + '">' + addservcat + '</option>').attr('value', addservcat);
+        $('select').material_select();
+
+        $('#crServAddCateModal').closeModal();
+    }
+});
+
+$('.updateServAddCatBtn').click(function () {
+    var upServAddCatOpt = "upServAddCatOpt";
+    if ($('.upServAddCatForm').valid()) {
+        $('select').material_select('destroy');
+        var upservcat = $('.upServAddCatName').val();
+        $('.updateServCategory').append('<option selected class="' + upServAddCatOpt + '">' + upservcat + '</option>').attr('value', upservcat);
+        $('select').material_select();
+
+        $('.upServAddCatModal').closeModal();
+    }
+});
 
 //
 // $(document).ready(function(){
@@ -969,6 +1043,22 @@ function updateProdImage(input) {
 
 $(".upProdImg").change(function () {
     updateProdImage(this);
+});
+
+function updateServImage(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('.updateServImage').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$(".upServImg").change(function () {
+    updateServImage(this);
 });
 
 

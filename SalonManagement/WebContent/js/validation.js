@@ -692,85 +692,304 @@ $(".upProdAddCateForm").each(function () {
 //UPDATE CREATE NEW CATEGORY END
 
 // UPDATE SERVICE FORM
-$(".updateServForm").each(function () {
-    $(this).validate({
+$(document).ready(function () {
+
+    $('#createServiceForm').validate({
+
 
         submitHandler: function () {
-            Materialize.toast('Successfully Created!', 5000, 'green');
+            swal("Successfully created!", "", "success")
             $(form).ajaxSubmit();
+
+            // Materialize.toast('Successfully Created!', 5000, 'green');
+
+
         },
+        errorClass: 'invalid',
+        validClass: 'valid',
+        errorElement: 'div',
+        errorLabelContainer: '.crserverrorcontainer',
         errorPlacement: function (error, element) {
             // Append error within linked label
             $(element)
                 .closest("form")
-                .find("label[for='" + element.attr("id") + "']")
-                .append(error);
+                .find("label[for='" + element.attr("id") + "']");
         },
-        errorElement: "span",
         rules: {
-            strItemCate: {
-                required: true
-            },
             strItemName: {
                 required: true,
+                regx: "^[A-Za-z0-9 -#'`\s]+$",
+                noSpace: true,
                 minlength: 5
             },
             strItemDetails: {
-                minlength: 5
+                required: true,
+                noSpace: true,
+                minlength: 2
             },
             strItemCategory: {
-                required: true
+                required: true,
+                valueNotEquals: "default"
             },
             dblItemPrice: {
-                required: true
+                required: true,
             }
         },
         messages: {
-            strItemCate: {
-                required: " (Required)"
-            },
             strItemName: {
-                required: " (Required)",
-                minlength: " (Must be at least 5 letters)"
+                required: "<span class='white-text'><b>Name</b>: Required</span><br/>",
+                regx: "<span class='white-text'><b>Name</b>: Invalid characters</span><br/>",
+                noSpace: "<span class='white-text'><b>Name</b>: Empty Field</span><br/>",
+                minlength: "<span class='white-text'><b>Name</b>: Minimum of 5 letters</span><br/>"
             },
             strItemDetails: {
-                minlength: " (Must be at least 5 letters)"
+                required: "<span class='white-text'><b>Details</b>: Required</span><br/>",
+                noSpace: "<span class='white-text'><b>Details</b>: Empty Field</span><br/>",
+                minlength: "<span class='white-text'><b>Details</b>: Minimum of 2 letters</span><br/>"
             },
             strItemCategory: {
-                required: " (Required)"
+                required: "<span class='white-text'><b>Category</b>: Required</span><br/>",
+                valueNotEquals: "<span class='white-text'><b>Category</b>: Required</span><br/>"
             },
             dblItemPrice: {
-                required: " (Required)"
+                required: "<span class='white-text'><b>Price</b>: Required</span><br/>"
             }
         }
 
     });
-    jQuery.validator.addMethod("specialname", function (value, element) {
-        return this.optional(element) || /([a-zA-Z-`'\s])$/.test(value);
-    }, "<span class='red-text'> (A-z ` - ' are allowed)</span>");
 
-    jQuery.validator.addMethod("specialprodsvc", function (value, element) {
-        return this.optional(element) || /([a-zA-Z-`'\s])$/.test(value);
-    }, "<span class='red-text'> (A-z - are allowed)</span>");
+    $('form').on('submit', function (e) {
+        $(".error_note").remove();
+        var select = $(this).find('select').filter("[required=required]");
+        $.each(select, function (index, elm) {
+            val = $(this).val();
+            target = $(this).closest('.input-field');
+            if (typeof target !== "undefined") {
+                input_target = target.find('input.select-dropdown');
+                if (typeof input_target !== "undefined") {
+                    if (val == '' || val == false || val == 0 || val == null) {
 
-    jQuery.validator.addMethod("specialaddress", function (value, element) {
-        return this.optional(element) || /([#A-Za-z0-9\s.,-])$/.test(value);
-    }, "<span class='red-text'> (A-z 0-9 . , - # are allowed)</span>");
+                        input_target.css({'border-color': '#EA454B', 'box-shadow': '0 1px 0 0 #EA454B'});
 
-    jQuery.validator.addMethod("specialprice", function (value, element) {
-        return this.optional(element) || /([0-9])$/.test(value);
-    }, "<span class='red-text'> (Numbers only)</span>");
+                        $('html,body').animate({scrollTop: $("body").offset().top}, 'slow');
+                        e.preventDefault();
 
-    jQuery.validator.addMethod("specialoption", function (value, element) {
-        return this.optional(element) || /([a-zA-Z\s])$/.test(value);
-    }, "<span class='red-text'> (Letters and spaces are allowed)</span>");
+                    } else {
+                        input_target.css({'border-color': '#9e9e9e'});
+                    }
 
-    jQuery.validator.addMethod("noSpace", function (value, element) {
+                }
+            }
+        });
+    });
+
+    $.validator.addMethod("regx", function(value, element, regexp){
+        var re = new RegExp(regexp);
+        return this.optional(element) || re.test(value);
+    });
+    $.validator.addMethod("noSpace", function (value, element) {
         return value.indexOf(" ") != "";
-    }, " (Empty field)");
+    });
+    $.validator.addMethod("valueNotEquals", function(value, element, arg){
+        return arg != value;
+    });
 });
 // UPDATE SERVICE FORM END
+//CREATE SERVICE ADD CATEGORY
+$(document).ready(function () {
+    $("#createServAddCatForm").validate({
 
+        errorClass: 'invalid',
+        validClass: 'valid',
+        errorElement: 'div',
+        errorLabelContainer: '.crservcat',
+        errorPlacement: function (error, element) {
+            // Append error within linked label
+            $(element)
+                .closest("form")
+                .find("label[for='" + element.attr("id") + "']");
+        },
+        rules: {
+            crServAddCatName: {
+                required: true,
+                regx: "^[A-Za-z -'`\s]+$",
+                noSpace: true,
+                minlength: 5
+            }
+        },
+        messages: {
+            crServAddCatName: {
+                required: "<span class='white-text'><b>Category Name</b>: Required</span><br/>",
+                regx: "<span class='white-text'><b>Category Name</b>: Invalid character</span><br/>",
+                noSpace: "<span class='white-text'><b>Category Name</b>: Empty Field</span><br/>",
+                minlength: "<span class='white-text'><b>Category Name</b>: Minimum of 5 characters</span><br/>",
+            }
+        }
+
+    });
+    $.validator.addMethod("regx", function(value, element, regexp){
+        var re = new RegExp(regexp);
+        return this.optional(element) || re.test(value);
+    });
+    $.validator.addMethod("noSpace", function (value, element) {
+        return value.indexOf(" ") != "";
+    });
+    $.validator.addMethod("valueNotEquals", function(value, element, arg){
+        return arg != value;
+    });
+});
+
+
+//UPDATE ADD SERVICE
+$('.updateservForm').each(function () {
+
+    $(this).validate({
+
+
+        submitHandler: function () {
+            swal("Successfully created!", "", "success")
+            $(form).ajaxSubmit();
+
+            // Materialize.toast('Successfully Created!', 5000, 'green');
+
+
+        },
+        errorClass: 'invalid',
+        validClass: 'valid',
+        errorElement: 'div',
+        errorLabelContainer: '.upserverrorcontainer',
+        errorPlacement: function (error, element) {
+            // Append error within linked label
+            $(element)
+                .closest("form")
+                .find("label[for='" + element.attr("id") + "']");
+        },
+        rules: {
+            strItemName: {
+                required: true,
+                regx: "^[A-Za-z0-9 -#'`\s]+$",
+                noSpace: true,
+                minlength: 5
+            },
+            strItemDetails: {
+                required: true,
+                noSpace: true,
+                minlength: 2
+            },
+            strItemCategory: {
+                required: true,
+                valueNotEquals: "default"
+            },
+            dblItemPrice: {
+                required: true,
+            }
+        },
+        messages: {
+            strItemName: {
+                required: "<span class='white-text'><b>Name</b>: Required</span><br/>",
+                regx: "<span class='white-text'><b>Name</b>: Invalid characters</span><br/>",
+                noSpace: "<span class='white-text'><b>Name</b>: Empty Field</span><br/>",
+                minlength: "<span class='white-text'><b>Name</b>: Minimum of 5 letters</span><br/>"
+            },
+            strItemDetails: {
+                required: "<span class='white-text'><b>Details</b>: Required</span><br/>",
+                noSpace: "<span class='white-text'><b>Details</b>: Empty Field</span><br/>",
+                minlength: "<span class='white-text'><b>Details</b>: Minimum of 2 letters</span><br/>"
+            },
+            strItemCategory: {
+                required: "<span class='white-text'><b>Category</b>: Required</span><br/>",
+                valueNotEquals: "<span class='white-text'><b>Category</b>: Required</span><br/>"
+            },
+            dblItemPrice: {
+                required: "<span class='white-text'><b>Price</b>: Required</span><br/>"
+            }
+        }
+
+    });
+
+    $('form').on('submit', function (e) {
+        $(".error_note").remove();
+        var select = $(this).find('select').filter("[required=required]");
+        $.each(select, function (index, elm) {
+            val = $(this).val();
+            target = $(this).closest('.input-field');
+            if (typeof target !== "undefined") {
+                input_target = target.find('input.select-dropdown');
+                if (typeof input_target !== "undefined") {
+                    if (val == '' || val == false || val == 0 || val == null) {
+
+                        input_target.css({'border-color': '#EA454B', 'box-shadow': '0 1px 0 0 #EA454B'});
+
+                        $('html,body').animate({scrollTop: $("body").offset().top}, 'slow');
+                        e.preventDefault();
+
+                    } else {
+                        input_target.css({'border-color': '#9e9e9e'});
+                    }
+
+                }
+            }
+        });
+    });
+
+    $.validator.addMethod("regx", function(value, element, regexp){
+        var re = new RegExp(regexp);
+        return this.optional(element) || re.test(value);
+    });
+    $.validator.addMethod("noSpace", function (value, element) {
+        return value.indexOf(" ") != "";
+    });
+    $.validator.addMethod("valueNotEquals", function(value, element, arg){
+        return arg != value;
+    });
+});
+//UPDATE ADD SERVICE END
+//UPDATE ADD SERVICE CATEGORY
+$('.upServAddCatForm').each(function () {
+    $(this).validate({
+
+        errorClass: 'invalid',
+        validClass: 'valid',
+        errorElement: 'div',
+        errorLabelContainer: '.upservcat',
+        errorPlacement: function (error, element) {
+            // Append error within linked label
+            $(element)
+                .closest("form")
+                .find("label[for='" + element.attr("id") + "']");
+        },
+        rules: {
+            upServAddCatName: {
+                required: true,
+                regx: "^[A-Za-z -'`\s]+$",
+                noSpace: true,
+                minlength: 5
+            }
+        },
+        messages: {
+            upServAddCatName: {
+                required: "<span class='white-text'><b>Category Name</b>: Required</span><br/>",
+                regx: "<span class='white-text'><b>Category Name</b>: Invalid character</span><br/>",
+                noSpace: "<span class='white-text'><b>Category Name</b>: Empty Field</span><br/>",
+                minlength: "<span class='white-text'><b>Category Name</b>: Minimum of 5 characters</span><br/>",
+            }
+        }
+
+    });
+    $.validator.addMethod("regx", function(value, element, regexp){
+        var re = new RegExp(regexp);
+        return this.optional(element) || re.test(value);
+    });
+    $.validator.addMethod("noSpace", function (value, element) {
+        return value.indexOf(" ") != "";
+    });
+    $.validator.addMethod("valueNotEquals", function(value, element, arg){
+        return arg != value;
+    });
+});
+//UPDATE ADD SERVICE CATEGORY END
+
+//CREATE SERVICE ADD CATEGORY END
 // CREATE DISCOUNT
 $().ready(function () {
     $("#createDiscountForm").validate({
