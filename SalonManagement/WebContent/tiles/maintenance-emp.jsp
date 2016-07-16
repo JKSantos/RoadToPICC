@@ -339,7 +339,7 @@ String granAccess = null;
                                                                                      value="Reset"
                                                                                      class="btnUpdateExit modal-action modal-close"><i
                                 class="small material-icons right grey-text text-darken-4">close</i></a></h4>
-                        <div class="updateerror center input-field col s12 card red white-text z-depth-barts">
+                        <div class="updateerror center input-field col s12 card red white-text z-depth-barts" style="margin-top: -10px !important;">
 
                         </div>
                         <div class="row">
@@ -701,7 +701,7 @@ String granAccess = null;
             </div>
             <div class="modal-footer transparent">
                 <a href="#!"
-                   class="modal-action modal-close waves-effect waves-light purple-text text-lighten-1 btn-large z-depth-1"
+                   class="modal-action modal-close waves-effect waves-light purple-text text-lighten-1 btn-large z-depth-1 viewcloseempbtn"
                    style="background-color: transparent !important; border: 3px solid #ab47bc !important; border-radius: 10px !important;"><span
                         style="padding-top: -10px !important;"><i
                         class="material-icons left"><b>close</b></i><b>Close</b></span></a>

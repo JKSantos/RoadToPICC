@@ -272,6 +272,15 @@
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
     }
 
+    .viewEmpModal {
+        -webkit-animation-duration: 1.5s;
+        -webkit-animation-delay: 0s;
+        -o-animation-duration: 1.5s;
+        -o-animation-delay: 0s;
+        -moz-animation-duration: 1.5s;
+        -moz-animation-delay: 0s;
+    }
+
 </style>
 
 
@@ -377,7 +386,6 @@
         limit: 9
     });
 
-    $('.viewEmpModal').addClass('animated flipInY');
 
 </script>
 
