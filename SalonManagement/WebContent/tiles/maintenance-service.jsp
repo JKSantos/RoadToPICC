@@ -7,9 +7,9 @@
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
             <h3 class="grey-text center text-darken-1">Service Maintenance</h3>
-            <a class="z-depth-1 waves-effect waves-light modal-trigger btn-flat purple darken-2 left white-text"
+            <a class="btnshadow z-depth-1 waves-effect waves-light modal-trigger btn-flat purple darken-2 left white-text"
                href="#createService" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">add</i></a>
-            <a class="z-depth-1 waves-effect waves-light modal-trigger btn-flat purple darken-2 left white-text"
+            <a class="btnshadow z-depth-1 waves-effect waves-light modal-trigger btn-flat purple darken-2 left white-text"
                href="#empArchive" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">archive</i></a>
             <nav class="right white  z-depth-1" style="width: 300px; margin-right: 20px;">
                 <div class="nav-wrapper col s4">

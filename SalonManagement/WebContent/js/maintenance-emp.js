@@ -44,7 +44,8 @@ $(document).ready(function () {
         "columnDefs": [
             {"targets": 'no-sort', "orderable": false},
             {"targets": [4], "width": "150px"},
-            {"targets": [0], "width": "200px"}
+            {"targets": [0], "width": "200px"},
+            {"targets": [2], render: $.fn.dataTable.render.ellipsis(30)}
         ],
         "rowHeight": '10px'
     });
@@ -63,7 +64,9 @@ $(document).ready(function () {
         "columnDefs": [
             {"targets": 'no-sort', "orderable": false},
             {"targets": [4], "width": "150px"},
-            {"targets": [0], "width": "200px"}
+            {"targets": [0], "width": "200px"},
+            {"targets": [2], "width": "300px"},
+            {"targets": [2], render: $.fn.dataTable.render.ellipsis(40)}
         ],
         "rowHeight": '10px'
     });
