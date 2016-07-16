@@ -24,7 +24,8 @@
                     </form>
                 </div>
             </nav>
-            <table id="servtbl" class="hoverable z-depth-1 cell-border row-border display centered responsive-table highlight"
+            <table id="servtbl"
+                   class="hoverable z-depth-1 cell-border row-border display centered responsive-table highlight"
                    cellspacing="0" width="100%"
                    style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;" rowspan="10">
                 <thead>
@@ -58,13 +59,14 @@
                                 <i class="material-icons">visibility</i>
                             </a>
                             <a class="waves-effect waves-purple modal-trigger btn-flat transparent black-text"
-                               href="#serv${service.intServiceID}" style="padding-left: 10px;padding-right:10px; margin: 5px;">
+                               href="#serv${service.intServiceID}"
+                               style="padding-left: 10px;padding-right:10px; margin: 5px;">
                                 <i class="material-icons">edit</i>
                             </a>
-                            <a class="waves-effect waves-purple modal-trigger btn-flat transparent red-text text-accent-4"
-                               href="#del<%=strService%>" style="padding-left: 10px;padding-right:10px; margin: 5px;">
+                            <button class="servdeacbtn waves-effect waves-purple btn-flat transparent red-text text-accent-4"
+                                   id="${service.intServiceID}" style="padding-left: 10px;padding-right:10px; margin: 5px;">
                                 <i class="material-icons">delete</i>
-                            </a>
+                            </button>
                         </td>
                     </tr>
                 </c:forEach>
@@ -311,7 +313,8 @@
                                                 selectedService = "";
                                                 }
                                                 %>
-                                                <option value="${service}" <%out.println(selectedService);%>>${service}</option>
+                                                <option value="${service}"
+                                                <%out.println(selectedService);%>>${service}</option>
                                             </c:forEach>
                                         </select>
                                         <label for="updateServCategory"><b>Category</b><i
@@ -395,55 +398,7 @@
 
         <!-- add category END -->
 
-        <c:forEach items="${productList}" var="product">
-            <%
-            Product prod = (Product)pageContext.getAttribute("product");
-            String prodID = String.valueOf(prod.getIntProductID());
-            %>
-            <div id="del<%=prodID%>" class="modal" style="width: 30% !important;">
-                <form action="deactivateItem" method="get">
-                    <div class="container">
-                        <div class="modal-content">
-                            <div class="row">
-                                <h5 class="red-text">Warning!</h5>
-                                <p class="center">Are you sure?</p>
-                            </div>
-                        </div>
-                        <div class="col s12 center" style="margin-bottom: 30px;">
-                            <input type="hidden" name="intItemID" value="${product.intProductID}">
-                            <button class="waves-effect waves-light purple btn-flat white-text">YES</button>
-                            <a href="#"
-                               class="modal-action modal-close waves-effect waves-purple transparent btn-flat black-text">NO</a>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </c:forEach>
 
-        <c:forEach items="${serviceList}" var="service">
-            <%
-            Service serv = (Service)pageContext.getAttribute("service");
-            String servID = String.valueOf(serv.getIntServiceID());
-            %>
-            <div id="del<%=servID%>" class="modal" style="width: 30% !important;">
-                <form method="get" action="deactivateService">
-                    <div class="container">
-                        <div class="modal-content">
-                            <div class="row">
-                                <h5 class="red-text">Warning!</h5>
-                                <p class="center">Are you sure?</p>
-                            </div>
-                        </div>
-                        <div class="col s12 center" style="margin-bottom: 30px;">
-                            <input type="hidden" name="intItemID" value="${service.intServiceID}">
-                            <button class="waves-effect waves-light purple btn-flat white-text">YES</button>
-                            <a href="#"
-                               class="modal-action modal-close waves-effect waves-purple transparent btn-flat black-text">NO</a>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </c:forEach>
         <!--                     <div class="aside aside2 z-depth-barts">
 
         </div> -->

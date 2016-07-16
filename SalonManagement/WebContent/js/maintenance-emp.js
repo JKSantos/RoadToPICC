@@ -1124,3 +1124,71 @@ $('#emptbl').on('click', '.empdeacbtn', function (e) {
 
 
 });
+
+
+$('#prodtbl').on('click', '.proddeacbtn', function (e) {
+    e.returnValue = false;
+    var proddeacbtn = $(this).attr('id');
+    console.log(proddeacbtn);
+    var proddata = {
+        'intItemID': proddeacbtn
+    }
+    var $tr = $(this).closest('tr');
+
+    swal({
+            title: "Are you sure?",
+            text: "",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        },
+        function () {
+            swal("Deleted!", ".", "success");
+            $.ajax({
+                type: 'post',
+                url: 'deactivateItem',
+                data: proddata,
+                success: function (response) {
+                    $tr.find('td').fadeOut(1000,function(){
+                        $tr.remove();
+                    });
+                }
+            });
+        });
+});
+
+
+$('#servtbl').on('click', '.servdeacbtn', function (e) {
+    e.returnValue = false;
+    var servdeacbtn = $(this).attr('id');
+    console.log(servdeacbtn);
+    var servdata = {
+        'intItemID': servdeacbtn
+    }
+    var $tr = $(this).closest('tr');
+
+    swal({
+            title: "Are you sure?",
+            text: "",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        },
+        function () {
+            swal("Deleted!", ".", "success");
+            $.ajax({
+                type: 'post',
+                url: 'deactivateService',
+                data: servdata,
+                success: function (response) {
+                    $tr.find('td').fadeOut(1000,function(){
+                        $tr.remove();
+                    });
+                }
+            });
+        });
+});

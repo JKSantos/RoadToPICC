@@ -24,7 +24,8 @@
                     </form>
                 </div>
             </nav>
-            <table id="prodtbl" class="hoverable z-depth-1 cell-border row-border display centered responsive-table highlight"
+            <table id="prodtbl"
+                   class="hoverable z-depth-1 cell-border row-border display centered responsive-table highlight"
                    cellspacing="0" width="100%"
                    style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;" rowspan="10">
                 <thead>
@@ -60,10 +61,10 @@
                                href="#prod<%=string%>" style="padding-left: 10px;padding-right:10px; margin: 5px;">
                                 <i class="material-icons">edit</i>
                             </a>
-                            <a class="waves-effect waves-purple modal-trigger btn-flat transparent red-text text-accent-4"
-                               href="#del<%=string%>" style="padding-left: 10px;padding-right:10px; margin: 5px;">
+                            <button class="proddeacbtn waves-effect waves-purple btn-flat transparent red-text text-accent-4"
+                                    id="${product.intProductID}" style="padding-left: 10px;padding-right:10px; margin: 5px;">
                                 <i class="material-icons">delete</i>
-                            </a>
+                            </button>
                         </td>
                     </tr>
                 </c:forEach>
@@ -85,7 +86,8 @@
                     <!-- <div class="container"> -->
                     <div class="wrapper">
                         <div class="input-field col s12" style="margin-top: -5px !important;">
-                            <h4 class="grey-text center text-darken-1">Create Product<a id="btnProdCrExit" type="reset" value="Reset"
+                            <h4 class="grey-text center text-darken-1">Create Product<a id="btnProdCrExit" type="reset"
+                                                                                        value="Reset"
                                                                                         class="modal-action modal-close"><i
                                     class="small material-icons right grey-text text-darken-4">close</i></a></h4>
                         </div>
@@ -119,7 +121,7 @@
                         <div class="aside aside2 z-depth-0">
                             <div class="row">
                                 <div class="input-field col s12" style="margin-top: 25px !important;">
-                                     <input type="hidden" name="strItemCate"
+                                    <input type="hidden" name="strItemCate"
                                            value="Product"/>
                                     <input type="text" name="strItemName" id="crItemName" required
                                            placeholder="Product Name"/>
@@ -150,12 +152,12 @@
                                             class="material-icons">add</i></a>
                                 </div>
                                 <div class="input-field col s6 offset-s6" style="margin-bottom: -15px !important;">
-                                        <input value="${product.dblProductPrice}" type="text"
-                                               class="validate right-align upProdItemPrice"
-                                               id="ItemPrice" name="price" required placeholder="P9.99"/>
-                                        <label for="ItemPrice" class="active"><b>Price</b><i
-                                                class="material-icons red-text tiny">error_outline</i></label>
-                                    </div>
+                                    <input value="${product.dblProductPrice}" type="text"
+                                           class="validate right-align upProdItemPrice"
+                                           id="ItemPrice" name="price" required placeholder="P9.99"/>
+                                    <label for="ItemPrice" class="active"><b>Price</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -234,7 +236,8 @@
                         <!-- <div class="container"> -->
                         <div class="wrapper">
                             <div class="input-field col s12" style="margin-top: -5px !important;">
-                                <h4 class="grey-text center text-darken-1">Update Product<a id="btnProdUpExit" type="reset" value="Reset"
+                                <h4 class="grey-text center text-darken-1">Update Product<a id="btnProdUpExit"
+                                                                                            type="reset" value="Reset"
                                                                                             class="btnProdUpExit modal-action modal-close"><i
                                         class="small material-icons right grey-text text-darken-4">close</i></a></h4>
                             </div>
@@ -337,7 +340,8 @@
                                 class="material-icons">error_outline</i>&nbspRequired field
                         </button>
                         <button type="reset" value="Reset" id="upProdCancel"
-                                class="upProdCancel modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL
+                                class="upProdCancel modal-action modal-close waves-effect waves-purple transparent btn-flat">
+                            CANCEL
                         </button>
                         <button class="waves-effect waves-light purple darken-3 white-text btn-flat upProdSubmitBtn"
                                 type="submit"
@@ -351,55 +355,7 @@
 
         <!-- add category END -->
 
-        <c:forEach items="${productList}" var="product">
-            <%
-            Product prod = (Product)pageContext.getAttribute("product");
-            String prodID = String.valueOf(prod.getIntProductID());
-            %>
-            <div id="del<%=prodID%>" class="modal" style="width: 30% !important;">
-                <form action="deactivateItem" method="get">
-                    <div class="container">
-                        <div class="modal-content">
-                            <div class="row">
-                                <h5 class="red-text">Warning!</h5>
-                                <p class="center">Are you sure?</p>
-                            </div>
-                        </div>
-                        <div class="col s12 center" style="margin-bottom: 30px;">
-                            <input type="hidden" name="intItemID" value="${product.intProductID}">
-                            <button class="waves-effect waves-light purple btn-flat white-text">YES</button>
-                            <a href="#"
-                               class="modal-action modal-close waves-effect waves-purple transparent btn-flat black-text">NO</a>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </c:forEach>
 
-        <c:forEach items="${serviceList}" var="service">
-            <%
-            Service serv = (Service)pageContext.getAttribute("service");
-            String servID = String.valueOf(serv.getIntServiceID());
-            %>
-            <div id="del<%=servID%>" class="modal" style="width: 30% !important;">
-                <form method="get" action="deactivateService">
-                    <div class="container">
-                        <div class="modal-content">
-                            <div class="row">
-                                <h5 class="red-text">Warning!</h5>
-                                <p class="center">Are you sure?</p>
-                            </div>
-                        </div>
-                        <div class="col s12 center" style="margin-bottom: 30px;">
-                            <input type="hidden" name="intItemID" value="${service.intServiceID}">
-                            <button class="waves-effect waves-light purple btn-flat white-text">YES</button>
-                            <a href="#"
-                               class="modal-action modal-close waves-effect waves-purple transparent btn-flat black-text">NO</a>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </c:forEach>
         <!--                     <div class="aside aside2 z-depth-barts">
 
         </div> -->
