@@ -37,6 +37,15 @@
                     <th class="dt-head-center">Actions</th>
                 </tr>
                 </thead>
+                <tfoot style="border: 0.5px solid #bdbdbd;">
+                <tr>
+                    <th class="dt-head-left">Name</th>
+                    <th class="dt-head-left">Category</th>
+                    <th class="dt-head-left">Detail</th>
+                    <th class="dt-head-right">Price</th>
+                    <th class="dt-head-center">Actions</th>
+                </tr>
+                </tfoot>
                 <tbody>
                 <c:forEach items="${serviceList}" var="service">
                     <%! String strService =null; %>

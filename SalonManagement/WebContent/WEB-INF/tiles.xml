@@ -35,7 +35,7 @@
     
     <definition name="location" extends="baseLayout">
         <put-attribute name="title"			value="Location"/>
-        <put-attribute name="body"			value="/tiles/maintenance-location.jsp"/>
+        <put-attribute name="body"			value="/tiles/maintenance-delivery.jsp"/>
     </definition>
 	
 	<definition name="catalogue" extends="baseLayout">

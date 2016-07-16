@@ -177,6 +177,20 @@
         margin-top: -20px !important;
     }
 
+    #createDeliveryModal {
+        width: 400px !important;
+        height: 435px !important;
+        max-height: 100% !important;
+        margin-top: -20px !important;
+    }
+
+    .updateDeliveryModal {
+        width: 400px !important;
+        height: 435px !important;
+        max-height: 100% !important;
+        margin-top: -20px !important;
+    }
+
     .servUpdateModal {
         width: 600px !important;
         height: 535px !important;
@@ -384,6 +398,8 @@
         centsSeparator: '.',
         thousandsSeparator: ','
     });
+
+
 
     $('#crServicePrice').priceFormat({
         prefix: 'Php ',

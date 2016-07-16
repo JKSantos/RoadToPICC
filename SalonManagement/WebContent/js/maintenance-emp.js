@@ -76,71 +76,24 @@ $(document).ready(function () {
     });
 });
 
-
 $(document).ready(function () {
-    $('#serviceTable').DataTable({
+    var deliverytbl = $('#deliverytbl').DataTable({
         "bLengthChange": false,
+        "sPaginationType": "full_numbers",
         responsive: true,
-        columnDefs: [
-            {
-                targets: [0, 1, 2],
-                className: 'mdl-data-table__cell--non-numeric'
-            }
-        ]
+        "order": [],
+        "columnDefs": [
+            {"targets": 'no-sort', "orderable": false}
+        ],
+        "rowHeight": '10px'
+    });
+
+    $("#deliverySearch").bind('keyup search input paste cut', function () {
+        deliverytbl.search(this.value).draw();
     });
 });
 
-$(document).ready(function () {
-    $('#discArchTable').DataTable({
-        "bLengthChange": false,
-        responsive: true,
-        columnDefs: [
-            {
-                targets: [0, 1, 2],
-                className: 'mdl-data-table__cell--non-numeric'
-            }
-        ]
-    });
-});
 
-$(document).ready(function () {
-    $('#empArchiveTable').DataTable({
-        "bLengthChange": false,
-        responsive: true,
-        columnDefs: [
-            {
-                targets: [0, 1, 2],
-                className: 'mdl-data-table__cell--non-numeric'
-            }
-        ]
-    });
-});
-
-$(document).ready(function () {
-    $('#prodsvcArchive').DataTable({
-        "bLengthChange": false,
-        responsive: true,
-        columnDefs: [
-            {
-                targets: [0, 1, 2],
-                className: 'mdl-data-table__cell--non-numeric'
-            }
-        ]
-    });
-});
-
-$(document).ready(function () {
-    $('#carArchivetable').DataTable({
-        "bLengthChange": false,
-        responsive: true,
-        columnDefs: [
-            {
-                targets: [0, 1, 2],
-                className: 'mdl-data-table__cell--non-numeric'
-            }
-        ]
-    });
-});
 
 // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
 $('.modal-trigger').leanModal({

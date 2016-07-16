@@ -989,484 +989,111 @@ $('.upServAddCatForm').each(function () {
 });
 //UPDATE ADD SERVICE CATEGORY END
 
-//CREATE SERVICE ADD CATEGORY END
-// CREATE DISCOUNT
-$().ready(function () {
-    $("#createDiscountForm").validate({
+//CREATE DELIVERY CHARGE
+$(document).ready(function () {
+
+    $('#createDeliveryForm').validate({
+
 
         submitHandler: function () {
-            Materialize.toast('Successfully Updated!', 5000, 'green');
+            swal("Successfully created!", "", "success")
             $(form).ajaxSubmit();
+
+            // Materialize.toast('Successfully Created!', 5000, 'green');
+
+
         },
+        errorClass: 'invalid',
+        validClass: 'valid',
+        errorElement: 'div',
+        errorLabelContainer: '.deliveryerrorcontainer',
         errorPlacement: function (error, element) {
             // Append error within linked label
             $(element)
                 .closest("form")
-                .find("label[for='" + element.attr("id") + "']")
-                .append(error);
+                .find("label[for='" + element.attr("id") + "']");
         },
-        errorElement: "span",
         rules: {
-            strDiscountName: {
+            strItemName: {
                 required: true,
+                regx: "^[A-Za-z0-9 -#'`\s]+$",
+                noSpace: true,
                 minlength: 5
             },
-            strDiscountDetails: {
-                minlength: 5
+            strItemDetails: {
+                required: true,
+                noSpace: true,
+                minlength: 2
             },
-            strDiscountType: {
-                required: true
+            strItemCategory: {
+                required: true,
+                valueNotEquals: "default"
+            },
+            dblItemPrice: {
+                required: true,
             }
         },
         messages: {
-            strDiscountName: {
-                required: " (Required)",
-                minlength: " (Must be at least 5 letters)"
+            strItemName: {
+                required: "<span class='white-text'><b>Name</b>: Required</span><br/>",
+                regx: "<span class='white-text'><b>Name</b>: Invalid characters</span><br/>",
+                noSpace: "<span class='white-text'><b>Name</b>: Empty Field</span><br/>",
+                minlength: "<span class='white-text'><b>Name</b>: Minimum of 5 letters</span><br/>"
             },
-            strDiscountDetails: {
-                minlength: " (Must be at least 5 letters)"
+            strItemDetails: {
+                required: "<span class='white-text'><b>Details</b>: Required</span><br/>",
+                noSpace: "<span class='white-text'><b>Details</b>: Empty Field</span><br/>",
+                minlength: "<span class='white-text'><b>Details</b>: Minimum of 2 letters</span><br/>"
             },
-            strDiscountType: {
-                required: " (Required)"
+            strItemCategory: {
+                required: "<span class='white-text'><b>Category</b>: Required</span><br/>",
+                valueNotEquals: "<span class='white-text'><b>Category</b>: Required</span><br/>"
             },
-            dblDiscountPrice: {
-                required: " (Required)"
+            dblItemPrice: {
+                required: "<span class='white-text'><b>Price</b>: Required</span><br/>"
             }
         }
 
     });
-    jQuery.validator.addMethod("specialname", function (value, element) {
-        return this.optional(element) || /([a-zA-Z-`'\s])$/.test(value);
-    }, "<span class='red-text'> (A-z ` - ' are allowed)</span>");
 
-    jQuery.validator.addMethod("specialprodsvc", function (value, element) {
-        return this.optional(element) || /([a-zA-Z-`'\s])$/.test(value);
-    }, "<span class='red-text'> (A-z - are allowed)</span>");
+    $('form').on('submit', function (e) {
+        $(".error_note").remove();
+        var select = $(this).find('select').filter("[required=required]");
+        $.each(select, function (index, elm) {
+            val = $(this).val();
+            target = $(this).closest('.input-field');
+            if (typeof target !== "undefined") {
+                input_target = target.find('input.select-dropdown');
+                if (typeof input_target !== "undefined") {
+                    if (val == '' || val == false || val == 0 || val == null) {
 
-    jQuery.validator.addMethod("specialaddress", function (value, element) {
-        return this.optional(element) || /([#A-Za-z0-9\s.,-])$/.test(value);
-    }, "<span class='red-text'> (A-z 0-9 . , - # are allowed)</span>");
+                        input_target.css({'border-color': '#EA454B', 'box-shadow': '0 1px 0 0 #EA454B'});
 
-    jQuery.validator.addMethod("specialprice", function (value, element) {
-        return this.optional(element) || /([0-9])$/.test(value);
-    }, "<span class='red-text'> (Numbers only)</span>");
+                        $('html,body').animate({scrollTop: $("body").offset().top}, 'slow');
+                        e.preventDefault();
 
-    jQuery.validator.addMethod("specialoption", function (value, element) {
-        return this.optional(element) || /([a-zA-Z\s])$/.test(value);
-    }, "<span class='red-text'> (Letters and spaces are allowed)</span>");
+                    } else {
+                        input_target.css({'border-color': '#9e9e9e'});
+                    }
 
-    jQuery.validator.addMethod("noSpace", function (value, element) {
-        return value.indexOf(" ") != "";
-    }, " (Empty field)");
-});
-// CREATE DISCOUNT END
-
-// UPDATE DISCOUNT
-$(".updateDiscountForm").each(function () {
-    $(this).validate({
-
-        submitHandler: function () {
-            Materialize.toast('Successfully Updated!', 5000, 'green');
-            $(form).ajaxSubmit();
-        },
-        errorPlacement: function (error, element) {
-            // Append error within linked label
-            $(element)
-                .closest("form")
-                .find("label[for='" + element.attr("id") + "']")
-                .append(error);
-        },
-        errorElement: "span",
-        rules: {
-            strDiscountName: {
-                required: true,
-                minlength: 5
-            },
-            strDiscountDetails: {
-                minlength: 5
-            },
-            strDiscountType: {
-                required: true
+                }
             }
-        },
-        messages: {
-            strDiscountName: {
-                required: " (Required)",
-                minlength: " (Must be at least 5 letters)"
-            },
-            strDiscountDetails: {
-                minlength: " (Must be at least 5 letters)"
-            },
-            strDiscountType: {
-                required: " (Required)"
-            },
-            dblDiscountPrice: {
-                required: " (Required)"
-            }
-        }
-
+        });
     });
-    jQuery.validator.addMethod("specialname", function (value, element) {
-        return this.optional(element) || /([a-zA-Z-`'\s])$/.test(value);
-    }, "<span class='red-text'> (A-z ` - ' are allowed)</span>");
 
-    jQuery.validator.addMethod("specialprodsvc", function (value, element) {
-        return this.optional(element) || /([a-zA-Z-`'\s])$/.test(value);
-    }, "<span class='red-text'> (A-z - are allowed)</span>");
-
-    jQuery.validator.addMethod("specialaddress", function (value, element) {
-        return this.optional(element) || /([#A-Za-z0-9\s.,-])$/.test(value);
-    }, "<span class='red-text'> (A-z 0-9 . , - # are allowed)</span>");
-
-    jQuery.validator.addMethod("specialprice", function (value, element) {
-        return this.optional(element) || /([0-9])$/.test(value);
-    }, "<span class='red-text'> (Numbers only)</span>");
-
-    jQuery.validator.addMethod("specialoption", function (value, element) {
-        return this.optional(element) || /([a-zA-Z\s])$/.test(value);
-    }, "<span class='red-text'> (Letters and spaces are allowed)</span>");
-
-    jQuery.validator.addMethod("noSpace", function (value, element) {
-        return value.indexOf(" ") != "";
-    }, " (Empty field)");
-});
-// UPDATE DISCOUNT END
-
-
-// UPDATE PRODUCT ADD CATEGORY
-$(".prodAddCatForm").each(function () {
-    $(this).validate({
-
-        submitHandler: function () {
-            var opt = $("#updateAddCatProdName").val();
-            $('#updateAddCatProdSelect')
-                .append($("<option></option>")
-                    .attr("value", opt)
-                    .text(opt));
-
-            $('.updateProdCategory')
-                .append($("<option selected></option>")
-                    .attr("value", opt)
-                    .text(opt));
-            alert("Successful!");
-            $('#addUpdateProdCategory').closeModal();
-            $(form).ajaxSubmit();
-        },
-        errorPlacement: function (error, element) {
-            // Append error within linked label
-            $(element)
-                .closest("form")
-                .find("label[for='" + element.attr("id") + "']")
-                .append(error);
-        },
-        errorElement: "span",
-        rules: {
-            updateAddCatProdName: {
-                required: true,
-                minlength: 5
-            }
-        },
-        messages: {
-            updateAddCatProdName: {
-                required: " (Required)",
-                minlength: " (Must be at least 5 letters)"
-            }
-        }
-
+    $.validator.addMethod("regx", function(value, element, regexp){
+        var re = new RegExp(regexp);
+        return this.optional(element) || re.test(value);
     });
-    jQuery.validator.addMethod("specialoption", function (value, element) {
-        return this.optional(element) || /([a-zA-Z\s])$/.test(value);
-    }, "<span class='red-text'> (Letters and spaces are allowed)</span>");
-
-    jQuery.validator.addMethod("noSpace", function (value, element) {
+    $.validator.addMethod("noSpace", function (value, element) {
         return value.indexOf(" ") != "";
-    }, " (Empty field)");
-});
-// UPDATE PRODUCT ADD CATEGORY END
-
-// UPDATE SERVICE ADD CATEGORY
-$(".updateAddCatServ").each(function () {
-    $(this).validate({
-
-        submitHandler: function () {
-            var opt = $("#updateAddCatProdName").val();
-            $('#updateAddCatProdSelect')
-                .append($("<option></option>")
-                    .attr("value", opt)
-                    .text(opt));
-
-            $('.updateProdCategory')
-                .append($("<option selected></option>")
-                    .attr("value", opt)
-                    .text(opt));
-            alert("Successful!");
-            $('#addUpdateProdCategory').closeModal();
-            $(form).ajaxSubmit();
-        },
-        errorPlacement: function (error, element) {
-            // Append error within linked label
-            $(element)
-                .closest("form")
-                .find("label[for='" + element.attr("id") + "']")
-                .append(error);
-        },
-        errorElement: "span",
-        rules: {
-            updateAddCatServName: {
-                required: true,
-                minlength: 5
-            }
-        },
-        messages: {
-            updateAddCatServName: {
-                required: " (Required)",
-                minlength: " (Must be at least 5 letters)"
-            }
-        }
-
     });
-    jQuery.validator.addMethod("specialoption", function (value, element) {
-        return this.optional(element) || /([a-zA-Z\s])$/.test(value);
-    }, "<span class='red-text'> (Letters and spaces are allowed)</span>");
-
-    jQuery.validator.addMethod("noSpace", function (value, element) {
-        return value.indexOf(" ") != "";
-    }, " (Empty field)");
-});
-// UPDATE SERVICE ADD CATEGORY END
-
-
-// CREATE CATALOGUE
-$().ready(function () {
-    $("#createCatalogueForm").validate({
-
-        submitHandler: function () {
-            Materialize.toast('Successfully Updated!', 5000, 'green');
-            $(form).ajaxSubmit();
-        },
-        errorPlacement: function (error, element) {
-            // Append error within linked label
-            $(element)
-                .closest("form")
-                .find("label[for='" + element.attr("id") + "']")
-                .append(error);
-        },
-        errorElement: "span",
-        rules: {
-            strCatalogueCategoryID: {
-                required: true
-            },
-            strCatalogueName: {
-                required: true
-            }
-        },
-        messages: {
-            strCatalogueCategoryID: {
-                required: " (Required)"
-            },
-            strCatalogueName: {
-                required: " (Required)"
-            }
-        }
-
+    $.validator.addMethod("valueNotEquals", function(value, element, arg){
+        return arg != value;
     });
-    jQuery.validator.addMethod("specialname", function (value, element) {
-        return this.optional(element) || /([a-zA-Z-`'\s])$/.test(value);
-    }, "<span class='red-text'> (A-z ` - ' are allowed)</span>");
-
-    jQuery.validator.addMethod("specialprodsvc", function (value, element) {
-        return this.optional(element) || /([a-zA-Z-`'\s])$/.test(value);
-    }, "<span class='red-text'> (A-z - are allowed)</span>");
-
-    jQuery.validator.addMethod("specialaddress", function (value, element) {
-        return this.optional(element) || /([#A-Za-z0-9\s.,-])$/.test(value);
-    }, "<span class='red-text'> (A-z 0-9 . , - # are allowed)</span>");
-
-    jQuery.validator.addMethod("specialprice", function (value, element) {
-        return this.optional(element) || /([0-9])$/.test(value);
-    }, "<span class='red-text'> (Numbers only)</span>");
-
-    jQuery.validator.addMethod("specialoption", function (value, element) {
-        return this.optional(element) || /([a-zA-Z\s])$/.test(value);
-    }, "<span class='red-text'> (Letters and spaces are allowed)</span>");
-
-    jQuery.validator.addMethod("noSpace", function (value, element) {
-        return value.indexOf(" ") != "";
-    }, " (Empty field)");
 });
-// CREATE CATALOGUE END
+//CREATE DELIVERY CHARGE END
 
-// UPDATE CATALOGUE
-$('.updateCataForm').each(function () {
-    $(this).validate({
-
-        submitHandler: function () {
-            Materialize.toast('Successfully Updated!', 5000, 'green');
-            $(form).ajaxSubmit();
-        },
-        errorPlacement: function (error, element) {
-            // Append error within linked label
-            $(element)
-                .closest("form")
-                .find("label[for='" + element.attr("id") + "']")
-                .append(error);
-        },
-        errorElement: "span",
-        rules: {
-            strCatalogueCategoryID: {
-                required: true
-            },
-            strCatalogueName: {
-                required: true
-            }
-        },
-        messages: {
-            strCatalogueCategoryID: {
-                required: " (Required)"
-            },
-            strCatalogueName: {
-                required: " (Required)"
-            }
-        }
-
-    });
-    jQuery.validator.addMethod("specialname", function (value, element) {
-        return this.optional(element) || /([a-zA-Z-`'\s])$/.test(value);
-    }, "<span class='red-text'> (A-z ` - ' are allowed)</span>");
-
-    jQuery.validator.addMethod("specialprodsvc", function (value, element) {
-        return this.optional(element) || /([a-zA-Z-`'\s])$/.test(value);
-    }, "<span class='red-text'> (A-z - are allowed)</span>");
-
-    jQuery.validator.addMethod("specialaddress", function (value, element) {
-        return this.optional(element) || /([#A-Za-z0-9\s.,-])$/.test(value);
-    }, "<span class='red-text'> (A-z 0-9 . , - # are allowed)</span>");
-
-    jQuery.validator.addMethod("specialprice", function (value, element) {
-        return this.optional(element) || /([0-9])$/.test(value);
-    }, "<span class='red-text'> (Numbers only)</span>");
-
-    jQuery.validator.addMethod("specialoption", function (value, element) {
-        return this.optional(element) || /([a-zA-Z\s])$/.test(value);
-    }, "<span class='red-text'> (Letters and spaces are allowed)</span>");
-
-    jQuery.validator.addMethod("noSpace", function (value, element) {
-        return value.indexOf(" ") != "";
-    }, " (Empty field)");
-});
-// UPDATE CATALOGUE END
-
-// CREATE OTHER CHARGE
-$().ready(function () {
-    $("#createExtraForm").validate({
-
-        submitHandler: function () {
-            Materialize.toast('Successfully Updated!', 5000, 'green');
-            $(form).ajaxSubmit();
-        },
-        errorPlacement: function (error, element) {
-            // Append error within linked label
-            $(element)
-                .closest("form")
-                .find("label[for='" + element.attr("id") + "']")
-                .append(error);
-        },
-        errorElement: "span",
-        rules: {
-            strECName: {
-                required: true,
-                minlength: 5
-            }
-        },
-        messages: {
-            strECName: {
-                required: " (Required)",
-                minlength: " (Must be at least 5 letters)"
-            }
-        },
-    });
-    jQuery.validator.addMethod("specialname", function (value, element) {
-        return this.optional(element) || /([a-zA-Z-`'\s])$/.test(value);
-    }, "<span class='red-text'> (A-z ` - ' are allowed)</span>");
-
-    jQuery.validator.addMethod("specialprodsvc", function (value, element) {
-        return this.optional(element) || /([a-zA-Z-`'\s])$/.test(value);
-    }, "<span class='red-text'> (A-z - are allowed)</span>");
-
-    jQuery.validator.addMethod("specialaddress", function (value, element) {
-        return this.optional(element) || /([#A-Za-z0-9\s.,-])$/.test(value);
-    }, "<span class='red-text'> (A-z 0-9 . , - # are allowed)</span>");
-
-    jQuery.validator.addMethod("specialprice", function (value, element) {
-        return this.optional(element) || /([0-9])$/.test(value);
-    }, "<span class='red-text'> (Numbers only)</span>");
-
-    jQuery.validator.addMethod("specialoption", function (value, element) {
-        return this.optional(element) || /([a-zA-Z\s])$/.test(value);
-    }, "<span class='red-text'> (Letters and spaces are allowed)</span>");
-
-    jQuery.validator.addMethod("noSpace", function (value, element) {
-        return value.indexOf(" ") != "";
-    }, " (Empty field)");
-});
-
-// CREATE OTHER CHARGE END
-
-
-// UPDATE OTHER CHARGE
-$('.updateExtraForm').each(function () {
-    $(this).validate({
-
-        submitHandler: function () {
-            Materialize.toast('Successfully Updated!', 5000, 'green');
-            $(form).ajaxSubmit();
-        },
-        errorPlacement: function (error, element) {
-            // Append error within linked label
-            $(element)
-                .closest("form")
-                .find("label[for='" + element.attr("id") + "']")
-                .append(error);
-        },
-        errorElement: "span",
-        rules: {
-            strECName: {
-                required: true,
-                minlength: 5
-            }
-        },
-        messages: {
-            strECName: {
-                required: " (Required)",
-                minlength: " (Must be at least 5 letters)"
-            }
-        },
-    });
-    jQuery.validator.addMethod("specialname", function (value, element) {
-        return this.optional(element) || /([a-zA-Z-`'\s])$/.test(value);
-    }, "<span class='red-text'> (A-z ` - ' are allowed)</span>");
-
-    jQuery.validator.addMethod("specialprodsvc", function (value, element) {
-        return this.optional(element) || /([a-zA-Z-`'\s])$/.test(value);
-    }, "<span class='red-text'> (A-z - are allowed)</span>");
-
-    jQuery.validator.addMethod("specialaddress", function (value, element) {
-        return this.optional(element) || /([#A-Za-z0-9\s.,-])$/.test(value);
-    }, "<span class='red-text'> (A-z 0-9 . , - # are allowed)</span>");
-
-    jQuery.validator.addMethod("specialprice", function (value, element) {
-        return this.optional(element) || /([0-9])$/.test(value);
-    }, "<span class='red-text'> (Numbers only)</span>");
-
-    jQuery.validator.addMethod("specialoption", function (value, element) {
-        return this.optional(element) || /([a-zA-Z\s])$/.test(value);
-    }, "<span class='red-text'> (Letters and spaces are allowed)</span>");
-
-    jQuery.validator.addMethod("noSpace", function (value, element) {
-        return value.indexOf(" ") != "";
-    }, " (Empty field)");
-});
-// UPDATE OTHER CHARGE END
 
 // CREATE PACKAGE FORM
 $().ready(function () {
