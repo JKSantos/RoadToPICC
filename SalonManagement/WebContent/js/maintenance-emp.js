@@ -1064,4 +1064,63 @@ $(".upServImg").change(function () {
     updateServImage(this);
 });
 
+// $('.empdeacbtn').each(function () {
+//    $(this).click(function () {
+//        var empid = $(this).attr('id');
+//        var id = "deac" + empid;
+//        console.log(empid);
+//        swal({    title: "Are you sure?",
+//                text: "You will not be able to recover this imaginary file!",
+//                type: "warning",
+//                showCancelButton: true,
+//                confirmButtonColor: "#DD6B55",
+//                confirmButtonText: "Yes, delete it!",
+//                closeOnConfirm: false },
+//            function(){
+//                swal("Deleted!", "Your imaginary file has been deleted.", "success");
+//                 $('#id').submit(function () {
+//                     $(this).attr('action', 'deactivateEmployee');
+//
+//                     return false;
+//                 });
+//
+//                // $(this).attr('formaction','deactivateEmployee');
+//            });
+//    }) ;
+// });
 
+$('#emptbl').on('click', '.empdeacbtn', function (e) {
+    e.returnValue = false;
+    var deacbtn = $(this).attr('id');
+    console.log(deacbtn);
+    var mydata = {
+        'intEmpID': deacbtn
+    }
+    var $tr = $(this).closest('tr');
+
+    swal({
+            title: "Are you sure?",
+            text: "",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        },
+        function () {
+            swal("Deleted!", ".", "success");
+            $.ajax({
+                type: 'post',
+                url: 'deactivateEmployee',
+                data: mydata,
+                success: function (response) {
+                    $tr.find('td').fadeOut(1000,function(){
+                        $tr.remove();
+                    });
+                }
+            });
+        });
+
+
+
+});

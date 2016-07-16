@@ -105,10 +105,10 @@ String granAccess = null;
                                href="#emp<%=str%>" style="padding-left: 10px;padding-right:10px; margin: 5px;">
                                 <i class="material-icons">edit</i>
                             </a>
-                            <a data-delay="30" data-position="bottom" data-tooltip="Deactivate"
-                               class="waves-effect waves-purple modal-trigger btn-flat transparent red-text text-accent-4"
-                               href="#de<%=de%>" style="padding-left: 10px;padding-right:10px; margin: 5px;"
-                               title="Deactivate"><i class="material-icons">delete</i></a>
+                            <button class="empdeacbtn waves-effect waves-purple btn-flat transparent red-text text-accent-4"
+                           style="padding-left: 10px;padding-right:10px; margin: 5px;" id="${employee.intEmpID}"
+                               title="Deactivate" formaction="deactivateEmployee"><i class="material-icons">delete</i></button>
+                            <!--href="#de<%=de%>"-->
                         </td>
                     </tr>
 
@@ -709,27 +709,27 @@ String granAccess = null;
         </div>
     </c:forEach>
 
-    <c:forEach items="${empList}" var="employee">
-        <div id="de${employee.intEmpID}" class="modal" style="width: 30% !important;">
-            <form method="get" action="deactivateEmployee" id="deleteEmpForm">
-                <div class="container">
-                    <div class="modal-content">
-                        <div class="row">
-                            <h5 class="red-text">Warning!</h5>
-                            <p class="center">Are you sure you want to deactivate</p>
-                            <p class="center">${employee.strEmpFirstName} ${employee.strEmpLastName}?</p>
-                            <input type="hidden" size="10" name="intEmpID" value="${employee.intEmpID}">
-                        </div>
-                    </div>
-                    <div class="col s12 center" style="margin-bottom: 30px;">
-                        <a class="waves-effect waves-light purple darken-3 btn-flat white-text">YES</a>
-                        <a href="#"
-                           class="modal-action modal-close waves-effect waves-purple transparent btn-flat black-text">NO</a>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </c:forEach>
+    <!--<c:forEach items="${empList}" var="employee">-->
+        <!--<div id="de${employee.intEmpID}" class="modal" style="width: 30% !important;">-->
+            <!--<form id="deac${employee.intEmpID}" method="get" action="deactivateEmployee" id="deleteEmpForm" name="empdeacform">-->
+                <!--&lt;!&ndash;<div class="container">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div class="modal-content">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<h5 class="red-text">Warning!</h5>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<p class="center">Are you sure you want to deactivate</p>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<p class="center">${employee.strEmpFirstName} ${employee.strEmpLastName}?</p>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<input type="hidden" size="10" name="intEmpID" value="${employee.intEmpID}">&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div class="col s12 center" style="margin-bottom: 30px;">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<a class="waves-effect waves-light purple darken-3 btn-flat white-text">YES</a>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<a href="#"&ndash;&gt;-->
+                           <!--&lt;!&ndash;class="modal-action modal-close waves-effect waves-purple transparent btn-flat black-text">NO</a>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--</form>-->
+        <!--</div>-->
+    <!--</c:forEach>-->
 
 
 </div>

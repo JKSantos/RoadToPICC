@@ -286,9 +286,7 @@
                                     <div class="input-field col s12">
                                     <textarea id="upItemDetails" name="strItemDetails"
                                               class="materialize-textarea" placeholder="Details"
-                                              style="margin-top: -10px !important;">
-                                        ${product.strProductDesc}
-                                    </textarea>
+                                              style="margin-top: -10px !important;">${product.strProductDesc}</textarea>
                                         <label for="upItemDetails" class="active"><b>Details</b><i
                                                 class="material-icons red-text tiny">error_outline</i></label>
                                     </div>
