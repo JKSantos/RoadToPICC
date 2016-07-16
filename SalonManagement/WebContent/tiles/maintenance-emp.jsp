@@ -23,12 +23,12 @@ String granAccess = null;
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
             <h3 class="grey-text text-darken-1">Employee Maintenance</h3>
-            <a class="z-depth-1 waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
+            <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
                href="#createEmployeeModal" style="margin-top: 30px; margin-left: 15px;"><i
                     class="material-icons">add</i></a>
-            <a class="z-depth-1 waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
+            <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
                href="#empArchive" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">archive</i></a>
-            <nav class="right white  z-depth-1" style="width: 300px; margin-right: 20px;">
+            <nav class="right white hoverable  z-depth-1" style="width: 300px; margin-right: 20px;">
                 <div class="nav-wrapper col s4">
                     <form>
                         <div class="input-field">
@@ -42,7 +42,7 @@ String granAccess = null;
                 </div>
             </nav>
 
-            <table id="emptbl" class="z-depth-1 cell-border row-border display centered responsive-table highlight"
+            <table id="emptbl" class="hoverable z-depth-1 cell-border row-border display centered responsive-table highlight"
                    cellspacing="0"
                    width="100%"
                    style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;" rowspan="10">
