@@ -184,6 +184,20 @@
         margin-top: -20px !important;
     }
 
+    #createExtraChargeModal {
+        width: 400px !important;
+        height: 435px !important;
+        max-height: 100% !important;
+        margin-top: -20px !important;
+    }
+
+    .updateExtraModal {
+        width: 400px !important;
+        height: 435px !important;
+        max-height: 100% !important;
+        margin-top: -20px !important;
+    }
+
     .updateDeliveryModal {
         width: 400px !important;
         height: 435px !important;
