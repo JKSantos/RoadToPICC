@@ -702,7 +702,7 @@ String granAccess = null;
             <div class="modal-footer transparent">
                 <a href="#!"
                    class="modal-action modal-close waves-effect waves-light purple-text text-lighten-1 btn-large z-depth-1 viewcloseempbtn"
-                   style="background-color: transparent !important; border: 3px solid #ab47bc !important; border-radius: 10px !important;"><span
+                   style="background-color: transparent !important; border: 3px solid #ab47bc !important; border-radius: 10px !important; margin: 0 !important;"><span
                         style="padding-top: -10px !important;"><i
                         class="material-icons left"><b>close</b></i><b>Close</b></span></a>
             </div>

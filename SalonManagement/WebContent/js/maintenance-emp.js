@@ -168,7 +168,7 @@ $('.modal-archive').leanModal({
 
 $('.modal-viewall').leanModal({
         dismissible: true, // Modal can be dismissed by clicking outside of the modal
-        opacity: 0.98, // Opacity of modal background
+        opacity: 0.95, // Opacity of modal background
         in_duration: 200, // Transition in duration
         out_duration: 200, // Transition out duration
     }
