@@ -518,9 +518,9 @@ String granAccess = null;
                                                     <i class="material-icons">add</i></button>
                                             </div>
                                             <div class="input-field col s12" style="margin-top: -15px !important;">
-                                                <input type="checkbox" name="chkGrantAccess" id="chkupGrantAccess"
+                                                <input type="checkbox" name="chkGrantAccess" id="chkupGrantAccess${employee.intEmpID}"
                                                        class="filled-in" style="color: purple;"/>
-                                                <label for="chkupGrantAccess"><b>Grant Access</b></label>
+                                                <label for="chkupGrantAccess${employee.intEmpID}"><b>Grant Access</b></label>
                                             </div>
                                         </div>
                                     </div>

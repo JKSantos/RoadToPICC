@@ -31,11 +31,12 @@ public class DiscountJDBCRepository implements DiscountRepository{
 				int intID = set.getInt(1);
 				String strName = set.getString(2);
 				String strDesc = set.getString(3);
-				int intType = set.getInt(4);
-				double dblAmount = set.getDouble(5);
-				int status = set.getInt(6);
+				String strGuide = set.getString(4);
+				int intType = set.getInt(5);
+				double dblAmount = set.getDouble(6);
+				int status = set.getInt(7);
 				
-				Discount discount = new Discount(intID, strName, strDesc, intType, dblAmount, status);
+				Discount discount = new Discount(intID, strName, strDesc, strGuide, intType, dblAmount, status);
 				discountList.add(discount);
 			}
 			
@@ -51,14 +52,15 @@ public class DiscountJDBCRepository implements DiscountRepository{
 	public boolean createDiscount(Discount discount) {
 		
 		Connection con = jdbc.getConnection();
-		String strQuery = "CALL createDiscount(?, ? ,?, ?)";
+		String strQuery = "CALL createDiscount(?, ? ,?, ?, ?)";
 		
 		try{
 			PreparedStatement pre = con.prepareStatement(strQuery);
 			pre.setString(1, discount.getStrDiscountName());
 			pre.setString(2, discount.getStrDiscountDesc());
-			pre.setInt(3, discount.getIntDiscountType());
-			pre.setDouble(4, discount.getDblDiscountAmount());
+			pre.setString(3, discount.getStrDiscountGuidelines());
+			pre.setInt(4, discount.getIntDiscountType());
+			pre.setDouble(5, discount.getDblDiscountAmount());
 			
 			pre.execute();
 			pre.close();
@@ -85,8 +87,9 @@ public class DiscountJDBCRepository implements DiscountRepository{
 			pre.setInt(1, discount.getIntDiscountID());
 			pre.setString(2, discount.getStrDiscountName());
 			pre.setString(3, discount.getStrDiscountDesc());
-			pre.setInt(4, discount.getIntDiscountType());
-			pre.setDouble(5, discount.getDblDiscountAmount());
+			pre.setString(4, discount.getStrDiscountGuidelines());
+			pre.setInt(5, discount.getIntDiscountType());
+			pre.setDouble(6, discount.getDblDiscountAmount());
 			pre.execute();
 			pre.close();
 			con.close();

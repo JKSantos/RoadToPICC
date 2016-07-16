@@ -46,13 +46,14 @@
                 </tr>
                 </tfoot>
                 <tbody>
+                <c:forEach items="${locationList}" var="location">
                 <tr>
-                    <td class="dt-body-left">Baranggay Output</td>
+                    <td class="dt-body-left">${location.strBarangay}</td>
                     <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-left ">
-                        City Output
+                        ${location.strCity}
                     </td>
                     <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-left prodPrice">
-                        Base Rate Output
+                        ${location.dblLocationPrice}
                     </td>
                     <td class="center" style="padding:0; margin:0;">
                         <a data-delay="30" data-position="bottom" data-tooltip="View"
@@ -62,7 +63,7 @@
                         </a>
                         <a data-delay="30" data-position="bottom" data-tooltip="Update"
                            class="waves-effect waves-purple modal-trigger btn-flat transparent black-text empUpdatebtn"
-                           href=".updateDeliveryModal" style="padding-left: 10px;padding-right:10px; margin: 5px;">
+                           href="#updateDeliveryModal${location.intLocationID}" style="padding-left: 10px;padding-right:10px; margin: 5px;">
                             <i class="material-icons">edit</i>
                         </a>
                         <button class="empdeacbtn waves-effect waves-purple btn-flat transparent red-text text-accent-4"
@@ -70,6 +71,7 @@
                                 id="" title="Deactivate"><i class="material-icons">delete</i></button>
                     </td>
                 </tr>
+                </c:forEach>
 
                 </tbody>
             </table>
@@ -91,19 +93,19 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <input type="text" class="validate" id="crLocationBrgy"
-                                   name="strLocationName" required placeholder="Baranggay">
+                                   name="strBrgy" required placeholder="Baranggay">
                             <label for="crLocationBrgy" class="active"><b>Barangay</b><i
                                     class="material-icons red-text tiny">error_outline</i></label>
                         </div>
                         <div class="input-field col s12" style="margin-top: 25px;">
                             <input type="text" class="validate" id="crLocationCity"
-                                   name="strLocationName" required
+                                   name="strCity" required
                                    placeholder="City">
                             <label for="crLocationCity" class="active"><b>City</b><i
                                     class="material-icons red-text tiny">error_outline</i></label>
                         </div>
                         <div class="input-field col s6 right">
-                            <input id="crLocationBRate" name="dblLocationPrice"
+                            <input id="crLocationBRate" name="price"
                                    class="validate upProdItemPrice right-align" required placeholder="Base Rate">
                             <label for="crLocationBRate" class="active"><b>Base Rate</b><i
                                     class="material-icons red-text tiny">error_outline</i></label>
@@ -126,8 +128,9 @@
         </form>
     </div>
 
-    <div id="updateDeliveryModal" class="updateDeliveryModal modal modal-fixed-footer">
-        <form class="col s12" id="updateDeliveryForm" method="post" action="createLocation">
+    <c:forEach items="${locationList}" var="location">
+    <div id="updateDeliveryModal${location.intLocationID}" class="updateDeliveryModal modal modal-fixed-footer">
+        <form class="col s12" id="updateDeliveryForm" method="post" action="updateLocation">
             <div class="modal-content">
                 <!-- <div class="container"> -->
                 <div class="wrapper">
@@ -140,21 +143,25 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
+
+                            <input type="hidden"
+                                   name="intLocationID" value="${location.intLocationID}">
+
                             <input type="text" class="validate" id="upLocationBrgy"
-                                   name="strLocationName" required placeholder="Baranggay">
+                                   name="strBrgy" required placeholder="Baranggay" value="${location.strBarangay}">
                             <label for="upLocationBrgy" class="active"><b>Barangay</b><i
                                     class="material-icons red-text tiny">error_outline</i></label>
                         </div>
                         <div class="input-field col s12" style="margin-top: 25px;">
                             <input type="text" class="validate" id="upLocationCity"
-                                   name="strLocationName" required
-                                   placeholder="City">
+                                   name="strCity" required
+                                   placeholder="City" value="${location.strCity}">
                             <label for="upLocationCity" class="active"><b>City</b><i
                                     class="material-icons red-text tiny">error_outline</i></label>
                         </div>
                         <div class="input-field col s6 right">
-                            <input id="upLocationBRate" name="dblLocationPrice"
-                                   class="validate upProdItemPrice right-align" required placeholder="Base Rate">
+                            <input id="upLocationBRate" name="price"
+                                   class="validate upProdItemPrice right-align" required placeholder="Base Rate" value="${location.dblLocationPrice}">
                             <label for="upLocationBRate" class="active"><b>Base Rate</b><i
                                     class="material-icons red-text tiny">error_outline</i></label>
                         </div>
@@ -170,11 +177,12 @@
                         class="modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL
                 </button>
                 <button class="waves-effect waves-light purple darken-3 white-text btn-flat" type="submit"
-                        value="Submit">CREATE
+                        value="Submit">UPDATE
                 </button>
             </div>
         </form>
     </div>
+    </c:forEach>
 
 
 
