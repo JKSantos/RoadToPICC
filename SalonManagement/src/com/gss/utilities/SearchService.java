@@ -3,6 +3,7 @@ package com.gss.utilities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gss.model.Product;
 import com.gss.model.Service;
 import com.gss.model.ServicePackage;
 
@@ -47,4 +48,20 @@ public class SearchService {
 		return deactivatedSet;
 	}
 
+	public List<Service> searchList(String[] strServiceID, List<Service> serviceList){
+		
+		List<Service> selectedProducts = new ArrayList<Service>();
+		
+		for(int intCtr = 0; intCtr < strServiceID.length; intCtr++){
+			
+			for(int intCtr2 = 0; intCtr2 < serviceList.size(); intCtr2++){
+				Service serv = serviceList.get(intCtr2);
+				
+				if(Integer.parseInt(strServiceID[intCtr]) == serv.getIntServiceID())
+					selectedProducts.add(serv);
+			}
+		}
+		
+		return selectedProducts;
+	}
 }

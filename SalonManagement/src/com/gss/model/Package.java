@@ -2,6 +2,9 @@ package com.gss.model;
 
 import java.util.List;
 
+import com.gss.service.PackageService;
+import com.gss.service.PackageServiceImpl;
+
 public class Package {
 	
 	private int intPackageID;
@@ -107,6 +110,13 @@ public class Package {
 
 	public void setIntPackageStatus(int intPackageStatus) {
 		this.intPackageStatus = intPackageStatus;
+	}
+	
+	public static List<Package> getAllPackage(){
+		
+		PackageService service = new PackageServiceImpl();
+		
+		return service.getAllPackage();
 	}
 
 }

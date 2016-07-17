@@ -1,5 +1,10 @@
 package com.gss.model;
 
+import java.util.List;
+
+import com.gss.service.ProductService;
+import com.gss.service.ProductServiceImpl;
+
 public class Product {
 	
 	private int intProductID;
@@ -97,4 +102,9 @@ public class Product {
 		this.intProductStatus = intProductStatus;
 	}
 	
+	public static List<Product> getAllProduct(){
+		ProductService service = new ProductServiceImpl();
+		
+		return service.getAllProductsNoImage();
+	}
 }

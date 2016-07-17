@@ -45,4 +45,22 @@ public class SearchProduct {
 		
 		return deactivatedSet;
 	}
+	
+	public List<Product> searchList(String[] strProductID, List<Product> productList){
+		
+		List<Product> selectedProducts = new ArrayList<Product>();
+		
+		for(int intCtr = 0; intCtr < strProductID.length; intCtr++){
+			
+			for(int intCtr2 = 0; intCtr2 < productList.size(); intCtr2++){
+				Product prod = productList.get(intCtr2);
+				
+				if(Integer.parseInt(strProductID[intCtr]) == prod.getIntProductID())
+					selectedProducts.add(prod);
+			}
+		}
+		
+		return selectedProducts;
+		
+	}
 }
