@@ -17,7 +17,7 @@ public class PriceFormatHelper {
         
         double adjusted = (number.doubleValue() * 9) + number.doubleValue();
        
-        return adjusted;
+        return number.doubleValue();
         
     }
 

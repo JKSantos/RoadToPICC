@@ -121,36 +121,25 @@
                             class="material-icons">assessment</i><b>Reports</b></a>
                 </li>
             </ul>
-</div>
-</ul>
+        </ul>
 
-<!--<nav class="z-depth-0">-->
-<!--<div class="nav-wrapper purple darken-4">-->
-<!--<a href="#!" class="brand-logo purple-text text-lighten-5" style="margin-left: 20px;">Salon Management System</a>-->
-<!--<ul id="nav-mobile" class="right">-->
-<!--<li><a class="waves-effect">jeff</a></li>-->
-<!--<li><a class="waves-effect">asdas</a></li>-->
-<!--</ul>-->
+    </header>
 
-<!--</div>-->
-<!--</nav>-->
 
-</header>
-
-<article>
-    <nav class="z-depth-0">
-        <div class="nav-wrapper purple darken-4">
-            <a href="#" class="brand-logo center purple-text text-lighten-5 ">Salon Management System</a>
+    <article>
+        <nav class="z-depth-0">
+            <div class="nav-wrapper purple darken-4">
+                <a href="#" class="brand-logo center purple-text text-lighten-5 ">Salon Management System</a>
+            </div>
+        </nav>
+        <div id="loader-wrapper">
+            <div id="loader"></div>
+            <div class="loader-section section-left"></div>
+            <div class="loader-section section-right"></div>
         </div>
-    </nav>
-    <div id="loader-wrapper">
-        <div id="loader"></div>
-        <div class="loader-section section-left"></div>
-        <div class="loader-section section-right"></div>
-    </div>
-    <tiles:insertAttribute name="body"></tiles:insertAttribute>
+        <tiles:insertAttribute name="body"></tiles:insertAttribute>
 
-</article>
+    </article>
 
 
 </div>
@@ -337,11 +326,27 @@
 <script type="text/javascript" src="js/ellipsis.js"></script>
 <script type="text/javascript" src="js/priceformat.js"></script>
 <script type="text/javascript" src="js/formatted-numbers.js"></script>
+<script type="text/javascript" src="js/numeral.js"></script>
+
 
 
 <!--<script type="text/javascript" src="js/drag.js"></script>-->
 
 <script type="text/javascript">
+
+    function setBirthDate(id, date) {
+
+        var monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        var from = date.split("-");
+        var dat = new Date(Date.parse(date));
+        var d = monthNames[dat.getMonth()] + "/" + from[2] + "/" + from[0];
+
+        $(id).val(d);
+    }
+
     $(document).ready(function () {
         $(".button-collapse").sideNav();
         $(".dropdown-button").dropdown();
@@ -395,12 +400,16 @@
         limit: 9
     });
 
-    $('.upProdItemPrice').priceFormat({
-        prefix: 'Php ',
-        centsSeparator: '.',
-        thousandsSeparator: ',',
-        limit: 9
+
+    $('.upProdItemPrice').each(function () {
+       $(this). priceFormat({
+           prefix: 'Php ',
+           centsSeparator: '.',
+           thousandsSeparator: ',',
+           limit: 9
+       });
     });
+
 
     $('.prodPrice').priceFormat({
         prefix: 'Php ',
@@ -417,7 +426,6 @@
     });
 
 
-
     $('#crServicePrice').priceFormat({
         prefix: 'Php ',
         centsSeparator: '.',
@@ -425,6 +433,31 @@
         limit: 9
     });
 
+    $(function () {
+        // load a language
+        numeral.language('fr', {
+            delimiters: {
+                thousands: ' ',
+                decimal: ','
+            },
+            abbreviations: {
+                thousand: 'k',
+                million: 'm',
+                billion: 'b',
+                trillion: 't'
+            },
+            ordinal : function (number) {
+                return number === 1 ? 'er' : 'ème';
+            },
+            currency: {
+                symbol: '$'
+            }
+        });
+        numeral.language('fr');
+        document.getElementById('f1').innerHTML = numeral(1234.56).format('$0,0.00');
+        document.getElementById('f2').innerHTML = numeral(1234.56).format('$0,0.00');
+        document.getElementById('f3').innerHTML = numeral(1234.56).format('0,0.00 $');
+    });
 
 
 </script>

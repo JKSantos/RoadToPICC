@@ -2,16 +2,20 @@ package com.gss.utilities;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class DateHelper {
 	
 	 public static Date parseDate(String date) {
-	     try {
-	         return new SimpleDateFormat("yyyy-mm-dd").parse(date);
-	     } catch (ParseException e) {
-	         return null;
-	     }
+	     String[] date1 = date.split("-");
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Integer.parseInt(date1[0]), (Integer.parseInt(date1[1]) - 1), Integer.parseInt(date1[2]));
+		long cal = calendar.getTimeInMillis();
+
+		java.util.Date dateee = new java.util.Date(cal);
+		return dateee;
 	 }
 	
 	 public Date convertToDate(String[] date){
@@ -38,7 +42,8 @@ public class DateHelper {
 		 
 		 newDate += month + "-" + day;
 		 Date converted = DateHelper.parseDate(newDate);
-		 
+		 	
+		
 		 return converted;
 		 
 	 }

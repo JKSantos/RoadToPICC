@@ -66,7 +66,7 @@ public class UpdateItemAction {
 			}
 			
 			if(isUpdated == false)
-				return "failded";
+				return "failed";
 			else
 				return "success";
 		}	
@@ -76,7 +76,7 @@ public class UpdateItemAction {
 		return intItemQuantity;
 	}
 
-	public void setIntItemQuantity(int intItemQuantity) {
+	public void setIntItemQuantity(int intItemQuantity) { 
 		this.intItemQuantity = intItemQuantity;
 	}
 

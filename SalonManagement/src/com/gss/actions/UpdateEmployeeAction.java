@@ -40,8 +40,8 @@ public class UpdateEmployeeAction extends ActionSupport{
 		
 		EmployeeServiceImpl empService = new EmployeeServiceImpl();
 		Employee emp = null;
-		strBirthdate = "March/9/1996";
-		String[] unConvertedDate = strBirthdate.split("/");
+
+		String[] unConvertedDate = this.strBirthdate.split("/");
 		
 		boolean access = false;
 		
@@ -55,7 +55,7 @@ public class UpdateEmployeeAction extends ActionSupport{
 		this.datEmpBirthdate = DateHelper.parseDate(strBirthdate);
 		
 		if(imageName.equals("image")){
-			emp = new Employee(intEmpID, strEmpLastName.trim().toUpperCase(), strEmpFirstName.trim().toUpperCase(), strEmpMiddleName.trim().toUpperCase(), datEmpBirthdate, strEmpGender, strEmpAddress.trim().toUpperCase(), strEmpContactNo, strEmpEmail, "A", "NO ACCESS", "NO ACCESS", "Image", null, jobList, access);
+			emp = new Employee(intEmpID, strEmpLastName.trim().toUpperCase(), strEmpFirstName.trim().toUpperCase(), strEmpMiddleName.trim().toUpperCase(), this.datEmpBirthdate, strEmpGender, strEmpAddress.trim().toUpperCase(), strEmpContactNo, strEmpEmail, "A", "NO ACCESS", "NO ACCESS", "Image", null, jobList, access);
 		}
 		else{
 			imageName = file.getAbsolutePath();
