@@ -47,13 +47,14 @@
                 </tfoot>
                 <tbody>
                 <c:forEach items="${locationList}" var="location">
+                <c:set var="price" scope="session" value="${(location.dblLocationPrice * 9) + location.dblLocationPrice}"/>
                 <tr>
                     <td class="dt-body-left">${location.strBarangay}</td>
                     <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-left ">
                         ${location.strCity}
                     </td>
                     <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-right prodPrice">
-                        ${location.dblLocationPrice}
+                        <c:out value="${price}"/>
                     </td>
                     <td class="center" style="padding:0; margin:0;">
                         <a data-delay="30" data-position="bottom" data-tooltip="View"
@@ -129,6 +130,8 @@
     </div>
 
     <c:forEach items="${locationList}" var="location">
+    <c:set var="price" scope="session" value="${(location.dblLocationPrice * 9) + location.dblLocationPrice}"/>
+    
     <div id="updateDeliveryModal${location.intLocationID}" class="updateDeliveryModal modal modal-fixed-footer">
         <form class="col s12 updateDeliveryForm" id="updateDeliveryForm" method="post" action="updateLocation">
             <div class="modal-content">
@@ -161,7 +164,7 @@
                         </div>
                         <div class="input-field col s6 right">
                             <input id="upLocationBRate" name="price"
-                                   class="validate upProdItemPrice right-align" required placeholder="Base Rate" value="${location.dblLocationPrice}">
+                                   class="validate upProdItemPrice right-align" required placeholder="Base Rate" value="<c:out value='${price}'/>">
                             <label for="upLocationBRate" class="active"><b>Base Rate</b><i
                                     class="material-icons red-text tiny">error_outline</i></label>
                         </div>

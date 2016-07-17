@@ -39,6 +39,7 @@
                 </thead>
                 <tbody>
                 <c:forEach items="${productList}" var="product">
+                	<c:set var="price" scope="session" value="${(product.dblProductPrice * 9) + product.dblProductPrice}"/>
                     <%! String string = null; %>
                     <% Product prod = (Product)pageContext.getAttribute("product");
                     string = String.valueOf(prod.getIntProductID());
@@ -49,7 +50,7 @@
                         </td>
                         <td style="padding-left: 10px; margin: 0;" class="dt-body-left">${product.strProductDesc}</td>
                         <td style="padding-right: 10px; margin: 0;" class="dt-body-right prodPrice">
-                            ${product.dblProductPrice}
+                            <c:out value="${price}"/>
                         </td>
                         <td style="padding:0; margin: 0;" class="dt-body-center">
                             <a data-delay="30" data-position="bottom" data-tooltip="View"
@@ -238,6 +239,7 @@
             strProdID = String.valueOf(prodID.getIntProductID());
             String productCate = prodID.getStrProductCategory();
             %>
+            <c:set var="price" scope="session" value="${(product.dblProductPrice * 9) + product.dblProductPrice}"/>
             <div id="prod<%=strProdID%>" class="prodUpdateModal modal modal-fixed-footer">
                 <form class="col s12 updateProdForm" method="post" id="updateProdForm" action="updateItem"
                       enctype="multipart/form-data">
@@ -331,9 +333,9 @@
                                                 class="material-icons">add</i></a>
                                     </div>
                                     <div class="input-field col s6 offset-s6" style="margin-bottom: -15px !important;">
-                                        <input value="${product.dblProductPrice}" type="text"
+                                        <input type="text"
                                                class="validate right-align upProdItemPrice"
-                                               id="ItemPrice" name="price" required placeholder="P9.99"/>
+                                               id="ItemPrice" name="price" required placeholder="P9.99" value="<c:out value='${price}'/>"/>
                                         <label for="ItemPrice" class="active"><b>Price</b><i
                                                 class="material-icons red-text tiny">error_outline</i></label>
                                     </div>

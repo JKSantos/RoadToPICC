@@ -1,6 +1,3 @@
-<%@ taglib uri="/struts-tags" prefix="s" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="com.gss.model.ExtraCharge"%>
 
 <!-- <div class="container"> -->
 <div class="wrapper">
@@ -53,10 +50,6 @@
                 </tfoot>
                 <tbody>
                 <c:forEach items="${ecList}" var="extracharge">
-                    <%
-                    ExtraCharge ext = (ExtraCharge)pageContext.getAttribute("extracharge");
-                    String exID = String.valueOf(ext.getIntECID());
-                    %>
                     <tr>
                         <td style="padding-left: 10px; margin:0;" class="dt-body-left">${extracharge.strECName}</td>
                         <td style="padding-left: 10px; margin:0;" class="dt-body-left">${extracharge.strECDetails}</td>

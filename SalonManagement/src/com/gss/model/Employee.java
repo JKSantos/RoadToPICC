@@ -28,7 +28,7 @@ public class Employee {
 	
 	
 	public Employee(int intEmpID, String strEmpLastName, String strEmpFirstName, String strEmpMiddleName, Date datBirthdate, String strEmpGender, String strAddress, String strEmpContactNo, String strEmpEmail, String strEmpStatus, String strUsername, String strPassword, String empPhoto, byte[] bytActualPhoto, List<Job> jobQualification, boolean accessGranted)
-	{
+	{	
 		this.setIntEmpID(intEmpID);
 		this.strEmpLastName = strEmpLastName;
 		this.strEmpFirstName = strEmpFirstName;

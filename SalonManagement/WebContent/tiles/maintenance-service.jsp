@@ -48,6 +48,8 @@
                 </tfoot>
                 <tbody>
                 <c:forEach items="${serviceList}" var="service">
+                
+                	<c:set var="price" scope="session" value="${(service.dblServicePrice * 9) + service.dblServicePrice}"/>
                     <%! String strService =null; %>
                     <% Service serv = (Service)pageContext.getAttribute("service");
                     strService = String.valueOf(serv.getIntServiceID());
@@ -58,7 +60,7 @@
                         </td>
                         <td style="padding-left: 10px; margin: 0;" class="dt-body-left">${service.strServiceDesc}</td>
                         <td style="padding-right: 10px; margin: 0;" class="dt-body-right servPrice">
-                            ${service.dblServicePrice}
+                            <c:out value="${ price }"/>
                         </td>
                         <td style="padding:0; margin: 0;" class="dt-body-center">
                             <a data-delay="30" data-position="bottom" data-tooltip="View"
@@ -240,6 +242,7 @@
             String serviceCate = servID.getStrServiceCategory();
             double price = servID.getDblServicePrice();
             %>
+            <c:set var="price" scope="session" value="${(service.dblServicePrice * 9) + service.dblServicePrice}"/>
             <div id="serv${service.intServiceID}" class="servUpdateModal modal modal-fixed-footer">
                 <form class="col s12 updateservForm" method="post" id="updateservForm" action="updateItem"
                       enctype="multipart/form-data">
@@ -300,9 +303,7 @@
                                     <div class="input-field col s12">
                                     <textarea id="upServDetails" name="strItemDetails"
                                               class="materialize-textarea" placeholder="Details"
-                                              style="margin-top: -10px !important;">
-                                        ${service.strServiceDesc}
-                                    </textarea>
+                                              style="margin-top: -10px !important;">${service.strServiceDesc}</textarea>
                                         <label for="upServDetails" class="active"><b>Details</b><i
                                                 class="material-icons red-text tiny">error_outline</i></label>
                                     </div>
@@ -335,7 +336,7 @@
                                                 class="material-icons">add</i></a>
                                     </div>
                                     <div class="input-field col s6 offset-s6" style="margin-bottom: -15px !important;">
-                                        <input type="text" value="<%=price%>"
+                                        <input type="text" value="<c:out value='${price}'/>"
                                                class="validate right-align servPrice"
                                                id="upServPrice" name="price" required placeholder="P9.99"/>
                                         <label for="upServPrice" class="active"><b>Price</b><i

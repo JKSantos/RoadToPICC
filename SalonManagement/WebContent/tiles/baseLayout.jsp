@@ -342,6 +342,20 @@
 <!--<script type="text/javascript" src="js/drag.js"></script>-->
 
 <script type="text/javascript">
+	
+	function setBirthDate(id, date){
+		
+		var monthNames = ["January", "February", "March", "April", "May", "June",
+		                  "July", "August", "September", "October", "November", "December"
+		                ];
+		
+		var from = date.split("-");
+		var dat = new Date(Date.parse(date));
+		var d = monthNames[dat.getMonth()] + "/" + from[2] + "/" +from[0];
+		
+		$(id).val(d);
+	}
+	
     $(document).ready(function () {
         $(".button-collapse").sideNav();
         $(".dropdown-button").dropdown();

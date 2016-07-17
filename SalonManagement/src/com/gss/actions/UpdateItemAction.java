@@ -76,7 +76,7 @@ public class UpdateItemAction {
 		return intItemQuantity;
 	}
 
-	public void setIntItemQuantity(int intItemQuantity) {
+	public void setIntItemQuantity(int intItemQuantity) { 
 		this.intItemQuantity = intItemQuantity;
 	}
 

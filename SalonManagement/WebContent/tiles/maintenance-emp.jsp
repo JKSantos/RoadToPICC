@@ -4,6 +4,9 @@
 <%@ page import="com.gss.model.EmployeeCategory" %>
 <%@ page import="com.gss.model.Job" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.sql.Date" %>
+<%@ page import="java.util.Calendar" %>
+
 <%!
 
 String month = null;
@@ -102,7 +105,7 @@ String granAccess = null;
                             </a>
                             <a data-delay="30" data-position="bottom" data-tooltip="Update"
                                class="waves-effect waves-purple modal-trigger btn-flat transparent black-text empUpdatebtn"
-                               href="#emp<%=str%>" style="padding-left: 10px;padding-right:10px; margin: 5px;">
+                               href="#emp<%=str%>" style="padding-left: 10px;padding-right:10px; margin: 5px;" onclick="setBirthDate('#upbday${employee.intEmpID}', '${employee.datEmpBirthdate}')"/>
                                 <i class="material-icons">edit</i>
                             </a>
                             <button class="empdeacbtn waves-effect waves-purple btn-flat transparent red-text text-accent-4"
@@ -410,7 +413,7 @@ String granAccess = null;
                                                         class="material-icons red-text tiny">error_outline</i></label>
                                             </div>
                                             <div class="input-field col s12">
-                                                <input type="date" name="strBirthdate" id="upbday"
+                                                <input type="date" name="strBirthdate" id="upbday${employee.intEmpID}"
                                                        class="updateEmpBirthday" placeholder="Ex: 01/01/01"
                                                        required/>
                                                 <label for="upbday"><b>Birthday</b><i
@@ -739,6 +742,8 @@ String granAccess = null;
         <!--</div>-->
     <!--</c:forEach>-->
 
+</script>
 
 </div>
 </div>
+

@@ -41,7 +41,7 @@ public class CreateEmployeeAction {
 		SendMail mail = new SendMail();
 		EmployeeServiceImpl empService;
 		Employee emp;
-		System.out.print(selectedJob.size());
+
 		List<Job> selectedJob = new JobQualificationHelper().convertToJob(this.selectedJob);
 		
 		String path = "";
