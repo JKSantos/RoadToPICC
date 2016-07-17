@@ -59,7 +59,7 @@
                     <td class="center" style="padding:0; margin:0;">
                         <a data-delay="30" data-position="bottom" data-tooltip="View"
                            class="waves-effect waves-purple modal-viewall btn-flat transparent black-text"
-                           href="" style="padding-left: 10px;padding-right:10px; margin: 5px;">
+                           href="#view${location.intLocationID}" style="padding-left: 10px;padding-right:10px; margin: 5px;">
                             <i class="material-icons">visibility</i>
                         </a>
                         <a data-delay="30" data-position="bottom" data-tooltip="Update"
@@ -176,9 +176,8 @@
                         style="margin:0px !important; padding:0px !important;"><i
                         class="material-icons">error_outline</i>&nbspRequired field
                 </button>
-                <button type="reset" value="Reset"
-                        class="upLocCancel modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL
-                </button>
+                <a class="upLocCancel modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL
+                </a>
                 <button class="waves-effect waves-light purple darken-3 white-text btn-flat" type="submit"
                         value="Submit">UPDATE
                 </button>
@@ -186,6 +185,7 @@
         </form>
     </div>
     </c:forEach>
+
 
 
 

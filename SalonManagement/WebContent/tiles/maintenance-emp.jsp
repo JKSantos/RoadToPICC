@@ -229,7 +229,8 @@ String granAccess = null;
                                 <div class="input-field col s12" style="margin-top: -10px;">
                                     <input type="text" name="strEmpContactNo" id="createContact"
                                            placeholder="Ex: 09123456789"/>
-                                    <label for="createContact"><b>Phone Number</b></label>
+                                    <label for="createContact"><b>Phone Number</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12">
                                     <input type="email" name="strEmpEmail" id="createEmail"
@@ -416,7 +417,7 @@ String granAccess = null;
                                                 <input type="date" name="strBirthdate" id="upbday${employee.intEmpID}"
                                                        class="updateEmpBirthday" placeholder="Ex: 01/01/01"
                                                        required/>
-                                                <label for="upbday"><b>Birthday</b><i
+                                                <label for="upbday${employee.intEmpID}"><b>Birthday</b><i
                                                         class="material-icons red-text tiny">error_outline</i></label>
                                             </div>
                                             <div class="input-field col s12">
@@ -468,7 +469,8 @@ String granAccess = null;
                                                        class="updateContact"
                                                        placeholder="Ex: 09123456789"
                                                        value="${employee.strEmpContactNo}"/>
-                                                <label for="updateContact"><b>Phone Number</b></label>
+                                                <label for="updateContact"><b>Phone Number</b><i
+                                                        class="material-icons red-text tiny">error_outline</i></label>
                                             </div>
                                             <div class="input-field col s12">
                                                 <input type="email" name="strEmpEmail" id="updateEmail"
@@ -607,7 +609,7 @@ String granAccess = null;
                             <div class="input-field col s12">
                                 <!--<input type="file" class="dropify" data-default-file="url_of_your_file"-->
                                 <!--disabled="disabled"/>-->
-                                <img name="empupdatedImg" id="empupdatedImg"
+                                <img name="empviewdatedImg" id="empviewdatedImg"
                                      style="width: 300px; height: 350px; border-radius: 10px;" class="z-depth-2"
                                      src="<s:url action='getImage'><s:param name='ImageID'>${employee.intEmpID}</s:param><s:param name='type'>employee</s:param></s:url>"
                                      alt=""/>
@@ -742,8 +744,5 @@ String granAccess = null;
         <!--</div>-->
     <!--</c:forEach>-->
 
-</script>
-
-</div>
 </div>
 

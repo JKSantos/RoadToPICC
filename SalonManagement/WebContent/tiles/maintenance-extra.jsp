@@ -154,7 +154,7 @@
                             </div>
                             <div class="input-field col s6 right">
                                 <input id="upECPrice" name="price" value="${extracharge.dblECPrice}"
-                                       class="validate upProdItemPrice right-align" required placeholder="Price">
+                                       class="upECPrice validate upProdItemPrice right-align" required placeholder="Price">
                                 <label for="upECPrice" class="active"><b>Price</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>
                             </div>
@@ -169,7 +169,7 @@
                     <button type="reset" value="Reset" id="upExtraCancel"
                             class="upExtraCancel modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL
                     </button>
-                    <button class="waves-effect waves-light purple darken-3 white-text btn-flat" type="submit"
+                    <button class="upExtraSubmitBtn waves-effect waves-light purple darken-3 white-text btn-flat" type="submit"
                             value="Submit">UPDATE
                     </button>
                 </div>

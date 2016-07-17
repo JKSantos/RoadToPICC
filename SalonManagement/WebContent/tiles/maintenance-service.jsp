@@ -209,7 +209,7 @@
                                 <select id="createServAddCategorySelect" class="browser-default" size="10"
                                         style="height: 120px !important; border-bottom: none !important;">
                                     <c:forEach items="${serviceCategory}" var="service">
-                                        <option value="${service}">${product}</option>
+                                        <option value="${service}">${service}</option>
                                     </c:forEach>
                                 </select>
                             </div>
@@ -219,7 +219,7 @@
                                        placeholder="New Category" required/>
                                 <label for="crServAddCatName" class="active"><b>Category</b></label>
                             </div>
-                            <div class="input-field col s8 offset-s2 center">
+                            <div class="input-field col s12 center">
                                 <a id="createServAddCatBtn"
                                    class="waves-effect waves-light purple darken-3 btn-flat white-text">SAVE
                                 </a>
@@ -381,7 +381,7 @@
                                 <select id="upServAddCategorySelect" class="browser-default" size="10"
                                         style="height: 120px !important; border-bottom: none !important;">
                                     <c:forEach items="${serviceCategory}" var="service">
-                                        <option value="${service}">${product}</option>
+                                        <option value="${service}">${service}</option>
                                     </c:forEach>
                                 </select>
                             </div>
@@ -391,12 +391,12 @@
                                        placeholder="New Category" required/>
                                 <label for="upServAddCatName" class="active"><b>Category</b></label>
                             </div>
-                            <div class="input-field col s8 offset-s2 center">
+                            <div class="input-field col s12 center">
                                 <a id="updateServAddCatBtn"
-                                   class="waves-effect waves-light purple darken-3 btn-flat white-text">SAVE
+                                   class="updateServAddCatBtn waves-effect waves-light purple darken-3 btn-flat white-text">SAVE
                                 </a>
                                 <button type="reset" value="Reset" id="upServAddProdCatCancel"
-                                        class="modal-close waves-effect waves-purple transparent btn-flat white">CANCEL
+                                        class="upServAddProdCatCancel modal-close waves-effect waves-purple transparent btn-flat white">CANCEL
                                 </button>
                             </div>
                         </div>

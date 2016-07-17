@@ -66,7 +66,7 @@ public class UpdateItemAction {
 			}
 			
 			if(isUpdated == false)
-				return "failded";
+				return "failed";
 			else
 				return "success";
 		}	
