@@ -326,7 +326,7 @@
 <script type="text/javascript" src="js/ellipsis.js"></script>
 <script type="text/javascript" src="js/priceformat.js"></script>
 <script type="text/javascript" src="js/formatted-numbers.js"></script>
-<script type="text/javascript" src="js/numeral.js"></script>
+<script type="text/javascript" src="js/jquery.formatCurrency-1.4.0.js"></script>
 
 
 
@@ -433,31 +433,8 @@
         limit: 9
     });
 
-    $(function () {
-        // load a language
-        numeral.language('fr', {
-            delimiters: {
-                thousands: ' ',
-                decimal: ','
-            },
-            abbreviations: {
-                thousand: 'k',
-                million: 'm',
-                billion: 'b',
-                trillion: 't'
-            },
-            ordinal : function (number) {
-                return number === 1 ? 'er' : 'ème';
-            },
-            currency: {
-                symbol: '$'
-            }
-        });
-        numeral.language('fr');
-        document.getElementById('f1').innerHTML = numeral(1234.56).format('$0,0.00');
-        document.getElementById('f2').innerHTML = numeral(1234.56).format('$0,0.00');
-        document.getElementById('f3').innerHTML = numeral(1234.56).format('0,0.00 $');
-    });
+
+
 
 
 </script>
