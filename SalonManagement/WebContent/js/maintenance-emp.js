@@ -290,12 +290,22 @@ $('#crProdCancel').click(function () {
     $('select').material_select();
 });
 
+$('#crServAddProdCatCancel').click(function () {
+    $('#createServAddCatForm').trigger("reset");
+    $('.crservcat').hide();
+});
+
 $('.upServCancel').click(function () {
     $('.updateServCategory .upServAddCatOpt').remove();
     $('.updateservForm').trigger("reset");
     $('.upServAddCatForm').trigger("reset");
     $('.upserverrorcontainer').hide();
     $('select').material_select();
+});
+
+$('.upServAddProdCatCancel').click(function () {
+    $('.upServAddCatForm').trigger("reset");
+    $('.upservcat').hide();
 });
 
 $('#crServCancel').click(function () {
@@ -312,7 +322,7 @@ $('#crAddProdCatCancel').click(function () {
 });
 
 $('.upAddProdCatCancel').click(function () {
-    $('.upProdAddCateForm').trigger("reset");
+    $('.upProdAddCatForm').trigger("reset");
     $('.upprodcat').hide();
 });
 
@@ -432,15 +442,16 @@ $('#createAddCatBtn').click(function () {
 });
 
 
-$('#upAddProdCatBtn').click(function () {
+$('.updateProdAddCatBtn').click(function () {
     var upProdAddCatOpt = "upProdAddCatOpt";
-    if ($('.upProdAddCateForm').valid()) {
+    if ($('.upProdAddCatForm').valid()) {
         $('select').material_select('destroy');
-        var addprodcat = $('.upAddProdCatName').val();
-        $('.upItemCategory').append('<option selected class="' + upProdAddCatOpt + '">' + addprodcat + '</option>').attr('value', addprodcat);
+        var upprodcat = $('.upProdAddCatName').val();
+        $('.upItemCategory').append('<option selected class="' + upProdAddCatOpt + '">' + upprodcat + '</option>').attr('value', upprodcat);
+        console.log(upprodcat);
         $('select').material_select();
 
-        $('#upProdAddCateModal').closeModal();
+        $('.upProdAddCatModal').closeModal();
     }
 });
 
@@ -1090,30 +1101,6 @@ $(".upServImg").change(function () {
     updateServImage(this);
 });
 
-// $('.empdeacbtn').each(function () {
-//    $(this).click(function () {
-//        var empid = $(this).attr('id');
-//        var id = "deac" + empid;
-//        console.log(empid);
-//        swal({    title: "Are you sure?",
-//                text: "You will not be able to recover this imaginary file!",
-//                type: "warning",
-//                showCancelButton: true,
-//                confirmButtonColor: "#DD6B55",
-//                confirmButtonText: "Yes, delete it!",
-//                closeOnConfirm: false },
-//            function(){
-//                swal("Deleted!", "Your imaginary file has been deleted.", "success");
-//                 $('#id').submit(function () {
-//                     $(this).attr('action', 'deactivateEmployee');
-//
-//                     return false;
-//                 });
-//
-//                // $(this).attr('formaction','deactivateEmployee');
-//            });
-//    }) ;
-// });
 
 $('#emptbl').on('click', '.empdeacbtn', function (e) {
     e.returnValue = false;

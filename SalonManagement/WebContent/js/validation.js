@@ -52,6 +52,9 @@ $(document).ready(function () {
                 required: true,
                 valueNotEquals: "default"
             },
+            strEmpContactNo: {
+                customphone: true
+            },
             strEmpEmail: {
                 required: true,
                 email: true
@@ -91,6 +94,9 @@ $(document).ready(function () {
             strEmpGender: {
                 required: "<span class='white-text'><b>Gender</b>: Required</span><br/>",
                 notEqualTo: "<span class='white-text'><b>Gender</b>: Required</span><br/>"
+            },
+            strEmpContactNo: {
+                customphone: "<span class='white-text'><b>Contact</b>: Invalid number</span><br/>"
             },
             strEmpEmail: {
                 required: "<span class='white-text'><b>Email</b>: Required</span><br/>",
@@ -144,6 +150,9 @@ $(document).ready(function () {
     });
     $.validator.addMethod("valueNotEquals", function(value, element, arg){
        return arg != value;
+    });
+    $.validator.addMethod('customphone', function (value, element) {
+        return this.optional(element) || /09[0-9]{2}-[0-9]{3}-[0-9]{4}/.test(value);
     });
 });
 
@@ -249,6 +258,9 @@ $(".updateEmpForm").each(function () {
                 required: true,
                 valueNotEquals: "default"
             },
+            strEmpContactNo: {
+                customphone: true
+            },
             strEmpEmail: {
                 required: true,
                 email: true
@@ -288,6 +300,9 @@ $(".updateEmpForm").each(function () {
             strEmpGender: {
                 required: "<span class='white-text'><b>Gender</b>: Required</span><br/>",
                 notEqualTo: "<span class='white-text'><b>Gender</b>: Required</span><br/>"
+            },
+            strEmpContactNo: {
+                customphone: "<span class='white-text'><b>Contact</b>: Invalid number</span><br/>"
             },
             strEmpEmail: {
                 required: "<span class='white-text'><b>Email</b>: Required</span><br/>",
@@ -341,6 +356,9 @@ $(".updateEmpForm").each(function () {
     });
     $.validator.addMethod("valueNotEquals", function(value, element, arg){
         return arg != value;
+    });
+    $.validator.addMethod('customphone', function (value, element) {
+        return this.optional(element) || /09[0-9]{2}-[0-9]{3}-[0-9]{4}/.test(value);
     });
 });
 
@@ -420,16 +438,16 @@ $(document).ready(function () {
             },
             strItemDetails: {
                 required: true,
-                noSpace: true,
                 minlength: 2
             },
             strItemCategory: {
                 required: true,
                 valueNotEquals: "default"
             },
-            dblItemPrice: {
+            price: {
                 required: true,
-                valueNotEquals: "Php 0.00"
+                valueNotEquals: "Php 0.00",
+                valueNotEquals2: "0.0"
             }
         },
         messages: {
@@ -441,16 +459,16 @@ $(document).ready(function () {
             },
             strItemDetails: {
                 required: "<span class='white-text'><b>Details</b>: Required</span><br/>",
-                noSpace: "<span class='white-text'><b>Details</b>: Empty Field</span><br/>",
                 minlength: "<span class='white-text'><b>Details</b>: Minimum of 2 letters</span><br/>"
             },
             strItemCategory: {
                 required: "<span class='white-text'><b>Category</b>: Required</span><br/>",
                 valueNotEquals: "<span class='white-text'><b>Category</b>: Required</span><br/>"
             },
-            dblItemPrice: {
+            price: {
                 required: "<span class='white-text'><b>Price</b>: Required</span><br/>",
-                valueNotEquals: "<span class='white-text'><b>Price</b>: Enter value</span><br/>"
+                valueNotEquals: "<span class='white-text'><b>Price</b>: Enter value</span><br/>",
+                valueNotEquals2: "<span class='white-text'><b>Price</b>: Enter value</span><br/>"
             }
         }
 
@@ -489,6 +507,9 @@ $(document).ready(function () {
         return value.indexOf(" ") != "";
     });
     $.validator.addMethod("valueNotEquals", function(value, element, arg){
+        return arg != value;
+    });
+    $.validator.addMethod("valueNotEquals2", function(value, element, arg){
         return arg != value;
     });
 });
@@ -577,16 +598,17 @@ $(".updateProdForm").each(function () {
             },
             strItemDetails: {
                 required: true,
-                noSpace: true,
                 minlength: 2
             },
             strItemCategory: {
                 required: true,
                 valueNotEquals: "default"
             },
-            dblItemPrice: {
+            price: {
                 required: true,
-                valueNotEquals: "Php 0.00"
+                valueNotEquals: "Php 0.00",
+                valueNotEquals2: "0.0"
+
             }
         },
         messages: {
@@ -598,16 +620,16 @@ $(".updateProdForm").each(function () {
             },
             strItemDetails: {
                 required: "<span class='white-text'><b>Details</b>: Required</span><br/>",
-                noSpace: "<span class='white-text'><b>Details</b>: Empty Field</span><br/>",
                 minlength: "<span class='white-text'><b>Details</b>: Minimum of 2 letters</span><br/>"
             },
             strItemCategory: {
                 required: "<span class='white-text'><b>Category</b>: Required</span><br/>",
                 valueNotEquals: "<span class='white-text'><b>Category</b>: Required</span><br/>"
             },
-            dblItemPrice: {
+            price: {
                 required: "<span class='white-text'><b>Price</b>: Required</span><br/>",
-                valueNotEquals: "<span class='white-text'><b>Price</b>: Enter value</span><br/>"
+                valueNotEquals: "<span class='white-text'><b>Price</b>: Enter value</span><br/>",
+                valueNotEquals2: "<span class='white-text'><b>Price</b>: Enter value</span><br/>"
             }
         }
 
@@ -648,10 +670,13 @@ $(".updateProdForm").each(function () {
     $.validator.addMethod("valueNotEquals", function(value, element, arg){
         return arg != value;
     });
+    $.validator.addMethod("valueNotEquals2", function(value, element, arg){
+        return arg != value;
+    });
 });
 // UPDATE PROD FORM
 //UPDATE CREATE NEW CATEGORY
-$(".upProdAddCateForm").each(function () {
+$(".upProdAddCatForm").each(function () {
     $(this).validate({
 
         errorClass: 'invalid',
@@ -665,7 +690,7 @@ $(".upProdAddCateForm").each(function () {
                 .find("label[for='" + element.attr("id") + "']");
         },
         rules: {
-            upAddProdCatName: {
+            upProdAddCatName: {
                 required: true,
                 regx: "^[A-Za-z\- '`\s]+$",
                 noSpace: true,
@@ -673,7 +698,7 @@ $(".upProdAddCateForm").each(function () {
             }
         },
         messages: {
-            upAddProdCatName: {
+            upProdAddCatName: {
                 required: "<span class='white-text'><b>Category Name</b>: Required</span><br/>",
                 regx: "<span class='white-text'><b>Category Name</b>: Invalid character</span><br/>",
                 noSpace: "<span class='white-text'><b>Category Name</b>: Empty Field</span><br/>",
@@ -728,16 +753,16 @@ $(document).ready(function () {
             },
             strItemDetails: {
                 required: true,
-                noSpace: true,
                 minlength: 2
             },
             strItemCategory: {
                 required: true,
                 valueNotEquals: "default"
             },
-            dblItemPrice: {
+            price: {
                 required: true,
-                valueNotEquals: "Php 0.00"
+                valueNotEquals: "Php 0.00",
+                valueNotEquals2: "0.0"
             }
         },
         messages: {
@@ -749,16 +774,16 @@ $(document).ready(function () {
             },
             strItemDetails: {
                 required: "<span class='white-text'><b>Details</b>: Required</span><br/>",
-                noSpace: "<span class='white-text'><b>Details</b>: Empty Field</span><br/>",
                 minlength: "<span class='white-text'><b>Details</b>: Minimum of 2 letters</span><br/>"
             },
             strItemCategory: {
                 required: "<span class='white-text'><b>Category</b>: Required</span><br/>",
                 valueNotEquals: "<span class='white-text'><b>Category</b>: Required</span><br/>"
             },
-            dblItemPrice: {
+            price: {
                 required: "<span class='white-text'><b>Price</b>: Required</span><br/>",
-                valueNotEquals: "<span class='white-text'><b>Price</b>: Enter value</span><br/>"
+                valueNotEquals: "<span class='white-text'><b>Price</b>: Enter value</span><br/>",
+                valueNotEquals2: "<span class='white-text'><b>Price</b>: Enter value</span><br/>"
             }
         }
 
@@ -797,6 +822,9 @@ $(document).ready(function () {
         return value.indexOf(" ") != "";
     });
     $.validator.addMethod("valueNotEquals", function(value, element, arg){
+        return arg != value;
+    });
+    $.validator.addMethod("valueNotEquals2", function(value, element, arg){
         return arg != value;
     });
 });
@@ -879,16 +907,16 @@ $('.updateservForm').each(function () {
             },
             strItemDetails: {
                 required: true,
-                noSpace: true,
                 minlength: 2
             },
             strItemCategory: {
                 required: true,
                 valueNotEquals: "default"
             },
-            dblItemPrice: {
+            price: {
                 required: true,
-                valueNotEquals: "Php 0.00"
+                valueNotEquals: "Php 0.00",
+                valueNotEquals2: "0.0"
             }
         },
         messages: {
@@ -900,16 +928,16 @@ $('.updateservForm').each(function () {
             },
             strItemDetails: {
                 required: "<span class='white-text'><b>Details</b>: Required</span><br/>",
-                noSpace: "<span class='white-text'><b>Details</b>: Empty Field</span><br/>",
                 minlength: "<span class='white-text'><b>Details</b>: Minimum of 2 letters</span><br/>"
             },
             strItemCategory: {
                 required: "<span class='white-text'><b>Category</b>: Required</span><br/>",
                 valueNotEquals: "<span class='white-text'><b>Category</b>: Required</span><br/>"
             },
-            dblItemPrice: {
+            price: {
                 required: "<span class='white-text'><b>Price</b>: Required</span><br/>",
-                valueNotEquals: "<span class='white-text'><b>Price</b>: Enter value</span><br/>"
+                valueNotEquals: "<span class='white-text'><b>Price</b>: Enter value</span><br/>",
+                valueNotEquals2: "<span class='white-text'><b>Price</b>: Enter value</span><br/>"
             }
         }
 
@@ -948,6 +976,9 @@ $('.updateservForm').each(function () {
         return value.indexOf(" ") != "";
     });
     $.validator.addMethod("valueNotEquals", function(value, element, arg){
+        return arg != value;
+    });
+    $.validator.addMethod("valueNotEquals2", function(value, element, arg){
         return arg != value;
     });
 });
@@ -1036,7 +1067,8 @@ $(document).ready(function () {
             },
             price: {
                 required: true,
-                valueNotEquals: "Php 0.00"
+                valueNotEquals: "Php 0.00",
+                valueNotEquals2: "0.0"
             }
         },
         messages: {
@@ -1054,7 +1086,8 @@ $(document).ready(function () {
             },
             price: {
                 required: "<span class='white-text'><b>Price</b>: Required</span><br/>",
-                valueNotEquals: "<span class='white-text'><b>Price</b>: Enter value</span><br/>"
+                valueNotEquals: "<span class='white-text'><b>Price</b>: Enter value</span><br/>",
+                valueNotEquals2: "<span class='white-text'><b>Price</b>: Enter value</span><br/>"
             }
         }
 
@@ -1093,6 +1126,9 @@ $(document).ready(function () {
         return value.indexOf(" ") != "";
     });
     $.validator.addMethod("valueNotEquals", function(value, element, arg){
+        return arg != value;
+    });
+    $.validator.addMethod("valueNotEquals2", function(value, element, arg){
         return arg != value;
     });
 });
@@ -1136,7 +1172,8 @@ $('.updateDeliveryForm').each(function () {
             },
             price: {
                 required: true,
-                valueNotEquals: "Php 0.00"
+                valueNotEquals: "Php 0.00",
+                valueNotEquals2: "0.0"
             }
         },
         messages: {
@@ -1154,7 +1191,8 @@ $('.updateDeliveryForm').each(function () {
             },
             price: {
                 required: "<span class='white-text'><b>Price</b>: Required</span><br/>",
-                valueNotEquals: "<span class='white-text'><b>Price</b>: Enter value</span><br/>"
+                valueNotEquals: "<span class='white-text'><b>Price</b>: Enter value</span><br/>",
+                valueNotEquals2: "<span class='white-text'><b>Price</b>: Enter value</span><br/>"
             }
         }
 
@@ -1193,6 +1231,12 @@ $('.updateDeliveryForm').each(function () {
         return value.indexOf(" ") != "";
     });
     $.validator.addMethod("valueNotEquals", function(value, element, arg){
+        return arg != value;
+    });
+    $.validator.addMethod("greaterThanZero", function(value, element) {
+        return this.optional(element) || (parseFloat(value) > 0);
+    });
+    $.validator.addMethod("valueNotEquals2", function(value, element, arg){
         return arg != value;
     });
 });
@@ -1234,9 +1278,10 @@ $(document).ready(function () {
                 noSpace: true,
                 minlength: 2
             },
-            dblECPrice: {
+            price: {
                 required: true,
-                valueNotEquals: "Php 0.00"
+                valueNotEquals: "Php 0.00",
+                valueNotEquals2: "0.0"
             }
         },
         messages: {
@@ -1251,9 +1296,10 @@ $(document).ready(function () {
                 noSpace: "<span class='white-text'><b>Details</b>: Empty Field</span><br/>",
                 minlength: "<span class='white-text'><b>Details</b>: Minimum of 2 letters</span><br/>"
             },
-            dblECPrice: {
+            price: {
                 required: "<span class='white-text'><b>Price</b>: Required</span><br/>",
-                valueNotEquals: "<span class='white-text'><b>Price</b>: Enter value</span><br/>"
+                valueNotEquals: "<span class='white-text'><b>Price</b>: Enter value</span><br/>",
+                valueNotEquals2: "<span class='white-text'><b>Price</b>: Enter value</span><br/>"
             }
         }
 
@@ -1294,6 +1340,9 @@ $(document).ready(function () {
     $.validator.addMethod("valueNotEquals", function(value, element, arg){
         return arg != value;
     });
+    $.validator.addMethod("valueNotEquals2", function(value, element, arg){
+        return arg != value;
+    });
 });
 
 $('.updateExtraForm').each(function () {
@@ -1331,9 +1380,10 @@ $('.updateExtraForm').each(function () {
                 noSpace: true,
                 minlength: 2
             },
-            dblECPrice: {
+            price: {
                 required: true,
-                valueNotEquals: "Php 0.00"
+                valueNotEquals: "Php 0.00",
+                valueNotEquals2: "0.0"
             }
         },
         messages: {
@@ -1348,9 +1398,10 @@ $('.updateExtraForm').each(function () {
                 noSpace: "<span class='white-text'><b>Details</b>: Empty Field</span><br/>",
                 minlength: "<span class='white-text'><b>Details</b>: Minimum of 2 letters</span><br/>"
             },
-            dblECPrice: {
+            price: {
                 required: "<span class='white-text'><b>Price</b>: Required</span><br/>",
-                valueNotEquals: "<span class='white-text'><b>Price</b>: Enter value</span><br/>"
+                valueNotEquals: "<span class='white-text'><b>Price</b>: Enter value</span><br/>",
+                valueNotEquals2: "<span class='white-text'><b>Price</b>: Enter value</span><br/>"
             }
         }
 
@@ -1389,6 +1440,9 @@ $('.updateExtraForm').each(function () {
         return value.indexOf(" ") != "";
     });
     $.validator.addMethod("valueNotEquals", function(value, element, arg){
+        return arg != value;
+    });
+    $.validator.addMethod("valueNotEquals2", function(value, element, arg){
         return arg != value;
     });
 });

@@ -58,7 +58,7 @@
                     <td class="center" style="padding:0; margin:0;">
                         <a data-delay="30" data-position="bottom" data-tooltip="View"
                            class="waves-effect waves-purple modal-viewall btn-flat transparent black-text"
-                           href="" style="padding-left: 10px;padding-right:10px; margin: 5px;">
+                           href="#view${location.intLocationID}" style="padding-left: 10px;padding-right:10px; margin: 5px;">
                             <i class="material-icons">visibility</i>
                         </a>
                         <a data-delay="30" data-position="bottom" data-tooltip="Update"
@@ -183,6 +183,7 @@
         </form>
     </div>
     </c:forEach>
+
 
 
 

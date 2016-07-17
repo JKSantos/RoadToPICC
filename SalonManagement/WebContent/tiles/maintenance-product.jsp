@@ -216,7 +216,7 @@
                                        placeholder="New Category" required/>
                                 <label for="crProdAddCatName" class="active"><b>Category</b></label>
                             </div>
-                            <div class="input-field col s8 offset-s2 center">
+                            <div class="input-field col s12 center">
                                 <a id="createAddCatBtn"
                                    class="waves-effect waves-light purple darken-3 btn-flat white-text">SAVE
                                 </a>
@@ -326,15 +326,15 @@
                                                 class="material-icons red-text tiny">error_outline</i></label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <a href="#upProdAddCateModal"
+                                        <a href="#upProdAddCatModal"
                                            class="waves-effect waves-light btn-flat modal-category purple white-text"><i
                                                 class="material-icons">add</i></a>
                                     </div>
                                     <div class="input-field col s6 offset-s6" style="margin-bottom: -15px !important;">
                                         <input value="${product.dblProductPrice}" type="text"
                                                class="validate right-align upProdItemPrice"
-                                               id="ItemPrice" name="price" required placeholder="P9.99"/>
-                                        <label for="ItemPrice" class="active"><b>Price</b><i
+                                               id="upItemPrice" name="price" required placeholder="P9.99"/>
+                                        <label for="upItemPrice" class="active"><b>Price</b><i
                                                 class="material-icons red-text tiny">error_outline</i></label>
                                     </div>
                                 </div>
@@ -360,6 +360,44 @@
                 </form>
             </div>
         </c:forEach>
+
+        <div id="upProdAddCatModal" class="upProdAddCatModal modal" style="margin-top: 30px;">
+            <form id="upProdAddCatForm" class="upProdAddCatForm">
+                <div class="modal-content">
+                    <h4>Add Another Category</h4>
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="upprodcat center input-field col s12 card red white-text z-depth-barts">
+
+                            </div>
+                            <div class="input-field col s8 offset-s2">
+
+                                <select id="updateAddCategorySelect" class="browser-default" size="10"
+                                        style="height: 120px !important; border-bottom: none !important;">
+                                    <c:forEach items="${productCategory}" var="product">
+                                        <option value="${product}">${product}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="input-field col s8 offset-s2" style="margin-top: 20px;">
+                                <input type="text" class="validate upProdAddCatName"
+                                       id="upProdAddCatName" name="upProdAddCatName"
+                                       placeholder="New Category" required/>
+                                <label for="upProdAddCatName" class="active"><b>Category</b></label>
+                            </div>
+                            <div class="input-field col s12 center">
+                                <a id="updateProdAddCatBtn"
+                                   class="updateProdAddCatBtn waves-effect waves-light purple darken-3 btn-flat white-text">SAVE
+                                </a>
+                                <button type="reset" value="Reset" id="upAddProdCatCancel"
+                                        class="upAddProdCatCancel modal-close waves-effect waves-purple transparent btn-flat white">CANCEL
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
         <!--  START VIEW PRODUCT -->
 
         <!-- add category END -->

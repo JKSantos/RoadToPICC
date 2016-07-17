@@ -258,7 +258,7 @@
         height: 400px !important;
     }
 
-    #upProdAddCate {
+    #upProdAddCatModal {
         width: 400px !important;
         height: 400px !important;
     }
@@ -362,13 +362,13 @@
     });
 
     $('#createContact').formatter({
-        'pattern': '+63 {{999}}-{{999}}-{{9999}}',
+        'pattern': '09{{99}}-{{999}}-{{9999}}',
         'persistent': true
     });
 
     $('.updateContact').each(function () {
         $(this).formatter({
-            'pattern': '+63 {{999}}-{{999}}-{{9999}}',
+            'pattern': '09{{99}}-{{999}}-{{9999}}',
             'persistent': true
         });
     });
@@ -405,13 +405,15 @@
     $('.prodPrice').priceFormat({
         prefix: 'Php ',
         centsSeparator: '.',
-        thousandsSeparator: ','
+        thousandsSeparator: ',',
+        limit: 9
     });
 
     $('.servPrice').priceFormat({
         prefix: 'Php ',
         centsSeparator: '.',
-        thousandsSeparator: ','
+        thousandsSeparator: ',',
+        limit: 9
     });
 
 
@@ -422,6 +424,7 @@
         thousandsSeparator: ',',
         limit: 9
     });
+
 
 
 </script>

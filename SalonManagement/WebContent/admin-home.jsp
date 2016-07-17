@@ -7,6 +7,7 @@
 
   <link rel="stylesheet" type="text/css" href="css/drag.css"/>
   <link rel="stylesheet" type="text/css" href="css/animate.css"/>
+    <link rel="stylesheet" type="text/css" href="css/jquery-jvectormap-2.0.3.css"/>
 
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -100,7 +101,9 @@
                 <article>
                 <div class="wrapper">
                   <div class="col s12 center" style="margin-top: 200px;">
-                    <button id="welcome" class="btn waves-effect waves-light purple darken-3 animated infinite rubberBand z-depth-3" style="width: 300px; height: 150px;font-size: 30px;">WELCOME</button>
+                    <div id="map" style="width: 800px; height: 900px;">
+
+                    </div>
                   </div>
                 </div>
                 
@@ -285,10 +288,16 @@
     <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script type="text/javascript" src="js/drag.js"></script>
+  <script type="text/javascript" src="js/jquery-jvectormap-2.0.3.min.js"></script>
+  <script type="text/javascript" src="js/phmap.js"></script>
     
     <script type="text/javascript">
       $( document ).ready(function(){
         $(".button-collapse").sideNav();
+      });
+
+      $(function() {
+        $('#map').vectorMap({map: 'ph_mill_en'});
       });
     </script>
 
@@ -301,6 +310,7 @@
       <script type="text/javascript">
       $('#welcome').addClass('animated infinite rubberBand');
       </script>
+
 
     <!-- Upload image -->
 

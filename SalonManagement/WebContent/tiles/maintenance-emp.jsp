@@ -226,7 +226,8 @@ String granAccess = null;
                                 <div class="input-field col s12" style="margin-top: -10px;">
                                     <input type="text" name="strEmpContactNo" id="createContact"
                                            placeholder="Ex: 09123456789"/>
-                                    <label for="createContact"><b>Phone Number</b></label>
+                                    <label for="createContact"><b>Phone Number</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12">
                                     <input type="email" name="strEmpEmail" id="createEmail"
@@ -465,7 +466,8 @@ String granAccess = null;
                                                        class="updateContact"
                                                        placeholder="Ex: 09123456789"
                                                        value="${employee.strEmpContactNo}"/>
-                                                <label for="updateContact"><b>Phone Number</b></label>
+                                                <label for="updateContact"><b>Phone Number</b><i
+                                                        class="material-icons red-text tiny">error_outline</i></label>
                                             </div>
                                             <div class="input-field col s12">
                                                 <input type="email" name="strEmpEmail" id="updateEmail"
