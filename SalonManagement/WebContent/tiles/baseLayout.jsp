@@ -341,7 +341,6 @@
 <script type="text/javascript" src="js/jquery.formatter.min.js"></script>
 <script type="text/javascript" src="js/dropify.min.js"></script>
 <script type="text/javascript" src="js/sweetalert.min.js"></script>
-<!--<script type="text/javascript" src="js/ajax.js"></script>-->
 <script type="text/javascript" src="js/ellipsis.js"></script>
 <script type="text/javascript" src="js/priceformat.js"></script>
 <script type="text/javascript" src="js/formatted-numbers.js"></script>

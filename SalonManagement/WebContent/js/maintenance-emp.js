@@ -44,9 +44,10 @@ $(document).ready(function () {
         "columnDefs": [
             {"targets": 'no-sort', "orderable": false},
             {className: "dt-body-left", "targets": [0, 1, 2]},
-            {className: "dt-body-center", "targets": [0]},
-            {"targets": [0], "width": "250px"},
+            {className: "dt-head-center", "targets": [0, 3]},
+            {"targets": [0], "width": "230px"},
             {"targets": [3], "width": "200px"},
+            {"targets": [2], "width": "250px"},
             {"targets": [2], render: $.fn.dataTable.render.ellipsis(25)}
         ],
         "rowHeight": '10px'
@@ -107,8 +108,9 @@ $(document).ready(function () {
         "order": [],
         "columnDefs": [
             {"targets": 'no-sort', "orderable": false},
-            {className: "dt-body-left", "targets": [1]},
-            {className: "dt-body-center", "targets": [0]}
+            {className: "dt-body-left", "targets": [1, 2]},
+            {className: "dt-body-center", "targets": [0]},
+            {className: "dt-head-right", "targets": [4]}
         ],
         "rowHeight": '10px'
     });
@@ -120,8 +122,9 @@ $(document).ready(function () {
         "order": [],
         "columnDefs": [
             {"targets": 'no-sort', "orderable": false},
-            {className: "dt-body-left", "targets": [1]},
-            {className: "dt-body-center", "targets": [0]}
+            {className: "dt-body-left", "targets": [1, 2]},
+            {className: "dt-body-center", "targets": [0]},
+            {className: "dt-head-right", "targets": [4]}
         ],
         "rowHeight": '10px'
     });
@@ -663,16 +666,11 @@ $('.updateServAddCatBtn').click(function () {
     }
 });
 
-//
-// $(document).ready(function(){
-//    var x = $('#addOptionName') .val();
-//     if(x == "" || x == null){
-//         $('#createAddPosition').attr('disabled',true);
-//     } else {
-//         $('#createAddPosition').attr('disabled',false);
-//     }
-// });
-//end add option
+$('#createSubmitForm').click(function () {
+    if($('#createPackageForm').valid()){
+        $('#createPackageForm').submit();
+    }
+});
 
 
 $('#addOptionSelect').click(function () {
@@ -706,345 +704,9 @@ $(document).ready(function () {
 
 // add product / service in table (PROMO)
 
-function addServPromo() {
-    var table = document.getElementById("promoTable");
-    var promoType = $("#promoService").val();
-    var promoQty = $("#promoServiceQty").val();
-    var removeBtn = document.createElement('button');
-
-    var rowCount = table.rows.length;
-    var row = table.insertRow(rowCount);
-    var i = rowCount;
-    var cell1 = row.insertCell(0);
-    cell1.innerHTML = '<input type="text" value="' + promoType + '" id="createServPromType[' + i + ']" name="createServPromType" readonly style="color:black;"/>';
-    var cell2 = row.insertCell(1);
-    var servPromQty = document.createElement("input");
-    servPromQty.type = "number";
-    servPromQty.name = "createServPromQty";
-    servPromQty.style = "color: black";
-    servPromQty.value = promoQty;
-    cell2.appendChild(servPromQty);
-    var cell3 = row.insertCell(2);
-    // cell1.innerHTML = promoType;
-    // cell2.innerHTML = promoQty;
-    cell3.innerHTML = '<input id="removeBtn" type="button" value="Remove" class="waves-effect waves-light btn red" onclick="deleteServPromo(this)" />';
-    var x = document.getElementById("promoService");
-    x.remove(x.selectedIndex);
-}
-
-function deleteServPromo(row) {
-    var x = row.parentNode.parentNode.rowIndex;
-    // var packageText = document.getElementById("promoTable").rows[i].cells[0].innerHTML;
-    var packageText = document.getElementById("promoTable").rows[x].cells[0].firstChild.value;
-    document.getElementById('promoTable').deleteRow(x);
-
-    alert(packageText);
-    var y = document.getElementById("promoService");
-    var option = document.createElement("option");
-    option.text = packageText;
-
-    y.add(option);
-}
-
-function addProdPromo() {
-    var table = document.getElementById("promoTable");
-    var promoProdType = $("#promoProduct").val();
-    var promoProdQty = $("#promoProductQty").val();
-    var removeBtn = document.createElement('button');
-
-    var rowCount = table.rows.length;
-    var row = table.insertRow(rowCount);
-    var i = rowCount;
-    var cell1 = row.insertCell(0);
-    cell1.innerHTML = '<input type="text" value="' + promoProdType + '" id="createProdPromType[' + i + ']" name="createProdPromType" readonly style="color:black;"/>';
-    var cell2 = row.insertCell(1);
-    var prodPromQty = document.createElement("input");
-    prodPromQty.type = "number";
-    prodPromQty.name = "createProdPromQty";
-    prodPromQty.style = "color: black";
-    prodPromQty.value = promoProdQty;
-    cell2.appendChild(prodPromQty);
-    var cell3 = row.insertCell(2);
-    // cell1.innerHTML = promoType;
-    // cell2.innerHTML = promoQty;
-    cell3.innerHTML = '<input id="removeBtn" type="button" value="Remove" class="waves-effect waves-light btn red" onclick="deleteProdPromo(this)" />';
-    var x = document.getElementById("promoProduct");
-    x.remove(x.selectedIndex);
-}
-
-function deleteProdPromo(row) {
-    var i = row.parentNode.parentNode.rowIndex;
-    var packageText = document.getElementById("promoTable").rows[i].cells[0].firstChild.value;
-    document.getElementById('promoTable').deleteRow(i);
-
-    alert(packageText);
-    var y = document.getElementById("promoProduct");
-    var option = document.createElement("option");
-    option.text = packageText;
-
-    y.add(option);
-}
 
 
-// add product/service in update BEGIN
-function updateServPromo() {
-    var table = document.getElementById("updatePromoTable");
-    var promoType = $("#updatePromoService").val();
-    var promoQty = $("#updatePromoSQty").val();
-    var removeBtn = document.createElement('button');
 
-    var rowCount = table.rows.length;
-    var row = table.insertRow(rowCount);
-    var i = rowCount;
-    var cell1 = row.insertCell(0);
-    cell1.innerHTML = '<input type="text" value="' + promoType + '" id="updateServPromType[' + i + ']" name="createServPromType" disabled="disabled" style="color:black;"/>';
-    var cell2 = row.insertCell(1);
-    var updateServPromQty = document.createElement("input");
-    updateServPromQty.type = "number";
-    updateServPromQty.name = "createServPromQty";
-    updateServPromQty.disabled = true;
-    updateServPromQty.style = "color: black";
-    updateServPromQty.value = promoQty;
-    cell2.appendChild(updateServPromQty);
-    var cell3 = row.insertCell(2);
-    // cell1.innerHTML = promoType;
-    // cell2.innerHTML = promoQty;
-    cell3.innerHTML = '<input id="removeBtn" type="button" value="Remove" class="waves-effect waves-light btn red" onclick="deleteUpdateSPromo(this)" />';
-    var x = document.getElementById("updatePromoService");
-    x.remove(x.selectedIndex);
-}
-
-function deleteUpdateSPromo(row) {
-    var i = row.parentNode.parentNode.rowIndex;
-    var packageText = document.getElementById("updatePromoTable").rows[i].cells[0].firstChild.value;
-    document.getElementById('updatePromoTable').deleteRow(i);
-
-    alert(packageText);
-    var y = document.getElementById("updatePromoService");
-    var option = document.createElement("option");
-    option.text = packageText;
-
-    y.add(option);
-}
-
-function updateProdPromo() {
-    var table = document.getElementById("updatePromoTable");
-    var promoProdType = $("#updatePromoProduct").val();
-    var promoProdQty = $("#updatePromoPQty").val();
-    var removeBtn = document.createElement('button');
-
-    var rowCount = table.rows.length;
-    var row = table.insertRow(rowCount);
-    var i = rowCount;
-    var cell1 = row.insertCell(0);
-    cell1.innerHTML = '<input type="text" value="' + promoProdType + '" id="createProdPromType" name="updateProdPromType" disabled="disabled" style="color:black;"/>';
-    var cell2 = row.insertCell(1);
-    var updateProdPromQty = document.createElement("input");
-    updateProdPromQty.type = "number";
-    updateProdPromQty.name = "createProdPromQty";
-    updateProdPromQty.disabled = true;
-    updateProdPromQty.style = "color: black";
-    updateProdPromQty.value = promoProdQty;
-    cell2.appendChild(updateProdPromQty);
-    var cell3 = row.insertCell(2);
-    // cell1.innerHTML = promoType;
-    // cell2.innerHTML = promoQty;
-    cell3.innerHTML = '<input id="removeBtn" type="button" value="Remove" class="waves-effect waves-light btn red" onclick="deleteUpdatePPromo(this)" />';
-    var x = document.getElementById("updatePromoProduct");
-    x.remove(x.selectedIndex);
-
-
-}
-
-function deleteUpdatePPromo(row) {
-    var i = row.parentNode.parentNode.rowIndex;
-    var packageText = document.getElementById("updatePromoTable").rows[i].cells[0].firstChild.value;
-    document.getElementById('updatePromoTable').deleteRow(i);
-
-    alert(packageText);
-    var y = document.getElementById("updatePromoProduct");
-    var option = document.createElement("option");
-    option.text = packageText;
-
-    y.add(option);
-}
-// add product/service in update END
-
-
-// add product/service in package BEGIN
-function createPackageService() {
-    var table = document.getElementById("createPackageTable");
-    var packageType = $("#createPackageService").val();
-    var packageQty = $("#createPackageServiceQty").val();
-    var removeBtn = document.createElement('button');
-
-    var rowCount = table.rows.length;
-    var row = table.insertRow(rowCount);
-    var i = rowCount;
-    var cell1 = row.insertCell(0);
-    cell1.innerHTML = '<input type="text" value="' + packageType + '" id="createPackServType[' + i + ']" name="createPackServType" readonly style="color:black;"/>';
-    var cell2 = row.insertCell(1);
-    var createPackServQty = document.createElement("input");
-    createPackServQty.type = "number";
-    createPackServQty.name = "createPackServQty";
-    createPackServQty.style = "color: black";
-    createPackServQty.value = packageQty;
-    cell2.appendChild(createPackServQty);
-    var cell3 = row.insertCell(2);
-    // cell1.innerHTML = promoType;
-    // cell2.innerHTML = promoQty;
-    cell3.innerHTML = '<input id="removeBtn" type="button" value="Remove" class="waves-effect waves-light btn red" onclick="deleteCreateServPack(this)" />';
-    var x = document.getElementById("createPackageService");
-    x.remove(x.selectedIndex);
-}
-
-function deleteCreateServPack(row) {
-    var i = row.parentNode.parentNode.rowIndex;
-    var packageText = document.getElementById("createPackageTable").rows[i].cells[0].firstChild.value;
-    document.getElementById('createPackageTable').deleteRow(i);
-
-    alert(packageText);
-    var y = document.getElementById("createPackageService");
-    var option = document.createElement("option");
-    option.text = packageText;
-
-    y.add(option);
-}
-
-function createPackageProduct() {
-    var table = document.getElementById("createPackageTable");
-    var promoType = $("#createPackageProduct").val();
-    var promoQty = $("#createPackageProductQty").val();
-    var removeBtn = document.createElement('button');
-
-    var rowCount = table.rows.length;
-    var row = table.insertRow(rowCount);
-    var i = rowCount;
-    var cell1 = row.insertCell(0);
-    cell1.innerHTML = '<input type="text" value="' + promoType + '" id="createPackProdType[' + i + ']" name="createPackProdType" readonly style="color:black;"/>';
-    var cell2 = row.insertCell(1);
-    var createPackProdQty = document.createElement("input");
-    createPackProdQty.type = "number";
-    createPackProdQty.name = "createPackProdQty";
-    createPackProdQty.style = "color: black";
-    createPackProdQty.value = promoQty;
-    cell2.appendChild(createPackProdQty);
-    var cell3 = row.insertCell(2);
-    // cell1.innerHTML = promoType;
-    // cell2.innerHTML = promoQty;
-    cell3.innerHTML = '<input id="removeBtn" type="button" value="Remove" class="waves-effect waves-light btn red" onclick="deleteCreateProdPack(this)" />';
-    var x = document.getElementById("createPackageProduct");
-    x.remove(x.selectedIndex);
-}
-
-function deleteCreateProdPack(row) {
-    var i = row.parentNode.parentNode.rowIndex;
-    var packageText = document.getElementById("createPackageTable").rows[i].cells[0].firstChild.value;
-    document.getElementById('createPackageTable').deleteRow(i);
-
-    alert(packageText);
-    var y = document.getElementById("createPackageProduct");
-    var option = document.createElement("option");
-    option.text = packageText;
-
-    y.add(option);
-}
-
-function updatePackageService() {
-    var table = document.getElementById("updatePackageTable");
-    var promoType = $("#updatePackageService").val();
-    var promoQty = $("#updatePackageServiceQty").val();
-    var removeBtn = document.createElement('button');
-
-    var rowCount = table.rows.length;
-    var row = table.insertRow(rowCount);
-    var i = rowCount;
-    var cell1 = row.insertCell(0);
-    cell1.innerHTML = '<input type="text" value="' + promoType + '" id="updateServPackType[' + i + ']" name="createServPackType" readonly style="color:black;"/>';
-    var cell2 = row.insertCell(1);
-    var updateServPackQty = document.createElement("input");
-    updateServPackQty.type = "number";
-    updateServPackQty.name = "createServPackQty";
-    updateServPackQty.style = "color: black";
-    updateServPackQty.value = promoQty;
-    cell2.appendChild(updateServPackQty);
-    var cell3 = row.insertCell(2);
-    // cell1.innerHTML = promoType;
-    // cell2.innerHTML = promoQty;
-    cell3.innerHTML = '<input id="removeBtn" type="button" value="Remove" class="waves-effect waves-light btn red" onclick="deleteUpdateServPack(this)" />';
-    var x = document.getElementById("updatePackageService");
-    x.remove(x.selectedIndex);
-}
-
-function deleteUpdateServPack(row) {
-    var i = row.parentNode.parentNode.rowIndex;
-    var packageText = document.getElementById("updatePackageTable").rows[i].cells[0].firstChild.value;
-    document.getElementById('updatePackageTable').deleteRow(i);
-
-    alert(packageText);
-    var y = document.getElementById("updatePackageService");
-    var option = document.createElement("option");
-    option.text = packageText;
-
-    y.add(option);
-}
-
-function updatePackageProduct() {
-    var table = document.getElementById("updatePackageTable");
-    var promoType = $("#updatePackageProduct").val();
-    var promoQty = $("#updatePackageProductQty").val();
-    var removeBtn = document.createElement('button');
-
-    var rowCount = table.rows.length;
-    var row = table.insertRow(rowCount);
-    var i = rowCount;
-    var cell1 = row.insertCell(0);
-    cell1.innerHTML = '<input type="text" value="' + promoType + '" id="updateProdPackType[' + i + ']" name="createProdPackType" readonly style="color:black;"/>';
-    var cell2 = row.insertCell(1);
-    var updateProdPackQty = document.createElement("input");
-    updateProdPackQty.type = "number";
-    updateProdPackQty.name = "updateProdPackQty";
-    updateProdPackQty.disabled = true;
-    updateProdPackQty.style = "color: black";
-    updateProdPackQty.value = promoQty;
-    cell2.appendChild(updateProdPackQty);
-    var cell3 = row.insertCell(2);
-    // cell1.innerHTML = promoType;
-    // cell2.innerHTML = promoQty;
-    cell3.innerHTML = '<input id="removeBtn" type="button" value="Remove" class="waves-effect waves-light btn red" onclick="deleteUpdateProdPack(this)" />';
-    var x = document.getElementById("updatePackageProduct");
-    x.remove(x.selectedIndex);
-}
-
-function deleteUpdateProdPack(row) {
-    var i = row.parentNode.parentNode.rowIndex;
-    var packageText = document.getElementById("updatePackageTable").rows[i].cells[0].firstChild.value;
-    document.getElementById('updatePackageTable').deleteRow(i);
-
-    alert(packageText);
-    var y = document.getElementById("updatePackageProduct");
-    var option = document.createElement("option");
-    option.text = packageText;
-
-    y.add(option);
-}
-// add product/service in package END
-
-
-// add another option BEGIN
-// EMPLOYEE BEGIN
-
-
-// EMPLOYEE END
-
-// PRODUCT AND SERVICE BEGIN
-
-// $("#createAddCatBtn").click(function () {
-
-//   });
-// product
-
-// bday BEGIN
 $('#createBirthday').pickadate({
     selectYears: 40,
     selectMonths: true,
@@ -1457,3 +1119,36 @@ $('#extratbl').on('click', '.extradeacbtn', function (e) {
         });
 });
 
+
+$('#packagetbl').on('click', '.packagedeacbtn', function (e) {
+    e.returnValue = false;
+    var packageID = $(this).attr('id');
+    console.log(packageID);
+    var packagedata = {
+        'intPackageID': packageID
+    }
+    var $tr = $(this).closest('tr');
+
+    swal({
+            title: "Are you sure?",
+            text: "",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        },
+        function () {
+            swal("Deleted!", ".", "success");
+            $.ajax({
+                type: 'post',
+                url: 'deactivatePackage',
+                data: packagedata,
+                success: function (response) {
+                    $tr.find('td').fadeOut(500, function () {
+                        $tr.remove();
+                    });
+                }
+            });
+        });
+});

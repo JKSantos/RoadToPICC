@@ -104,8 +104,8 @@ $(document).ready(function(){
         hideButtonsPack(currentPack);
     });
 
-    // btnsubmit.submit(function(){
-    //    $('#createEmpForm').submit(function(){
+    // packbtnsubmit.submit(function(){
+    //    $('#createPackageForm').submit(function(){
     //       alert("submitted");
     //    });
     // });

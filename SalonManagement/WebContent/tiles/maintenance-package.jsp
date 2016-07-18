@@ -199,7 +199,7 @@
                                         <label for="crPackageDesc" class="active"><b>Description</b></label>
                                     </div>
                                     <div class="input-field col s12">
-                                        <select name="intPackageType" id="crPackageType" multiple>
+                                        <select name="intPackageType" id="crPackageType" multiple required>
                                             <option disabled selected value="default">Choose your option</option>
                                             <option value="1">Event</option>
                                             <option value="2">Home Service</option>
@@ -372,14 +372,17 @@
                             </div>
                             <div class="col s12 z-depth-barts white prodservlist" id="prodContainer">
                                 <h6 class="center" style="padding-top: -2px !important;"><b>Product List</b></h6>
-                                <div class="col s6" id="prodList" style="margin-top: -13px !important; margin-bottom: 5px !important;"></div>
+                                <div class="col s6" id="prodList"
+                                     style="margin-top: -13px !important; margin-bottom: 5px !important;"></div>
                             </div>
-                            <div class="col s12 z-depth-barts white prodservlist" style="margin-top: 5px;" id="servContainer">
+                            <div class="col s12 z-depth-barts white prodservlist" style="margin-top: 5px;"
+                                 id="servContainer">
                                 <h6 class="center" style="padding-top: -2px !important;"><b>Service List</b></h6>
-                                <div class="col s6" id="servList" style="margin-top: -13px !important; margin-bottom: 5px !important;"></div>
+                                <div class="col s6" id="servList"
+                                     style="margin-top: -13px !important; margin-bottom: 5px !important;"></div>
                             </div>
-                            
-                            <input type="submit" value="create"/>
+
+                            <!--<input type="submit" value="create"/>-->
 
                         </div>
                     </div>
@@ -398,10 +401,11 @@
                         class="actionpack nextformpack waves-effect waves-light white-text btn-flat purple"
                         style="margin-left: 3px; margin-right:3px;">NEXT
                 </button>
-                <button type="submit" value="Submit" id="createSubmitForm"
+                <button type="submit" value="submit" id="createSubmitForm"
                         class="actionpack submitformpack waves-effect waves-light white-text btn-flat purple"
                         style="margin-left:3px; margin-right:3px;">CREATE
                 </button>
+
             </div>
         </form>
     </div>
