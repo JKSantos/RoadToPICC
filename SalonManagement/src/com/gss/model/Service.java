@@ -1,5 +1,12 @@
 package com.gss.model;
 
+import java.util.List;
+
+import com.gss.service.PackageService;
+import com.gss.service.PackageServiceImpl;
+import com.gss.service.ServiceService;
+import com.gss.service.ServiceServiceImpl;
+
 public class Service {
 	
 	private int intServiceID;
@@ -85,6 +92,13 @@ public class Service {
 
 	public void setStrPhotoPath(String strPhotoPath) {
 		this.strPhotoPath = strPhotoPath;
+	}
+	
+	public static List<Service> getAllService(){
+		
+		ServiceService service = new ServiceServiceImpl();
+		
+		return service.getAllServiceNoImage();
 	}
 
 }

@@ -60,7 +60,7 @@
     
     <definition name="transInventory" extends="baseLayout">
         <put-attribute name="title"			value="Inventory"/>
-        <put-attribute name="body"			value="/tiles/transaction-inventory.jsp"/>
+        <put-attribute name="body"			value="/tiles/transactions-inventory.jsp"/>
     </definition>  
     
     <definition name="transProductSales" extends="baseLayout">

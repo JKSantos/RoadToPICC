@@ -3,6 +3,7 @@ package com.gss.utilities;
 import java.util.List;
 
 import com.gss.model.Product;
+import com.gss.model.Promo;
 import com.gss.model.Service;
 import com.gss.model.Package;
 
@@ -132,6 +133,52 @@ public class ItemDecoder {
 			for(int intCtr2 = 0; intCtr2 < packageList.size(); intCtr2++){
 				
 				if(Integer.parseInt(checkedPackage[intCtr]) == packageList.get(intCtr2).getIntPackageID()){
+					
+					packageOrder[order] = String.valueOf(intCounter);
+					order++;
+					intCounter = 0;
+					break;
+				}
+				else
+					intCounter++;
+				
+			}
+		}
+		
+		return packageOrder;
+	}
+	
+	public String[] getPromoQuantity(String[] promoOrder, String[] promoQuantity){
+		
+		String[] includedQuantity = new String[promoOrder.length];
+		int order = 0;
+		
+		for(int intCtr = 0; intCtr < promoQuantity.length; intCtr++){
+			
+			for(int intCtr2 = 0; intCtr2 < promoOrder.length; intCtr2++){
+				
+				if(intCtr == Integer.parseInt(promoOrder[intCtr2])){
+					includedQuantity[order] = promoQuantity[intCtr];
+					order++;
+				}
+			}
+		}
+		
+		return includedQuantity;
+		
+	}
+	
+	public String[] promoOrderByChecked(List<Promo> promoList, String[] checkedPromo){
+		
+		int intCounter = 0;
+		int order = 0;
+		String[] packageOrder = new String[checkedPromo.length];
+		
+		for(int intCtr = 0; intCtr < checkedPromo.length; intCtr++){
+			
+			for(int intCtr2 = 0; intCtr2 < promoList.size(); intCtr2++){
+				
+				if(Integer.parseInt(checkedPromo[intCtr]) == promoList.get(intCtr2).getIntPromoID()){
 					
 					packageOrder[order] = String.valueOf(intCounter);
 					order++;

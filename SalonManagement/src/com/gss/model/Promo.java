@@ -2,6 +2,11 @@ package com.gss.model;
 
 import java.util.List;
 
+import com.gss.service.PromoService;
+import com.gss.service.PromoServiceImpl;
+import com.gss.service.ServiceService;
+import com.gss.service.ServiceServiceImpl;
+
 public class Promo {
 	
 	private int intPromoID;
@@ -117,6 +122,12 @@ public class Promo {
 	public void setStrPromoGuidelines(String strPromoGuidelines) {
 		this.strPromoGuidelines = strPromoGuidelines;
 	}
-
+	
+	public static List<Promo> getAllPromo(){
+		
+		PromoService service = new PromoServiceImpl();
+		
+		return service.getAllPromo();
+	}
 
 }
