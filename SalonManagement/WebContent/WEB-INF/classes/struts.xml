@@ -40,6 +40,7 @@
 		</action>
 		
 		<action name="getImage" class="com.gss.actions.GetImageAction">
+
 		</action>
 		
 		<action name="login" class="com.gss.actions.LogInAction" method="execute">

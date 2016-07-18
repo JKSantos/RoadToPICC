@@ -19,11 +19,9 @@
                 <div class="nav-wrapper col s4">
                     <form>
                         <div class="input-field">
-                            <input id="extraSearch" class="grey-text text-darken-4" type="search" required>
-                            <label for="extraSearch" style="margin-top: -20px !important;"><i
-                                    class="material-icons grey-text text-darken-4"
-                                    style="margin-top: 20px;">search</i></label>
-                            <i class="material-icons grey-text text-darken-4">close</i>
+                            <input id="extraSearch" placeholder="Search" class="grey-text text-darken-4" type="search" required>
+                            <label for="extraSearch"><i
+                                    class="material-icons grey-text text-darken-4">search</i></label>
                         </div>
                     </form>
                 </div>

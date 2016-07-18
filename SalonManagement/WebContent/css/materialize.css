@@ -8935,6 +8935,11 @@ textarea.materialize-textarea + label:after {
   transition: .2s opacity ease-out, .2s color ease-out;
 }
 
+form {
+  height: 100%;
+}
+
+
 .input-field {
   position: relative;
   margin-top: 1rem;

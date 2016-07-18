@@ -35,11 +35,9 @@ String granAccess = null;
                 <div class="nav-wrapper col s4">
                     <form>
                         <div class="input-field">
-                            <input id="empSearch" class="grey-text text-darken-4" type="search" required>
-                            <label for="empSearch" style="margin-top: -20px !important;"><i
-                                    class="material-icons grey-text text-darken-4"
-                                    style="margin-top: 20px;">search</i></label>
-                            <i class="material-icons grey-text text-darken-4">close</i>
+                            <input id="empSearch" placeholder="Search" class="grey-text text-darken-4" type="search" required/>
+                            <label for="empSearch"><i
+                                    class="material-icons grey-text text-darken-4">search</i></label>
                         </div>
                     </form>
                 </div>
