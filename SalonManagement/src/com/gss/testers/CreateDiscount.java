@@ -16,19 +16,20 @@ public class CreateDiscount {
 		DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
 	    java.util.Date utilDate = format.parse("1996-5-6");
 	    
-	    String[] date = "1996-5-6".split("-");
+	    String[] date = "4:30".split(":");
 	    
 	    Calendar calendar = Calendar.getInstance();
-	    calendar.set(Integer.parseInt(date[0]), (Integer.parseInt(date[1]) - 1), Integer.parseInt(date[2]));
+	    
 	    long cal = calendar.getTimeInMillis();
 
 	    java.util.Date dateee = new java.util.Date(cal);
-	   
-	    
-	    System.out.println("utilDate:" + dateee);
-	    System.out.println("sqlDate:" + sqlDate);
-		
 
+		dateee.setHours(Integer.parseInt(date[0]));
+		dateee.setMinutes(Integer.parseInt(date[1]));
+		dateee.setSeconds(00);
+		
+		System.out.println(dateee.getHours() + ":" + dateee.getMinutes() + ":" + dateee.getSeconds());
+	    
 		
 
 	  }

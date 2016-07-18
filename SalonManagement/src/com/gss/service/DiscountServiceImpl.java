@@ -1,5 +1,6 @@
 package com.gss.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.gss.dao.DiscountJDBCRepository;
@@ -19,14 +20,24 @@ public class DiscountServiceImpl implements DiscountService{
 		
 		DiscountRepository repo = new DiscountJDBCRepository();
 		
-		return repo.createDiscount(discount);
+		try {
+			return repo.createDiscount(discount);
+		} catch (SQLException e){
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	public boolean updateDiscount(Discount discount){
 	
 		DiscountRepository repo = new DiscountJDBCRepository();
 		
-		return repo.updateDiscount(discount);
+		try {
+			return repo.updateDiscount(discount);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
