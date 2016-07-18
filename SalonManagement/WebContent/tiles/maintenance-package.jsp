@@ -378,6 +378,8 @@
                                 <h6 class="center" style="padding-top: -2px !important;"><b>Service List</b></h6>
                                 <div class="col s6" id="servList" style="margin-top: -13px !important; margin-bottom: 5px !important;"></div>
                             </div>
+                            
+                            <input type="submit" value="create"/>
 
                         </div>
                     </div>

@@ -3,6 +3,7 @@ package com.gss.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -159,41 +160,118 @@ public class DiscountJDBCRepository implements DiscountRepository{
 	}
 
 	@Override
-	public boolean createDiscount(Discount discount) {
+	public boolean createDiscount(Discount discount) throws SQLException {
 		
-		Connection con = jdbc.getConnection();
-		String strQuery = "CALL createDiscount(?, ? ,?, ?, ?)";
+		Connection con 				= jdbc.getConnection();
+		String strQuery 			= "CALL createDiscount(?, ? ,?, ?, ?)";
+		String createProducts		= "CALL createDiscProd(?, ?);";
+		String createServices		= "CALL createDiscServ(?, ?);";
+		String createPackage		= "CALL createDiscPack(?, ?);";
+		String createPromo			= "CALL createDiscPromo(?, ?)";
+		int intDiscountID			= 0;
 		
 		try{
-			PreparedStatement pre = con.prepareStatement(strQuery);
+			con.setAutoCommit(false);
+			PreparedStatement pre 			= con.prepareStatement(strQuery);
+			PreparedStatement preProduct	= con.prepareStatement(createProducts);
+			PreparedStatement preService	= con.prepareStatement(createServices);
+			PreparedStatement prePackage	= con.prepareStatement(createPackage);
+			PreparedStatement prePromo		= con.prepareStatement(createPromo);
+			
+			ResultSet setDiscountID;
+			
 			pre.setString(1, discount.getStrDiscountName());
 			pre.setString(2, discount.getStrDiscountDesc());
 			pre.setString(3, discount.getStrDiscountGuidelines());
 			pre.setInt(4, discount.getIntDiscountType());
 			pre.setDouble(5, discount.getDblDiscountAmount());
 			
-			pre.execute();
-			pre.close();
-			con.close();
+			setDiscountID = pre.executeQuery();
 			
+			while(setDiscountID.next()){
+				intDiscountID = setDiscountID.getInt(1);
+			}
+			
+			pre.close();
+			setDiscountID.close();
+			
+			for(int i = 0; i < discount.getProductList().size(); i++){
+				preProduct.setInt(1, intDiscountID);
+				preProduct.setInt(2, discount.getProductList().get(i).getIntProductID());
+				preProduct.addBatch();
+			}
+			
+			preProduct.executeBatch();
+			preProduct.close();
+			
+			for(int i = 0; i < discount.getServiceList().size(); i++){
+				preService.setInt(1, intDiscountID);
+				preService.setInt(2, discount.getServiceList().get(i).getIntServiceID());
+				preService.addBatch();
+			}
+			
+			preService.executeBatch();
+			preService.close();
+			
+			for(int i = 0; i < discount.getPackageList().size(); i++){
+				prePackage.setInt(1, intDiscountID);
+				prePackage.setInt(2, discount.getPackageList().get(i).getIntPackageID());
+				prePackage.addBatch();
+			}
+			
+			prePackage.executeBatch();
+			prePackage.close();
+			
+			for(int i = 0; i < discount.getPromoList().size(); i++){
+				prePromo.setInt(1, intDiscountID);
+				prePromo.setInt(2, discount.getPromoList().get(i).getIntPromoID());
+				prePromo.addBatch();
+			}
+			
+			prePromo.executeBatch();
+			prePromo.close();
+			
+			con.commit();
+			con.close();
 			return true;
 			
 		}
 		catch(Exception e){
 			System.out.println(e.fillInStackTrace());
+			con.rollback();
 			return false;
 		}
 	}
 
 	@Override
-	public boolean updateDiscount(Discount discount) {
+	public boolean updateDiscount(Discount discount) throws SQLException {
 		
 		Connection con = jdbc.getConnection();
 		String query = "CALL updateDiscount(?, ?, ?, ?, ?)";
+		String strQuery 			= "CALL createDiscount(?, ? ,?, ?, ?)";
+		String createProducts		= "CALL createDiscProd(?, ?);";
+		String createServices		= "CALL createDiscServ(?, ?);";
+		String createPackage		= "CALL createDiscPack(?, ?);";
+		String createPromo			= "CALL createDiscPromo(?, ?)";
+		String deleteProducts		= "DELETE FROM tblDicountProduct WHERE intDiscountID = ?;";
+		String deleteServices		= "DELETE FROM tblDicountService WHERE intDiscountID = ?;";
+		String deletePackages		= "DELETE FROM tblDicountPackage WHERE intDiscountID = ?;";
+		String deletePromos			= "DELETE FROM tblDicountPromo WHERE intDiscountID = ?;";
+		int intDiscountID			= discount.getIntDiscountID();
 		
 		try{
 			
-			PreparedStatement pre = con.prepareStatement(query);
+			con.setAutoCommit(false);
+			PreparedStatement preProduct	= con.prepareStatement(createProducts);
+			PreparedStatement preService	= con.prepareStatement(createServices);
+			PreparedStatement prePackage	= con.prepareStatement(createPackage);
+			PreparedStatement prePromo		= con.prepareStatement(createPromo);
+			PreparedStatement preDelProduct	= con.prepareStatement(deleteProducts);
+			PreparedStatement preDelService	= con.prepareStatement(deleteServices);
+			PreparedStatement preDelPackage	= con.prepareStatement(createPackage);
+			PreparedStatement preDelPromo 	= con.prepareStatement(deletePromos);
+			PreparedStatement pre 			= con.prepareStatement(query);
+			
 			pre.setInt(1, discount.getIntDiscountID());
 			pre.setString(2, discount.getStrDiscountName());
 			pre.setString(3, discount.getStrDiscountDesc());
@@ -202,12 +280,65 @@ public class DiscountJDBCRepository implements DiscountRepository{
 			pre.setDouble(6, discount.getDblDiscountAmount());
 			pre.execute();
 			pre.close();
-			con.close();
 			
+			preDelProduct.setInt(1, intDiscountID);
+			preDelService.setInt(1, intDiscountID);
+			preDelPackage.setInt(1, intDiscountID);
+			preDelPromo.setInt(1, intDiscountID);
+			
+			preDelProduct.execute();
+			preDelService.execute();
+			preDelPackage.execute();
+			preDelPromo.execute();
+			
+			preDelProduct.close();
+			preDelService.close();
+			preDelPackage.close();
+			preDelPromo.close();
+			
+			for(int i = 0; i < discount.getProductList().size(); i++){
+				preProduct.setInt(1, intDiscountID);
+				preProduct.setInt(2, discount.getProductList().get(i).getIntProductID());
+				preProduct.addBatch();
+			}
+			
+			preProduct.executeBatch();
+			preProduct.close();
+			
+			for(int i = 0; i < discount.getServiceList().size(); i++){
+				preService.setInt(1, intDiscountID);
+				preService.setInt(2, discount.getServiceList().get(i).getIntServiceID());
+				preService.addBatch();
+			}
+			
+			preService.executeBatch();
+			preService.close();
+			
+			for(int i = 0; i < discount.getPackageList().size(); i++){
+				prePackage.setInt(1, intDiscountID);
+				prePackage.setInt(2, discount.getPackageList().get(i).getIntPackageID());
+				prePackage.addBatch();
+			}
+			
+			prePackage.executeBatch();
+			prePackage.close();
+			
+			for(int i = 0; i < discount.getPromoList().size(); i++){
+				prePromo.setInt(1, intDiscountID);
+				prePromo.setInt(2, discount.getPromoList().get(i).getIntPromoID());
+				prePromo.addBatch();
+			}
+			
+			prePromo.executeBatch();
+			prePromo.close();
+			
+			con.commit();
+			con.close();
 			return true;
 		}
 		catch(Exception e){
-			System.out.println(e.fillInStackTrace());
+			e.printStackTrace();
+			con.rollback();
 			return false;
 		}
 	}
