@@ -1,6 +1,10 @@
 <!DOCTYPE html>
+
 <html>
 <head>
+    <%@ taglib uri="/struts-tags" prefix="s" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
     <link type="text/css" rel="stylesheet" href="css/materialize.css"/>
     <link type="text/css" rel="stylesheet" href="css/mystyle.css"/>
     <link type="text/css" rel="stylesheet" href="css/mtnc-emp.css"/>
@@ -13,9 +17,6 @@
     <!--<link rel="stylesheet" type="text/css" href="css/drag.css"/>-->
     <!--<link rel="stylesheet" type="text/css" href="css/animate.css"/>-->
 
-    <%@ taglib uri="/struts-tags" prefix="s" %>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-    <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -146,6 +147,13 @@
 
 <style type="text/css">
     #createEmployeeModal {
+        width: 600px !important;
+        height: 590px !important;
+        max-height: 100% !important;
+        margin-top: -30px !important;
+    }
+
+    #createPackageModal {
         width: 600px !important;
         height: 590px !important;
         max-height: 100% !important;
@@ -304,13 +312,17 @@
         -moz-animation-delay: 0s;
     }
 
+    .input-field input[type=search] {
+        height: inherit;
+    }
+
 </style>
 
 
 <!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="js/angular.min.js"></script>
 <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="js/materialize.js"></script>
-<script type="text/javascript" src="js/angular.min.js"></script>
 <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="js/bartstable.js"></script>
 <script type="text/javascript" src="js/maintenance-emp.js"></script>
@@ -322,12 +334,11 @@
 <script type="text/javascript" src="js/jquery.formatter.min.js"></script>
 <script type="text/javascript" src="js/dropify.min.js"></script>
 <script type="text/javascript" src="js/sweetalert.min.js"></script>
-<script type="text/javascript" src="js/ajax.js"></script>
+<!--<script type="text/javascript" src="js/ajax.js"></script>-->
 <script type="text/javascript" src="js/ellipsis.js"></script>
 <script type="text/javascript" src="js/priceformat.js"></script>
 <script type="text/javascript" src="js/formatted-numbers.js"></script>
 <script type="text/javascript" src="js/jquery.formatCurrency-1.4.0.js"></script>
-
 
 
 <!--<script type="text/javascript" src="js/drag.js"></script>-->
@@ -402,12 +413,12 @@
 
 
     $('.upProdItemPrice').each(function () {
-       $(this). priceFormat({
-           prefix: 'Php ',
-           centsSeparator: '.',
-           thousandsSeparator: ',',
-           limit: 9
-       });
+        $(this).priceFormat({
+            prefix: 'Php ',
+            centsSeparator: '.',
+            thousandsSeparator: ',',
+            limit: 9
+        });
     });
 
 
@@ -432,9 +443,6 @@
         thousandsSeparator: ',',
         limit: 9
     });
-
-
-
 
 
 </script>
