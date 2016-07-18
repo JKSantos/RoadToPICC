@@ -57,7 +57,7 @@ $(document).ready(function () {
     });
 })
 
-$(function() {
+$(function () {
     var uppackagetbl = $('.uppackagetbl').DataTable({
         "bLengthChange": false,
         "sPaginationType": "full_numbers",
@@ -77,7 +77,43 @@ $(function() {
 });
 
 $(document).ready(function () {
-    var crpackagetbl = $('#crpackagetbl').DataTable({
+    $('#packageFilter').change(function () {
+        var $filter = $(this);
+        console.log($filter.val());
+        var prodtbl = $('#crpacktblProd').DataTable();
+        var servtbl = $('#crpacktblServ').DataTable();
+
+        if ($filter.val() == "product") {
+            $('#crpacktblProd').parents('div.tablewrapper').first().fadeIn(500);
+            $('#crpacktblServ').parents('div.tablewrapper').first().hide();
+        } else if ($filter.val() == "service") {
+            $('#crpacktblServ').parents('div.tablewrapper').first().fadeIn(500);
+            $('#crpacktblProd').parents('div.tablewrapper').first().hide();
+        }
+    });
+    $('.createPackbtn').click(function () {
+        $('#crpacktblProd').parents('div.tablewrapper').first().show();
+        $('#crpacktblServ').parents('div.tablewrapper').first().hide();
+        $('#prodList').parents('div.prodservlist').first().hide();
+        $('#servList').parents('div.prodservlist').first().hide();
+    });
+});
+
+$(document).ready(function () {
+    var crpacktblProd = $('#crpacktblProd').DataTable({
+        "bLengthChange": false,
+        "sPaginationType": "full_numbers",
+        responsive: true,
+        "order": [],
+        "columnDefs": [
+            {"targets": 'no-sort', "orderable": false},
+            {className: "dt-body-left", "targets": [1]},
+            {className: "dt-body-center", "targets": [0]}
+        ],
+        "rowHeight": '10px'
+    });
+
+    var crpacktblServ = $('#crpacktblServ').DataTable({
         "bLengthChange": false,
         "sPaginationType": "full_numbers",
         responsive: true,
@@ -91,115 +127,95 @@ $(document).ready(function () {
     });
 
     $("#crpackageSearch").bind('keyup search input paste cut', function () {
-        crpackagetbl.search(this.value).draw();
+        crpacktblServ.search(this.value).draw();
+        crpacktblProd.search(this.value).draw();
     });
-    var temp = 0;
-    var $temp = parseFloat(temp).toFixed(2);
-    var sum = 0;
-    var $sum = parseFloat(sum).toFixed(2);
-    var tots = 0;
-    var $tots = parseFloat(tots).toFixed(2);
-    var priceqty = 0;
-    var $priceqty = parseFloat(priceqty).toFixed(2);
-    var y = 0;
-    var $y = parseFloat(y).toFixed(2);
+
     $('.packcheckbox').change(function () {
-        var dis = $(this);
+        var $this;
+        var $unthis;
+        var dis = $(this).val();
+        console.log(dis);
         if ($(this).is(':checked')) {
-            // var $this = $(this).val();
-            // $('#s' + $this + '').attr('disabled', false);
-            // $('#p' + $this + '').attr('disabled', false);
-            // console.log($this);
-            // var $tr = $(this).closest('tr');
-            // var $qty = $tr.find('td .rowQty');
-            // var price = $tr.find('td:eq(3)').text();
-            // var $price = price.replace(/[^\d.]/g, '');
-            // var $qqq = $qty.val();
-            var $this = $(this).val();
+            $this = $(this).val();
+            $('#s' + $this + '').attr('disabled', false);
+            $('#p' + $this + '').attr('disabled', false);
+            var $checkboxid = $(this).attr('id');
+            console.log($checkboxid);
             console.log($this);
             var name = [];
             var $tr = $(this).closest('tr');
             var $names = $tr.find('td:eq(1)').text();
-            // var rowCollection = crpackagetbl.$(".packcheckbox:checked", {"page": "all"});
             $(this).each(function () {
-                name.push($names);
-                console.log(name);
-                $('#list').append('<div style="margin: 3px;" class="chip z-depth-1 purple darken-1 white-text" id="item' + $this + '">' + name + '</div>');
+                if ($('#prodCheck' + dis + '').is(':checked')) {
+                    $('#prodList').parents('div.prodservlist').first().show();
+                    name.push($names);
+                    $('#prodList').append('<div style="margin: 3px;" class="chip z-depth-1 purple darken-1 white-text" id="item' + $this + '">' + name + '<i id="prodchip' + $this + '" class="uncheckchip material-icons" style="margin-right: 5px !important">close</i></div>').show();
+                } else if ($('#myCheckBox' + dis + '').is(':checked')) {
+                    $('#servList').parents('div.prodservlist').first().show();
+                    name.push($names);
+                    $('#servList').append('<div style="margin: 3px;" class="chip z-depth-1 purple darken-1 white-text" id="item' + $this + '">' + name + '<i id="servchip' + $this + '" class="uncheckchip material-icons" style="margin-right: 5px !important">close</i></div>').show();
+                }
+
             });
-            // $qty.keyup(function () {
-            // var qtyval = $qty.val();
-            //     if (qtyval > q) {
-            //         $priceqty = (parseFloat($price) * parseFloat(qtyval - q)).toFixed(2);
-            //         console.log("price: " + $price);
-            //         console.log("qtyval: " + qtyval);
-            //         console.log("priceqty: " + $priceqty);
-            //         console.log("q: " + q);
-            //         $tots = (parseFloat($tots) + parseFloat($priceqty)).toFixed(2);
-            //         console.log("tots: " + $tots);
-            //
-            //         $sum = (parseFloat($sum) + parseFloat($tots)).toFixed(2);
-            //         console.log("add: " + $sum);
-            //         // $('#crAllCheckedPackPrice').val($sum);
-            //         $tots = 0;
-            //         q = qtyval;
-            //         $priceqty = 0;
-            //         return $sum;
-            //     } else if (qtyval < q) {
-            //         $priceqty = (parseFloat($price) * parseFloat(q - qtyval)).toFixed(2);
-            //         $tots = (parseFloat($tots) + parseFloat($priceqty)).toFixed(2);
-            //         $sum = (parseFloat($sum) - parseFloat($tots)).toFixed(2);
-            //         console.log("minus: " + $sum);
-            //         // $('#crAllCheckedPackPrice').val($sum);
-            //         $tots = 0;
-            //         q = qtyval;
-            //         $priceqty = 0;
-            //         return false;
-            //     } else {
-            //
-            //     }
-            //     return false;
-            // });
-            //
-            // $y = (parseFloat($price) * parseFloat($qqq)).toFixed(2);
-            // $sum = parseFloat($y).toFixed(2);
-            // $('#crAllCheckedPackPrice').val($sum);
-            // console.log("tempo: " + $temp);
-            // console.log("sum: " + $sum);
-            // console.log("priceqty: " + $priceqty);
-            // console.log("q: " + q);
-            // console.log("qty: " + $qty.val());
-            // console.log("qqq: " + $qqq);
-            //
-            // $y = 0;
-            // $qqq = 0;
-            // return false;
-            // });
+
         } else if (!$(this).is(':checked')) {
-            var $unthis = $(this).val();
-            // $('#s' + $unthis + '').attr('disabled', true);
-            // $('#p' + $unthis + '').attr('disabled', true);
-            // var $untr = dis.closest('tr');
-            // var unqty = $untr.find('td .rowQty');
-            // var $unqty = unqty.val();
-            // console.log("unqty: " + $unqty);
-            // var unprice = $untr.find('td:eq(3)').text();
-            // console.log("unprice: " + unprice);
-            // var unpricenumber = unprice.replace(/[^\d.]/g, '');
-            // console.log("unpricenumber: " + unpricenumber);
-            // var unrowCollection = crpackagetbl.$(".packcheckbox:not(:checked)", {"page": "all"});
-            var $untr = $(this).closest('tr');
+            $unthis = $(this).val();
+            $('#item' + $unthis + '').remove();
+            if ($('#servList').html().trim().length == 0) {
+                $('#servContainer').hide();
+                console.log("serv container");
+            }
+            if ($('#prodList').html().trim().length == 0) {
+                $('#prodContainer').hide();
+                console.log("prod container");
+            } else {
+
+            }
 
             $('.packcheckbox:not(:checked)').each(function () {
-                $('#item' + $unthis + '').remove();
-                // $tots = (parseFloat(unpricenumber) * parseFloat($unqty)).toFixed(2);
-                // $sum = (parseFloat($sum) - parseFloat($tots)).toFixed(2);
-                // $('#crAllCheckedPackPrice').val($sum);
-                // $tots = 0;
-                // return false;
+                $('#s' + $unthis + '').attr('disabled', true);
+                $('#p' + $unthis + '').attr('disabled', true);
+
+                // $('#myCheckBox' + $unthis + '').click(function () {
+                //
+                // });
+                // $('#prodCheck' + $unthis + '').click(function () {
+                //     if ($('#prodList').html().trim().length == 0) {
+                //         $('#prodContainer').hide('slow');
+                //         console.log("prod container");
+                //     } else {
+                //
+                //     }
+                // });
             });
             return false;
         }
+
+        $('#servchip' + $this + '').click(function () {
+            $('#myCheckBox' + dis + '').prop('checked', false);
+            $('#item' + dis + '').remove();
+            $('#s' + dis + '').attr('disabled', true);
+            var servid = $('#servList').attr('id');
+            if ($('#servList').html().trim().length == 0) {
+                $('#servContainer').hide();
+            } else {
+
+            }
+        });
+        $('#prodchip' + $this + '').click(function () {
+            $('#prodCheck' + dis + '').prop('checked', false);
+            $('#item' + dis + '').remove();
+            $('#p' + dis + '').attr('disabled', true);
+            if ($('#prodList').html().trim().length == 0) {
+                $('#prodContainer').hide();
+            } else {
+
+            }
+        });
+
     });
+
 
 });
 
