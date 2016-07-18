@@ -143,7 +143,9 @@ public class Reservation {
 		this.strVenue = strVenue;
 	}
 	public List<Reservation> getAllReservation(){
+		List<Reservation> reservation = new ArrayList<>();
 		
+		return reservation;
 	}
 
 }
