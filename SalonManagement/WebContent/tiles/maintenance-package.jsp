@@ -696,33 +696,4 @@
         </div>
     </c:forEach>
 
-    <c:forEach items="${packageList}" var="pack">
-        <%
-        Package packss = (Package)pageContext.getAttribute("pack");
-        int id = packss.getIntPackageID();
-        %>
-        <div id="del<%=id%>" class="modal">
-            <div class="container">
-                <form method="post" action="deactivatePackage">
-                    <div class="modal-content">
-                        <div class="row">
-                            <h5 class="red-text">Warning!</h5>
-                            <p>Are you sure you want to deactivate</p>
-                            <p>${pack.strPackageName}</p>
-                            <input type="hidden" name="intPackageID" value="<%=id%>">
-                        </div>
-                    </div>
-                    <div class="col s12 center" style="margin-bottom: 30px;">
-                        <button class="waves-effect waves-light purple btn-flat white-text">YES</button>
-                        <a href="#"
-                           class="modal-action modal-close waves-effect waves-purple transparent btn-flat black-text">NO</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </c:forEach>
-    <!--                     <div class="aside aside2 z-depth-barts">
-
-                        </div> -->
-
 </div>

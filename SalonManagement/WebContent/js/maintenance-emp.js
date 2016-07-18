@@ -1152,3 +1152,134 @@ $('#packagetbl').on('click', '.packagedeacbtn', function (e) {
             });
         });
 });
+
+
+$(document).ready(function () {
+    var crpackagetbl = $('#crpackagetbl').DataTable({
+        "bLengthChange": false,
+        "sPaginationType": "full_numbers",
+        responsive: true,
+        "order": [],
+        "columnDefs": [
+            {"targets": 'no-sort', "orderable": false},
+            {className: "dt-body-left", "targets": [1]},
+            {className: "dt-body-center", "targets": [0]}
+        ],
+        "rowHeight": '10px'
+    });
+
+    $("#crpackageSearch").bind('keyup search input paste cut', function () {
+        crpackagetbl.search(this.value).draw();
+    });
+    var temp = 0;
+    var $temp = parseFloat(temp).toFixed(2);
+    var sum = 0;
+    var $sum = parseFloat(sum).toFixed(2);
+    var tots = 0;
+    var $tots = parseFloat(tots).toFixed(2);
+    var priceqty = 0;
+    var $priceqty = parseFloat(priceqty).toFixed(2);
+    var y = 0;
+    var $y = parseFloat(y).toFixed(2);
+    $('.packcheckbox').change(function () {
+        var dis = $(this);
+        if ($(this).is(':checked')) {
+            // var $this = $(this).val();
+            // $('#s' + $this + '').attr('disabled', false);
+            // $('#p' + $this + '').attr('disabled', false);
+            // console.log($this);
+            // var $tr = $(this).closest('tr');
+            // var $qty = $tr.find('td .rowQty');
+            // var price = $tr.find('td:eq(3)').text();
+            // var $price = price.replace(/[^\d.]/g, '');
+            // var $qqq = $qty.val();
+            var $this = $(this).val();
+            console.log($this);
+            var name = [];
+            var $tr = $(this).closest('tr');
+            var $names = $tr.find('td:eq(1)').text();
+            // var rowCollection = crpackagetbl.$(".packcheckbox:checked", {"page": "all"});
+            $(this).each(function () {
+                name.push($names);
+                console.log(name);
+                $('#list').append('<div style="margin: 3px;" class="chip z-depth-1 purple darken-1 white-text" id="item' + $this + '">' + name + '<i class="uncheckchip material-icons" style="margin-right: 5px !important">close</i></div>');
+            });
+
+            // $qty.keyup(function () {
+            // var qtyval = $qty.val();
+            //     if (qtyval > q) {
+            //         $priceqty = (parseFloat($price) * parseFloat(qtyval - q)).toFixed(2);
+            //         console.log("price: " + $price);
+            //         console.log("qtyval: " + qtyval);
+            //         console.log("priceqty: " + $priceqty);
+            //         console.log("q: " + q);
+            //         $tots = (parseFloat($tots) + parseFloat($priceqty)).toFixed(2);
+            //         console.log("tots: " + $tots);
+            //
+            //         $sum = (parseFloat($sum) + parseFloat($tots)).toFixed(2);
+            //         console.log("add: " + $sum);
+            //         // $('#crAllCheckedPackPrice').val($sum);
+            //         $tots = 0;
+            //         q = qtyval;
+            //         $priceqty = 0;
+            //         return $sum;
+            //     } else if (qtyval < q) {
+            //         $priceqty = (parseFloat($price) * parseFloat(q - qtyval)).toFixed(2);
+            //         $tots = (parseFloat($tots) + parseFloat($priceqty)).toFixed(2);
+            //         $sum = (parseFloat($sum) - parseFloat($tots)).toFixed(2);
+            //         console.log("minus: " + $sum);
+            //         // $('#crAllCheckedPackPrice').val($sum);
+            //         $tots = 0;
+            //         q = qtyval;
+            //         $priceqty = 0;
+            //         return false;
+            //     } else {
+            //
+            //     }
+            //     return false;
+            // });
+            //
+            // $y = (parseFloat($price) * parseFloat($qqq)).toFixed(2);
+            // $sum = parseFloat($y).toFixed(2);
+            // $('#crAllCheckedPackPrice').val($sum);
+            // console.log("tempo: " + $temp);
+            // console.log("sum: " + $sum);
+            // console.log("priceqty: " + $priceqty);
+            // console.log("q: " + q);
+            // console.log("qty: " + $qty.val());
+            // console.log("qqq: " + $qqq);
+            //
+            // $y = 0;
+            // $qqq = 0;
+            // return false;
+            // });
+        } else if (!$(this).is(':checked')) {
+            var $unthis = $(this).val();
+            // $('#s' + $unthis + '').attr('disabled', true);
+            // $('#p' + $unthis + '').attr('disabled', true);
+            // var $untr = dis.closest('tr');
+            // var unqty = $untr.find('td .rowQty');
+            // var $unqty = unqty.val();
+            // console.log("unqty: " + $unqty);
+            // var unprice = $untr.find('td:eq(3)').text();
+            // console.log("unprice: " + unprice);
+            // var unpricenumber = unprice.replace(/[^\d.]/g, '');
+            // console.log("unpricenumber: " + unpricenumber);
+            // var unrowCollection = crpackagetbl.$(".packcheckbox:not(:checked)", {"page": "all"});
+            var $untr = $(this).closest('tr');
+
+            $('.packcheckbox:not(:checked)').each(function () {
+                $('#item' + $unthis + '').remove();
+                // $tots = (parseFloat(unpricenumber) * parseFloat($unqty)).toFixed(2);
+                // $sum = (parseFloat($sum) - parseFloat($tots)).toFixed(2);
+                // $('#crAllCheckedPackPrice').val($sum);
+                // $tots = 0;
+                // return false;
+            });
+            return false;
+        }
+    });
+
+
+});
+

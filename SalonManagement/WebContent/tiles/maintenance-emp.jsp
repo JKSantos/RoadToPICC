@@ -720,27 +720,5 @@ String granAccess = null;
         </div>
     </c:forEach>
 
-    <!--<c:forEach items="${empList}" var="employee">-->
-        <!--<div id="de${employee.intEmpID}" class="modal" style="width: 30% !important;">-->
-            <!--<form id="deac${employee.intEmpID}" method="get" action="deactivateEmployee" id="deleteEmpForm" name="empdeacform">-->
-                <!--&lt;!&ndash;<div class="container">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<div class="modal-content">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<h5 class="red-text">Warning!</h5>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<p class="center">Are you sure you want to deactivate</p>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<p class="center">${employee.strEmpFirstName} ${employee.strEmpLastName}?</p>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<input type="hidden" size="10" name="intEmpID" value="${employee.intEmpID}">&ndash;&gt;-->
-                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<div class="col s12 center" style="margin-bottom: 30px;">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<a class="waves-effect waves-light purple darken-3 btn-flat white-text">YES</a>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<a href="#"&ndash;&gt;-->
-                           <!--&lt;!&ndash;class="modal-action modal-close waves-effect waves-purple transparent btn-flat black-text">NO</a>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-            <!--</form>-->
-        <!--</div>-->
-    <!--</c:forEach>-->
-
 </div>
 
