@@ -333,7 +333,8 @@
                             </div>
                             <div class="col s12 z-depth-barts white">
                                 <h6 class="center"><b>Selected Item</b></h6>
-                                <div class="col s12" id="list" style="margin-top: -10px !important; margin-bottom: 5px !important;">
+                                <div class="col s12" id="list"
+                                     style="margin-top: -10px !important; margin-bottom: 5px !important;">
                                 </div>
                             </div>
 
@@ -368,110 +369,202 @@
         int id = pg.getIntPackageID();
 
         %>
-        <div id="update<%=id%>" class="modal modal-fixed-footer"
-             style="width: 75% !important; height: 92% !important; margin-top: -23px !important; max-height: 100% !important;">
+        <div id="update<%=id%>" class="updatePackageModal modal modal-fixed-footer">
             <form class="col s12" method="post" action="updatePackage">
                 <div class="modal-content">
-                    <!-- <div class="container"> -->
                     <div class="wrapper">
-                        <h4 class="grey-text text-darken-1">Update Package</h4>
-                        <div class="aside aside1 z-depth-barts" style="padding: 10px;">
-                            <div class="row">
+                        <h4 class="center grey-text text-darken-1">Update Package<a id="btnUpdatePackageExit"
+                                                                                    type="reset"
+                                                                                    value="Reset"
+                                                                                    class="btnUpdatePackageExit modal-action modal-close"><i
+                                class="small material-icons right grey-text text-darken-4">close</i></a></h4>
+                        <div class="updatepackageerror center input-field col s12 card red white-text z-depth-barts"
+                             style="margin-top: -10px !important;">
 
-                                <h5 class="grey-text text-darken-1">Package Information</h5>
-                                <div class="input-field col s12" style="margin-bottom: 30px;">
-                                    <label class="red-text"> (*) Indicates required field</label>
-                                </div>
-                                <div class="input-field col s12">
-                                    <input value="${pack.strPackageName}" type="text" class="validate"
-                                           id="strPackageName" name="strUpdatePackageName" required>
-                                    <input type="hidden" name="intUpdatePackageID" value="${pack.intPackageID}">
-                                    <label for="strPackageName">Package Name<span class="red-text">*</span></label>
-                                </div>
-                                <div class="input-field col s12">
-                                        <textarea id="updatePackageDesc" name="strUpdatePackageDesc"
-                                                  class="materialize-textarea"
-                                                  length="120">${pack.strPackageDesc}</textarea>
-                                    <label for="updatePackageDesc">Description</label>
-                                </div>
-                                <%
-                                Package packge = (Package)pageContext.getAttribute("pack");
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <ul class="tabs tab-demo-active" style="width: 100%; background-color: #fafafa;">
+                                    <li class="tab col s6"><a
+                                            class="firsttab purple-text text-darken-2 active waves-effect waves-light"
+                                            href="#update<%=id%>A"><b>INFO 1</b></a></li>
+                                    <li class="tab col s6"><a
+                                            class="secondtab purple-text text-darken-2 waves-effect waves-light"
+                                            href="#update<%=id%>B"><b>INFO 2</b></a></li>
+                                </ul>
+                            </div>
+                            <div id="update<%=id%>A" class="ftab col s12" style="margin-top: 20px !important;">
+                                <div class="wrapper">
+                                    <div class="container">
+                                        <div class="input-field col s12">
+                                            <input type="text" name="strUpdatePackageName" id="upPackageName"
+                                                   value="${pack.strPackageName}"/>
+                                            <input type="hidden" name="intUpdatePackageID" value="${pack.intPackageID}"
+                                                   style="margin-top: -10px !important;">
+                                            <label for="upPackageName" class="active"><b>Package Name</b></label>
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <textarea name="strUpdatePackageDesc" class="materialize-textarea"
+                                                      id="upPackageDesc" length="80">${pack.strPackageDesc}</textarea>
+                                            <label for="upPackageDesc" class="active"><b>Description</b></label>
+                                        </div>
+                                        <%
+                                        Package packge = (Package)pageContext.getAttribute("pack");
 
-                                String type1 = "";
-                                String type2 = "";
-                                String type3 = "";
+                                        String type1 = "";
+                                        String type2 = "";
+                                        String type3 = "";
 
-                                if(packge.getIntPackageType() == 1){
-                                type1 = "selected";
-                                }
-                                else if(packge.getIntPackageType() == 2){
-                                type2 = "selected";
-                                }
-                                else if(packge.getIntPackageType() == 3){
-                                type3 = "selected";
-                                }
-                                else if(packge.getIntPackageType() == 4){
-                                type1 = "selected";
-                                type2 = "selected";
-                                }
-                                else if(packge.getIntPackageType() == 5){
-                                type1 = "selected";
-                                type3 = "selected";
-                                }
-                                else if(packge.getIntPackageType() == 6){
-                                type2 = "selected";
-                                type3 = "selected";
-                                }
-                                else if(packge.getIntPackageType() == 7){
-                                type1 = "selected";
-                                type2 = "selected";
-                                type3 = "selected";
-                                }
-                                %>
-                                <div class="input-field col s6">
-                                    <select id="updatePackageType" name="intUpdatePackageType" autocomplete="off"
-                                            multiple>
-                                        <option disabled>Choose</option>
-                                        <option value="1"
-                                        <%out.println(type1);%>>Event</option>
-                                        <option value="2"
-                                        <%out.println(type2);%>>Home Service</option>
-                                        <option valie="3"
-                                        <%out.println(type3);%>>Walk-In</option>
-                                    </select>
-                                    <label for="updatePackageType">Type</label>
-                                </div>
-                                <div class="input-field col s6">
-                                    <input type="text" class="validate right-align amountFormat noSpace"
-                                           id="createPackagePrice" placeholder="99.99" readonly>
-                                    <label for="createPackagePrice" class="active">Total Accumulated Price</label>
-                                </div>
-                                <div class="input-field col s3 offset-s9">
-                                    <input type="text" value="${pack.dblPackagePrice}" class="validate right-align"
-                                           id="updatePackagePrice" name="dblUpdatePackagePrice" required>
-                                    <label for="updatePackagePrice">Price<span class="red-text">*</span></label>
+                                        if(packge.getIntPackageType() == 1){
+                                        type1 = "selected";
+                                        }
+                                        else if(packge.getIntPackageType() == 2){
+                                        type2 = "selected";
+                                        }
+                                        else if(packge.getIntPackageType() == 3){
+                                        type3 = "selected";
+                                        }
+                                        else if(packge.getIntPackageType() == 4){
+                                        type1 = "selected";
+                                        type2 = "selected";
+                                        }
+                                        else if(packge.getIntPackageType() == 5){
+                                        type1 = "selected";
+                                        type3 = "selected";
+                                        }
+                                        else if(packge.getIntPackageType() == 6){
+                                        type2 = "selected";
+                                        type3 = "selected";
+                                        }
+                                        else if(packge.getIntPackageType() == 7){
+                                        type1 = "selected";
+                                        type2 = "selected";
+                                        type3 = "selected";
+                                        }
+                                        %>
+                                        <div class="input-field col s12">
+                                            <select name="intUpdatePackageType" id="upPackageType" multiple
+                                                    autocomplete="off">
+                                                <option value="default" disabled>Choose...</option>
+                                                <option value="1"
+                                                <%out.println(type1);%>>Event</option>
+                                                <option value="2"
+                                                <%out.println(type2);%>>Home Service</option>
+                                                <option valie="3"
+                                                <%out.println(type3);%>>Walk-In</option>
+                                            </select>
+                                            <label for="upPackageType"><b>Type</b></label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="aside aside2 z-depth-barts" style="padding: 10px;">
-                            <div class="row">
-                                <!-- service -->
-                                <h5 class="grey-text text-darken-1">Included Service/s and Product/s</h5>
-                                <ul class="collapsible popout" data-collapsible="accordion">
-                                    <li>
-                                        <div class="collapsible-header"><i class="material-icons">list</i>Services
-                                        </div>
-                                        <div class="collapsible-body">
-                                            <div class="highlight centered responsive-table">
-                                                <table class="centered striped services" cellspacing="0"
-                                                       width="100%"
-                                                       style="border: 1px solid #bdbdbd; padding: 10px;">
+                            <div id="update<%=id%>B" class="ftab col s12" style="margin-top: 15px !important;">
+                                <nav class="right white z-depth-1" style="width: 300px; margin-right: 20px;">
+                                    <div class="nav-wrapper col s12">
+                                        <form>
+                                            <div class="input-field">
+                                                <input id="uppackageSearch" placeholder="Search"
+                                                       class="uppackageSearch grey-text text-darken-4"
+                                                       type="search" style="border: none !important;">
+                                                <label for="uppackageSearch"><i
+                                                        class="material-icons grey-text text-darken-4">search</i></label>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </nav>
+                                <div class="col s12">
+                                    <ul class="collapsible" data-collapsible="accordion">
+                                        <li>
+                                            <div class="collapsible-header"><i class="material-icons">view_list</i>List
+                                            </div>
+                                            <div class="collapsible-body"
+                                                 style="margin:0px 0px 0px 0px !important; padding: 0px 0px 0px 0px !important;">
+                                                <table id="uppackagetbl"
+                                                       class="uppackagetbl cell-border row-border display centered responsive-table highlight"
+                                                       cellspacing="0" width="100%"
+                                                       style="border: 1px solid #bdbdbd; margin-top: -30px !important;"
+                                                       rowspan="5">
                                                     <thead>
-                                                    <th>Select</th>
-                                                    <th>Name</th>
-                                                    <th>Price</th>
-                                                    <th>Quantity</th>
+                                                    <tr>
+                                                        <th class="dt-head-center no-sort">Select</th>
+                                                        <th class="dt-head-left">Name</th>
+                                                        <th class="dt-head-left">Category</th>
+                                                        <th class="dt-head-right">Price</th>
+                                                        <th align="dt-head-right" class="no-sort">Quantity</th>
+                                                    </tr>
                                                     </thead>
+                                                    <tfoot style="border: 1px solid #bdbdbd;">
+                                                    <tr>
+                                                        <th class="dt-head-center no-sort">ID</th>
+                                                        <th class="dt-head-left">Name</th>
+                                                        <th class="dt-head-left">Category</th>
+                                                        <th class="dt-head-right">Price</th>
+                                                        <th align="dt-head-right" class="no-sort">Quantity</th>
+                                                    </tr>
+                                                    </tfoot>
+
+                                                    <tbody>
+
+                                                    <c:forEach items="${productList}" var="products">
+                                                        <%
+                                                        String prodChecked = "";
+                                                        int prodQuantity = 1;
+                                                        Product product =
+                                                        (Product)pageContext.getAttribute("products");
+                                                        Package productPackage =
+                                                        (Package)pageContext.getAttribute("pack");
+                                                        List
+                                                        <ProductPackage> productPack =
+                                                            productPackage.getProductList();
+
+                                                            for(int intCtr = 0; intCtr < productPack.size();
+                                                            intCtr++){
+                                                            System.out.println("Current Services On Package: " +
+                                                            productPack.get(intCtr).getProduct().getIntProductID());
+                                                            if(productPack.get(intCtr).getProduct().getIntProductID()
+                                                            == product.getIntProductID()){
+                                                            prodChecked = "checked";
+                                                            prodQuantity =
+                                                            productPack.get(intCtr).getIntProductQuantity();
+                                                            break;
+                                                            }
+                                                            else
+                                                            continue;
+
+                                                            }
+                                                            %>
+                                                            <tr>
+                                                                <td class="dt-body-left">
+                                                                    <input type="checkbox" name="updatePackProdType"
+                                                                           id="updateProdCheck${pack.intPackageID}${products.intProductID}"
+                                                                           value="${products.intProductID}"
+                                                                    <%out.println(prodChecked);%>><label
+                                                                        for="updateProdCheck${pack.intPackageID}${products.intProductID}"></label>
+                                                                </td>
+                                                                <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;"
+                                                                    class="dt-body-left ">${products.strProductName}
+                                                                </td>
+                                                                <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;">
+                                                                    Service
+                                                                </td>
+                                                                <td style="padding-right: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;"
+                                                                    class="dt-body-right prodPrice">
+                                                                    <input type="text" name="crPackProdPrice"
+                                                                           id="upPackProdPrice"
+                                                                           value="${products.dblProductPrice}" disabled
+                                                                           class="black-text rowPrice"/>
+                                                                </td>
+                                                                <td class="dt-body-right"
+                                                                    style="padding-right: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;">
+                                                                    <input type="number" class="right-align rowQty"
+                                                                           name="updatePackProdQty" value="<%=prodQuantity%>"
+                                                                           id="upP${product.intProductID}"
+                                                                           style="width: 75px" disabled value="1"
+                                                                           maxlength="2">
+                                                                </td>
+                                                            </tr>
+                                                    </c:forEach>
+
                                                     <c:forEach items="${serviceList}" var="service">
                                                         <%
                                                         String servChecked = "";
@@ -503,86 +596,44 @@
 
                                                             }
                                                             %>
-                                                            <tr>
-                                                                <td><input type="checkbox" name="updatePackServType"
-                                                                           id="updateServCheckBox${pack.intPackageID}<%=serviceID%>"
-                                                                           value="${service.intServiceID}"
-                                                                    <%out.println(servChecked);%>><label
-                                                                            for="updateServCheckBox${pack.intPackageID}<%=serviceID%>"></label>
-                                                                </td>
-                                                                <td>${service.strServiceName}</td>
-                                                                <td>${service.dblServicePrice}</td>
-                                                                <td><input type="number" name="updatePackServQty"
-                                                                           style="width: 75px" min="1" max="99"
-                                                                           value="<%=servQuantity%>"></td>
-                                                            </tr>
+                                                        <tr>
+                                                            <td class="dt-body-left">
+                                                                <input type="checkbox" name="updatePackServType"
+                                                                       id="updateServCheckBox${pack.intPackageID}<%=serviceID%>"
+                                                                       value="${service.intServiceID}"
+                                                                <%out.println(servChecked);%>><label
+                                                                    for="updateServCheckBox${pack.intPackageID}<%=serviceID%>"></label>
+                                                            </td>
+                                                            <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;"
+                                                                class="dt-body-left ">${service.strServiceName}
+                                                            </td>
+                                                            <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;">
+                                                                Service
+                                                            </td>
+                                                            <td style="padding-right: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;"
+                                                                class="dt-body-right prodPrice">
+                                                                <input type="text" name="crPackProdPrice"
+                                                                       id="upPackServPrice"
+                                                                       value="${service.dblServicePrice}" disabled
+                                                                       class="black-text rowPrice"/>
+                                                            </td>
+                                                            <td class="dt-body-right"
+                                                                style="padding-right: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;">
+                                                                <input type="number" class="right-align rowQty"
+                                                                       name="updatePackServQty"
+                                                                       id="upS${service.intServiceID}"
+                                                                       style="width: 75px" disabled value="<%=servQuantity%>"
+                                                                       maxlength="2">
+                                                            </td>
+                                                        </tr>
                                                     </c:forEach>
+
+                                                    </tbody>
                                                 </table>
                                             </div>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="collapsible-header"><i class="material-icons">list</i>Products
-                                        </div>
-                                        <div class="collapsible-body">
-                                            <div class="highlight centered responsive-table">
-                                                <table class="centered striped services" cellspacing="0"
-                                                       width="100%"
-                                                       style="border: 1px solid #bdbdbd; padding: 10px;">
-                                                    <thead>
-                                                    <th>Select</th>
-                                                    <th>Name</th>
-                                                    <th>Price</th>
-                                                    <th>Quantity</th>
-                                                    </thead>
-                                                    <c:forEach items="${productList}" var="products">
-                                                        <%
-                                                        String prodChecked = "";
-                                                        int prodQuantity = 1;
-                                                        Product product =
-                                                        (Product)pageContext.getAttribute("products");
-                                                        Package productPackage =
-                                                        (Package)pageContext.getAttribute("pack");
-                                                        List
-                                                        <ProductPackage> productPack =
-                                                            productPackage.getProductList();
-
-                                                            for(int intCtr = 0; intCtr < productPack.size();
-                                                            intCtr++){
-                                                            System.out.println("Current Services On Package: " +
-                                                            productPack.get(intCtr).getProduct().getIntProductID());
-                                                            if(productPack.get(intCtr).getProduct().getIntProductID()
-                                                            == product.getIntProductID()){
-                                                            prodChecked = "checked";
-                                                            prodQuantity =
-                                                            productPack.get(intCtr).getIntProductQuantity();
-                                                            break;
-                                                            }
-                                                            else
-                                                            continue;
-
-                                                            }
-                                                            %>
-                                                            <tr>
-                                                                <td><input type="checkbox" name="updatePackProdType"
-                                                                           id="updateProdCheck${pack.intPackageID}${products.intProductID}"
-                                                                           value="${products.intProductID}"
-                                                                    <%out.println(prodChecked);%>><label
-                                                                            for="updateProdCheck${pack.intPackageID}${products.intProductID}"></label>
-                                                                </td>
-                                                                <td>${products.strProductName}</td>
-                                                                <td>${products.dblProductPrice}</td>
-                                                                <td><input type="number" name="updatePackProdQty"
-                                                                           style="width: 75px" min="1" max="99"
-                                                                           value="<%=prodQuantity%>"></td>
-                                                            </tr>
-                                                    </c:forEach>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>

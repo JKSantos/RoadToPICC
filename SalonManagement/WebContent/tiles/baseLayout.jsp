@@ -160,6 +160,13 @@
         margin-top: -30px !important;
     }
 
+    .updatePackageModal {
+        width: 600px !important;
+        height: 590px !important;
+        max-height: 100% !important;
+        margin-top: -30px !important;
+    }
+
     #createProduct {
         width: 600px !important;
         height: 535px !important;

@@ -55,6 +55,25 @@ $(document).ready(function () {
     $("#packageSearch").bind('keyup search input paste cut', function () {
         packagetable.search(this.value).draw();
     });
+})
+
+$(function() {
+    var uppackagetbl = $('.uppackagetbl').DataTable({
+        "bLengthChange": false,
+        "sPaginationType": "full_numbers",
+        responsive: true,
+        "order": [],
+        "columnDefs": [
+            {"targets": 'no-sort', "orderable": false},
+            {className: "dt-body-left", "targets": [1]},
+            {className: "dt-body-center", "targets": [0]}
+        ],
+        "rowHeight": '10px'
+    });
+
+    $(".uppackageSearch").bind('keyup search input paste cut', function () {
+        uppackagetbl.search(this.value).draw();
+    });
 });
 
 $(document).ready(function () {
@@ -105,7 +124,7 @@ $(document).ready(function () {
             $(this).each(function () {
                 name.push($names);
                 console.log(name);
-                $('#list').append('<div style="margin: 3px;" class="chip col s2 z-depth-1 purple darken-1 white-text" id="item' + $this + '">' + name + '</div>');
+                $('#list').append('<div style="margin: 3px;" class="chip z-depth-1 purple darken-1 white-text" id="item' + $this + '">' + name + '</div>');
             });
             // $qty.keyup(function () {
             // var qtyval = $qty.val();
