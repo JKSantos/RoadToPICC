@@ -196,7 +196,8 @@
                                     <textarea name="strPackageDesc" id="crPackageDesc" type="text"
                                               class="materialize-textarea" length="80"
                                               placeholder="Description"></textarea>
-                                        <label for="crPackageDesc" class="active"><b>Description</b></label>
+                                        <label for="crPackageDesc" class="active"><b>Description</b><i
+                                                class="material-icons red-text tiny">error_outline</i></label>
                                     </div>
                                     <div class="input-field col s12">
                                         <select name="intPackageType" id="crPackageType" multiple required>
@@ -237,9 +238,9 @@
                             <div class="col s12">
                                 <ul class="collapsible" data-collapsible="accordion">
                                     <li>
-                                        <div class="collapsible-header"><i class="material-icons">view_list</i>List
+                                        <div class="collapsible-header" id="listheadcollapsible"><i class="material-icons">view_list</i>List
                                         </div>
-                                        <div class="collapsible-body"
+                                        <div class="collapsible-body" id="listcollapsible"
                                              style="margin:0px 0px 0px 0px !important; padding: 0px 0px 0px 0px !important;">
                                             <div class="tablewrapper">
                                                 <table id="crpacktblProd"
@@ -272,8 +273,8 @@
                                                         <tr>
                                                             <td class="dt-body-left">
                                                                 <input type="checkbox" name="createPackProdType"
-                                                                       id="prodCheck${product.intProductID}"
-                                                                       class="packcheckbox x{product.intProductID}"
+                                                                       id="prodCheck${product.intProductID}" required
+                                                                       class="packcheckbox x{product.intProductID} ignore"
                                                                        value="${product.intProductID}"><label
                                                                     for="prodCheck${product.intProductID}"></label>
                                                             </td>
@@ -334,8 +335,8 @@
                                                         <tr>
                                                             <td class="dt-body-left">
                                                                 <input type="checkbox" name="createPackServType"
-                                                                       id="myCheckBox${service.intServiceID}"
-                                                                       class="packcheckbox x{service.intServiceID}"
+                                                                       id="myCheckBox${service.intServiceID}" required
+                                                                       class="packcheckbox x{service.intServiceID} ignore"
                                                                        value="${service.intServiceID}"><label
                                                                     for="myCheckBox${service.intServiceID}"></label>
                                                             </td>
@@ -370,17 +371,26 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="col s12 z-depth-barts white prodservlist" id="prodContainer">
-                                <h6 class="center" style="padding-top: -2px !important;"><b>Product List</b></h6>
-                                <div class="col s6" id="prodList"
-                                     style="margin-top: -13px !important; margin-bottom: 5px !important;"></div>
+                            <div class="col s9 z-depth-barts white prodservlist" id="prodservContainer">
+                                <h6 class="center" style="padding-top: -2px !important;"><b>Selected Items</b></h6>
+                                <div class="col s12" id="pslist" style="margin-top: -13px !important; margin-bottom: 5px !important;"></div>
                             </div>
-                            <div class="col s12 z-depth-barts white prodservlist" style="margin-top: 5px;"
-                                 id="servContainer">
-                                <h6 class="center" style="padding-top: -2px !important;"><b>Service List</b></h6>
-                                <div class="col s6" id="servList"
-                                     style="margin-top: -13px !important; margin-bottom: 5px !important;"></div>
+                            <div class="col s3">
+                                <div class="input-field col s12">
+                                    <p>Total: <span class="right-align"></span></p>
+                                </div>
+                                <div class="input-field col s12" style="margin-top: 20px !important;">
+                                    <input type="text" class="right-align prodPrice" name="" id="crPackPrice" placeholder="Price"/>
+                                    <label for="crPackPrice" class="active"><b>Price</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
+                                </div>
                             </div>
+                            <!--<div class="col s12 z-depth-barts white prodservlist" style="margin-top: 5px;"-->
+                                 <!--id="servContainer">-->
+                                <!--<h6 class="center" style="padding-top: -2px !important;"><b>Service List</b></h6>-->
+                                <!--<div class="col s6" id="servList"-->
+                                     <!--style="margin-top: -13px !important; margin-bottom: 5px !important;"></div>-->
+                            <!--</div>-->
 
                             <!--<input type="submit" value="create"/>-->
 

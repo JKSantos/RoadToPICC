@@ -1456,8 +1456,7 @@ $(function () {
             swal("Successfully created!", "", "success");
             form.submit();
         },
-
-
+        
         errorClass: 'invalid',
         validClass: 'valid',
         errorElement: 'div',
@@ -1483,6 +1482,12 @@ $(function () {
             intPackageType: {
                 required: true,
                 valueNotEquals: "default"
+            },
+            createPackProdType: {
+                checkboxes: true
+            },
+            createPackServType: {
+                checkboxes: true
             }
         },
         messages: {
@@ -1500,6 +1505,12 @@ $(function () {
             intPackageType: {
                 required: "<span class='white-text'><b>Type</b>: Required</span><br/>",
                 valueNotEquals: "<span class='white-text'><b>Type</b>: Select type</span><br/>"
+            },
+            createPackProdType: {
+                required: "<span class='white-text'><b>List</b>: At least check one item</span><br/>"
+            },
+            createPackServType: {
+                required: "<span class='white-text'><b>List</b>: At least check one item</span><br/>"
             }
         }
 
@@ -1531,7 +1542,8 @@ $(function () {
             }
         });
     });
-
+    $.validator.addMethod("checkboxes", function (value, element) {
+        return $('.packcheckbox:checked').length > 0; });
     $.validator.addMethod("regx", function(value, element, regexp){
         var re = new RegExp(regexp);
         return this.optional(element) || re.test(value);
