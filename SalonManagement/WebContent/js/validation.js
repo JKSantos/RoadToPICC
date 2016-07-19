@@ -1559,3 +1559,88 @@ $(function () {
     });
 });
 //CREATE PACKAGE END
+
+
+
+//INVENTORY
+$(function () {
+
+    $('#deflostexpForm').validate({
+        submitHandler: function(form) {
+            swal("Successfully created!", "", "success");
+            form.submit();
+        },
+        ignore: ":hidden",
+        errorClass: 'invalid',
+        validClass: 'valid',
+        errorElement: 'div',
+        errorLabelContainer: '.inventoryerror',
+        errorPlacement: function (error, element) {
+            // Append error within linked label
+            $(element)
+                .closest("form")
+                .find("label[for='" + element.attr("id") + "']");
+        },
+        rules: {
+            intProductID: {
+                required: true,
+                valueNotEquals: "default"
+            },
+            intQuantity: {
+                required: true,
+                regx: "^[0-9]+$"
+            }
+        },
+        messages: {
+            intProductID: {
+                required: "<span class='white-text'><b>Item Name</b>: Select an item</span><br/>",
+                valueNotEquals: "<span class='white-text'><b>Item Name</b>: Select an item</span><br/>"
+            },
+            intQuantity: {
+                required: "<span class='white-text'><b>Quantity</b>: Required</span><br/>",
+                regx: "<span class='white-text'><b>Quantity</b>: Numbers only</span><br/>"
+            }
+        }
+    });
+
+    $('form').on('submit', function (e) {
+        $(".error_note").remove();
+        var select = $(this).find('select').filter("[required=required]");
+        $.each(select, function (index, elm) {
+            val = $(this).val();
+            target = $(this).closest('.input-field');
+            if (typeof target !== "undefined") {
+                input_target = target.find('input.select-dropdown');
+                if (typeof input_target !== "undefined") {
+                    if (val == '' || val == false || val == 0 || val == null) {
+
+                        input_target.css({'border-color': '#EA454B', 'box-shadow': '0 1px 0 0 #EA454B'});
+
+                        $('html,body').animate({scrollTop: $("body").offset().top}, 'slow');
+                        e.preventDefault();
+
+                    } else {
+                        input_target.css({'border-color': '#9e9e9e'});
+                    }
+
+                }
+            }
+        });
+    });
+    $.validator.addMethod("checkboxes", function (value, element) {
+        return $('.packcheckbox:checked').length > 0; });
+    $.validator.addMethod("regx", function(value, element, regexp){
+        var re = new RegExp(regexp);
+        return this.optional(element) || re.test(value);
+    });
+    $.validator.addMethod("noSpace", function (value, element) {
+        return value.indexOf(" ") != "";
+    });
+    $.validator.addMethod("valueNotEquals", function(value, element, arg){
+        return arg != value;
+    });
+    $.validator.addMethod("valueNotEquals2", function(value, element, arg){
+        return arg != value;
+    });
+});
+//INVENTORY

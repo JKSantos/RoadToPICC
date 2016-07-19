@@ -56,7 +56,69 @@ $(document).ready(function () {
     $("#packageSearch").bind('keyup search input paste cut', function () {
         packagetable.search(this.value).draw();
     });
-})
+});
+
+$(document).ready(function () {
+    var inventorytbl = $('#inventorytbl').DataTable({
+        "bLengthChange": false,
+        "sPaginationType": "full_numbers",
+        responsive: true,
+        "order": [],
+        "columnDefs": [
+            {"targets": 'no-sort', "orderable": false},
+            {className: "dt-body-left", "targets": [0, 1, 2]},
+            {className: "dt-head-center", "targets": [0, 3]},
+            {"targets": [0], "width": "230px"},
+            {"targets": [3], "width": "200px"},
+            {"targets": [2], "width": "250px"},
+            {"targets": [2], render: $.fn.dataTable.render.ellipsis(25)}
+        ],
+        "rowHeight": '10px'
+    });
+
+    $("#inventorySearch").bind('keyup search input paste cut', function () {
+        inventorytbl.search(this.value).draw();
+    });
+});
+
+function Save(){
+    var par = $(this).parent().parent(); //tr
+    var tdQty = par.children("td:nth-child(3)");
+    var tdButtons = par.children("td:nth-child(5)");
+
+    tdQty.html(tdQty.children("input[type=text]").val());
+    tdButtons.html("<a class='.inventoryupdate btnEdit waves-effect waves-purple btn-flat transparent black-text empUpdatebtn'" +
+        "style='padding-left: 10px;padding-right:10px; margin: 5px;'><i class='material-icons'>edit</i></a><button class='inventdeacbtn" +
+        "waves-effect waves-purple btn-flat transparent red-text text-accent-4' " +
+        "style='padding-left: 10px;padding-right:10px; margin: 5px;' id='${product.intProductID}' title='Deactivate' >" +
+        "<i class='material-icons'>delete</i></button>");
+
+    $(".btnEdit").bind("click", Edit);
+    $(".btnDelete").bind("click", Delete);
+};
+
+function Delete(){
+    var par = $(this).parent().parent(); //tr
+    par.remove();
+};
+
+function Edit(){
+    var par = $(this).parent().parent(); //tr
+    var tdQty = par.children("td:nth-child(3)");
+    var tdButtons = par.children("td:nth-child(5)");
+
+    tdQty.html("<input type='text' class='right-align' id='txtQty' value='"+tdQty.html()+"'/>");
+    tdButtons.html("<a class='btnSave green-text waves-effect waves-light'><i class='material-icons'>done</i></a>");
+
+    $(".btnSave").bind("click", Save);
+    $(".btnEdit").bind("click", Edit);
+    $(".btnDelete").bind("click", Delete);
+};
+
+$(function () {
+   $('.btnEdit').bind("click", Edit);
+});
+
 
 $(function () {
     var uppackagetbl = $('.uppackagetbl').DataTable({
@@ -164,8 +226,8 @@ $(document).ready(function () {
                         q.push($qqq);
                         console.log($qqq);
                         console.log(q);
-                        $('#pslist #x' + $this +'').remove();
-                        $('#pslist #item' + $this + ' .span').append('<span class="yellow-text" id="x' + $this +'">(' + q + ')</span>');
+                        $('#pslist #x' + $this + '').remove();
+                        $('#pslist #item' + $this + ' .span').append('<span class="yellow-text" id="x' + $this + '">(' + q + ')</span>');
                     });
                     $('#pslist').append('<div style="margin: 3px;" class="chip z-depth-1 purple darken-1 white-text" id="item' + $this + '">' + name + '<span class="span"><span class="yellow-text" id="x' + $this + '">(' + q + ')</span></span>' + '<i id="prodchip' + $this + '" class="uncheckchip material-icons" style="margin-right: 5px !important">close</i></div>').show();
                 } else if ($('#myCheckBox' + dis + '').is(':checked')) {
@@ -180,10 +242,10 @@ $(document).ready(function () {
                         q.push($qqq);
                         console.log($qqq);
                         console.log(q);
-                        $('#pslist #x' + $this +'').remove();
-                        $('#pslist #item' + $this + ' .span').append('<span class="yellow-text" id="x' + $this +'">(' + q + ')</span>');
+                        $('#pslist #x' + $this + '').remove();
+                        $('#pslist #item' + $this + ' .span').append('<span class="yellow-text" id="x' + $this + '">(' + q + ')</span>');
                     });
-                    $('#pslist').append('<div style="margin: 3px;" class="chip z-depth-1 purple darken-1 white-text" id="item' + $this + '">' + name + '<span class="span"><span class="yellow-text" id="x' + $this + '">(' + q + ')</span></span>' +  '<i id="servchip' + $this + '" class="uncheckchip material-icons" style="margin-right: 5px !important">close</i></div>').show();
+                    $('#pslist').append('<div style="margin: 3px;" class="chip z-depth-1 purple darken-1 white-text" id="item' + $this + '">' + name + '<span class="span"><span class="yellow-text" id="x' + $this + '">(' + q + ')</span></span>' + '<i id="servchip' + $this + '" class="uncheckchip material-icons" style="margin-right: 5px !important">close</i></div>').show();
                 }
 
             });
@@ -642,23 +704,29 @@ $('.updateServAddCatBtn').click(function () {
 });
 
 $('#createSubmitForm').click(function () {
-    if($('#pslist').is(':visible')) {
-        if($('#createPackageForm').valid()){
+    if ($('#pslist').is(':visible')) {
+        if ($('#createPackageForm').valid()) {
             // $('#listcollapsible').removeAttr('class', 'active');
             $('#createPackageForm').submit();
         }
     } else {
-        if($('#listheadcollapsible').hasClass('active')){
-            if($('#createPackageForm').valid()){
+        if ($('#listheadcollapsible').hasClass('active')) {
+            if ($('#createPackageForm').valid()) {
                 // $('#listcollapsible').removeAttr('class', 'active');
                 $('#createPackageForm').submit();
             }
         } else {
-            
+
         }
     }
 
 });
+
+// $('#defsubmitbtn').click(function () {
+//    if($('#defForm').valid()){
+//        $(this).submit();
+//    }
+// });
 
 
 $('#addOptionSelect').click(function () {
@@ -691,8 +759,6 @@ $(document).ready(function () {
 
 
 // add product / service in table (PROMO)
-
-
 
 
 $('#createBirthday').pickadate({
@@ -1140,6 +1206,40 @@ $('#packagetbl').on('click', '.packagedeacbtn', function (e) {
             });
         });
 });
+
+$('#inventorytbl').on('click', '.inventdeacbtn', function (e) {
+    e.returnValue = false;
+    var inventdeac = $(this).attr('id');
+    console.log(inventdeac);
+    var deactivateItem = {
+        'intItemID': inventdeac
+    }
+    var $tr = $(this).closest('tr');
+
+    swal({
+            title: "Are you sure?",
+            text: "",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        },
+        function () {
+            swal("Deleted!", ".", "success");
+            $.ajax({
+                type: 'post',
+                url: 'deactivateItem',
+                data: deactivateItem,
+                success: function (response) {
+                    $tr.find('td').fadeOut(500, function () {
+                        $tr.remove();
+                    });
+                }
+            });
+        });
+});
+
 
 
 
