@@ -10,6 +10,7 @@
     <link type="text/css" rel="stylesheet" href="css/mtnc-emp.css"/>
     <link rel="stylesheet" type="text/css" href="css/bartstable.css"/>
     <link rel="stylesheet" type="text/css" href="css/material.min.css"/>
+    <link type="text/css" rel="stylesheet" href="css/mtnc-catalogue.css"/>
     <link rel="stylesheet" type="text/css" href="css/dropify.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/sweetalert.css"/>
     <link rel="stylesheet" type="text/css" href="css/mainloader.css"/>
@@ -146,6 +147,14 @@
 </div>
 
 <style type="text/css">
+
+    #deflostexModal {
+        width: 450px !important;
+        height: 390px !important;
+        max-height: 100% !important;
+        margin-top: -10px !important;
+    }
+
     #createEmployeeModal {
         width: 600px !important;
         height: 590px !important;
@@ -332,9 +341,9 @@
 <script type="text/javascript" src="js/materialize.js"></script>
 <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="js/bartstable.js"></script>
-<script type="text/javascript" src="js/maintenance-emp.js"></script>
 <script type="text/javascript" src="js/picker.date.js"></script>
 <script type="text/javascript" src="js/jquery.validate.js"></script>
+<script type="text/javascript" src="js/maintenance-emp.js"></script>
 <script type="text/javascript" src="js/additional.js"></script>
 <script type="text/javascript" src="js/validation.js"></script>
 <script type="text/javascript" src="js/stepform.js"></script>

@@ -10,7 +10,7 @@
 	<constant name="struts.custom.i18n.resources"
 		value="ApplicationResources"/>
 		
-	<package name="inventory" extends="struts-default" namespace="/">
+	<package name="inventory" extends="struts-default, json-default" namespace="/">
 	
 		<result-types>
          	<result-type name="tiles" 
@@ -27,7 +27,8 @@
 		</action>
 		
 		<action name="updateStock" class="com.gss.actions.UpdateStockAction">
-			<result name="success">redirect-transaction-inventory.jsp</result>
+			<!--<result name="success">redirect-transaction-inventory.jsp</result>-->
+			<result name="success" type="json"></result>
 			<result name="failed">transactions-inventory.jsp</result>
 		</action>  
 		   
