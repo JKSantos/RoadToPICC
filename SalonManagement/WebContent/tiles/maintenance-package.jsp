@@ -182,7 +182,7 @@
                     <div class="crpackageerrorcontainer card red center input-field col s12 white-text z-depth-barts">
 
                     </div>
-                    <div class="steppack well">
+                    <div class="steppack well" style="margin-top: 20px;">
                         <div class="wrapper">
                             <div class="row form-group">
                                 <div class="container">
@@ -192,10 +192,10 @@
                                         <label for="crPackageName" class="active" id="label1"><b>Package Name</b><i
                                                 class="material-icons red-text tiny">error_outline</i></label>
                                     </div>
-                                    <div class="input-field col s12">
+                                    <div class="input-field col s12" style="margin-top: 10px !important;">
                                     <textarea name="strPackageDesc" id="crPackageDesc" type="text"
                                               class="materialize-textarea" length="80"
-                                              placeholder="Description"></textarea>
+                                              placeholder="Description" style="margin-top: -10px !important;"></textarea>
                                         <label for="crPackageDesc" class="active"><b>Description</b><i
                                                 class="material-icons red-text tiny">error_outline</i></label>
                                     </div>

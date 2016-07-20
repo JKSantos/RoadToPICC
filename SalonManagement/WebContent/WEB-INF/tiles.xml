@@ -68,5 +68,9 @@
         <put-attribute name="body"			value="/tiles/transactions-productorder.jsp"/>
     </definition> 
     
+    <definition name="home" extends="baseLayout">
+    	<put-attribute name="title"			value="Home"/>
+    	<put-attribute name="body"			value="/tiles/admin-home.jsp"/>
+    </definition>
   
 </tiles-definitions>

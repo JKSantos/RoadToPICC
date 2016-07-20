@@ -10,7 +10,7 @@
     <link type="text/css" rel="stylesheet" href="css/mtnc-emp.css"/>
     <link rel="stylesheet" type="text/css" href="css/bartstable.css"/>
     <link rel="stylesheet" type="text/css" href="css/material.min.css"/>
-    <link type="text/css" rel="stylesheet" href="css/mtnc-catalogue.css"/>
+    <!-- <link type="text/css" rel="stylesheet" href="css/mtnc-catalogue.css"/> -->
     <link rel="stylesheet" type="text/css" href="css/dropify.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/sweetalert.css"/>
     <link rel="stylesheet" type="text/css" href="css/mainloader.css"/>
@@ -71,7 +71,7 @@
 
             <ul class="collapsible" data-collapsible="accordion">
                 <li>
-                    <a class="collapsible-header" href="admin-home.jsp"><i
+                    <a class="collapsible-header" href="login"><i
                             class="material-icons">home</i><b>Home</b></a>
                 </li>
             </ul>
@@ -97,10 +97,10 @@
                     <div class="collapsible-body">
                         <ul class="navul">
                             <li><a href="getInventory">Inventory</a></li>
+                            <li><a href="transactions-walkin.jsp">Walk In</a></li>
                             <li><a href="transactions-reservation.jsp">Reservation</a></li>
                             <li><a href="product-sales">Product Sales</a></li>
-                            <li><a href="transactions-vip.jsp">VIP</a></li>
-                            <li><a href="transactions-walkin.jsp">Walk In</a></li>
+                            <li><a href="transactions-vip.jsp">Payment</a></li>
                         </ul>
                     </div>
                 </li>

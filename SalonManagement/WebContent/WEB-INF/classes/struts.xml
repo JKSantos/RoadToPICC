@@ -33,6 +33,9 @@
 		<result-types>
 			<result-type name="imageResult"
 				class="com.gss.actions.CustomImageBytesResult"/>
+				
+         	<result-type name="tiles" 
+         	class="org.apache.struts2.views.tiles.TilesResult" />
 		</result-types>
 		
 		<action name="getProducts" class="com.gss.actions.ReservationTransactionAction" method="execute">
@@ -40,11 +43,10 @@
 		</action>
 		
 		<action name="getImage" class="com.gss.actions.GetImageAction">
-
 		</action>
 		
 		<action name="login" class="com.gss.actions.LogInAction" method="execute">
-			<result name="success">admin-home.jsp</result>
+			<result name="success" type="tiles">home</result>
 			<result name="input">loginform.jsp</result>
 			<result name="unauthorized">page-unauthorized.jsp</result>
 		</action>
