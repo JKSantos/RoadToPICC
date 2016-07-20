@@ -100,5 +100,10 @@ public class Service {
 		
 		return service.getAllServiceNoImage();
 	}
+	
+	public static Service createNullService(int intServiceID){
+		
+		return new Service(intServiceID, "", "", intServiceID, "", 0, null, "");
+	}
 
 }

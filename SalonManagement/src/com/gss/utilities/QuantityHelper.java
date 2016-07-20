@@ -1,6 +1,6 @@
 package com.gss.utilities;
 
-public class ProductSalesHelper {
+public class QuantityHelper {
 	
 	public static String[] removeEmptyQuantity(String[] quantity){
 		

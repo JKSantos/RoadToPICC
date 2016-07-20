@@ -129,5 +129,8 @@ public class Promo {
 		
 		return service.getAllPromo();
 	}
-
+	
+	public static Promo createNullPromo(int intPromoID){
+		return new Promo(intPromoID, "", "", "", 0, intPromoID, null, null, null, "", intPromoID);
+	}
 }

@@ -107,4 +107,8 @@ public class Product {
 		
 		return service.getAllProductsNoImage();
 	}
+	
+	public static Product createNullProduct(int intProductID){
+		return new Product(35, "", "", "", 1, null, 1, "", 1);
+	}
 }

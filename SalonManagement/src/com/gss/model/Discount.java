@@ -2,6 +2,9 @@ package com.gss.model;
 
 import java.util.List;
 
+import com.gss.service.DiscountService;
+import com.gss.service.DiscountServiceImpl;
+
 public class Discount {
 	
 	private int intDiscountID;
@@ -116,6 +119,16 @@ public class Discount {
 
 	public void setPromoList(List<Promo> promoList) {
 		this.promoList = promoList;
+	}
+	
+	public static List<Discount> getAllDiscount(){
+		DiscountService service = new DiscountServiceImpl();
+		
+		return service.getAllDiscount();
+	}
+	
+	public static Discount createNullDiscount(int intDiscountID){
+		return new Discount(intDiscountID, "", "", "", intDiscountID, 0, null, null, null, null, intDiscountID);
 	}
 
 }

@@ -14,7 +14,7 @@ import com.gss.service.ProductServiceImpl;
 import com.gss.utilities.DateHelper;
 import com.gss.utilities.ItemDecoder;
 import com.gss.utilities.ProductOrderConverter;
-import com.gss.utilities.ProductSalesHelper;
+import com.gss.utilities.QuantityHelper;
 
 public class CreateOrderAction{
 	
@@ -47,7 +47,7 @@ public class CreateOrderAction{
 		String[] product = this.selectedProducts.split(",");
 		String[] quantity = this.productQuantity.split(",");
 		
-		productList = ProductOrderConverter.convertToProductObject(product, ProductSalesHelper.removeEmptyQuantity(quantity), productObjectList);
+		productList = ProductOrderConverter.convertToProductObject(product, QuantityHelper.removeEmptyQuantity(quantity), productObjectList);
 		
 		ProductSales sales = new ProductSales(1, DateHelper.parseDate("2015/2/3"),DateHelper.parseDate("2015/2/3"), type, strName, strStreet, intLocationID, strContactNo, productList, 1, "PENDING");
 

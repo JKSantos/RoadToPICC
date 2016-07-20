@@ -2,6 +2,7 @@ package com.gss.model;
 
 public class Customer {
 	
+	private int intID;
 	private String strName;
 	private String strAddress;
 	private String strContactNo;
@@ -9,12 +10,20 @@ public class Customer {
 	
 	
 	
-	public Customer(String strName, String strAddress, String strContactNo, String strEmail) {
+	public Customer(int intID, String strName, String strAddress, String strContactNo, String strEmail) {
 		super();
+		this.intID = intID;
 		this.strName = strName;
 		this.strAddress = strAddress;
 		this.strContactNo = strContactNo;
 		this.strEmail = strEmail;
+	}
+	
+	public int getIntID(){
+		return intID;
+	}
+	public void setIntID(int intID){
+		this.intID = intID;
 	}
 	public String getStrName() {
 		return strName;

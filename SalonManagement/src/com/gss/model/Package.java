@@ -118,5 +118,9 @@ public class Package {
 		
 		return service.getAllPackage();
 	}
+	
+	public static Package createNullPackage(int intPackageID){
+		return new Package(intPackageID, "", "", intPackageID, intPackageID, "", 0, null, null, intPackageID);
+	}
 
 }

@@ -5,40 +5,43 @@ import java.util.List;
 public class ReservationInclusion {
 	
 	private List<ProductOrder> productList;
-	private List<Service> serviceList;
-	private List<Package> packageList;
-	private List<Promo> promoList;
-	
-	public ReservationInclusion(List<ProductOrder> productList, List<Service> serviceList, List<Package> packageList,
-			List<Promo> promoList) {
+	private List<ReservedService> serviceList;
+	private List<ReservedPackage> packageList;
+	private List<ReservedPromo> promoList;
+
+	public ReservationInclusion(List<ProductOrder> productList, List<ReservedService> serviceList,
+			List<ReservedPackage> packageList, List<ReservedPromo> promoList) {
 		super();
 		this.productList = productList;
 		this.serviceList = serviceList;
 		this.packageList = packageList;
 		this.promoList = promoList;
 	}
+	
 	public List<ProductOrder> getProductList() {
 		return productList;
 	}
 	public void setProductList(List<ProductOrder> productList) {
 		this.productList = productList;
 	}
-	public List<Service> getServiceList() {
+	public List<ReservedService> getServiceList() {
 		return serviceList;
 	}
-	public void setServiceList(List<Service> serviceList) {
+	public void setServiceList(List<ReservedService> serviceList) {
 		this.serviceList = serviceList;
 	}
-	public List<Package> getPackageList() {
+	public List<ReservedPackage> getPackageList() {
 		return packageList;
 	}
-	public void setPackageList(List<Package> packageList) {
+	public void setPackageList(List<ReservedPackage> packageList) {
 		this.packageList = packageList;
 	}
-	public List<Promo> getPromoList() {
+	public List<ReservedPromo> getPromoList() {
 		return promoList;
 	}
-	public void setPromoList(List<Promo> promoList) {
+	public void setPromoList(List<ReservedPromo> promoList) {
 		this.promoList = promoList;
 	}
+	
+	
 }
