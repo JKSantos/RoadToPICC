@@ -3,12 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="beee3b1d-1b58-4f3c-911f-cce62a03b819" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/classes/struts-inventory.xml" afterPath="$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/classes/struts-inventory.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SalonManagement/WebContent/css/mtnc-catalogue.css" afterPath="$PROJECT_DIR$/SalonManagement/WebContent/css/mtnc-catalogue.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SalonManagement/WebContent/js/maintenance-emp.js" afterPath="$PROJECT_DIR$/SalonManagement/WebContent/js/maintenance-emp.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SalonManagement/WebContent/js/validation.js" afterPath="$PROJECT_DIR$/SalonManagement/WebContent/js/validation.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SalonManagement/WebContent/tiles/baseLayout.jsp" afterPath="$PROJECT_DIR$/SalonManagement/WebContent/tiles/baseLayout.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-inventory.jsp" afterPath="$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-inventory.jsp" />
     </list>
     <ignored path="RoadToPICC.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,7 +26,7 @@
       <file leaf-file-name="validation.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/validation.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="446">
+            <state relative-caret-position="27200">
               <caret line="1600" column="90" selection-start-line="1600" selection-start-column="90" selection-end-line="1600" selection-end-column="90" />
               <folding />
             </state>
@@ -42,7 +36,7 @@
       <file leaf-file-name="transactions-inventory.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-inventory.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
+            <state relative-caret-position="1275">
               <caret line="75" column="63" selection-start-line="75" selection-start-column="63" selection-end-line="75" selection-end-column="63" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -82,7 +76,7 @@
       <file leaf-file-name="maintenance-emp.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/maintenance-emp.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="246">
+            <state relative-caret-position="348">
               <caret line="101" column="10" selection-start-line="101" selection-start-column="10" selection-end-line="101" selection-end-column="10" />
               <folding>
                 <marker date="1468971217811" expanded="true" signature="3191:3242" ph="..." />
@@ -99,7 +93,7 @@
       <file leaf-file-name="struts-api.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/classes/struts-api.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-51">
+            <state relative-caret-position="204">
               <caret line="12" column="61" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="61" />
               <folding />
             </state>
@@ -109,7 +103,7 @@
       <file leaf-file-name="maintenance-package.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/maintenance-package.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3897">
+            <state relative-caret-position="7565">
               <caret line="445" column="59" selection-start-line="445" selection-start-column="51" selection-end-line="445" selection-end-column="59" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -160,7 +154,7 @@
       <file leaf-file-name="struts-inventory.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/classes/struts-inventory.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
+            <state relative-caret-position="476">
               <caret line="28" column="33" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="33" />
               <folding />
             </state>
@@ -170,7 +164,7 @@
       <file leaf-file-name="maintenance-emp.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/maintenance-emp.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
+            <state relative-caret-position="1870">
               <caret line="110" column="127" selection-start-line="108" selection-start-column="28" selection-end-line="110" selection-end-column="127" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#form#0;n#div#0;n#c:forEach#0;n#div#0;n#!!top" expanded="true" />
@@ -182,7 +176,7 @@
       <file leaf-file-name="baseLayout.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/baseLayout.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
+            <state relative-caret-position="5882">
               <caret line="346" column="63" selection-start-line="346" selection-start-column="63" selection-end-line="346" selection-end-column="63" />
               <folding>
                 <element signature="n#style#0;n#li#0;n#ul#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -309,6 +303,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -406,7 +401,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -498,33 +492,34 @@
       <workItem from="1468601862163" duration="43506000" />
       <workItem from="1468689764227" duration="15836000" />
       <workItem from="1468747971014" duration="98592000" />
-      <workItem from="1468930835834" duration="27768000" />
+      <workItem from="1468930835834" duration="27902000" />
+      <workItem from="1469059421845" duration="32000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="287852000" />
+    <option name="totallyTimeSpent" value="288018000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="7" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18887262" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18887262" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -555,7 +550,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -563,7 +557,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-73">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -571,7 +564,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-306">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -595,7 +587,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="505">
           <caret line="33" column="40" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="40" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -603,7 +594,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-102">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -619,7 +609,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="372">
           <caret line="113" column="16" selection-start-line="113" selection-start-column="16" selection-end-line="113" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -706,7 +695,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -717,12 +705,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1883">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <marker date="1468689727634" expanded="true" signature="3032:3058" ph="..." />
-            <marker date="1468689727634" expanded="true" signature="3318:3343" ph="..." />
-            <marker date="1468689727634" expanded="true" signature="3566:3591" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -730,7 +712,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
           <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -738,7 +719,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -746,7 +726,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="42" column="12" selection-start-line="42" selection-start-column="12" selection-end-line="42" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -761,9 +740,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21539">
           <caret line="1276" column="4" selection-start-line="1276" selection-start-column="4" selection-end-line="1276" selection-end-column="4" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -771,7 +747,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="28" column="39" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="39" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -779,7 +754,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1343">
           <caret line="3156" column="4" selection-start-line="3156" selection-start-column="0" selection-end-line="3156" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -787,7 +761,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="412">
           <caret line="111" column="0" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -795,7 +768,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="488">
           <caret line="76" column="9" selection-start-line="76" selection-start-column="9" selection-end-line="76" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -803,13 +775,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-391">
           <caret line="1" column="31" selection-start-line="1" selection-start-column="31" selection-end-line="1" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/validation.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
+        <state relative-caret-position="27200">
           <caret line="1600" column="90" selection-start-line="1600" selection-start-column="90" selection-end-line="1600" selection-end-column="90" />
           <folding />
         </state>
@@ -819,12 +790,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#9611#10567#2" expanded="true" />
-            <element signature="e#10604#11424#2" expanded="true" />
-            <element signature="e#11459#12262#2" expanded="true" />
-            <element signature="e#12295#13665#2" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -832,37 +797,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-5955">
           <caret line="9" column="37" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/jquery.editable.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="514">
-          <caret line="131" column="0" selection-start-line="131" selection-start-column="0" selection-end-line="131" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/mindmup-editabletable.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/numeric-input-example.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/jquery.editable.js" />
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/mindmup-editabletable.js" />
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/numeric-input-example.js" />
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/baseLayout.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
+        <state relative-caret-position="5882">
           <caret line="346" column="63" selection-start-line="346" selection-start-column="63" selection-end-line="346" selection-end-column="63" />
           <folding>
             <element signature="n#style#0;n#li#0;n#ul#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -883,7 +826,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/maintenance-emp.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
+        <state relative-caret-position="1870">
           <caret line="110" column="127" selection-start-line="108" selection-start-column="28" selection-end-line="110" selection-end-column="127" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#form#0;n#div#0;n#c:forEach#0;n#div#0;n#!!top" expanded="true" />
@@ -895,13 +838,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="395">
           <caret line="41" column="36" selection-start-line="41" selection-start-column="22" selection-end-line="41" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/classes/struts-api.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-51">
+        <state relative-caret-position="204">
           <caret line="12" column="61" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="61" />
           <folding />
         </state>
@@ -917,7 +859,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/maintenance-package.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3897">
+        <state relative-caret-position="7565">
           <caret line="445" column="59" selection-start-line="445" selection-start-column="51" selection-end-line="445" selection-end-column="59" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -966,7 +908,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/classes/struts-inventory.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
+        <state relative-caret-position="476">
           <caret line="28" column="33" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="33" />
           <folding />
         </state>
@@ -974,7 +916,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-inventory.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
+        <state relative-caret-position="1275">
           <caret line="75" column="63" selection-start-line="75" selection-start-column="63" selection-end-line="75" selection-end-column="63" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -1012,7 +954,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/maintenance-emp.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
+        <state relative-caret-position="348">
           <caret line="101" column="10" selection-start-line="101" selection-start-column="10" selection-end-line="101" selection-end-column="10" />
           <folding>
             <marker date="1468971217811" expanded="true" signature="3191:3242" ph="..." />
