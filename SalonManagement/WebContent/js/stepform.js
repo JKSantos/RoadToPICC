@@ -132,3 +132,71 @@ hideButtonsPack = function(currentPack){
 }
 
 //package end
+
+
+//product sale
+$(document).ready(function(){
+    var currentPS = 1;
+
+    pswidget      = $(".stepps");
+    psbtnback     = $(".backformps");
+    psbtnnext     = $(".nextformps");
+    psbtnsubmit   = $(".submitformps");
+
+    // Init buttons and UI
+    pswidget.not(':eq(0)').hide();
+    hideButtonsPS(currentPS);
+    setProgressPS(currentPS);
+
+    // Next button click action
+    psbtnnext.click(function(){
+
+        if($('#createPSForm').valid()){
+            if(currentPS < pswidget.length){
+                pswidget.show();
+                pswidget.not(':eq('+(currentPS++)+')').hide();
+                setProgressPS(currentPS);
+            }
+            hideButtonsPS(currentPS);
+        }
+    });
+    // Back button click action
+    psbtnback.click(function(){
+        if(currentPS > 1){
+            currentPS = currentPS - 2;
+            if(currentPS < pswidget.length){
+                pswidget.show();
+                pswidget.not(':eq('+(currentPS++)+')').hide();
+                setProgressPS(currentPS);
+            }
+        }
+        hideButtonsPS(currentPS);
+    });
+
+    // packbtnsubmit.submit(function(){
+    //    $('#createPackageForm').submit(function(){
+    //       alert("submitted");
+    //    });
+    // });
+
+});
+
+setProgressPS = function(currstepPS){
+    var percent = parseFloat(100 / pswidget.length) * currstepPS;
+    percent = percent.toFixed();
+    $("#createPSForm .determinate")
+        .css("width",percent+"%")
+        .html(percent+"%").css("font-size", "15px");
+}
+
+// Hide buttons according to the current step
+hideButtonsPS = function(currentPS){
+    var limit = parseInt(pswidget.length);
+
+    $(".actionps").hide();
+
+    if(currentPS < limit) psbtnnext.show();
+    if (currentPS == limit) { psbtnnext.hide(); psbtnsubmit.show(); }
+    if(currentPS > 1) psbtnback.show();
+}
+//product sale
