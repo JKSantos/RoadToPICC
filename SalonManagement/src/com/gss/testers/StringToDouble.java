@@ -21,7 +21,7 @@ public class StringToDouble {
 	        double price = number.doubleValue();
 	        DecimalFormat df = new DecimalFormat("#.00"); 
 	        
-	        System.out.println(price.df()); // or use number.doubleValue()
+	        //System.out.println(price.df()); // or use number.doubleValue()
 	    }
 	    
 	    public static double convertToTwoDecimal(double value, int places){

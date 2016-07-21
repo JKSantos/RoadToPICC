@@ -18,14 +18,12 @@ public class CreateTagAction {
 		recorded = createTag.defectiveTag(new ProductTag(intProductID, intQuantity, intTagType));
 		
 		if(recorded == true){
-			System.out.println("success");
 			return "success";
 			
 		}
 		else{
-			System.out.println("failed");
-		
-			return "failed";}
+			return "failed";
+		}
 	}
 
 	public int getIntProductID() {

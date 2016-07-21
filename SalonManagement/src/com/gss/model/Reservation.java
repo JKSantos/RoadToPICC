@@ -1,9 +1,13 @@
 package com.gss.model;
 
+import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.gss.service.ReservationService;
+import com.gss.service.ReservationServiceImpl;
 
 public class Reservation {
 	
@@ -16,18 +20,16 @@ public class Reservation {
 	private Date datTo;
 	private Time timFrom;
 	private Time timTo;
+	private String strVenue;
 	private int headCount;
 	private List<EmployeeAssigned> employeeAssigned;
 	private Invoice invoice;
-	private List<Payment> paymentList;
-	private List<ExtraCharge> extraChargeList;
 	private String strStatus;
-	private String strVenue;
 	
 	public Reservation(int intReservationID, Customer customer, ReservationInclusion includedItems,
-			int intReservationType, Date dateCreated, Date datFrom, Date datTo, Time timFrom, Time timTo, int headCount,
-			List<EmployeeAssigned> employeeAssigned, Invoice invoice, List<Payment> paymentList,
-			List<ExtraCharge> extraChargeList, String strStatus, String strVenue) {
+			int intReservationType, Date dateCreated, Date datFrom, Date datTo, Time timFrom, Time timTo,
+			String strVenue, int headCount, List<EmployeeAssigned> employeeAssigned, Invoice invoice,
+			String strStatus) {
 		super();
 		this.intReservationID = intReservationID;
 		this.customer = customer;
@@ -38,13 +40,11 @@ public class Reservation {
 		this.datTo = datTo;
 		this.timFrom = timFrom;
 		this.timTo = timTo;
+		this.strVenue = strVenue;
 		this.headCount = headCount;
 		this.employeeAssigned = employeeAssigned;
 		this.invoice = invoice;
-		this.paymentList = paymentList;
-		this.extraChargeList = extraChargeList;
 		this.strStatus = strStatus;
-		this.strVenue = strVenue;
 	}
 	public int getIntReservationID() {
 		return intReservationID;
@@ -118,18 +118,6 @@ public class Reservation {
 	public void setInvoice(Invoice invoice) {
 		this.invoice = invoice;
 	}
-	public List<Payment> getPaymentList() {
-		return paymentList;
-	}
-	public void setPaymentList(List<Payment> paymentList) {
-		this.paymentList = paymentList;
-	}
-	public List<ExtraCharge> getExtraChargeList() {
-		return extraChargeList;
-	}
-	public void setExtraChargeList(List<ExtraCharge> extraChargeList) {
-		this.extraChargeList = extraChargeList;
-	}
 	public String getStrStatus() {
 		return strStatus;
 	}
@@ -142,10 +130,15 @@ public class Reservation {
 	public void setStrVenue(String strVenue) {
 		this.strVenue = strVenue;
 	}
-	public List<Reservation> getAllReservation(){
+	public static List<Reservation> getAllReservation(){
 		List<Reservation> reservation = new ArrayList<>();
 		
 		return reservation;
 	}
-
+	public static boolean createReservation(Reservation reservation) throws SQLException{
+		
+		ReservationService service = new ReservationServiceImpl();
+		
+		return service.createReservation(reservation);
+	}
 }

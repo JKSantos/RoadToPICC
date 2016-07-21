@@ -601,7 +601,7 @@ String granAccess = null;
             <div class="modal-content">
                 <div class="wrapper">
                     <h3 class="center grey-text text-lighten-2">View Employee</h3>
-                    <div class="aside aside1 z-depth-0">
+                    <div class="aside aside1 z-depth-0 transparent">
                         <!-- first -->
                         <div class="row">
                             <div class="input-field col s12">
@@ -614,7 +614,7 @@ String granAccess = null;
                             </div>
                         </div>
                     </div>
-                    <div class="aside aside2 z-depth-0" style="margin-bottom: -30px !important;">
+                    <div class="aside aside2 z-depth-0 transparent" style="margin-bottom: -30px !important;">
                         <div class="row">
                             <div class="input-field col s12">
                                 <input type="text" name="viewEmpName" id="viewEmpName" disabled class="white-text"

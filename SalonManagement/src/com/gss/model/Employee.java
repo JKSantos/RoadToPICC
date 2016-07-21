@@ -179,6 +179,10 @@ public class Employee {
 
 	public static List<Employee> getEmployeeList() {
 		EmployeeService service = new EmployeeServiceImpl();
-		return service.getAllEmployees();
+		return service.getAllEmployeeNoImage();
+	}
+	
+	public static Employee createNullEmployee(int intEmpID){
+		return new Employee(intEmpID, "", "", "", new Date(), "", "", "", "", "", "", "", "", null, null, false);
 	}
 }

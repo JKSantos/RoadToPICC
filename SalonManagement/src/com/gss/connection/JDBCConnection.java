@@ -11,7 +11,7 @@ public class JDBCConnection {
 		String driverName = "com.mysql.jdbc.Driver";
 	    String url = "jdbc:mysql://localhost:3306/dbsalonmanagement";
 	    String username = "root";
-	    String password = "";
+	    String password = "root";
 	    
 	    try{
 	    	Class.forName(driverName);
@@ -21,7 +21,8 @@ public class JDBCConnection {
 	    	return con;
 	    }
 	    catch(Exception e){
-	    	JOptionPane.showMessageDialog(null, "An error occured while establishing a connection from the database.");
+	    	JOptionPane.showMessageDialog(null , "Database's password is incorrect.", "INCORRECT DATABASE PASSWORD", 1);
+
 	    	return null;
 	    }
 	}

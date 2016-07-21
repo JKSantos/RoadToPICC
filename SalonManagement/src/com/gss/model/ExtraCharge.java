@@ -1,5 +1,10 @@
 package com.gss.model;
 
+import java.util.List;
+
+import com.gss.service.ExtraChargeService;
+import com.gss.service.ExtraChargeServiceImpl;
+
 public class ExtraCharge {
 	
 	private int intECID;
@@ -54,6 +59,16 @@ public class ExtraCharge {
 
 	public void setDblECPrice(double dblECPrice) {
 		this.dblECPrice = dblECPrice;
+	}
+	
+	public static ExtraCharge createNullExtra(int intExtraID){
+		return new ExtraCharge(intExtraID, "", "", 0, intExtraID);
+	}
+	
+	public static List<ExtraCharge> getAllExtraCharge(){
+		ExtraChargeService service = new ExtraChargeServiceImpl();
+		
+		return service.getAllExtraCharges();
 	}
 
 }
