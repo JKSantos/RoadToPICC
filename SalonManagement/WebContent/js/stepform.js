@@ -267,3 +267,70 @@ hideButtonsPromo = function(currentPromo){
     if(currentPromo > 1) promobtnback.show();
 }
 //promo
+
+//discount
+$(document).ready(function(){
+    var currentDisc = 1;
+
+    discwidget      = $(".stepdiscount");
+    discbtnback     = $(".backformdiscount");
+    discbtnnext     = $(".nextformdiscount");
+    discbtnsubmit   = $(".submitformdiscount");
+
+    // Init buttons and UI
+    discwidget.not(':eq(0)').hide();
+    hideButtonsDisc(currentDisc);
+    setProgressDisc(currentDisc);
+
+    // Next button click action
+    discbtnnext.click(function(){
+
+        if($('#createDiscountForm').valid()){
+            if(currentDisc < discwidget.length){
+                discwidget.show();
+                discwidget.not(':eq('+(currentDisc++)+')').hide();
+                setProgressDisc(currentDisc);
+            }
+            hideButtonsDisc(currentDisc);
+        }
+    });
+    // Back button click action
+    discbtnback.click(function(){
+        if(currentDisc > 1){
+            currentDisc = currentDisc - 2;
+            if(currentDisc < discwidget.length){
+                discwidget.show();
+                discwidget.not(':eq('+(currentDisc++)+')').hide();
+                setProgressDisc(currentDisc);
+            }
+        }
+        hideButtonsDisc(currentDisc);
+    });
+
+    // discbtnsubmit.submit(function(){
+    //    $('#createPromoForm').submit(function(){
+    //       alert("submitted");
+    //    });
+    // });
+
+});
+
+setProgressDisc = function(currstepDisc){
+    var percent = parseFloat(100 / discwidget.length) * currstepDisc;
+    percent = percent.toFixed();
+    $("#createDiscountForm .determinate")
+        .css("width",percent+"%")
+        .html(percent+"%").css("font-size", "15px");
+}
+
+// Hide buttons according to the current step
+hideButtonsDisc = function(currentDisc){
+    var limit = parseInt(discwidget.length);
+
+    $(".actiondiscount").hide();
+
+    if(currentDisc < limit) discbtnnext.show();
+    if (currentDisc == limit) { discbtnnext.hide(); discbtnsubmit.show(); }
+    if(currentDisc > 1) discbtnback.show();
+}
+//discount

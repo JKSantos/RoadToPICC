@@ -115,7 +115,7 @@ $(function () {
                 $qty = parseFloat($tr.find('td .rowQty').val()).toFixed(2);
                 console.log(q);
                 console.log($qty);
-                if($qty > q) {
+                if ($qty > q) {
                     total += ($qty - q) * $price;
                     q = $qty;
                     console.log(q);
@@ -154,20 +154,6 @@ $(function () {
         swal("Successfully created!", "", "success");
         $('#createPromoForm').submit();
     })
-});
-
-$(document).ready(function () {
-    $('#example').DataTable({
-        "bLengthChange": false,
-        responsive: true,
-        columnDefs: [
-            {
-                targets: [0, 1, 2],
-                className: 'mdl-data-table__cell--non-numeric'
-            }
-        ],
-        "rowHeight": '10px'
-    });
 });
 
 $(document).ready(function () {
@@ -278,6 +264,127 @@ $(document).ready(function () {
 
     $("#crpsSearch").bind('keyup search input paste cut', function () {
         crpstbl.search(this.value).draw();
+    });
+
+});
+
+
+$(document).ready(function () {
+    var discounttbl = $('#discounttbl').DataTable({
+        "bLengthChange": false,
+        responsive: true,
+        "order": [],
+        "columnDefs": [
+            {"targets": 'no-sort', "orderable": false},
+            {className: "dt-body-left", "targets": [0, 1, 2, 3]},
+            {className: "dt-body-right", "targets": [4]},
+            {className: "dt-head-center", "targets": [5]},
+            {"targets": [1, 2], render: $.fn.dataTable.render.ellipsis(25)}
+        ],
+        "rowHeight": '10px'
+    });
+
+    $("#discountSearch").bind('keyup search input paste cut', function () {
+        discounttbl.search(this.value).draw();
+    });
+    
+    $('.crDiscBtn').click(function () {
+        $('#fixed').hide();
+    });
+
+    $('#crDiscountAmtType').change(function () {
+        var type = $('select[name=strDiscountType]').val();
+        if (type == 1) {
+            $('#fixed').hide();
+            $('#percent').show();
+        } else {
+            $('#percent').hide();
+            $('#fixed').show();
+        }
+    });
+
+    var crdiscounttblProduct = $('#crdiscounttblProduct').DataTable({
+        "bLengthChange": false,
+        responsive: true,
+        "order": [],
+        "columnDefs": [
+            {"targets": 'no-sort', "orderable": false},
+            {className: "dt-body-left", "targets": [0, 1, 2]}
+        ],
+        "rowHeight": '10px'
+    });
+
+    var crdiscounttblService = $('#crdiscounttblService').DataTable({
+        "bLengthChange": false,
+        responsive: true,
+        "order": [],
+        "columnDefs": [
+            {"targets": 'no-sort', "orderable": false},
+            {className: "dt-body-left", "targets": [0, 1, 2]},
+        ],
+        "rowHeight": '10px'
+    });
+
+    var crdiscounttblPackage = $('#crdiscounttblPackage').DataTable({
+        "bLengthChange": false,
+        responsive: true,
+        "order": [],
+        "columnDefs": [
+            {"targets": 'no-sort', "orderable": false},
+            {className: "dt-body-left", "targets": [0, 1, 2]}
+        ],
+        "rowHeight": '10px'
+    });
+
+    var crdiscounttblPromo = $('#crdiscounttblPromo').DataTable({
+        "bLengthChange": false,
+        responsive: true,
+        "order": [],
+        "columnDefs": [
+            {"targets": 'no-sort', "orderable": false},
+            {className: "dt-body-left", "targets": [0, 1, 2]}
+        ],
+        "rowHeight": '10px'
+    });
+
+    $("#crDiscountSearch").bind('keyup search input paste cut', function () {
+        crdiscounttblProduct.search(this.value).draw();
+        crdiscounttblService.search(this.value).draw();
+        crdiscounttblPackage.search(this.value).draw();
+        crdiscounttblPromo.search(this.value).draw();
+    });
+
+    $('#discountFilter').change(function () {
+        var $filter = $(this);
+        console.log($filter.val());
+
+        if ($filter.val() == "product") {
+            $('#crdiscounttblProduct').parents('div.tablewrapper').first().fadeIn(500);
+            $('#crdiscounttblService').parents('div.tablewrapper').first().hide();
+            $('#crdiscounttblPackage').parents('div.tablewrapper').first().hide();
+            $('#crdiscounttblPromo').parents('div.tablewrapper').first().hide();
+        } else if ($filter.val() == "service") {
+            $('#crdiscounttblService').parents('div.tablewrapper').first().fadeIn(500);
+            $('#crdiscounttblProduct').parents('div.tablewrapper').first().hide();
+            $('#crdiscounttblPackage').parents('div.tablewrapper').first().hide();
+            $('#crdiscounttblPromo').parents('div.tablewrapper').first().hide();
+        } else if ($filter.val() == "package") {
+            $('#crdiscounttblService').parents('div.tablewrapper').first().hide();
+            $('#crdiscounttblProduct').parents('div.tablewrapper').first().hide();
+            $('#crdiscounttblPackage').parents('div.tablewrapper').first().fadeIn(500);
+            $('#crdiscounttblPromo').parents('div.tablewrapper').first().hide();
+        } else if ($filter.val() == "promo") {
+            $('#crdiscounttblService').parents('div.tablewrapper').first().hide();
+            $('#crdiscounttblProduct').parents('div.tablewrapper').first().hide();
+            $('#crdiscounttblPackage').parents('div.tablewrapper').first().hide();
+            $('#crdiscounttblPromo').parents('div.tablewrapper').first().fadeIn(500);
+        }
+    });
+    $('.crDiscBtn').click(function () {
+        $('#crdiscounttblProduct').parents('div.tablewrapper').first().show();
+        $('#crdiscounttblService').parents('div.tablewrapper').first().hide();
+        $('#crdiscounttblPackage').parents('div.tablewrapper').first().hide();
+        $('#crdiscounttblPromo').parents('div.tablewrapper').first().hide();
     });
 
 });

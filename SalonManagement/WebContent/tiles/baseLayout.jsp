@@ -162,6 +162,13 @@
         margin-top: -30px !important;
     }
 
+    #createDiscountModal {
+        width: 600px !important;
+        height: 590px !important;
+        max-height: 100% !important;
+        margin-top: -30px !important;
+    }
+
     #crPromoModal {
         width: 600px !important;
         height: 590px !important;
