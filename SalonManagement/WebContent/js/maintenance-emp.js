@@ -256,6 +256,14 @@ $(document).ready(function () {
         $('#expiredForm').submit();
     });
 
+    $('.updateAddInvent').click(function () {
+       $('.addForm').submit();
+    });
+
+    $('.updateMinusInvent').click(function () {
+       $('.minusForm').submit();
+    });
+
     $('.addQty').each(function () {
         $(this).on('input', function () {
             var id = $(this).attr('id');
