@@ -43,6 +43,10 @@ public class UpdatePromoAction {
 	
 	public String execute(){
 		
+		System.out.println("Services checked: " + servicePromoSelect);
+		System.out.println("Products checked: " + productPromoSelect);
+		System.out.println("Packages checked: " + packagePromoSelect);
+		
 		ServiceService serviceService = new ServiceServiceImpl();
 		ProductService productService = new ProductServiceImpl();
 		PackageService packageService = new PackageServiceImpl();
