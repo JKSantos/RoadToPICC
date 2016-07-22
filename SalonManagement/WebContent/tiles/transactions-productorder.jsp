@@ -78,8 +78,8 @@
                                 <div class="input-field col s6">
                                     <select name="strOrderType" id="crOrderType">
                                         <option value="default" disabled selected>Choose...</option>
-                                        <option value="2">Pick Up</option>
-                                        <option value="1">Delivery</option>
+                                        <option value="pickup">Pick Up</option>
+                                        <option value="delivery">Delivery</option>
                                     </select>
                                     <label for="crOrderType"><b>Order Type</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
@@ -102,9 +102,10 @@
                                 </div>
                                 <div class="input-field col s6" id="crDivOrderLoc">
                                     <select name="strOrderLocation" id="crOrderLocation">
-                                        <option value="default">Choose...</option>
-                                        <option value="1">410</option>
-                                        <option value="2">411</option>
+                                    	<option value="default">Choose...</option>
+                                    	<c:forEach items="${locationList}" var="location">
+                                        	<option value="${location.intLocationID}">${location.strBarangay}, ${location.strCity},</option>
+                                        </c:forEach>
                                     </select>
                                     <label for="crOrderLocation"><b>Location</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>

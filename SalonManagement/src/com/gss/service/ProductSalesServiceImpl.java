@@ -33,8 +33,26 @@ public class ProductSalesServiceImpl implements ProductSalesService {
 
 	@Override
 	public boolean deactivateProductSales(int intID) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+
+		ProductSalesRepository repo = new ProductSalesJDBCRepository();
+		
+		return repo.deactivateProductSales(intID);	
+	}
+
+	@Override
+	public boolean acceptProductSales(int intID) throws SQLException {
+		
+		ProductSalesRepository repo = new ProductSalesJDBCRepository();
+		
+		return repo.acceptProductSales(intID);	
+	}
+
+	@Override
+	public boolean declineProductSales(int intID) throws SQLException {
+
+		ProductSalesRepository repo = new ProductSalesJDBCRepository();
+		
+		return repo.declineProductSales(intID);	
 	}
 
 }

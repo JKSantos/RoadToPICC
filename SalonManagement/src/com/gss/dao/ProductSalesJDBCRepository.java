@@ -43,7 +43,7 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 		String createDetails 						= "CALL createDetail(?, ?, ?)";
 		
 		try{
-//			con.setAutoCommit(false);
+			con.setAutoCommit(false);
 			
 			PreparedStatement insertProductSales 	= con.prepareStatement(createProductSales);
 			PreparedStatement insertDetails 		= con.prepareStatement(createDetails);
@@ -62,7 +62,6 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 			while(salesID.next()){
 				intID = salesID.getInt(1);
 			}
-			System.out.println(intID + "<<<<<<<<<<<<<");
 			for(int intCtr = 0; intCtr < sales.getProductList().size(); intCtr++){
 				insertDetails.setInt(1, intID);
 				insertDetails.setInt(2, sales.getProductList().get(intCtr).getProduct().getIntProductID());
@@ -74,14 +73,15 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 			insertProductSales.close();
 			salesID.close();
 			insertDetails.close();
+			con.commit();
 			con.close();
 			return true;
 		}
 		catch(Exception e){
 			
 			e.printStackTrace();
+			con.rollback();
 			con.close();
-			
 			return false;
 		}
 	}
@@ -140,7 +140,7 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 	public List<ProductSales> getAllProductSales() {
 		Connection con = jdbc.getConnection();
 		
-		String getAllOrder 					= "SELECT * FROM tblOrder WHERE strOrderStatus <> 'CANCELLED' ;";
+		String getAllOrder 					= "SELECT * FROM tblOrder WHERE strOrderStatus <> 'CANCELLED' OR strOrderStatus <> 'DECLINED';";
 		String getAllDet 					= "SELECT * FROM tblOrderDetails WHERE intOrderID = ?";
 		
 		try{
@@ -212,6 +212,55 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 		
 		Connection con = jdbc.getConnection();
 		String deactivateSales = "UPDATE tblOrder SET strOrderStatus = 'CANCELLED' WHERE intOrderID = ?";
+		
+		try{
+			con.setAutoCommit(false);
+			PreparedStatement deactivate = con.prepareStatement(deactivateSales);
+			deactivate.setInt(1, intID);
+			deactivate.execute();
+			deactivate.close();
+			
+			con.close();
+			con.commit();
+			return true;
+		}
+		catch(Exception e){
+			
+			con.rollback();
+			con.close();
+			return false;
+		}
+	}
+	
+	@Override
+	public boolean acceptProductSales(int intID) throws SQLException {
+		
+		Connection con = jdbc.getConnection();
+		String deactivateSales = "UPDATE tblOrder SET strOrderStatus = 'PENDING' WHERE intOrderID = ?";
+		
+		try{
+			con.setAutoCommit(false);
+			PreparedStatement deactivate = con.prepareStatement(deactivateSales);
+			deactivate.setInt(1, intID);
+			deactivate.execute();
+			deactivate.close();
+			
+			con.close();
+			con.commit();
+			return true;
+		}
+		catch(Exception e){
+			
+			con.rollback();
+			con.close();
+			return false;
+		}
+	}
+	@Override
+	public boolean declineProductSales(int intID) throws SQLException {
+		
+		Connection con = jdbc.getConnection();
+		String deactivateSales = "UPDATE tblOrder SET strOrderStatus = 'DECLINED' WHERE intOrderID = ?";
 		
 		try{
 			con.setAutoCommit(false);
