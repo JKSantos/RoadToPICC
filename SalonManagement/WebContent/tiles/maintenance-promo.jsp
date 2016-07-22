@@ -373,7 +373,7 @@
                                                             <td class="dt-body-right"
                                                                 style="padding-right: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;">
                                                                 <input type="number" class="right-align rowQty"
-                                                                       name="productPromoQty" disabled
+                                                                       name="servicePromoQty" disabled
                                                                        id="s${service.intServiceID}"
                                                                        style="width: 75px" value="1"
                                                                        maxlength="2">

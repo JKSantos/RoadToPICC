@@ -67,12 +67,12 @@
                     %>
                     <tr>
                         <td style="padding-left: 10px; margin:0;" class="dt-body-left">${discount.strDiscountName}</td>
-                        <td style="padding-left: 10px; margin:0;" class="dt-body-left">${discount.strDiscountDetails}
+                        <td style="padding-left: 10px; margin:0;" class="dt-body-left">${discount.strDiscountDesc}
                         </td>
                         <td style="padding-left: 10px; margin:0;" class="dt-body-left">
                             ${discount.strDiscountGuidelines}
                         </td>
-                        <td style="padding-left: 10px; margin:0;" class="dt-body-left">${discount.strApplicability}</td>
+                        <td style="padding-left: 10px; margin:0;" class="dt-body-left">${discount.applicability}</td>
                         <td style="padding-right: 10px; margin:0;" class="dt-body-right servPrice">
                             <%=fixed%>${discount.dblDiscountAmount}<%=percet%>
                         </td>
