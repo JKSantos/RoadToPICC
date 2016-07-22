@@ -287,7 +287,7 @@ $(document).ready(function () {
     $("#discountSearch").bind('keyup search input paste cut', function () {
         discounttbl.search(this.value).draw();
     });
-    
+
     $('.crDiscBtn').click(function () {
         $('#fixed').hide();
     });
@@ -1070,33 +1070,46 @@ function createProductSale() {
         quantity = $("#createPSForm .psQty").map(function () {
             return $(this).val();
         }).get().toString();
-    console.log(strOrderLocation + '/' + strOrderType);
-    $.ajax({
-        type: 'post',
-        url: 'createOrder',
-        data: {
-            "orderType": strOrderType,
-            "strContactNo": strOrderContact,
-            "strName": strOrderName,
-            "strStreet": strOrderStreet,
-            "intLocationID": strOrderLocation,
-            "selectedProducts": checkedValues,
-            "productQuantity": quantity
+
+    swal({
+            title: "Submit?",
+            text: "", showCancelButton: true,
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
         },
-        dataType: 'json',
-        async: true,
-        success: function (data) {
-            if (data.status === 'success') {
-                swal("Successfully created!", "", "success");
-                updatePSTable();
-            } else {
-                sweetAlert("Oops...", "Something went wrong!", "error");
-            }
-        },
-        error: function (data) {
-            sweetAlert("Oops...", "Something went wrong!", "error");
-        }
-    });
+        function () {
+            setTimeout(function () {
+                $.ajax({
+                    type: 'post',
+                    url: 'createOrder',
+                    data: {
+                        "orderType": strOrderType,
+                        "strContactNo": strOrderContact,
+                        "strName": strOrderName,
+                        "strStreet": strOrderStreet,
+                        "intLocationID": strOrderLocation,
+                        "selectedProducts": checkedValues,
+                        "productQuantity": quantity
+                    },
+                    dataType: 'json',
+                    async: true,
+                    success: function (data) {
+                        if (data.status === 'success') {
+                            swal("Order was successfully submitted!", "success");
+                            updatePSTable();
+                            $('#crProductSales').closeModal();
+                        } else {
+                            sweetAlert("Oops...", "Something went wrong!", "error");
+                        }
+                    },
+                    error: function (data) {
+                        sweetAlert("Oops...", "Something went wrong!", "error");
+                    }
+                });
+
+            }, 1000);
+        });
+
 }
 
 // $('#defsubmitbtn').click(function () {
@@ -1638,39 +1651,6 @@ $('#inventorytbl').on('click', '.inventdeacbtn', function (e) {
 });
 
 
-$('#productsalestbl').on('click', '.prodsalesdeacbtn', function () {
-
-    var $this = $(this);
-    var prodsales = $this.val();
-    console.log(prodsales);
-    var deactivateItem = {
-        'intItemID': prodsales
-    }
-    var $tr = $(this).closest('tr');
-
-    swal({
-            title: "Are you sure?",
-            text: "",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, delete it!",
-            closeOnConfirm: false
-        },
-        function () {
-            swal("Deleted!", ".", "success");
-            $.ajax({
-                type: 'post',
-                url: 'deactivateItem',
-                data: deactivateItem,
-                success: function (response) {
-                    $tr.find('td').fadeOut(500, function () {
-                        $tr.remove();
-                    });
-                }
-            });
-        });
-});
 
 
 

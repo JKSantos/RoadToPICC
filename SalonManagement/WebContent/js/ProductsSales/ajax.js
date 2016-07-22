@@ -20,11 +20,27 @@ function updatePSTable() {
                     var addbtn = "<center><button class='waves-effect waves-light modal-trigger btn-flat transparent black-text' " +
                         "title='Update' onclick='openUpdate(this.value)' value='" + order.intSalesID + "' id='submitbtn' style='padding: 0px;'>" +
                         "<i class='material-icons'>edit</i></button><button class='prodsalesdeacbtn waves-effect waves-light btn-flat transparent " +
-                        "red-text text-accent-4' title='Deactivate' value='" + order.intSalesID + "'><i class='material-icons'>delete</i></button></center>";
+                        "red-text text-accent-4' title='Deactivate' value='" + order.intSalesID + "' onclick='cancelOrder(this.value)'>" +
+                        "<i class='material-icons'>delete</i></button></center>";
                     if (order.intType == 1) {
                         x = "Delivery";
+                        if (order.strStatus == "REQUEST") {
+                            addbtn = "<center><button class='waves-effect waves-light modal-trigger btn-flat transparent black-text' " +
+                                "title='Update' onclick='acceptOrder(this.value)' id='acc" + order.intSalesID + "' value='" + order.intSalesID + "' style='padding: 0px;'>" +
+                                "<i class='material-icons light-green-text text-darken-3'>check_circle</i></button><button class='prodsalesdeacbtn waves-effect waves-light btn-flat transparent " +
+                                "red-text text-accent-4' title='Deactivate' value='" + order.intSalesID + "' onclick='declineOrder(this.value)'>" +
+                                "<i class='material-icons'>cancel</i></button></center>";
+
+                        }
                     } else if (order.intType == 2) {
                         x = "Pick up";
+                        if (order.strStatus == "REQUEST") {
+                            addbtn = "<center><button class='waves-effect waves-light modal-trigger btn-flat transparent black-text' " +
+                                "title='Update' onclick='acceptOrder(this.value)' value='" + order.intSalesID + "' style='padding: 0px;'>" +
+                                "<i class='material-icons light-green-text text-darken-3'>check_circle</i></button><button class='prodsalesdeacbtn waves-effect waves-light btn-flat transparent " +
+                                "red-text text-accent-4' title='Deactivate' value='" + order.intSalesID + "' onclick='declineOrder(this.value)'>" +
+                                "<i class='material-icons'>cancel</i></button></center>";
+                        }
                     }
                     table.row.add([
                         order.strName,
@@ -134,7 +150,7 @@ function crpsCheckbtn(checkbtnid) {
                 showqty = parseInt($qty);
                 $('#pslist #x' + checkbtnid + '').remove();
                 $('#pslist #item' + checkbtnid + ' .span').append('<span class="grey-text text-darken-3" id="x' + checkbtnid + '"> (' + showqty + ')</span>');
-            } else if ( $qty == q ) {
+            } else if ($qty == q) {
 
             } else {
 
@@ -143,7 +159,7 @@ function crpsCheckbtn(checkbtnid) {
         });
 
         $pricefield.keydown(function (e) {
-            if( e.which == 8 && ( document.activeElement.id == 'ps' + checkbtnid) ){
+            if (e.which == 8 && ( document.activeElement.id == 'ps' + checkbtnid)) {
                 e.preventDefault();
                 return false;
             }
@@ -188,3 +204,141 @@ function crpsCheckbtn(checkbtnid) {
     });
 
 }
+
+function acceptOrder(orderid) {
+    swal({
+            title: "Accept this order?",
+            text: "",
+            type: "info",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+        },
+        function () {
+            setTimeout(function () {
+                $.ajax({
+                    url: 'acceptOrder',
+                    type: 'post',
+                    data: {
+                        "intOrderID": orderid
+                    },
+                    dataType: 'json',
+                    async: true,
+                    success: function (data) {
+                        if (data.result === "success") {
+                            swal("Order was successfully accepted!", "success");
+                            updatePSTable();
+                        } else {
+                            sweetAlert("Oops...", "Something went wrong!", "error");
+                            alert('dasdasd');
+                        }
+                    },
+                    error: function (data) {
+                        sweetAlert("Oops...", "Something went wrong!", "error");
+                    }
+                })
+            }, 1000);
+        });
+
+}
+
+function declineOrder(declineid) {
+    swal({
+            title: "Decline this order?",
+            text: "",
+            type: "info", showCancelButton: true,
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+        },
+        function () {
+            setTimeout(function () {
+                $.ajax({
+                    url: 'declineOrder',
+                    type: 'post',
+                    data: {
+                        "intOrderID": declineid
+                    },
+                    dataType: 'json',
+                    async: true,
+                    success: function (data) {
+                        if (data.result === "success") {
+                            swal("Order was successfully declined!", "success");
+                            updatePSTable();
+                        } else {
+                            sweetAlert("Oops...", "Something went wrong!", "error");
+                        }
+                    },
+                    error: function (data) {
+                        sweetAlert("Oops...", "Something went wrong!", "error");
+                    }
+                })
+            }, 1000);
+        });
+}
+
+
+function cancelOrder(cancelid) {
+    swal({
+            title: "Cancel this order?",
+            text: "",
+            type: "info", showCancelButton: true,
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+        },
+        function () {
+            setTimeout(function () {
+                $.ajax({
+                    url: 'deactivateOrder',
+                    type: 'post',
+                    data: {
+                        "intOrderID": cancelid
+                    },
+                    dataType: 'json',
+                    async: true,
+                    success: function (data) {
+                        if (data.result === "success") {
+                            swal("Order was successfully cancelled!", "success");
+                            updatePSTable();
+                        } else {
+                            sweetAlert("Oops...", "Something went wrong!", "error");
+                        }
+                    },
+                    error: function (data) {
+                        sweetAlert("Oops...", "Something went wrong!", "error");
+                    }
+                })
+            }, 1000);
+        });
+}
+
+
+// function PSDeactivate(prodsaleid) {
+//     var deactivatePS = {
+//         'intOrderID': prodsaleid
+//     }
+//     console.log(prodsaleid);
+//     var $tr = $(this).closest('tr');
+//
+//     swal({
+//             title: "Are you sure?",
+//             text: "",
+//             type: "warning",
+//             showCancelButton: true,
+//             confirmButtonColor: "#DD6B55",
+//             confirmButtonText: "Yes, delete it!",
+//             closeOnConfirm: false
+//         },
+//         function () {
+//             swal("Deleted!", ".", "success");
+//             $.ajax({
+//                 type: 'post',
+//                 url: 'declineOrder',
+//                 data: deactivatePS,
+//                 success: function (response) {
+//                     $tr.find('td').fadeOut(500, function () {
+//                         $tr.remove();
+//                     });
+//                 }
+//             });
+//         });
+// }
