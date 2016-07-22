@@ -3,7 +3,7 @@
 
 <div class="wrapper">
 
-    <div class="main aside2 z-depth-barts">
+    <div class="main z-depth-barts">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
             <h3 class="grey-text text-darken-1">Inventory</h3>
             <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
@@ -67,7 +67,7 @@
                                 <i class="material-icons">visibility</i>
                             </a>
                             <a id="${product.intProductID}" href="#inventoryedit${product.intProductID}"
-                               class=".inventoryupdate btnEdit waves-effect waves-purple btn-flat transparent black-text empUpdatebtn"
+                               class=" btnEdit modal-trigger waves-effect waves-purple btn-flat transparent black-text empUpdatebtn"
                                style="padding-left: 10px;padding-right:10px; margin: 5px;">
                                 <i class="material-icons">edit</i>
                             </a>

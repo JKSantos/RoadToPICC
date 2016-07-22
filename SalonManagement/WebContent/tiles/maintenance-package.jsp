@@ -223,7 +223,7 @@
                                 <label for="packageFilter"><b>Select</b></label>
                             </div>
                             <nav class="right white z-depth-1" style="width: 300px; margin-right: 20px;">
-                                <div class="nav-wrapper col s6">
+                                <div class="nav-wrapper col s12">
                                     <form>
                                         <div class="input-field">
                                             <input id="crpackageSearch" placeholder="Search"

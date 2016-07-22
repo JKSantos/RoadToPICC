@@ -34,8 +34,9 @@
 			<result name="failed" type="json"></result>
 		</action>
 		
-		<action name="product-sales" class="com.gss.actions.ProductSales.ProductSalesMaintenanceAction">
-			<result name="success">transactions-productorder.jsp</result>
+		<action name="productsales" class="com.gss.actions.ProductSales.ProductSalesMaintenanceAction">
+			<result name="success" type="tiles">transProductSales</result>
+			<result name="input">page-login-first.jsp</result>
 		</action>
 		
 		<action name="orders" class="com.gss.actions.ProductSales.GetAllOrder">

@@ -98,8 +98,8 @@
                         <ul class="navul">
                             <li><a href="getInventory">Inventory</a></li>
                             <li><a href="transactions-walkin.jsp">Walk In</a></li>
-                            <li><a href="transactions-reservation.jsp">Reservation</a></li>
-                            <li><a href="product-sales">Product Sales</a></li>
+                            <li><a href="transReserve">Reservation</a></li>
+                            <li><a href="productsales">Product Sales</a></li>
                             <li><a href="transactions-vip.jsp">Payment</a></li>
                         </ul>
                     </div>
@@ -150,12 +150,19 @@
 
     #deflostexModal {
         width: 450px !important;
-        height: 390px !important;
+        height: 400px !important;
         max-height: 100% !important;
         margin-top: -10px !important;
     }
 
     #createEmployeeModal {
+        width: 600px !important;
+        height: 590px !important;
+        max-height: 100% !important;
+        margin-top: -30px !important;
+    }
+
+    #crPromoModal {
         width: 600px !important;
         height: 590px !important;
         max-height: 100% !important;
@@ -179,6 +186,13 @@
     #createProduct {
         width: 600px !important;
         height: 535px !important;
+        max-height: 100% !important;
+        margin-top: -20px !important;
+    }
+
+    #crProductSales {
+        width: 600px !important;
+        height: 635px !important;
         max-height: 100% !important;
         margin-top: -20px !important;
     }
@@ -341,7 +355,7 @@
 <script type="text/javascript" src="js/materialize.js"></script>
 <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="js/bartstable.js"></script>
-<script type="text/javascript" src="js/picker.date.js"></script>
+<!--<script type="text/javascript" src="js/picker.date.js"></script>-->
 <script type="text/javascript" src="js/jquery.validate.js"></script>
 <script type="text/javascript" src="js/maintenance-emp.js"></script>
 <script type="text/javascript" src="js/additional.js"></script>
@@ -353,7 +367,8 @@
 <script type="text/javascript" src="js/ellipsis.js"></script>
 <script type="text/javascript" src="js/priceformat.js"></script>
 <script type="text/javascript" src="js/formatted-numbers.js"></script>
-<script type="text/javascript" src="js/jquery.formatCurrency-1.4.0.js"></script>
+<script type="text/javascript" src="js/jquery.formatCurrency-1.4.0.js"></script>>
+<script type="text/javascript" src="js/ProductsSales/ajax.js"></script>
 
 
 <!--<script type="text/javascript" src="js/drag.js"></script>-->
@@ -451,6 +466,12 @@
         limit: 9
     });
 
+    $('#crPackPrice').priceFormat({
+        prefix: 'Php ',
+        centsSeparator: '.',
+        thousandsSeparator: ',',
+        limit: 9
+    });
 
     $('#crServicePrice').priceFormat({
         prefix: 'Php ',
@@ -458,6 +479,7 @@
         thousandsSeparator: ',',
         limit: 9
     });
+
 
 
 </script>
