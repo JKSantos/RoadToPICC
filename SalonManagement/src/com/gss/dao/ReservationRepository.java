@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.gss.model.EmployeeAssigned;
+import com.gss.model.Invoice;
 import com.gss.model.ProductOrder;
 import com.gss.model.Reservation;
 import com.gss.model.ReservedPackage;
@@ -29,5 +30,7 @@ public interface ReservationRepository {
 	public List<ReservedPackage> getAllReservedPackage(int ReservationID);
 	
 	public List<ReservedPromo> getAllReservedPromo(int ReservationID);
+	
+	public Invoice getInvoice(int intInvoiceID);
 
 }

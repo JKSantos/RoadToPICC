@@ -23,5 +23,18 @@ public class SearchPackage {
 		
 		return selectedPackages;
 	}
+	
+	public Package search(int intPackageID, List<Package> packageList){
+		
+		
+		for(int i = 0; i < packageList.size(); i++){
+			if(intPackageID == packageList.get(i).getIntPackageID()){
+
+				return packageList.get(i);
+			}
+		}
+		
+		return null;
+	}
 
 }

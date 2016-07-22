@@ -33,6 +33,13 @@ public class CreateReservation {
 		List<EmployeeAssigned> employeeAssigned = new ArrayList<EmployeeAssigned>();
 		String strStatus = "PENDING";
 		Invoice invoice;
+		Discount discount = Discount.searchDiscount(1, Discount.getAllDiscount());
+		
+		//for invoice
+				List<ExtraCharge> extraCharges = new ArrayList<ExtraCharge>();
+				ExtraCharge extra = new ExtraCharge(26, "", "", headCount, headCount);
+				List<Discount> dicounts = new ArrayList<Discount>();
+				invoice = new Invoice(1, datTo, dicounts, extraCharges, headCount, headCount, null, strStatus);
 		
 		//for customer
 		String strName = "Czarina Paras";
@@ -50,10 +57,13 @@ public class CreateReservation {
 		
 			//ProductOrder
 			Product product = new Product(35, strEmailAddress, strEmailAddress, strEmailAddress, headCount, null, headCount, strEmailAddress, headCount);
-			ProductOrder productOrder = new ProductOrder(headCount, product, headCount, headCount);
+			ProductOrder productOrder = DiscountChecker.checkProductDiscount(product, discount, 3);
 			products.add(productOrder);
 			
 			//Service
+			Service service1 = Service.createNullService(61);
+			ReservedService reserved = DiscountChecker.checkServiceDiscount(service1, discount, 3);
+			services.add(reserved);
 			
 			//Package
 			
@@ -64,13 +74,6 @@ public class CreateReservation {
 		Employee emp = new Employee(79, strEmailAddress, strEmailAddress, strEmailAddress, datTo, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, null, null, false);
 		employeeAssigned.add(new EmployeeAssigned(1, 1, emp, headCount));
 		employeeAssigned.add(new EmployeeAssigned(1, 1, emp, headCount));
-		
-		//for invoice
-		List<ExtraCharge> extraCharges = new ArrayList<ExtraCharge>();
-		ExtraCharge extra = new ExtraCharge(26, strEmailAddress, strEmailAddress, headCount, headCount);
-		List<Discount> dicounts = new ArrayList<Discount>();
-		invoice = new Invoice(1, datTo, strStatus, dicounts, extraCharges, headCount, headCount, null, strStatus);
-		
 		
 		reservation = new Reservation(intReservationID, customer, includedItems, intReservationType, dateCreated, datFrom, datTo, timFrom, timTo, strVenue, headCount, employeeAssigned, invoice, strStatus);
 		

@@ -6,6 +6,8 @@ public class ReservedPromo {
 	private int intReservationID;
 	private Promo promo;
 	private int intQuantity;
+	private String discountType;
+	private double discountAmount;
 	private int intStatus;
 	
 	public ReservedPromo(int intReservedPromoID, int intReservationID, Promo promo, int intQuantity, int intStatus) {
@@ -55,6 +57,22 @@ public class ReservedPromo {
 
 	public void setIntStatus(int intStatus) {
 		this.intStatus = intStatus;
+	}
+
+	public String getDiscountType() {
+		return discountType;
+	}
+
+	public void setDiscountType(String discountType) {
+		this.discountType = discountType;
+	}
+
+	public double getDiscountAmount() {
+		return discountAmount;
+	}
+
+	public void setDiscountAmount(double discountAmount) {
+		this.discountAmount = discountAmount;
 	}
 
 }

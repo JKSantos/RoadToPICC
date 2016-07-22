@@ -102,9 +102,13 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 				Employee emp = new Employee(intEmpID, strEmpLastName, strEmpFirstName, strEmpMiddleName, datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, strEmpStatus, strEmpUsername, strEmpPassword, blobEmpPhoto, blobAsBytes, jobs, access);
 				
 				empList.add(emp);
+				
+				getJobs.close();
+				jobSet.close();
 			}
 			
 			st.close();
+			set.close();
 			con.close();
 			
 			return empList;

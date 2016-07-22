@@ -22,6 +22,7 @@ import com.gss.model.ReservedService;
 import com.gss.model.Service;
 import com.gss.model.Package;
 import com.gss.utilities.DateHelper;
+import com.gss.utilities.DiscountChecker;
 import com.gss.utilities.QuantityHelper;
 import com.gss.utilities.TimeHelper;
 
@@ -56,10 +57,33 @@ public class CreateReservation {
 	private List<String> selectedEmployees;
 	private List<String> selectedExtraCharges;
 	private List<String> selectedDiscounts;
+
+	private Discount discount;
 	
 	public String execute() throws SQLException{
 	
 		Reservation reservation;
+		
+		//for invoice
+		
+			//ExtraCharges
+			List<ExtraCharge> extraCharges = new ArrayList<ExtraCharge>();
+		
+			for(int index = 0; index < this.selectedDiscounts.size(); index++){
+				ExtraCharge extra = ExtraCharge.createNullExtra(Integer.parseInt(this.selectedExtraCharges.get(index)));
+				extraCharges.add(extra);
+			}
+		
+			//Discounts
+			List<Discount> discounts = new ArrayList<Discount>();
+			
+			for(int index = 0; index < this.selectedDiscounts.size(); index++){
+				Discount discount = Discount.createNullDiscount(Integer.parseInt(this.selectedDiscounts.get(index)));
+				discounts.add(discount);
+				this.discount = discount;
+			}
+			
+				invoice = Invoice.createNullInvoice(extraCharges, discounts);
 		
 		//for ReservationInlusion
 		List<ProductOrder> products = new ArrayList<ProductOrder>();
@@ -74,7 +98,7 @@ public class CreateReservation {
 				
 				for(int index = 0; index < selectedProducts.length; index++){
 					Product product = Product.createNullProduct(Integer.parseInt(selectedProducts[index]));
-					ProductOrder productOrder = new ProductOrder(1, product, Integer.parseInt(productQuantity[index]), headCount);
+					ProductOrder productOrder = DiscountChecker.checkProductDiscount(product, discount, Integer.parseInt(productQuantity[index]));
 					products.add(productOrder);
 				}
 					
@@ -84,7 +108,7 @@ public class CreateReservation {
 				
 				for(int index = 0; index < selectedProducts.length; index++){
 					Service service = Service.createNullService(Integer.parseInt(selectedServices[index]));
-					ReservedService reservedService = new ReservedService(index, index, service, Integer.parseInt(serviceQuantity[index]), index);
+					ReservedService reservedService = DiscountChecker.checkServiceDiscount(service, discount, Integer.parseInt(serviceQuantity[index]));
 					services.add(reservedService);
 				}
 					
@@ -94,7 +118,7 @@ public class CreateReservation {
 				
 				for(int index = 0; index < selectedPackages.length; index++){
 					Package packagee = Package.createNullPackage(Integer.parseInt(selectedPackages[index]));
-					ReservedPackage reservedPackage = new ReservedPackage(index, index, packagee, Integer.parseInt(serviceQuantity[index]), index);
+					ReservedPackage reservedPackage = DiscountChecker.checkPackageDiscount(packagee, discount, Integer.parseInt(packageQuantity[index]));
 					packages.add(reservedPackage);
 				}
 				
@@ -105,7 +129,7 @@ public class CreateReservation {
 				
 				for(int index = 0; index < selectedPromos.length; index++){
 					Promo promo = Promo.createNullPromo(Integer.parseInt(selectedPromos[index]));
-					ReservedPromo reservedPromo = new ReservedPromo(index, index, promo, Integer.parseInt(promoQuantity[index]), index);
+					ReservedPromo reservedPromo = DiscountChecker.checkPromoDiscount(promo, discount, Integer.parseInt(promoQuantity[index]));
 					promos.add(reservedPromo);
 				}
 				
@@ -114,26 +138,6 @@ public class CreateReservation {
 					Employee emp = Employee.createNullEmployee(Integer.parseInt(this.selectedEmployees.get(index)));
 					employeeAssigned.add(new EmployeeAssigned(1, 1, emp, 1));
 				}
-				
-				//for invoice
-				
-					//ExtraCharges
-					List<ExtraCharge> extraCharges = new ArrayList<ExtraCharge>();
-					
-					for(int index = 0; index < this.selectedDiscounts.size(); index++){
-						ExtraCharge extra = ExtraCharge.createNullExtra(Integer.parseInt(this.selectedExtraCharges.get(index)));
-						extraCharges.add(extra);
-					}
-					
-					//Discounts
-					List<Discount> discounts = new ArrayList<Discount>();
-					
-					for(int index = 0; index < this.selectedDiscounts.size(); index++){
-						Discount discount = Discount.createNullDiscount(Integer.parseInt(this.selectedDiscounts.get(index)));
-						discounts.add(discount);
-					}
-					
-				invoice = Invoice.createNullInvoice(extraCharges, discounts);
 		
 				reservation = new Reservation(1, customer, includedItems, intReservationType, dateCreated, datFrom, datTo, TimeHelper.parseTime(timFrom, fromMeridian), TimeHelper.parseTime(timTo, toMeridian), strVenue, headCount, employeeAssigned, invoice, strStatus);
 				

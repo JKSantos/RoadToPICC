@@ -1,51 +1,46 @@
 package com.gss.testers;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.gss.model.Discount;
+import com.gss.model.Product;
+import com.gss.model.Promo;
+import com.gss.model.Package;
+import com.gss.model.Service;
+import com.gss.service.DiscountService;
 import com.gss.service.DiscountServiceImpl;
+import com.gss.service.ServiceService;
+import com.gss.service.ServiceServiceImpl;
+import com.gss.utilities.SearchProduct;
+import com.gss.utilities.SearchService;
 
 public class CreateDiscount {
 	
-	public static void main(String[] args) throws ParseException {
+	public static void main(String[] args){
 		
-		DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
-	    java.util.Date utilDate = format.parse("1996-5-6");
-	    
-	    String[] date = "4:30".split(":");
-	    
-	    Calendar calendar = Calendar.getInstance();
-	    
-	    long cal = calendar.getTimeInMillis();
-
-	    java.util.Date dateee = new java.util.Date(cal);
-
-		dateee.setHours(Integer.parseInt(date[0]));
-		dateee.setMinutes(Integer.parseInt(date[1]));
-		dateee.setSeconds(00);
-		
-		System.out.println(dateee.getHours() + ":" + dateee.getMinutes() + ":" + dateee.getSeconds());
-	    
-		
-
-	  }
+		DiscountService service = new DiscountServiceImpl();
+		service.getAllDiscount();
+	}
 	
-	public void set(){
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DATE, 1);
-		
-		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-		System.out.println(cal.getTime());
-		// Output "Wed Sep 26 14:23:28 EST 2012"
+	public static void sss(){
 
-		String formatted = format1.format(cal.getTime());
-		System.out.println(formatted);
-		// Output "2012-09-26"
-	
+		DiscountService service = new DiscountServiceImpl();
+		ServiceService serviceS = new ServiceServiceImpl();
+		List<Service> serviceList = serviceS.getAllServiceNoImage();
+		
+		List<Service> kasama = new ArrayList<Service>();
+		kasama.add(new SearchService().search(34, serviceList));
+		
+		List<Product> producs = new ArrayList<Product>();
+		producs.add(new SearchProduct().search(33, Product.getAllProduct()));
+		
+		List<Package> pack = new ArrayList<Package>();
+		List<Promo> promo = new ArrayList<Promo>();
+		
+		Discount discount = new Discount(1, "ALL CUSTOMER", "GATSBY DISCOUNT", "DISCOUNT ON GATSBY WAX 250ML", "", 2, 25, producs, kasama, pack, promo, 0);
+		
+		System.out.println(service.createDiscount(discount));
 	}
 
 }

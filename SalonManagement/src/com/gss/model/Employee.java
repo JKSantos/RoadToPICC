@@ -185,4 +185,14 @@ public class Employee {
 	public static Employee createNullEmployee(int intEmpID){
 		return new Employee(intEmpID, "", "", "", new Date(), "", "", "", "", "", "", "", "", null, null, false);
 	}
+	
+	public static Employee searchEmployee(int intEmployeeID, List<Employee> employeeList){
+		
+		for(int i = 0; i < employeeList.size(); i++){
+			if(intEmployeeID == employeeList.get(i).getIntEmpID())
+				return employeeList.get(i);
+		}
+		
+		return null;
+	}
 }

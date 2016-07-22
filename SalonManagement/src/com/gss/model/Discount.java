@@ -8,6 +8,7 @@ import com.gss.service.DiscountServiceImpl;
 public class Discount {
 	
 	private int intDiscountID;
+	private String applicability;
 	private String strDiscountName;
 	private String strDiscountDesc;
 	private String strDiscountGuidelines;
@@ -19,8 +20,9 @@ public class Discount {
 	private List<Promo> promoList;
 	private int intDiscountStatus;
 	
-	public Discount(int intDiscountID, String strDiscountName, String strDiscountDesc, String strDiscountGuidelines, int intDiscountType, double dblDiscountAmount, List<Product> productList, List<Service> serviceList, List<Package> packageList, List<Promo> promoList, int intDiscountStatus){
+	public Discount(int intDiscountID, String applicability, String strDiscountName, String strDiscountDesc, String strDiscountGuidelines, int intDiscountType, double dblDiscountAmount, List<Product> productList, List<Service> serviceList, List<Package> packageList, List<Promo> promoList, int intDiscountStatus){
 		this.setIntDiscountID(intDiscountID);
+		this.setApplicability(applicability);
 		this.setStrDiscountName(strDiscountName);
 		this.setStrDiscountDesc(strDiscountDesc);
 		this.setStrDiscountGuidelines(strDiscountGuidelines);
@@ -128,7 +130,23 @@ public class Discount {
 	}
 	
 	public static Discount createNullDiscount(int intDiscountID){
-		return new Discount(intDiscountID, "", "", "", intDiscountID, 0, null, null, null, null, intDiscountID);
+		return new Discount(intDiscountID, "", "", "", "", intDiscountID, 0, null, null, null, null, intDiscountID);
+	}
+	
+	public static Discount searchDiscount(int intDiscountID, List<Discount> discountList){
+		
+		for(int index = 0; index < discountList.size(); index++){
+			if(intDiscountID == discountList.get(index).getIntDiscountID())
+				return discountList.get(index);
+		}
+		return null;
 	}
 
+	public String getApplicability() {
+		return applicability;
+	}
+
+	public void setApplicability(String applicability) {
+		this.applicability = applicability;
+	}
 }

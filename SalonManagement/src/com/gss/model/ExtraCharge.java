@@ -70,5 +70,15 @@ public class ExtraCharge {
 		
 		return service.getAllExtraCharges();
 	}
+	
+	public static ExtraCharge searchExtraCharge(int intExtraID, List<ExtraCharge> extraChargeList){
+		
+		for(int index = 0; index < extraChargeList.size(); index++){
+			if(intExtraID == extraChargeList.get(index).getIntECID())
+				return extraChargeList.get(index);
+		}
+		
+		return null;
+	}
 
 }

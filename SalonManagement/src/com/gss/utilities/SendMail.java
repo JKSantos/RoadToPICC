@@ -80,7 +80,7 @@ public class SendMail implements Runnable{
 	      
 	      }
 	      
-	      else if(emailAddress.endsWith("@yahoo.com") && emailAddress.endsWith("@yahoo.com.ph")){
+	      else if(emailAddress.endsWith("@yahoo.com") || emailAddress.endsWith("@yahoo.com.ph")){
 	    	 
 	    	  String yahooMail = "labidabssy.jeffrey23@yahoo.com";
 	    	  from = yahooMail;

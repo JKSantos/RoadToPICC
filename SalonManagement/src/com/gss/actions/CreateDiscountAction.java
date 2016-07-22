@@ -16,7 +16,8 @@ import com.gss.utilities.SearchPromo;
 import com.gss.utilities.SearchService;
 
 public class CreateDiscountAction {
-
+	
+	private String strApplicability;
 	private String strDiscountName;
 	private String strDiscountDetails;
 	private String strDiscountGuidelines;
@@ -49,7 +50,7 @@ public class CreateDiscountAction {
 		String result = "failed";
 		
 		try{
-				discount = new Discount(1, strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), dblDiscountPrice, productList, serviceList, packageList, promoList, 1);
+				discount = new Discount(1, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), dblDiscountPrice, productList, serviceList, packageList, promoList, 1);
 				
 				if(service.createDiscount(discount) == true)
 					result = "success";
@@ -58,7 +59,7 @@ public class CreateDiscountAction {
 			return result;
 		}
 		catch(NullPointerException e){
-			discount = new Discount(1, strDiscountName, strDiscountDetails, strDiscountGuidelines, 2, dblDiscountPrice, productList, serviceList, packageList, promoList, 1);
+			discount = new Discount(1, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, 2, dblDiscountPrice, productList, serviceList, packageList, promoList, 1);
 
 			if(service.createDiscount(discount) == true)
 				return "success";
@@ -101,6 +102,10 @@ public class CreateDiscountAction {
 
 	public void setCheckedPromos(String checkedPromos) {
 		this.checkedPromos = checkedPromos;
+	}
+	
+	public void setStrApplicability(String strApplicability){
+		this.strApplicability = strApplicability;
 	}
 
 }
