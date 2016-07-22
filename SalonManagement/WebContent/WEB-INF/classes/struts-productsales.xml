@@ -47,6 +47,14 @@
 			<result name="success" type="json"></result>
 		</action>
 		
+		<action name="acceptOrder" class="com.gss.actions.ProductSales.OrderResultAction" method="acceptOrder">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="declineOrder" class="com.gss.actions.ProductSales.OrderResultAction" method="declineOrder">
+			<result name="success" type="json"></result>
+		</action>
+		
 	</package>	
 		
 		

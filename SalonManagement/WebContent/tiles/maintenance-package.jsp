@@ -63,8 +63,20 @@
                     else if(packge.getIntPackageType() == 2){
                     type = "Home Service";
                     }
+                    else if(packge.getIntPackageType() == 3){
+                        type = "Walk-In";
+                    }
+                    else if(packge.getIntPackageType() == 4){
+                        type = "Event, Home Service";
+                   	}
+                    else if(packge.getIntPackageType() == 5){
+                        type = "Event, Walk In";
+                    }
+                    else if(packge.getIntPackageType() == 6){
+                        type = "Walk In, Home Service";
+                    }
                     else{
-                    type = "Walk-In";
+                    type = "Event, Home Service, Walk In";
                     }
                     %>
                     <tr>
