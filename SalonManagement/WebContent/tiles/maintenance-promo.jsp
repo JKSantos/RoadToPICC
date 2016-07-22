@@ -68,8 +68,7 @@
                             ${promo.strPromoAvailability}
                         </td>
                         <td class="center" style="padding:0; margin:0;">
-                            <a data-delay="30" data-position="bottom" data-tooltip="View"
-                               class="waves-effect waves-purple modal-viewall btn-flat transparent black-text"
+                            <a class="waves-effect waves-purple modal-viewall btn-flat transparent black-text"
                                href="#" style="padding-left: 10px;padding-right:10px; margin: 5px;">
                                 <i class="material-icons">visibility</i>
                             </a>
@@ -298,7 +297,7 @@
                                                     <c:forEach items="${productList}" var="product">
                                                         <tr>
                                                             <td class="dt-body-left">
-                                                                <input type="checkbox" name="createPackProdType"
+                                                                <input type="checkbox" name="productPromoSelect"
                                                                        id="prodCheck${product.intProductID}" required
                                                                        class="promocheckbox x{product.intProductID}"
                                                                        value="${product.intProductID}"><label
@@ -356,7 +355,7 @@
                                                     <c:forEach items="${serviceList}" var="service">
                                                         <tr>
                                                             <td class="dt-body-left">
-                                                                <input type="checkbox" name="createPackServType"
+                                                                <input type="checkbox" name="servicePromoSelect"
                                                                        id="myCheckBox${service.intServiceID}" required
                                                                        class="promocheckbox x{service.intServiceID}"
                                                                        value="${service.intServiceID}"><label

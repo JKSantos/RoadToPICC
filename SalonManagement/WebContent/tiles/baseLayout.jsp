@@ -30,7 +30,7 @@
 <div class="wrapper">
     <header class="headnav">
         <ul id="slide-out" class="side-nav fixed z-depth-0">
-            <li class="user-details purple darken-1" style="height: 64px !important;">
+            <li class="user-details" style="height: 64px !important; background-color: #9C8AA5 !important;">
                 <div class="row">
                     <div class="col col s4 m4 l4" style="padding: 5px !important;">
                         <img src="<s:url action='getImage'><s:param name='ImageID'>${sessionScope.id}</s:param><s:param name='type'>employee</s:param></s:url>"
