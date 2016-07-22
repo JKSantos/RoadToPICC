@@ -89,7 +89,6 @@ $(function () {
 
     var total = 0;
     var $qty = 0;
-    var i = 1;
     var q = 0;
 
     $('.promocheckbox').change(function () {
@@ -148,6 +147,12 @@ $(function () {
             $('#totalPrice').html('P ' + parseFloat(total).toFixed(2));
             $('#crPromoPrice').val('P ' + parseFloat(total).toFixed(2));
         }
+    });
+
+
+    $('#createPromoSubmitForm').click(function () {
+        swal("Successfully created!", "", "success");
+        $('#createPromoForm').submit();
     })
 });
 
@@ -1384,6 +1389,39 @@ $('#deliverytbl').on('click', '.deliverydeacbtn', function (e) {
                 data: deliverydata,
                 success: function (response) {
                     $tr.find('td').fadeOut(500, function () {
+                        $tr.remove();
+                    });
+                }
+            });
+        });
+});
+
+$('#promotbl').on('click', '.promodeacbtn', function (e) {
+    e.returnValue = false;
+    var promoID = $(this).attr('id');
+    console.log(promoID);
+    var promodata = {
+        'intPromoID': promoID
+    }
+    var $tr = $(this).closest('tr');
+
+    swal({
+            title: "Are you sure?",
+            text: "",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        },
+        function () {
+            swal("Deleted!", ".", "success");
+            $.ajax({
+                type: 'post',
+                url: 'deactivatePromo',
+                data: promodata,
+                success: function (response) {
+                    $tr.find('td').fadeOut(200, function () {
                         $tr.remove();
                     });
                 }

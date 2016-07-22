@@ -80,7 +80,7 @@
                             </a>
                             <button class="promodeacbtn waves-effect waves-purple btn-flat transparent red-text text-accent-4"
                                     style="padding-left: 10px;padding-right:10px; margin: 5px;"
-                                    id="" title="Deactivate"><i class="material-icons">delete</i>
+                                    id="${promo.intPromoID}" title="Deactivate"><i class="material-icons">delete</i>
                             </button>
                         </td>
                     </tr>
@@ -459,7 +459,7 @@
                                 <div class="input-field col s12" style="margin-top: 20px !important;">
                                     <input type="text" class="right-align prodPrice" name="" id="crPromoPrice"
                                            placeholder="Price"/>
-                                    <label for="crPackPrice" class="active"><b>Price</b><i
+                                    <label for="crPromoPrice" class="active"><b>Price</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                             </div>
@@ -489,7 +489,7 @@
                         class="actionpromo nextformpromo waves-effect waves-light white-text btn-flat purple"
                         style="margin-left: 3px; margin-right:3px;">NEXT
                 </button>
-                <button type="submit" value="submit" id="createSubmitForm"
+                <button type="submit" value="submit" id="createPromoSubmitForm"
                         class="actionpromo submitformpromo waves-effect waves-light white-text btn-flat purple"
                         style="margin-left:3px; margin-right:3px;">CREATE
                 </button>
