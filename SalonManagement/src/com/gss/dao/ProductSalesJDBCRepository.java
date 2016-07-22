@@ -220,8 +220,8 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 			deactivate.execute();
 			deactivate.close();
 			
-			con.close();
 			con.commit();
+			con.close();
 			return true;
 		}
 		catch(Exception e){
@@ -245,8 +245,8 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 			deactivate.execute();
 			deactivate.close();
 			
-			con.close();
 			con.commit();
+			con.close();
 			return true;
 		}
 		catch(Exception e){
@@ -269,8 +269,8 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 			deactivate.execute();
 			deactivate.close();
 			
-			con.close();
 			con.commit();
+			con.close();
 			return true;
 		}
 		catch(Exception e){
