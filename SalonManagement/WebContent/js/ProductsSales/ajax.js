@@ -26,9 +26,9 @@ function updatePSTable() {
                         x = "Delivery";
                         if (order.strStatus == "REQUEST") {
                             addbtn = "<center><button class='waves-effect waves-light modal-trigger btn-flat transparent black-text' " +
-                                "title='Update' onclick='acceptOrder(this.value)' id='acc" + order.intSalesID + "' value='" + order.intSalesID + "' style='padding: 0px;'>" +
+                                "title='Accept' onclick='acceptOrder(this.value)' id='acc" + order.intSalesID + "' value='" + order.intSalesID + "' style='padding: 0px;'>" +
                                 "<i class='material-icons light-green-text text-darken-3'>check_circle</i></button><button class='prodsalesdeacbtn waves-effect waves-light btn-flat transparent " +
-                                "red-text text-accent-4' title='Deactivate' value='" + order.intSalesID + "' onclick='declineOrder(this.value)'>" +
+                                "red-text text-accent-4' title='Decline' value='" + order.intSalesID + "' onclick='declineOrder(this.value)'>" +
                                 "<i class='material-icons'>cancel</i></button></center>";
 
                         }
@@ -36,9 +36,9 @@ function updatePSTable() {
                         x = "Pick up";
                         if (order.strStatus == "REQUEST") {
                             addbtn = "<center><button class='waves-effect waves-light modal-trigger btn-flat transparent black-text' " +
-                                "title='Update' onclick='acceptOrder(this.value)' value='" + order.intSalesID + "' style='padding: 0px;'>" +
+                                "title='Accept' onclick='acceptOrder(this.value)' value='" + order.intSalesID + "' style='padding: 0px;'>" +
                                 "<i class='material-icons light-green-text text-darken-3'>check_circle</i></button><button class='prodsalesdeacbtn waves-effect waves-light btn-flat transparent " +
-                                "red-text text-accent-4' title='Deactivate' value='" + order.intSalesID + "' onclick='declineOrder(this.value)'>" +
+                                "red-text text-accent-4' title='Decline' value='" + order.intSalesID + "' onclick='declineOrder(this.value)'>" +
                                 "<i class='material-icons'>cancel</i></button></center>";
                         }
                     }

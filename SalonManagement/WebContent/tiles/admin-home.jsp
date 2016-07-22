@@ -4,9 +4,7 @@
     <article>
 
 
-        <div class="col s12 center" style="margin-top: 200px;">
-            <h3>${ sessionScope.firstName } ${ sessionScope.lastName }, your is ${ sessionScope.id }</h3>
-        </div>
+       
 
         <div id="draggable" class="ui-widget-content fixed-action-btn horizontal transparent"
              style="border:0px !important; bottom: 45px; right: 24px; z-index: 100000px;">
