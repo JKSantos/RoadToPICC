@@ -17,6 +17,7 @@ import com.gss.utilities.SearchService;
 public class UpdateDiscountAction {
 
 	private int intDiscountID;
+	private String strApplicability;
 	private String strDiscountName;
 	private String strDiscountDetails;
 	private String strDiscountGuidelines;
@@ -48,7 +49,7 @@ public class UpdateDiscountAction {
 			promoList = new SearchPromo().searchList(checkedPackages.split(","), Promo.getAllPromo());
 		
 		try{
-				discount = new Discount(1, strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), dblDiscountPrice, productList, serviceList, packageList, promoList, 1);
+				discount = new Discount(1, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), dblDiscountPrice, productList, serviceList, packageList, promoList, 1);
 				
 				if(service.createDiscount(discount) == true)
 					result = "success";
@@ -57,7 +58,7 @@ public class UpdateDiscountAction {
 			return result;
 		}
 		catch(NullPointerException e){
-			discount = new Discount(1, strDiscountName, strDiscountDetails, strDiscountGuidelines, 2, dblDiscountPrice, productList, serviceList, packageList, promoList, 1);
+			discount = new Discount(1, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, 2, dblDiscountPrice, productList, serviceList, packageList, promoList, 1);
 
 			if(service.createDiscount(discount) == true)
 				return "success";
@@ -128,6 +129,8 @@ public class UpdateDiscountAction {
 		this.checkedPromos = checkedPromos;
 	}
 	
-
+	public void setStrApplicability(String strApplicability){
+		this.strApplicability = strApplicability;
+	}
 
 }

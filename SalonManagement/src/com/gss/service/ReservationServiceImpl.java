@@ -16,12 +16,15 @@ public class ReservationServiceImpl implements ReservationService{
 
 	@Override
 	public List<Reservation> getAllReservation() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		ReservationRepository repo = new ReservationJDBCRepository();
+		
+		return repo.getAllReservation();
 	}
 
 	@Override
 	public boolean createReservation(Reservation reservation) throws SQLException {
+		
 		ReservationRepository repo = new ReservationJDBCRepository();
 		
 		return repo.createReservation(reservation);

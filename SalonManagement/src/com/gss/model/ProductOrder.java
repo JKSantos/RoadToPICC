@@ -5,6 +5,8 @@ public class ProductOrder {
 	private int intID;
 	private Product product;
 	private int intQuantity;
+	private String discountType;
+	private double discountAmount;
 	private int intStatus;
 	
 	public ProductOrder(int intID, Product product, int intQuantity, int intStatus){
@@ -44,6 +46,22 @@ public class ProductOrder {
 
 	public void setIntStatus(int intStatus) {
 		this.intStatus = intStatus;
+	}
+
+	public String getDiscountType() {
+		return discountType;
+	}
+
+	public void setDiscountType(String discountType) {
+		this.discountType = discountType;
+	}
+
+	public double getDiscountAmount() {
+		return discountAmount;
+	}
+
+	public void setDiscountAmount(double discountAmount) {
+		this.discountAmount = discountAmount;
 	}
 	
 }

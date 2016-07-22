@@ -21,8 +21,8 @@ public class JDBCConnection {
 	    	return con;
 	    }
 	    catch(Exception e){
-	    	JOptionPane.showMessageDialog(null , "Database's password is incorrect.", "INCORRECT DATABASE PASSWORD", 1);
-
+	    	JOptionPane.showMessageDialog(null , e.toString(), "INCORRECT DATABASE PASSWORD", 1);
+	    	
 	    	return null;
 	    }
 	}

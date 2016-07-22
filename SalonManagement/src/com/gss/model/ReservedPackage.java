@@ -6,6 +6,8 @@ public class ReservedPackage {
 	private int intReservationID;
 	private Package packages;
 	private int intQuantity;
+	private String discountType;
+	private double discountAmount;
 	private int intStatus;
 	
 	public ReservedPackage(int intReservedPackageID, int intReservationID, Package packages, int intQuantity, int intStatus){
@@ -54,6 +56,22 @@ public class ReservedPackage {
 
 	public void setIntStatus(int intStatus) {
 		this.intStatus = intStatus;
+	}
+
+	public String getDiscountType() {
+		return discountType;
+	}
+
+	public void setDiscountType(String discountType) {
+		this.discountType = discountType;
+	}
+
+	public double getDiscountAmount() {
+		return discountAmount;
+	}
+
+	public void setDiscountAmount(double discountAmount) {
+		this.discountAmount = discountAmount;
 	}
 	
 	

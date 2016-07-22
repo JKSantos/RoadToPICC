@@ -22,15 +22,13 @@ public class DiscountJDBCRepository implements DiscountRepository{
 
 	JDBCConnection jdbc = new JDBCConnection();
 	private int intID;
+	private String applicability;
 	private String strName;
 	private String strDesc;
 	private String strGuide;
 	private int intType;
 	private double dblAmount;
 	private int status;
-	
-	private String strItemID = "";
-	private int intCtr = 0;
 	
 	@Override
 	public List<Discount> getAllDiscount() {
@@ -40,117 +38,107 @@ public class DiscountJDBCRepository implements DiscountRepository{
 		String strQuery 					= "SELECT * FROM tblDiscount WHERE intStatus = 1;";
 		String getProducts 					= "SELECT intProductID FROM tblDiscountProduct WHERE intDiscountID = ?;";
 		String getServices 					= "SELECT intServiceID FROM tblDiscountService WHERE intDiscountID = ?;";
-		String getPromos = 					"SELECT intPromoID FROM tblDiscountPromo WHERE intDiscountID = ?;";
+		String getPromos 					= "SELECT intPromoID FROM tblDiscountPromo WHERE intDiscountID = ?;";
 		String getPackages 					= "SELECT intPackageID FROM tblDiscountPackage WHERE intDiscountID = ?;";
+		
+		List<Product> productList 			= new ArrayList<Product>();
+		List<Service> serviceList 			= new ArrayList<Service>();
+		List<Package> packageList 			= new ArrayList<Package>();
+		List<Promo> promoList 				= new ArrayList<Promo>();
+		
+		List<Product> savedProducts 		= Product.getAllProduct();
+		List<Service> savedServices 		= Service.getAllService();
+		List<Package> savedPackage 			= Package.getAllPackage();
+		List<Promo> savedPromos 			= Promo.getAllPromo();
 		
 		try{
 			
-			PreparedStatement pre 			= con.prepareStatement(strQuery);
-			PreparedStatement products 		= con.prepareStatement(getProducts);
-			PreparedStatement services 		= con.prepareStatement(getServices);
-			PreparedStatement promos 		= con.prepareStatement(getPromos);
-			PreparedStatement packages 		= con.prepareStatement(getPackages);
+			PreparedStatement preDiscounts 			= con.prepareStatement(strQuery);
+			PreparedStatement preProducts			= con.prepareStatement(getProducts);
+			PreparedStatement preServices			= con.prepareStatement(getServices);
+			PreparedStatement prePromos				= con.prepareStatement(getPromos);
+			PreparedStatement prePackages			= con.prepareStatement(getPackages);
 			
-			ResultSet productSet;
-			ResultSet serviceSet;
-			ResultSet promoSet;
-			ResultSet packageSet;
-			ResultSet set;
+			ResultSet discountSet = null;
+			ResultSet productSet = null;
+			ResultSet serviceSet = null;
+			ResultSet promoSet = null;
+			ResultSet packageSet = null;
 			
-			set = pre.executeQuery();
+			discountSet = preDiscounts.executeQuery();
 			
-			while(set.next()){
+			while(discountSet.next()){
 				
-				List<Product> productList = new ArrayList<Product>();
-				List<Service> serviceList = new ArrayList<Service>();
-				List<Package> packageList = new ArrayList<Package>();
-				List<Promo> promoList = new ArrayList<Promo>();
+				this.intID = discountSet.getInt(1);
+				this.applicability = discountSet.getString(2);
+				this.strName = discountSet.getString(3);
+				this.strDesc = discountSet.getString(4);
+				this.strGuide = discountSet.getString(5);
+				this.intType = discountSet.getInt(6);
+				this.dblAmount = discountSet.getDouble(7);
+				this.status = discountSet.getInt(8);
 				
-				this.intID = set.getInt(1);
-				this.strName = set.getString(2);
-				this.strDesc = set.getString(3);
-				this.strGuide = set.getString(4);
-				this.intType = set.getInt(5);
-				this.dblAmount = set.getDouble(6);
-				this.status = set.getInt(7);
+				//Products
+				preProducts.setInt(1, this.intID);
+				productSet = preProducts.executeQuery();
 				
-				products.setInt(1, this.intID);
-				productSet = products.executeQuery();
-			
 				while(productSet.next()){
 					
-					if(intCtr != 0){
-						strItemID += "," + String.valueOf(productSet.getInt(1)); intCtr++;
-					}
-					else{
-						strItemID += String.valueOf(productSet.getInt(1)); intCtr++;
-					}
+					Product product = new SearchProduct().search(productSet.getInt(1), savedProducts);
+					productList.add(product);
 				}
 				
-				if(!strItemID.equals(""))
-					productList = new SearchProduct().searchList(strItemID.split(","), Product.getAllProduct());
-				strItemID = "";
-				intCtr = 0;
+				preServices.setInt(1, this.intID);
+				serviceSet = preServices.executeQuery();
 				
-				services.setInt(1, this.intID);
-				serviceSet = services.executeQuery();
-			
 				while(serviceSet.next()){
 					
-					if(intCtr != 0){
-						strItemID += "," + String.valueOf(serviceSet.getInt(1)); intCtr++;
-					}
-					else{
-						strItemID += String.valueOf(serviceSet.getInt(1)); intCtr++;
-					}
+					Service service = new SearchService().search(serviceSet.getInt(1), savedServices);
+					serviceList.add(service);
 				}
 				
-				if(!strItemID.equals(""))
-					serviceList = new SearchService().searchList(strItemID.split(","), Service.getAllService());
-				strItemID = "";
-				intCtr = 0;
+				prePackages.setInt(1, this.intID);
+				packageSet = prePackages.executeQuery();
 				
-				packages.setInt(1, this.intID);
-				packageSet = packages.executeQuery();
-			
-				while(serviceSet.next()){
+				while(packageSet.next()){
 					
-					if(intCtr != 0){
-						strItemID += "," + String.valueOf(packageSet.getInt(1)); intCtr++;
-					}
-					else{
-						strItemID += String.valueOf(packageSet.getInt(1)); intCtr++;
-					}
+					Package packagee = new SearchPackage().search(packageSet.getInt(1), savedPackage);
+					packageList.add(packagee);
 				}
 				
-				if(!strItemID.equals(""))
-					packageList = new SearchPackage().searchList(strItemID.split(","), Package.getAllPackage());
-				strItemID = "";
-				intCtr = 0;
+				prePromos.setInt(1, this.intID);
+				promoSet = prePromos.executeQuery();
 				
-				promos.setInt(1, this.intID);
-				promoSet = promos.executeQuery();
-			
-				while(serviceSet.next()){
+				while(promoSet.next()){
 					
-					if(intCtr != 0){
-						strItemID += "," + String.valueOf(promoSet.getInt(1)); intCtr++;
-					}
-					else{
-						strItemID += String.valueOf(promoSet.getInt(1)); intCtr++;
-					}
+					Promo promo = new SearchPromo().search(promoSet.getInt(1), savedPromos);
+					promoList.add(promo);
 				}
 				
-				if(!strItemID.equals(""))
-					promoList = new SearchPromo().searchList(strItemID.split(","), Promo.getAllPromo());
-				strItemID = "";
-				intCtr = 0;
 				
-				Discount discount = new Discount(intID, strName, strDesc, strGuide, intType, dblAmount, productList, serviceList, packageList, promoList, status);
 				
+				Discount discount = new Discount(this.intID, this.applicability, this.strName, this.strDesc, this.strGuide, this.intType, this.dblAmount, productList, serviceList, packageList, promoList, this.status);
+			
 				discountList.add(discount);
+				
+				productList.clear();
+				serviceList.clear();
+				packageList.clear();
+				promoList.clear();
 			}
 			
+			preProducts.close();
+			preServices.close();
+			prePromos.close();
+			prePackages.close();
+			productSet.close();
+			serviceSet.close();
+			promoSet.close();
+			packageSet.close();
+	
+			preDiscounts.close();
+			discountSet.close();
+			con.close();
 			return discountList;
 		}
 		catch(Exception e){
@@ -163,7 +151,7 @@ public class DiscountJDBCRepository implements DiscountRepository{
 	public boolean createDiscount(Discount discount) throws SQLException {
 		
 		Connection con 				= jdbc.getConnection();
-		String strQuery 			= "CALL createDiscount(?, ? ,?, ?, ?)";
+		String strQuery 			= "CALL createDiscount(?, ? ,?, ?, ?, ?)";
 		String createProducts		= "CALL createDiscProd(?, ?);";
 		String createServices		= "CALL createDiscServ(?, ?);";
 		String createPackage		= "CALL createDiscPack(?, ?);";
@@ -180,11 +168,12 @@ public class DiscountJDBCRepository implements DiscountRepository{
 			
 			ResultSet setDiscountID;
 			
-			pre.setString(1, discount.getStrDiscountName());
-			pre.setString(2, discount.getStrDiscountDesc());
-			pre.setString(3, discount.getStrDiscountGuidelines());
-			pre.setInt(4, discount.getIntDiscountType());
-			pre.setDouble(5, discount.getDblDiscountAmount());
+			pre.setString(1, discount.getApplicability());
+			pre.setString(2, discount.getStrDiscountName());
+			pre.setString(3, discount.getStrDiscountDesc());
+			pre.setString(4, discount.getStrDiscountGuidelines());
+			pre.setInt(5, discount.getIntDiscountType());
+			pre.setDouble(6, discount.getDblDiscountAmount());
 			
 			setDiscountID = pre.executeQuery();
 			
@@ -237,7 +226,7 @@ public class DiscountJDBCRepository implements DiscountRepository{
 			
 		}
 		catch(Exception e){
-			System.out.println(e.fillInStackTrace());
+			e.printStackTrace();
 			con.rollback();
 			return false;
 		}
@@ -246,17 +235,16 @@ public class DiscountJDBCRepository implements DiscountRepository{
 	@Override
 	public boolean updateDiscount(Discount discount) throws SQLException {
 		
-		Connection con = jdbc.getConnection();
-		String query = "CALL updateDiscount(?, ?, ?, ?, ?)";
-		String strQuery 			= "CALL createDiscount(?, ? ,?, ?, ?)";
+		Connection con 				= jdbc.getConnection();
+		String query 				= "CALL updateDiscount(?, ?, ?, ?, ?, ?, ?)";
 		String createProducts		= "CALL createDiscProd(?, ?);";
 		String createServices		= "CALL createDiscServ(?, ?);";
 		String createPackage		= "CALL createDiscPack(?, ?);";
 		String createPromo			= "CALL createDiscPromo(?, ?)";
-		String deleteProducts		= "DELETE FROM tblDicountProduct WHERE intDiscountID = ?;";
-		String deleteServices		= "DELETE FROM tblDicountService WHERE intDiscountID = ?;";
-		String deletePackages		= "DELETE FROM tblDicountPackage WHERE intDiscountID = ?;";
-		String deletePromos			= "DELETE FROM tblDicountPromo WHERE intDiscountID = ?;";
+		String deleteProducts		= "DELETE FROM tblDiscountProduct WHERE intDiscountID = ?;";
+		String deleteServices		= "DELETE FROM tblDiscountService WHERE intDiscountID = ?;";
+		String deletePackages		= "DELETE FROM tblDiscountPackage WHERE intDiscountID = ?;";
+		String deletePromos			= "DELETE FROM tblDiscountPromo WHERE intDiscountID = ?;";
 		int intDiscountID			= discount.getIntDiscountID();
 		
 		try{
@@ -268,16 +256,17 @@ public class DiscountJDBCRepository implements DiscountRepository{
 			PreparedStatement prePromo		= con.prepareStatement(createPromo);
 			PreparedStatement preDelProduct	= con.prepareStatement(deleteProducts);
 			PreparedStatement preDelService	= con.prepareStatement(deleteServices);
-			PreparedStatement preDelPackage	= con.prepareStatement(createPackage);
+			PreparedStatement preDelPackage	= con.prepareStatement(deletePackages);
 			PreparedStatement preDelPromo 	= con.prepareStatement(deletePromos);
 			PreparedStatement pre 			= con.prepareStatement(query);
 			
 			pre.setInt(1, discount.getIntDiscountID());
-			pre.setString(2, discount.getStrDiscountName());
-			pre.setString(3, discount.getStrDiscountDesc());
-			pre.setString(4, discount.getStrDiscountGuidelines());
-			pre.setInt(5, discount.getIntDiscountType());
-			pre.setDouble(6, discount.getDblDiscountAmount());
+			pre.setString(2, discount.getApplicability());
+			pre.setString(3, discount.getStrDiscountName());
+			pre.setString(4, discount.getStrDiscountDesc());
+			pre.setString(5, discount.getStrDiscountGuidelines());
+			pre.setInt(6, discount.getIntDiscountType());
+			pre.setDouble(7, discount.getDblDiscountAmount());
 			pre.execute();
 			pre.close();
 			

@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.gss.connection.JDBCConnection;
+import com.gss.model.Discount;
 import com.gss.model.Product;
+import com.gss.utilities.ItemDiscountHelper;
 
 public class ProductJDBCRepository implements ProductRepository{
 
@@ -166,10 +168,15 @@ public class ProductJDBCRepository implements ProductRepository{
 					productList.add(product);
 				}
 				pre2.close();
+				set2.close();
 			}
+			
+			set.close();
 			
 			pre.close();
 			con.close();
+			
+//			return ItemDiscountHelper.getProducts(productList);
 			
 			return productList;
 		}
@@ -275,11 +282,14 @@ public class ProductJDBCRepository implements ProductRepository{
 					productList.add(product);
 				}
 				pre2.close();
+				set2.close();
 			}
 			
 			pre.close();
 			con.close();
+			set.close();
 			
+//			return ItemDiscountHelper.getProducts(productList);
 			return productList;
 		}
 		catch(Exception e){

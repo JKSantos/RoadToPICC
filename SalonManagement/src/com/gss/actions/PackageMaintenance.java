@@ -27,7 +27,7 @@ public class PackageMaintenance {
 		ServiceService serviceService = new ServiceServiceImpl();
 		
 		this.productList = productService.getAllProducts();
-		this.serviceList = serviceService.getAllService();
+		this.serviceList = Service.getAllService();
 		this.productCategory = productService.getAllCategory();
 		this.serviceCategory = serviceService.getAllCategory();
 		
