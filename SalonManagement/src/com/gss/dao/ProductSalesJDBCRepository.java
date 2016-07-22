@@ -231,6 +231,7 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 			return false;
 		}
 	}
+	
 	@Override
 	public boolean acceptProductSales(int intID) throws SQLException {
 		
@@ -277,7 +278,7 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 			con.rollback();
 			con.close();
 			return false;
-		};
+		}
 	}
 
 }

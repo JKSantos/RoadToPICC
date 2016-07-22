@@ -28,35 +28,36 @@ import com.gss.utilities.TimeHelper;
 
 public class CreateReservation {
 	
-	private Customer customer;
+	private Customer customer;	//important(check mo com.gss.model.Customer para malaman mo nga data nyan)
 	private ReservationInclusion includedItems;
-	private int intReservationType = 2;
+	private int intReservationType = 2; //important (Home Service = 1) magbabato ka ng 1 galing mob
 	private Date dateCreated = new Date();
-	private Date datFrom;
-	private Date datTo = new Date();		//if reservation is home service, this is not needed
-	private String timFrom;
-	private String timTo;
-	private String strVenue; //if type is HomeService, value is equal to customer address
-	private int headCount;
+	private Date datFrom;			//important
+	private Date datTo = new Date();//if reservation is home service, this is not needed
+	private String timFrom;			//important
+	private String timTo;			
+	private String strVenue; 		//if type is HomeService, value is equal to customer address, same nalang ng address ang ilagay mo dito
+	private int headCount;			//important
 	private List<EmployeeAssigned> employeeAssigned;
-	private Invoice invoice;
-	private String strStatus;
+	private Invoice invoice;		//important
+	private String strStatus;		//important
 	
-	private String fromMeridian;	//for timeFrom, AM or PM
+	private String fromMeridian;	//for timeFrom, AM or PM, important
 	private String toMeridian = "AM";		//for timTo, AM or PM, if reservation is home service, this is not needed
-	private String selectedProducts; //only accepts comma separated string
-	private String selectedServices;	//only accepts comma separated string
-	private String selectedPackages;	//only accepts comma separated string
-	private String selectedPromos;	//only accepts comma separated string
 	
-	private String productQuantity;	//only accepts comma separated string
-	private String serviceQuantity;	//only accepts comma separated string
-	private String packageQuantity;	//only accepts comma separated string
-	private String promoQuantity;	//only accepts comma separated string
+	private String selectedProducts;//only accepts comma separated string, important
+	private String selectedServices;//only accepts comma separated string, important
+	private String selectedPackages;//only accepts comma separated string, important
+	private String selectedPromos;	//only accepts comma separated string, important
 	
-	private List<String> selectedEmployees;	
-	private List<String> selectedExtraCharges;	
-	private List<String> selectedDiscounts;	
+	private String productQuantity;	//only accepts comma separated string, important
+	private String serviceQuantity;	//only accepts comma separated string, important
+	private String packageQuantity;	//only accepts comma separated string, important
+	private String promoQuantity;	//only accepts comma separated string, important
+	
+	private List<String> selectedEmployees;		//important
+	private List<String> selectedExtraCharges;	//important
+	private List<String> selectedDiscounts;		//important
 
 	private Discount discount;
 	
