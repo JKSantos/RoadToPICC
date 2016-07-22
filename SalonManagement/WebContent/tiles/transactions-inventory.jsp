@@ -204,7 +204,7 @@
                 </ul>
             </div>
             <div id="add${product.intProductID}" class="col s12">
-                <form class="col s12" name="addForm" method="post" action="updateStock">
+                <form class="col s12 addForm" name="addForm" method="post" action="updateStock">
                     <div class="modal-content">
                         <div class="row">
 
@@ -234,14 +234,14 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="waves-effect waves-white btn-flat purple white-text">SAVE</button>
+                        <button class="updateAddInvent waves-effect waves-white btn-flat purple white-text">SAVE</button>
                         <a href="#!" class="modal-action modal-close waves-effect waves-purple btn-flat ">CANCEL</a>
                     </div>
                 </form>
             </div>
 
             <div id="subtract${product.intProductID}" class="col s12">
-                <form class="col s12" name="subForm" action="updateStock" method="post">
+                <form class="col s12 minusForm" name="subForm" action="updateStock" method="post">
                     <div class="modal-content">
                         <div class="row">
 
@@ -272,7 +272,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="waves-effect waves-white btn-flat purple white-text">SAVE</button>
+                        <button class="updateMinusInvent waves-effect waves-white btn-flat purple white-text">SAVE</button>
                         <a href="#!" class="modal-action modal-close waves-effect waves-purple btn-flat ">CANCEL</a>
                     </div>
                 </form>

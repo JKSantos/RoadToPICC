@@ -28,7 +28,7 @@
 		
 		<action name="updateStock" class="com.gss.actions.UpdateStockAction">
 			<!--<result name="success">redirect-transaction-inventory.jsp</result>-->
-			<result name="success" type="json"></result>
+			<result name="success">redirect-transaction-inventory.jsp</result>
 			<result name="failed">transactions-inventory.jsp</result>
 		</action>  
 		   
