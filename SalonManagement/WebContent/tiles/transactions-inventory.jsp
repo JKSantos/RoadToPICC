@@ -32,7 +32,6 @@
                     <th class="dt-head-left">Name</th>
                     <th class="dt-head-right">Selling Price</th>
                     <th class="dt-head-right">Stock</th>
-                    <th class="dt-head-right">Date/Time</th>
                     <th align="center" class="no-sort">Action</th>
                 </tr>
                 </thead>
@@ -41,24 +40,23 @@
                     <th class="dt-head-left">Name</th>
                     <th class="dt-head-right">Selling Price</th>
                     <th class="dt-head-right">Stock</th>
-                    <th class="dt-head-right">Date/Time</th>
                     <th align="center" class="no-sort">Action</th>
                 </tr>
                 </tfoot>
 
                 <tbody>
                 <c:forEach items="${productList}" var="product">
+                <c:set var="price" scope="session"
+                           value="${(product.dblProductPrice * 9) + product.dblProductPrice}"></c:set>
                     <tr>
                         <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-left">
                             ${product.strProductName}
                         </td>
                         <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-right prodPrice">
-                            ${product.dblProductPrice}
+                            ${price}
                         </td>
                         <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-right">
                             ${product.intProductQuantity}
-                        </td>
-                        <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-right">date/time
                         </td>
                         <td class="center" style="padding:0; margin:0;">
                             <a id="update${product.intProductID}" href="#inventoryedit${product.intProductID}"
