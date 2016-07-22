@@ -162,6 +162,13 @@
         margin-top: -30px !important;
     }
 
+    #crPromoModal {
+        width: 600px !important;
+        height: 590px !important;
+        max-height: 100% !important;
+        margin-top: -30px !important;
+    }
+
     #createPackageModal {
         width: 600px !important;
         height: 590px !important;
@@ -348,7 +355,7 @@
 <script type="text/javascript" src="js/materialize.js"></script>
 <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="js/bartstable.js"></script>
-<script type="text/javascript" src="js/picker.date.js"></script>
+<!--<script type="text/javascript" src="js/picker.date.js"></script>-->
 <script type="text/javascript" src="js/jquery.validate.js"></script>
 <script type="text/javascript" src="js/maintenance-emp.js"></script>
 <script type="text/javascript" src="js/additional.js"></script>

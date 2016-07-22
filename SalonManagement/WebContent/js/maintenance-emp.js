@@ -1,3 +1,156 @@
+$(function () {
+    $('#crPromoNonExpiry').change(function () {
+        if ($(this).is(':checked')) {
+            $('#crPromoExpiration').attr('disabled', true);
+        } else {
+            $('#crPromoExpiration').attr('disabled', false);
+        }
+    });
+
+    $('#strPromoFree').change(function () {
+        if ($(this).is(':checked')) {
+            $('#strPromoPrice').attr('disabled', true);
+        } else {
+            $('#strPromoPrice').attr('disabled', false);
+        }
+    });
+
+    var crpromotblprod = $('#crpromotblprod').DataTable({
+        "bLengthChange": false,
+        responsive: true,
+        "order": [],
+        "columnDefs": [
+            {"targets": 'no-sort', "orderable": false},
+            {className: "dt-body-left", "targets": [1, 2]},
+            {className: "dt-body-center", "targets": [0]},
+            {className: "dt-head-right", "targets": [4]}
+        ],
+        "rowHeight": '10px'
+    });
+
+    var crpromotblserv = $('#crpromotblserv').DataTable({
+        "bLengthChange": false,
+        responsive: true,
+        "order": [],
+        "columnDefs": [
+            {"targets": 'no-sort', "orderable": false},
+            {className: "dt-body-left", "targets": [1, 2]},
+            {className: "dt-body-center", "targets": [0]},
+            {className: "dt-head-right", "targets": [4]}
+        ],
+        "rowHeight": '10px'
+    });
+
+    var crpromotblpackage = $('#crpromotblpackage').DataTable({
+        "bLengthChange": false,
+        responsive: true,
+        "order": [],
+        "columnDefs": [
+            {"targets": 'no-sort', "orderable": false},
+            {className: "dt-body-left", "targets": [1, 2]},
+            {className: "dt-body-center", "targets": [0]},
+            {className: "dt-head-right", "targets": [4]}
+        ],
+        "rowHeight": '10px'
+    });
+
+    $("#crPromoSearch").bind('keyup search input paste cut', function () {
+        crpromotblprod.search(this.value).draw();
+        crpromotblserv.search(this.value).draw();
+        crpromotblpackage.search(this.value).draw();
+    });
+
+    $(document).ready(function () {
+        $('#crPromoFilter').change(function () {
+            var $filter = $(this);
+            console.log($filter.val());
+
+            if ($filter.val() == "product") {
+                $('#crpromotblprod').parents('div.tablewrapper').first().fadeIn(500);
+                $('#crpromotblserv').parents('div.tablewrapper').first().hide();
+                $('#crpromotblpackage').parents('div.tablewrapper').first().hide();
+            } else if ($filter.val() == "service") {
+                $('#crpromotblserv').parents('div.tablewrapper').first().fadeIn(500);
+                $('#crpromotblprod').parents('div.tablewrapper').first().hide();
+                $('#crpromotblpackage').parents('div.tablewrapper').first().hide();
+            } else if ($filter.val() == "package") {
+                $('#crpromotblprod').parents('div.tablewrapper').first().hide();
+                $('#crpromotblserv').parents('div.tablewrapper').first().hide();
+                $('#crpromotblpackage').parents('div.tablewrapper').first().fadeIn(500);
+            }
+        });
+        $('.crPromoBtn').click(function () {
+            $('#crpacktblProd').parents('div.tablewrapper').first().show();
+            $('#crpromotblserv').parents('div.tablewrapper').first().hide();
+            $('#crpromotblpackage').parents('div.tablewrapper').first().hide();
+        });
+
+    });
+
+    var total = 0;
+    var $qty = 0;
+    var i = 1;
+    var q = 0;
+
+    $('.promocheckbox').change(function () {
+        var $tr = $(this).closest('tr'),
+            qtyfield = $tr.find('td .rowQty');
+        if ($(this).is(':checked')) {
+            qtyfield.attr('disabled', false);
+            var price = $tr.find('td:eq(3)').text(),
+                $price = parseFloat(price.replace(/[^\d.]/g, '')).toFixed(2),
+                showqty = parseInt($qty);
+
+            qtyfield.focus(function () { //kapag nag focus sa textfield, kung ano nakalagay makukuha
+                q = parseFloat($tr.find('td .rowQty').val()).toFixed(2);
+                $qty = parseFloat($tr.find('td .rowQty').val()).toFixed(2);
+            });
+            $qty = parseFloat($tr.find('td .rowQty').val()).toFixed(2);
+            total += $qty * $price;
+            console.log(total);
+            $('#totalPrice').html('P ' + parseFloat(total).toFixed(2));
+            $('#crPromoPrice').val('P ' + parseFloat(total).toFixed(2));
+            q = parseFloat($tr.find('td .rowQty').val()).toFixed(2);
+            console.log(q);
+            qtyfield.on('input', function () { //oninput the value will change
+                $qty = parseFloat($tr.find('td .rowQty').val()).toFixed(2);
+                console.log(q);
+                console.log($qty);
+                if($qty > q) {
+                    total += ($qty - q) * $price;
+                    q = $qty;
+                    console.log(q);
+                    showqty = parseInt($qty);
+                    total = Math.abs(total);
+                    $('#totalPrice').html('P ' + parseFloat(total).toFixed(2));
+                    $('#crPromoPrice').val('P ' + parseFloat(total).toFixed(2));
+                } else if ($qty < q) {
+                    total -= (q - $qty) * $price;
+                    total = Math.abs(total);
+                    $('#totalPrice').html('P ' + parseFloat(total).toFixed(2));
+                    $('#crPromoPrice').val('P ' + parseFloat(total).toFixed(2));
+                    q = $qty;
+                    showqty = parseInt($qty);
+                } else {
+
+                }
+            });
+
+
+        } else if (!$(this).is(':checked')) {
+            qtyfield.attr('disabled', true);
+            var $utr = $(this).closest('tr'),
+                unprice = $utr.find('td:eq(3)').text(),
+                $unprice = parseFloat(unprice.replace(/[^\d.]/g, '')).toFixed(2);
+            $qty = parseFloat($utr.find('td .rowQty').val()).toFixed(2);
+            total = total - ($qty * $unprice);
+            total = Math.abs(total);
+            $('#totalPrice').html('P ' + parseFloat(total).toFixed(2));
+            $('#crPromoPrice').val('P ' + parseFloat(total).toFixed(2));
+        }
+    })
+});
+
 $(document).ready(function () {
     $('#example').DataTable({
         "bLengthChange": false,
@@ -424,6 +577,30 @@ $(document).ready(function () {
 
     $("#extraSearch").bind('keyup search input paste cut', function () {
         extratbl.search(this.value).draw();
+    });
+});
+
+$(document).ready(function () {
+    var promotbl = $('#promotbl').DataTable({
+        "bLengthChange": false,
+        "sPaginationType": "full_numbers",
+        responsive: true,
+        "order": [],
+        "columnDefs": [
+            {"targets": 'no-sort', "orderable": false},
+            {"targets": [0], "width": "150px"},
+            {"targets": [1], "width": "100px"},
+            {"targets": [2], "width": "200px"},
+            {"targets": [3], "width": "100"},
+            {"targets": [4], "width": "150"},
+            {className: "dt-body-center", "targets": [4]},
+            {"targets": [2], render: $.fn.dataTable.render.ellipsis(30)}
+        ],
+        "rowHeight": '10px'
+    });
+
+    $("#promoSearch").bind('keyup search input paste cut', function () {
+        promotbl.search(this.value).draw();
     });
 });
 
@@ -928,27 +1105,14 @@ $('.updateEmpBirthday').pickadate({
 
 // bday END
 
-// promo BEGIN
+
 $('.datepicker-promo').pickadate({
-    changeMonth: true,
-    selectYears: 10,
-    selectMonths: true,
-    labelMonthNext: 'Next month',
-    labelMonthPrev: 'Previous month',
-    labelMonthSelect: 'Select a month',
-    labelYearSelect: 'Select a year',
-    monthsFull: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-    monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    weekdaysFull: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-    weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-    weekdaysLetter: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-    maxDate: '-18Y',
-    clear: 'Clear',
-    close: 'Close',
-    format: 'mmmm/d/yyyy',
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15, // Creates a dropdown of 15 years to control year
     min: 'Today',
     yearRange: "Today:2020"
 });
+
 // promo END
 
 $(document).ready(function () {

@@ -96,7 +96,12 @@ function crpsCheckbtn(checkbtnid) {
         $('#ps' + checkbtnid).attr('disabled', false);
         var $tr = id.closest('tr'),
             price = $tr.find('td:eq(3)').text(),
-            $pricefield = $tr.find('td .psQty');
+            $pricefield = $tr.find('td #ps' + checkbtnid);
+
+        $pricefield.focus(function () { //kapag nag focus sa textfield, kung ano nakalagay makukuha
+            q = parseFloat($tr.find('td .psQty').val()).toFixed(2);
+            $qty = parseFloat($tr.find('td .psQty').val()).toFixed(2);
+        });
 
         var $price = parseFloat(price.replace(/[^\d.]/g, '')).toFixed(2);
         console.log(price);
@@ -110,11 +115,11 @@ function crpsCheckbtn(checkbtnid) {
         console.log(q);
         $pricefield.on('input', function () {
             $qty = parseFloat($tr.find('td .psQty').val()).toFixed(2);
-            var qqqqq = $tr.find('td .psQty').val();
             if ($qty > q) {
                 console.log($qty + '>' + q);
+                console.log(total);
                 total += ($qty - q) * $price;
-                q = $qty;
+                console.log(total);
                 showqty = parseInt($qty);
                 console.log('q' + q);
                 total = Math.abs(total);
@@ -126,15 +131,15 @@ function crpsCheckbtn(checkbtnid) {
                 total -= (q - $qty) * $price;
                 total = Math.abs(total);
                 $('#crPackPrice').val('P ' + parseFloat(total).toFixed(2));
-                q = $qty;
                 showqty = parseInt($qty);
                 $('#pslist #x' + checkbtnid + '').remove();
                 $('#pslist #item' + checkbtnid + ' .span').append('<span class="grey-text text-darken-3" id="x' + checkbtnid + '"> (' + showqty + ')</span>');
-            } else if ( !($qty < q) && !($qty > q) && ($qty == q) ) {
-                alert('aasd');
+            } else if ( $qty == q ) {
+
             } else {
 
             }
+            q = $qty;
         });
 
         $pricefield.keydown(function (e) {

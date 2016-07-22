@@ -200,3 +200,70 @@ hideButtonsPS = function(currentPS){
     if(currentPS > 1) psbtnback.show();
 }
 //product sale
+
+//promo
+$(document).ready(function(){
+    var currentPromo = 1;
+
+    promowidget      = $(".steppromo");
+    promobtnback     = $(".backformpromo");
+    promobtnnext     = $(".nextformpromo");
+    promobtnsubmit   = $(".submitformpromo");
+
+    // Init buttons and UI
+    promowidget.not(':eq(0)').hide();
+    hideButtonsPromo(currentPromo);
+    setProgressPromo(currentPromo);
+
+    // Next button click action
+    promobtnnext.click(function(){
+
+        if($('#createPromoForm').valid()){
+            if(currentPromo < promowidget.length){
+                promowidget.show();
+                promowidget.not(':eq('+(currentPromo++)+')').hide();
+                setProgressPromo(currentPromo);
+            }
+            hideButtonsPromo(currentPromo);
+        }
+    });
+    // Back button click action
+    promobtnback.click(function(){
+        if(currentPromo > 1){
+            currentPromo = currentPromo - 2;
+            if(currentPromo < promowidget.length){
+                promowidget.show();
+                promowidget.not(':eq('+(currentPromo++)+')').hide();
+                setProgressPromo(currentPromo);
+            }
+        }
+        hideButtonsPromo(currentPromo);
+    });
+
+    // promobtnsubmit.submit(function(){
+    //    $('#createPromoForm').submit(function(){
+    //       alert("submitted");
+    //    });
+    // });
+
+});
+
+setProgressPromo = function(currstepPromo){
+    var percent = parseFloat(100 / promowidget.length) * currstepPromo;
+    percent = percent.toFixed();
+    $("#createPromoForm .determinate")
+        .css("width",percent+"%")
+        .html(percent+"%").css("font-size", "15px");
+}
+
+// Hide buttons according to the current step
+hideButtonsPromo = function(currentPromo){
+    var limit = parseInt(promowidget.length);
+
+    $(".actionpromo").hide();
+
+    if(currentPromo < limit) promobtnnext.show();
+    if (currentPromo == limit) { promobtnnext.hide(); promobtnsubmit.show(); }
+    if(currentPromo > 1) promobtnback.show();
+}
+//promo
