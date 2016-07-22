@@ -50,6 +50,9 @@
                 </tfoot>
                 <tbody>
                 <c:forEach items="${discountList}" var="discount">
+                
+                	<c:set var="price" scope="session"
+                           value="${(discount.dblDiscountAmount * 9) + discount.dblDiscountAmount}"></c:set>
                     <%
                     Discount discount1 = (Discount)pageContext.getAttribute("discount");
                     String id = String.valueOf(discount1.getIntDiscountID());
@@ -74,7 +77,7 @@
                         </td>
                         <td style="padding-left: 10px; margin:0;" class="dt-body-left">${discount.applicability}</td>
                         <td style="padding-right: 10px; margin:0;" class="dt-body-right servPrice">
-                            <%=fixed%>${discount.dblDiscountAmount}<%=percet%>
+                            ${price}<%=percet%>
                         </td>
                         <td class="dt-body-center" style="padding:0; margin:0;">
                             <a class="waves-effect waves-purple modal-trigger btn-flat transparent black-text empUpdatebtn"
@@ -154,14 +157,14 @@
                             </div>
                             <div class="input-field col s3" id="fixed">
                                 <input type="text" class="validate right-align prodPrice"
-                                       id="crDiscountAmountFixed" name="dblDiscountPrice"
+                                       id="crDiscountAmountFixed" name="strDiscountPriceFixed"
                                        placeholder="Discount Amount">
                                 <label for="crDiscountAmountFixed"><b>Amount</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>
                             </div>
                             <div class="input-field col s3" id="percent">
                                 <input type="text" class="validate right-align"
-                                       id="crDiscountAmountPercent" name="dblDiscountPrice"
+                                       id="crDiscountAmountPercent" name="strDiscountPricePercent"
                                        placeholder="Discount Amount">
                                 <label for="crDiscountAmountPercent"><b>Amount</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>

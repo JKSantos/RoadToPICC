@@ -140,7 +140,7 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 	public List<ProductSales> getAllProductSales() {
 		Connection con = jdbc.getConnection();
 		
-		String getAllOrder 					= "SELECT * FROM tblOrder WHERE strOrderStatus <> 'CANCELLED' OR strOrderStatus <> 'DECLINED';";
+		String getAllOrder 					= "SELECT * FROM tblOrder WHERE strOrderStatus <> 'CANCELLED' AND strOrderStatus <> 'DECLINED';";
 		String getAllDet 					= "SELECT * FROM tblOrderDetails WHERE intOrderID = ?";
 		
 		try{
