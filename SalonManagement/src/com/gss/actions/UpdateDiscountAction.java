@@ -9,6 +9,7 @@ import com.gss.model.Product;
 import com.gss.model.Promo;
 import com.gss.model.Service;
 import com.gss.service.DiscountServiceImpl;
+import com.gss.utilities.PriceFormatHelper;
 import com.gss.utilities.SearchPackage;
 import com.gss.utilities.SearchProduct;
 import com.gss.utilities.SearchPromo;
@@ -22,17 +23,25 @@ public class UpdateDiscountAction {
 	private String strDiscountDetails;
 	private String strDiscountGuidelines;
 	private String strDiscountType;
-	private Double dblDiscountPrice;
-	private String checkedServices;
-	private String checkedProducts;
-	private String checkedPackages;
-	private String checkedPromos;
+	private String strDiscountPriceFixed;
+	private double strDiscountPricePercent;
+	private String checkedServices = "";
+	private String checkedProducts = "";
+	private String checkedPackages = "";
+	private String checkedPromos = "";
 
-	public String execute(){
+	public String execute() throws NumberFormatException{
 
 		DiscountServiceImpl service = new DiscountServiceImpl();
 		Discount discount;
-		String result = "failed";
+		
+		System.out.println(strApplicability);
+		System.out.println(this.strDiscountName);
+		System.out.println(this.strDiscountDetails);
+		System.out.println(this.strDiscountGuidelines);
+		System.out.println(this.strDiscountType);
+		System.out.println(this.strDiscountPriceFixed);
+		System.out.println(this.strDiscountPricePercent);
 		
 		List<Product> productList = new ArrayList<Product>();
 		List<Service> serviceList = new ArrayList<Service>();
@@ -46,67 +55,42 @@ public class UpdateDiscountAction {
 		if(!checkedPackages.equals(""))
 			packageList = new SearchPackage().searchList(checkedPackages.split(","), Package.getAllPackage());
 		if(!checkedPromos.equals(""))
-			promoList = new SearchPromo().searchList(checkedPackages.split(","), Promo.getAllPromo());
+			promoList = new SearchPromo().searchList(checkedPromos.split(","), Promo.getAllPromo());
+		 
+		String result = "failed";
 		
 		try{
-				discount = new Discount(1, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), dblDiscountPrice, productList, serviceList, packageList, promoList, 1);
+				discount = new Discount(this.intDiscountID, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), PriceFormatHelper.convertToDouble(strDiscountPriceFixed, "Php "), productList, serviceList, packageList, promoList, 1);
 				
-				if(service.createDiscount(discount) == true)
+				if(service.updateDiscount(discount) == true)
 					result = "success";
 			
 				
 			return result;
 		}
-		catch(NullPointerException e){
-			discount = new Discount(1, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, 2, dblDiscountPrice, productList, serviceList, packageList, promoList, 1);
-
-			if(service.createDiscount(discount) == true)
-				return "success";
-			else
-				return "failed";
+		catch(Exception e){
+			e.printStackTrace();
+			
+			discount = new Discount(this.intDiscountID, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), strDiscountPricePercent, productList, serviceList, packageList, promoList, 1);
+			
+			if(service.updateDiscount(discount) == true)
+				result = "success";
+		
+			
+			return result;
 		}
-	}
-
-	public String getStrDiscountName() {
-		return strDiscountName;
 	}
 
 	public void setStrDiscountName(String strDiscountName) {
 		this.strDiscountName = strDiscountName;
 	}
 
-	public String getStrDiscountDetails() {
-		return strDiscountDetails;
-	}
-
 	public void setStrDiscountDetails(String strDiscountDetails) {
 		this.strDiscountDetails = strDiscountDetails;
 	}
 
-	public Double getDblDiscountPrice() {
-		return dblDiscountPrice;
-	}
-
-	public void setDblDiscountPrice(Double dblDiscountPrice) {
-		this.dblDiscountPrice = dblDiscountPrice;
-	}
-
-	
-
-	public String getStrDiscountType() {
-		return strDiscountType;
-	}
-
 	public void setStrDiscountType(String strDiscountType) {
 		this.strDiscountType = strDiscountType;
-	}
-
-	public int getIntDiscountID() {
-		return intDiscountID;
-	}
-
-	public void setIntDiscountID(int intDiscountID) {
-		this.intDiscountID = intDiscountID;
 	}
 
 	public void setStrDiscountGuidelines(String strDiscountGuidelines) {
@@ -131,6 +115,22 @@ public class UpdateDiscountAction {
 	
 	public void setStrApplicability(String strApplicability){
 		this.strApplicability = strApplicability;
+	}
+
+	public void setStrDiscountPriceFixed(String strDiscountPriceFixed) {
+		this.strDiscountPriceFixed = strDiscountPriceFixed;
+	}
+
+	public void setStrDiscountPricePercent(double strDiscountPricePercent) {
+		this.strDiscountPricePercent = strDiscountPricePercent;
+	}
+
+	public int getIntDiscountID() {
+		return intDiscountID;
+	}
+
+	public void setIntDiscountID(int intDiscountID) {
+		this.intDiscountID = intDiscountID;
 	}
 
 }

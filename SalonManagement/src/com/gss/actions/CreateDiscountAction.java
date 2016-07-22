@@ -10,6 +10,7 @@ import com.gss.model.Service;
 import com.gss.model.Package;
 import com.gss.service.DiscountServiceImpl;
 import com.gss.service.ProductService;
+import com.gss.utilities.PriceFormatHelper;
 import com.gss.utilities.SearchPackage;
 import com.gss.utilities.SearchProduct;
 import com.gss.utilities.SearchPromo;
@@ -22,13 +23,14 @@ public class CreateDiscountAction {
 	private String strDiscountDetails;
 	private String strDiscountGuidelines;
 	private String strDiscountType;
-	private Double dblDiscountPrice;
-	private String checkedServices;
-	private String checkedProducts;
-	private String checkedPackages;
-	private String checkedPromos;
+	private String strDiscountPriceFixed;
+	private double strDiscountPricePercent;
+	private String checkedServices = "";
+	private String checkedProducts = "";
+	private String checkedPackages = "";
+	private String checkedPromos = "";
 
-	public String execute(){
+	public String execute() throws NumberFormatException{
 
 		DiscountServiceImpl service = new DiscountServiceImpl();
 		Discount discount;
@@ -45,12 +47,12 @@ public class CreateDiscountAction {
 		if(!checkedPackages.equals(""))
 			packageList = new SearchPackage().searchList(checkedPackages.split(","), Package.getAllPackage());
 		if(!checkedPromos.equals(""))
-			promoList = new SearchPromo().searchList(checkedPackages.split(","), Promo.getAllPromo());
-		
+			promoList = new SearchPromo().searchList(checkedPromos.split(","), Promo.getAllPromo());
+		 
 		String result = "failed";
 		
 		try{
-				discount = new Discount(1, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), dblDiscountPrice, productList, serviceList, packageList, promoList, 1);
+				discount = new Discount(1, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), PriceFormatHelper.convertToDouble(strDiscountPriceFixed, "Php "), productList, serviceList, packageList, promoList, 1);
 				
 				if(service.createDiscount(discount) == true)
 					result = "success";
@@ -58,13 +60,16 @@ public class CreateDiscountAction {
 				
 			return result;
 		}
-		catch(NullPointerException e){
-			discount = new Discount(1, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, 2, dblDiscountPrice, productList, serviceList, packageList, promoList, 1);
-
+		catch(Exception e){
+			e.printStackTrace();
+			
+			discount = new Discount(1, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), strDiscountPricePercent, productList, serviceList, packageList, promoList, 1);
+			
 			if(service.createDiscount(discount) == true)
-				return "success";
-			else
-				return "failed";
+				result = "success";
+		
+			
+			return result;
 		}
 	}
 
@@ -74,10 +79,6 @@ public class CreateDiscountAction {
 
 	public void setStrDiscountDetails(String strDiscountDetails) {
 		this.strDiscountDetails = strDiscountDetails;
-	}
-
-	public void setDblDiscountPrice(Double dblDiscountPrice) {
-		this.dblDiscountPrice = dblDiscountPrice;
 	}
 
 	public void setStrDiscountType(String strDiscountType) {
@@ -107,5 +108,14 @@ public class CreateDiscountAction {
 	public void setStrApplicability(String strApplicability){
 		this.strApplicability = strApplicability;
 	}
+
+	public void setStrDiscountPriceFixed(String strDiscountPriceFixed) {
+		this.strDiscountPriceFixed = strDiscountPriceFixed;
+	}
+
+	public void setStrDiscountPricePercent(double strDiscountPricePercent) {
+		this.strDiscountPricePercent = strDiscountPricePercent;
+	}
+	
 
 }
