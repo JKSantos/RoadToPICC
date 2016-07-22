@@ -49,7 +49,7 @@ public class CreateOrderAction{
 		
 		productList = ProductOrderConverter.convertToProductObject(product, QuantityHelper.removeEmptyQuantity(quantity), productObjectList);
 		
-		ProductSales sales = new ProductSales(1, DateHelper.parseDate("2015/2/3"),DateHelper.parseDate("2015/2/3"), type, strName, strStreet, intLocationID, strContactNo, productList, 1, "REQUEST");
+		ProductSales sales = new ProductSales(1, DateHelper.parseDate("2016-03-04"),DateHelper.parseDate("2016-03-04"), type, strName, strStreet, intLocationID, strContactNo, productList, 1, "REQUEST");
 
 		if(salesService.createProductSales(sales) == true){
 			this.status = "success";

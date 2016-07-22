@@ -33,7 +33,7 @@ public class CreateReservation {
 	private int intReservationType = 2;
 	private Date dateCreated = new Date();
 	private Date datFrom;
-	private Date datTo;
+	private Date datTo = new Date();		//if reservation is home service, this is not needed
 	private String timFrom;
 	private String timTo;
 	private String strVenue; //if type is HomeService, value is equal to customer address
@@ -42,21 +42,21 @@ public class CreateReservation {
 	private Invoice invoice;
 	private String strStatus;
 	
-	private String fromMeridian;
-	private String toMeridian;
-	private String selectedProducts;
-	private String selectedServices;
-	private String selectedPackages;
-	private String selectedPromos;
+	private String fromMeridian;	//for timeFrom, AM or PM
+	private String toMeridian = "AM";		//for timTo, AM or PM, if reservation is home service, this is not needed
+	private String selectedProducts; //only accepts comma separated string
+	private String selectedServices;	//only accepts comma separated string
+	private String selectedPackages;	//only accepts comma separated string
+	private String selectedPromos;	//only accepts comma separated string
 	
-	private String productQuantity;
-	private String serviceQuantity;
-	private String packageQuantity;
-	private String promoQuantity;
+	private String productQuantity;	//only accepts comma separated string
+	private String serviceQuantity;	//only accepts comma separated string
+	private String packageQuantity;	//only accepts comma separated string
+	private String promoQuantity;	//only accepts comma separated string
 	
-	private List<String> selectedEmployees;
-	private List<String> selectedExtraCharges;
-	private List<String> selectedDiscounts;
+	private List<String> selectedEmployees;	
+	private List<String> selectedExtraCharges;	
+	private List<String> selectedDiscounts;	
 
 	private Discount discount;
 	

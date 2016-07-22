@@ -43,6 +43,10 @@
 			<result name="success" type="json"></result>
 		</action>
 		
+		<action name="deactivateOrder" class="com.gss.actions.ProductSales.DeactivateOrderAction">
+			<result name="success" type="json"></result>
+		</action>
+		
 	</package>	
 		
 		
