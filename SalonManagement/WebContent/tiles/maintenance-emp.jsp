@@ -5,6 +5,7 @@
 <%@ page import="com.gss.model.Job" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.sql.Date" %>
+<%@ page import="com.gss.model.Job" %>
 <%@ page import="java.util.Calendar" %>
 
 <%!
@@ -72,11 +73,21 @@ String granAccess = null;
                 </tfoot>
                 <tbody>
                 <c:forEach items="${empList}" var="employee">
-                    <%! String str=null; %>
+                    <%! String str=null; 
+                    	
+                    %>
                     <% Employee emp = (Employee)pageContext.getAttribute("employee");
                     str=String.valueOf(emp.getIntEmpID());
                     String de = str;
+                    String jobss = "";
                     %>
+                    <c:forEach items="${employee.jobQualification}" var="job">
+                    <% 
+                    Job lol = (Job)pageContext.getAttribute("job");
+               		
+           			jobss += lol.getStrJobDesc() + ", ";
+                    %>
+                    </c:forEach>
                     <tr>
                         <td style="padding:0; margin:0;" class="dt-body-center">
                             <center><img name="empupdatedImg" id="empupdatedImg" class="circle"
@@ -85,7 +96,7 @@ String granAccess = null;
                                          alt="${employee.strEmpFirstName}"/></center>
                         </td>
                         <td class="dt-body-left">${employee.strEmpFirstName} ${employee.strEmpLastName}</td>
-                        <td style="padding-left: 10px !important; margin-left: 0px;" class="dt-body-left">NONE</td>
+                        <td style="padding-left: 10px !important; margin-left: 0px;" class="dt-body-left"><%=jobss%></td>
                         <td style="padding-right: 10px !important; margin-right: 0px;" class="dt-body-right ">
                             ${employee.strEmpContactNo}
                         </td>
@@ -685,22 +696,19 @@ String granAccess = null;
                                            class="active purple-text text-lighten-2"><b>Address</b></label>
                                 </div>
                                 
-                                <c:forEach items="${empCategory}" var="name">
-                                            <%
-                                            String empPosition = null;
-                                            EmployeeCategory cate =
-                                            (EmployeeCategory)pageContext.getAttribute("name");
-                                            if(cate.getStrCategoryName().equals(position)){
-                                            empPosition = "selected";
-                                            }
-                                            else{
-                                            empPosition = "";
-                                            }
-                                            %>
-       
-                                       </c:forEach>
+                                <% 
+                                String jobs = "";
+                                %>
+                                
+                                <c:forEach items="${employee.jobQualification}" var="job">
+                    <% 
+                    Job lol = (Job)pageContext.getAttribute("job");
+               		
+           			jobs += lol.getStrJobDesc() + ", ";
+                    %>
+                    </c:forEach>
                                 <div class="input-field col s12">
-                                    <input type="text" id="viewEmpJob" name="viewEmpJob" class="white-text" value="<%out.println(empPosition);%>" disabled/>
+                                    <input type="text" id="viewEmpJob" name="viewEmpJob" class="white-text" value="<%=jobs%>" disabled/>
                                         
                            
                                     <label for="viewEmpJob" class="purple-text text-lighten-2"><b>Position</b></label>

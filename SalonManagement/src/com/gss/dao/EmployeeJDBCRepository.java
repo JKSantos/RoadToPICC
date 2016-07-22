@@ -57,7 +57,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 
 			while(set.next()){
 				
-				List<Job> jobs = new ArrayList<Job>(); 
+				
 				intEmpID = set.getInt(1);
 				strEmpLastName = set.getString(2);
 				strEmpFirstName = set.getString(3);
@@ -90,7 +90,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 				PreparedStatement getJobs = con.prepareStatement(strQuery2);
 				getJobs.setInt(1, intEmpID);
 				ResultSet jobSet = getJobs.executeQuery();
-				
+				List<Job> jobs = new ArrayList<Job>(); 
 				while(jobSet.next()){
 					String jobDesc = jobSet.getString(1);
 					int jobStatus = jobSet.getInt(2);
@@ -102,6 +102,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 				Employee emp = new Employee(intEmpID, strEmpLastName, strEmpFirstName, strEmpMiddleName, datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, strEmpStatus, strEmpUsername, strEmpPassword, blobEmpPhoto, blobAsBytes, jobs, access);
 				
 				empList.add(emp);
+			
 				
 				getJobs.close();
 				jobSet.close();
