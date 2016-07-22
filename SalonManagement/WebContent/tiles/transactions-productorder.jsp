@@ -111,12 +111,12 @@
                         </div>
                         <div class="stepps well">
 
-                                <nav class="right white z-depth-1 col s6 offset-s6" style="width: 300px; margin-right: 20px;">
+                                <nav class="right white z-depth-1 col s6 offset-s6 hoverable" style="width: 300px; margin-right: 20px;">
                                     <div class="nav-wrapper col s12">
                                         <form>
                                             <div class="input-field">
                                                 <input id="crpsSearch" placeholder="Search"
-                                                       class="grey-text text-darken-4"
+                                                       class=" grey-text text-darken-4"
                                                        type="search" style="border: none !important;">
                                                 <label for="crpsSearch"><i
                                                         class="material-icons grey-text text-darken-4">search</i></label>
@@ -178,7 +178,7 @@
                                 <div class="col s3">
                                     <div class="input-field col s12" style="margin-top: 20px !important;">
                                         <input type="text" class="right-align prodPrice" name="" id="crPackPrice" disabled
-                                               placeholder="Price" style="color: #424242 !important;"/>
+                                               placeholder="Price" style="color: #424242 !important; border: none !important;"/>
                                         <label for="crPackPrice" style="color: #424242 !important;" class="active"><b>Price</b><i
                                                 class="material-icons red-text tiny">error_outline</i></label>
                                     </div>

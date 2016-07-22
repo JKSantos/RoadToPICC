@@ -61,7 +61,7 @@ function updatePSCRTable() {
                         "id='pscheckbox" + product.intProductID + "' required class='pscheck filled-in'" +
                         " value='" + product.intProductID + "' onchange='crpsCheckbtn(this.value)'><label for='pscheckbox" + product.intProductID + "'></label>";
                     var quantity = "<input type='number' class='right-align psQty' name='productQuantity' id='ps" + product.intProductID +
-                        "' style='width: 75px; margin-top: 0px !important; margin-bottom: 0px !important;' disabled value='1' min='1'>";
+                        "' style='width: 75px; margin-top: 0px !important; margin-bottom: 0px !important;' disabled value='1' min='1' max='99'>";
                     var price = "<span>Php " + product.dblProductPrice + "</span>";
                     table.row.add([
                         checkbox,
@@ -110,6 +110,7 @@ function crpsCheckbtn(checkbtnid) {
         console.log(q);
         $pricefield.on('input', function () {
             $qty = parseFloat($tr.find('td .psQty').val()).toFixed(2);
+            var qqqqq = $tr.find('td .psQty').val();
             if ($qty > q) {
                 console.log($qty + '>' + q);
                 total += ($qty - q) * $price;
@@ -129,8 +130,17 @@ function crpsCheckbtn(checkbtnid) {
                 showqty = parseInt($qty);
                 $('#pslist #x' + checkbtnid + '').remove();
                 $('#pslist #item' + checkbtnid + ' .span').append('<span class="grey-text text-darken-3" id="x' + checkbtnid + '"> (' + showqty + ')</span>');
+            } else if ( !($qty < q) && !($qty > q) && ($qty == q) ) {
+                alert('aasd');
             } else {
 
+            }
+        });
+
+        $pricefield.keydown(function (e) {
+            if( e.which == 8 && ( document.activeElement.id == 'ps' + checkbtnid) ){
+                e.preventDefault();
+                return false;
             }
         });
 
