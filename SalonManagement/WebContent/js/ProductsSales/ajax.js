@@ -20,7 +20,7 @@ function updatePSTable() {
                     var addbtn = "<center><button class='waves-effect waves-light modal-trigger btn-flat transparent black-text' " +
                         "title='Update' onclick='openUpdate(this.value)' value='" + order.intSalesID + "' id='submitbtn' style='padding: 0px;'>" +
                         "<i class='material-icons'>edit</i></button><button class='prodsalesdeacbtn waves-effect waves-light btn-flat transparent " +
-                        "red-text text-accent-4' title='Deactivate' value='" + order.intSalesID + "' onclick='PSDeactivate(this.value)'>" +
+                        "red-text text-accent-4' title='Deactivate' value='" + order.intSalesID + "' onclick='cancelOrder(this.value)'>" +
                         "<i class='material-icons'>delete</i></button></center>";
                     if (order.intType == 1) {
                         x = "Delivery";
@@ -206,9 +206,8 @@ function crpsCheckbtn(checkbtnid) {
 }
 
 function acceptOrder(orderid) {
-    console.log(orderid);
     swal({
-            title: "Accept?",
+            title: "Accept this order?",
             text: "",
             type: "info",
             showCancelButton: true,
@@ -238,39 +237,108 @@ function acceptOrder(orderid) {
                         sweetAlert("Oops...", "Something went wrong!", "error");
                     }
                 })
-            }, 2000);
+            }, 1000);
         });
 
 }
 
-
-function PSDeactivate(prodsaleid) {
-    var deactivatePS = {
-        'intOrderID': prodsaleid
-    }
-    console.log(prodsaleid);
-    var $tr = $(this).closest('tr');
-
+function declineOrder(declineid) {
     swal({
-            title: "Are you sure?",
+            title: "Decline this order?",
             text: "",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, delete it!",
-            closeOnConfirm: false
+            type: "info", showCancelButton: true,
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
         },
         function () {
-            swal("Deleted!", ".", "success");
-            $.ajax({
-                type: 'post',
-                url: 'declineOrder',
-                data: deactivatePS,
-                success: function (response) {
-                    $tr.find('td').fadeOut(500, function () {
-                        $tr.remove();
-                    });
-                }
-            });
+            setTimeout(function () {
+                $.ajax({
+                    url: 'declineOrder',
+                    type: 'post',
+                    data: {
+                        "intOrderID": declineid
+                    },
+                    dataType: 'json',
+                    async: true,
+                    success: function (data) {
+                        if (data.result === "success") {
+                            swal("Order was successfully declined!", "success");
+                            updatePSTable();
+                        } else {
+                            sweetAlert("Oops...", "Something went wrong!", "error");
+                        }
+                    },
+                    error: function (data) {
+                        sweetAlert("Oops...", "Something went wrong!", "error");
+                    }
+                })
+            }, 1000);
         });
 }
+
+
+function cancelOrder(cancelid) {
+    swal({
+            title: "Cancel this order?",
+            text: "",
+            type: "info", showCancelButton: true,
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+        },
+        function () {
+            setTimeout(function () {
+                $.ajax({
+                    url: 'deactivateOrder',
+                    type: 'post',
+                    data: {
+                        "intOrderID": cancelid
+                    },
+                    dataType: 'json',
+                    async: true,
+                    success: function (data) {
+                        if (data.result === "success") {
+                            swal("Order was successfully cancelled!", "success");
+                            updatePSTable();
+                        } else {
+                            sweetAlert("Oops...", "Something went wrong!", "error");
+                        }
+                    },
+                    error: function (data) {
+                        sweetAlert("Oops...", "Something went wrong!", "error");
+                    }
+                })
+            }, 1000);
+        });
+}
+
+
+// function PSDeactivate(prodsaleid) {
+//     var deactivatePS = {
+//         'intOrderID': prodsaleid
+//     }
+//     console.log(prodsaleid);
+//     var $tr = $(this).closest('tr');
+//
+//     swal({
+//             title: "Are you sure?",
+//             text: "",
+//             type: "warning",
+//             showCancelButton: true,
+//             confirmButtonColor: "#DD6B55",
+//             confirmButtonText: "Yes, delete it!",
+//             closeOnConfirm: false
+//         },
+//         function () {
+//             swal("Deleted!", ".", "success");
+//             $.ajax({
+//                 type: 'post',
+//                 url: 'declineOrder',
+//                 data: deactivatePS,
+//                 success: function (response) {
+//                     $tr.find('td').fadeOut(500, function () {
+//                         $tr.remove();
+//                     });
+//                 }
+//             });
+//         });
+// }
