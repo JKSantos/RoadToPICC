@@ -6,7 +6,7 @@
     <div class="main z-depth-barts">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
             <h3 class="grey-text text-darken-1">Inventory</h3>
-            <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
+            <a class="crinventybtn z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
                href="#deflostexModal" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">add</i></a>
             <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
                href="#packageArchive" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">archive</i></a>
@@ -61,20 +61,11 @@
                         <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-right">date/time
                         </td>
                         <td class="center" style="padding:0; margin:0;">
-                            <a data-delay="30" data-position="bottom" data-tooltip="View"
-                               class="waves-effect waves-purple modal-viewall btn-flat transparent black-text"
-                               style="padding-left: 10px;padding-right:10px; margin: 5px;">
-                                <i class="material-icons">visibility</i>
-                            </a>
-                            <a id="${product.intProductID}" href="#inventoryedit${product.intProductID}"
+                            <a id="update${product.intProductID}" href="#inventoryedit${product.intProductID}"
                                class=" btnEdit modal-trigger waves-effect waves-purple btn-flat transparent black-text empUpdatebtn"
                                style="padding-left: 10px;padding-right:10px; margin: 5px;">
                                 <i class="material-icons">edit</i>
                             </a>
-                            <button class="packagedeacbtn waves-effect waves-purple btn-flat transparent red-text text-accent-4"
-                                    style="padding-left: 10px;padding-right:10px; margin: 5px;"
-                                    id="${product.intProductID}" title="Deactivate"><i class="material-icons">delete</i>
-                            </button>
                         </td>
                     </tr>
                 </c:forEach>
@@ -84,27 +75,22 @@
     </div>
 
 
-    <div id="deflostexModal" class="modal modal-fixed-footer">
-        <form class="col s12" id="deflostexpForm" name="deflostexpForm" method="post" action="createTag">
-            <div class="modal-content">
-                <div class="wrapper">
-                    <div class="row">
-                        <div class="col s12">
-                            <div class="inventoryerror center input-field col s12 card red white-text z-depth-barts"></div>
-                            <ul class="tabs tab-demo-active" style="width: 100%; background-color: #fafafa;">
-                                <li class="tab col s6"><a
-                                        class="firsttab purple-text text-darken-2 active waves-effect waves-light"
-                                        href="#defectiveitem"><b>Defective Item</b></a></li>
-                                <li class="tab col s6"><a
-                                        class="secondtab purple-text text-darken-2 waves-effect waves-light"
-                                        href="#lostitem"><b>Lost Item</b></a></li>
-                                <li class="tab col s6"><a
-                                        class="thirdtab purple-text text-darken-2 waves-effect waves-light"
-                                        href="#expitem"><b>Expired Item</b></a></li>
-                            </ul>
-                        </div>
-                        <div id="defectiveitem" class="col s12" style="margin-top: 40px;">
-                            <div class="container">
+    <div id="deflostexModal" class="modal">
+        <div class="modal-content">
+            <div class="input-field col s8 offset-s2">
+                <select name="crInventory" id="crInventory">
+                    <option value="defect" selected>Defective Item</option>
+                    <option value="lost">Lost Item</option>
+                    <option value="expired">Expired Item</option>
+                </select>
+                <label for="crInventory"><b>Select</b><i
+                        class="material-icons red-text tiny">error_outline</i></label>
+            </div>
+            <div id="defect">
+                <form action="createTag" id="defectForm" name="defectForm">
+                    <div class="wrapper">
+                        <div class="container">
+                            <div class="row">
                                 <div class="input-field col s12">
                                     <select name="intProductID" id="slctDefItem" required>
                                         <option value="default" disabled selected>Choose...</option>
@@ -112,20 +98,34 @@
                                             <option value="${product.intProductID}">${product.strProductName}</option>
                                         </c:forEach>
                                     </select>
-                                    <label for="slctDefItem"><b>Item Name</b></label>
+                                    <label for="slctDefItem"><b>Item Name</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12">
                                     <input class="right-align" type="text" name="intQuantity" id="defQty"
                                            maxlength="3" placeholder="1" required>
-                                    <label for="defQty"><b>Quantity</b></label>
+                                    <label for="defQty"><b>Quantity</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12" style="margin-top: 5%;">
                                     <input type="hidden" name="intTagType" id="tagTypeDef" value="1"/>
                                 </div>
+                                <div class="input-field col s12">
+                                    <button type="submit" id="crInventDefSubmit"
+                                            class="waves-effect waves-white btn-flat purple white-text">SAVE
+                                    </button>
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-purple btn-flat ">CANCEL</a>
+                                </div>
                             </div>
                         </div>
-                        <div id="lostitem" class="col s12" style="margin-top: 40px;">
-                            <div class="container">
+                    </div>
+                </form>
+            </div>
+            <div id="lost">
+                <form action="createTag" id="lostForm" name="lostForm">
+                    <div class="wrapper">
+                        <div class="container">
+                            <div class="row">
                                 <div class="input-field col s12">
                                     <select name="intProductID" id="slctLostItem" required>
                                         <option value="default" disabled selected>Choose...</option>
@@ -133,47 +133,64 @@
                                             <option value="${product.intProductID}">${product.strProductName}</option>
                                         </c:forEach>
                                     </select>
-                                    <label for="slctLostItem"><b>Item Name</b></label>
+                                    <label for="slctLostItem"><b>Item Name</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12">
                                     <input class="right-align" type="text" name="intQuantity" id="lostQty"
                                            maxlength="3" placeholder="1" required>
-                                    <label for="lostQty"><b>Quantity</b></label>
+                                    <label for="lostQty"><b>Quantity</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12" style="margin-top: 5%;">
                                     <input type="hidden" name="intTagType" id="tagTypeLost" value="2"/>
                                 </div>
+                                <div class="input-field col s12">
+                                    <button type="submit" id="crInventLostSubmit"
+                                            class="waves-effect waves-white btn-flat purple white-text">SAVE
+                                    </button>
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-purple btn-flat ">CANCEL</a>
+                                </div>
                             </div>
                         </div>
-                        <div id="expitem" class="col s12" style="margin-top: 40px;">
-                            <div class="container">
+                    </div>
+                </form>
+            </div>
+            <div id="expired">
+                <form action="createTag" id="expiredForm" name="expiredForm">
+                    <div class="wrapper">
+                        <div class="container">
+                            <div class="row">
                                 <div class="input-field col s12">
-                                    <select name="intProductID" id="slctExpItem" required>
+                                    <select name="intProductID" id="slctexpiredItem" required>
                                         <option value="default" disabled selected>Choose...</option>
                                         <c:forEach items="${productList}" var="product">
                                             <option value="${product.intProductID}">${product.strProductName}</option>
                                         </c:forEach>
                                     </select>
-                                    <label for="slctExpItem"><b>Item Name</b></label>
+                                    <label for="slctexpiredItem"><b>Item Name</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <input class="right-align" type="text" name="intQuantity" id="expQty"
+                                    <input class="right-align" type="text" name="intQuantity" id="expiredQty"
                                            maxlength="3" placeholder="1" required>
-                                    <label for="expQty"><b>Quantity</b></label>
+                                    <label for="expiredQty"><b>Quantity</b><i class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12" style="margin-top: 5%;">
-                                    <input type="hidden" name="intTagType" id="tagTypeExp" value="3"/>
+                                    <input type="hidden" name="intTagType" id="tagTypeExpired" value="3"/>
+                                </div>
+                                <div class="input-field col s12">
+                                    <button type="submit" id="crInventExpiredSubmit"
+                                            class="waves-effect waves-white btn-flat purple white-text">SAVE
+                                    </button>
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-purple btn-flat ">CANCEL</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
-            <div class="modal-footer">
-                <button type="submit" class="waves-effect waves-white btn-flat purple white-text">SAVE</button>
-                <a href="#!" class="modal-action modal-close waves-effect waves-purple btn-flat ">CANCEL</a>
-            </div>
-        </form>
+        </div>
     </div>
 
     <c:forEach items="${productList}" var="product">
@@ -181,8 +198,8 @@
              style="width: 30% !important; height: 65% !important; max-height: 100% !important; position: absolute !important;">
             <div class="col s12">
                 <ul class="tabs">
-                    <li class="tab col s6"><a href="#add${product.intProductID}">Increase Stock</a></li>
-                    <li class="tab col s6"><a class="active" href="#subtract${product.intProductID}">Decrease Stock</a>
+                    <li class="tab col s6"><a href="#add${product.intProductID}" class="active purple-text text-darken-2"><b>Add Stock</b></a></li>
+                    <li class="tab col s6"><a class="purple-text text-darken-2" href="#subtract${product.intProductID}"><b>Consume Stock</b></a>
                     </li>
                 </ul>
             </div>
@@ -201,17 +218,17 @@
                                 <label for="prodname" style="color: black !important;">Product Name</label>
                             </div>
                             <div class="input-field col s8 offset-s2" style="margin-top: 5%;">
-                                <input type="number" id="addcurrentstock" value="${product.intProductQuantity}" min="0"
-                                       max="3" disabled style="color: black;">
-                                <label for="addcurrentstock" class="active black-text">Current Stock</label>
+                                <input type="number" id="add${product.intProductQuantity}" value="${product.intProductQuantity}" min="0"
+                                       max="3" disabled style="color: black;" class="intaddQty">
+                                <label for="add${product.intProductQuantity}" class="active black-text">Current Stock</label>
                             </div>
                             <div class="input-field col s8 offset-s2" style="margin-top: 5%;">
-                                <input name="intQuantity" type="number" id="addstocknumber" placeholder="1" min="0">
-                                <label for="addstocknumber" class="active">Stock (<b>+</b>)</label>
+                                <input name="intQuantity" type="number" id="${product.intProductQuantity}" class="addQty" placeholder="1" min="1">
+                                <label for="${product.intProductQuantity}" class="active">Stock (<b>+</b>)</label>
                             </div>
                             <div class="input-field col s8 offset-s2" style="margin-top: 5%;">
-                                <input class="black-text" type="number" id="addtotalstock"
-                                       value="${product.intProductQuantity}" min="0" disabled>
+                                <input class="black-text totalQty" type="number" id="addtotalstock"
+                                       value="${product.intProductQuantity}" min="1" disabled>
                                 <label for="addtotalstock" class="active black-text">Total Stock</label>
                             </div>
                         </div>
@@ -239,18 +256,18 @@
                                 <label for="subprodname" style="color: black !important;">Product Name</label>
                             </div>
                             <div class="input-field col s8 offset-s2" style="margin-top: 5%;">
-                                <input type="number" id="subcurrentstock" value="${product.intProductQuantity}" min="0"
-                                       max="3" disabled style="color: black;">
-                                <label for="subcurrentstock" class="active black-text">Current Stock</label>
+                                <input type="number" id="minus${product.intProductQuantity}" value="${product.intProductQuantity}" min="0"
+                                       max="3" class="intminusQty" disabled style="color: black;">
+                                <label for="minus${product.intProductQuantity}" class="active black-text">Current Stock</label>
                             </div>
                             <div class="input-field col s8 offset-s2" style="margin-top: 5%;">
-                                <input name="intQuantity" type="number" id="substocknumber" placeholder="1" min="0">
-                                <label for="substocknumber" class="active">Stock (<b>-</b>)</label>
+                                <input name="intQuantity" type="number" class="minusStock" id="${product.intProductQuantity}" placeholder="1" min="1">
+                                <label for="${product.intProductQuantity}" class="active">Stock (<b>-</b>)</label>
                             </div>
                             <div class="input-field col s8 offset-s2" style="margin-top: 5%;">
-                                <input class="black-text" type="number" id="subtotalstock"
-                                       value="${product.intProductQuantity}" min="0" disabled>
-                                <label for="subtotalstock" class="active black-text">Total Stock</label>
+                                <input class="black-text totalMinusQty" type="number" id="minustotalstock"
+                                       value="${product.intProductQuantity}" min="1" disabled>
+                                <label for="minustotalstock" class="active black-text">Total Stock</label>
                             </div>
                         </div>
                     </div>

@@ -52,11 +52,6 @@
                             <c:out value="${price}"/>
                         </td>
                         <td style="padding:0; margin: 0;" class="dt-body-center">
-                            <a data-delay="30" data-position="bottom" data-tooltip="View"
-                               class="tooltipped waves-effect waves-purple modal-viewall btn-flat transparent black-text"
-                               href="#viewprod<%=string%>" style="padding-left: 10px;padding-right:10px; margin: 5px;">
-                                <i class="material-icons">visibility</i>
-                            </a>
                             <a class="waves-effect waves-purple modal-trigger btn-flat transparent black-text"
                                href="#prod<%=string%>" style="padding-left: 10px;padding-right:10px; margin: 5px;">
                                 <i class="material-icons">edit</i>

@@ -82,7 +82,7 @@
                                style="padding-left: 10px;padding-right:10px; margin: 5px;">
                                 <i class="material-icons">edit</i>
                             </a>
-                            <button class="extradeacbtn waves-effect waves-purple btn-flat transparent red-text text-accent-4"
+                            <button class="discountdeacbtn waves-effect waves-purple btn-flat transparent red-text text-accent-4"
                                     style="padding-left: 10px;padding-right:10px; margin: 5px;"
                                     id="${discount.intDiscountID}"
                                     title="Deactivate"><i class="material-icons">delete</i></button>

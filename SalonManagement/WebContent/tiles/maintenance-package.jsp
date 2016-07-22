@@ -88,11 +88,6 @@
                             ${pack.strPackageDesc}
                         </td>
                         <td class="center" style="padding:0; margin:0;">
-                            <a data-delay="30" data-position="bottom" data-tooltip="View"
-                               class="waves-effect waves-purple modal-viewall btn-flat transparent black-text"
-                               href="#view<%=packID%>" style="padding-left: 10px;padding-right:10px; margin: 5px;">
-                                <i class="material-icons">visibility</i>
-                            </a>
                             <a data-delay="30" data-position="bottom" data-tooltip="Update"
                                class="waves-effect waves-purple modal-trigger btn-flat transparent black-text empUpdatebtn"
                                href="#update<%=packID%>" style="padding-left: 10px;padding-right:10px; margin: 5px;">
