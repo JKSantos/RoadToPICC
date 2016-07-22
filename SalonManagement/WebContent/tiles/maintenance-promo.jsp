@@ -68,10 +68,6 @@
                             ${promo.strPromoAvailability}
                         </td>
                         <td class="center" style="padding:0; margin:0;">
-                            <a class="waves-effect waves-purple modal-viewall btn-flat transparent black-text"
-                               href="#" style="padding-left: 10px;padding-right:10px; margin: 5px;">
-                                <i class="material-icons">visibility</i>
-                            </a>
                             <a class="waves-effect waves-purple modal-trigger btn-flat transparent black-text promoUpdatebtn"
                                href="#update${promo.intPromoID}"
                                style="padding-left: 10px;padding-right:10px; margin: 5px;">

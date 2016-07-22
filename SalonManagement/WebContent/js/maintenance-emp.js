@@ -223,6 +223,59 @@ $(document).ready(function () {
     $("#inventorySearch").bind('keyup search input paste cut', function () {
         inventorytbl.search(this.value).draw();
     });
+
+    $('.crinventybtn').click(function () {
+        $('#defect').fadeIn(500);
+        $('#lost').hide();
+        $('#expired').hide();
+    });
+
+    $('#crInventory').change(function () {
+        var select = $('select[name=crInventory]').val();
+        if (select == 'defect') {
+            $('#defect').fadeIn(500);
+            $('#lost').hide();
+            $('#expired').hide();
+        } else if (select == 'lost') {
+            $('#defect').hide();
+            $('#lost').fadeIn(500);
+            $('#expired').hide();
+        } else if (select == 'expired') {
+            $('#defect').hide();
+            $('#lost').hide();
+            $('#expired').fadeIn(500);
+        }
+    });
+    $('#crInventDefSubmit').click(function () {
+        $('#defectForm').submit();
+    });
+    $('#crInventLostSubmit').click(function () {
+        $('#lostForm').submit();
+    });
+    $('#crInventExpiredSubmit').click(function () {
+        $('#expiredForm').submit();
+    });
+
+    $('.addQty').each(function () {
+        $(this).on('input', function () {
+            var id = $(this).attr('id');
+            var addqty = parseInt($('#add' + id).val());
+            var val = parseInt($(this).val());
+            var total = parseInt(val + addqty);
+            $('.totalQty').val(total);
+        });
+    });
+
+    $('.minusStock').each(function () {
+        $(this).on('input', function () {
+            var minusid = $(this).attr('id');
+            var minusqty = parseInt($('#minus' + minusid).val());
+            var minusval = parseInt($(this).val());
+            var minustotal = parseInt(minusqty - minusval);
+            $('.totalMinusQty').val(minustotal);
+        });
+    });
+
 });
 
 $(document).ready(function () {
@@ -236,7 +289,9 @@ $(document).ready(function () {
             {className: "dt-body-left", "targets": [0, 1, 3, 4]},
             {className: "dt-body-right", "targets": [2]},
             {className: "dt-head-center", "targets": [0, 5]},
-            {"targets": [1], render: $.fn.dataTable.render.ellipsis(25)}
+            {"targets": [0, 1], "width": "200px"},
+            {"targets": [1], render: $.fn.dataTable.render.ellipsis(25)},
+            {"targets": [0], render: $.fn.dataTable.render.ellipsis(25)}
         ],
         "rowHeight": '10px'
     });
@@ -386,6 +441,19 @@ $(document).ready(function () {
         $('#crdiscounttblPackage').parents('div.tablewrapper').first().hide();
         $('#crdiscounttblPromo').parents('div.tablewrapper').first().hide();
     });
+
+    $('#createDiscountSubmitForm').click(function () {
+        swal("Successfully created!", "", "success");
+        $('#createDiscountForm').submit();
+    });
+
+    $('.radiobtn').click(function () {
+        $('#crDiscountGuidelines').attr('disabled', true);
+        if($('input[name=strApplicability]:checked').val() == 'DEPENDING ON THE GUIDELINES') {
+            $('#crDiscountGuidelines').attr('disabled', false);
+        }
+    });
+
 
 });
 
@@ -1650,9 +1718,34 @@ $('#inventorytbl').on('click', '.inventdeacbtn', function (e) {
         });
 });
 
+$('#discounttbl').on('click', '.discountdeacbtn', function (e) {
+    e.returnValue = false;
+    var discountdeacID = $(this).attr('id');
+    var deactivateDiscount = {
+        'intDiscountID': discountdeacID
+    }
+    var $tr = $(this).closest('tr');
 
-
-
-
-
-
+    swal({
+            title: "Are you sure?",
+            text: "",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        },
+        function () {
+            swal("Deleted!", ".", "success");
+            $.ajax({
+                type: 'post',
+                url: 'deactivateDiscount',
+                data: deactivateDiscount,
+                success: function (response) {
+                    $tr.find('td').fadeOut(500, function () {
+                        $tr.remove();
+                    });
+                }
+            });
+        });
+});
