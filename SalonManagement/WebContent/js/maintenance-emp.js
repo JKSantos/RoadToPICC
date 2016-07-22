@@ -231,8 +231,8 @@ $(document).ready(function () {
     });
 
     $('#crInventory').change(function () {
-       var select = $('select[name=crInventory]').val();
-        if(select == 'defect') {
+        var select = $('select[name=crInventory]').val();
+        if (select == 'defect') {
             $('#defect').fadeIn(500);
             $('#lost').hide();
             $('#expired').hide();
@@ -247,7 +247,7 @@ $(document).ready(function () {
         }
     });
     $('#crInventDefSubmit').click(function () {
-       $('#defectForm').submit();
+        $('#defectForm').submit();
     });
     $('#crInventLostSubmit').click(function () {
         $('#lostForm').submit();
@@ -255,15 +255,15 @@ $(document).ready(function () {
     $('#crInventExpiredSubmit').click(function () {
         $('#expiredForm').submit();
     });
-    
+
     $('.addQty').each(function () {
-       $(this).on('input', function () {
-           var id = $(this).attr('id');
-           var addqty = parseInt($('#add' + id).val());
-           var val = parseInt($(this).val());
-           var total = parseInt(val + addqty);
-           $('.totalQty').val(total);
-       });
+        $(this).on('input', function () {
+            var id = $(this).attr('id');
+            var addqty = parseInt($('#add' + id).val());
+            var val = parseInt($(this).val());
+            var total = parseInt(val + addqty);
+            $('.totalQty').val(total);
+        });
     });
 
     $('.minusStock').each(function () {
@@ -275,7 +275,7 @@ $(document).ready(function () {
             $('.totalMinusQty').val(minustotal);
         });
     });
-    
+
 });
 
 $(document).ready(function () {
@@ -441,6 +441,19 @@ $(document).ready(function () {
         $('#crdiscounttblPackage').parents('div.tablewrapper').first().hide();
         $('#crdiscounttblPromo').parents('div.tablewrapper').first().hide();
     });
+
+    $('#createDiscountSubmitForm').click(function () {
+        swal("Successfully created!", "", "success");
+        $('#createDiscountForm').submit();
+    });
+
+    $('.radiobtn').click(function () {
+        $('#crDiscountGuidelines').attr('disabled', true);
+        if($('input[name=strApplicability]:checked').val() == 'DEPENDING ON THE GUIDELINES') {
+            $('#crDiscountGuidelines').attr('disabled', false);
+        }
+    });
+
 
 });
 

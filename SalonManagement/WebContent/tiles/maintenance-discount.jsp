@@ -132,22 +132,22 @@
                                 <label for="crDiscountDetails" class="active"><b>Details</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>
                             </div>
-                            <div class="input-field col s12" style="margin-top: 15px;">
+                            <div class="input-field col s6">
+                                <label style="margin-top: -25px !important;"><b>Applicability</b><i
+                                        class="material-icons red-text tiny">error_outline</i></label>
+                                <input name="strApplicability" class="radiobtn" type="radio" value ="ALL CUSTOMER" id="crDiscountRadio1"/>
+                                <label for="crDiscountRadio1">All Customers</label>
+                                <input name="strApplicability" class="radiobtn" type="radio" value ="DEPENDING ON THE GUIDELINES" id="crDiscountRadio2"/>
+                                <label for="crDiscountRadio2">Depending on the guidelines</label>
+                            </div>
+                            <div class="input-field col s6" style="margin-top: 15px;">
                             <textarea type="text" class="materialize-textarea" id="crDiscountGuidelines"
                                       name="strDiscountGuidelines" placeholder="Discount"
                                       style="margin-top: -10px !important;"></textarea>
                                 <label for="crDiscountGuidelines" class="active"><b>Guidelines</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>
                             </div>
-                            <div class="input-field col s6">
-                                <label style="margin-top: -25px !important;"><b>Applicability</b><i
-                                        class="material-icons red-text tiny">error_outline</i></label>
-                                <input name="strApplicability" type="radio" value ="ALL CUSTOMER" id="crDiscountRadio1"/>
-                                <label for="crDiscountRadio1">All Customers</label>
-                                <input name="strApplicability" type="radio" value ="DEPENDING ON THE GUIDELINES" id="crDiscountRadio2"/>
-                                <label for="crDiscountRadio2">Depending on the guidelines</label>
-                            </div>
-                            <div class="input-field col s3">
+                            <div class="input-field col s3 offset-s6">
                                 <select id="crDiscountAmtType" name="strDiscountType">
                                     <option value="1" selected>Percentage</option>
                                     <option value="2">Fixed Amount</option>
@@ -399,9 +399,6 @@
                             <!--<div class="col s6" id="servList"-->
                             <!--style="margin-top: -13px !important; margin-bottom: 5px !important;"></div>-->
                             <!--</div>-->
-
-                            <input type="submit" value="create"/>
-
                         </div>
                     </div>
                 </div>
