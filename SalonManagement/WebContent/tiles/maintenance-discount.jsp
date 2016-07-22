@@ -139,9 +139,9 @@
                             <div class="input-field col s6">
                                 <label style="margin-top: -25px !important;"><b>Applicability</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>
-                                <input name="strApplicability" type="radio" id="crDiscountRadio1"/>
+                                <input name="strApplicability" type="radio" value ="ALL CUSTOMER" id="crDiscountRadio1"/>
                                 <label for="crDiscountRadio1">All Customers</label>
-                                <input name="strApplicability" type="radio" id="crDiscountRadio2"/>
+                                <input name="strApplicability" type="radio" value ="DEPENDING ON THE GUIDELINES" id="crDiscountRadio2"/>
                                 <label for="crDiscountRadio2">Depending on the guidelines</label>
                             </div>
                             <div class="input-field col s3">
@@ -225,7 +225,7 @@
                                                     <c:forEach items="${productList}" var="product">
                                                         <tr>
                                                             <td class="dt-body-left">
-                                                                <input type="checkbox" name="createPackProdType"
+                                                                <input type="checkbox" name="checkedProducts"
                                                                        id="prodCheck${product.intProductID}" required
                                                                        class="packcheckbox x{product.intProductID} ignore"
                                                                        value="${product.intProductID}"><label
@@ -268,7 +268,7 @@
                                                     <c:forEach items="${serviceList}" var="service">
                                                         <tr>
                                                             <td class="dt-body-left">
-                                                                <input type="checkbox" name="createPackServType"
+                                                                <input type="checkbox" name="checkedServices"
                                                                        id="myCheckBox${service.intServiceID}" required
                                                                        class="packcheckbox x{service.intServiceID} ignore"
                                                                        value="${service.intServiceID}"><label
@@ -311,7 +311,7 @@
                                                     <c:forEach items="${packageList}" var="pack">
                                                         <tr>
                                                             <td class="dt-body-left">
-                                                                <input type="checkbox" name="createPackServType"
+                                                                <input type="checkbox" name="checkedPackages"
                                                                        id="discountPackage${pack.intPackageID}"
                                                                        class="packcheckbox x{pack.intPackageID}"
                                                                        value="${pack.intPackageID}"><label
@@ -321,7 +321,7 @@
                                                                 class="dt-body-left ">${pack.strPackageName}
                                                             </td>
                                                             <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;">
-                                                                Service
+                                                                Package
                                                             </td>
                                                         </tr>
                                                     </c:forEach>
@@ -354,7 +354,7 @@
                                                     <c:forEach items="${promoList}" var="promo">
                                                         <tr>
                                                             <td class="dt-body-left">
-                                                                <input type="checkbox" name="createPackServType"
+                                                                <input type="checkbox" name="checkedPromos"
                                                                        id="discountPromo${promo.intPromoID}"
                                                                        class="packcheckbox x{promo.intPromoID}"
                                                                        value="${promo.intPromoID}"><label
@@ -364,7 +364,7 @@
                                                                 class="dt-body-left ">${promo.strPromoName}
                                                             </td>
                                                             <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;">
-                                                                Service
+                                                                Promo
                                                             </td>
                                                         </tr>
                                                     </c:forEach>

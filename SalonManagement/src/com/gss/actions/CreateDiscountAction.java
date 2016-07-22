@@ -17,18 +17,20 @@ import com.gss.utilities.SearchService;
 
 public class CreateDiscountAction {
 	
-	private String strApplicability;
+	private List<String> strApplicability;
 	private String strDiscountName;
 	private String strDiscountDetails;
 	private String strDiscountGuidelines;
 	private String strDiscountType;
 	private Double dblDiscountPrice;
-	private String checkedServices;
-	private String checkedProducts;
-	private String checkedPackages;
-	private String checkedPromos;
+	private String checkedServices = "";
+	private String checkedProducts = "";
+	private String checkedPackages = "";
+	private String checkedPromos = "";
 
 	public String execute(){
+		
+		System.out.println(strApplicability.get(0));
 
 		DiscountServiceImpl service = new DiscountServiceImpl();
 		Discount discount;
@@ -45,12 +47,12 @@ public class CreateDiscountAction {
 		if(!checkedPackages.equals(""))
 			packageList = new SearchPackage().searchList(checkedPackages.split(","), Package.getAllPackage());
 		if(!checkedPromos.equals(""))
-			promoList = new SearchPromo().searchList(checkedPackages.split(","), Promo.getAllPromo());
+			promoList = new SearchPromo().searchList(checkedPromos.split(","), Promo.getAllPromo());
 		
 		String result = "failed";
 		
 		try{
-				discount = new Discount(1, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), dblDiscountPrice, productList, serviceList, packageList, promoList, 1);
+				discount = new Discount(1, strApplicability.get(0), strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), dblDiscountPrice, productList, serviceList, packageList, promoList, 1);
 				
 				if(service.createDiscount(discount) == true)
 					result = "success";
