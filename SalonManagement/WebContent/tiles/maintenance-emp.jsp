@@ -622,8 +622,8 @@ String granAccess = null;
                                 <label for="viewEmpName" class="purple-text text-lighten-2"><b>Name</b></label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="date" name="viewEmpBday" placeholder="January 1, 1996"
-                                       class="datepicker white-text" disabled id="viewEmpBday" value="">
+                                <input type="text" name="viewEmpBday" placeholder="January 1, 1996"
+                                       class="white-text" disabled id="viewEmpBday" value="${employee.datEmpBirthdate}">
                                 <label for="viewEmpBday"
                                        class="active purple-text text-lighten-2"><b>Birthday</b></label>
                             </div>
@@ -684,11 +684,8 @@ String granAccess = null;
                                     <label for="viewEmpAddress"
                                            class="active purple-text text-lighten-2"><b>Address</b></label>
                                 </div>
-                                <div class="input-field col s12">
-                                    <select id="viewEmpJob" name="viewEmpJob" class="white-text"
-                                            disabled>
-                                        <option value="" disabled selected></option>
-                                        <c:forEach items="${empCategory}" var="name">
+                                
+                                <c:forEach items="${empCategory}" var="name">
                                             <%
                                             String empPosition = null;
                                             EmployeeCategory cate =
@@ -700,10 +697,12 @@ String granAccess = null;
                                             empPosition = "";
                                             }
                                             %>
-                                            <option class="whitetext" value="${name.strCategoryName}"
-                                            <%out.println(empPosition);%>><span class="whitetext">${name.strCategoryName }</span></option>
-                                        </c:forEach>
-                                    </select>
+       
+                                       </c:forEach>
+                                <div class="input-field col s12">
+                                    <input type="text" id="viewEmpJob" name="viewEmpJob" class="white-text" value="<%out.println(empPosition);%>" disabled/>
+                                        
+                           
                                     <label for="viewEmpJob" class="purple-text text-lighten-2"><b>Position</b></label>
                                 </div>
                         </div>
