@@ -125,7 +125,6 @@ $(document).ready(function () {
 });
 
 
-
 // function Save(){
 //     var par = $(this).parent().parent(); //tr
 //     var tdQty = par.children("td:nth-child(3)");
@@ -769,6 +768,47 @@ $('#createSubmitForm').click(function () {
     }
 
 });
+
+function createProductSale() {
+    var strOrderType = $('select[name=strOrderType]').val(),
+        strOrderContact = $('#crOrderContact').val(),
+        strOrderName = $('#crOrderName').val(),
+        strOrderStreet = $('#crOrderStreet').val(),
+        strOrderLocation = $('select[name=strOrderLocation]').val(),
+        checkedValues = $('input:checkbox:checked').map(function () {
+            return this.value;
+        }).get().toString(),
+        quantity = $("#createPSForm .psQty").map(function () {
+            return $(this).val();
+        }).get().toString();
+    console.log(strOrderLocation + '/' + strOrderType);
+    $.ajax({
+        type: 'post',
+        url: 'createOrder',
+        data: {
+            "orderType": strOrderType,
+            "strContactNo": strOrderContact,
+            "strName": strOrderName,
+            "strStreet": strOrderStreet,
+            "intLocationID": strOrderLocation,
+            "selectedProducts": checkedValues,
+            "productQuantity": quantity
+        },
+        dataType: 'json',
+        async: true,
+        success: function (data) {
+            if (data.status === 'success') {
+                swal("Successfully created!", "", "success");
+                updatePSTable();
+            } else {
+                sweetAlert("Oops...", "Something went wrong!", "error");
+            }
+        },
+        error: function (data) {
+            sweetAlert("Oops...", "Something went wrong!", "error");
+        }
+    });
+}
 
 // $('#defsubmitbtn').click(function () {
 //    if($('#defForm').valid()){

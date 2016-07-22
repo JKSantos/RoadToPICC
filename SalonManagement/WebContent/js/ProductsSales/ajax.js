@@ -62,7 +62,7 @@ function updatePSCRTable() {
                         " value='" + product.intProductID + "' onchange='crpsCheckbtn(this.value)'><label for='pscheckbox" + product.intProductID + "'></label>";
                     var quantity = "<input type='number' class='right-align psQty' name='productQuantity' id='ps" + product.intProductID +
                         "' style='width: 75px; margin-top: 0px !important; margin-bottom: 0px !important;' disabled value='1' min='1' max='99'>";
-                    var price = "<span>Php " + product.dblProductPrice + "</span>";
+                    var price = "<span>P " + product.dblProductPrice + "</span>";
                     table.row.add([
                         checkbox,
                         product.strProductName,
@@ -103,7 +103,7 @@ function crpsCheckbtn(checkbtnid) {
         $qty = parseFloat($tr.find('td .psQty').val()).toFixed(2);
         var showqty = parseInt($qty);
         total += $qty * $price;
-        $('#crPackPrice').val('Php ' + parseFloat(total).toFixed(2));
+        $('#crPackPrice').val('P ' + parseFloat(total).toFixed(2));
         console.log(parseFloat(total).toFixed(2));
         console.log('checked');
         q = parseFloat($tr.find('td .psQty').val()).toFixed(2);
@@ -118,14 +118,14 @@ function crpsCheckbtn(checkbtnid) {
                 showqty = parseInt($qty);
                 console.log('q' + q);
                 total = Math.abs(total);
-                $('#crPackPrice').val('Php ' + parseFloat(total).toFixed(2));
+                $('#crPackPrice').val('P ' + parseFloat(total).toFixed(2));
                 $('#pslist #x' + checkbtnid + '').remove();
                 $('#pslist #item' + checkbtnid + ' .span').append('<span class="grey-text text-darken-3" id="x' + checkbtnid + '"> (' + showqty + ')</span>');
                 console.log(parseFloat(total).toFixed(2));
             } else if ($qty < q) {
                 total -= (q - $qty) * $price;
                 total = Math.abs(total);
-                $('#crPackPrice').val('Php ' + parseFloat(total).toFixed(2));
+                $('#crPackPrice').val('P ' + parseFloat(total).toFixed(2));
                 q = $qty;
                 showqty = parseInt($qty);
                 $('#pslist #x' + checkbtnid + '').remove();
@@ -160,7 +160,7 @@ function crpsCheckbtn(checkbtnid) {
         $qty = parseFloat($utr.find('td .psQty').val()).toFixed(2);
         total = total - ($qty * $unprice);
         total = Math.abs(total);
-        $('#crPackPrice').val('Php ' + parseFloat(total).toFixed(2));
+        $('#crPackPrice').val('P ' + parseFloat(total).toFixed(2));
         $('#pscheckbox' + checkbtnid + '').prop('checked', false);
         $('#item' + checkbtnid + '').remove();
         $('#ps' + checkbtnid + '').attr('disabled', true);
@@ -175,7 +175,7 @@ function crpsCheckbtn(checkbtnid) {
         $qty = parseFloat($utr.find('td .psQty').val()).toFixed(2);
         total = total - ($qty * $unprice);
         total = Math.abs(total);
-        $('#crPackPrice').val('Php ' + parseFloat(total).toFixed(2));
+        $('#crPackPrice').val('P ' + parseFloat(total).toFixed(2));
         $('#pscheckbox' + checkbtnid + '').prop('checked', false);
         $('#item' + checkbtnid + '').remove();
         $('#ps' + checkbtnid + '').attr('disabled', true);

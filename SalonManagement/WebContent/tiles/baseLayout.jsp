@@ -98,7 +98,7 @@
                         <ul class="navul">
                             <li><a href="getInventory">Inventory</a></li>
                             <li><a href="transactions-walkin.jsp">Walk In</a></li>
-                            <li><a href="transactions-reservation.jsp">Reservation</a></li>
+                            <li><a href="transReserve">Reservation</a></li>
                             <li><a href="productsales">Product Sales</a></li>
                             <li><a href="transactions-vip.jsp">Payment</a></li>
                         </ul>

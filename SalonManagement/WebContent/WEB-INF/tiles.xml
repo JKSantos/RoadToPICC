@@ -66,8 +66,13 @@
     <definition name="transProductSales" extends="baseLayout">
         <put-attribute name="title"			value="Product Sales"/>
         <put-attribute name="body"			value="/tiles/transactions-productorder.jsp"/>
-    </definition> 
-    
+    </definition>
+
+    <definition name="transReservation" extends="baseLayout">
+        <put-attribute name="title"			value="Reservation"/>
+        <put-attribute name="body"			value="/tiles/transactions-reservation.jsp"/>
+    </definition>
+
     <definition name="home" extends="baseLayout">
     	<put-attribute name="title"			value="Home"/>
     	<put-attribute name="body"			value="/tiles/admin-home.jsp"/>
