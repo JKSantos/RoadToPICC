@@ -1087,8 +1087,18 @@ function createProductSale() {
         async: true,
         success: function (data) {
             if (data.status === 'success') {
-                swal("Successfully created!", "", "success");
-                updatePSTable();
+                swal({   title: "Are you sure?",
+                        text: "", showCancelButton: true,
+                        closeOnConfirm: false,
+                        showLoaderOnConfirm: true, },
+                    function(){
+                        setTimeout(function(){
+                            swal("Successful!", "success");
+                            updatePSTable();
+                            $('#crProductSales').closeModal();
+                        }, 2000);
+                    });
+
             } else {
                 sweetAlert("Oops...", "Something went wrong!", "error");
             }

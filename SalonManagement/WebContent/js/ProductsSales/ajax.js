@@ -20,11 +20,26 @@ function updatePSTable() {
                     var addbtn = "<center><button class='waves-effect waves-light modal-trigger btn-flat transparent black-text' " +
                         "title='Update' onclick='openUpdate(this.value)' value='" + order.intSalesID + "' id='submitbtn' style='padding: 0px;'>" +
                         "<i class='material-icons'>edit</i></button><button class='prodsalesdeacbtn waves-effect waves-light btn-flat transparent " +
-                        "red-text text-accent-4' title='Deactivate' value='" + order.intSalesID + "'><i class='material-icons'>delete</i></button></center>";
+                        "red-text text-accent-4' title='Deactivate' value='" + order.intSalesID + "' onclick='PSDeactivate(this.value)'>" +
+                        "<i class='material-icons'>delete</i></button></center>";
                     if (order.intType == 1) {
                         x = "Delivery";
+                        if (order.strStatus == "REQUEST") {
+                            addbtn = "<center><button class='waves-effect waves-light modal-trigger btn-flat transparent black-text' " +
+                                "title='Update' onclick='acceptOrder(this.value)' value='" + order.intSalesID + "' style='padding: 0px;'>" +
+                                "<i class='material-icons'>check_circle</i></button><button class='prodsalesdeacbtn waves-effect waves-light btn-flat transparent " +
+                                "red-text text-accent-4' title='Deactivate' value='" + order.intSalesID + "' onclick='declineOrder(this.value)'>" +
+                                "<i class='material-icons'>cancel</i></button></center>";
+                        }
                     } else if (order.intType == 2) {
                         x = "Pick up";
+                        if (order.strStatus == "REQUEST") {
+                            addbtn = "<center><button class='waves-effect waves-light modal-trigger btn-flat transparent black-text' " +
+                                "title='Update' onclick='acceptOrder(this.value)' value='" + order.intSalesID + "' style='padding: 0px;'>" +
+                                "<i class='material-icons'>check_circle</i></button><button class='prodsalesdeacbtn waves-effect waves-light btn-flat transparent " +
+                                "red-text text-accent-4' title='Deactivate' value='" + order.intSalesID + "' onclick='declineOrder(this.value)'>" +
+                                "<i class='material-icons'>cancel</i></button></center>";
+                        }
                     }
                     table.row.add([
                         order.strName,
@@ -134,7 +149,7 @@ function crpsCheckbtn(checkbtnid) {
                 showqty = parseInt($qty);
                 $('#pslist #x' + checkbtnid + '').remove();
                 $('#pslist #item' + checkbtnid + ' .span').append('<span class="grey-text text-darken-3" id="x' + checkbtnid + '"> (' + showqty + ')</span>');
-            } else if ( $qty == q ) {
+            } else if ($qty == q) {
 
             } else {
 
@@ -143,7 +158,7 @@ function crpsCheckbtn(checkbtnid) {
         });
 
         $pricefield.keydown(function (e) {
-            if( e.which == 8 && ( document.activeElement.id == 'ps' + checkbtnid) ){
+            if (e.which == 8 && ( document.activeElement.id == 'ps' + checkbtnid)) {
                 e.preventDefault();
                 return false;
             }
@@ -187,4 +202,36 @@ function crpsCheckbtn(checkbtnid) {
         $('#ps' + checkbtnid).val(1);
     });
 
+}
+
+
+function PSDeactivate(prodsaleid) {
+    var deactivatePS = {
+        'intOrderID': prodsaleid
+    }
+    console.log(prodsaleid);
+    var $tr = $(this).closest('tr');
+
+    swal({
+            title: "Are you sure?",
+            text: "",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        },
+        function () {
+            swal("Deleted!", ".", "success");
+            $.ajax({
+                type: 'post',
+                url: 'declineOrder',
+                data: deactivatePS,
+                success: function (response) {
+                    $tr.find('td').fadeOut(500, function () {
+                        $tr.remove();
+                    });
+                }
+            });
+        });
 }
