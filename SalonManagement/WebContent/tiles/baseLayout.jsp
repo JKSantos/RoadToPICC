@@ -353,6 +353,10 @@
         height: inherit;
     }
 
+    .background {
+        background-color: green;
+    }
+
 </style>
 
 

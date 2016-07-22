@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="beee3b1d-1b58-4f3c-911f-cce62a03b819" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SalonManagement/WebContent/js/ProductsSales/ajax.js" afterPath="$PROJECT_DIR$/SalonManagement/WebContent/js/ProductsSales/ajax.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SalonManagement/WebContent/js/maintenance-emp.js" afterPath="$PROJECT_DIR$/SalonManagement/WebContent/js/maintenance-emp.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SalonManagement/WebContent/tiles/baseLayout.jsp" afterPath="$PROJECT_DIR$/SalonManagement/WebContent/tiles/baseLayout.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SalonManagement/build/classes/com/gss/connection/JDBCConnection.class" afterPath="$PROJECT_DIR$/SalonManagement/build/classes/com/gss/connection/JDBCConnection.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SalonManagement/src/com/gss/connection/JDBCConnection.java" afterPath="$PROJECT_DIR$/SalonManagement/src/com/gss/connection/JDBCConnection.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data.sql" afterPath="$PROJECT_DIR$/data.sql" />
     </list>
     <ignored path="RoadToPICC.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -44,20 +49,30 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ajax.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ajax.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/ProductsSales/ajax.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="35" column="46" selection-start-line="35" selection-start-column="46" selection-end-line="35" selection-end-column="46" />
+            <state relative-caret-position="3298">
+              <caret line="208" column="25" selection-start-line="208" selection-start-column="25" selection-end-line="208" selection-end-column="25" />
               <folding>
-                <marker date="1469213680215" expanded="true" signature="761:774" ph="..." />
-                <marker date="1469213680215" expanded="true" signature="1557:1570" ph="..." />
-                <marker date="1469213680215" expanded="true" signature="2417:2430" ph="..." />
-                <marker date="1469213680215" expanded="true" signature="4201:4212" ph="..." />
-                <marker date="1469213680215" expanded="true" signature="4201:4272" ph="..." />
-                <marker date="1469213680215" expanded="true" signature="7588:7600" ph="..." />
-                <marker date="1469213680215" expanded="true" signature="7940:7984" ph="..." />
+                <marker date="1469216499534" expanded="true" signature="761:774" ph="..." />
+                <marker date="1469216499534" expanded="true" signature="1590:1603" ph="..." />
+                <marker date="1469216499534" expanded="true" signature="2482:2495" ph="..." />
+                <marker date="1469216499534" expanded="true" signature="4297:4308" ph="..." />
+                <marker date="1469216499534" expanded="true" signature="4297:4368" ph="..." />
+                <marker date="1469216499534" expanded="true" signature="7684:7696" ph="..." />
+                <marker date="1469216499534" expanded="true" signature="8036:8080" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="struts-productsales.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/classes/struts-productsales.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="47" column="17" selection-start-line="47" selection-start-column="17" selection-end-line="47" selection-end-column="17" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -72,18 +87,18 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="maintenance-emp.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="maintenance-emp.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/maintenance-emp.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="1089" column="46" selection-start-line="1089" selection-start-column="46" selection-end-line="1089" selection-end-column="46" />
+            <state relative-caret-position="476">
+              <caret line="1095" column="77" selection-start-line="1095" selection-start-column="77" selection-end-line="1095" selection-end-column="77" />
               <folding>
-                <marker date="1469214362744" expanded="true" signature="15397:15448" ph="..." />
-                <marker date="1469214362744" expanded="true" signature="15626:15677" ph="..." />
-                <marker date="1469214362744" expanded="true" signature="20827:20839" ph="..." />
-                <marker date="1469214362744" expanded="true" signature="21124:21152" ph="..." />
-                <marker date="1469214362744" expanded="true" signature="22041:22053" ph="..." />
-                <marker date="1469214362744" expanded="true" signature="22338:22366" ph="..." />
+                <marker date="1469215180377" expanded="true" signature="15397:15448" ph="..." />
+                <marker date="1469215180377" expanded="true" signature="15626:15677" ph="..." />
+                <marker date="1469215180377" expanded="true" signature="20827:20839" ph="..." />
+                <marker date="1469215180377" expanded="true" signature="21124:21152" ph="..." />
+                <marker date="1469215180377" expanded="true" signature="22041:22053" ph="..." />
+                <marker date="1469215180377" expanded="true" signature="22338:22366" ph="..." />
               </folding>
             </state>
           </provider>
@@ -106,8 +121,8 @@
       <file leaf-file-name="baseLayout.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/baseLayout.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="467" column="0" selection-start-line="467" selection-start-column="0" selection-end-line="467" selection-end-column="0" />
+            <state relative-caret-position="318">
+              <caret line="355" column="15" selection-start-line="355" selection-start-column="5" selection-end-line="355" selection-end-column="15" />
               <folding>
                 <element signature="n#style#0;n#li#0;n#ul#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -177,11 +192,11 @@
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/classes/struts-reservation.xml" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/maintenance-promo.jsp" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/maintenance-extra.jsp" />
-        <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/baseLayout.jsp" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/stepform.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/maintenance-discount.jsp" />
-        <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/ProductsSales/ajax.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/maintenance-emp.js" />
+        <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/baseLayout.jsp" />
+        <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/ProductsSales/ajax.js" />
       </list>
     </option>
   </component>
@@ -439,15 +454,15 @@
       <workItem from="1468747971014" duration="98592000" />
       <workItem from="1468930835834" duration="27902000" />
       <workItem from="1469059421845" duration="3583000" />
-      <workItem from="1469115472680" duration="58022000" />
+      <workItem from="1469115472680" duration="60549000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="349591000" />
+    <option name="totallyTimeSpent" value="352118000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18814056" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
@@ -781,16 +796,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/baseLayout.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="467" column="0" selection-start-line="467" selection-start-column="0" selection-end-line="467" selection-end-column="0" />
-          <folding>
-            <element signature="n#style#0;n#li#0;n#ul#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/maintenance-package.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
@@ -823,22 +828,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3344">
           <caret line="363" column="106" selection-start-line="363" selection-start-column="106" selection-end-line="363" selection-end-column="106" />
-          <folding>
-            <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#div#2;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#textarea#0;n#div#1;n#div#0;n#div#2;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#div#0;n#div#2;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#textarea#0;n#div#2;n#div#0;n#div#2;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#div#3;n#div#0;n#div#2;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#li#0;n#ul#0;n#div#1;n#div#0;n#div#3;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/classes/struts-productsales.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="53" column="34" selection-start-line="53" selection-start-column="22" selection-end-line="53" selection-end-column="34" />
           <folding />
         </state>
       </provider>
@@ -851,6 +840,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/baseLayout.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="355" column="15" selection-start-line="355" selection-start-column="5" selection-end-line="355" selection-end-column="15" />
+          <folding>
+            <element signature="n#style#0;n#li#0;n#ul#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-productorder.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -859,33 +858,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/ProductsSales/ajax.js">
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/classes/struts-productsales.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="35" column="46" selection-start-line="35" selection-start-column="46" selection-end-line="35" selection-end-column="46" />
-          <folding>
-            <marker date="1469213680215" expanded="true" signature="761:774" ph="..." />
-            <marker date="1469213680215" expanded="true" signature="1557:1570" ph="..." />
-            <marker date="1469213680215" expanded="true" signature="2417:2430" ph="..." />
-            <marker date="1469213680215" expanded="true" signature="4201:4212" ph="..." />
-            <marker date="1469213680215" expanded="true" signature="4201:4272" ph="..." />
-            <marker date="1469213680215" expanded="true" signature="7588:7600" ph="..." />
-            <marker date="1469213680215" expanded="true" signature="7940:7984" ph="..." />
-          </folding>
+        <state relative-caret-position="340">
+          <caret line="47" column="17" selection-start-line="47" selection-start-column="17" selection-end-line="47" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/maintenance-emp.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="1089" column="46" selection-start-line="1089" selection-start-column="46" selection-end-line="1089" selection-end-column="46" />
+        <state relative-caret-position="476">
+          <caret line="1095" column="77" selection-start-line="1095" selection-start-column="77" selection-end-line="1095" selection-end-column="77" />
           <folding>
-            <marker date="1469214362744" expanded="true" signature="15397:15448" ph="..." />
-            <marker date="1469214362744" expanded="true" signature="15626:15677" ph="..." />
-            <marker date="1469214362744" expanded="true" signature="20827:20839" ph="..." />
-            <marker date="1469214362744" expanded="true" signature="21124:21152" ph="..." />
-            <marker date="1469214362744" expanded="true" signature="22041:22053" ph="..." />
-            <marker date="1469214362744" expanded="true" signature="22338:22366" ph="..." />
+            <marker date="1469215180377" expanded="true" signature="15397:15448" ph="..." />
+            <marker date="1469215180377" expanded="true" signature="15626:15677" ph="..." />
+            <marker date="1469215180377" expanded="true" signature="20827:20839" ph="..." />
+            <marker date="1469215180377" expanded="true" signature="21124:21152" ph="..." />
+            <marker date="1469215180377" expanded="true" signature="22041:22053" ph="..." />
+            <marker date="1469215180377" expanded="true" signature="22338:22366" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/ProductsSales/ajax.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3298">
+          <caret line="208" column="25" selection-start-line="208" selection-start-column="25" selection-end-line="208" selection-end-column="25" />
+          <folding>
+            <marker date="1469216499534" expanded="true" signature="761:774" ph="..." />
+            <marker date="1469216499534" expanded="true" signature="1590:1603" ph="..." />
+            <marker date="1469216499534" expanded="true" signature="2482:2495" ph="..." />
+            <marker date="1469216499534" expanded="true" signature="4297:4308" ph="..." />
+            <marker date="1469216499534" expanded="true" signature="4297:4368" ph="..." />
+            <marker date="1469216499534" expanded="true" signature="7684:7696" ph="..." />
+            <marker date="1469216499534" expanded="true" signature="8036:8080" ph="..." />
           </folding>
         </state>
       </provider>

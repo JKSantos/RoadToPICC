@@ -1087,16 +1087,16 @@ function createProductSale() {
         async: true,
         success: function (data) {
             if (data.status === 'success') {
-                swal({   title: "Are you sure?",
+                swal({   title: "Submit?",
                         text: "", showCancelButton: true,
                         closeOnConfirm: false,
                         showLoaderOnConfirm: true, },
                     function(){
                         setTimeout(function(){
-                            swal("Successful!", "success");
+                            swal("Order was successfully submitted!", "success");
                             updatePSTable();
                             $('#crProductSales').closeModal();
-                        }, 2000);
+                        }, 1000);
                     });
 
             } else {

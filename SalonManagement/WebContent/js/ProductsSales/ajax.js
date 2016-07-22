@@ -26,17 +26,18 @@ function updatePSTable() {
                         x = "Delivery";
                         if (order.strStatus == "REQUEST") {
                             addbtn = "<center><button class='waves-effect waves-light modal-trigger btn-flat transparent black-text' " +
-                                "title='Update' onclick='acceptOrder(this.value)' value='" + order.intSalesID + "' style='padding: 0px;'>" +
-                                "<i class='material-icons'>check_circle</i></button><button class='prodsalesdeacbtn waves-effect waves-light btn-flat transparent " +
+                                "title='Update' onclick='acceptOrder(this.value)' id='acc" + order.intSalesID + "' value='" + order.intSalesID + "' style='padding: 0px;'>" +
+                                "<i class='material-icons light-green-text text-darken-3'>check_circle</i></button><button class='prodsalesdeacbtn waves-effect waves-light btn-flat transparent " +
                                 "red-text text-accent-4' title='Deactivate' value='" + order.intSalesID + "' onclick='declineOrder(this.value)'>" +
                                 "<i class='material-icons'>cancel</i></button></center>";
+
                         }
                     } else if (order.intType == 2) {
                         x = "Pick up";
                         if (order.strStatus == "REQUEST") {
                             addbtn = "<center><button class='waves-effect waves-light modal-trigger btn-flat transparent black-text' " +
                                 "title='Update' onclick='acceptOrder(this.value)' value='" + order.intSalesID + "' style='padding: 0px;'>" +
-                                "<i class='material-icons'>check_circle</i></button><button class='prodsalesdeacbtn waves-effect waves-light btn-flat transparent " +
+                                "<i class='material-icons light-green-text text-darken-3'>check_circle</i></button><button class='prodsalesdeacbtn waves-effect waves-light btn-flat transparent " +
                                 "red-text text-accent-4' title='Deactivate' value='" + order.intSalesID + "' onclick='declineOrder(this.value)'>" +
                                 "<i class='material-icons'>cancel</i></button></center>";
                         }
@@ -201,6 +202,44 @@ function crpsCheckbtn(checkbtnid) {
         $('#ps' + checkbtnid + '').attr('disabled', true);
         $('#ps' + checkbtnid).val(1);
     });
+
+}
+
+function acceptOrder(orderid) {
+    console.log(orderid);
+    swal({
+            title: "Accept?",
+            text: "",
+            type: "info",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+        },
+        function () {
+            setTimeout(function () {
+                $.ajax({
+                    url: 'acceptOrder',
+                    type: 'post',
+                    data: {
+                        "intOrderID": orderid
+                    },
+                    dataType: 'json',
+                    async: true,
+                    success: function (data) {
+                        if (data.result === "success") {
+                            swal("Order was successfully accepted!", "success");
+                            updatePSTable();
+                        } else {
+                            sweetAlert("Oops...", "Something went wrong!", "error");
+                            alert('dasdasd');
+                        }
+                    },
+                    error: function (data) {
+                        sweetAlert("Oops...", "Something went wrong!", "error");
+                    }
+                })
+            }, 2000);
+        });
 
 }
 
