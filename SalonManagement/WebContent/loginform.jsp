@@ -21,7 +21,7 @@
 
   <div id="login-page" class="row">
       <div class="col s12 z-depth-4 card-panel">
-          <form class="login-form" action=login>
+          <form class="login-form" method="post" action=login>
               <div class="row">
                   <div class="input-field col s12 center">
                       <img src="./img/logo.png" style="height: 180px;" alt="" class="circle responsive-img valign profile-image-login">

@@ -72,6 +72,11 @@
         <put-attribute name="title"			value="Reservation"/>
         <put-attribute name="body"			value="/tiles/transactions-reservation.jsp"/>
     </definition>
+    
+    <definition name="transWalkIn" extends="baseLayout">
+        <put-attribute name="title"			value="Walk In"/>
+        <put-attribute name="body"			value="/tiles/transactions-reservation.jsp"/>
+    </definition>
 
     <definition name="home" extends="baseLayout">
     	<put-attribute name="title"			value="Home"/>

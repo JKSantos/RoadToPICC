@@ -95,8 +95,6 @@ public class CreatePromoAction {
 					}
 				}
 			}
-			
-			System.out.println(productList.size());
 		}
 		if(!packagePromoSelect.equals("")){
 			
