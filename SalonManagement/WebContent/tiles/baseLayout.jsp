@@ -97,7 +97,7 @@
                     <div class="collapsible-body">
                         <ul class="navul">
                             <li><a href="getInventory">Inventory</a></li>
-                            <li><a href="transactions-walkin.jsp">Walk In</a></li>
+                            <li><a href="transWalkIn">Walk In</a></li>
                             <li><a href="transReserve">Reservation</a></li>
                             <li><a href="productsales">Product Sales</a></li>
                             <li><a href="transactions-vip.jsp">Payment</a></li>
@@ -355,6 +355,20 @@
 
     .background {
         background-color: green;
+    }
+    
+    #createReservationModal {
+        width: 600px !important;
+        height: 590px !important;
+        max-height: 100% !important;
+        margin-top: -30px !important;
+    }
+    
+    #createWalkinModal {
+        width: 600px !important;
+        height: 590px !important;
+        max-height: 100% !important;
+        margin-top: -30px !important;
     }
 
 </style>

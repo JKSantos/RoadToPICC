@@ -334,3 +334,138 @@ hideButtonsDisc = function(currentDisc){
     if(currentDisc > 1) discbtnback.show();
 }
 //discount
+
+//reservation
+$(document).ready(function(){
+    var currentReserve = 1;
+
+    reservewidget      = $(".stepreservation");
+    reservebtnback     = $(".backformreserve");
+    reservebtnnext     = $(".nextformreserve");
+    reservebtnsubmit   = $(".submitformreserve");
+
+    // Init buttons and UI
+    reservewidget.not(':eq(0)').hide();
+    hideButtonsReserve(currentReserve);
+    setProgressReserve(currentReserve);
+
+    // Next button click action
+    reservebtnnext.click(function(){
+
+        if($('#createReservationForm').valid()){
+            if(currentReserve < reservewidget.length){
+                reservewidget.show();
+                reservewidget.not(':eq('+(currentReserve++)+')').hide();
+                setProgressReserve(currentReserve);
+            }
+            hideButtonsReserve(currentReserve);
+        }
+    });
+    // Back button click action
+    reservebtnback.click(function(){
+        if(currentReserve > 1){
+            currentReserve = currentReserve - 2;
+            if(currentReserve < reservewidget.length){
+                reservewidget.show();
+                reservewidget.not(':eq('+(currentReserve++)+')').hide();
+                setProgressReserve(currentReserve);
+            }
+        }
+        hideButtonsReserve(currentReserve);
+    });
+
+    // reservebtnsubmit.submit(function(){
+    //    $('#createPromoForm').submit(function(){
+    //       alert("submitted");
+    //    });
+    // });
+
+});
+
+setProgressReserve = function(currstepReserve){
+    var percent = parseFloat(100 / reservewidget.length) * currstepReserve;
+    percent = percent.toFixed();
+    $("#createReservationForm .determinate")
+        .css("width",percent+"%")
+        .html(percent+"%").css("font-size", "15px");
+}
+
+// Hide buttons according to the current step
+hideButtonsReserve = function(currentReserve){
+    var limit = parseInt(reservewidget.length);
+
+    $(".actionreserve").hide();
+
+    if(currentReserve < limit) reservebtnnext.show();
+    if (currentReserve == limit) { reservebtnnext.hide(); reservebtnsubmit.show(); }
+    if(currentReserve > 1) reservebtnback.show();
+}
+//end reservation
+
+
+//walkin
+$(document).ready(function(){
+    var currentWalkin = 1;
+
+    walkinwidget      = $(".stepwalkin");
+    walkinbtnback     = $(".backformwalkin");
+    walkinbtnnext     = $(".nextformwalkin");
+    walkinbtnsubmit   = $(".submitformwalkin");
+
+    // Init buttons and UI
+    walkinwidget.not(':eq(0)').hide();
+    hideButtonsWalkin(currentWalkin);
+    setProgressWalkin(currentWalkin);
+
+    // Next button click action
+    walkinbtnnext.click(function(){
+
+        if($('#createWalkinForm').valid()){
+            if(currentWalkin < walkinwidget.length){
+                walkinwidget.show();
+                walkinwidget.not(':eq('+(currentWalkin++)+')').hide();
+                setProgressWalkin(currentWalkin);
+            }
+            hideButtonsWalkin(currentWalkin);
+        }
+    });
+    // Back button click action
+    walkinbtnback.click(function(){
+        if(currentWalkin > 1){
+            currentWalkin = currentWalkin - 2;
+            if(currentWalkin < walkinwidget.length){
+                walkinwidget.show();
+                walkinwidget.not(':eq('+(currentWalkin++)+')').hide();
+                setProgressWalkin(currentWalkin);
+            }
+        }
+        hideButtonsWalkin(currentWalkin);
+    });
+
+    // reservebtnsubmit.submit(function(){
+    //    $('#createPromoForm').submit(function(){
+    //       alert("submitted");
+    //    });
+    // });
+
+});
+
+setProgressWalkin = function(currstepWalkin){
+    var percent = parseFloat(100 / walkinwidget.length) * currstepWalkin;
+    percent = percent.toFixed();
+    $("#createWalkinForm .determinate")
+        .css("width",percent+"%")
+        .html(percent+"%").css("font-size", "15px");
+}
+
+// Hide buttons according to the current step
+hideButtonsWalkin = function(currentWalkin){
+    var limit = parseInt(walkinwidget.length);
+
+    $(".actionwalkin").hide();
+
+    if(currentWalkin < limit) walkinbtnnext.show();
+    if (currentWalkin == limit) { walkinbtnnext.hide(); walkinbtnsubmit.show(); }
+    if(currentWalkin > 1) walkinbtnback.show();
+}
+//end walkin

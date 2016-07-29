@@ -75,7 +75,7 @@
     
     <definition name="transWalkIn" extends="baseLayout">
         <put-attribute name="title"			value="Walk In"/>
-        <put-attribute name="body"			value="/tiles/transactions-reservation.jsp"/>
+        <put-attribute name="body"			value="/tiles/transactions-walkin.jsp"/>
     </definition>
 
     <definition name="home" extends="baseLayout">

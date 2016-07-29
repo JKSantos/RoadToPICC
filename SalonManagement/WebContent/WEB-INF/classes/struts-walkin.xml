@@ -17,7 +17,7 @@
 		</result-types>
 		
 		<action name="transWalkIn" class="com.gss.actions.WalkIn.WalkInTransactionAction">
-			<result name="success" type="tiles">transReservation</result>
+			<result name="success" type="tiles">transWalkIn</result>
 			<result name="input">page-login-first.jsp</result>
 		</action>
 		

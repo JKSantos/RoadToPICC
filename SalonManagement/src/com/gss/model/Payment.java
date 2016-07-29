@@ -2,6 +2,9 @@ package com.gss.model;
 
 import java.util.Date;
 
+import com.gss.service.PaymentService;
+import com.gss.service.PaymentServiceImpl;
+
 public class Payment {
 	
 	private int intPaymentID;
@@ -71,10 +74,28 @@ public class Payment {
 			case 2:
 				converted = "COMPLEMENTARY PAYMENT";
 				break;
+			case 3:
+				converted = "FULL PAYMENT";
+				break;
 			default:
 				converted = "Update Payment.convertToString()";
 		}
 		
 		return converted;
+	}
+	
+	public static boolean createPayment(String paymentType, Payment payment){
+		
+		PaymentService service = new PaymentServiceImpl();
+		
+		if(paymentType.equals("reservation")){
+			return service.createReservationPayment(payment);
+		}
+		else if(paymentType.equals("walkin")){
+			return service.createWalkInPayment(payment);
+		}
+		else
+			return service.createProductSalesPayment(payment);
+		
 	}
 }

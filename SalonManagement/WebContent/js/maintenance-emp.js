@@ -1757,3 +1757,95 @@ $('#discounttbl').on('click', '.discountdeacbtn', function (e) {
             });
         });
 });
+
+
+$(document).ready(function () {
+    var reservationtbl = $('#reservationtbl').DataTable({
+        "bLengthChange": false,
+        responsive: true,
+        "order": [],
+        "columnDefs": [
+            {"targets": 'no-sort', "orderable": false},
+            {className: "dt-body-left", "targets": [0, 1,3, 2, 4]},
+            {className: "dt-body-right", "targets": [3]},
+            {className: "dt-head-center", "targets": [5]}
+        ],
+        "rowHeight": '10px'
+    });
+
+    $("#reservationSearch").bind('keyup search input paste cut', function () {
+        reservationtbl.search(this.value).draw();
+    });
+
+    $('.crReservation').click(function () {
+        $('#crdiscounttblProduct').parents('div.tablewrapper').first().show();
+        $('#crdiscounttblService').parents('div.tablewrapper').first().hide();
+        $('#crdiscounttblPackage').parents('div.tablewrapper').first().hide();
+        $('#crdiscounttblPromo').parents('div.tablewrapper').first().hide();
+    });
+});
+
+$(document).ready(function () {
+    var employeeReservationtbl = $('#employeeReservationtbl').DataTable({
+        "bLengthChange": false,
+        responsive: true,
+        "order": [],
+        "columnDefs": [
+            {"targets": 'no-sort', "orderable": false},
+            {className: "dt-body-left", "targets": [1]},
+            {className: "dt-body-center", "targets": [0]}
+        ],
+        "rowHeight": '10px'
+    });
+});
+
+
+
+////////////////////////
+
+
+$(document).ready(function () {
+    var walkintbl = $('#walkintbl').DataTable({
+        "bLengthChange": false,
+        responsive: true,
+        "order": [],
+        "columnDefs": [
+            {"targets": 'no-sort', "orderable": false},
+            {className: "dt-body-left", "targets": [0, 1,3]},
+            {className: "dt-head-center", "targets": [2, 4]}
+        ],
+        "rowHeight": '10px'
+    });
+
+    $("#walkinSearch").bind('keyup search input paste cut', function () {
+        walkintbl.search(this.value).draw();
+    });
+
+    var crWIServicetbl = $('#crWIServicetbl').DataTable({
+        "bLengthChange": false,
+        responsive: true,
+        "order": [],
+        "columnDefs": [
+            {"targets": 'no-sort', "orderable": false},
+            {className: "dt-body-left", "targets": [0, 1]},
+            {className: "dt-head-center", "targets": [3]},
+            {className: "dt-head-right", "targets": [2]}
+        ],
+        "rowHeight": '10px'
+    });
+
+    var crWIProducttbl = $('#crWIProducttbl').DataTable({
+        "bLengthChange": false,
+        responsive: true,
+        "order": [],
+        "columnDefs": [
+            {"targets": 'no-sort', "orderable": false},
+            {className: "dt-body-left", "targets": [0, 1]},
+            {className: "dt-head-center", "targets": [3]},
+            {className: "dt-head-right", "targets": [2]}
+        ],
+        "rowHeight": '10px'
+    });
+
+});
+
