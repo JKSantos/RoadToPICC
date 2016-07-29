@@ -3,6 +3,9 @@ package com.gss.model;
 import java.util.Date;
 import java.util.List;
 
+import com.gss.service.ProductSalesService;
+import com.gss.service.ProductSalesServiceImpl;
+
 public class ProductSales {
 
 	private int intSalesID;
@@ -105,6 +108,24 @@ public class ProductSales {
 
 	public void setDeliveryDate(Date deliveryDate) {
 		this.deliveryDate = deliveryDate;
+	}
+	
+	public static List<ProductSales> getAllProductSales(){
+		ProductSalesService service = new ProductSalesServiceImpl();
+		
+		return service.getAllProductSales();
+	}
+	
+	public static ProductSales search(int invoiceID, List<ProductSales> searchList){
+		
+		
+		
+		for(int index = 0; index < searchList.size(); index++){
+			
+			if(searchList.get(index).getIntInvoiceID() == invoiceID)
+				return searchList.get(index);
+		}
+		return null;
 	}
 
 }

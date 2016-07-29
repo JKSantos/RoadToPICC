@@ -30,6 +30,7 @@
 	<include file="struts-productsales.xml"></include>
 	<include file="struts-reservation.xml"></include>
 	<include file="struts-walkin.xml"></include>
+	<include file="struts-payment.xml"></include>
 
 	<package name="default" extends="struts-default, json-default" namespace="/">
 		<result-types>

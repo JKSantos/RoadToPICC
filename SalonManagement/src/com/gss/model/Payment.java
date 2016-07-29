@@ -1,17 +1,23 @@
 package com.gss.model;
 
+import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 
 import com.gss.service.PaymentService;
 import com.gss.service.PaymentServiceImpl;
 
 public class Payment {
 	
-	private int intPaymentID;
-	private int intInvoiceID;
-	private String strPaymentType;
-	private double dblPaymentAmount;
-	private Date datDateOfPayment;
+	private int intPaymentID;			//dummy data
+	private int intInvoiceID;			//real data
+	private String strPaymentType;		//"order", "walkin", or "reservation"
+	private double dblPaymentAmount;	//real data
+	private Date datDateOfPayment;		//dummy data
+	
+	/*	ang pagset ng data nyan galing sa jsp
+	 * 	gagamitin mong variables payment.intPaymentID, payment.intInvoiceID, payment.strPaymentType, etc.
+	 */
 
 	public Payment(int intPaymentID, int intInvoiceID, String strPaymentType, double dblPaymentAmount,
 			Date datDateOfPayment) {
@@ -84,7 +90,7 @@ public class Payment {
 		return converted;
 	}
 	
-	public static boolean createPayment(String paymentType, Payment payment){
+	public static boolean createPayment(String paymentType, Payment payment) throws SQLException{
 		
 		PaymentService service = new PaymentServiceImpl();
 		
@@ -97,5 +103,12 @@ public class Payment {
 		else
 			return service.createProductSalesPayment(payment);
 		
+	}
+	
+	public static List<ProductSales> getAllUnpaid() throws SQLException{
+		
+		PaymentService service = new PaymentServiceImpl();
+		
+		return service.getAllUnpaidOrder();
 	}
 }

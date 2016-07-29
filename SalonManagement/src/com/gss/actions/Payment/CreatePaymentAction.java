@@ -1,5 +1,7 @@
 package com.gss.actions.Payment;
 
+import java.sql.SQLException;
+
 import com.gss.model.Payment;
 
 public class CreatePaymentAction {
@@ -8,7 +10,7 @@ public class CreatePaymentAction {
 	private String paymentType;
 	private String result = "failed";
 	
-	public String execute(){
+	public String execute() throws SQLException{
 		
 		boolean recorded = Payment.createPayment(paymentType, payment);
 		
