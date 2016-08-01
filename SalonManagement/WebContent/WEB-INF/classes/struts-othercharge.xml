@@ -10,7 +10,7 @@
 	<constant name="struts.custom.i18n.resources"
 		value="ApplicationResources"/>
 		
-	<package name="othercharge" extends="struts-default" namespace="/">
+	<package name="othercharge" extends="struts-default, json-default" namespace="/">
 	
 		<result-types>
          	<result-type name="tiles" 
@@ -22,18 +22,17 @@
 		</action>
 
 		<action name="createExtraCharge" class="com.gss.actions.CreateExtraChargeAction" method="execute">
-			<result name="success">redirect-maintenance-extra.jsp</result>
-			<result name="failed">redirect-maintenance-extra.jsp</result>
+			<result name="success" type="json"/>
+			<result name="failed" type="json"/>
 		</action>
 
 		<action name="updateExtraCharge" class="com.gss.actions.UpdateExtraChargeAction" method="execute">
-			<result name="success">redirect-maintenance-extra.jsp</result>
-			<result name="failed">redirect-maintenance-extra.jsp</result>
+			<result name="success" type="json"/>
+			<result name="failed" type="json"/>
 		</action>
 		
 		<action name="deactivateExtraCharge" class="com.gss.actions.DeactivateExtraChargeAction" method="execute">
-			<result name="success">redirect-maintenance-extra.jsp</result>
-			<result name="failed">redirect-maintenance-extra.jsp</result>
+			<result name="success" type="json"/>
 		</action>
 	
 	</package>	

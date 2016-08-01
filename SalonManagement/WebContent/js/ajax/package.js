@@ -1,0 +1,625 @@
+/**
+ * Created by Castillo on 8/1/2016.
+ */
+window.onload = updatePackageTable();
+window.onload = createPackageProductTable();
+window.onload = createPackageServiceTable();
+window.onload = updatePackageProductTable();
+window.onload = updatePackageServiceTable();
+
+function updatePackageTable() {
+    $.ajax({
+        type: 'post',
+        url: 'api/v1/getAllPackage',
+        dataType: 'json',
+        async: true,
+        success: function (data) {
+            var packageList = data.packageList,
+                table = $('#packagetbl').DataTable();
+
+            if (packageList != null) {
+                table.clear().draw();
+                $.each(packageList, function (i, package) {
+                    var type;
+                    var addbtn = "<button class='waves-effect waves-purple modal-trigger btn-flat transparent black-text'" +
+                        "style='padding-left: 10px;padding-right:10px; margin: 5px;' value='" + package.intPackageID + "'" +
+                        "onclick='openUpdatePackage(this.value)'>" +
+                        "<i class='material-icons'>edit</i></button>" +
+                        "<button class='waves-effect waves-purple btn-flat transparent red-text text-accent-4'" +
+                        "style='padding-left: 10px;padding-right:10px; margin: 5px;' title='Deactivate'>" +
+                        "<i class='material-icons'>delete</i></button>";
+                    if (package.intPackageType == 1) {
+                        type = 'Event';
+                    } else if (package.intPackageType == 2) {
+                        type = 'Home Service';
+                    } else if (package.intPackageType == 3) {
+                        type = 'Walk-In';
+                    } else if (package.intPackageType == 4) {
+                        type = 'Event, Home Service';
+                    } else if (package.intPackageType == 5) {
+                        type = 'Event, Walk In';
+                    } else if (package.intPackageType == 6) {
+                        type = 'Walk In, Home Service';
+                    } else {
+                        type = 'Event, Home Service, Walk In';
+                    }
+                    table.row.add([
+                        package.strPackageName,
+                        type,
+                        package.strPackageDesc,
+                        addbtn
+                    ]);
+                });
+                table.draw();
+            }
+        }
+    });
+}
+
+function addCommas(nStr) {
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
+}
+
+function createPackageProductTable() {
+    $.ajax({
+        type: 'post',
+        url: 'api/v1/getAllProduct',
+        dataType: 'json',
+        async: true,
+        success: function (data) {
+            var productList = data.productList,
+                table = $('#crpacktblProd').DataTable({
+                    "bLengthChange": false,
+                    "sPaginationType": "full_numbers",
+                    responsive: true,
+                    "order": [],
+                    "columnDefs": [
+                        {"targets": 'no-sort', "orderable": false},
+                        {className: "dt-body-left", "targets": [1, 2]},
+                        {className: "dt-body-center", "targets": [0]},
+                        {className: "dt-head-right", "targets": [3, 4]},
+                        {"targets": [4], "width": "100px"}
+                    ],
+                    "rowHeight": '10px'
+                });
+
+            $("#crpackageSearch").bind('keyup search input paste cut', function () {
+                table.search(this.value).draw();
+            });
+
+            if (productList != null) {
+                table.clear().draw();
+                $.each(productList, function (i, product) {
+                    var price = parseFloat(product.dblProductPrice).toFixed(2);
+                    price = addCommas(price);
+                    var checkbox = "<input type='checkbox' name='createPackProdType' id='prodCheck" + product.intProductID + "' required" +
+                            " class='packcheckbox x" + product.intProductID + "' value='" + product.intProductID + "' onclick='compute(this.value)'>" +
+                            "<label for='prodCheck" + product.intProductID + "'></label>",
+                        quantity = "<input type='number' class='right-align rowQty' name='createPackProdQty'" +
+                            " id='prodqty" + product.intProductID + "' disabled style='width: 75px' min='1' max='99' value='1' maxlength='2'>";
+                    price = "<span class='price'>P " + price + "</span>";
+
+                    table.row.add([
+                        checkbox,
+                        product.strProductName,
+                        product.strProductCategory,
+                        price,
+                        quantity
+                    ]);
+                });
+                table.draw();
+            }
+        }
+    });
+}
+
+function createPackageServiceTable() {
+    $.ajax({
+        type: 'post',
+        url: 'api/v1/getAllService',
+        dataType: 'json',
+        async: true,
+        success: function (data) {
+            var serviceList = data.serviceList,
+                table = $('#crpacktblServ').DataTable({
+                    "bLengthChange": false,
+                    "sPaginationType": "full_numbers",
+                    responsive: true,
+                    "order": [],
+                    "columnDefs": [
+                        {"targets": 'no-sort', "orderable": false},
+                        {className: "dt-body-left", "targets": [1, 2]},
+                        {className: "dt-body-center", "targets": [0]},
+                        {className: "dt-head-right", "targets": [4]}
+                    ],
+                    "rowHeight": '10px'
+                });
+
+            $("#crpackageSearch").bind('keyup search input paste cut', function () {
+                table.search(this.value).draw();
+            });
+
+            if (serviceList != null) {
+                table.clear().draw();
+                $.each(serviceList, function (i, service) {
+                    var price = parseFloat(service.dblServicePrice).toFixed(2);
+                    price = addCommas(price);
+                    var checkbox = "<input type='checkbox' name='createPackServType' id='myCheckBox" + service.intServiceID + "' required" +
+                            " class='packcheckbox x" + service.intServiceID + "' value='" + service.intServiceID + "' onclick='serviceCompute(this.value)'>" +
+                            "<label for='myCheckBox" + service.intServiceID + "'></label>",
+                        quantity = "<input type='number' class='right-align rowQty' name='createPackServQty'" +
+                            " id='svc" + service.intServiceID + "' disabled style='width: 75px' min='1' max='99' value='1' maxlength='2'>";
+                    price = "<span class='price'>P " + price + "</span>";
+
+                    table.row.add([
+                        checkbox,
+                        service.strServiceName,
+                        service.strServiceCategory,
+                        price,
+                        quantity
+                    ]);
+                });
+                table.draw();
+            }
+        }
+    });
+}
+//CREATE PACKAGE
+var q = 0, // temporary quantity
+    $qty = 0, //main quantity
+    total = 0, //total
+    i = 0,
+    chk = 0;
+function compute(id) {
+    var productID = $('#prodCheck' + id);
+    if (productID.is(':checked')) { //if product checkbox is checked
+        var $prodTR = productID.closest('tr'), // PRODUCT TR
+            prodPrice = $prodTR.find('td:eq(3)').text(),
+            $productPrice = parseFloat(prodPrice.replace(/[^\d.]/g, '')).toFixed(2), // PRODUCT PRICE (CONVERTED ALREADY)
+            $productQtyField = $prodTR.find('td #prodqty' + id), // quantity field of product
+            productquantity = parseFloat($productQtyField.val()).toFixed(2);
+
+        chk = chk + 1;
+        console.log(chk);
+        if(chk < 1) {
+            $('#createSubmitForm').attr('disabled', true).css('opacity', '0.3');
+        } else if(chk > 0) {
+            $('#createSubmitForm').attr('disabled', false).css('opacity', '1');
+        }
+
+        $('#prodqty' + id).attr('disabled', false);
+
+        $productQtyField.focus(function () {
+            q = parseFloat($prodTR.find('td #prodqty' + id).val()).toFixed(2);
+            $qty = parseFloat($prodTR.find('td #prodqty' + id).val()).toFixed(2);
+        });
+
+        $qty = productquantity;
+        total += $qty * $productPrice;
+        $('#crPackTotal').val("Php " + parseFloat(total).toFixed(2));
+        $('#crPackPrice').val("Php " + parseFloat(total).toFixed(2));
+
+        q = productquantity;
+        var prodshowqty = parseInt($qty); // for display quantity in selected items
+        $productQtyField.on('input', function () {
+            $qty = parseFloat($prodTR.find('td #prodqty' + id).val()).toFixed(2);
+            if ($qty > q) {
+                total += ($qty - q) * $productPrice;
+                prodshowqty = parseInt($qty);
+                total = Math.abs(total);
+                $('#crPackTotal').val("Php " + parseFloat(total).toFixed(2));
+                $('#crPackPrice').val("Php " + parseFloat(total).toFixed(2));
+                $('#pslist #prodx' + id + '').remove();
+                $('#pslist #proditem' + id + ' .span').append('<span class="grey-text text-darken-3" id="prodx' + id + '"> (' + prodshowqty + ')</span>');
+            } else if (q > $qty) {
+                total -= (q - $qty) * $productPrice;
+                total = Math.abs(total);
+                prodshowqty = parseInt($qty);
+                $('#crPackTotal').val("Php " + parseFloat(total).toFixed(2));
+                $('#crPackPrice').val("Php " + parseFloat(total).toFixed(2));
+                $('#pslist #prodx' + id + '').remove();
+                $('#pslist #proditem' + id + ' .span').append('<span class="grey-text text-darken-3" id="prodx' + id + '"> (' + prodshowqty + ')</span>');
+            } else {
+
+            }
+            q = $qty;
+        });
+
+        var prodName = $prodTR.find('td:eq(1)').text();
+
+        $('#pslist').append('<div style="margin: 3px;" class="chip z-depth-1 grey lighten-3 grey-text text-darken-4"' +
+            'id="proditem' + id + '"><b>' + prodName + '</b><span class="span"><span class="grey-text text-darken-3" id="prodx' + id + '">' +
+            ' (' + prodshowqty + ')</span></span>' + '<i id="prodchip' + id + '" class="material-icons" style="margin-right: 5px' +
+            '!important">close</i></div>').show();
+
+    } else if (!(productID.is(':checked'))) {
+        chk = chk - 1;
+        console.log(chk);
+        if(chk < 1) {
+            $('#createSubmitForm').attr('disabled', true).css('opacity', '0.3');
+        } else if(chk > 0) {
+            $('#createSubmitForm').attr('disabled', false).css('opacity', '1');
+        }
+
+        var prodidqty = $('#prodqty' + id),
+            $unprodTR = productID.closest('tr'),
+            unprice = $unprodTR.find('td:eq(3)').text(),
+            $unprice = parseFloat(unprice.replace(/[^\d.]/g, '')).toFixed(2);
+        $qty = parseFloat($unprodTR.find('td #prodqty' + id).val()).toFixed(2);
+        total = total - ($qty * $unprice);
+        total = Math.abs(total);
+        $('#crPackTotal').val("Php " + parseFloat(total).toFixed(2));
+        $('#crPackPrice').val("Php " + parseFloat(total).toFixed(2));
+
+        $('#proditem' + id).remove();
+        prodidqty.attr('disabled', true);
+        prodidqty.val(1);
+
+    }
+
+    $('#prodchip' + id).click(function () {
+        chk = chk - 1;
+        console.log(chk);
+        if(chk < 1) {
+            $('#createSubmitForm').attr('disabled', true).css('opacity', '0.3');
+        } else if(chk > 0) {
+            $('#createSubmitForm').attr('disabled', false).css('opacity', '1');
+        }
+
+        var prodchipqty = $('#prodqty' + id),
+            $utr = productID.closest('tr'),
+            unchipprice = $utr.find('td:eq(3)').text(),
+            $unchipprice = parseFloat(unchipprice.replace(/[^\d.]/g, '')).toFixed(2);
+        $qty = parseFloat($utr.find('td #prodqty' + id).val()).toFixed(2);
+        total = total - ($qty * $unchipprice);
+        total = Math.abs(total);
+        $('#crPackTotal').val("Php " + parseFloat(total).toFixed(2));
+        $('#crPackPrice').val("Php " + parseFloat(total).toFixed(2));
+
+        $('#proditem' + id).remove();
+        $('#prodCheck' + id).prop('checked', false);
+        prodchipqty.attr('disabled', true);
+        prodchipqty.val(1);
+    });
+
+
+}
+
+function serviceCompute(id) {
+
+    var serviceID = $('#myCheckBox' + id);
+    if (serviceID.is(':checked')) { //if service checkbox is checked
+        $('#svc' + id).attr('disabled', false);
+        //
+        chk = chk + 1;
+        console.log(chk);
+        if(chk < 1) {
+            $('#createSubmitForm').attr('disabled', true).css('opacity', '0.3');
+        } else if(chk > 0) {
+            $('#createSubmitForm').attr('disabled', false).css('opacity', '1');
+        }
+        //
+        var $servTR = serviceID.closest('tr'), // SERVICE TR
+            servPrice = $servTR.find('td:eq(3)').text(),
+            $servicePrice = parseFloat(servPrice.replace(/[^\d.]/g, '')).toFixed(2), //SERVICE PRICE (CONVERTED ALREADY)
+            $serviceQtyField = $servTR.find('td #svc' + id), // quantity field of service
+            servicequantity = parseFloat($serviceQtyField.val()).toFixed(2);
+        $serviceQtyField.focus(function () {
+            q = parseFloat($servTR.find('td #svc' + id).val()).toFixed(2);
+            $qty = parseFloat($servTR.find('td #svc' + id).val()).toFixed(2);
+        });
+
+        $qty = servicequantity;
+        total += $qty * $servicePrice;
+        $('#crPackTotal').val("Php " + parseFloat(total).toFixed(2));
+        $('#crPackPrice').val("Php " + parseFloat(total).toFixed(2));
+        q = servicequantity;
+        var servshowqty = parseInt($qty);
+
+        $serviceQtyField.on('input', function () {
+            $qty = parseFloat($servTR.find('td #svc' + id).val()).toFixed(2);
+            if ($qty > q) {
+                total += ($qty - q) * $servicePrice;
+                servshowqty = parseInt($qty);
+                total = Math.abs(total);
+                $('#crPackTotal').val("Php " + parseFloat(total).toFixed(2));
+                $('#crPackPrice').val("Php " + parseFloat(total).toFixed(2));
+                $('#pslist #servx' + id + '').remove();
+                $('#pslist #servitem' + id + ' .span').append('<span class="grey-text text-darken-3" id="servx' + id + '"> (' + servshowqty + ')</span>');
+            } else if (q > $qty) {
+                total -= (q - $qty) * $productPrice;
+                total = Math.abs(total);
+                servshowqty = parseInt($qty);
+                $('#crPackTotal').val("Php " + parseFloat(total).toFixed(2));
+                $('#crPackPrice').val("Php " + parseFloat(total).toFixed(2));
+                $('#pslist #servx' + id + '').remove();
+                $('#pslist #servitem' + id + ' .span').append('<span class="grey-text text-darken-3" id="servx' + id + '"> (' + servshowqty + ')</span>');
+            } else {
+
+            }
+            q = $qty;
+        });
+
+        var serviceName = $servTR.find('td:eq(1)').text();
+
+        $('#pslist').append('<div style="margin: 3px;" class="chip z-depth-1 grey lighten-3 grey-text text-darken-4"' +
+            'id="servitem' + id + '"><b>' + serviceName + '</b><span class="span"><span class="grey-text text-darken-3" id="servx' + id + '">' +
+            ' (' + servshowqty + ')</span></span>' + '<i id="servchip' + id + '" class="material-icons" style="margin-right: 5px' +
+            '!important">close</i></div>').show();
+
+    } else if (!(serviceID.is(':checked'))) {
+        chk = chk - 1;
+        console.log(chk);
+        if(chk < 1) {
+            $('#createSubmitForm').attr('disabled', true).css('opacity', '0.3');
+        } else if(chk > 0) {
+            $('#createSubmitForm').attr('disabled', false).css('opacity', '1');
+        }
+
+        var servidqty = $('#svc' + id),
+            $sutr = serviceID.closest('tr'),
+            sunchipprice = $sutr.find('td:eq(3)').text(),
+            $sunchipprice = parseFloat(sunchipprice.replace(/[^\d.]/g, '')).toFixed(2);
+        $qty = parseFloat($sutr.find('td #svc' + id).val()).toFixed(2);
+        total = total - ($qty * $sunchipprice);
+        total = Math.abs(total);
+        $('#crPackTotal').val("Php " + parseFloat(total).toFixed(2));
+        $('#crPackPrice').val("Php " + parseFloat(total).toFixed(2));
+
+        $('#servitem' + id).remove();
+        serviceID.prop('checked', false);
+        servidqty.attr('disabled', true);
+        servidqty.val(1);
+
+    }
+
+    $('#servchip' + id).click(function () {
+        chk = chk - 1;
+        console.log(chk);
+        if(chk < 1) {
+            $('#createSubmitForm').attr('disabled', true).css('opacity', '0.3');
+        } else if(chk > 0) {
+            $('#createSubmitForm').attr('disabled', false).css('opacity', '1');
+        }
+
+        var servchipqty = $('#svc' + id),
+            $sutr = serviceID.closest('tr'),
+            sunchipprice = $sutr.find('td:eq(3)').text(),
+            $sunchipprice = parseFloat(sunchipprice.replace(/[^\d.]/g, '')).toFixed(2);
+        $qty = parseFloat($sutr.find('td #svc' + id).val()).toFixed(2);
+        total = total - ($qty * $sunchipprice);
+        total = Math.abs(total);
+        $('#crPackTotal').val("Php " + parseFloat(total).toFixed(2));
+        $('#crPackPrice').val("Php " + parseFloat(total).toFixed(2));
+
+        $('#servitem' + id).remove();
+        serviceID.prop('checked', false);
+        servchipqty.attr('disabled', true);
+        servchipqty.val(1);
+    });
+}
+
+
+function createPackage() {
+    // var job = document.querySelectorAll('select[name=intPackageType]:selected');
+    var type = [],
+        prodselect = [],
+        servselect = [],
+        packagetype;
+    $.each($("#crPackageType option:selected"), function(){
+        type.push($(this).val());
+    });
+    $.each($("input[name=createPackProdType]:checked"), function(){
+        prodselect.push($(this).val());
+    });
+    $.each($("input[name=createPackServType]:checked"), function(){
+        servselect.push($(this).val());
+    });
+
+    var productqty = $('input[name=createPackProdQty]:enabled').map(function () {
+            return this.value;
+    }).get(); //get all the quantity enabled in product
+    var serviceqty = $('input[name=createPackServQty]:enabled').map(function () {
+        return this.value;
+    }).get(); //get all the quantity enabled in service
+
+    type = type.join(', ');
+    if (type == '1, 2, 3') {
+        packagetype = '7';
+    } else if (type == '2, 3' || type == '3, 2') {
+        packagetype = '6';
+    } else if (type == '1, 3' || type == '3, 1') {
+        packagetype = '5';
+    } else if (type == '1, 2' || type == '2, 1') {
+        packagetype = '4';
+    } else {
+        packagetype = type;
+    }
+    prodselect = prodselect.join(', ');
+    servselect = servselect.join(', ');
+    productqty = productqty.join(', ');
+    serviceqty = serviceqty.join(', ');
+    console.log(type);
+    var packagedata = {
+        "strPackageName": $('#crPackageName').val(),
+        "strPackageDesc": $('#crPackageDesc').val(),
+        "intPackageType": packagetype,
+        "createPackServType": servselect,
+        "createPackProdType": prodselect,
+        "createPackServQty": serviceqty,
+        "createPackProdQty": productqty,
+        "dblPackagePrice": $('#crPackPrice').val().replace(/[^\d.]/g, '')
+    };
+
+    swal({
+            title: "Create this package?",
+            text: "",
+            type: "info",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+        },
+        function () {
+            setTimeout(function () {
+                $.ajax({
+                    url: 'createPackage',
+                    type: 'post',
+                    data: packagedata,
+                    dataType: 'json',
+                    async: true,
+                    success: function (data) {
+                        swal("Successfully updated!", ".", "success");
+                        updatePackageTable();
+                        $('#createPackageModal').closeModal();
+                    },
+                    error: function () {
+                        sweetAlert("Oops...", "Something went wrong!", "error");
+                    }
+                });
+            }, 1000);
+        });
+}
+
+
+//CREATE PACKAGE END
+
+//update package
+function updatePackageProductTable() {
+    $.ajax({
+        type: 'get',
+        url: 'api/v1/getAllProduct',
+        dataType: 'json',
+        async: true,
+        success: function (data) {
+            var updateProductList = data.productList,
+                table = $('#uppackageProdtbl').DataTable({
+                    "bLengthChange": false,
+                    "sPaginationType": "full_numbers",
+                    responsive: true,
+                    "order": [],
+                    "columnDefs": [
+                        {"targets": 'no-sort', "orderable": false},
+                        {className: "dt-body-left", "targets": [1, 2]},
+                        {className: "dt-body-center", "targets": [0]},
+                        {className: "dt-head-right", "targets": [3, 4]},
+                        {"targets": [4], "width": "100px"}
+                    ],
+                    "rowHeight": '10px'
+                });
+
+            $(".uppackageSearch").bind('keyup search input paste cut', function () {
+                table.search(this.value).draw();
+            });
+
+            if (updateProductList != null) {
+                table.clear().draw();
+                $.each(updateProductList, function (i, product) {
+                    var price = parseFloat(product.dblProductPrice).toFixed(2);
+                    price = addCommas(price);
+
+                    var checkbox = "<input type='checkbox' name='updatePackProdType' id='updateProdCheck" + product.intProductID + "'" +
+                            " value='" + product.intProductID + "'><label for='updateProdCheck" + product.intProductID + "'></label>",
+                        quantity = "<input type='number' class='right-align rowQty' name='updatePackProdQty'" +
+                            " id='upProdQty" + product.intProductID + "' style='width: 75px' disabled value='1' maxlength='2'>";
+                    price = "<span class='price'>P " + price + "</span>";
+
+                    table.row.add([
+                        checkbox,
+                        product.strProductName,
+                        product.strProductCategory,
+                        price,
+                        quantity
+                    ]);
+                });
+                table.draw();
+            }
+        }
+    });
+}
+
+function updatePackageServiceTable() {
+    $.ajax({
+        type: 'get',
+        url: 'api/v1/getAllService',
+        dataType: 'json',
+        async: true,
+        success: function (data) {
+            var updateServiceList = data.serviceList,
+                table = $('#uppackageServtbl').DataTable({
+                    "bLengthChange": false,
+                    "sPaginationType": "full_numbers",
+                    responsive: true,
+                    "order": [],
+                    "columnDefs": [
+                        {"targets": 'no-sort', "orderable": false},
+                        {className: "dt-body-left", "targets": [1, 2]},
+                        {className: "dt-body-center", "targets": [0]},
+                        {className: "dt-head-right", "targets": [4]}
+                    ],
+                    "rowHeight": '10px'
+                });
+            $(".uppackageSearch").bind('keyup search input paste cut', function () {
+                table.search(this.value).draw();
+            });
+
+            if (updateServiceList != null) {
+                table.clear().draw();
+                $.each(updateServiceList, function (i, service) {
+                    var price = parseFloat(service.dblServicePrice).toFixed(2);
+                    price = addCommas(price);
+
+                    var checkbox = "<input type='checkbox' name='updatePackServType' id='updateServCheckBox" + service.intServiceID + "'" +
+                            " value='" + service.intServiceID + "'><label for='updateServCheckBox" + service.intServiceID + "'></label>",
+                        quantity = "<input type='number' class='right-align rowQty' name='updatePackServQty'" +
+                            " id='upServQty" + service.intServiceID + "' style='width: 75px' disabled value='1' maxlength='2'>";
+                    price = "<span class='price'>P " + price + "</span>";
+
+                    table.row.add([
+                        checkbox,
+                        service.strServiceName,
+                        service.strServiceCategory,
+                        price,
+                        quantity
+                    ]);
+                });
+                table.draw();
+            }
+        }
+    });
+}
+
+
+function openUpdatePackage(id) {
+    $('#uppackageProdtbl').parents('div.tablewrapper').first().show();
+    $('#uppackageServtbl').parents('div.tablewrapper').first().hide();
+    $.ajax({
+        type: 'get',
+        url: 'api/v1/getAllPackage',
+        dataType: 'json',
+        async: true,
+        success: function (data) {
+            for (var i = 0; i < data.packageList.length; i++) {
+                var packageid = data.packageList[i].intPackageID;
+                if (parseInt(packageid) == parseInt(id)) {
+                    console.log(data.packageList[i].intPackageID);
+                    $('#updatePackageModal').openModal({
+                        dismissible: false, // Modal can be dismissed by clicking outside of the modal
+                        opacity: .9, // Opacity of modal background
+                        in_duration: 200, // Transition in duration
+                        out_duration: 200, // Transition out duration
+                    });
+                }
+            }
+        }
+    });
+}
+
+//update package end

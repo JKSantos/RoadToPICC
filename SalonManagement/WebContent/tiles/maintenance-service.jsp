@@ -9,13 +9,14 @@
             <h3 class="grey-text center text-darken-1">Service Maintenance</h3>
             <a class="btnshadow hoverable z-depth-1 waves-effect waves-light modal-trigger btn-flat purple darken-2 left white-text"
                href="#createService" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">add</i></a>
-            <a class="btnshadow hoverable z-depth-1 waves-effect waves-light modal-trigger btn-flat purple darken-2 left white-text"
-               href="#empArchive" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">archive</i></a>
+            <a class="btnshadow hoverable z-depth-1 waves-effect waves-light modal-viewall btn-flat purple darken-2 left white-text"
+               href="#serviceArchive" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">archive</i></a>
             <nav class="right white hoverable  z-depth-1" style="width: 300px; margin-right: 20px;">
                 <div class="nav-wrapper col s4">
                     <form>
                         <div class="input-field">
-                            <input id="servSearch" placeholder="Search" class="grey-text text-darken-4" type="search" required>
+                            <input id="servSearch" placeholder="Search" class="grey-text text-darken-4" type="search"
+                                   required>
                             <label for="servSearch"><i
                                     class="material-icons grey-text text-darken-4">search</i></label>
                         </div>
@@ -46,8 +47,9 @@
                 </tfoot>
                 <tbody>
                 <c:forEach items="${serviceList}" var="service">
-                
-                	<c:set var="price" scope="session" value="${(service.dblServicePrice * 9) + service.dblServicePrice}"/>
+
+                    <c:set var="price" scope="session"
+                           value="${(service.dblServicePrice * 0) + service.dblServicePrice}"/>
                     <%! String strService =null; %>
                     <% Service serv = (Service)pageContext.getAttribute("service");
                     strService = String.valueOf(serv.getIntServiceID());
@@ -62,12 +64,18 @@
                         </td>
                         <td style="padding:0; margin: 0;" class="dt-body-center">
                             <a class="waves-effect waves-purple modal-trigger btn-flat transparent black-text"
+                               href="#view${service.intServiceID}"
+                               style="padding-left: 10px;padding-right:10px; margin: 5px;">
+                                <i class="material-icons">visibility</i>
+                            </a>
+                            <a class="waves-effect waves-purple modal-trigger btn-flat transparent black-text"
                                href="#serv${service.intServiceID}"
                                style="padding-left: 10px;padding-right:10px; margin: 5px;">
                                 <i class="material-icons">edit</i>
                             </a>
                             <button class="servdeacbtn waves-effect waves-purple btn-flat transparent red-text text-accent-4"
-                                   id="${service.intServiceID}" style="padding-left: 10px;padding-right:10px; margin: 5px;">
+                                    id="${service.intServiceID}"
+                                    style="padding-left: 10px;padding-right:10px; margin: 5px;">
                                 <i class="material-icons">delete</i>
                             </button>
                         </td>
@@ -80,7 +88,64 @@
         </div>
 
         <!-- ARCHIVE BEGIN -->
-
+        <div id="serviceArchive" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <h4 class="grey-text center text-darken-1">Archive</h4>
+                <nav class="right white hoverable  z-depth-1" style="width: 300px; margin-right: 20px;">
+                    <div class="nav-wrapper col s4">
+                        <form>
+                            <div class="input-field">
+                                <input id="servArchiveSearch" placeholder="Search" class="grey-text text-darken-4"
+                                       type="search">
+                                <label for="servArchiveSearch"><i
+                                        class="material-icons grey-text text-darken-4">search</i></label>
+                            </div>
+                        </form>
+                    </div>
+                </nav>
+                <table id="servArchiveTbl"
+                       class="hoverable z-depth-1 cell-border row-border display centered responsive-table highlight"
+                       cellspacing="0" width="100%"
+                       style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;" rowspan="10">
+                    <thead>
+                    <tr>
+                        <th class="dt-head-left">Name</th>
+                        <th class="dt-head-left">Category</th>
+                        <th class="dt-head-left no-sort">Detail</th>
+                        <th class="dt-head-right">Price</th>
+                        <th class="dt-head-center no-sort">Actions</th>
+                    </tr>
+                    </thead>
+                    <tfoot style="border: 0.5px solid #bdbdbd;">
+                    <tr>
+                        <th class="dt-head-left">Name</th>
+                        <th class="dt-head-left">Category</th>
+                        <th class="dt-head-left">Detail</th>
+                        <th class="dt-head-right">Price</th>
+                        <th class="dt-head-center">Actions</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                        <tr>
+                            <td style="padding-left: 10px; margin: 0;" class="dt-body-left"></td>
+                            <td style="padding-left: 10px; margin: 0;" class="dt-body-left"></td>
+                            <td style="padding-left: 10px; margin: 0;" class="dt-body-left"></td>
+                            <td style="padding-right: 10px; margin: 0;" class="dt-body-right servPrice"></td>
+                            <td style="padding:0; margin: 0;" class="dt-body-center">
+                                <button class="waves-effect waves-light btn-flat green darken-3 white-text"
+                                        id="deliveryArchiveBtn" style="padding-left: 10px;padding-right:10px; margin: 5px;"
+                                        title="Restore">
+                                    <i class="material-icons">restore</i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+            </div>
+        </div>
         <!-- ARCHIVE END -->
 
         <!-- Modal Structure -->
@@ -388,7 +453,8 @@
                                    class="updateServAddCatBtn waves-effect waves-light purple darken-3 btn-flat white-text">SAVE
                                 </a>
                                 <button type="reset" value="Reset" id="upServAddProdCatCancel"
-                                        class="upServAddProdCatCancel modal-close waves-effect waves-purple transparent btn-flat white">CANCEL
+                                        class="upServAddProdCatCancel modal-close waves-effect waves-purple transparent btn-flat white">
+                                    CANCEL
                                 </button>
                             </div>
                         </div>
@@ -397,13 +463,95 @@
             </form>
         </div>
 
+        <c:forEach items="${serviceList}" var="service">
+            <%! String viewServiceID = null; %>
+            <% Service servID = (Service)pageContext.getAttribute("service");
+            viewServiceID = String.valueOf(servID.getIntServiceID());
+            String serviceCate = servID.getStrServiceCategory();
+            double price = servID.getDblServicePrice();
+            %>
+            <c:set var="price" scope="session" value="${(service.dblServicePrice * 0) + service.dblServicePrice}"/>
+            <div id="view${service.intServiceID}" class="transparent servUpdateModal z-depth-0 modal modal-fixed-footer">
+                <form class="col s12" method="post" id="viewServForm"
+                      enctype="multipart/form-data">
+                    <div class="modal-content">
+                        <!-- <div class="container"> -->
+                        <div class="wrapper">
+                            <div class="input-field col s12" style="margin-top: -5px !important;">
+                                <h3 class="center grey-text text-lighten-2">View Service</h3>
+                            </div>
+                            <div class="aside aside1 z-depth-0">
+                                <div class="row">
+                                    <!--<div class="input-field col s12">-->
+                                    <!--<img name="image" id="employeeimg" class="circle"-->
+                                    <!--style="width: 200px; height: 200px;" src="./img/anon.jpg" alt=""/>-->
+                                    <!--</div>-->
+                                    <div class="col s12">
 
-        <!-- add category END -->
+                                        <img name="prodsvcCreate" id="viewServImage"
+                                             style="width: 200px; height: 200px; margin-top: 20px;"
+                                             src="<s:url action='getImage'><s:param name='ImageID'><%=viewServiceID%></s:param><s:param name='type'>service</s:param></s:url>"
+                                             alt="${service.strServiceName}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="aside aside2 z-depth-0">
+                                <div class="row">
+                                    <div class="input-field col s12" style="margin-top: 25px !important;">
+                                        <input type="hidden" name="intItemID" value="${service.intServiceID}">
+                                        <input type="hidden" name="strItemCate" value="service">
+                                        <input value="${service.strServiceName}" type="text" name="strItemName"
+                                               id="viewServName" placeholder="Product Name" disabled class="white-text"/>
+                                        <label for="viewServName" class="active purple-text text-lighten-2"><b>Name</b></label>
+                                    </div>
+                                    <div class="input-field col s8">
+                                        <select id="viewServCategory" name="strItemCategory"
+                                                disabled style="margin-bottom: -15px !important;">
+                                            <option value="default" disabled>Choose...</option>
+                                            <c:forEach items="${serviceCategory}" var="service">
+                                                <%
+                                                String cate3 = (String)pageContext.getAttribute("service");
+                                                String selectedService = null;
+                                                if(serviceCate.equals(cate3)){
+                                                selectedService = "selected";
+                                                }
+                                                else {
+                                                selectedService = "";
+                                                }
+                                                %>
+                                                <option value="${service}"
+                                                <%out.println(selectedService);%>>${service}</option>
+                                            </c:forEach>
+                                        </select>
+                                        <label for="viewServCategory" class="purple-text text-lighten-2"><b>Category</b></label>
+                                    </div>
+                                    <div class="input-field col s6" style="margin-bottom: -15px !important;">
+                                        <input type="text" value="<c:out value='${price}'/>"
+                                               class="white-text servPrice" disabled
+                                               id="viewServPrice" name="price" placeholder="P9.99"/>
+                                        <label for="viewServPrice" class="active purple-text text-lighten-2"><b>Price</b></label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                    <textarea id="viewServDetails" name="strItemDetails" disabled
+                                              class="materialize-textarea white-text" placeholder="Details"
+                                              style="margin-top: -10px !important;">${service.strServiceDesc}</textarea>
+                                        <label for="viewServDetails" class="active purple-text text-lighten-2"><b>Details</b></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 
-        <!--                     <div class="aside aside2 z-depth-barts">
-
-        </div> -->
+                    </div>
+                    <div class="modal-footer transparent">
+                        <a class="modal-action modal-close waves-effect waves-purple btn-flat purple-text text-lighten-1"
+                           style="border: 3px solid #ab47bc !important;">
+                            <b>CLOSE</b>
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </c:forEach>
     </div>
 </div>
 <!-- </div> -->

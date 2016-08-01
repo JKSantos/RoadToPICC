@@ -30,13 +30,14 @@ String granAccess = null;
             <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
                href="#createEmployeeModal" style="margin-top: 30px; margin-left: 15px;"><i
                     class="material-icons">add</i></a>
-            <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
+            <a class="z-depth-1 hoverable waves-effect waves-light modal-viewall btn purple darken-2 left white-text"
                href="#empArchive" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">archive</i></a>
             <nav class="right white hoverable  z-depth-1" style="width: 300px; margin-right: 20px;">
                 <div class="nav-wrapper col s4">
                     <form>
                         <div class="input-field">
-                            <input id="empSearch" placeholder="Search" class="grey-text text-darken-4" type="search" required/>
+                            <input id="empSearch" placeholder="Search" class="grey-text text-darken-4" type="search"
+                                   required/>
                             <label for="empSearch"><i
                                     class="material-icons grey-text text-darken-4">search</i></label>
                         </div>
@@ -73,8 +74,8 @@ String granAccess = null;
                 </tfoot>
                 <tbody>
                 <c:forEach items="${empList}" var="employee">
-                    <%! String str=null; 
-                    	
+                    <%! String str=null;
+
                     %>
                     <% Employee emp = (Employee)pageContext.getAttribute("employee");
                     str=String.valueOf(emp.getIntEmpID());
@@ -82,11 +83,11 @@ String granAccess = null;
                     String jobss = "";
                     %>
                     <c:forEach items="${employee.jobQualification}" var="job">
-                    <% 
-                    Job lol = (Job)pageContext.getAttribute("job");
-               		
-           			jobss += lol.getStrJobDesc() + ", ";
-                    %>
+                        <%
+                        Job lol = (Job)pageContext.getAttribute("job");
+
+                        jobss += lol.getStrJobDesc() + ", ";
+                        %>
                     </c:forEach>
                     <tr>
                         <td style="padding:0; margin:0;" class="dt-body-center">
@@ -96,7 +97,8 @@ String granAccess = null;
                                          alt="${employee.strEmpFirstName}"/></center>
                         </td>
                         <td class="dt-body-left">${employee.strEmpFirstName} ${employee.strEmpLastName}</td>
-                        <td style="padding-left: 10px !important; margin-left: 0px;" class="dt-body-left"><%=jobss%></td>
+                        <td style="padding-left: 10px !important; margin-left: 0px;" class="dt-body-left"><%=jobss%>
+                        </td>
                         <td style="padding-right: 10px !important; margin-right: 0px;" class="dt-body-right ">
                             ${employee.strEmpContactNo}
                         </td>
@@ -112,14 +114,16 @@ String granAccess = null;
                                href="#view<%=str%>" style="padding-left: 10px;padding-right:10px; margin: 5px;">
                                 <i class="material-icons">visibility</i>
                             </a>
-                            <a data-delay="30" data-position="bottom" data-tooltip="Update"
-                               class="waves-effect waves-purple modal-trigger btn-flat transparent black-text empUpdatebtn"
-                               href="#emp<%=str%>" style="padding-left: 10px;padding-right:10px; margin: 5px;" onclick="setBirthDate('#upbday${employee.intEmpID}', '${employee.datEmpBirthdate}')"/>
+                            <a class="updatebtn waves-effect waves-purple modal-trigger btn-flat transparent black-text empUpdatebtn"
+                               href="#emp<%=str%>" style="padding-left: 10px;padding-right:10px; margin: 5px;"
+                               onclick="setBirthDate('#upbday${employee.intEmpID}', '${employee.datEmpBirthdate}')">
                                 <i class="material-icons">edit</i>
                             </a>
                             <button class="empdeacbtn waves-effect waves-purple btn-flat transparent red-text text-accent-4"
-                           style="padding-left: 10px;padding-right:10px; margin: 5px;" id="${employee.intEmpID}"
-                               title="Deactivate" formaction="deactivateEmployee"><i class="material-icons">delete</i></button>
+                                    style="padding-left: 10px;padding-right:10px; margin: 5px;"
+                                    id="${employee.intEmpID}"
+                                    title="Deactivate" formaction="deactivateEmployee"><i
+                                    class="material-icons">delete</i></button>
                             <!--href="#de<%=de%>"-->
                         </td>
                     </tr>
@@ -132,7 +136,78 @@ String granAccess = null;
     </div>
 
     <!-- ARCHIVE BEGIN -->
+    <div id="empArchive" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4 class="grey-text center text-darken-1">Archive</h4>
+            <nav class="right white hoverable  z-depth-1" style="width: 300px; margin-right: 20px;">
+                <div class="nav-wrapper col s4">
+                    <form>
+                        <div class="input-field">
+                            <input id="empArchiveSearch" placeholder="Search" class="grey-text text-darken-4"
+                                   type="search"/>
+                            <label for="empArchiveSearch">
+                                <i class="material-icons grey-text text-darken-4">search</i>
+                            </label>
+                        </div>
+                    </form>
+                </div>
+            </nav>
+            <table id="empArchiveTbl"
+                   class="hoverable z-depth-1 cell-border row-border display centered responsive-table highlight"
+                   cellspacing="0"
+                   width="100%"
+                   style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;" rowspan="10">
+                <thead>
+                <tr>
+                    <th class="no-sort"></th>
+                    <th class="dt-head-left">Name</th>
+                    <th class="dt-head-left left-align" align="left">Position</th>
+                    <th class="dt-head-right no-sort">Contact</th>
+                    <th class="dt-head-left no-sort">Email</th>
+                    <th class="dt-head-left no-sort">Address</th>
+                    <th align="center" class="no-sort">Action</th>
+                </tr>
+                </thead>
+                <tfoot style="border: 1px solid #bdbdbd;">
+                <tr>
+                    <th class="no-sort"></th>
+                    <th class="dt-head-left">Name</th>
+                    <th class="dt-head-left left-align" align="left">Position</th>
+                    <th class="dt-head-right">Contact</th>
+                    <th class="dt-head-left">Email</th>
+                    <th class="dt-head-left">Address</th>
+                    <th align="center" class="no-sort">Action</th>
+                </tr>
+                </tfoot>
+                <tbody>
+                    <tr>
+                        <td style="padding:0; margin:0;" class="dt-body-center">
+                            <center><img name="empupdatedImg" id="empArchiveImg" class="circle"
+                                         style="width: 30px; height: 30px;"
+                                         src=""
+                                         alt=""/></center>
+                        </td>
+                        <td class="dt-body-left"></td>
+                        <td style="padding-left: 10px !important; margin-left: 0px;" class="dt-body-left"></td>
+                        <td style="padding-right: 10px !important; margin-right: 0px;" class="dt-body-right "></td>
+                        <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-left "></td>
+                        <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-left "></td>
+                        <td class="center" style="padding:0; margin:0;">
+                            <button class="waves-effect waves-light btn-flat green darken-3 white-text"
+                                    id="empArchiveBtn" style="padding-left: 10px;padding-right:10px; margin: 5px;"
+                                    title="Restore">
+                                <i class="material-icons">restore</i>
+                            </button>
+                        </td>
+                    </tr>
 
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </div>
     <!-- ARCHIVE END -->
 
     <!-- Modal Structure -->
@@ -259,8 +334,7 @@ String granAccess = null;
                                             class="required">
                                         <option value="default" disabled selected>Choose...</option>
                                         <c:forEach items="${empCategory}" var="name">
-                                            <option value="${name.strCategoryName}">${name.strCategoryName }
-                                            </option>
+                                            <option value="${name.strCategoryName}">${name.strCategoryName}</option>
                                         </c:forEach>
                                     </select>
                                     <label for="crSelectedJob" class="active"
@@ -352,7 +426,8 @@ String granAccess = null;
                                                                                      value="Reset"
                                                                                      class="btnUpdateExit modal-action modal-close"><i
                                 class="small material-icons right grey-text text-darken-4">close</i></a></h4>
-                        <div class="updateerror center input-field col s12 card red white-text z-depth-barts" style="margin-top: -10px !important;">
+                        <div class="updateerror center input-field col s12 card red white-text z-depth-barts"
+                             style="margin-top: -10px !important;">
 
                         </div>
                         <div class="row">
@@ -424,7 +499,7 @@ String granAccess = null;
                                             </div>
                                             <div class="input-field col s12">
                                                 <input type="date" name="strBirthdate" id="upbday${employee.intEmpID}"
-                                                       class="updateEmpBirthday" placeholder="Ex: 01/01/01"
+                                                       class="updateEmpBirthday" placeholder="Ex: September/1/1996"
                                                        required/>
                                                 <label for="upbday${employee.intEmpID}"><b>Birthday</b><i
                                                         class="material-icons red-text tiny">error_outline</i></label>
@@ -432,8 +507,9 @@ String granAccess = null;
                                             <div class="input-field col s12">
                                                 <input style="border-bottom-color: dimgrey;" type="text"
                                                        name="createAge" class="updateEmpAge"
-                                                       id="updateEmpAge" placeholder="Ex: 18" disabled/>
-                                                <label for="updateEmpAge" id="updateAgeLabel"
+                                                       id="upbday${employee.intEmpID}age" placeholder="Ex: 18"
+                                                       disabled/>
+                                                <label for="upbday${employee.intEmpID}age" id="updateAgeLabel"
                                                        class="active"
                                                        style="color: #424242 !important;"><b>Age</b></label>
                                             </div>
@@ -532,17 +608,20 @@ String granAccess = null;
                                                     <i class="material-icons">add</i></button>
                                             </div>
                                             <div class="input-field col s12" style="margin-top: -15px !important;">
-                                            	<c:choose>
-                                            		<c:when test="${employee.accessGranted == true}">	
-                                                		<input type="checkbox" name="chkGrantAccess" checked id="chkupGrantAccess${employee.intEmpID}"
-                                                       		class="filled-in" style="color: purple;"/>
-                                                	</c:when>
-                                                	<c:otherwise>
-                                                		<input type="checkbox" name="chkGrantAccess" id="chkupGrantAccess${employee.intEmpID}"
-                                                       		class="filled-in" style="color: purple;"/>
-                                                	</c:otherwise>
+                                                <c:choose>
+                                                    <c:when test="${employee.accessGranted == true}">
+                                                        <input type="checkbox" name="chkGrantAccess" checked
+                                                               id="chkupGrantAccess${employee.intEmpID}"
+                                                               class="filled-in" style="color: purple;"/>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <input type="checkbox" name="chkGrantAccess"
+                                                               id="chkupGrantAccess${employee.intEmpID}"
+                                                               class="filled-in" style="color: purple;"/>
+                                                    </c:otherwise>
                                                 </c:choose>
-                                                <label for="chkupGrantAccess${employee.intEmpID}"><b>Grant Access</b></label>
+                                                <label for="chkupGrantAccess${employee.intEmpID}"><b>Grant
+                                                    Access</b></label>
                                             </div>
                                         </div>
                                     </div>
@@ -608,7 +687,7 @@ String granAccess = null;
 
     <!-- update add option END -->
     <c:forEach items="${empList}" var="employee">
-        <div id="view${employee.intEmpID}" class="modal transparent z-depth-0 viewEmpModal animated flipInY">
+        <div id="view${employee.intEmpID}" class="modal transparent z-depth-0 viewEmpModal">
             <div class="modal-content">
                 <div class="wrapper">
                     <h3 class="center grey-text text-lighten-2">View Employee</h3>
@@ -695,22 +774,21 @@ String granAccess = null;
                                     <label for="viewEmpAddress"
                                            class="active purple-text text-lighten-2"><b>Address</b></label>
                                 </div>
-                                
-                                <% 
+
+                                <%
                                 String jobs = "";
                                 %>
-                                
+
                                 <c:forEach items="${employee.jobQualification}" var="job">
-                    <% 
-                    Job lol = (Job)pageContext.getAttribute("job");
-               		
-           			jobs += lol.getStrJobDesc() + ", ";
-                    %>
-                    </c:forEach>
+                                    <%
+                                    Job lol = (Job)pageContext.getAttribute("job");
+
+                                    jobs += lol.getStrJobDesc() + ", ";
+                                    %>
+                                </c:forEach>
                                 <div class="input-field col s12">
-                                    <input type="text" id="viewEmpJob" name="viewEmpJob" class="white-text" value="<%=jobs%>" disabled/>
-                                        
-                           
+                                    <input type="text" id="viewEmpJob" name="viewEmpJob" class="white-text"
+                                           value="<%=jobs%>" disabled/>
                                     <label for="viewEmpJob" class="purple-text text-lighten-2"><b>Position</b></label>
                                 </div>
                         </div>
@@ -718,11 +796,10 @@ String granAccess = null;
                 </div>
             </div>
             <div class="modal-footer transparent">
-                <a href="#!"
-                   class="modal-action modal-close waves-effect waves-light purple-text text-lighten-1 btn-large z-depth-1 viewcloseempbtn"
-                   style="background-color: transparent !important; border: 3px solid #ab47bc !important; border-radius: 10px !important; margin: 0 !important;"><span
-                        style="padding-top: -10px !important;"><i
-                        class="material-icons left"><b>close</b></i><b>Close</b></span></a>
+                <a class="modal-action modal-close waves-effect waves-purple btn-flat purple-text text-lighten-1"
+                   style="border: 3px solid #ab47bc !important;">
+                    <b>CLOSE</b>
+                </a>
             </div>
         </div>
     </c:forEach>

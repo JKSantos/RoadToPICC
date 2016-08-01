@@ -162,6 +162,27 @@
         margin-top: -30px !important;
     }
 
+    #productArchive {
+        width: 80% !important;
+        height: 590px !important;
+        max-height: 100% !important;
+        margin-top: -30px !important;
+    }
+
+    #empArchive {
+        width: 80% !important;
+        height: 590px !important;
+        max-height: 100% !important;
+        margin-top: -30px !important;
+    }
+
+    #serviceArchive {
+        width: 80% !important;
+        height: 590px !important;
+        max-height: 100% !important;
+        margin-top: -30px !important;
+    }
+
     #createDiscountModal {
         width: 600px !important;
         height: 590px !important;
@@ -356,19 +377,49 @@
     .background {
         background-color: green;
     }
-    
+
     #createReservationModal {
         width: 600px !important;
         height: 590px !important;
         max-height: 100% !important;
         margin-top: -30px !important;
     }
-    
+
     #createWalkinModal {
         width: 600px !important;
         height: 590px !important;
         max-height: 100% !important;
         margin-top: -30px !important;
+    }
+
+    #extratbl tbody tr td {
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+    }
+
+    #packagetbl tbody tr td {
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+    }
+
+    #crpacktblProd tbody tr td {
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+    }
+
+    #crpacktblServ tbody tr td {
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+    }
+
+    #uppackageProdtbl tbody tr td {
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+    }
+
+    #uppackageServtbl tbody tr td {
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
     }
 
 </style>
@@ -392,13 +443,18 @@
 <script type="text/javascript" src="js/ellipsis.js"></script>
 <script type="text/javascript" src="js/priceformat.js"></script>
 <script type="text/javascript" src="js/formatted-numbers.js"></script>
-<script type="text/javascript" src="js/jquery.formatCurrency-1.4.0.js"></script>>
+<script type="text/javascript" src="js/jquery.formatCurrency-1.4.0.js"></script>
 <script type="text/javascript" src="js/ProductsSales/ajax.js"></script>
+<script type="text/javascript" src="js/ajax/extracharge.js"></script>
+<script type="text/javascript" src="js/ajax/package.js"></script>
+
 
 
 <!--<script type="text/javascript" src="js/drag.js"></script>-->
 
 <script type="text/javascript">
+
+
 
     function setBirthDate(id, date) {
 
@@ -409,8 +465,13 @@
         var from = date.split("-");
         var dat = new Date(Date.parse(date));
         var d = monthNames[dat.getMonth()] + "/" + from[2] + "/" + from[0];
-
         $(id).val(d);
+
+        var dob2 = new Date(d);
+        var today2 = new Date();
+        var age2 = today2.getTime() - dob2.getTime();
+        age2 = Math.floor(age2 / (1000 * 60 * 60 * 24 * 365.25));
+
     }
 
     $(document).ready(function () {
