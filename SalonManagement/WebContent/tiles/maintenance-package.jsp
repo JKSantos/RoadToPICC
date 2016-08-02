@@ -360,12 +360,11 @@
                                     <label for="upPackageDesc" class="active"><b>Description</b></label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <select name="intUpdatePackageType" id="upPackageType" multiple
-                                            autocomplete="off">
+                                    <select name="intUpdatePackageType" id="upPackageType" multiple>
                                         <option value="default" disabled>Choose...</option>
                                         <option value="1">Event</option>
                                         <option value="2">Home Service</option>
-                                        <option valie="3">Walk-In</option>
+                                        <option value="3">Walk-In</option>
                                     </select>
                                     <label for="upPackageType"><b>Type</b></label>
                                 </div>

@@ -133,12 +133,88 @@ function openUpdatePackage(id) {
         },
         success: function (data) {
             for (var i = 0; i < data.packageList.length; i++) {
-                var packageid = data.packageList[i].intPackageID;
+                var packageid = data.packageList[i].intPackageID,
+                    packagetype = data.packageList[i].intPackageType,
+                    packageselecttype = $('select[name=intUpdatePackageType] option'),
+                    select = $('select');
                 if (parseInt(packageid) == parseInt(id)) {
                     console.log(data.packageList[i].intPackageID);
                     $('#upPackageName').val(data.packageList[i].strPackageName);
                     $('#upPackageID').val(data.packageList[i].intPackageID);
                     $('#upPackageDesc').val(data.packageList[i].strPackageDesc);
+                    console.log(packagetype);
+                    switch (packagetype) {
+                        case 1:
+                            packageselecttype.each(function () {
+                                if($(this).val() == 1) {
+                                    select.material_select('destroy');
+                                    console.log($(this).text());
+                                    $(this).attr('selected', 'selected');
+                                    select.material_select();
+                                }
+                            });
+                            break;
+                        case 2:
+                            packageselecttype.each(function () {
+                                if($(this).val() == 2) {
+                                    select.material_select('destroy');
+                                    console.log($(this).text());
+                                    $(this).attr('selected', 'selected');
+                                    select.material_select();
+                                }
+                            });
+                            break;
+                        case 3:
+                            packageselecttype.each(function () {
+                                if($(this).val() == 3) {
+                                    select.material_select('destroy');
+                                    console.log($(this).text());
+                                    $(this).attr('selected', 'selected');
+                                    select.material_select();
+                                }
+                            });
+                            break;
+                        case 4:
+                            packageselecttype.each(function () {
+                                if($(this).val() == 1 || $(this).val() == 2) {
+                                    select.material_select('destroy');
+                                    console.log($(this).text());
+                                    $(this).attr('selected', 'selected');
+                                    select.material_select();
+                                }
+                            });
+                            break;
+                        case 5:
+                            packageselecttype.each(function () {
+                                if($(this).val() == 1 || $(this).val() == 3) {
+                                    select.material_select('destroy');
+                                    console.log($(this).text());
+                                    $(this).attr('selected', 'selected');
+                                    select.material_select();
+                                }
+                            });
+                            break;
+                        case 6:
+                            packageselecttype.each(function () {
+                                if($(this).val() == 2 || $(this).val() == 3) {
+                                    select.material_select('destroy');
+                                    console.log($(this).text());
+                                    $(this).attr('selected', 'selected');
+                                    select.material_select();
+                                }
+                            });
+                            break;
+                        case 7:
+                            packageselecttype.each(function () {
+                                if($(this).val() == 1 || $(this).val() == 2 || $(this).val() == 3) {
+                                    select.material_select('destroy');
+                                    console.log($(this).text());
+                                    $(this).attr('selected', 'selected');
+                                    select.material_select();
+                                }
+                            });
+                            break;
+                    }
                 }
             }
         },
