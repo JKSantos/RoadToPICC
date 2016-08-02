@@ -4,8 +4,6 @@
 window.onload = updatePackageTable();
 window.onload = createPackageProductTable();
 window.onload = createPackageServiceTable();
-window.onload = updatePackageProductTable();
-window.onload = updatePackageServiceTable();
 
 function updatePackageTable() {
     $.ajax({
@@ -21,12 +19,12 @@ function updatePackageTable() {
                 table.clear().draw();
                 $.each(packageList, function (i, package) {
                     var type;
-                    var addbtn = "<button class='waves-effect waves-purple modal-trigger btn-flat transparent black-text'" +
-                        "style='padding-left: 10px;padding-right:10px; margin: 5px;' value='" + package.intPackageID + "'" +
-                        "onclick='openUpdatePackage(this.value)'>" +
+                    var addbtn = "<button class='waves-effect waves-purple btn-flat transparent black-text'" +
+                        " style='padding-left: 10px;padding-right:10px; margin: 5px;' value='" + package.intPackageID + "'" +
+                        " onclick='openUpdatePackage(this.value)'>" +
                         "<i class='material-icons'>edit</i></button>" +
                         "<button class='waves-effect waves-purple btn-flat transparent red-text text-accent-4'" +
-                        "style='padding-left: 10px;padding-right:10px; margin: 5px;' title='Deactivate'>" +
+                        " style='padding-left: 10px;padding-right:10px; margin: 5px;' title='Deactivate'>" +
                         "<i class='material-icons'>delete</i></button>";
                     if (package.intPackageType == 1) {
                         type = 'Event';
@@ -491,135 +489,5 @@ function createPackage() {
 
 //CREATE PACKAGE END
 
-//update package
-function updatePackageProductTable() {
-    $.ajax({
-        type: 'get',
-        url: 'api/v1/getAllProduct',
-        dataType: 'json',
-        async: true,
-        success: function (data) {
-            var updateProductList = data.productList,
-                table = $('#uppackageProdtbl').DataTable({
-                    "bLengthChange": false,
-                    "sPaginationType": "full_numbers",
-                    responsive: true,
-                    "order": [],
-                    "columnDefs": [
-                        {"targets": 'no-sort', "orderable": false},
-                        {className: "dt-body-left", "targets": [1, 2]},
-                        {className: "dt-body-center", "targets": [0]},
-                        {className: "dt-head-right", "targets": [3, 4]},
-                        {"targets": [4], "width": "100px"}
-                    ],
-                    "rowHeight": '10px'
-                });
-
-            $(".uppackageSearch").bind('keyup search input paste cut', function () {
-                table.search(this.value).draw();
-            });
-
-            if (updateProductList != null) {
-                table.clear().draw();
-                $.each(updateProductList, function (i, product) {
-                    var price = parseFloat(product.dblProductPrice).toFixed(2);
-                    price = addCommas(price);
-
-                    var checkbox = "<input type='checkbox' name='updatePackProdType' id='updateProdCheck" + product.intProductID + "'" +
-                            " value='" + product.intProductID + "'><label for='updateProdCheck" + product.intProductID + "'></label>",
-                        quantity = "<input type='number' class='right-align rowQty' name='updatePackProdQty'" +
-                            " id='upProdQty" + product.intProductID + "' style='width: 75px' disabled value='1' maxlength='2'>";
-                    price = "<span class='price'>P " + price + "</span>";
-
-                    table.row.add([
-                        checkbox,
-                        product.strProductName,
-                        product.strProductCategory,
-                        price,
-                        quantity
-                    ]);
-                });
-                table.draw();
-            }
-        }
-    });
-}
-
-function updatePackageServiceTable() {
-    $.ajax({
-        type: 'get',
-        url: 'api/v1/getAllService',
-        dataType: 'json',
-        async: true,
-        success: function (data) {
-            var updateServiceList = data.serviceList,
-                table = $('#uppackageServtbl').DataTable({
-                    "bLengthChange": false,
-                    "sPaginationType": "full_numbers",
-                    responsive: true,
-                    "order": [],
-                    "columnDefs": [
-                        {"targets": 'no-sort', "orderable": false},
-                        {className: "dt-body-left", "targets": [1, 2]},
-                        {className: "dt-body-center", "targets": [0]},
-                        {className: "dt-head-right", "targets": [4]}
-                    ],
-                    "rowHeight": '10px'
-                });
-            $(".uppackageSearch").bind('keyup search input paste cut', function () {
-                table.search(this.value).draw();
-            });
-
-            if (updateServiceList != null) {
-                table.clear().draw();
-                $.each(updateServiceList, function (i, service) {
-                    var price = parseFloat(service.dblServicePrice).toFixed(2);
-                    price = addCommas(price);
-
-                    var checkbox = "<input type='checkbox' name='updatePackServType' id='updateServCheckBox" + service.intServiceID + "'" +
-                            " value='" + service.intServiceID + "'><label for='updateServCheckBox" + service.intServiceID + "'></label>",
-                        quantity = "<input type='number' class='right-align rowQty' name='updatePackServQty'" +
-                            " id='upServQty" + service.intServiceID + "' style='width: 75px' disabled value='1' maxlength='2'>";
-                    price = "<span class='price'>P " + price + "</span>";
-
-                    table.row.add([
-                        checkbox,
-                        service.strServiceName,
-                        service.strServiceCategory,
-                        price,
-                        quantity
-                    ]);
-                });
-                table.draw();
-            }
-        }
-    });
-}
-
-
-function openUpdatePackage(id) {
-    $('#uppackageProdtbl').parents('div.tablewrapper').first().show();
-    $('#uppackageServtbl').parents('div.tablewrapper').first().hide();
-    $.ajax({
-        type: 'get',
-        url: 'api/v1/getAllPackage',
-        dataType: 'json',
-        async: true,
-        success: function (data) {
-            for (var i = 0; i < data.packageList.length; i++) {
-                var packageid = data.packageList[i].intPackageID;
-                if (parseInt(packageid) == parseInt(id)) {
-                    console.log(data.packageList[i].intPackageID);
-                    $('#updatePackageModal').openModal({
-                        dismissible: false, // Modal can be dismissed by clicking outside of the modal
-                        opacity: .9, // Opacity of modal background
-                        in_duration: 200, // Transition in duration
-                        out_duration: 200, // Transition out duration
-                    });
-                }
-            }
-        }
-    });
-}
 
 //update package end

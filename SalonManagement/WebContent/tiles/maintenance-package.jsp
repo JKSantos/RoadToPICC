@@ -265,7 +265,8 @@
                             </div>
                             <div class="col s9 z-depth-barts white prodservlist" id="prodservContainer">
                                 <h6 class="center" style="padding-top: -2px !important;"><b>Selected Items</b></h6>
-                                <div class="col s12" id="pslist" style="margin-top: -13px !important; margin-bottom: 5px !important;"></div>
+                                <div class="col s12" id="pslist"
+                                     style="margin-top: -13px !important; margin-bottom: 5px !important;"></div>
                             </div>
                             <div class="col s3">
                                 <div class="input-field col s12">
@@ -317,6 +318,11 @@
 
 
     <div id="updatePackageModal" class="updatePackageModal modal modal-fixed-footer">
+        <div class="loadingbarts" id="packageloadingupdate"> <!-- mystyle.css -->
+            <span class="centerer"></span>
+            <img class="salonlogo" src="./img/logo.png" height="200"/>
+        </div>
+
         <form class="col s12">
             <div class="modal-content">
                 <div class="wrapper">
@@ -343,14 +349,14 @@
                         <div id="updateA" class="ftab col s12" style="margin-top: 20px !important;">
                             <div class="container">
                                 <div class="input-field col s12">
-                                    <input type="text" name="strUpdatePackageName" id="upPackageName"/>
                                     <input type="hidden" name="intUpdatePackageID" id="upPackageID"
                                            style="margin-top: -10px !important;">
+                                    <input type="text" name="strUpdatePackageName" id="upPackageName" placeholder="Package Name"/>
                                     <label for="upPackageName" class="active"><b>Package Name</b></label>
                                 </div>
                                 <div class="input-field col s12">
-                                            <textarea name="strUpdatePackageDesc" class="materialize-textarea"
-                                                      id="upPackageDesc" length="80"></textarea>
+                                            <textarea name="strUpdatePackageDesc" class="materialize-textarea" placeholder="Description"
+                                                      id="upPackageDesc" length="80" style="margin-top: -10px !important;"></textarea>
                                     <label for="upPackageDesc" class="active"><b>Description</b></label>
                                 </div>
                                 <div class="input-field col s12">
