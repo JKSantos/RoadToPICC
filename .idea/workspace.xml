@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="beee3b1d-1b58-4f3c-911f-cce62a03b819" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/package-update.js" afterPath="$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/package-update.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SalonManagement/WebContent/tiles/maintenance-package.jsp" afterPath="$PROJECT_DIR$/SalonManagement/WebContent/tiles/maintenance-package.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SalonManagement/WebContent/css/mystyle.css" afterPath="$PROJECT_DIR$/SalonManagement/WebContent/css/mystyle.css" />
     </list>
     <ignored path="RoadToPICC.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -61,7 +60,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package-update.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="package-update.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/package-update.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="463">
@@ -104,11 +103,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mystyle.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="mystyle.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/css/mystyle.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="63">
-              <caret line="172" column="33" selection-start-line="172" selection-start-column="33" selection-end-line="172" selection-end-column="33" />
+              <caret line="172" column="32" selection-start-line="172" selection-start-column="32" selection-end-line="172" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -200,9 +199,9 @@
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/maintenance-promo.jsp" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/baseLayout.jsp" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/baselayout.js" />
-        <option value="$PROJECT_DIR$/SalonManagement/WebContent/css/mystyle.css" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/maintenance-package.jsp" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/package-update.js" />
+        <option value="$PROJECT_DIR$/SalonManagement/WebContent/css/mystyle.css" />
       </list>
     </option>
   </component>
@@ -464,15 +463,15 @@
       <workItem from="1469861006703" duration="21000" />
       <workItem from="1469861033616" duration="5633000" />
       <workItem from="1469943389106" duration="4196000" />
-      <workItem from="1469953955613" duration="65447000" />
+      <workItem from="1469953955613" duration="65525000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="434404000" />
+    <option name="totallyTimeSpent" value="434482000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18814056" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
@@ -950,14 +949,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/css/mystyle.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="172" column="33" selection-start-line="172" selection-start-column="33" selection-end-line="172" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/maintenance-package.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -980,6 +971,14 @@
             <marker date="1470103276303" expanded="true" signature="2019:2030" ph="..." />
             <marker date="1470103276303" expanded="true" signature="4257:4268" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/css/mystyle.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="172" column="32" selection-start-line="172" selection-start-column="32" selection-end-line="172" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>
