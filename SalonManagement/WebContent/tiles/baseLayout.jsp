@@ -173,6 +173,7 @@
 <script type="text/javascript" src="js/ajax/extracharge.js"></script>
 <script type="text/javascript" src="js/ajax/package.js"></script>
 <script type="text/javascript" src="js/ajax/package-update.js"></script>
+<script type="text/javascript" src="js/ajax/package-deactivate.js"></script>
 <script type="text/javascript" src="js/baselayout.js"></script>
 
 

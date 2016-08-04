@@ -161,33 +161,33 @@ function extraUpdate() {
         });
 }
 
-            function extraDeactivate(id) {
-                var extradata = {
-                    'intECID': id
+function extraDeactivate(id) {
+    var extradata = {
+        'intECID': id
+    }
+    swal({
+            title: "Are you sure?",
+            text: "",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        },
+        function () {
+            $.ajax({
+                url: 'deactivateExtraCharge',
+                type: 'post',
+                data: extradata,
+                dataType: 'json',
+                async: true,
+                success: function (data) {
+                    swal("Successfully deactivated!", ".", "success");
+                    updateExtraTable();
+                },
+                error: function (data) {
+                    sweetAlert("Oops...", "Something went wrong!", "error");
                 }
-                swal({
-                        title: "Are you sure?",
-                        text: "",
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Yes, delete it!",
-                        closeOnConfirm: false
-                    },
-                    function () {
-                        $.ajax({
-                            url: 'deactivateExtraCharge',
-                            type: 'post',
-                            data: extradata,
-                            dataType: 'json',
-                            async: true,
-                            success: function (data) {
-                                swal("Successfully deactivated!", ".", "success");
-                                updateExtraTable();
-                            },
-                            error: function (data) {
-                                sweetAlert("Oops...", "Something went wrong!", "error");
-                            }
-                        });
-                    });
-            }
+            });
+        });
+}

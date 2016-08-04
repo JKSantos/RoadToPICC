@@ -27,8 +27,8 @@
 		</action>
 		
 		<action name="deactivatePackage" class="com.gss.actions.DeactivatePackageAction" method="execute">
-			<result name="success">redirect-maintenance-package.jsp</result>
-			<result name="failed">maintenance-package.jsp</result>
+			<result name="success" type="json"/>
+			<result name="failed" type="json"/>
 		</action>
 		
 		<action name="updatePackage" class="com.gss.actions.UpdatePackageAction" method="execute">

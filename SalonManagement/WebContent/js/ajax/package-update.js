@@ -249,7 +249,10 @@ function openUpdatePackage(id) {
 
                     //start ng pag insert ng mga naka check na product sa table
                     var updatePackProdID = $('input[name=updatePackProdType]');
+                    $('input[name=updatePackProdQty]').attr('disabled', true);
+                    $('input[name=updatePackservQty]').attr('disabled', true);
                     updatePackProdID.prop('checked', false);
+                    upTotal = 0;
 
 
                     for (var z = 0; z < data.packageList[i].productList.length; z++) {
@@ -319,6 +322,7 @@ function openUpdatePackage(id) {
 
                     var updatePackServID = $('input[name=updatePackServType]');
                     updatePackServID.prop('checked', false);
+                    $('#upPsList .updateServChip').remove();
 
                     for (var x = 0; x < data.packageList[i].serviceList.length; x++) {
                         var serviceList = data.packageList[i].serviceList[x];
@@ -670,83 +674,88 @@ function upPackServChipExit(chipExitID) {
 }
 
 function updatePackage() {
-    // var job = document.querySelectorAll('select[name=intPackageType]:selected');
-    var upType = [],
-        upProdselect = [],
-        upServselect = [],
-        upPackagetype;
-    $.each($("#upPackageType option:selected"), function(){
-        upType.push($(this).val());
-    });
-    $.each($("input[name=updatePackProdType]:checked"), function(){
-        upProdselect.push($(this).val());
-    });
-    $.each($("input[name=updatePackServType]:checked"), function(){
-        upServselect.push($(this).val());
-    });
-
-    var upProductqty = $('input[name=updatePackProdQty]:enabled').map(function () {
-        return this.value;
-    }).get(); //get all the quantity enabled in product
-    var upServiceqty = $('input[name=updatePackServQty]:enabled').map(function () {
-        return this.value;
-    }).get(); //get all the quantity enabled in service
-
-    upType = upType.join(', ');
-    if (upType == '1, 2, 3') {
-        upPackagetype = '7';
-    } else if (upType == '2, 3' || upType == '3, 2') {
-        upPackagetype = '6';
-    } else if (upType == '1, 3' || upType == '3, 1') {
-        upPackagetype = '5';
-    } else if (upType == '1, 2' || upType == '2, 1') {
-        upPackagetype = '4';
-    } else {
-        upPackagetype = upType;
-    }
-    upProdselect = upProdselect.join(', ');
-    upServselect = upServselect.join(', ');
-    upProductqty = upProductqty.join(', ');
-    upServiceqty = upServiceqty.join(', ');
-
-    var upPackageData = {
-        "intUpdatePackageID": $('#upPackageID').val(),
-        "strUpdatePackageName": $('#upPackageName').val(),
-        "strUpdatePackageDesc": $('#upPackageDesc').val(),
-        "intUpdatePackageType": upPackagetype,
-        "updatePackServType": upServselect,
-        "updatePackProdType": upProdselect,
-        "updatePackServQty": upServiceqty,
-        "updatePackProdQty": upProductqty,
-        "dblUpdatePackagePrice": $('#upPackPrice').val().replace(/[^\d.]/g, '')
-    };
-
-    swal({
-            title: "Update this package?",
-            text: "",
-            type: "info",
-            showCancelButton: true,
-            closeOnConfirm: false,
-            showLoaderOnConfirm: true
-        },
-        function () {
-            setTimeout(function () {
-                $.ajax({
-                    url: 'updatePackage',
-                    type: 'post',
-                    data: upPackageData,
-                    dataType: 'json',
-                    async: true,
-                    success: function (data) {
-                        swal("Successfully updated!", ".", "success");
-                        updatePackageTable();
-                        $('#updatePackageModal').closeModal();
-                    },
-                    error: function (ts) {
-                        sweetAlert("Oops...", "Something went wrong!", "error");
-                        alert(ts.responseText);
-                    }
-                });
-            }, 1000);
+    if($('#updatePackageForm').valid) {
+        // var job = document.querySelectorAll('select[name=intPackageType]:selected');
+        var upType = [],
+            upProdselect = [],
+            upServselect = [],
+            upPackagetype;
+        $.each($("#upPackageType option:selected"), function(){
+            upType.push($(this).val());
         });
+        $.each($("input[name=updatePackProdType]:checked"), function(){
+            upProdselect.push($(this).val());
+        });
+        $.each($("input[name=updatePackServType]:checked"), function(){
+            upServselect.push($(this).val());
+        });
+
+        var upProductqty = $('input[name=updatePackProdQty]:enabled').map(function () {
+            return this.value;
+        }).get(); //get all the quantity enabled in product
+        var upServiceqty = $('input[name=updatePackServQty]:enabled').map(function () {
+            return this.value;
+        }).get(); //get all the quantity enabled in service
+
+        upType = upType.join(', ');
+        if (upType == '1, 2, 3') {
+            upPackagetype = '7';
+        } else if (upType == '2, 3' || upType == '3, 2') {
+            upPackagetype = '6';
+        } else if (upType == '1, 3' || upType == '3, 1') {
+            upPackagetype = '5';
+        } else if (upType == '1, 2' || upType == '2, 1') {
+            upPackagetype = '4';
+        } else {
+            upPackagetype = upType;
+        }
+        upProdselect = upProdselect.join(', ');
+        upServselect = upServselect.join(', ');
+        upProductqty = upProductqty.join(', ');
+        upServiceqty = upServiceqty.join(', ');
+
+        var upPackageData = {
+            "intUpdatePackageID": $('#upPackageID').val(),
+            "strUpdatePackageName": $('#upPackageName').val(),
+            "strUpdatePackageDesc": $('#upPackageDesc').val(),
+            "intUpdatePackageType": upPackagetype,
+            "updatePackServType": upServselect,
+            "updatePackProdType": upProdselect,
+            "updatePackServQty": upServiceqty,
+            "updatePackProdQty": upProductqty,
+            "dblUpdatePackagePrice": $('#upPackPrice').val().replace(/[^\d.]/g, '')
+        };
+
+        swal({
+                title: "Update this package?",
+                text: "",
+                type: "info",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
+            },
+            function () {
+                setTimeout(function () {
+                    $.ajax({
+                        url: 'updatePackage',
+                        type: 'post',
+                        data: upPackageData,
+                        dataType: 'json',
+                        async: true,
+                        success: function (data) {
+                            swal("Successfully updated!", ".", "success");
+                            updatePackageTable();
+                            $('#updatePackageModal').closeModal();
+                        },
+                        error: function (ts) {
+                            sweetAlert("Oops...", "Something went wrong!", "error");
+                            alert(ts.responseText);
+                        }
+                    });
+                }, 1000);
+            });
+    } else {
+            $('#updatePackSubmitBtn').attr('disabled', true).css('opacity', '0.3');
+            $('#updatePackSubmitBtn').attr('disabled', false).css('opacity', '1');
+    }
 }
