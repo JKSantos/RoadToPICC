@@ -47,7 +47,7 @@ public class UpdatePackageAction {
 		String[] serviceCount = this.updatePackServQty.split(", ");
 		String[] productCount = this.updatePackProdQty.split(", ");
 		
-		System.out.println("PACKAGE ID: " + intUpdatePackageID);
+		System.out.println(updatePackServType);
 		
 		if(!updatePackServType.equals("")){
 			
@@ -59,7 +59,7 @@ public class UpdatePackageAction {
 					
 					Service sample = service.get(j);
 					if(Integer.parseInt(selectedServices[i]) == sample.getIntServiceID()){
-						serviceList.add(new ServicePackage(1, 1, sample, Integer.parseInt(serviceQuantity[i]), 1));
+						serviceList.add(new ServicePackage(1, 1, sample, Integer.parseInt(serviceCount[i]), 1));
 					}
 				}
 			}
@@ -76,7 +76,7 @@ public class UpdatePackageAction {
 					
 					Product sample = product.get(j);
 					if(Integer.parseInt(selectedProducts[i]) == sample.getIntProductID()){
-						productList.add(new ProductPackage(1, 1, sample, Integer.parseInt(productQuantity[i]), 1));
+						productList.add(new ProductPackage(1, 1, sample, Integer.parseInt(productCount[i]), 1));
 					}
 				}
 			}
