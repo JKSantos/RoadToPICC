@@ -464,7 +464,7 @@ $(document).ready(function () {
 
 });
 
-$(function() {
+$(function () {
     var packagetbl = $('#packagetbl').DataTable({
         "bLengthChange": false,
         "sPaginationType": "full_numbers",
@@ -486,7 +486,6 @@ $(function() {
         packagetbl.search(this.value).draw();
     });
 
-    
 
 });
 
@@ -644,7 +643,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    
+
     var extratbl = $('#extratbl').DataTable({
         "bLengthChange": false,
         "sPaginationType": "full_numbers",
@@ -664,7 +663,7 @@ $(document).ready(function () {
     $("#extraSearch").bind('keyup search input paste cut', function () {
         extratbl.search(this.value).draw();
     });
-    
+
 
     var otherchargeArchiveTbl = $('#otherchargeArchiveTbl').DataTable({
         "bLengthChange": false,
@@ -711,10 +710,10 @@ $(document).ready(function () {
 
 // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
 $('.modal-trigger').leanModal({
-        dismissible: false, // Modal can be dismissed by clicking outside of the modal
-        opacity: .9, // Opacity of modal background
-        in_duration: 200, // Transition in duration
-        out_duration: 200, // Transition out duration
+    dismissible: false, // Modal can be dismissed by clicking outside of the modal
+    opacity: .9, // Opacity of modal background
+    in_duration: 200, // Transition in duration
+    out_duration: 200, // Transition out duration
 });
 
 $('.modal-update').leanModal({
@@ -1183,18 +1182,18 @@ $('.updateEmpBirthday').each(function () {
             if ('select' in arg1) { //prevent closing on selecting month/year
                 this.close();
             }
-                var bdate1 = $('.updateEmpBirthday').val();
-                var dob1 = new Date(bdate1);
-                var today1 = new Date();
-                var age1 = today1.getTime() - dob1.getTime();
-                age1 = Math.floor(age1 / (1000 * 60 * 60 * 24 * 365.25));
-                if (age1 < 18) {
-                    $('.updateEmpAge').css('color', 'red').val("Not Qualified");
-                    $('.updateSubmitForm').attr('disabled', true);
-                } else {
-                    $('.updateEmpAge').val(age1).css('color', 'black');
-                    $('.updateSubmitForm').attr('disabled', false);
-                }
+            var bdate1 = $('.updateEmpBirthday').val();
+            var dob1 = new Date(bdate1);
+            var today1 = new Date();
+            var age1 = today1.getTime() - dob1.getTime();
+            age1 = Math.floor(age1 / (1000 * 60 * 60 * 24 * 365.25));
+            if (age1 < 18) {
+                $('.updateEmpAge').css('color', 'red').val("Not Qualified");
+                $('.updateSubmitForm').attr('disabled', true);
+            } else {
+                $('.updateEmpAge').val(age1).css('color', 'black');
+                $('.updateSubmitForm').attr('disabled', false);
+            }
 
         }
     });
@@ -1520,7 +1519,6 @@ $('#promotbl').on('click', '.promodeacbtn', function (e) {
             });
         });
 });
-
 
 
 $('#packagetbl').on('click', '.packagedeacbtn', function (e) {

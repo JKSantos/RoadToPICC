@@ -461,13 +461,14 @@ function updateComputeProd(upProdID) {
             '!important">close</i></div>').show();
 
     } else if (!(updateProdID.is(':checked'))) {
+
         upChk = upChk - 1;
         if(upChk < 1) {
             $('#updatePackSubmitBtn').attr('disabled', true).css('opacity', '0.3');
         } else if(upChk > 0) {
             $('#updatePackSubmitBtn').attr('disabled', false).css('opacity', '1');
         }
-
+        console.log(upChk);
         var upUnProdIDQty = $('#upProdQty' + upProdID),
             $unProdTR = updateProdID.closest('tr'),
             unPrice = $unProdTR.find('td:eq(3)').text(),
@@ -756,6 +757,5 @@ function updatePackage() {
             });
     } else {
             $('#updatePackSubmitBtn').attr('disabled', true).css('opacity', '0.3');
-            $('#updatePackSubmitBtn').attr('disabled', false).css('opacity', '1');
     }
 }

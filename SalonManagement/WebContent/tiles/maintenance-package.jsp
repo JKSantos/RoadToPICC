@@ -309,7 +309,7 @@
                         class="actionpack nextformpack waves-effect waves-light white-text btn-flat purple"
                         style="margin-left: 3px; margin-right:3px;">NEXT
                 </button>
-                <button type="submit" value="submit" id="createSubmitForm" onclick="createPackage()" disabled
+                <button type="submit" value="submit" id="createSubmitForm" disabled onclick="createPackage()"
                         class="actionpack submitformpack waves-effect waves-light white-text btn-flat purple"
                         style="margin-left:3px; margin-right:3px; opacity: 0.3 !important;">CREATE
                 </button>
@@ -496,7 +496,7 @@
                 </button>
                 <a href="#!"
                    class=" modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL</a>
-                <button class="waves-effect waves-light purple darken-3 white-text btn-flat" onclick="updatePackage()"
+                <button class="waves-effect waves-light purple darken-3 white-text btn-flat" type="submit" onclick="updatePackage()"
                         id="updatePackSubmitBtn">SAVE
                 </button>
             </div>
