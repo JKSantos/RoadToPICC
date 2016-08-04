@@ -7,6 +7,8 @@
 <%@ page import="com.gss.model.Product" %>
 <%@ page import="java.util.List" %>
 
+
+
 <div class="wrapper">
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
@@ -275,8 +277,8 @@
                                     <label for="crPackTotal" class="active grey-text text-darken-3"><b>Total</b></label>
                                 </div>
                                 <div class="input-field col s12" style="margin-top: 20px !important;">
-                                    <input type="text" class="right-align prodPrice" name="" id="crPackPrice"
-                                           placeholder="Price"/>
+                                    <input type="text" class="right-align prodPrice" name="createPackagePrice" id="crPackPrice"
+                                           placeholder="Price" required/>
                                     <label for="crPackPrice" class="active"><b>Price</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
@@ -320,10 +322,10 @@
     <div id="updatePackageModal" class="updatePackageModal modal modal-fixed-footer">
         <div class="loadingbarts" id="packageloadingupdate"> <!-- mystyle.css -->
             <span class="centerer"></span>
-            <img class="salonlogo" src="./img/logo.png" height="200"/>
+            <img class="salonlogo circle" src="./img/logo.png" height="200"/>
         </div>
 
-        <form class="col s12">
+        <form class="col s12" id="updatePackageForm">
             <div class="modal-content">
                 <div class="wrapper">
                     <h4 class="center grey-text text-darken-1">Update Package<a id="btnUpdatePackageExit"
@@ -339,34 +341,38 @@
                         <div class="col s12">
                             <ul class="tabs tab-demo-active" style="width: 100%; background-color: #fafafa;">
                                 <li class="tab col s6"><a
-                                        class="firsttab purple-text text-darken-2 active waves-effect waves-light"
+                                        class="purple-text text-darken-2 waves-effect waves-light"
                                         href="#updateA"><b>INFO 1</b></a></li>
                                 <li class="tab col s6"><a
-                                        class="secondtab purple-text text-darken-2 waves-effect waves-light"
+                                        class="purple-text text-darken-2 waves-effect waves-light"
                                         href="#updateB"><b>INFO 2</b></a></li>
                             </ul>
                         </div>
                         <div id="updateA" class="ftab col s12" style="margin-top: 20px !important;">
                             <div class="container">
                                 <div class="input-field col s12">
-                                    <input type="hidden" name="intUpdatePackageID" id="upPackageID"
-                                           style="margin-top: -10px !important;">
-                                    <input type="text" name="strUpdatePackageName" id="upPackageName" placeholder="Package Name"/>
-                                    <label for="upPackageName" class="active"><b>Package Name</b></label>
+                                    <input type="hidden" name="intUpdatePackageID" id="upPackageID">
+                                    <input type="text" name="strUpdatePackageName" id="upPackageName"
+                                           placeholder="Package Name" required/>
+                                    <label for="upPackageName" class="active"><b>Package Name</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12">
-                                            <textarea name="strUpdatePackageDesc" class="materialize-textarea" placeholder="Description"
-                                                      id="upPackageDesc" length="80" style="margin-top: -10px !important;"></textarea>
+                                            <textarea name="strUpdatePackageDesc" class="materialize-textarea"
+                                                      placeholder="Description"
+                                                      id="upPackageDesc" length="80"
+                                                      style="margin-top: -10px !important;"></textarea>
                                     <label for="upPackageDesc" class="active"><b>Description</b></label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <select name="intUpdatePackageType" id="upPackageType" multiple>
+                                    <select name="intUpdatePackageType" id="upPackageType" multiple required>
                                         <option value="default" disabled>Choose...</option>
                                         <option value="1">Event</option>
                                         <option value="2">Home Service</option>
                                         <option value="3">Walk-In</option>
                                     </select>
-                                    <label for="upPackageType"><b>Type</b></label>
+                                    <label for="upPackageType"><b>Type</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                             </div>
                         </div>
@@ -457,18 +463,41 @@
                                                     </tbody>
                                                 </table>
                                             </div>
+                                        </div>
                                     </li>
                                 </ul>
+                            </div>
+                            <div class="col s9 z-depth-barts white">
+                                <h6 class="center" style="padding-top: -2px !important;"><b>Selected Items</b></h6>
+                                <div class="col s12" id="upPsList"
+                                     style="margin-top: -13px !important; margin-bottom: 5px !important;"></div>
+                            </div>
+                            <div class="col s3">
+                                <div class="input-field col s12">
+                                    <input type="text" class="right-align grey-text text-darken-3" disabled name=""
+                                           id="upPackTotal" placeholder="Price"/>
+                                    <label for="upPackTotal" class="active grey-text text-darken-3"><b>Total</b></label>
+                                </div>
+                                <div class="input-field col s12" style="margin-top: 20px !important;">
+                                    <input type="text" class="right-align prodPrice" name="updatePackagePrice" id="upPackPrice"
+                                           placeholder="Price" required/>
+                                    <label for="upPackPrice" class="active"><b>Price</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
+                <button class="red-text btn-flat transparent left" disabled
+                        style="margin:0px !important; padding:0px !important;"><i
+                        class="material-icons">error_outline</i>&nbspRequired field
+                </button>
                 <a href="#!"
                    class=" modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL</a>
-                <button class="waves-effect waves-light purple darken-3 white-text btn-flat" type="submit"
-                        value="Submit">SAVE
+                <button class="waves-effect waves-light purple darken-3 white-text btn-flat" onclick="updatePackage()"
+                        id="updatePackSubmitBtn">SAVE
                 </button>
             </div>
         </form>

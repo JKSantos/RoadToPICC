@@ -474,7 +474,7 @@ function createPackage() {
                     dataType: 'json',
                     async: true,
                     success: function (data) {
-                        swal("Successfully updated!", ".", "success");
+                        swal("Successfully created!", ".", "success");
                         updatePackageTable();
                         $('#createPackageModal').closeModal();
                     },
