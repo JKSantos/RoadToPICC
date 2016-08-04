@@ -40,8 +40,8 @@ function updatePackageProductTable() {
                     price = addCommas(price);
 
                     var checkbox = "<input type='checkbox' name='updatePackProdType' id='updateProdCheck" + product.intProductID + "'" +
-                            " value='" + product.intProductID + "' onclick='updateComputeProd(this.value)' required>" +
-                        "<label for='updateProdCheck" + product.intProductID + "'></label>",
+                            " value='" + product.intProductID + "' onclick='updateComputeProd(this.value)'>" +
+                            "<label for='updateProdCheck" + product.intProductID + "'></label>",
                         quantity = "<input type='number' class='right-align rowQty' name='updatePackProdQty'" +
                             " id='upProdQty" + product.intProductID + "' style='width: 75px' disabled value='1' min='1' maxlength='2'>";
                     price = "<span class='price'>P " + price + "</span>";
@@ -92,8 +92,8 @@ function updatePackageServiceTable() {
                     price = addCommas(price);
 
                     var checkbox = "<input type='checkbox' name='updatePackServType' id='updateServCheckBox" + service.intServiceID + "'" +
-                            " value='" + service.intServiceID + "' onclick='updateComputeService(this.value)' required>" +
-                        "<label for='updateServCheckBox" + service.intServiceID + "'></label>",
+                            " value='" + service.intServiceID + "' onclick='updateComputeService(this.value)' class='chkbox'>" +
+                            "<label for='updateServCheckBox" + service.intServiceID + "'></label>",
                         quantity = "<input type='number' class='right-align rowQty' name='updatePackServQty'" +
                             " id='upServQty" + service.intServiceID + "' style='width: 75px' disabled value='1' min='1' maxlength='2'>";
                     price = "<span class='price'>P " + price + "</span>";
@@ -265,9 +265,9 @@ function openUpdatePackage(id) {
                             if (prodIDAjax == updateProdID) {
                                 var ajaxProductID = productList.product.intProductID;
                                 upChk = upChk + 1; //para malaman kung ilan or meron bang nakacheck
-                                if(upChk < 1) {
+                                if (upChk < 1) {
                                     $('#updatePackSubmitBtn').attr('disabled', true).css('opacity', '0.3');
-                                } else if(upChk > 0) {
+                                } else if (upChk > 0) {
                                     $('#updatePackSubmitBtn').attr('disabled', false).css('opacity', '1');
                                 }
 
@@ -333,9 +333,9 @@ function openUpdatePackage(id) {
                             if (servIDAjax == updateServID) {
                                 var ajaxServiceID = serviceList.service.intServiceID;
                                 upChk = upChk + 1; //para malaman kung ilan or meron bang nakacheck
-                                if(upChk < 1) {
+                                if (upChk < 1) {
                                     $('#updatePackSubmitBtn').attr('disabled', true).css('opacity', '0.3');
-                                } else if(upChk > 0) {
+                                } else if (upChk > 0) {
                                     $('#updatePackSubmitBtn').attr('disabled', false).css('opacity', '1');
                                 }
 
@@ -409,9 +409,9 @@ function updateComputeProd(upProdID) {
             upProductQuantity = parseFloat($upProductQtyField.val()).toFixed(2);
 
         upChk = upChk + 1;
-        if(upChk < 1) {
+        if (upChk < 1) {
             $('#updatePackSubmitBtn').attr('disabled', true).css('opacity', '0.3');
-        } else if(upChk > 0) {
+        } else if (upChk > 0) {
             $('#updatePackSubmitBtn').attr('disabled', false).css('opacity', '1');
         }
 
@@ -463,9 +463,9 @@ function updateComputeProd(upProdID) {
     } else if (!(updateProdID.is(':checked'))) {
 
         upChk = upChk - 1;
-        if(upChk < 1) {
+        if (upChk < 1) {
             $('#updatePackSubmitBtn').attr('disabled', true).css('opacity', '0.3');
-        } else if(upChk > 0) {
+        } else if (upChk > 0) {
             $('#updatePackSubmitBtn').attr('disabled', false).css('opacity', '1');
         }
         console.log(upChk);
@@ -488,9 +488,9 @@ function updateComputeProd(upProdID) {
     $('#upProdchip' + upProdID).click(function () {
         console.log('update prod cip');
         upChk = upChk - 1;
-        if(upChk < 1) {
+        if (upChk < 1) {
             $('#updatePackSubmitBtn').attr('disabled', true).css('opacity', '0.3');
-        } else if(upChk > 0) {
+        } else if (upChk > 0) {
             $('#updatePackSubmitBtn').attr('disabled', false).css('opacity', '1');
         }
 
@@ -513,9 +513,9 @@ function updateComputeProd(upProdID) {
 
 function upPackChipExit(chipExitID) {
     upChk = upChk - 1;
-    if(upChk < 1) {
+    if (upChk < 1) {
         $('#updatePackSubmitBtn').attr('disabled', true).css('opacity', '0.3');
-    } else if(upChk > 0) {
+    } else if (upChk > 0) {
         $('#updatePackSubmitBtn').attr('disabled', false).css('opacity', '1');
     }
 
@@ -548,9 +548,9 @@ function updateComputeService(upServID) {
             upServiceQuantity = parseFloat($upServiceQtyField.val()).toFixed(2);
 
         upChk = upChk + 1;
-        if(upChk < 1) {
+        if (upChk < 1) {
             $('#updatePackSubmitBtn').attr('disabled', true).css('opacity', '0.3');
-        } else if(upChk > 0) {
+        } else if (upChk > 0) {
             $('#updatePackSubmitBtn').attr('disabled', false).css('opacity', '1');
         }
 
@@ -601,9 +601,9 @@ function updateComputeService(upServID) {
 
     } else if (!(updateServID.is(':checked'))) {
         upChk = upChk - 1;
-        if(upChk < 1) {
+        if (upChk < 1) {
             $('#updatePackSubmitBtn').attr('disabled', true).css('opacity', '0.3');
-        } else if(upChk > 0) {
+        } else if (upChk > 0) {
             $('#updatePackSubmitBtn').attr('disabled', false).css('opacity', '1');
         }
 
@@ -626,9 +626,9 @@ function updateComputeService(upServID) {
     $('#upServchip' + upServID).click(function () {
         console.log('update prod cip');
         upChk = upChk - 1;
-        if(upChk < 1) {
+        if (upChk < 1) {
             $('#updatePackSubmitBtn').attr('disabled', true).css('opacity', '0.3');
-        } else if(upChk > 0) {
+        } else if (upChk > 0) {
             $('#updatePackSubmitBtn').attr('disabled', false).css('opacity', '1');
         }
 
@@ -651,9 +651,9 @@ function updateComputeService(upServID) {
 
 function upPackServChipExit(chipExitID) {
     upChk = upChk - 1;
-    if(upChk < 1) {
+    if (upChk < 1) {
         $('#updatePackSubmitBtn').attr('disabled', true).css('opacity', '0.3');
-    } else if(upChk > 0) {
+    } else if (upChk > 0) {
         $('#updatePackSubmitBtn').attr('disabled', false).css('opacity', '1');
     }
 
@@ -675,19 +675,19 @@ function upPackServChipExit(chipExitID) {
 }
 
 function updatePackage() {
-    if($('#updatePackageForm').valid) {
+    if ($('#updatePackageForm').valid()) {
         // var job = document.querySelectorAll('select[name=intPackageType]:selected');
         var upType = [],
             upProdselect = [],
             upServselect = [],
             upPackagetype;
-        $.each($("#upPackageType option:selected"), function(){
+        $.each($("#upPackageType option:selected"), function () {
             upType.push($(this).val());
         });
-        $.each($("input[name=updatePackProdType]:checked"), function(){
+        $.each($("input[name=updatePackProdType]:checked"), function () {
             upProdselect.push($(this).val());
         });
-        $.each($("input[name=updatePackServType]:checked"), function(){
+        $.each($("input[name=updatePackServType]:checked"), function () {
             upServselect.push($(this).val());
         });
 
@@ -750,12 +750,10 @@ function updatePackage() {
                         },
                         error: function (ts) {
                             sweetAlert("Oops...", "Something went wrong!", "error");
-                            alert(ts.responseText);
                         }
                     });
                 }, 1000);
             });
-    } else {
-            $('#updatePackSubmitBtn').attr('disabled', true).css('opacity', '0.3');
     }
+
 }

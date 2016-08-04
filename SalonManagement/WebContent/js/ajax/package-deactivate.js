@@ -4,7 +4,7 @@
 function deactivatePackage(id) {
     var packagedata = {
         'intPackageID': id
-    }
+    };
     swal({
             title: "Deactivate this package?",
             text: "",

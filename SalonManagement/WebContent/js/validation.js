@@ -1460,12 +1460,6 @@ $(function () {
                 required: true,
                 valueNotEquals: "default"
             },
-            createPackProdType: {
-                checkboxes: true
-            },
-            createPackServType: {
-                checkboxes: true
-            },
             createPackagePrice: {
                 required: true,
                 valueNotEquals: "Php 0.00",
@@ -1487,12 +1481,6 @@ $(function () {
             intPackageType: {
                 required: "<span class='white-text'><b>Type</b>: Required</span><br/>",
                 valueNotEquals: "<span class='white-text'><b>Type</b>: Select type</span><br/>"
-            },
-            createPackProdType: {
-                required: "<span class='white-text'><b>List</b>: At least check one item</span><br/>"
-            },
-            createPackServType: {
-                required: "<span class='white-text'><b>List</b>: At least check one item</span><br/>"
             },
             createPackagePrice: {
                 required: "<span class='white-text'><b>Price</b>: Required</span><br/>",
@@ -1576,12 +1564,6 @@ $(function () {
                 required: true,
                 valueNotEquals: "default"
             },
-            updatePackProdType: {
-                checkboxes: true
-            },
-            updatePackServType: {
-                checkboxes: true
-            },
             updatePackagePrice: {
                 required: true,
                 valueNotEquals: "Php 0.00",
@@ -1589,26 +1571,20 @@ $(function () {
             }
         },
         messages: {
-            strPackageName: {
+            strUpdatePackageName: {
                 required: "<span class='white-text'><b>Package Name</b>: Required</span><br/>",
                 regx: "<span class='white-text'><b>Package Name</b>: Invalid characters</span><br/>",
                 noSpace: "<span class='white-text'><b>Package Name</b>: Empty Field</span><br/>",
                 minlength: "<span class='white-text'><b>Package Name</b>: Minimum of 2 letters</span><br/>"
             },
-            strPackageDesc: {
+            strUpdatePackageDesc: {
                 required: "<span class='white-text'><b>Description</b>: Required</span><br/>",
                 noSpace: "<span class='white-text'><b>Description</b>: Empty Field</span><br/>",
                 minlength: "<span class='white-text'><b>Description</b>: Minimum of 2 letters</span><br/>"
             },
-            intPackageType: {
+            intUpdatePackageType: {
                 required: "<span class='white-text'><b>Type</b>: Required</span><br/>",
                 valueNotEquals: "<span class='white-text'><b>Type</b>: Select type</span><br/>"
-            },
-            createPackProdType: {
-                required: "<span class='white-text'><b>List</b>: At least check one item</span><br/>"
-            },
-            createPackServType: {
-                required: "<span class='white-text'><b>List</b>: At least check one item</span><br/>"
             },
             updatePackagePrice: {
                 required: "<span class='white-text'><b>Price</b>: Required</span><br/>",
@@ -1646,7 +1622,7 @@ $(function () {
         });
     });
     $.validator.addMethod("checkboxes", function (value, element) {
-        return $('.packcheckbox:checked').length > 0; });
+        return $('.chkbox:checked').length > 0; });
     $.validator.addMethod("regx", function(value, element, regexp){
         var re = new RegExp(regexp);
         return this.optional(element) || re.test(value);

@@ -408,83 +408,85 @@ function serviceCompute(id) {
 
 
 function createPackage() {
-    // var job = document.querySelectorAll('select[name=intPackageType]:selected');
-    var type = [],
-        prodselect = [],
-        servselect = [],
-        packagetype;
-    $.each($("#crPackageType option:selected"), function(){
-        type.push($(this).val());
-    });
-    $.each($("input[name=createPackProdType]:checked"), function(){
-        prodselect.push($(this).val());
-    });
-    $.each($("input[name=createPackServType]:checked"), function(){
-        servselect.push($(this).val());
-    });
-
-    var productqty = $('input[name=createPackProdQty]:enabled').map(function () {
-            return this.value;
-    }).get(); //get all the quantity enabled in product
-    var serviceqty = $('input[name=createPackServQty]:enabled').map(function () {
-        return this.value;
-    }).get(); //get all the quantity enabled in service
-
-    type = type.join(', ');
-    if (type == '1, 2, 3') {
-        packagetype = '7';
-    } else if (type == '2, 3' || type == '3, 2') {
-        packagetype = '6';
-    } else if (type == '1, 3' || type == '3, 1') {
-        packagetype = '5';
-    } else if (type == '1, 2' || type == '2, 1') {
-        packagetype = '4';
-    } else {
-        packagetype = type;
-    }
-    prodselect = prodselect.join(', ');
-    servselect = servselect.join(', ');
-    productqty = productqty.join(', ');
-    serviceqty = serviceqty.join(', ');
-    console.log(type);
-    var packagedata = {
-        "strPackageName": $('#crPackageName').val(),
-        "strPackageDesc": $('#crPackageDesc').val(),
-        "intPackageType": packagetype,
-        "createPackServType": servselect,
-        "createPackProdType": prodselect,
-        "createPackServQty": serviceqty,
-        "createPackProdQty": productqty,
-        "dblPackagePrice": $('#crPackPrice').val().replace(/[^\d.]/g, '')
-    };
-
-    swal({
-            title: "Create this package?",
-            text: "",
-            type: "info",
-            showCancelButton: true,
-            closeOnConfirm: false,
-            showLoaderOnConfirm: true
-        },
-        function () {
-            setTimeout(function () {
-                $.ajax({
-                    url: 'createPackage',
-                    type: 'post',
-                    data: packagedata,
-                    dataType: 'json',
-                    async: true,
-                    success: function (data) {
-                        swal("Successfully created!", ".", "success");
-                        updatePackageTable();
-                        $('#createPackageModal').closeModal();
-                    },
-                    error: function () {
-                        sweetAlert("Oops...", "Something went wrong!", "error");
-                    }
-                });
-            }, 1000);
+    if($('#createPackageForm').valid()) {
+        // var job = document.querySelectorAll('select[name=intPackageType]:selected');
+        var type = [],
+            prodselect = [],
+            servselect = [],
+            packagetype;
+        $.each($("#crPackageType option:selected"), function(){
+            type.push($(this).val());
         });
+        $.each($("input[name=createPackProdType]:checked"), function(){
+            prodselect.push($(this).val());
+        });
+        $.each($("input[name=createPackServType]:checked"), function(){
+            servselect.push($(this).val());
+        });
+
+        var productqty = $('input[name=createPackProdQty]:enabled').map(function () {
+            return this.value;
+        }).get(); //get all the quantity enabled in product
+        var serviceqty = $('input[name=createPackServQty]:enabled').map(function () {
+            return this.value;
+        }).get(); //get all the quantity enabled in service
+
+        type = type.join(', ');
+        if (type == '1, 2, 3') {
+            packagetype = '7';
+        } else if (type == '2, 3' || type == '3, 2') {
+            packagetype = '6';
+        } else if (type == '1, 3' || type == '3, 1') {
+            packagetype = '5';
+        } else if (type == '1, 2' || type == '2, 1') {
+            packagetype = '4';
+        } else {
+            packagetype = type;
+        }
+        prodselect = prodselect.join(', ');
+        servselect = servselect.join(', ');
+        productqty = productqty.join(', ');
+        serviceqty = serviceqty.join(', ');
+        console.log(type);
+        var packagedata = {
+            "strPackageName": $('#crPackageName').val(),
+            "strPackageDesc": $('#crPackageDesc').val(),
+            "intPackageType": packagetype,
+            "createPackServType": servselect,
+            "createPackProdType": prodselect,
+            "createPackServQty": serviceqty,
+            "createPackProdQty": productqty,
+            "dblPackagePrice": $('#crPackPrice').val().replace(/[^\d.]/g, '')
+        };
+
+        swal({
+                title: "Create this package?",
+                text: "",
+                type: "info",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
+            },
+            function () {
+                setTimeout(function () {
+                    $.ajax({
+                        url: 'createPackage',
+                        type: 'post',
+                        data: packagedata,
+                        dataType: 'json',
+                        async: true,
+                        success: function (data) {
+                            swal("Successfully created!", ".", "success");
+                            updatePackageTable();
+                            $('#createPackageModal').closeModal();
+                        },
+                        error: function () {
+                            sweetAlert("Oops...", "Something went wrong!", "error");
+                        }
+                    });
+                }, 1000);
+            });
+    }
 }
 
 
