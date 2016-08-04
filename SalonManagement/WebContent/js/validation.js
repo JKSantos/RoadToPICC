@@ -1246,16 +1246,7 @@ $('.updateDeliveryForm').each(function () {
 $(document).ready(function () {
 
     $('#createExtraForm').validate({
-
-
-        submitHandler: function () {
-            swal("Successfully created!", "", "success");
-            $(form).ajaxSubmit();
-
-            // Materialize.toast('Successfully Created!', 5000, 'green');
-
-
-        },
+        
         errorClass: 'invalid',
         validClass: 'valid',
         errorElement: 'div',
@@ -1348,16 +1339,6 @@ $(document).ready(function () {
 $('.updateExtraForm').each(function () {
 
     $(this).validate({
-
-
-        submitHandler: function () {
-            swal("Successfully created!", "", "success");
-            $(form).ajaxSubmit();
-
-            // Materialize.toast('Successfully Created!', 5000, 'green');
-
-
-        },
         errorClass: 'invalid',
         validClass: 'valid',
         errorElement: 'div',
@@ -1452,10 +1433,6 @@ $('.updateExtraForm').each(function () {
 $(function () {
 
     $('#createPackageForm').validate({
-        submitHandler: function(form) {
-            swal("Successfully created!", "", "success");
-            form.submit();
-        },
         
         errorClass: 'invalid',
         validClass: 'valid',

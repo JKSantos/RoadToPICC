@@ -9,13 +9,13 @@
             <h3 class="grey-text center text-darken-1">Product Maintenance</h3>
             <a class="btnshadow hoverable z-depth-1 waves-effect waves-light modal-trigger btn-flat purple darken-2 left white-text"
                href="#createProduct" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">add</i></a>
-            <a class="btnshadow hoverable z-depth-1 waves-effect waves-light modal-trigger btn-flat purple darken-2 left white-text"
-               href="#empArchive" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">archive</i></a>
+            <a class="btnshadow hoverable z-depth-1 waves-effect waves-light modal-viewall btn-flat purple darken-2 left white-text"
+               href="#productArchive" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">archive</i></a>
             <nav class="right white hoverable  z-depth-1" style="width: 300px; margin-right: 20px;">
                 <div class="nav-wrapper col s4">
                     <form>
                         <div class="input-field">
-                            <input id="prodSearch" placeholder="Search" class="grey-text text-darken-4" type="search" required>
+                            <input id="prodSearch" placeholder="Search" class="grey-text text-darken-4" type="search">
                             <label for="prodSearch"><i
                                     class="material-icons grey-text text-darken-4">search</i></label>
                         </div>
@@ -38,7 +38,7 @@
                 <tbody>
                 <c:forEach items="${productList}" var="product">
                     <c:set var="price" scope="session"
-                           value="${(product.dblProductPrice * 9) + product.dblProductPrice}"></c:set>
+                           value="${(product.dblProductPrice * 0) + product.dblProductPrice}"></c:set>
                     <%! String string = null; %>
                     <% Product prod = (Product)pageContext.getAttribute("product");
                     string = String.valueOf(prod.getIntProductID());
@@ -52,6 +52,10 @@
                             <c:out value="${price}"/>
                         </td>
                         <td style="padding:0; margin: 0;" class="dt-body-center">
+                            <a class="waves-effect waves-purple modal-viewall btn-flat transparent black-text"
+                               href="#view${product.intProductID}" style="padding-left: 10px;padding-right:10px; margin: 5px;">
+                                <i class="material-icons">visibility</i>
+                            </a>
                             <a class="waves-effect waves-purple modal-trigger btn-flat transparent black-text"
                                href="#prod<%=string%>" style="padding-left: 10px;padding-right:10px; margin: 5px;">
                                 <i class="material-icons">edit</i>
@@ -82,6 +86,64 @@
     </div>
 
     <!-- ARCHIVE BEGIN -->
+    <div id="productArchive" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4 class="grey-text center text-darken-1">Archive</h4>
+            <nav class="right white hoverable  z-depth-1" style="width: 300px; margin-right: 20px;">
+                <div class="nav-wrapper col s4">
+                    <form>
+                        <div class="input-field">
+                            <input id="prodArchiveSearch" placeholder="Search" class="grey-text text-darken-4"
+                                   type="search">
+                            <label for="prodArchiveSearch"><i
+                                    class="material-icons grey-text text-darken-4">search</i></label>
+                        </div>
+                    </form>
+                </div>
+            </nav>
+            <table id="prodArchiveTbl"
+                   class="hoverable z-depth-1 cell-border row-border display centered responsive-table highlight"
+                   cellspacing="0" width="100%"
+                   style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;" rowspan="10">
+                <thead>
+                <tr>
+                    <th class="dt-head-left">Name</th>
+                    <th class="dt-head-left">Category</th>
+                    <th class="dt-head-left no-sort">Detail</th>
+                    <th class="dt-head-right">Price</th>
+                    <th class="dt-head-center no-sort">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="padding-left: 10px; margin: 0;" class="dt-body-left"></td>
+                    <td style="padding-left: 10px; margin: 0;" class="dt-body-left"></td>
+                    <td style="padding-left: 10px; margin: 0;" class="dt-body-left"></td>
+                    <td style="padding-right: 10px; margin: 0;" class="dt-body-right prodPrice"></td>
+                    <td style="padding:0; margin: 0;" class="dt-body-center">
+                        <button class="waves-effect waves-light btn-flat green darken-3 white-text"
+                                id="prodArchiveBtn" style="padding-left: 10px;padding-right:10px; margin: 5px;"
+                                title="Restore">
+                            <i class="material-icons">restore</i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot style="border: 1px solid #bdbdbd;">
+                <tr>
+                    <th class="dt-head-left">Name</th>
+                    <th class="dt-head-left">Category</th>
+                    <th class="dt-head-left">Detail</th>
+                    <th class="dt-head-right">Price</th>
+                    <th class="dt-head-center">Actions</th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </div>
 
     <!-- ARCHIVE END -->
 
@@ -235,7 +297,7 @@
         strProdID = String.valueOf(prodID.getIntProductID());
         String productCate = prodID.getStrProductCategory();
         %>
-        <c:set var="price" scope="session" value="${(product.dblProductPrice * 9) + product.dblProductPrice}"></c:set>
+        <c:set var="price" scope="session" value="${(product.dblProductPrice * 0) + product.dblProductPrice}"></c:set>
         <div id="prod<%=strProdID%>" class="prodUpdateModal modal modal-fixed-footer">
             <form class="col s12 updateProdForm" method="post" id="updateProdForm" action="updateItem"
                   enctype="multipart/form-data">
@@ -398,13 +460,99 @@
             </div>
         </form>
     </div>
-    <!--  START VIEW PRODUCT -->
 
-    <!-- add category END -->
+    <!--view-->
+    <c:forEach items="${productList}" var="product">
+        <%! String viewStrProdID = null; %>
+        <% Product prodID = (Product)pageContext.getAttribute("product");
+        viewStrProdID = String.valueOf(prodID.getIntProductID());
+        String productCate = prodID.getStrProductCategory();
+        %>
+        <c:set var="price" scope="session" value="${(product.dblProductPrice * 0) + product.dblProductPrice}"></c:set>
+        <div id="view${product.intProductID}" class="prodUpdateModal z-depth-0 transparent modal modal-fixed-footer">
+            <form class="col s12" method="post" id="viewProdForm"
+                  enctype="multipart/form-data">
+                <div class="modal-content">
+                    <!-- <div class="container"> -->
+                    <div class="wrapper">
+                        <div class="input-field col s12" style="margin-top: -5px !important;">
+                            <h3 class="center grey-text text-lighten-2">View Product</h3>
+                        </div>
+                        <div class="aside aside1 z-depth-0">
+                            <div class="row">
+                                <!--<div class="input-field col s12">-->
+                                <!--<img name="image" id="employeeimg" class="circle"-->
+                                <!--style="width: 200px; height: 200px;" src="./img/anon.jpg" alt=""/>-->
+                                <!--</div>-->
+                                <div class="col s12">
+
+                                    <img name="prodsvcCreate" id="viewProdImage" class="updateProdImage"
+                                         style="width: 200px; height: 200px; margin-top: 20px;"
+                                         src="<s:url action='getImage'><s:param name='ImageID'><%=viewStrProdID%></s:param><s:param name='type'>product</s:param></s:url>"
+                                         alt="${product.strProductName}"/>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="aside aside2 z-depth-0">
+                            <div class="row">
+                                <div class="input-field col s12" style="margin-top: 25px !important;">
+                                    <input type="hidden" name="intItemID" value="<%=viewStrProdID%>">
+                                    <input type="hidden" name="strItemCate" value="Product">
+                                    <input value="${product.strProductName}" type="text" name="strItemName"
+                                           id="viewItemName" class="white-text" disabled
+                                           placeholder="Product Name"/>
+                                    <label for="viewItemName" class="active purple-text text-lighten-2"><b>Name</b></label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <select id="viewItemCategory" name="strItemCategory" disabled
+                                            class="upItemCategory white-text" style="margin-bottom: -15px !important;">
+                                        <option value="default" disabled selected>Choose...</option>
+                                        <c:forEach items="${productCategory}" var="cate">
+                                            <%
+                                            String cate = (String)pageContext.getAttribute("cate");
+                                            String selectedProduct = null;
+                                            if(productCate.equals(cate)){
+                                            selectedProduct = "selected";
+                                            }
+                                            else {
+                                            selectedProduct = "";
+                                            }
+                                            %>
+                                            <option value="${cate}"
+                                            <%out.println(selectedProduct);%>>${cate}</option>
+                                        </c:forEach>
+                                    </select>
+                                    <label for="viewItemCategory" class="purple-text text-lighten-2"><b>Category</b></label>
+                                </div>
+                                <div class="input-field col s6" style="margin-bottom: -15px !important;">
+                                    <input type="text" disabled
+                                           class="validate upProdItemPrice white-text"
+                                           id="veiwItemPrice" name="price" placeholder="P9.99"
+                                           value="<c:out value='${price}'/>"/>
+                                    <label for="veiwItemPrice" class="active purple-text text-lighten-2"><b>Price</b></label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <textarea id="viewItemDetails" name="strItemDetails" disabled
+                                              class="materialize-textarea white-text" placeholder="Details"
+                                              style="margin-top: -10px !important;">${product.strProductDesc}</textarea>
+                                    <label for="viewItemDetails" class="active purple-text text-lighten-2"><b>Details</b></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
-    <!--                     <div class="aside aside2 z-depth-barts">
-
-    </div> -->
+                </div>
+                <div class="modal-footer transparent">
+                    <a class="modal-action modal-close waves-effect waves-purple btn-flat purple-text text-lighten-1"
+                    style="border: 3px solid #ab47bc !important;">
+                        <b>CLOSE</b>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </c:forEach>
+    <!--view-->
 </div>
-<!-- </div> -->

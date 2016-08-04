@@ -8,8 +8,8 @@
             <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
                href="#createExtraChargeModal" style="margin-top: 30px; margin-left: 15px;"><i
                     class="material-icons">add</i></a>
-            <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
-               href="#empArchive" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">archive</i></a>
+            <a class="z-depth-1 hoverable waves-effect waves-light modal-viewall btn purple darken-2 left white-text"
+               href="#otherchargeArchive" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">archive</i></a>
             <nav class="right white hoverable  z-depth-1" style="width: 300px; margin-right: 20px;">
                 <div class="nav-wrapper col s4">
                     <form>
@@ -43,29 +43,71 @@
                     <th align="dt-head-center" class="no-sort">Action</th>
                 </tr>
                 </tfoot>
-                <tbody>
-                <c:forEach items="${ecList}" var="extracharge">
-                    <tr>
-                        <td style="padding-left: 10px; margin:0;" class="dt-body-left">${extracharge.strECName}</td>
-                        <td style="padding-left: 10px; margin:0;" class="dt-body-left">${extracharge.strECDetails}</td>
-                        <td style="padding-right: 10px; margin:0;" class="dt-body-right servPrice">${extracharge.dblECPrice}</td>
-                        <td class="dt-body-center" style="padding:0; margin:0;">
-                            <a class="waves-effect waves-purple modal-trigger btn-flat transparent black-text empUpdatebtn"
-                               href="#ecupdate${extracharge.intECID}" style="padding-left: 10px;padding-right:10px; margin: 5px;">
-                                <i class="material-icons">edit</i>
-                            </a>
-                            <button class="extradeacbtn waves-effect waves-purple btn-flat transparent red-text text-accent-4"
-                                    style="padding-left: 10px;padding-right:10px; margin: 5px;" id="${extracharge.intECID}"
-                                    title="Deactivate" formaction="deactivateEmployee"><i class="material-icons">delete</i></button>
-                        </td>
-                    </tr>
-
-                </c:forEach>
+                <tbody class="extratblbody">
 
                 </tbody>
             </table>
         </div>
     </div>
+
+    <!-- ARCHIVE BEGIN -->
+    <div id="otherchargeArchive" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4 class="grey-text center text-darken-1">Archive</h4>
+            <nav class="right white hoverable  z-depth-1" style="width: 300px; margin-right: 20px;">
+                <div class="nav-wrapper col s4">
+                    <form>
+                        <div class="input-field">
+                            <input id="otherchargeArchiveSearch" placeholder="Search" class="grey-text text-darken-4"
+                                   type="search">
+                            <label for="otherchargeArchiveSearch"><i
+                                    class="material-icons grey-text text-darken-4">search</i></label>
+                        </div>
+                    </form>
+                </div>
+            </nav>
+            <table id="otherchargeArchiveTbl"
+                   class="hoverable z-depth-1 cell-border row-border display centered responsive-table highlight"
+                   cellspacing="0" width="100%"
+                   style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;" rowspan="10">
+                <thead>
+                <tr>
+                    <th class="dt-head-left">Charge Name</th>
+                    <th class="dt-head-left no-sort">Description</th>
+                    <th class="dt-head-right">Price</th>
+                    <th align="dt-head-center" class="no-sort">Action</th>
+                </tr>
+                </thead>
+                <tfoot style="border: 1px solid #bdbdbd;">
+                <tr>
+                    <th class="dt-head-left">Charge Name</th>
+                    <th class="dt-head-left no-sort">Description</th>
+                    <th class="dt-head-right">Price</th>
+                    <th align="dt-head-center" class="no-sort">Action</th>
+                </tr>
+                </tfoot>
+                <tbody>
+                    <tr>
+                        <td style="padding-left: 10px; margin:0;" class="dt-body-left"></td>
+                        <td style="padding-left: 10px; margin:0;" class="dt-body-left"></td>
+                        <td style="padding-right: 10px; margin:0;" class="dt-body-right servPrice"></td>
+                        <td style="padding:0; margin: 0;" class="dt-body-center">
+                            <button class="waves-effect waves-light btn-flat green darken-3 white-text"
+                                    id="deliveryArchiveBtn" style="padding-left: 10px;padding-right:10px; margin: 5px;"
+                                    title="Restore">
+                                <i class="material-icons">restore</i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </div>
+
+    <!-- ARCHIVE END -->
 
     <!-- Modal Structure -->
     <div id="createExtraChargeModal" class="modal modal-fixed-footer">
@@ -111,16 +153,14 @@
                 <button type="reset" value="Reset" id="crExtraCancel"
                         class="crExtraCancel modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL
                 </button>
-                <button class="waves-effect waves-light purple darken-3 white-text btn-flat" type="submit"
-                        value="Submit">CREATE
+                <button class="waves-effect waves-light purple darken-3 white-text btn-flat" onclick="createExtra()">CREATE
                 </button>
             </div>
         </form>
     </div>
 
-    <c:forEach items="${ecList}" var="extracharge">
-        <div id="ecupdate${extracharge.intECID}" class="updateExtraModal modal modal-fixed-footer">
-            <form class="col s12 updateExtraForm" id="updateExtraForm" method="post" action="updateExtraCharge">
+        <div id="updateExtraModal" class="updateExtraModal modal modal-fixed-footer">
+            <form class="col s12 updateExtraForm" id="updateExtraForm">
                 <div class="modal-content">
                     <!-- <div class="container"> -->
                     <div class="wrapper">
@@ -133,22 +173,20 @@
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                           	 	<input type="hidden" value="${extracharge.intECID}"
-                                       name="intECID">
-                                <input type="text" class="validate" id="upECName" value="${extracharge.strECName}"
+                           	 	<input type="hidden" id="upECID" name="intECID">
+                                <input type="text" class="validate" id="upECName"
                                        name="strECName" required placeholder="Charge Name">
                                 <label for="upECName" class="active"><b>Charge Name</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>
                             </div>
                             <div class="input-field col s12" style="margin-top: 25px;">
                                 <input type="text" class="validate" id="upECDetails"
-                                       name="strECDetails" required value="${extracharge.strECDetails}"
-                                       placeholder="City">
+                                       name="strECDetails" required placeholder="City">
                                 <label for="upECDetails" class="active"><b>Details</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>
                             </div>
                             <div class="input-field col s6 right">
-                                <input id="upECPrice" name="price" value="${extracharge.dblECPrice}"
+                                <input id="upECPrice" name="price"
                                        class="upECPrice validate upProdItemPrice right-align" required placeholder="Price">
                                 <label for="upECPrice" class="active"><b>Price</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>
@@ -164,13 +202,11 @@
                     <button type="reset" value="Reset" id="upExtraCancel"
                             class="upExtraCancel modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL
                     </button>
-                    <button class="upExtraSubmitBtn waves-effect waves-light purple darken-3 white-text btn-flat" type="submit"
-                            value="Submit">UPDATE
-                    </button>
+                    <a class="waves-effect waves-light purple darken-3 white-text btn-flat" onclick="extraUpdate()">UPDATE
+                    </a>
                 </div>
             </form>
         </div>
-    </c:forEach>
 
 
 </div>

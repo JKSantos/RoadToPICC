@@ -22,8 +22,8 @@
 		</action>
 		
 		<action name="createPackage" class="com.gss.actions.CreatePackageAction">
-			<result name="success">redirect-maintenance-package.jsp</result>
-			<result name="failed">maintenance-package.jsp</result>
+			<result name="success" type="json"/>
+			<result name="failed" type="json"/>
 		</action>
 		
 		<action name="deactivatePackage" class="com.gss.actions.DeactivatePackageAction" method="execute">
