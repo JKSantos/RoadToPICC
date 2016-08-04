@@ -465,7 +465,7 @@ $(document).ready(function () {
 });
 
 $(function() {
-    var packagetbl = $('#packagetbl').dataTable({
+    var packagetbl = $('#packagetbl').DataTable({
         "bLengthChange": false,
         "sPaginationType": "full_numbers",
         responsive: true,
@@ -1521,39 +1521,6 @@ $('#promotbl').on('click', '.promodeacbtn', function (e) {
         });
 });
 
-
-// $('#extratbl').on('click', '.extradeacbtn', function (e) {
-//     e.returnValue = false;
-//     var extraID = $(this).attr('id');
-//     console.log(extraID);
-//     var extradata = {
-//         'intECID': extraID
-//     }
-//     var $tr = $(this).closest('tr');
-//
-//     swal({
-//             title: "Are you sure?",
-//             text: "",
-//             type: "warning",
-//             showCancelButton: true,
-//             confirmButtonColor: "#DD6B55",
-//             confirmButtonText: "Yes, delete it!",
-//             closeOnConfirm: false
-//         },
-//         function () {
-//             swal("Deleted!", ".", "success");
-//             $.ajax({
-//                 type: 'post',
-//                 url: 'deactivateExtraCharge',
-//                 data: extradata,
-//                 success: function (response) {
-//                     $tr.find('td').fadeOut(500, function () {
-//                         $tr.remove();
-//                     });
-//                 }
-//             });
-//         });
-// });
 
 
 $('#packagetbl').on('click', '.packagedeacbtn', function (e) {

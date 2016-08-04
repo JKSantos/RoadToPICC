@@ -52,9 +52,7 @@ $('.updateContact').each(function () {
     });
 });
 
-$('ul.tabs').each(function () {
-    $(this).tabs();
-});
+$('ul.tabs').tabs();
 
 $(document).ready(function () {
     $('.tooltipped').tooltip({delay: 5});
