@@ -18,7 +18,10 @@ public class DiscountChecker {
 		
 		for(int index = 0; index < discount.getProductList().size(); index++){
 			
+			System.out.println("Product ID: " + product.getIntProductID());
+			
 			int discountProductID = discount.getProductList().get(index).getIntProductID();
+			System.out.println("Discount ProductID: " + discountProductID);
 			
 			if(productID == discountProductID){
 				ProductOrder order = new ProductOrder(1, product, intQuantity, 1);

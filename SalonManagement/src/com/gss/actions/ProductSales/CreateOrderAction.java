@@ -1,9 +1,12 @@
 package com.gss.actions.ProductSales;
 
 import java.sql.SQLException;
-
+import java.util.ArrayList;
 import java.util.List;
 
+import com.gss.model.Discount;
+import com.gss.model.ExtraCharge;
+import com.gss.model.Invoice;
 import com.gss.model.Product;
 import com.gss.model.ProductOrder;
 import com.gss.model.ProductSales;
@@ -30,6 +33,10 @@ public class CreateOrderAction{
 	public String execute() throws SQLException{
 
 		int type = 2;
+		List<ExtraCharge> extraCharges = new ArrayList<ExtraCharge>();
+		List<Discount> discounts = new ArrayList<Discount>();
+		
+		Invoice invoice = Invoice.createNullInvoice(extraCharges, discounts);
 		
 		if(orderType.equals("delivery")){
 			type = 1;
@@ -49,7 +56,7 @@ public class CreateOrderAction{
 		
 		productList = ProductOrderConverter.convertToProductObject(product, QuantityHelper.removeEmptyQuantity(quantity), productObjectList);
 		
-		ProductSales sales = new ProductSales(1, DateHelper.parseDate("2016-03-04"),DateHelper.parseDate("2016-03-04"), type, strName, strStreet, intLocationID, strContactNo, productList, 1, "REQUEST");
+		ProductSales sales = new ProductSales(1, DateHelper.parseDate("2016-03-04"),DateHelper.parseDate("2016-03-04"), type, strName, strStreet, intLocationID, strContactNo, productList, invoice, "REQUEST");
 
 		if(salesService.createProductSales(sales) == true){
 			this.status = "success";

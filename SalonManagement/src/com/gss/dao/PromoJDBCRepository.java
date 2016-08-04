@@ -179,22 +179,25 @@ public class PromoJDBCRepository implements PromoRepository{
 	@Override
 	public List<Promo> getAllPromo() {
 		
-		ServiceService serviceService = new ServiceServiceImpl();
-		ProductService productService = new ProductServiceImpl();
-		PackageService packageService = new PackageServiceImpl();
+		ServiceService serviceService 		= new ServiceServiceImpl();
+		ProductService productService 		= new ProductServiceImpl();
+		PackageService packageService 		= new PackageServiceImpl();
 		
-		List<Promo> promoList = new ArrayList<Promo>();
+		List<Promo> promoList 				= new ArrayList<Promo>();
 		
-		String query = "SELECT * FROM tblPromo WHERE intPromoStatus = 1;";
-		String query2 = "SELECT * FROM tblServicePromo WHERE intPromoID = ? AND intPromoStatus = 1;";
-		String query3 = "SELECT * FROM tblProductPromo WHERE intPromoID = ? AND intPromoStatus = 1;";
-		String query4 = "SELECT * FROM tblPackagePromo WHERE intPromoID = ? AND intStatus = 1;";
+		String query 						= "SELECT * FROM tblPromo WHERE intPromoStatus = 1;";
+		String getPromoDiscount				= "CALL getPromoDiscount(?)";
+		String query2 						= "SELECT * FROM tblServicePromo WHERE intPromoID = ? AND intPromoStatus = 1;";
+		String query3 						= "SELECT * FROM tblProductPromo WHERE intPromoID = ? AND intPromoStatus = 1;";
+		String query4 						= "SELECT * FROM tblPackagePromo WHERE intPromoID = ? AND intStatus = 1;";
 
 		Connection con = jdbc.getConnection();
 		
 		try{
-			PreparedStatement pre = con.prepareStatement(query);
-			ResultSet set = pre.executeQuery();
+			PreparedStatement pre 			= con.prepareStatement(query);
+			PreparedStatement discounts		= con.prepareStatement(getPromoDiscount);
+			ResultSet set 					= pre.executeQuery();
+			ResultSet discountedPrice = null;
 			
 			while(set.next()){
 				
@@ -214,6 +217,15 @@ public class PromoJDBCRepository implements PromoRepository{
 				double price = set.getDouble(6);
 				String avail = set.getString(7);
 				int status = set.getInt(8);
+				
+				discounts.setInt(1, intID);
+				discountedPrice = discounts.executeQuery();
+				
+				while(discountedPrice.next()){
+				
+					price = discountedPrice.getDouble(1);
+				}
+				
 				
 				PreparedStatement pre5 = con.prepareStatement(query2);
 				pre5.setInt(1, intID);
@@ -279,7 +291,8 @@ public class PromoJDBCRepository implements PromoRepository{
 				
 				promoList.add(promo);
 			}
-			
+			discounts.close();
+			discountedPrice.close();
 			set.close();
 			pre.close();
 			

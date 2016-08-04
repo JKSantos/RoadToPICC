@@ -17,35 +17,48 @@ public class ProductSales {
 	private int intLocationID;
 	private String strContactNo;
 	private List<ProductOrder> productList;
-	private int intInvoiceID;
+	private Invoice invoice;
 	private String strStatus;
 	
-	public ProductSales(int intSalesID, Date datCreated, Date deliveryDate, int intType, String strName, String strAddress, int intLocationID, String strContactNo, List<ProductOrder> productList, int intInvoiceID, String strStatus){
+	public ProductSales(int intSalesID, Date datCreated, Date deliveryDate, int intType, String strName,
+			String strAddress, int intLocationID, String strContactNo, List<ProductOrder> productList, Invoice invoice,
+			String strStatus) {
+		super();
 		this.intSalesID = intSalesID;
+		this.datCreated = datCreated;
+		this.deliveryDate = deliveryDate;
 		this.intType = intType;
 		this.strName = strName;
 		this.strAddress = strAddress;
 		this.intLocationID = intLocationID;
 		this.strContactNo = strContactNo;
 		this.productList = productList;
+		this.invoice = invoice;
 		this.strStatus = strStatus;
-		this.intInvoiceID = intInvoiceID;
-		this.datCreated = datCreated;
 	}
-	
-	public int getIntType() {
-		return intType;
-	}
-
-	public void setIntType(int intType) {
-		this.intType = intType;
-	}
-	
 	public int getIntSalesID() {
 		return intSalesID;
 	}
 	public void setIntSalesID(int intSalesID) {
 		this.intSalesID = intSalesID;
+	}
+	public Date getDatCreated() {
+		return datCreated;
+	}
+	public void setDatCreated(Date datCreated) {
+		this.datCreated = datCreated;
+	}
+	public Date getDeliveryDate() {
+		return deliveryDate;
+	}
+	public void setDeliveryDate(Date deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+	public int getIntType() {
+		return intType;
+	}
+	public void setIntType(int intType) {
+		this.intType = intType;
 	}
 	public String getStrName() {
 		return strName;
@@ -77,39 +90,18 @@ public class ProductSales {
 	public void setProductList(List<ProductOrder> productList) {
 		this.productList = productList;
 	}
-
+	public Invoice getInvoice() {
+		return invoice;
+	}
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
+	}
 	public String getStrStatus() {
 		return strStatus;
 	}
-
 	public void setStrStatus(String strStatus) {
 		this.strStatus = strStatus;
 	}
-
-	public Date getDatCreated() {
-		return datCreated;
-	}
-
-	public void setDatCreated(Date datCreated) {
-		this.datCreated = datCreated;
-	}
-
-	public int getIntInvoiceID() {
-		return intInvoiceID;
-	}
-
-	public void setIntInvoiceID(int intInvoiceID) {
-		this.intInvoiceID = intInvoiceID;
-	}
-
-	public Date getDeliveryDate() {
-		return deliveryDate;
-	}
-
-	public void setDeliveryDate(Date deliveryDate) {
-		this.deliveryDate = deliveryDate;
-	}
-	
 	public static List<ProductSales> getAllProductSales(){
 		ProductSalesService service = new ProductSalesServiceImpl();
 		
@@ -122,7 +114,7 @@ public class ProductSales {
 		
 		for(int index = 0; index < searchList.size(); index++){
 			
-			if(searchList.get(index).getIntInvoiceID() == invoiceID)
+			if(searchList.get(index).getInvoice().getIntInvoiceID() == invoiceID)
 				return searchList.get(index);
 		}
 		return null;

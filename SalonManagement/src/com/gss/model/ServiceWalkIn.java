@@ -4,14 +4,14 @@ public class ServiceWalkIn {
 	
 	private int intServiceWalkInID;
 	private Service service;
-	private int intEmployeeAssigned;
+	private Employee employeeAssigned;
 	private String strServiceStatus;
 	
-	public ServiceWalkIn(int intServiceWalkInID, Service service, int intEmployeeAssigned, String strServiceStatus){
-		
+	public ServiceWalkIn(int intServiceWalkInID, Service service, Employee employeeAssigned, String strServiceStatus) {
+		super();
 		this.intServiceWalkInID = intServiceWalkInID;
 		this.service = service;
-		this.intEmployeeAssigned = intEmployeeAssigned;
+		this.employeeAssigned = employeeAssigned;
 		this.strServiceStatus = strServiceStatus;
 	}
 
@@ -31,12 +31,12 @@ public class ServiceWalkIn {
 		this.service = service;
 	}
 
-	public int getIntEmployeeAssigned() {
-		return intEmployeeAssigned;
+	public Employee getEmployeeAssigned() {
+		return employeeAssigned;
 	}
 
-	public void setIntEmployeeAssigned(int intEmployeeAssigned) {
-		this.intEmployeeAssigned = intEmployeeAssigned;
+	public void setEmployeeAssigned(Employee employeeAssigned) {
+		this.employeeAssigned = employeeAssigned;
 	}
 
 	public String getStrServiceStatus() {

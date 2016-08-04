@@ -33,7 +33,7 @@ public class CreateReservation {
 		List<EmployeeAssigned> employeeAssigned = new ArrayList<EmployeeAssigned>();
 		String strStatus = "PENDING";
 		Invoice invoice;
-		Discount discount = Discount.searchDiscount(1, Discount.getAllDiscount());
+		Discount discount = Discount.searchDiscount(27, Discount.getAllDiscount());
 		
 		//for invoice
 				List<ExtraCharge> extraCharges = new ArrayList<ExtraCharge>();
@@ -42,7 +42,7 @@ public class CreateReservation {
 				invoice = new Invoice(1, datTo, dicounts, extraCharges, headCount, headCount, null, strStatus);
 		
 		//for customer
-		String strName = "Czarina Paras";
+		String strName = "Florentino Santos";
 		String strAddress = "189-Dr. Sixto Antonio Avenue, Rosario Pasig City";
 		String strContactNo = "09361144842";
 		String strEmailAddress = "santos.jeffrey0023@gmail.com";
@@ -56,7 +56,7 @@ public class CreateReservation {
 		includedItems = new ReservationInclusion(products, services, packages, promos);
 		
 			//ProductOrder
-			Product product = new Product(35, strEmailAddress, strEmailAddress, strEmailAddress, headCount, null, headCount, strEmailAddress, headCount);
+			Product product = new Product(38, strEmailAddress, strEmailAddress, strEmailAddress, headCount, null, headCount, strEmailAddress, headCount);
 			ProductOrder productOrder = DiscountChecker.checkProductDiscount(product, discount, 3);
 			products.add(productOrder);
 			

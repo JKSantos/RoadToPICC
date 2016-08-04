@@ -25,6 +25,7 @@
       org.apache.struts2.tiles.StrutsTilesListener
    </listener-class>
    </listener>
+	
 	<filter>
 		<filter-name>Struts</filter-name>
 		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>

@@ -159,6 +159,7 @@ public class ReservationJDBCRepository implements ReservationRepository{
 			preReservation.setInt(10, reservation.getHeadCount());
 			preReservation.setString(11, reservation.getStrVenue());
 			preReservation.setString(12, reservation.getStrStatus());
+			preReservation.setDouble(13, reservation.getInvoice().getDblTotalPrice());
 			
 			reservationResult = preReservation.executeQuery();
 			

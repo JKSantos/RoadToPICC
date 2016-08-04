@@ -6,36 +6,31 @@ public class PackageWalkIn {
 	
 	private int intPackageWalkInID;
 	private Package packages;
-	private List<ServiceAssignment> employees;
+	private List<ServiceWalkIn> serviceAssignment;
 	
-	public PackageWalkIn(int intPackageWalkInID, Package packages, List<ServiceAssignment> employees){
-		
+	public PackageWalkIn(int intPackageWalkInID, Package packages, List<ServiceWalkIn> serviceAssignment) {
+		super();
 		this.intPackageWalkInID = intPackageWalkInID;
 		this.packages = packages;
-		this.employees = employees;
+		this.serviceAssignment = serviceAssignment;
 	}
-
+	
 	public int getIntPackageWalkInID() {
 		return intPackageWalkInID;
 	}
-
 	public void setIntPackageWalkInID(int intPackageWalkInID) {
 		this.intPackageWalkInID = intPackageWalkInID;
 	}
-
 	public Package getPackages() {
 		return packages;
 	}
-
 	public void setPackages(Package packages) {
 		this.packages = packages;
 	}
-
-	public List<ServiceAssignment> getEmployees() {
-		return employees;
+	public List<ServiceWalkIn> getServiceAssignment() {
+		return serviceAssignment;
 	}
-
-	public void setEmployees(List<ServiceAssignment> employees) {
-		this.employees = employees;
+	public void setServiceAssignment(List<ServiceWalkIn> serviceAssignment) {
+		this.serviceAssignment = serviceAssignment;
 	}
 }

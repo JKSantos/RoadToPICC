@@ -1,5 +1,6 @@
 package com.gss.actions;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,10 @@ public class CreateDiscountAction {
 	private String checkedPackages = "";
 	private String checkedPromos = "";
 
-	public String execute() throws NumberFormatException{
+	public String execute(){
+		
+		System.out.println("DISCOUNT TYPE:		" + strDiscountType);
+		System.out.println("DISCOUNT VALUE		" + strDiscountPricePercent);
 
 		DiscountServiceImpl service = new DiscountServiceImpl();
 		Discount discount;
@@ -60,9 +64,7 @@ public class CreateDiscountAction {
 				
 			return result;
 		}
-		catch(Exception e){
-			e.printStackTrace();
-			
+		catch(Exception e){	
 			discount = new Discount(1, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), strDiscountPricePercent, productList, serviceList, packageList, promoList, 1);
 			
 			if(service.createDiscount(discount) == true)

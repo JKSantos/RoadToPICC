@@ -136,8 +136,10 @@ public class Discount {
 	public static Discount searchDiscount(int intDiscountID, List<Discount> discountList){
 		
 		for(int index = 0; index < discountList.size(); index++){
-			if(intDiscountID == discountList.get(index).getIntDiscountID())
+
+			if(intDiscountID == discountList.get(index).getIntDiscountID()){
 				return discountList.get(index);
+			}
 		}
 		return null;
 	}

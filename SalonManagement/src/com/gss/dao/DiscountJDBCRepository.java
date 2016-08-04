@@ -41,11 +41,6 @@ public class DiscountJDBCRepository implements DiscountRepository{
 		String getPromos 					= "SELECT intPromoID FROM tblDiscountPromo WHERE intDiscountID = ?;";
 		String getPackages 					= "SELECT intPackageID FROM tblDiscountPackage WHERE intDiscountID = ?;";
 		
-		List<Product> productList 			= new ArrayList<Product>();
-		List<Service> serviceList 			= new ArrayList<Service>();
-		List<Package> packageList 			= new ArrayList<Package>();
-		List<Promo> promoList 				= new ArrayList<Promo>();
-		
 		List<Product> savedProducts 		= Product.getAllProduct();
 		List<Service> savedServices 		= Service.getAllService();
 		List<Package> savedPackage 			= Package.getAllPackage();
@@ -68,6 +63,11 @@ public class DiscountJDBCRepository implements DiscountRepository{
 			discountSet = preDiscounts.executeQuery();
 			
 			while(discountSet.next()){
+				
+				List<Product> productList 			= new ArrayList<Product>();
+				List<Service> serviceList 			= new ArrayList<Service>();
+				List<Package> packageList 			= new ArrayList<Package>();
+				List<Promo> promoList 				= new ArrayList<Promo>();
 				
 				this.intID = discountSet.getInt(1);
 				this.applicability = discountSet.getString(2);
@@ -120,11 +120,6 @@ public class DiscountJDBCRepository implements DiscountRepository{
 				Discount discount = new Discount(this.intID, this.applicability, this.strName, this.strDesc, this.strGuide, this.intType, this.dblAmount, productList, serviceList, packageList, promoList, this.status);
 			
 				discountList.add(discount);
-				
-				productList.clear();
-				serviceList.clear();
-				packageList.clear();
-				promoList.clear();
 			}
 			
 			preProducts.close();
