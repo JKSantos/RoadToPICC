@@ -55,7 +55,7 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 	public boolean createProductSales(ProductSales sales) throws SQLException {
 		
 		Connection con 								= jdbc.getConnection();
-		String createProductSales 					= "CALL createProductSales(?, ?, ?, ?, ?, ?, ?)";
+		String createProductSales 					= "CALL createProductSales( ?, ?, ?, ?, ?, ?)";
 		String createDetails 						= "CALL createDetail(?, ?, ?)";
 		
 		try{
@@ -66,13 +66,12 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 			ResultSet salesID;
 			int intID = 0;
 			
-			insertProductSales.setDate(1, (java.sql.Date) sales.getDeliveryDate());
-			insertProductSales.setInt(2, sales.getIntType());
-			insertProductSales.setString(3, sales.getStrName());
-			insertProductSales.setString(4, sales.getStrAddress());
-			insertProductSales.setInt(5, sales.getIntLocationID());
-			insertProductSales.setString(6, sales.getStrContactNo());
-			insertProductSales.setDouble(7, sales.getInvoice().getDblTotalPrice());
+			insertProductSales.setInt(1, sales.getIntType());
+			insertProductSales.setString(2, sales.getStrName());
+			insertProductSales.setString(3, sales.getStrAddress());
+			insertProductSales.setInt(4, sales.getIntLocationID());
+			insertProductSales.setString(5, sales.getStrContactNo());
+			insertProductSales.setDouble(6, sales.getInvoice().getDblTotalPrice());
 			salesID = insertProductSales.executeQuery();
 			
 			
@@ -370,11 +369,11 @@ public Invoice getInvoice(int intInvoiceID) {
 				while(paymentSet.next()){
 					int intID 				= paymentSet.getInt(1);
 					int invoice		 		= paymentSet.getInt(2);
-					int intPaymentType 		= paymentSet.getInt(3);
+					String strPaymentType 		= paymentSet.getString(3);
 					double paymentAmount	= paymentSet.getDouble(4);
 					Date dateOfPayment		= paymentSet.getDate(5);
 			
-					Payment extra = new Payment(intID, invoice, Payment.convertToString(intPaymentType), paymentAmount, dateOfPayment);
+					Payment extra = new Payment(intID, invoice, strPaymentType, paymentAmount, dateOfPayment);
 					
 					paymentList.add(extra);
 				}

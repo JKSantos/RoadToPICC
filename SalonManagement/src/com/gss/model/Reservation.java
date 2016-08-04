@@ -131,14 +131,37 @@ public class Reservation {
 		this.strVenue = strVenue;
 	}
 	public static List<Reservation> getAllReservation(){
-		List<Reservation> reservation = new ArrayList<>();
+		ReservationService service = new ReservationServiceImpl();
 		
-		return reservation;
+		return service.getAllReservation();
+	}
+	public static List<Reservation> getAllReservationNoDetails(){
+		ReservationService service = new ReservationServiceImpl();
+		
+		return service.getAllReservationNoDetails();
 	}
 	public static boolean createReservation(Reservation reservation) throws SQLException{
 		
 		ReservationService service = new ReservationServiceImpl();
 		
 		return service.createReservation(reservation);
+	}
+	
+	public static Reservation search(int intInvoiceID, List<Reservation> reservationList){
+		
+		Reservation reservation = null;
+		
+		for(int index = 0; index < reservationList.size(); index++){
+			
+			Invoice invoice = reservationList.get(index).getInvoice();
+			
+			if(intInvoiceID == invoice.getIntInvoiceID()){
+				reservation = reservationList.get(index);
+				break;
+			}
+		}
+		
+		return reservation;
+		
 	}
 }

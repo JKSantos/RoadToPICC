@@ -77,7 +77,6 @@ public class ReservationJDBCRepository implements ReservationRepository{
 		String getReservations 				= "SELECT * FROM tblReservation";
 		
 		List<Reservation> reservationList = new ArrayList<Reservation>();
-		
 		try{
 			
 			PreparedStatement preReservaton = con.prepareStatement(getReservations);
@@ -100,13 +99,24 @@ public class ReservationJDBCRepository implements ReservationRepository{
 				this.employeeAssigned		= getAllAssignedEmployee(this.intReservationID);
 				this.strVenue				= reservationResult.getString(15);
 				
+				System.out.println("CURRENT RESERVATION ON PROCESS: " + this.customer.getStrName());
+				
+				System.out.print("Fetching Products...");
 				getAllProductOrder(this.intReservationID);
+				System.out.println("Complete...");
+				System.out.print("Fetching Services...");
 				getAllReservedService(this.intReservationID);
+				System.out.println("Complete...");
+				System.out.print("Fetching Packages...");
 				getAllReservedPackage(this.intReservationID);
+				System.out.println("Complete...");
+				System.out.print("Fetching Promo...");
 				getAllReservedPromo(this.intReservationID);
+				System.out.println("Complete...");
 				
 				Reservation reservation = new Reservation(this.intReservationID, this.customer, this.includedItems, this.intReservationType, this.dateCreated, this.datFrom, this.datTo, this.timFrom, this.timTo, this.strVenue, this.headCount, this.employeeAssigned, this.invoice, this.strStatus);
 				reservationList.add(reservation);
+				
 			}
 			
 			return reservationList;
@@ -124,7 +134,7 @@ public class ReservationJDBCRepository implements ReservationRepository{
 		Connection con = jdbc.getConnection();
 		con.setAutoCommit(false);
 		
-		String createReservation				= "CALL createReservation(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String createReservation				= "CALL createReservation(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		String createProduct					= "CALL createProductReservation(?, ?, ?, ?, ?);";
 		String createService					= "CALL createServiceReservation(?, ?, ?, ?, ?);";
 		String createPackage					= "CALL createPackageReservation(?, ?, ?, ?, ?);";
@@ -423,7 +433,8 @@ public class ReservationJDBCRepository implements ReservationRepository{
 				order.setDiscountType(discountType);
 				order.setDiscountAmount(discountAmount);
 				
-				this.productList.add(ItemDiscount.getProductDiscount(order));
+				this.productList.add((order));
+				
 			}
 
 			return productOrder;
@@ -466,7 +477,7 @@ public class ReservationJDBCRepository implements ReservationRepository{
 				reserve.setDiscountType(discountType);
 				reserve.setDiscountAmount(discountAmount);
 				
-				this.serviceList.add(ItemDiscount.getServiceDiscount(reserve));
+				this.serviceList.add((reserve));
 			}
 			
 			return reservedService;
@@ -509,7 +520,7 @@ public class ReservationJDBCRepository implements ReservationRepository{
 				packagee.setDiscountType(discountType);
 				packagee.setDiscountAmount(discountAmount);
 				
-				packagee = ItemDiscount.getPackageDiscount(packagee);
+//				packagee = ItemDiscount.getPackageDiscount(packagee);
 	
 				this.packageList.add(packagee);
 			}
@@ -556,7 +567,7 @@ public class ReservationJDBCRepository implements ReservationRepository{
 				promo.setDiscountType(discountType);
 				promo.setDiscountAmount(discountAmount);
 				
-				this.promoList.add(ItemDiscount.getPromoReservation(promo));
+				this.promoList.add(promo);
 			}
 			
 			this.promoList = reservedPromo;
@@ -590,7 +601,7 @@ public class ReservationJDBCRepository implements ReservationRepository{
 			PreparedStatement preDiscount = con.prepareStatement(createDiscount);
 			PreparedStatement preEmployee = con.prepareStatement(createEmployee);
 						
-//products
+			//products
 			
 			for(int i = 0; i < reservation.getIncludedItems().getProductList().size(); i++){
 				preProduct.setInt(1, intReservationID);
@@ -700,13 +711,15 @@ public class ReservationJDBCRepository implements ReservationRepository{
 		
 		int payment = 0;
 		Date date = null;
+		double totalBalance = 0;
+		double paymentAmount = 0;
 		
 		try{
 			
 			PreparedStatement preInvoice 		= con.prepareStatement(getInvoice);
 			PreparedStatement preDiscount		= con.prepareStatement(getDiscount);
 			PreparedStatement preExtraCharge	= con.prepareStatement(getExtraCharge);
-			PreparedStatement prePayment			= con.prepareStatement(getPayment);
+			PreparedStatement prePayment		= con.prepareStatement(getPayment);
 			
 			ResultSet discountSet;
 			ResultSet extraChargeSet;
@@ -727,6 +740,7 @@ public class ReservationJDBCRepository implements ReservationRepository{
 				
 				date = invoiceSet.getDate(2);
 				payment = invoiceSet.getInt(3);
+				totalBalance = invoiceSet.getDouble(4);
 				
 				
 				preDiscount.setInt(1, intInvoiceID);
@@ -760,7 +774,7 @@ public class ReservationJDBCRepository implements ReservationRepository{
 					int intID 				= paymentSet.getInt(1);
 					int invoice		 		= paymentSet.getInt(2);
 					int intPaymentType 		= paymentSet.getInt(3);
-					double paymentAmount	= paymentSet.getDouble(4);
+					paymentAmount			= paymentSet.getDouble(4);
 					Date dateOfPayment		= paymentSet.getDate(5);
 			
 					Payment extra = new Payment(intID, invoice, Payment.convertToString(intPaymentType), paymentAmount, dateOfPayment);
@@ -769,11 +783,117 @@ public class ReservationJDBCRepository implements ReservationRepository{
 				}
 			}
 			
-			double totalAmount = Invoice.computeTotalAmount(productList, serviceList, packageList, promoList, extraChargeList);
-			double remainingBalance = Invoice.getRemainingBalance(totalAmount, paymentList);
+			double remainingBalance = Invoice.getRemainingBalance(totalBalance, paymentList);
 			
 			
-			Invoice invoice = new Invoice(intInvoiceID, date, discountList, extraChargeList, totalAmount, remainingBalance, paymentList, Invoice.convertToString(payment));
+			Invoice invoice = new Invoice(intInvoiceID, date, discountList, extraChargeList, totalBalance, remainingBalance, paymentList, Invoice.convertToString(payment));
+			
+			return invoice;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public List<Reservation> getAllReservationNoDetails() {
+		Connection con 						= jdbc.getConnection();
+		String getReservations 				= "SELECT * FROM tblReservation";
+		
+		List<Reservation> reservationList = new ArrayList<Reservation>();
+		try{
+			
+			PreparedStatement preReservaton = con.prepareStatement(getReservations);
+			
+			ResultSet reservationResult = preReservaton.executeQuery();
+			
+			while(reservationResult.next()){
+				
+				this.intReservationID 		= reservationResult.getInt(1);
+				this.intReservationType 	= reservationResult.getInt(1);
+				this.dateCreated 			= reservationResult.getDate(3);
+				this.datFrom 				= reservationResult.getDate(4);
+				this.datTo 					= reservationResult.getDate(5);
+				this.timFrom				= reservationResult.getTime(6);
+				this.timTo					= reservationResult.getTime(7);
+				this.customer 				= new Customer(this.intReservationID, reservationResult.getString(8), reservationResult.getString(9), reservationResult.getString(10), reservationResult.getString(11));
+				this.headCount				= reservationResult.getInt(12);
+				this.invoice				= getInvoiceNoDetails(reservationResult.getInt(13));
+				this.strVenue				= reservationResult.getString(14);
+				this.employeeAssigned		= getAllAssignedEmployee(this.intReservationID);
+				this.strVenue				= reservationResult.getString(15);
+				
+				List<EmployeeAssigned> employees = new ArrayList<EmployeeAssigned>();
+				
+				System.out.println("CURRENT RESERVATION ON PROCESS: " + this.customer.getStrName());
+				
+				Reservation reservation = new Reservation(this.intReservationID, this.customer, this.includedItems, this.intReservationType, this.dateCreated, this.datFrom, this.datTo, this.timFrom, this.timTo, this.strVenue, this.headCount, employees, this.invoice, this.strStatus);
+				reservationList.add(reservation);
+			}
+			
+			return reservationList;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public Invoice getInvoiceNoDetails(int intInvoice){
+		
+		Connection con = jdbc.getConnection();
+		String getInvoice 					= "SELECT * FROM tblInvoice WHERE intInvoiceID = ?;";
+		String getPayment					= "SELECT * FROM tblPayment WHERE intInvoiceID = ?;";
+		
+		int payment = 0;
+		Date date = null;
+		double totalBalance = 0;
+		double paymentAmount = 0;
+		
+		try{
+			
+			PreparedStatement preInvoice 		= con.prepareStatement(getInvoice);
+			PreparedStatement prePayment		= con.prepareStatement(getPayment);
+			
+			ResultSet discountSet;
+			ResultSet extraChargeSet;
+			ResultSet paymentSet;
+			
+			preInvoice.setInt(1, intInvoice);
+			ResultSet invoiceSet = preInvoice.executeQuery();
+			
+			List<Discount> discountList = new ArrayList<Discount>();
+			List<ExtraCharge> extraChargeList = new ArrayList<ExtraCharge>();
+			
+			List<Payment> paymentList = new ArrayList<Payment>();
+			
+			while(invoiceSet.next()){
+				
+				date = invoiceSet.getDate(2);
+				payment = invoiceSet.getInt(3);
+				totalBalance = invoiceSet.getDouble(4);
+				
+				prePayment.setInt(1, intInvoiceID);
+				paymentSet = prePayment.executeQuery();
+				
+				while(paymentSet.next()){
+					int intID 				= paymentSet.getInt(1);
+					int invoice		 		= paymentSet.getInt(2);
+					int intPaymentType 		= paymentSet.getInt(3);
+					paymentAmount			= paymentSet.getDouble(4);
+					Date dateOfPayment		= paymentSet.getDate(5);
+			
+					Payment extra = new Payment(intID, invoice, Payment.convertToString(intPaymentType), paymentAmount, dateOfPayment);
+					
+					paymentList.add(extra);
+				}
+			}
+			
+			double remainingBalance = Invoice.getRemainingBalance(totalBalance, paymentList);
+			
+			
+			Invoice invoice = new Invoice(intInvoiceID, date, discountList, extraChargeList, totalBalance, remainingBalance, paymentList, Invoice.convertToString(payment));
 			
 			return invoice;
 		}

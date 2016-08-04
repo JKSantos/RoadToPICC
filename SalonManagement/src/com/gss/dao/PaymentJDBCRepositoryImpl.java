@@ -41,7 +41,7 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 		Connection con 							= jdbc.getConnection();
 		con.setAutoCommit(false);
 		
-		String insertPayment 					= "CALL createOrderPayment(?, ?, ?)";
+		String insertPayment 					= "CALL createPayment(?, ?, ?)";
 		String updateStock						= "CALL updateStock(?, ?);";
 				
 		ProductSales sales = ProductSales.search(payment.getIntInvoiceID(), ProductSales.getAllProductSales());
@@ -148,8 +148,46 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 
 	@Override
 	public boolean createReservationPayment(Payment payment) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+		
+		Connection con 							= jdbc.getConnection();
+		con.setAutoCommit(false);
+		
+		String insertPayment 					= "CALL createPayment(?, ?, ?)";
+		String updateStock						= "CALL updateStock(?, ?);";
+				
+		Reservation sales = Reservation.search(payment.getIntInvoiceID(), Reservation.getAllReservation());
+		
+		try{
+			PreparedStatement createPayment		= con.prepareStatement(insertPayment);
+			PreparedStatement updateProducts	= con.prepareStatement(updateStock);
+			
+			createPayment.setInt(1, payment.getIntInvoiceID());
+			createPayment.setString(2, payment.getStrPaymentType());
+			createPayment.setDouble(3, payment.getDblPaymentAmount());
+			
+			createPayment.execute();
+			
+			for(int index = 0; index < sales.getIncludedItems().getProductList().size(); index++){
+				
+				ProductOrder product = sales.getIncludedItems().getProductList().get(index);
+				
+				updateProducts.setInt(1, product.getProduct().getIntProductID());
+				updateProducts.setInt(2, product.getIntQuantity());
+				updateProducts.addBatch();
+			}
+			
+			updateProducts.executeBatch();
+			updateProducts.close();
+			
+			con.commit();
+			con.close();
+			return true;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			con.rollback();
+			return false;
+		}
 	}
 
 	@Override
@@ -158,7 +196,7 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 		return false;
 	}
 	
-public Invoice getInvoice(int intInvoiceID) {
+	public Invoice getInvoice(int intInvoiceID) {
 		
 		Connection con = jdbc.getConnection();
 		String getInvoice 					= "SELECT * FROM tblInvoice WHERE intInvoiceID = ?;";

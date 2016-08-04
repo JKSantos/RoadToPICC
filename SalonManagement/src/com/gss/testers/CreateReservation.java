@@ -42,7 +42,7 @@ public class CreateReservation {
 				invoice = new Invoice(1, datTo, dicounts, extraCharges, headCount, headCount, null, strStatus);
 		
 		//for customer
-		String strName = "Florentino Santos";
+		String strName = "JOSELITO SANTOS";
 		String strAddress = "189-Dr. Sixto Antonio Avenue, Rosario Pasig City";
 		String strContactNo = "09361144842";
 		String strEmailAddress = "santos.jeffrey0023@gmail.com";

@@ -69,6 +69,19 @@ public class Payment {
 		this.intInvoiceID = intInvoiceID;
 	}
 	
+	public static String convertPaymentStatus(int status){
+		
+		if(status == 1){
+			return "INCOMPLETE";
+		}
+		else if(status == 2){
+			return "COMPLETE";
+		}
+		else
+			return "UNPAID";
+		
+	}
+	
 	public static String convertToString(int payment){
 		
 		String converted = "";

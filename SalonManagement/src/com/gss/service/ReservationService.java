@@ -30,4 +30,5 @@ public List<Reservation> getAllReservation();
 	
 	public List<ReservedPromo> getAllReservedPromo(int ReservationID);
 
+	public List<Reservation> getAllReservationNoDetails();
 }

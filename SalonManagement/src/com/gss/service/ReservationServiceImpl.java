@@ -71,6 +71,14 @@ public class ReservationServiceImpl implements ReservationService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Reservation> getAllReservationNoDetails() {
+		
+		ReservationRepository repo = new ReservationJDBCRepository();
+		
+		return repo.getAllReservationNoDetails();
+	}
 	
 	
 

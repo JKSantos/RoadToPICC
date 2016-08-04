@@ -32,5 +32,7 @@ public interface ReservationRepository {
 	public List<ReservedPromo> getAllReservedPromo(int ReservationID);
 	
 	public Invoice getInvoice(int intInvoiceID);
+	
+	public List<Reservation> getAllReservationNoDetails();
 
 }

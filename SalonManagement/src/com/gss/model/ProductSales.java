@@ -110,8 +110,6 @@ public class ProductSales {
 	
 	public static ProductSales search(int invoiceID, List<ProductSales> searchList){
 		
-		
-		
 		for(int index = 0; index < searchList.size(); index++){
 			
 			if(searchList.get(index).getInvoice().getIntInvoiceID() == invoiceID)
