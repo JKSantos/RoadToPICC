@@ -20,5 +20,9 @@
 		<action name="getAllUnpaidTransaction" class="com.gss.actions.Payment.GetAllUnpaidTransactions">
 			<result name="success" type="json"></result>
 		</action>
+		
+		<action name="createPayment" class="com.gss.actions.Payment.CreatePaymentAction">
+			<result name="success" type="json"></result>
+		</action>
 	</package>	
 </struts>
