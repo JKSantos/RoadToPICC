@@ -465,7 +465,7 @@ $(document).ready(function () {
 });
 
 $(function () {
-    var packagetbl = $('#packagetbl').DataTable({
+    var packagetbl = $('#packagetbl').dataTable({
         "bLengthChange": false,
         "sPaginationType": "full_numbers",
         responsive: true,
@@ -484,6 +484,27 @@ $(function () {
 
     $("#packageSearch").bind('keyup search input paste cut', function () {
         packagetbl.search(this.value).draw();
+    });
+
+    var archivePackageTbl = $('#archivePackageTbl').dataTable({
+        "bLengthChange": false,
+        "sPaginationType": "full_numbers",
+        responsive: true,
+        "order": [],
+        "columnDefs": [
+            {"targets": 'no-sort', "orderable": false},
+            {className: "dt-body-left", "targets": [0, 1, 2]},
+            {className: "dt-head-center", "targets": [0, 3]},
+            {"targets": [0], "width": "230px"},
+            {"targets": [3], "width": "200px"},
+            {"targets": [2], "width": "250px"},
+            {"targets": [2], render: $.fn.dataTable.render.ellipsis(25)}
+        ],
+        "rowHeight": '10px'
+    });
+
+    $("#archivePackageSearch").bind('keyup search input paste cut', function () {
+        archivePackageTbl.search(this.value).draw();
     });
 
 
@@ -644,7 +665,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
 
-    var extratbl = $('#extratbl').DataTable({
+    var extratbl = $('#extratbl').dataTable({
         "bLengthChange": false,
         "sPaginationType": "full_numbers",
         responsive: true,
@@ -684,7 +705,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    var promotbl = $('#promotbl').DataTable({
+    var promotbl = $('#promotbl').dataTable({
         "bLengthChange": false,
         "sPaginationType": "full_numbers",
         responsive: true,

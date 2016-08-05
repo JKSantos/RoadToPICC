@@ -16,14 +16,13 @@
             <a class="createPackbtn z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
                href="#createPackageModal" style="margin-top: 30px; margin-left: 15px;"><i
                     class="material-icons">add</i></a>
-            <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
-               href="#packageArchive" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">archive</i></a>
+            <a class="z-depth-1 hoverable waves-effect waves-light modal-viewall btn purple darken-2 left white-text"
+               href="#archivePackageModal" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">archive</i></a>
             <nav class="right white hoverable  z-depth-1" style="width: 300px; margin-right: 20px;">
                 <div class="nav-wrapper col s4">
                     <form>
                         <div class="input-field">
-                            <input id="packageSearch" placeholder="Search" class="grey-text text-darken-4" type="search"
-                                   required>
+                            <input id="packageSearch" placeholder="Search" class="grey-text text-darken-4" type="search">
                             <label for="packageSearch"><i
                                     class="material-icons grey-text text-darken-4">search</i></label>
                         </div>
@@ -59,60 +58,52 @@
     </div>
 
 
-    <c:forEach items="${packageList}" var="pack">
-        <%
-        Package list = (Package)pageContext.getAttribute("pack");
-        int id = list.getIntPackageID();
-        %>
-        <!-- view product and service modal -->
-        <div id="view<%=id%>" class="modal">
-            <div class="modal-content">
-                <!-- <div class="container"> -->
-                <div class="row">
-                    <h5 class="grey-text text-darken-1">Services & Products Included</h5>
-                    <div class="input-field col s8 offset-s2">
-                        <input type="text" readonly="true" id="packageViewName" name="packageViewName"
-                               value="${pack.strPackageName}">
-                        <label for="packageViewName">Package Name</label>
+    <div id="archivePackageModal" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
+                <h4 class="grey-text text-darken-1 center">Archive</h4>
+                <nav class="right white hoverable  z-depth-1" style="width: 300px; margin-right: 20px;">
+                    <div class="nav-wrapper col s4">
+                        <form>
+                            <div class="input-field">
+                                <input id="archivePackageSearch" placeholder="Search" class="grey-text text-darken-4" type="search">
+                                <label for="archivePackageSearch"><i
+                                        class="material-icons grey-text text-darken-4">search</i></label>
+                            </div>
+                        </form>
                     </div>
+                </nav>
 
-                    <table class="centered responsive-table">
-                        <thead>
-                        <tr>
-                            <td>Services Included</td>
-                            <td>Quantity</td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <c:forEach items="${pack.serviceList}" var="includedService">
-                                <th data-field="viewService">${includedService.service.strServiceName}</th>
-                                <th data-field="viewServiceQty">${includedService.intQuantity}</th>
-                            </c:forEach>
-                        </tr>
-                        </tbody>
-                    </table>
+                <table id="archivePackageTbl"
+                       class="hoverable z-depth-1 cell-border row-border display centered responsive-table highlight"
+                       cellspacing="0" width="100%"
+                       style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;" rowspan="10">
+                    <thead>
+                    <tr>
+                        <th class="dt-head-left">Package Name</th>
+                        <th class="dt-head-left">Type</th>
+                        <th class="dt-head-left">Description</th>
+                        <th align="center" class="no-sort">Action</th>
+                    </tr>
+                    </thead>
+                    <tfoot style="border: 1px solid #bdbdbd;">
+                    <tr>
+                        <th class="dt-head-left">Package Name</th>
+                        <th class="dt-head-left">Type</th>
+                        <th class="dt-head-left">Description</th>
+                        <th align="center" class="no-sort">Action</th>
+                    </tr>
+                    </tfoot>
 
-                    <table class="centered responsive-table">
-                        <thead>
-                        <tr>
-                            <td>Products Included</td>
-                            <td>Quantity</td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${pack.productList}" var="includedProduct">
-                            <tr>
-                                <th data-field="viewProduct">${includedProduct.product.strProductName}</th>
-                                <th data-field="viewProductQty">${includedProduct.intProductQuantity}</th>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
         </div>
-    </c:forEach>
+        <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-purple btn-flat transparent" >CLOSE</a>
+        </div>
+    </div>
 
     <!-- end view product and service modal -->
 

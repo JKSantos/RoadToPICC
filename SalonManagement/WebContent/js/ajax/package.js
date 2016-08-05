@@ -13,10 +13,10 @@ function updatePackageTable() {
         async: true,
         success: function (data) {
             var packageList = data.packageList,
-                table = $('#packagetbl').DataTable();
+                tablepackage = $('#packagetbl').DataTable();
 
             if (packageList != null) {
-                table.clear().draw();
+                tablepackage.clear().draw();
                 $.each(packageList, function (i, package) {
                     var type;
                     var addbtn = "<button class='waves-effect waves-purple btn-flat transparent black-text'" +
@@ -42,14 +42,14 @@ function updatePackageTable() {
                     } else {
                         type = 'Event, Home Service, Walk In';
                     }
-                    table.row.add([
+                    tablepackage.row.add([
                         package.strPackageName,
                         type,
                         package.strPackageDesc,
                         addbtn
                     ]);
                 });
-                table.draw();
+                tablepackage.draw();
             }
         }
     });
@@ -75,7 +75,7 @@ function createPackageProductTable() {
         async: true,
         success: function (data) {
             var productList = data.productList,
-                table = $('#crpacktblProd').DataTable({
+                createPackageProdTable = $('#crpacktblProd').DataTable({
                     "bLengthChange": false,
                     "sPaginationType": "full_numbers",
                     responsive: true,
@@ -91,11 +91,11 @@ function createPackageProductTable() {
                 });
 
             $("#crpackageSearch").bind('keyup search input paste cut', function () {
-                table.search(this.value).draw();
+                createPackageProdTable.search(this.value).draw();
             });
 
             if (productList != null) {
-                table.clear().draw();
+                createPackageProdTable.clear().draw();
                 $.each(productList, function (i, product) {
                     var price = parseFloat(product.dblProductPrice).toFixed(2);
                     price = addCommas(price);
@@ -106,7 +106,7 @@ function createPackageProductTable() {
                             " id='prodqty" + product.intProductID + "' disabled style='width: 75px' min='1' max='99' value='1' maxlength='2'>";
                     price = "<span class='price'>P " + price + "</span>";
 
-                    table.row.add([
+                    createPackageProdTable.row.add([
                         checkbox,
                         product.strProductName,
                         product.strProductCategory,
@@ -114,7 +114,7 @@ function createPackageProductTable() {
                         quantity
                     ]);
                 });
-                table.draw();
+                createPackageProdTable.draw();
             }
         }
     });
@@ -128,7 +128,7 @@ function createPackageServiceTable() {
         async: true,
         success: function (data) {
             var serviceList = data.serviceList,
-                table = $('#crpacktblServ').DataTable({
+                createPackageServTable = $('#crpacktblServ').DataTable({
                     "bLengthChange": false,
                     "sPaginationType": "full_numbers",
                     responsive: true,
@@ -143,11 +143,11 @@ function createPackageServiceTable() {
                 });
 
             $("#crpackageSearch").bind('keyup search input paste cut', function () {
-                table.search(this.value).draw();
+                createPackageServTable.search(this.value).draw();
             });
 
             if (serviceList != null) {
-                table.clear().draw();
+                createPackageServTable.clear().draw();
                 $.each(serviceList, function (i, service) {
                     var price = parseFloat(service.dblServicePrice).toFixed(2);
                     price = addCommas(price);
@@ -158,7 +158,7 @@ function createPackageServiceTable() {
                             " id='svc" + service.intServiceID + "' disabled style='width: 75px' min='1' max='99' value='1' maxlength='2'>";
                     price = "<span class='price'>P " + price + "</span>";
 
-                    table.row.add([
+                    createPackageServTable.row.add([
                         checkbox,
                         service.strServiceName,
                         service.strServiceCategory,
@@ -166,7 +166,7 @@ function createPackageServiceTable() {
                         quantity
                     ]);
                 });
-                table.draw();
+                createPackageServTable.draw();
             }
         }
     });
