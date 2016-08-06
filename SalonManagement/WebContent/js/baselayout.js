@@ -110,3 +110,8 @@ $('#crServicePrice').priceFormat({
     thousandsSeparator: ',',
     limit: 9
 });
+
+// $('.modal-content').perfectScrollbar({
+//     wheelSpeed: 1
+// });
+//

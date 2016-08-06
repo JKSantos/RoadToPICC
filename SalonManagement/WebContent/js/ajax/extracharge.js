@@ -13,10 +13,10 @@ function updateExtraTable() {
         success: function (data) {
             var extraCharge = data.extraChargeList;
             var servPrice = "servPrice";
-            var table = $('#extratbl').DataTable();
+            var extraTable = $('#extratbl').DataTable();
 
             if (extraCharge != null) {
-                table.clear().draw();
+                extraTable.clear().draw();
                 $.each(extraCharge, function (i, extra) {
 
 
@@ -33,14 +33,14 @@ function updateExtraTable() {
                         price = "<td><span class='price'>Php " + price + "</span></td>",
                         btn = "<td>" + addbtn + "</td>";
 
-                    table.row.add([
+                    extraTable.row.add([
                         chargename,
                         details,
                         price,
                         btn
                     ]);
                 });
-                table.draw();
+                extraTable.draw();
             }
 
         }
@@ -62,15 +62,22 @@ function addCommas(nStr) {
 
 function createExtra() {
 
+    console.log($('#crECPrice').val());
+    var extraName = $('#crECName').val(),
+        extraDetails = $('#crECDetails').val(),
+        extraPrice = $('#crECPrice').val().replace(/[^\d.]/g, '');
+
+
     var extradata = {
-        'strECName': $('#crECName').val(),
-        'strECDetails': $('#crECDetails').val(),
-        'price': $('#crECPrice').val().replace(/[^\d.]/g, '')
+        "strECName": extraName,
+        "strECDetails": extraDetails,
+        "price": extraPrice
     };
     swal({
             title: "Create this charge?",
             text: "",
-            type: "info", showCancelButton: true,
+            type: "info",
+            showCancelButton: true,
             closeOnConfirm: false,
             showLoaderOnConfirm: true
         },
@@ -83,6 +90,7 @@ function createExtra() {
                     dataType: 'json',
                     async: true,
                     success: function (data) {
+                        console.log(data);
                         swal("Successfully updated!", ".", "success");
                         updateExtraTable();
                         $('#createExtraChargeModal').closeModal();
@@ -136,7 +144,8 @@ function extraUpdate() {
     swal({
             title: "Update this charge?",
             text: "",
-            type: "info", showCancelButton: true,
+            type: "info",
+            showCancelButton: true,
             closeOnConfirm: false,
             showLoaderOnConfirm: true
         },

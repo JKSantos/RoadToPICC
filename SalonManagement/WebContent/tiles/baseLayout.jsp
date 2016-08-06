@@ -17,6 +17,8 @@
     <link rel="stylesheet" type="text/css" href="css/animate.css"/>
 
     <link rel="stylesheet" type="text/css" href="css/baselayout.css"/>
+    <link rel="stylesheet" type="text/css" href="css/perfect-scrollbar.min.css"/>
+
     <!--<link rel="stylesheet" type="text/css" href="css/drag.css"/>-->
     <!--<link rel="stylesheet" type="text/css" href="css/animate.css"/>-->
 
@@ -28,41 +30,42 @@
     </title>
 </head>
 
-<body class="purple lighten-5 demo">
+<body class="purple lighten-5 demo" ng-app = "app">
 <div class="wrapper">
     <header class="headnav">
         <ul id="slide-out" class="side-nav fixed z-depth-0">
-            <li class="user-details" style="height: 64px !important; background-color: #9C8AA5 !important;">
-                <div class="row">
-                    <div class="col col s4 m4 l4" style="padding: 5px !important;">
-                        <img src="<s:url action='getImage'><s:param name='ImageID'>${sessionScope.id}</s:param><s:param name='type'>employee</s:param></s:url>"
-                             alt="" class="circle responsive-img valign profile-image"
-                             style="width: 50px !important; height: 50px !important; margin-left: 10px !important;">
+            <li class="user-details" style="height: 64px !important; background-color: #212121 !important;">
+                    <div class="row">
+                        <div class="col col s4 m4 l4" style="padding: 5px !important;">
+                            <img src="<s:url action='getImage'><s:param name='ImageID'>${sessionScope.id}</s:param><s:param name='type'>employee</s:param></s:url>"
+                                 alt="" class="circle responsive-img valign profile-image"
+                                 style="width: 50px !important; height: 50px !important; margin-left: 10px !important;">
+                        </div>
+                        <div class="col col s8 m8 l8">
+                            <ul id="profile-dropdown" class="dropdown-content"
+                                style="margin-top: 55px !important; overflow-y: hidden !important; margin-left: -15px !important;">
+                                <li><a href="#" style="padding-top: 12px !important;"><i
+                                        class="mdi-action-face-unlock"></i>
+                                    Profile</a></li>
+                                <li><a href="#" style="padding-top: 12px !important;"><i
+                                        class="mdi-action-settings"></i>
+                                    Settings</a></li>
+                                <li><a href="#" style="padding-top: 12px !important;"><i
+                                        class="mdi-communication-live-help"></i> Help</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#" style="padding-top: 12px !important;"><i
+                                        class="mdi-action-lock-outline"></i> Lock</a></li>
+                                <li><a href="logout" style="padding-top: 12px !important;"><i
+                                        class="mdi-hardware-keyboard-tab"></i> Logout</a></li>
+                            </ul>
+                            <a class="truncate btn-flat dropdown-button waves-effect waves-light white-text profile-btn"
+                               href="#"
+                               data-activates="profile-dropdown"
+                               style="margin-top: 10px !important; margin-left: -15px !important; padding-right: 0px !important;">${sessionScope.firstName}<i
+                                    class="material-icons right">arrow_drop_down</i></a>
+                            <!--<p class="user-roal">Administrator</p>-->
+                        </div>
                     </div>
-                    <div class="col col s8 m8 l8">
-                        <ul id="profile-dropdown" class="dropdown-content"
-                            style="margin-top: 55px !important; overflow-y: hidden !important; margin-left: -15px !important;">
-                            <li><a href="#" style="padding-top: 12px !important;"><i
-                                    class="mdi-action-face-unlock"></i>
-                                Profile</a></li>
-                            <li><a href="#" style="padding-top: 12px !important;"><i class="mdi-action-settings"></i>
-                                Settings</a></li>
-                            <li><a href="#" style="padding-top: 12px !important;"><i
-                                    class="mdi-communication-live-help"></i> Help</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#" style="padding-top: 12px !important;"><i
-                                    class="mdi-action-lock-outline"></i> Lock</a></li>
-                            <li><a href="logout" style="padding-top: 12px !important;"><i
-                                    class="mdi-hardware-keyboard-tab"></i> Logout</a></li>
-                        </ul>
-                        <a class="truncate btn-flat dropdown-button waves-effect waves-light white-text profile-btn"
-                           href="#"
-                           data-activates="profile-dropdown"
-                           style="margin-top: 5px !important; margin-left: -15px !important; padding-right: 0px !important;">${sessionScope.firstName}<i
-                                class="material-icons right">arrow_drop_down</i></a>
-                        <p class="user-roal">Administrator</p>
-                    </div>
-                </div>
             </li>
             <!--<div class="center">-->
             <!--<img src="<s:url action='getImage'><s:param name='ImageID'>${sessionScope.id}</s:param><s:param name='type'>employee</s:param></s:url>"-->
@@ -136,7 +139,7 @@
                 <a href="#" class="brand-logo center purple-text text-lighten-5 ">Salon Management System</a>
             </div>
         </nav>
-        <div id="loader-wrapper" id="bodyloader">
+        <div id="loader-wrapper">
             <div id="loader"></div>
             <div class="loader-section section-left"></div>
             <div class="loader-section section-right"></div>
@@ -147,7 +150,6 @@
 
 
 </div>
-
 
 
 <!--Import jQuery before materialize.js-->
@@ -169,12 +171,23 @@
 <script type="text/javascript" src="js/priceformat.js"></script>
 <script type="text/javascript" src="js/formatted-numbers.js"></script>
 <script type="text/javascript" src="js/jquery.formatCurrency-1.4.0.js"></script>
-<script type="text/javascript" src="js/ProductsSales/ajax.js"></script>
+<script type="text/javascript" src="js/moment-with-locale.js"></script>
+<!-- <script type="text/javascript" src="js/ProductsSales/ajax.js"></script> -->
 <script type="text/javascript" src="js/ajax/extracharge.js"></script>
 <script type="text/javascript" src="js/ajax/package.js"></script>
 <script type="text/javascript" src="js/ajax/package-update.js"></script>
 <script type="text/javascript" src="js/ajax/package-deactivate.js"></script>
+<script type="text/javascript" src="js/ajax/promo.js"></script>
+<script type="text/javascript" src="js/perfect-scrollbar.jquery.min.js"></script>
 <script type="text/javascript" src="js/baselayout.js"></script>
+<!-- Angular imports -->
+<script type="text/javascript" src="app/main.js"></script>
+<script type="text/javascript" src="app/payment/payment.ctr.js"></script>
+<script type="text/javascript" src="app/payment/payment.fac.js"></script>
+<script type="text/javascript" src="app/walkin/walkin.ctr.js"></script>
+<script type="text/javascript" src="app/walkin/walkin.fac.js"></script>
+<script type="text/javascript" src="app/prodsales/prodSales.ctrl.js"></script>
+<script type="text/javascript" src="app/prodsales/locationfactory.fac.js"></script>
 
 
 

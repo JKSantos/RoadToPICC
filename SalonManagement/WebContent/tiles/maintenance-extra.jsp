@@ -111,7 +111,7 @@
 
     <!-- Modal Structure -->
     <div id="createExtraChargeModal" class="modal modal-fixed-footer">
-        <form class="col s12" id="createExtraForm" method="post" action="createExtraCharge">
+        <form class="col s12" id="createExtraForm">
             <div class="modal-content">
                 <!-- <div class="container"> -->
                 <div class="wrapper">
@@ -153,8 +153,8 @@
                 <button type="reset" value="Reset" id="crExtraCancel"
                         class="crExtraCancel modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL
                 </button>
-                <button class="waves-effect waves-light purple darken-3 white-text btn-flat" onclick="createExtra()">CREATE
-                </button>
+                <a class="waves-effect waves-light purple darken-3 white-text btn-flat" onclick="createExtra()">CREATE
+                </a>
             </div>
         </form>
     </div>
