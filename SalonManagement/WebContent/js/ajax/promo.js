@@ -616,8 +616,9 @@ function createPromo() {
     promoServiceQty = promoServiceQty.join(', ');
     promoPackQty = promoPackQty.join(', ');
 
+    var promoname = $('#crPromoName').val();
     var promodata = {
-        "strPromoName": $('#crPromoName').val(),
+        "strPromoName": promoname,
         "strPromoDesc": $('#crPromoDescription').val(),
         "strPromoGuidelines": $('#crPromoGuidelines').val(),
         "strNonExp": $("#crPromoNonExpiry:checked").val(),
@@ -633,7 +634,7 @@ function createPromo() {
     };
 
     swal({
-            title: "Create this promo?",
+            title: "Are you sure you want to create " + promoname + "?",
             text: "",
             type: "info",
             showCancelButton: true,
@@ -663,8 +664,8 @@ function createPromo() {
 
 function deactivatePromo(id, deactivateID) {
     var promodata = {
-        "intPromoID": id
-    },
+            "intPromoID": id
+        },
         $tr = $('#' + deactivateID).closest('tr'),
         promoname = $tr.find('td:eq(0)').text();
 
@@ -698,3 +699,20 @@ function deactivatePromo(id, deactivateID) {
             }, 1000);
         });
 }
+
+$(document).ready(function () {
+    $("#btnCrPromoExit").click(function () {
+        /* Single line Reset function executes on click of Reset Button */
+        $("#createPromoForm")[0].reset();
+        $('input[name=crProdPromoQty]').prop('disabled', 'disabled');
+        $('input[name=crServPromoQty]').prop('disabled', 'disabled');
+        $('input[name=crPackPromoQty]').prop('disabled', 'disabled');
+        $('#createPromoSubmitForm').attr('disabled', true).css('opacity', '0.3');
+        $('#crPromoBackBtn').click();
+        $('#promoList .chip').remove();
+        promoQ = 0; // temporary quantity
+        $promoQty = 0; //main quantity
+        promoTotal = 0; //total
+        promoChk = 0;
+    });
+});

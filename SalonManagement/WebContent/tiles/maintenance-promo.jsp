@@ -66,8 +66,7 @@
         <form id="createPromoForm" class="col s12 form" enctype="multipart/form-data">
             <div class="modal-content">
                 <div class="wrapper">
-                    <h4 class="center grey-text text-darken-1">Create Promo<a id="btnCrPromoExit" type="reset"
-                                                                              value="Reset"
+                    <h4 class="center grey-text text-darken-1">Create Promo<a id="btnCrPromoExit"
                                                                               class="modal-action modal-close"><i
                             class="small material-icons right grey-text text-darken-4">close</i></a></h4>
                     <div class="progress">
@@ -79,8 +78,8 @@
 
                     </div>
                     <div class="steppromo well" style="margin-top: -10px !important;">
-                        <div class="wrapper">
-                            <div class="container">
+                        <div class="container">
+                            <div class="wrapper">
                                 <div class="row form-group">
                                     <div class="input-field col s2">
                                         <label><b>Availability</b><i
@@ -287,7 +286,7 @@
                         style="margin:0px !important; padding:0px !important;"><i
                         class="material-icons">error_outline</i>&nbspRequired field
                 </button>
-                <button type="button" id="backbtn"
+                <button type="button" id="crPromoBackBtn"
                         class="actionpromo backformpromo waves-effect waves-purple transparent btn-flat"
                         style="margin-left: 3px;margin-right:3px;">BACK
                 </button>
