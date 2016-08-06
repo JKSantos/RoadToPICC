@@ -1,6 +1,7 @@
 package com.gss.service;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import com.gss.dao.ProductSalesJDBCRepository;
@@ -40,11 +41,11 @@ public class ProductSalesServiceImpl implements ProductSalesService {
 	}
 
 	@Override
-	public boolean acceptProductSales(int intID) throws SQLException {
+	public boolean acceptProductSales(int intID, Date datDeliveryDate) throws SQLException {
 		
 		ProductSalesRepository repo = new ProductSalesJDBCRepository();
 		
-		return repo.acceptProductSales(intID);	
+		return repo.acceptProductSales(intID, datDeliveryDate);	
 	}
 
 	@Override

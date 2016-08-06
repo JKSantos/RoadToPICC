@@ -1,6 +1,7 @@
 package com.gss.actions.ProductSales;
 
 import java.sql.SQLException;
+import java.util.Date;
 
 import com.gss.service.ProductSalesService;
 import com.gss.service.ProductSalesServiceImpl;
@@ -8,12 +9,13 @@ import com.gss.service.ProductSalesServiceImpl;
 public class OrderResultAction {
 	
 	private int intOrderID;
+	private Date datDeliveryDate;
 	private String result = "success";
 	
 	public String acceptOrder() throws SQLException{
 		
 		ProductSalesService service = new ProductSalesServiceImpl();
-		boolean updated = service.acceptProductSales(this.intOrderID);
+		boolean updated = service.acceptProductSales(this.intOrderID, this.datDeliveryDate);
 		
 		if(updated == false)
 			result = "failed";
@@ -39,5 +41,9 @@ public class OrderResultAction {
 
 	public void setIntOrderID(int intOrderID) {
 		this.intOrderID = intOrderID;
+	}
+
+	public void setDatDeliveryDate(Date datDeliveryDate) {
+		this.datDeliveryDate = datDeliveryDate;
 	}
 }
