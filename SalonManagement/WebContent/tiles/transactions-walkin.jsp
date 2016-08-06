@@ -54,7 +54,7 @@
     </div>
 
     <!-- Modal Structure -->
-    <div id="createWalkinModal" class="modal modal-fixed-footer">
+    <div id="createWalkinModal" class="modal modal-fixed-footer" ng-controller = "walkinCtrl">
         <form class="col s12" id="createWalkinForm" method="post" action="">
             <div class="modal-content">
                 <!-- <div class="container"> -->
@@ -152,9 +152,9 @@
                                                         </td>
                                                         </tr>
                                                     </c:forEach>
-                                                    
-                                                    
-                                                   
+
+
+
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -217,11 +217,11 @@
                                         <div class="collapsible-header" id="listheadcollapsible2"><i
                                                 class="material-icons">view_list</i>Packages
                                         </div>
-                                        
-                                        
+
+
                                         <div class="collapsible-body" id="listcollapsible2"
                                              style="margin:0px 0px 0px 0px !important; padding: 0px 0px 0px 0px !important;">
-                                           
+
                                                 <ul class="collapsible" data-collapsible="accordion">
                                                     <c:forEach items="${packageList}" var="packagee">
                                                     <li>
@@ -281,9 +281,9 @@
                                                     </li>
                                                     </c:forEach>
                                                 </ul>
-                                           
+
                                         </div>
-                                        
+
                                     </li>
                                     <li>
                                         <div class="collapsible-header" id="listheadcollapsible3"><i
@@ -292,7 +292,7 @@
                                         <div class="collapsible-body" id="listcollapsible3"
                                              style="margin:0px 0px 0px 0px !important; padding: 0px 0px 0px 0px !important;">
                                             <ul class="collapsible" data-collapsible="accordion">
-                                                
+
                                                 <c:forEach items="${promoList}" var="promo">
                                                 <li>
                                                     <div class="collapsible-header">
@@ -353,7 +353,7 @@
                                                                 </div>
                                                              </li>
                                                             <li>
-                                                            	
+
                                                                 <div class="collapsible-header">Packages Included</div>
                                                                 <div class="collapsible-body">
                                                                 	<ul class="collapsible" data-collapsible="accordion">

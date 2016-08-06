@@ -28,7 +28,7 @@
     </title>
 </head>
 
-<body class="purple lighten-5 demo">
+<body class="purple lighten-5 demo" ng-app = "app">
 <div class="wrapper">
     <header class="headnav">
         <ul id="slide-out" class="side-nav fixed z-depth-0">
@@ -169,12 +169,21 @@
 <script type="text/javascript" src="js/priceformat.js"></script>
 <script type="text/javascript" src="js/formatted-numbers.js"></script>
 <script type="text/javascript" src="js/jquery.formatCurrency-1.4.0.js"></script>
-<script type="text/javascript" src="js/ProductsSales/ajax.js"></script>
+<!-- <script type="text/javascript" src="js/ProductsSales/ajax.js"></script> -->
 <script type="text/javascript" src="js/ajax/extracharge.js"></script>
 <script type="text/javascript" src="js/ajax/package.js"></script>
 <script type="text/javascript" src="js/ajax/package-update.js"></script>
 <script type="text/javascript" src="js/ajax/package-deactivate.js"></script>
 <script type="text/javascript" src="js/baselayout.js"></script>
+<!-- Angular imports -->
+<script type="text/javascript" src="app/main.js"></script>
+<script type="text/javascript" src="app/payment/payment.ctr.js"></script>
+<script type="text/javascript" src="app/payment/payment.fac.js"></script>
+<script type="text/javascript" src="app/walkin/walkin.ctr.js"></script>
+<script type="text/javascript" src="app/walkin/walkin.fac.js"></script>
+<script type="text/javascript" src="app/prodsales/prodSales.ctrl.js"></script>
+<script type="text/javascript" src="app/prodsales/locationfactory.fac.js"></script>
+
 
 
 
