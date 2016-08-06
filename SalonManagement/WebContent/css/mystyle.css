@@ -178,12 +178,6 @@ left: 0% !important; } }
     text-align: center;
 }
 
-.centerer {
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
-}
-
 .salonlogo {
     width: 200px;
     height: 200px;

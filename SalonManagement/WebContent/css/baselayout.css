@@ -53,7 +53,7 @@
 }
 
 #crPromoModal {
-    width: 600px !important;
+    width: 700px !important;
     height: 590px !important;
     max-height: 100% !important;
     margin-top: -30px !important;
@@ -280,6 +280,26 @@ nav .nav-wrapper form, nav .nav-wrapper form .input-field {
 }
 
 #uppackageServtbl tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#promotbl tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#crpromotblprod tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#crpromotblserv tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#crpromotblpackage tbody tr td {
     padding-top: 0px !important;
     padding-bottom: 0px !important;
 }

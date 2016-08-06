@@ -38,8 +38,8 @@
                 <thead>
                 <tr>
                     <th class="dt-head-left">Promo Name</th>
-                    <th class="dt-head-right">Price</th>
                     <th class="dt-head-left">Guidelines</th>
+                    <th class="dt-head-right">Price</th>
                     <th class="dt-head-right">Expiration</th>
                     <th align="dt-head-center" class="no-sort">Action</th>
                 </tr>
@@ -47,119 +47,23 @@
                 <tfoot style="border: 1px solid #bdbdbd;">
                 <tr>
                     <th class="dt-head-left">Promo Name</th>
-                    <th class="dt-head-right">Price</th>
                     <th class="dt-head-left">Guidelines</th>
+                    <th class="dt-head-right">Price</th>
                     <th class="dt-head-right">Expiration</th>
                     <th align="dt-head-center" class="no-sort">Action</th>
                 </tr>
                 </tfoot>
 
                 <tbody>
-                <c:forEach items="${promoList}" var="promo">
-                    <tr>
-                        <td class="dt-body-left">${promo.strPromoName}</td>
-                        <td style="padding-right: 10px !important; margin-right: 5px;" class="dt-body-right">
-                            ${promo.dblPromoPrice}
-                        </td>
-                        <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-left">
-                            ${promo.strPromoGuidelines}
-                        </td>
-                        <td style="padding-right: 10px !important; margin-right: 5px;" class="dt-body-right">
-                            ${promo.strPromoAvailability}
-                        </td>
-                        <td class="center" style="padding:0; margin:0;">
-                            <a class="waves-effect waves-purple modal-trigger btn-flat transparent black-text promoUpdatebtn"
-                               href="#update${promo.intPromoID}"
-                               style="padding-left: 10px;padding-right:10px; margin: 5px;">
-                                <i class="material-icons">edit</i>
-                            </a>
-                            <button class="promodeacbtn waves-effect waves-purple btn-flat transparent red-text text-accent-4"
-                                    style="padding-left: 10px;padding-right:10px; margin: 5px;"
-                                    id="${promo.intPromoID}" title="Deactivate"><i class="material-icons">delete</i>
-                            </button>
-                        </td>
-                    </tr>
-                </c:forEach>
-
                 </tbody>
             </table>
         </div>
     </div>
 
-    <!-- view product and service modal -->
-    <c:forEach items="${promoList}" var="promo">
-        <div id="viewProdSvc${promo.intPromoID}" class="modal">
-            <div class="modal-content">
-                <!-- <div class="container"> -->
-                <div class="row">
-                    <h5 class="grey-text text-darken-1">Services & Products Included</h5>
-                    <div class="input-field col s8 offset-s2">
-                        <input type="text" readonly id="promoViewName" name="promoViewName"
-                               value="${promo.strPromoName}">
-                        <label for="promoViewName">Name</label>
-                    </div>
-
-                    <div class="input-field col s8 offset-s2">
-                        <input type="text" readonly id="promoViewDesc" name="promoViewName"
-                               value="${promo.strPromoDescription}">
-                        <label for="promoViewDesc">Description</label>
-                    </div>
-
-
-                    <div class="input-field col s8 offset-s2">
-                                    <textarea name="strPromoGuidelines" id="guidelines"
-                                              class="materialize-textarea noSpace">${promo.strPromoGuidelines}</textarea>
-                        <label for="guidelines" class="active">Guidelines</label>
-                    </div>
-                    <div class="input-field col s8 offset-s2">
-                        <input type="text" readonly id="promoViewPrice" name="promoViewName"
-                               value="${promo.dblPromoPrice}">
-                        <label for="promoViewPrice">Price</label>
-                    </div>
-
-                    <table class="centered responsive-table">
-                        <thead>
-                        <tr>
-                            <td>Services Included</td>
-                            <td>Quantity</td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <c:forEach items="${promo.serviceList}" var="includedService">
-                                <th data-field="viewService">${includedService.service.strServiceName}</th>
-                                <th data-field="viewServiceQty">${includedService.intQuantity}</th>
-                            </c:forEach>
-                        </tr>
-                        </tbody>
-                    </table>
-
-                    <table>
-                        <thead>
-                        <tr>
-                            <td>Products Included</td>
-                            <td>Quantity</td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${promo.productList}" var="includedProduct">
-                            <tr>
-                                <th data-field="viewProduct">${includedProduct.product.strProductName}</th>
-                                <th data-field="viewProductQty">${includedProduct.intProductQuantity}</th>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </c:forEach>
-    <!-- end view product and service modal -->
 
     <!-- Modal Structure -->
     <div id="crPromoModal" class="modal modal-fixed-footer">
-        <form id="createPromoForm" class="col s12 form" method="post" action="createPromo"
-              enctype="multipart/form-data">
+        <form id="createPromoForm" class="col s12 form" enctype="multipart/form-data">
             <div class="modal-content">
                 <div class="wrapper">
                     <h4 class="center grey-text text-darken-1">Create Promo<a id="btnCrPromoExit" type="reset"
@@ -176,59 +80,45 @@
                     </div>
                     <div class="steppromo well" style="margin-top: -10px !important;">
                         <div class="wrapper">
-                            <div class="row form-group">
-                                <div class="input-field col s2">
-                                    <label><b>Availability</b><i class="material-icons red-text tiny">error_outline</i></label>
-                                </div>
-                                <div class="input-field col s5">
-                                    <p class="center">
-                                        <input type="checkbox" class="filled-in" id="crPromoNonExpiry"
-                                               name="strNonExp">
-                                        <label for="crPromoNonExpiry"><b>Non-Expiry</b></label>
-                                    </p>
-                                </div>
-                                <div class="input-field col s5">
-                                    <input name="strExp" type="date" class="datepicker-promo"
-                                           id="crPromoExpiration" placeholder="Expiration"/>
-                                    <label for="crPromoExpiration" class="active"><b>Expiration</b></label>
-                                </div>
-                                <div class="input-field col s12">
-                                    <input name="strPromoName" type="text" class="validate"
-                                           id="crPromoName" placeholder="Promo Name">
-                                    <label for="crPromoName" class="active"><b>Promo Name</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
-                                </div>
-                                <div class="input-field col s12">
-                                    <textarea name="strPromoDesc" id="crPromoDescription"
+                            <div class="container">
+                                <div class="row form-group">
+                                    <div class="input-field col s2">
+                                        <label><b>Availability</b><i
+                                                class="material-icons red-text tiny">error_outline</i></label>
+                                    </div>
+                                    <div class="input-field col s5">
+                                        <p class="center">
+                                            <input type="checkbox" class="filled-in" id="crPromoNonExpiry"
+                                                   name="crNonExp" value="on">
+                                            <label for="crPromoNonExpiry"><b>Non-Expiry</b></label>
+                                        </p>
+                                    </div>
+                                    <div class="input-field col s5">
+                                        <input name="crExp" type="date" class="datepicker-promo"
+                                               id="crPromoExpiration" placeholder="Expiration" required/>
+                                        <label for="crPromoExpiration" class="active"><b>Expiration</b></label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input name="crPromoName" type="text" class="validate"
+                                               id="crPromoName" placeholder="Promo Name" required>
+                                        <label for="crPromoName" class="active"><b>Promo Name</b><i
+                                                class="material-icons red-text tiny">error_outline</i></label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                    <textarea name="crPromoDesc" id="crPromoDescription"
                                               style="margin-top: -10px !important;"
                                               class="materialize-textarea" minlength="5"
                                               placeholder="Description"></textarea>
-                                    <label for="crPromoDescription" class="active"><b>Description</b></label>
-                                </div>
-                                <div class="input-field col s7">
-                                    <textarea name="strPromoGuidelines" id="crPromoGuidelines" placeholder="Guidelines"
-                                              class="materialize-textarea noSpace" minlength="5"
+                                        <label for="crPromoDescription" class="active"><b>Description</b></label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                    <textarea name="crPromoGuide" id="crPromoGuidelines" placeholder="Guidelines"
+                                              class="materialize-textarea noSpace"
                                               style="margin-top: -10px !important;"></textarea>
-                                    <label for="crPromoGuidelines" class="active"><b>Guidelines</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
-                                </div>
-                                <div class="input-field col s5">
-                                    <div class="input-field col s5">
-                                        <p class="center">
-                                            <input name="strFree" type="checkbox" class="filled-in"
-                                                   id="strPromoFree"/>
-                                            <label for="strPromoFree"><b>Free</b></label>
-                                        </p>
+                                        <label for="crPromoGuidelines" class="active"><b>Guidelines</b></label>
                                     </div>
-                                    <div class="input-field col s6 offset-s1">
-                                        <input name="dblPromoPrice" type="text"
-                                               class="validate right-align"
-                                               id="strPromoPrice" maxlength="8" placeholder="Amount">
-                                        <label for="strPromoPrice" class="active"><b>Price</b><i
-                                                class="material-icons red-text tiny">error_outline</i></label>
-                                    </div>
-                                </div>
 
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -289,36 +179,6 @@
                                                     </tfoot>
 
                                                     <tbody>
-
-                                                    <c:forEach items="${productList}" var="product">
-                                                        <tr>
-                                                            <td class="dt-body-left">
-                                                                <input type="checkbox" name="productPromoSelect"
-                                                                       id="prodCheck${product.intProductID}" required
-                                                                       class="promocheckbox x{product.intProductID}"
-                                                                       value="${product.intProductID}"><label
-                                                                    for="prodCheck${product.intProductID}"></label>
-                                                            </td>
-                                                            <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;"
-                                                                class="dt-body-left ">${product.strProductName}
-                                                            </td>
-                                                            <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;">
-                                                                Product
-                                                            </td>
-                                                            <td style="padding-right: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;"
-                                                                class="dt-body-right prodPrice">${product.dblProductPrice}
-                                                            </td>
-                                                            <td class="dt-body-right"
-                                                                style="padding-right: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;">
-                                                                <input type="number" class="right-align rowQty"
-                                                                       name="productPromoQty"
-                                                                       id="p${product.intProductID}" disabled
-                                                                       style="width: 75px"
-                                                                       min="1" max="99" value="1" maxlength="2">
-                                                            </td>
-                                                        </tr>
-                                                    </c:forEach>
-
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -348,35 +208,6 @@
                                                     </tfoot>
 
                                                     <tbody>
-                                                    <c:forEach items="${serviceList}" var="service">
-                                                        <tr>
-                                                            <td class="dt-body-left">
-                                                                <input type="checkbox" name="servicePromoSelect"
-                                                                       id="myCheckBox${service.intServiceID}" required
-                                                                       class="promocheckbox x{service.intServiceID}"
-                                                                       value="${service.intServiceID}"><label
-                                                                    for="myCheckBox${service.intServiceID}"></label>
-                                                            </td>
-                                                            <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;"
-                                                                class="dt-body-left ">${service.strServiceName}
-                                                            </td>
-                                                            <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;">
-                                                                Service
-                                                            </td>
-                                                            <td style="padding-right: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;"
-                                                                class="dt-body-right prodPrice">${service.dblServicePrice}
-                                                            </td>
-                                                            <td class="dt-body-right"
-                                                                style="padding-right: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;">
-                                                                <input type="number" class="right-align rowQty"
-                                                                       name="servicePromoQty" disabled
-                                                                       id="s${service.intServiceID}"
-                                                                       style="width: 75px" value="1"
-                                                                       maxlength="2">
-                                                            </td>
-                                                        </tr>
-                                                    </c:forEach>
-
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -406,35 +237,6 @@
                                                     </tfoot>
 
                                                     <tbody>
-                                                    <c:forEach items="${packageList}" var="pack">
-                                                        <tr>
-                                                            <td class="dt-body-left">
-                                                                <input type="checkbox" name="packagePromoSelect"
-                                                                       id="promoPack${pack.intPackageID}" required
-                                                                       class="promocheckbox x{service.intServiceID} ignore"
-                                                                       value="${pack.intPackageID}"><label
-                                                                    for="promoPack${pack.intPackageID}"></label>
-                                                            </td>
-                                                            <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;"
-                                                                class="dt-body-left ">${pack.strPackageName}
-                                                            </td>
-                                                            <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;">
-                                                                Package
-                                                            </td>
-                                                            <td style="padding-right: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;"
-                                                                class="dt-body-right prodPrice">${pack.dblPackagePrice}
-                                                            </td>
-                                                            <td class="dt-body-right"
-                                                                style="padding-right: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;">
-                                                                <input type="number" class="right-align rowQty"
-                                                                       name="packagePromoQty" disabled
-                                                                       id="pack${pack.intPackageID}"
-                                                                       style="width: 75px" value="1"
-                                                                       maxlength="2">
-                                                            </td>
-                                                        </tr>
-                                                    </c:forEach>
-
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -444,18 +246,27 @@
                             </div>
                             <div class="col s9 z-depth-barts white prodservlist" id="prodservContainer">
                                 <h6 class="center" style="padding-top: -2px !important;"><b>Selected Items</b></h6>
-                                <div class="col s12" id="pslist"
+                                <div class="col s12" id="promoList"
                                      style="margin-top: -13px !important; margin-bottom: 5px !important;"></div>
                             </div>
                             <div class="col s3">
                                 <div class="input-field col s12">
-                                    <p>Total: <span id="totalPrice" class="right-align"></span></p>
+                                    <input type="text" class="right-align grey-text text-darken-3" disabled name=""
+                                           id="crPromoTotal" placeholder="Price"/>
+                                    <label for="crPromoTotal"
+                                           class="active grey-text text-darken-3"><b>Total</b></label>
                                 </div>
-                                <div class="input-field col s12" style="margin-top: 20px !important;">
-                                    <input type="text" class="right-align prodPrice" name="" id="crPromoPrice"
-                                           placeholder="Price"/>
+                                <div class="input-field col s12">
+                                    <input name="dblPromoPrice" type="text"
+                                           class="validate right-align"
+                                           id="crPromoPrice" maxlength="8" placeholder="Amount">
                                     <label for="crPromoPrice" class="active"><b>Price</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
+                                </div>
+                                <div class="input-field col s12" style="margin-top: -15px !important;">
+                                    <input name="crFree" type="checkbox" class="filled-in"
+                                           id="crPromoFree" value="on"/>
+                                    <label for="crPromoFree"><b>Free</b></label>
                                 </div>
                             </div>
                             <!--<div class="col s12 z-depth-barts white prodservlist" style="margin-top: 5px;"-->
@@ -484,9 +295,9 @@
                         class="actionpromo nextformpromo waves-effect waves-light white-text btn-flat purple"
                         style="margin-left: 3px; margin-right:3px;">NEXT
                 </button>
-                <button type="submit" value="submit" id="createPromoSubmitForm"
+                <button id="createPromoSubmitForm" onclick="createPromo()"
                         class="actionpromo submitformpromo waves-effect waves-light white-text btn-flat purple"
-                        style="margin-left:3px; margin-right:3px;">CREATE
+                        style="margin-left:3px; margin-right:3px; opacity: 0.3" disabled>CREATE
                 </button>
 
             </div>

@@ -13,10 +13,10 @@ function updateExtraTable() {
         success: function (data) {
             var extraCharge = data.extraChargeList;
             var servPrice = "servPrice";
-            var table = $('#extratbl').DataTable();
+            var extraTable = $('#extratbl').DataTable();
 
             if (extraCharge != null) {
-                table.clear().draw();
+                extraTable.clear().draw();
                 $.each(extraCharge, function (i, extra) {
 
 
@@ -33,14 +33,14 @@ function updateExtraTable() {
                         price = "<td><span class='price'>Php " + price + "</span></td>",
                         btn = "<td>" + addbtn + "</td>";
 
-                    table.row.add([
+                    extraTable.row.add([
                         chargename,
                         details,
                         price,
                         btn
                     ]);
                 });
-                table.draw();
+                extraTable.draw();
             }
 
         }

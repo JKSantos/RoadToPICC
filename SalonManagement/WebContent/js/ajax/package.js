@@ -23,9 +23,9 @@ function updatePackageTable() {
                         " style='padding-left: 10px;padding-right:10px; margin: 5px;' value='" + package.intPackageID + "'" +
                         " onclick='openUpdatePackage(this.value)'>" +
                         "<i class='material-icons'>edit</i></button>" +
-                        "<button class='waves-effect waves-purple btn-flat transparent red-text text-accent-4'" +
+                        "<button id='deactivateID" + package.intPackageID + "' class='waves-effect waves-purple btn-flat transparent red-text text-accent-4'" +
                         " style='padding-left: 10px;padding-right:10px; margin: 5px;' value='" + package.intPackageID + "' title='Deactivate'" +
-                        " onclick='deactivatePackage(this.value)'>" +
+                        " onclick='deactivatePackage(this.value, this.id)'>" +
                         "<i class='material-icons'>delete</i></button>";
                     if (package.intPackageType == 1) {
                         type = 'Event';
@@ -55,17 +55,6 @@ function updatePackageTable() {
     });
 }
 
-function addCommas(nStr) {
-    nStr += '';
-    x = nStr.split('.');
-    x1 = x[0];
-    x2 = x.length > 1 ? '.' + x[1] : '';
-    var rgx = /(\d+)(\d{3})/;
-    while (rgx.test(x1)) {
-        x1 = x1.replace(rgx, '$1' + ',' + '$2');
-    }
-    return x1 + x2;
-}
 
 function createPackageProductTable() {
     $.ajax({
@@ -235,7 +224,7 @@ function compute(id) {
         var prodName = $prodTR.find('td:eq(1)').text();
 
         $('#pslist').append('<div style="margin: 3px;" class="chip z-depth-1 grey lighten-3 grey-text text-darken-4"' +
-            'id="proditem' + id + '"><b>' + prodName + '</b><span class="span"><span class="grey-text text-darken-3" id="prodx' + id + '">' +
+            ' id="proditem' + id + '"><b>' + prodName + '</b><span class="span"><span class="grey-text text-darken-3" id="prodx' + id + '">' +
             ' (' + prodshowqty + ')</span></span>' + '<i id="prodchip' + id + '" class="material-icons" style="margin-right: 5px' +
             '!important">close</i></div>').show();
 

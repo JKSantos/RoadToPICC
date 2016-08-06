@@ -15,51 +15,6 @@ $(function () {
         }
     });
 
-    var crpromotblprod = $('#crpromotblprod').DataTable({
-        "bLengthChange": false,
-        responsive: true,
-        "order": [],
-        "columnDefs": [
-            {"targets": 'no-sort', "orderable": false},
-            {className: "dt-body-left", "targets": [1, 2]},
-            {className: "dt-body-center", "targets": [0]},
-            {className: "dt-head-right", "targets": [4]}
-        ],
-        "rowHeight": '10px'
-    });
-
-    var crpromotblserv = $('#crpromotblserv').DataTable({
-        "bLengthChange": false,
-        responsive: true,
-        "order": [],
-        "columnDefs": [
-            {"targets": 'no-sort', "orderable": false},
-            {className: "dt-body-left", "targets": [1, 2]},
-            {className: "dt-body-center", "targets": [0]},
-            {className: "dt-head-right", "targets": [4]}
-        ],
-        "rowHeight": '10px'
-    });
-
-    var crpromotblpackage = $('#crpromotblpackage').DataTable({
-        "bLengthChange": false,
-        responsive: true,
-        "order": [],
-        "columnDefs": [
-            {"targets": 'no-sort', "orderable": false},
-            {className: "dt-body-left", "targets": [1, 2]},
-            {className: "dt-body-center", "targets": [0]},
-            {className: "dt-head-right", "targets": [4]}
-        ],
-        "rowHeight": '10px'
-    });
-
-    $("#crPromoSearch").bind('keyup search input paste cut', function () {
-        crpromotblprod.search(this.value).draw();
-        crpromotblserv.search(this.value).draw();
-        crpromotblpackage.search(this.value).draw();
-    });
-
     $(document).ready(function () {
         $('#crPromoFilter').change(function () {
             var $filter = $(this);
@@ -87,73 +42,6 @@ $(function () {
 
     });
 
-    var total = 0;
-    var $qty = 0;
-    var q = 0;
-
-    $('.promocheckbox').change(function () {
-        var $tr = $(this).closest('tr'),
-            qtyfield = $tr.find('td .rowQty');
-        if ($(this).is(':checked')) {
-            qtyfield.attr('disabled', false);
-            var price = $tr.find('td:eq(3)').text(),
-                $price = parseFloat(price.replace(/[^\d.]/g, '')).toFixed(2),
-                showqty = parseInt($qty);
-
-            qtyfield.focus(function () { //kapag nag focus sa textfield, kung ano nakalagay makukuha
-                q = parseFloat($tr.find('td .rowQty').val()).toFixed(2);
-                $qty = parseFloat($tr.find('td .rowQty').val()).toFixed(2);
-            });
-            $qty = parseFloat($tr.find('td .rowQty').val()).toFixed(2);
-            total += $qty * $price;
-            console.log(total);
-            $('#totalPrice').html('P ' + parseFloat(total).toFixed(2));
-            $('#crPromoPrice').val('P ' + parseFloat(total).toFixed(2));
-            q = parseFloat($tr.find('td .rowQty').val()).toFixed(2);
-            console.log(q);
-            qtyfield.on('input', function () { //oninput the value will change
-                $qty = parseFloat($tr.find('td .rowQty').val()).toFixed(2);
-                console.log(q);
-                console.log($qty);
-                if ($qty > q) {
-                    total += ($qty - q) * $price;
-                    q = $qty;
-                    console.log(q);
-                    showqty = parseInt($qty);
-                    total = Math.abs(total);
-                    $('#totalPrice').html('P ' + parseFloat(total).toFixed(2));
-                    $('#crPromoPrice').val('P ' + parseFloat(total).toFixed(2));
-                } else if ($qty < q) {
-                    total -= (q - $qty) * $price;
-                    total = Math.abs(total);
-                    $('#totalPrice').html('P ' + parseFloat(total).toFixed(2));
-                    $('#crPromoPrice').val('P ' + parseFloat(total).toFixed(2));
-                    q = $qty;
-                    showqty = parseInt($qty);
-                } else {
-
-                }
-            });
-
-
-        } else if (!$(this).is(':checked')) {
-            qtyfield.attr('disabled', true);
-            var $utr = $(this).closest('tr'),
-                unprice = $utr.find('td:eq(3)').text(),
-                $unprice = parseFloat(unprice.replace(/[^\d.]/g, '')).toFixed(2);
-            $qty = parseFloat($utr.find('td .rowQty').val()).toFixed(2);
-            total = total - ($qty * $unprice);
-            total = Math.abs(total);
-            $('#totalPrice').html('P ' + parseFloat(total).toFixed(2));
-            $('#crPromoPrice').val('P ' + parseFloat(total).toFixed(2));
-        }
-    });
-
-
-    $('#createPromoSubmitForm').click(function () {
-        swal("Successfully created!", "", "success");
-        $('#createPromoForm').submit();
-    })
 });
 
 $(document).ready(function () {
@@ -713,12 +601,13 @@ $(document).ready(function () {
         "columnDefs": [
             {"targets": 'no-sort', "orderable": false},
             {"targets": [0], "width": "150px"},
-            {"targets": [1], "width": "100px"},
-            {"targets": [2], "width": "200px"},
+            {"targets": [2], "width": "100px"},
+            {"targets": [1], "width": "200px"},
             {"targets": [3], "width": "100"},
             {"targets": [4], "width": "150"},
             {className: "dt-body-center", "targets": [4]},
-            {"targets": [2], render: $.fn.dataTable.render.ellipsis(30)}
+            {className: "dt-body-left", "targets": [0, 1]},
+            {className: "dt-body-right", "targets": [2, 3]},
         ],
         "rowHeight": '10px'
     });
@@ -1224,10 +1113,28 @@ $('.updateEmpBirthday').each(function () {
 
 
 $('.datepicker-promo').pickadate({
-    selectMonths: true, // Creates a dropdown to control month
-    selectYears: 15, // Creates a dropdown of 15 years to control year
-    min: 'Today',
-    yearRange: "Today:2020"
+    selectYears: 15,
+    selectMonths: true,
+    labelMonthNext: 'Next month',
+    labelMonthPrev: 'Previous month',
+    labelMonthSelect: 'Select a month',
+    labelYearSelect: 'Select a year',
+    monthsFull: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    weekdaysFull: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    weekdaysLetter: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+    today: 'Today',
+    clear: 'Clear',
+    close: 'Close',
+    format: 'mmmm/d/yyyy',
+    min: "Today",
+    yearRange: "Today:2030",
+    onSet: function (arg1) {
+        if ('select' in arg1) { //prevent closing on selecting month/year
+            this.close();
+        }
+    }
 });
 
 // promo END
@@ -1614,10 +1521,11 @@ $('#discounttbl').on('click', '.discountdeacbtn', function (e) {
     var deactivateDiscount = {
         'intDiscountID': discountdeacID
     }
-    var $tr = $(this).closest('tr');
+    var $tr = $(this).closest('tr'),
+        discountname = $tr.find('td:eq(0)').text();
 
     swal({
-            title: "Are you sure?",
+            title: "Are you sure you want to deactivate " + discountname + "?",
             text: "",
             type: "warning",
             showCancelButton: true,
@@ -1729,3 +1637,17 @@ $(document).ready(function () {
     });
 
 });
+
+
+
+function addCommas(nStr) {
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
+}
