@@ -58,7 +58,8 @@
 
 
     <div id="crProductSales" class="modal modal-fixed-footer"
-         style="width: 50% !important; height: 70% !important; max-height: 100% !important; margin-top: -40px;">
+         style="width: 50% !important; height: 70% !important; max-height: 100% !important; margin-top: -40px;"
+         ng-controller = "prodSalesCtrl">
         <form class="col s12" id="createPSForm" name="createPSForm" method="post">
             <div class="modal-content">
                 <div class="wrapper">
@@ -75,40 +76,35 @@
                     <div class="row">
                         <div class="stepps well" style="margin-top: 20px;">
                             <div class="container">
-                                <div class="input-field col s6">
-                                    <select name="strOrderType" id="crOrderType">
-                                        <option value="default" disabled selected>Choose...</option>
-                                        <option value="pickup">Pick Up</option>
-                                        <option value="delivery">Delivery</option>
-                                    </select>
-                                    <label for="crOrderType"><b>Order Type</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                <div class="row col s12"><p>Order Type</p></div>
+                                <div class="input-field col s6" >
+                                  <p>Order Type</p>
+                                  <select class="browser-default" ng-options="order.name for order in orderType track by order.id" ng-model = "details.order"
+                                  id = "crOrderType">
+                                  </select>
+
                                 </div>
 
                                 <div class="input-field col s6">
-                                    <input type="text" name="strOrderContact" id="crOrderContact"/>
+                                    <input type="text" name="strOrderContact" id="crOrderContact" value="{{details.order}}" ng-model = "details.contact"/>
                                     <label for="crOrderContact"><b>Contact Number</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <input type="text" name="strOrderName" id="crOrderName"/>
+                                    <input type="text" name="strOrderName" id="crOrderName" ng-model = "details.name"/>
                                     <label for="crOrderName"><b>Name</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s6" id="crDivOrderSt">
-                                    <input type="text" name="strOrderStreet" id="crOrderStreet"/>
+                                    <input type="text" name="strOrderStreet" id="crOrderStreet" ng-model = "details.street"/>
                                     <label for="crOrderStreet"><b>Street</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s6" id="crDivOrderLoc">
-                                    <select name="strOrderLocation" id="crOrderLocation">
-                                    	<option value="default">Choose...</option>
-                                    	<c:forEach items="${locationList}" var="location">
-                                        	<option value="${location.intLocationID}">${location.strBarangay}, ${location.strCity},</option>
-                                        </c:forEach>
-                                    </select>
-                                    <label for="crOrderLocation"><b>Location</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                  <select class="browser-default" ng-options="location.data.locationList.strBarangay for location in locations track by location.locationList.intLocationID" ng-model = "details.location">
+                                  </select>
+
+                                  <p>{{details.location}}</p>
                                 </div>
                             </div>
                         </div>
@@ -209,8 +205,9 @@
                 </button>
             </div>
         </form>
+
+        <pre>{{locations | json}}</pre>
     </div>
 
 
 </div>
-
