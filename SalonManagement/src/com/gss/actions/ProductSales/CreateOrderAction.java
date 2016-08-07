@@ -28,6 +28,8 @@ public class CreateOrderAction{
 	private String orderType;
 	private String selectedProducts;
 	private String productQuantity;
+	
+	//di kelangan
 	private String status;
 	
 	public String execute() throws SQLException{
