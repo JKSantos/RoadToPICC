@@ -16,4 +16,8 @@ public interface PackageRepository {
 	
 	public List<Package> getAllPackageNoImage();
 	
+	public Package getPackageByID(int intPackageID);
+	
+	public List<Package> getAllPackageNoDetails();
+	
 }

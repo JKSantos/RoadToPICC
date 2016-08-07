@@ -37,4 +37,21 @@ public class PackageServiceImpl implements PackageService{
 		return repo.deactivatePackage(packageID);
 	}
 
+	@Override
+	public Package getPackageByID(int intPackageID) {
+		
+		PackageRepository repo = new PackageJDBCRepository();
+		
+		return repo.getPackageByID(intPackageID);
+	}
+
+	@Override
+	public List<Package> getAllPackageNoDetails() {
+		
+		PackageRepository repo = new PackageJDBCRepository();
+		
+		return repo.getAllPackageNoDetails();
+
+	}
+
 }

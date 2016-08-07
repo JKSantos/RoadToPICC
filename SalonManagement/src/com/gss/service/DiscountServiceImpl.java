@@ -47,4 +47,20 @@ public class DiscountServiceImpl implements DiscountService{
 		
 		return repo.deactivateDiscount(intDiscountID);
 	}
+
+	@Override
+	public List<Discount> getAllDiscountNoDetails() {
+
+		DiscountRepository repo = new DiscountJDBCRepository();
+		
+		return repo.getAllDiscountNoDetails();
+	}
+
+	@Override
+	public Discount getDiscountByID(int discountID) {
+
+		DiscountRepository repo = new DiscountJDBCRepository();
+		
+		return repo.getDiscountByID(discountID);
+	}
 }

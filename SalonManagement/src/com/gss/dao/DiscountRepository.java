@@ -14,4 +14,8 @@ public interface DiscountRepository {
 	public boolean updateDiscount(Discount discount) throws SQLException ;
 	
 	public boolean deactivateDiscount(int intDiscountID);
+	
+	public List<Discount> getAllDiscountNoDetails();
+	
+	public Discount getDiscountByID(int discountID);
 }
