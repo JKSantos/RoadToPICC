@@ -178,12 +178,17 @@ left: 0% !important; } }
     text-align: center;
 }
 
+.centerer {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
 .salonlogo {
     width: 200px;
     height: 200px;
     display: inline-block;
     vertical-align: middle;
-
     -webkit-animation-name:             rotate;
     -webkit-animation-duration:         2.0s;
     -webkit-animation-iteration-count:  infinite;

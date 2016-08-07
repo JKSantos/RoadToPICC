@@ -66,6 +66,14 @@
     margin-top: -30px !important;
 }
 
+#viewModalPackage {
+    width: 80% !important;
+    height: 590px !important;
+    max-height: 100% !important;
+    margin-top: -30px !important;
+
+}
+
 .updatePackageModal {
     width: 600px !important;
     height: 590px !important;

@@ -41,7 +41,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				int intServiceStatus = set.getInt(4);
 				String strServiceDesc = set.getString(5);
 				byte[] actualPhoto = set.getBytes(6);
-				String strPhotoPath = "";
+				String strPhotoPath = "localhost:8080/SalonManagement/getImage?ImageID="+ intServiceID + "&type=service";
 				
 				PreparedStatement pre2 = con.prepareStatement(strQuery2);
 				pre2.setInt(1, intServiceID);
@@ -260,7 +260,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				int intServiceStatus = set.getInt(4);
 				String strServiceDesc = set.getString(5);
 				byte[] actualPhoto = null;
-				String strPhotoPath = "";
+				String strPhotoPath = ":8080/SalonManagement/getImage?ImageID="+ intServiceID + "&type=service";
 				
 				PreparedStatement pre2 = con.prepareStatement(strQuery2);
 				pre2.setInt(1, intServiceID);

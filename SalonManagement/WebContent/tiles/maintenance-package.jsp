@@ -107,6 +107,19 @@
 
     <!-- end view product and service modal -->
 
+    <div id="viewModalPackage" class="modal">
+        <div class="modal-content">
+            <h4 class="center grey-text text-darken-1">View Package</h4>
+            <div class="wrapper">
+                <div class="row">
+                    <div id="viewContainer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Structure -->
     <div id="createPackageModal" class="modal modal-fixed-footer">
         <form id="createPackageForm" class="col s12 form" method="post" action="createPackage"

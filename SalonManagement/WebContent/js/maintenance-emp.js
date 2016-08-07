@@ -351,9 +351,9 @@ $(document).ready(function () {
 
 
 });
-
 $(function () {
     var packagetbl = $('#packagetbl').dataTable({
+        destroy: true,
         "bLengthChange": false,
         "sPaginationType": "full_numbers",
         responsive: true,
@@ -1637,7 +1637,6 @@ $(document).ready(function () {
     });
 
 });
-
 
 
 function addCommas(nStr) {

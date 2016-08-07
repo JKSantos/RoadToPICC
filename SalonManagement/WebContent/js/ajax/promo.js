@@ -704,6 +704,7 @@ $(document).ready(function () {
     $("#btnCrPromoExit").click(function () {
         /* Single line Reset function executes on click of Reset Button */
         $("#createPromoForm")[0].reset();
+        $('.crpromoerrorcontainer').hide();
         $('input[name=crProdPromoQty]').prop('disabled', 'disabled');
         $('input[name=crServPromoQty]').prop('disabled', 'disabled');
         $('input[name=crPackPromoQty]').prop('disabled', 'disabled');

@@ -256,9 +256,8 @@
                                            class="active grey-text text-darken-3"><b>Total</b></label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <input name="dblPromoPrice" type="text"
-                                           class="validate right-align"
-                                           id="crPromoPrice" maxlength="8" placeholder="Amount">
+                                    <input type="text" class="right-align prodPrice" name="dblPromoPrice" id="crPromoPrice"
+                                           placeholder="Price" required/>
                                     <label for="crPromoPrice" class="active"><b>Price</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
