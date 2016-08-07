@@ -18,8 +18,8 @@
       	</result-types>
 	
 		<action name="createPromo" class="com.gss.actions.CreatePromoAction">
-			<result name="success">redirect-maintenance-promo.jsp</result>
-			<result name="failed">redirect-maintenance-promo.jsp</result>
+			<result name="success" type="json"/>
+			<result name="failed" type="json"/>
 		</action>
 		
 		<action name="updatePromo" class="com.gss.actions.UpdatePromoAction">
@@ -32,8 +32,8 @@
 		</action>
 		
 		<action name="deactivatePromo" class="com.gss.actions.DeactivatePromoAction">
-			<result name="failed">maintenance-promo.jsp</result>
-			<result name="success">redirect-maintenance-promo.jsp</result>
+			<result name="failed" type="json"/>
+			<result name="success" type="json"/>
 		</action>
 	
 	</package>	

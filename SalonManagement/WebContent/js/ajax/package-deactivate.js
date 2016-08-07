@@ -1,12 +1,14 @@
 /**
  * Created by Castillo on 8/4/2016.
  */
-function deactivatePackage(id) {
+function deactivatePackage(id, deactivateid) {
     var packagedata = {
         'intPackageID': id
-    };
+    },
+        $packtr = $('#' + deactivateid).closest('tr'),
+        packagename = $packtr.find('td:eq(0)').text();
     swal({
-            title: "Deactivate this package?",
+            title: "Are you sure you want to deactivate " + packagename + "?",
             text: "",
             type: "info",
             showCancelButton: true,
@@ -23,6 +25,9 @@ function deactivatePackage(id) {
                     async: true,
                     success: function (data) {
                         swal("Successfully deactivated!", ".", "success");
+                        $packtr.find('td').fadeOut(300, function () {
+                            $packtr.remove();
+                        });
                         updatePackageTable();
                     },
                     error: function (data) {

@@ -14,7 +14,7 @@ function updatePackageProductTable() {
         async: true,
         success: function (data) {
             var updateProductList = data.productList,
-                table = $('#uppackageProdtbl').DataTable({
+                updatePackageProdTable = $('#uppackageProdtbl').DataTable({
                     "bLengthChange": false,
                     "sPaginationType": "full_numbers",
                     responsive: true,
@@ -30,11 +30,11 @@ function updatePackageProductTable() {
                 });
 
             $(".uppackageSearch").bind('keyup search input paste cut', function () {
-                table.search(this.value).draw();
+                updatePackageProdTable.search(this.value).draw();
             });
 
             if (updateProductList != null) {
-                table.clear().draw();
+                updatePackageProdTable.clear().draw();
                 $.each(updateProductList, function (i, product) {
                     var price = parseFloat(product.dblProductPrice).toFixed(2);
                     price = addCommas(price);
@@ -46,7 +46,7 @@ function updatePackageProductTable() {
                             " id='upProdQty" + product.intProductID + "' style='width: 75px' disabled value='1' min='1' maxlength='2'>";
                     price = "<span class='price'>P " + price + "</span>";
 
-                    table.row.add([
+                    updatePackageProdTable.row.add([
                         checkbox,
                         product.strProductName,
                         product.strProductCategory,
@@ -54,7 +54,7 @@ function updatePackageProductTable() {
                         quantity
                     ]);
                 });
-                table.draw();
+                updatePackageProdTable.draw();
             }
         }
     });
@@ -68,7 +68,7 @@ function updatePackageServiceTable() {
         async: true,
         success: function (data) {
             var updateServiceList = data.serviceList,
-                table = $('#uppackageServtbl').DataTable({
+                updatePackageServTable = $('#uppackageServtbl').DataTable({
                     "bLengthChange": false,
                     "sPaginationType": "full_numbers",
                     responsive: true,
@@ -82,11 +82,11 @@ function updatePackageServiceTable() {
                     "rowHeight": '10px'
                 });
             $(".uppackageSearch").bind('keyup search input paste cut', function () {
-                table.search(this.value).draw();
+                updatePackageServTable.search(this.value).draw();
             });
 
             if (updateServiceList != null) {
-                table.clear().draw();
+                updatePackageServTable.clear().draw();
                 $.each(updateServiceList, function (i, service) {
                     var price = parseFloat(service.dblServicePrice).toFixed(2);
                     price = addCommas(price);
@@ -98,7 +98,7 @@ function updatePackageServiceTable() {
                             " id='upServQty" + service.intServiceID + "' style='width: 75px' disabled value='1' min='1' maxlength='2'>";
                     price = "<span class='price'>P " + price + "</span>";
 
-                    table.row.add([
+                    updatePackageServTable.row.add([
                         checkbox,
                         service.strServiceName,
                         service.strServiceCategory,
@@ -106,7 +106,7 @@ function updatePackageServiceTable() {
                         quantity
                     ]);
                 });
-                table.draw();
+                updatePackageServTable.draw();
             }
         }
     });
@@ -117,7 +117,6 @@ var upQ = 0, // temporary quantity
     upTotal = 0, //total
     upI = 0,
     upChk = 0;
-
 
 function openUpdatePackage(id) {
     $('#updatePackageModal').openModal({
@@ -391,7 +390,7 @@ function openUpdatePackage(id) {
             }
         },
         complete: function () {
-            $('#packageloadingupdate').fadeOut(300);
+            $('#packageloadingupdate').fadeOut(500);
         }
     });
     $('#uppackageProdtbl').parents('div.tablewrapper').first().show();
@@ -488,6 +487,7 @@ function updateComputeProd(upProdID) {
     $('#upProdchip' + upProdID).click(function () {
         console.log('update prod cip');
         upChk = upChk - 1;
+        console.log(upChk);
         if (upChk < 1) {
             $('#updatePackSubmitBtn').attr('disabled', true).css('opacity', '0.3');
         } else if (upChk > 0) {

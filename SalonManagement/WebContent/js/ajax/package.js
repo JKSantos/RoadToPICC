@@ -13,19 +13,19 @@ function updatePackageTable() {
         async: true,
         success: function (data) {
             var packageList = data.packageList,
-                table = $('#packagetbl').DataTable();
+                tablepackage = $('#packagetbl').DataTable();
 
             if (packageList != null) {
-                table.clear().draw();
+                tablepackage.clear().draw();
                 $.each(packageList, function (i, package) {
                     var type;
                     var addbtn = "<button class='waves-effect waves-purple btn-flat transparent black-text'" +
                         " style='padding-left: 10px;padding-right:10px; margin: 5px;' value='" + package.intPackageID + "'" +
                         " onclick='openUpdatePackage(this.value)'>" +
                         "<i class='material-icons'>edit</i></button>" +
-                        "<button class='waves-effect waves-purple btn-flat transparent red-text text-accent-4'" +
+                        "<button id='deactivateID" + package.intPackageID + "' class='waves-effect waves-purple btn-flat transparent red-text text-accent-4'" +
                         " style='padding-left: 10px;padding-right:10px; margin: 5px;' value='" + package.intPackageID + "' title='Deactivate'" +
-                        " onclick='deactivatePackage(this.value)'>" +
+                        " onclick='deactivatePackage(this.value, this.id)'>" +
                         "<i class='material-icons'>delete</i></button>";
                     if (package.intPackageType == 1) {
                         type = 'Event';
@@ -42,30 +42,19 @@ function updatePackageTable() {
                     } else {
                         type = 'Event, Home Service, Walk In';
                     }
-                    table.row.add([
+                    tablepackage.row.add([
                         package.strPackageName,
                         type,
                         package.strPackageDesc,
                         addbtn
                     ]);
                 });
-                table.draw();
+                tablepackage.draw();
             }
         }
     });
 }
 
-function addCommas(nStr) {
-    nStr += '';
-    x = nStr.split('.');
-    x1 = x[0];
-    x2 = x.length > 1 ? '.' + x[1] : '';
-    var rgx = /(\d+)(\d{3})/;
-    while (rgx.test(x1)) {
-        x1 = x1.replace(rgx, '$1' + ',' + '$2');
-    }
-    return x1 + x2;
-}
 
 function createPackageProductTable() {
     $.ajax({
@@ -75,7 +64,7 @@ function createPackageProductTable() {
         async: true,
         success: function (data) {
             var productList = data.productList,
-                table = $('#crpacktblProd').DataTable({
+                createPackageProdTable = $('#crpacktblProd').DataTable({
                     "bLengthChange": false,
                     "sPaginationType": "full_numbers",
                     responsive: true,
@@ -91,11 +80,11 @@ function createPackageProductTable() {
                 });
 
             $("#crpackageSearch").bind('keyup search input paste cut', function () {
-                table.search(this.value).draw();
+                createPackageProdTable.search(this.value).draw();
             });
 
             if (productList != null) {
-                table.clear().draw();
+                createPackageProdTable.clear().draw();
                 $.each(productList, function (i, product) {
                     var price = parseFloat(product.dblProductPrice).toFixed(2);
                     price = addCommas(price);
@@ -106,7 +95,7 @@ function createPackageProductTable() {
                             " id='prodqty" + product.intProductID + "' disabled style='width: 75px' min='1' max='99' value='1' maxlength='2'>";
                     price = "<span class='price'>P " + price + "</span>";
 
-                    table.row.add([
+                    createPackageProdTable.row.add([
                         checkbox,
                         product.strProductName,
                         product.strProductCategory,
@@ -114,7 +103,7 @@ function createPackageProductTable() {
                         quantity
                     ]);
                 });
-                table.draw();
+                createPackageProdTable.draw();
             }
         }
     });
@@ -128,7 +117,7 @@ function createPackageServiceTable() {
         async: true,
         success: function (data) {
             var serviceList = data.serviceList,
-                table = $('#crpacktblServ').DataTable({
+                createPackageServTable = $('#crpacktblServ').DataTable({
                     "bLengthChange": false,
                     "sPaginationType": "full_numbers",
                     responsive: true,
@@ -143,11 +132,11 @@ function createPackageServiceTable() {
                 });
 
             $("#crpackageSearch").bind('keyup search input paste cut', function () {
-                table.search(this.value).draw();
+                createPackageServTable.search(this.value).draw();
             });
 
             if (serviceList != null) {
-                table.clear().draw();
+                createPackageServTable.clear().draw();
                 $.each(serviceList, function (i, service) {
                     var price = parseFloat(service.dblServicePrice).toFixed(2);
                     price = addCommas(price);
@@ -158,7 +147,7 @@ function createPackageServiceTable() {
                             " id='svc" + service.intServiceID + "' disabled style='width: 75px' min='1' max='99' value='1' maxlength='2'>";
                     price = "<span class='price'>P " + price + "</span>";
 
-                    table.row.add([
+                    createPackageServTable.row.add([
                         checkbox,
                         service.strServiceName,
                         service.strServiceCategory,
@@ -166,7 +155,7 @@ function createPackageServiceTable() {
                         quantity
                     ]);
                 });
-                table.draw();
+                createPackageServTable.draw();
             }
         }
     });
@@ -235,7 +224,7 @@ function compute(id) {
         var prodName = $prodTR.find('td:eq(1)').text();
 
         $('#pslist').append('<div style="margin: 3px;" class="chip z-depth-1 grey lighten-3 grey-text text-darken-4"' +
-            'id="proditem' + id + '"><b>' + prodName + '</b><span class="span"><span class="grey-text text-darken-3" id="prodx' + id + '">' +
+            ' id="proditem' + id + '"><b>' + prodName + '</b><span class="span"><span class="grey-text text-darken-3" id="prodx' + id + '">' +
             ' (' + prodshowqty + ')</span></span>' + '<i id="prodchip' + id + '" class="material-icons" style="margin-right: 5px' +
             '!important">close</i></div>').show();
 
