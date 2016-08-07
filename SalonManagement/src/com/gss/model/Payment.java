@@ -6,6 +6,8 @@ import java.util.List;
 
 import com.gss.service.PaymentService;
 import com.gss.service.PaymentServiceImpl;
+import com.gss.service.ReservationService;
+import com.gss.service.ReservationServiceImpl;
 
 public class Payment {
 	
@@ -118,10 +120,15 @@ public class Payment {
 		
 	}
 	
-	public static List<ProductSales> getAllUnpaid() throws SQLException{
+	public static List<ProductSales> getAllUnpaidOrder() throws SQLException{
 		
 		PaymentService service = new PaymentServiceImpl();
 		
 		return service.getAllUnpaidOrder();
+	}
+	
+	public static List<Reservation> getAllUnpaidReservation() throws SQLException{
+		
+		return Reservation.getAllReservationNoDetails();
 	}
 }

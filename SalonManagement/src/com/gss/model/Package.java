@@ -123,4 +123,19 @@ public class Package {
 		return new Package(intPackageID, "", "", intPackageID, intPackageID, "", 0, null, null, intPackageID);
 	}
 
+	public static Package getPackageByID(int intPackageID){
+
+		PackageService service = new PackageServiceImpl();
+		
+		return service.getPackageByID(intPackageID);
+	}
+	
+	public static List<Package> getAllPackageNoDetails(){
+		
+		PackageService service = new PackageServiceImpl();
+		
+		return service.getAllPackageNoDetails();
+		
+	}
+	
 }

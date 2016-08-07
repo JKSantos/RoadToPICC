@@ -328,5 +328,186 @@ public class PromoJDBCRepository implements PromoRepository{
 		}
 	}
 
-	
+	public List<Promo> getAllPromoNoDetails(){
+		
+		List<Promo> promoList 				= new ArrayList<Promo>();
+		
+		String query 						= "SELECT * FROM tblPromo WHERE intPromoStatus = 1;";
+		String getPromoDiscount				= "CALL getPromoDiscount(?)";
+
+		Connection con = jdbc.getConnection();
+		
+		try{
+			PreparedStatement pre 			= con.prepareStatement(query);
+			PreparedStatement discounts		= con.prepareStatement(getPromoDiscount);
+			ResultSet set 					= pre.executeQuery();
+			ResultSet discountedPrice = null;
+			
+			while(set.next()){
+				
+				List<ProductPackage> prodPack = new ArrayList<ProductPackage>();
+				List<ServicePackage> servPack = new ArrayList<ServicePackage>();
+				List<PackagePackage> packPack = new ArrayList<PackagePackage>();
+				
+				int intID = set.getInt(1);
+				String name = set.getString(2);
+				String desc = set.getString(3);
+				String guide = set.getString(4);
+				int max = set.getInt(5);
+				double price = set.getDouble(6);
+				String avail = set.getString(7);
+				int status = set.getInt(8);
+				
+				discounts.setInt(1, intID);
+				discountedPrice = discounts.executeQuery();
+				
+				while(discountedPrice.next()){
+				
+					price = discountedPrice.getDouble(1);
+				}
+				
+				Promo promo = new Promo(intID, name, desc, guide, price, max, servPack, prodPack, packPack, avail, status);
+				
+				promoList.add(promo);
+			}
+			discounts.close();
+			discountedPrice.close();
+			set.close();
+			pre.close();
+			
+			return promoList;
+		}
+		catch(Exception e){
+			System.out.println(e.fillInStackTrace());
+			return promoList;
+		}
+	}
+
+	public Promo getPromoByID(int promoID){
+		
+		ServiceService serviceService 		= new ServiceServiceImpl();
+		ProductService productService 		= new ProductServiceImpl();
+		PackageService packageService 		= new PackageServiceImpl();
+		
+		List<Promo> promoList 				= new ArrayList<Promo>();
+		
+		String query 						= "SELECT * FROM tblPromo WHERE intPromoID = ?;";
+		String getPromoDiscount				= "CALL getPromoDiscount(?)";
+		String query2 						= "SELECT * FROM tblServicePromo WHERE intPromoID = ? AND intPromoStatus = 1;";
+		String query3 						= "SELECT * FROM tblProductPromo WHERE intPromoID = ? AND intPromoStatus = 1;";
+		String query4 						= "SELECT * FROM tblPackagePromo WHERE intPromoID = ? AND intStatus = 1;";
+
+		Connection con = jdbc.getConnection();
+		
+		try{
+			PreparedStatement pre 			= con.prepareStatement(query);
+			PreparedStatement discounts		= con.prepareStatement(getPromoDiscount);
+			pre.setInt(1, promoID);
+			ResultSet set 					= pre.executeQuery();
+			ResultSet discountedPrice = null;
+			
+			while(set.next()){
+				
+				List<Product> productList = productService.getAllProductsNoImage();
+				List<Service> serviceList = serviceService.getAllServiceNoImage();
+				List<Package> packageList = packageService.getAllPackage();
+				
+				List<ProductPackage> prodPack = new ArrayList<ProductPackage>();
+				List<ServicePackage> servPack = new ArrayList<ServicePackage>();
+				List<PackagePackage> packPack = new ArrayList<PackagePackage>();
+				
+				int intID = set.getInt(1);
+				String name = set.getString(2);
+				String desc = set.getString(3);
+				String guide = set.getString(4);
+				int max = set.getInt(5);
+				double price = set.getDouble(6);
+				String avail = set.getString(7);
+				int status = set.getInt(8);
+				
+				discounts.setInt(1, intID);
+				discountedPrice = discounts.executeQuery();
+				
+				while(discountedPrice.next()){
+				
+					price = discountedPrice.getDouble(1);
+				}
+				
+				
+				PreparedStatement pre5 = con.prepareStatement(query2);
+				pre5.setInt(1, intID);
+				ResultSet set4 = pre5.executeQuery();
+				
+				while(set4.next()){
+					
+					int intID1 = set4.getInt(1);
+					int intPackage = set4.getInt(2);
+					int intService = set4.getInt(3);
+					int intQuantity1 = set4.getInt(4);
+					
+					for(int i = 0; i < serviceList.size(); i++){
+						Service service1 = serviceList.get(i);
+						if(intService == service1.getIntServiceID()){
+							ServicePackage service2 = new ServicePackage(intID1, intPackage, service1, intQuantity1, 1);
+							servPack.add(service2);
+						}
+					}
+				}
+				
+				PreparedStatement pre6 = con.prepareStatement(query3);
+				pre6.setInt(1, intID);
+				ResultSet set10 = pre6.executeQuery();
+				
+				while(set10.next()){
+					
+					int intID1 = set10.getInt(1);
+					int intPackage = set10.getInt(2);
+					int intProduct = set10.getInt(3);
+					int intQuantity1 = set10.getInt(4);
+					
+					for(int i = 0; i < productList.size(); i++){
+						Product product1 = productList.get(i);
+						if(intProduct == product1.getIntProductID()){
+							ProductPackage service2 = new ProductPackage(intID1, intPackage, product1, intQuantity1, 1);
+							prodPack.add(service2);
+						}
+					}
+				}
+				
+				PreparedStatement packageStatement = con.prepareStatement(query4);
+				packageStatement.setInt(1, intID);
+				ResultSet packageSet = packageStatement.executeQuery();
+				
+				while(packageSet.next()){
+					
+					int intID1 = packageSet.getInt(1);
+					int intPromoID = packageSet.getInt(2);
+					int intPackageID = packageSet.getInt(3);
+					int intQuantity = packageSet.getInt(4);
+					
+					for(int i = 0; i < packageList.size(); i++){
+						Package pack = packageList.get(i);
+						if(intPackageID == pack.getIntPackageID()){
+							PackagePackage packages = new PackagePackage(intID1, intPromoID, pack, intQuantity, 1);
+							packPack.add(packages);
+						}
+					}
+				}
+				
+				Promo promo = new Promo(intID, name, desc, guide, price, max, servPack, prodPack, packPack, avail, status);
+				
+				promoList.add(promo);
+			}
+			discounts.close();
+			discountedPrice.close();
+			set.close();
+			pre.close();
+			
+			return promoList.get(0);
+		}
+		catch(Exception e){
+			System.out.println(e.fillInStackTrace());
+			return null;
+		}
+	}
 }

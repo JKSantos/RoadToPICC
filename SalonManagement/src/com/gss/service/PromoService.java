@@ -13,5 +13,9 @@ public interface PromoService {
 	public List<Promo> getAllPromo();
 	
 	public boolean deactivatePromo(int promoID);
+	
+	public List<Promo> getAllPromoNoDetails();
+
+	public Promo getPromoByID(int promoID);
 
 }

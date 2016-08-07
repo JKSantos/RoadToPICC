@@ -249,15 +249,16 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 	}
 	
 	@Override
-	public boolean acceptProductSales(int intID) throws SQLException {
+	public boolean acceptProductSales(int intID, Date datDeliveryDate) throws SQLException {
 		
 		Connection con = jdbc.getConnection();
-		String deactivateSales = "UPDATE tblOrder SET strOrderStatus = 'PENDING' WHERE intOrderID = ?";
+		String deactivateSales = "UPDATE tblOrder SET strOrderStatus = 'PENDING', dateOrderDate = ? WHERE intOrderID = ?";
 		
 		try{
 			con.setAutoCommit(false);
 			PreparedStatement deactivate = con.prepareStatement(deactivateSales);
-			deactivate.setInt(1, intID);
+			deactivate.setDate(1, new java.sql.Date(datDeliveryDate.getTime()));
+			deactivate.setInt(2, intID);
 			deactivate.execute();
 			deactivate.close();
 			

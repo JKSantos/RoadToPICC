@@ -151,4 +151,18 @@ public class Discount {
 	public void setApplicability(String applicability) {
 		this.applicability = applicability;
 	}
+	
+	public static Discount getDiscountByID(int discountID){
+		
+		DiscountService service = new DiscountServiceImpl();
+		
+		return service.getDiscountByID(discountID);
+	}
+	
+	public static List<Discount> getAllDiscountNoDetails(){
+		
+		DiscountService service = new DiscountServiceImpl();
+		
+		return service.getAllDiscountNoDetails();
+	}
 }

@@ -88,13 +88,12 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 
 	@Override
 	public List<Reservation> getAllUnpaidReservation() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return Reservation.getAllReservationNoDetails();
 	}
 
 	@Override
 	public List<WalkIn> getAllUnpaidWalkIn() throws SQLException {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

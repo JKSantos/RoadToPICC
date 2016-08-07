@@ -35,6 +35,14 @@
 			<result name="failed" type="json"/>
 			<result name="success" type="json"/>
 		</action>
+		
+		<action name="getPromoByID" class="com.gss.actions.Promo.GetPromoByID">
+			<result name="success" type="json"/>
+		</action>
+		
+		<action name="getAllPromoNoDetails" class="com.gss.actions.Promo.GetAllPromoNoDetails">
+			<result name="success" type="json"/>
+		</action>
 	
 	</package>	
 		

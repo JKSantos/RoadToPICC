@@ -187,8 +187,9 @@
 <script type="text/javascript" src="app/payment/payment.fac.js"></script>
 <script type="text/javascript" src="app/walkin/walkin.ctr.js"></script>
 <script type="text/javascript" src="app/walkin/walkin.fac.js"></script>
-<script type="text/javascript" src="app/prodsales/prodSales.ctrl.js"></script>
 <script type="text/javascript" src="app/prodsales/locationfactory.fac.js"></script>
+<script type="text/javascript" src="app/prodsales/prodSales.ctrl.js"></script>
+
 
 
 

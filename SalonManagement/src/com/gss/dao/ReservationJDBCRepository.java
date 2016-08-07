@@ -799,7 +799,7 @@ public class ReservationJDBCRepository implements ReservationRepository{
 	@Override
 	public List<Reservation> getAllReservationNoDetails() {
 		Connection con 						= jdbc.getConnection();
-		String getReservations 				= "SELECT * FROM tblReservation";
+		String getReservations 				= "CALL getUnpaidReservation()";
 		
 		List<Reservation> reservationList = new ArrayList<Reservation>();
 		try{
