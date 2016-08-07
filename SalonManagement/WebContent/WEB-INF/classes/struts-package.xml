@@ -35,7 +35,15 @@
 			<result name="success" type="json"/>
 			<result name="failed" type="json"/>
 		</action>
-	
+		
+		<action name="getPackageByID" class="com.gss.actions.Package.GetPackageByID" method="execute">
+			<result name="success" type="json"/>
+		</action>
+		
+		<action name="getPackageNoDetails" class="com.gss.actions.Package.GetAllPackageNoDetails" method="execute">
+			<result name="success" type="json"/>
+		</action>
+		
 	</package>	
 		
 		

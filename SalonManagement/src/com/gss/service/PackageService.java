@@ -13,5 +13,9 @@ public interface PackageService {
 	public List<Package> getAllPackage();
 	
 	public boolean deactivatePackage(int packageID);
+	
+	public Package getPackageByID(int intPackageID);
+	
+	public List<Package> getAllPackageNoDetails();
 
 }

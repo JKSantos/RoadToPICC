@@ -133,4 +133,18 @@ public class Promo {
 	public static Promo createNullPromo(int intPromoID){
 		return new Promo(intPromoID, "", "", "", 0, intPromoID, null, null, null, "", intPromoID);
 	}
+	
+	public static Promo getPromoByID(int promoID){
+		
+		PromoService service = new PromoServiceImpl();
+		
+		return service.getPromoByID(promoID);
+	}
+	
+	public static List<Promo> getAllPromoNoDetails(){
+		
+		PromoService service = new PromoServiceImpl();
+		
+		return service.getAllPromoNoDetails();
+	}
 }

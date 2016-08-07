@@ -350,4 +350,162 @@ public class DiscountJDBCRepository implements DiscountRepository{
 		}
 	}
 	
+	public List<Discount> getAllDiscountNoDetails(){
+		
+		Connection con 						= jdbc.getConnection();
+		List<Discount> 	discountList 		= new ArrayList<Discount>();
+		String strQuery 					= "SELECT * FROM tblDiscount WHERE intStatus = 1;";
+		
+		try{
+			
+			PreparedStatement preDiscounts 			= con.prepareStatement(strQuery);
+			
+			ResultSet discountSet = null;
+			
+			discountSet = preDiscounts.executeQuery();
+			
+			while(discountSet.next()){
+				
+				List<Product> productList 			= new ArrayList<Product>();
+				List<Service> serviceList 			= new ArrayList<Service>();
+				List<Package> packageList 			= new ArrayList<Package>();
+				List<Promo> promoList 				= new ArrayList<Promo>();
+				
+				this.intID = discountSet.getInt(1);
+				this.applicability = discountSet.getString(2);
+				this.strName = discountSet.getString(3);
+				this.strDesc = discountSet.getString(4);
+				this.strGuide = discountSet.getString(5);
+				this.intType = discountSet.getInt(6);
+				this.dblAmount = discountSet.getDouble(7);
+				this.status = discountSet.getInt(8);
+				
+				Discount discount = new Discount(this.intID, this.applicability, this.strName, this.strDesc, this.strGuide, this.intType, this.dblAmount, productList, serviceList, packageList, promoList, this.status);
+			
+				discountList.add(discount);
+			}
+	
+			preDiscounts.close();
+			discountSet.close();
+			con.close();
+			return discountList;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public Discount getDiscountByID(int discountID){
+		
+		Connection con 						= jdbc.getConnection();
+		List<Discount> 	discountList 		= new ArrayList<Discount>();
+		String strQuery 					= "SELECT * FROM tblDiscount WHERE intDiscountID = ?;";
+		String getProducts 					= "SELECT intProductID FROM tblDiscountProduct WHERE intDiscountID = ?;";
+		String getServices 					= "SELECT intServiceID FROM tblDiscountService WHERE intDiscountID = ?;";
+		String getPromos 					= "SELECT intPromoID FROM tblDiscountPromo WHERE intDiscountID = ?;";
+		String getPackages 					= "SELECT intPackageID FROM tblDiscountPackage WHERE intDiscountID = ?;";
+		
+		List<Product> savedProducts 		= Product.getAllProduct();
+		List<Service> savedServices 		= Service.getAllService();
+		List<Package> savedPackage 			= Package.getAllPackage();
+		List<Promo> savedPromos 			= Promo.getAllPromo();
+		
+		try{
+			
+			PreparedStatement preDiscounts 			= con.prepareStatement(strQuery);
+			PreparedStatement preProducts			= con.prepareStatement(getProducts);
+			PreparedStatement preServices			= con.prepareStatement(getServices);
+			PreparedStatement prePromos				= con.prepareStatement(getPromos);
+			PreparedStatement prePackages			= con.prepareStatement(getPackages);
+			
+			ResultSet discountSet = null;
+			ResultSet productSet = null;
+			ResultSet serviceSet = null;
+			ResultSet promoSet = null;
+			ResultSet packageSet = null;
+			
+			preDiscounts.setInt(1, discountID);
+			discountSet = preDiscounts.executeQuery();
+			
+			while(discountSet.next()){
+				
+				List<Product> productList 			= new ArrayList<Product>();
+				List<Service> serviceList 			= new ArrayList<Service>();
+				List<Package> packageList 			= new ArrayList<Package>();
+				List<Promo> promoList 				= new ArrayList<Promo>();
+				
+				this.intID = discountSet.getInt(1);
+				this.applicability = discountSet.getString(2);
+				this.strName = discountSet.getString(3);
+				this.strDesc = discountSet.getString(4);
+				this.strGuide = discountSet.getString(5);
+				this.intType = discountSet.getInt(6);
+				this.dblAmount = discountSet.getDouble(7);
+				this.status = discountSet.getInt(8);
+				
+				//Products
+				preProducts.setInt(1, this.intID);
+				productSet = preProducts.executeQuery();
+				
+				while(productSet.next()){
+					
+					Product product = new SearchProduct().search(productSet.getInt(1), savedProducts);
+					productList.add(product);
+				}
+				
+				preServices.setInt(1, this.intID);
+				serviceSet = preServices.executeQuery();
+				
+				while(serviceSet.next()){
+					
+					Service service = new SearchService().search(serviceSet.getInt(1), savedServices);
+					serviceList.add(service);
+				}
+				
+				prePackages.setInt(1, this.intID);
+				packageSet = prePackages.executeQuery();
+				
+				while(packageSet.next()){
+					
+					Package packagee = new SearchPackage().search(packageSet.getInt(1), savedPackage);
+					packageList.add(packagee);
+				}
+				
+				prePromos.setInt(1, this.intID);
+				promoSet = prePromos.executeQuery();
+				
+				while(promoSet.next()){
+					
+					Promo promo = new SearchPromo().search(promoSet.getInt(1), savedPromos);
+					promoList.add(promo);
+				}
+				
+				
+				
+				Discount discount = new Discount(this.intID, this.applicability, this.strName, this.strDesc, this.strGuide, this.intType, this.dblAmount, productList, serviceList, packageList, promoList, this.status);
+			
+				discountList.add(discount);
+			}
+			
+			preProducts.close();
+			preServices.close();
+			prePromos.close();
+			prePackages.close();
+			productSet.close();
+			serviceSet.close();
+			promoSet.close();
+			packageSet.close();
+	
+			preDiscounts.close();
+			discountSet.close();
+			con.close();
+			return discountList.get(0);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
 }
