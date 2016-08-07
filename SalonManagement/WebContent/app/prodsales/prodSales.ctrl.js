@@ -9,7 +9,8 @@
       var vm = this;
       vm.setProdSalesPayment = setProdSalesPayment;
       $scope.details = {};
-      $scope.locations = {};
+      $scope.orderDetails = [{}]
+
       $scope.orderType = [
        { id: 1, value: 'pickup', name: 'Pick Up'},
        { id: 2, value: 'delivery', name: 'Delivery'}
@@ -17,11 +18,15 @@
       $scope.details.order = { id: 1, value: 'pickup', name: 'Pick Up'};
 
       locationFactory.getLocation().then(function(data){
-        $scope.locations = data.data;
-        console.log(locationFactory.getLocation());
+        $scope.locationList = data.data.locationList;
+        console.log($scope.locationList);
       });
 
-      //console.log($scope.locations);
+      locationFactory.getProducts().then(function(data){
+        $scope.productList = data.data.productList;
+        console.log($scope.productList);
+      });
+
 
       function setProdSalesPayment(details){
           vm.paymentDetails.push(details);

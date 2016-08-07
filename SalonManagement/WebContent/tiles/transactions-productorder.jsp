@@ -1,7 +1,7 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<div class="wrapper">
+<div class="wrapper" ng-controller = "prodSalesCtrl">
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
             <h3 class="grey-text text-darken-1">Product Sales</h3>
@@ -24,7 +24,7 @@
                 </div>
             </nav>
 
-            <table id="productsalestbl"
+            <!-- <table id="productsalestbl"
                    class="hoverable z-depth-1 cell-border row-border display centered responsive-table highlight"
                    cellspacing="0"
                    width="100%"
@@ -52,14 +52,40 @@
 
                 <tbody>
                 </tbody>
-            </table>
+            </table> -->
+            </div>
+
+            <div class="row col s12">
+
+            </div>
+
+            <div class="row center">
+              <div class="card small col s3" style="padding: 30px;"ng-repeat="product in productList">
+                <div class="card-image waves-effect waves-block waves-light">
+                  <img class="activator" src="{{product.strPhotoPath}}">
+                </div>
+                <div class="card-content">
+                  <span class="card-title activator grey-text text-darken-4">{{product.strProductName}}<i class="material-icons right">more_vert</i></span>
+                </br>
+                <span class="card-title grey-text text-darken-4 thin">{{product.dblProductPrice | currency}}<i class="material-icons right">close</i></span>
+                </div>
+                <div class="card-reveal">
+                  <span class="card-title grey-text text-darken-4">{{product.dblProductPrice | currency}}<i class="material-icons right">close</i></span>
+                  <div class="input-field col s12 row">
+                      <input type="text" name="strOrderContact" id="orderQuantity"  ng-model = "details.orderQuantity"/>
+                      <label for="orderQuantity"><b>Quantity</b><i
+                        class="material-icons red-text tiny">error_outline</i></label>
+                  </div>
+                </div>
+              </div>
+            </div>
         </div>
     </div>
 
 
     <div id="crProductSales" class="modal modal-fixed-footer"
          style="width: 50% !important; height: 70% !important; max-height: 100% !important; margin-top: -40px;"
-         ng-controller = "prodSalesCtrl">
+         >
         <form class="col s12" id="createPSForm" name="createPSForm" method="post">
             <div class="modal-content">
                 <div class="wrapper">
@@ -86,7 +112,7 @@
                                 </div>
 
                                 <div class="input-field col s6">
-                                    <input type="text" name="strOrderContact" id="crOrderContact" value="{{details.order}}" ng-model = "details.contact"/>
+                                    <input type="text" name="strOrderContact" id="crOrderContact" ng-model = "details.contact"/>
                                     <label for="crOrderContact"><b>Contact Number</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
@@ -101,7 +127,7 @@
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s6" id="crDivOrderLoc">
-                                  <select class="browser-default" ng-options="location.data.locationList.strBarangay for location in locations track by location.locationList.intLocationID" ng-model = "details.location">
+                                  <select class="browser-default" ng-options="location.strBarangay for location in locationList" ng-model = "details.location">
                                   </select>
 
                                   <p>{{details.location}}</p>
@@ -206,7 +232,7 @@
             </div>
         </form>
 
-        <pre>{{locations | json}}</pre>
+        <pre>{{details | json}}</pre>
     </div>
 
 
