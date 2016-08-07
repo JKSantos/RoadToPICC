@@ -36,4 +36,8 @@ public class ProductWalkIn {
 	public void setIntQuantity(int intQuantity) {
 		this.intQuantity = intQuantity;
 	}
+	
+	public ProductWalkIn createNullProductWalkIn(Product product, int quantity){
+		return new ProductWalkIn(1, product, quantity);
+	}
 }

@@ -23,6 +23,7 @@ import com.gss.model.Service;
 import com.gss.model.Package;
 import com.gss.utilities.DateHelper;
 import com.gss.utilities.DiscountChecker;
+import com.gss.utilities.PriceFormatHelper;
 import com.gss.utilities.QuantityHelper;
 import com.gss.utilities.TimeHelper;
 
@@ -39,9 +40,10 @@ public class CreateReservation {
 	private String strVenue; 		//if type is HomeService, value is equal to customer address, same nalang ng address ang ilagay mo dito
 	private int headCount;			//important
 	private List<EmployeeAssigned> employeeAssigned;
-	private Invoice invoice;		//important
+	private String strTotalPrice;
 	private String strStatus;		//important
 	
+	private Invoice invoice;		
 	private String fromMeridian;	//for timeFrom, AM or PM, important
 	private String toMeridian = "AM";		//for timTo, AM or PM, if reservation is home service, this is not needed
 	
@@ -61,7 +63,7 @@ public class CreateReservation {
 
 	private Discount discount;
 	
-	public String execute() throws SQLException{
+	public String execute() throws Exception{
 	
 		Reservation reservation;
 		
@@ -84,7 +86,7 @@ public class CreateReservation {
 				this.discount = discount;
 			}
 			
-				invoice = Invoice.createNullInvoice(extraCharges, discounts);
+				invoice = Invoice.createNullInvoice(extraCharges, discounts, PriceFormatHelper.convertToDouble(this.strTotalPrice, "Php "));
 		
 		//for ReservationInlusion
 		List<ProductOrder> products = new ArrayList<ProductOrder>();
@@ -210,5 +212,8 @@ public class CreateReservation {
 	}
 	public void setToMeridian(String toMeridian) {
 		this.toMeridian = toMeridian;
+	}
+	public void setStrTotalPrice(String strTotalPrice) {
+		this.strTotalPrice = strTotalPrice;
 	}
 }

@@ -16,6 +16,7 @@ import com.gss.service.ProductService;
 import com.gss.service.ProductServiceImpl;
 import com.gss.utilities.DateHelper;
 import com.gss.utilities.ItemDecoder;
+import com.gss.utilities.PriceFormatHelper;
 import com.gss.utilities.ProductOrderConverter;
 import com.gss.utilities.QuantityHelper;
 
@@ -28,15 +29,16 @@ public class CreateOrderAction{
 	private String orderType;
 	private String selectedProducts;
 	private String productQuantity;
+	private String strTotalPrice;
 	private String status;
 	
-	public String execute() throws SQLException{
+	public String execute() throws Exception{
 
 		int type = 2;
 		List<ExtraCharge> extraCharges = new ArrayList<ExtraCharge>();
 		List<Discount> discounts = new ArrayList<Discount>();
 		
-		Invoice invoice = Invoice.createNullInvoice(extraCharges, discounts);
+		Invoice invoice = Invoice.createNullInvoice(extraCharges, discounts, PriceFormatHelper.convertToDouble(this.strTotalPrice, "Php "));
 		
 		if(orderType.equals("delivery")){
 			type = 1;
@@ -102,6 +104,14 @@ public class CreateOrderAction{
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getStrTotalPrice() {
+		return strTotalPrice;
+	}
+
+	public void setStrTotalPrice(String strTotalPrice) {
+		this.strTotalPrice = strTotalPrice;
 	}
 	
 }

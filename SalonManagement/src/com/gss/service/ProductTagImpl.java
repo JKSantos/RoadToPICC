@@ -1,5 +1,8 @@
 package com.gss.service;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import com.gss.dao.ProductTagJDBCRepository;
 import com.gss.dao.ProductTagRepository;
 import com.gss.model.ProductTag;
@@ -30,7 +33,19 @@ public class ProductTagImpl implements ProductTags{
 		return repo.subtractStock(productTag);
 	}
 
-	
-	
+	@Override
+	public List<ProductTag> getAllTag() throws SQLException {
+		
+		ProductTagRepository repo = new ProductTagJDBCRepository();
+		
+		return repo.getAllTag();
+	}
 
+	@Override
+	public boolean restoreTag(ProductTag productTag) throws SQLException {
+		
+		ProductTagRepository repo = new ProductTagJDBCRepository();
+		
+		return repo.restoreTag(productTag);
+	}
 }

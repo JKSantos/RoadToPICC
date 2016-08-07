@@ -92,8 +92,8 @@ public class Invoice {
 		this.paymentList = paymentList;
 	}
 	
-	public static Invoice createNullInvoice(List<ExtraCharge> extraCharges, List<Discount> discounts){
-		return new Invoice(1, new Date(), discounts, extraCharges, 0, 0, null, "");
+	public static Invoice createNullInvoice(List<ExtraCharge> extraCharges, List<Discount> discounts, Double dblTotalPrice){
+		return new Invoice(1, new Date(), discounts, extraCharges, dblTotalPrice, 0, null, "");
 	}
 	
 	public static String convertToString(int intPaymentStatus){

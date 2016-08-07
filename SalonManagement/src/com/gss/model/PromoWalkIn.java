@@ -41,4 +41,7 @@ public class PromoWalkIn {
 	public void setServices(List<ServiceWalkIn> services) {
 		this.services = services;
 	}
+	public PromoWalkIn createNullPromoWalkIn(Promo promo, List<PackageWalkIn> packages, List<ServiceWalkIn> services){
+		return new PromoWalkIn(1, promo, packages, services);
+	}
 }

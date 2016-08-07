@@ -46,4 +46,8 @@ public class ServiceWalkIn {
 	public void setStrServiceStatus(String strServiceStatus) {
 		this.strServiceStatus = strServiceStatus;
 	}
+	
+	public ServiceWalkIn createNullServiceWalkIn(Service service, Employee employee){
+		return new ServiceWalkIn(1, service, employee, "PENDING");
+	}
 }

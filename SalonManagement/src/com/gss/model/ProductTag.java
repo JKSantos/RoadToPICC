@@ -1,28 +1,34 @@
 package com.gss.model;
 
+import java.sql.Date;
+
 public class ProductTag {
 	
-	private int intProductID;
+	private int intTagID;
+	private Product product;
+	private Date dateTagged;
 	private int intTagType;
+	private Employee tagBy;
 	private int intQuantity;
 	
-	
-	public ProductTag(int intProductID, int intQuantity, int intTagType){
-		
-		this.intProductID = intProductID;
+	public ProductTag(int intTagID, Product product, Date dateTagged, int intTagType, Employee tagBy, int intQuantity) {
+		super();
+		this.intTagID = intTagID;
+		this.product = product;
+		this.dateTagged = dateTagged;
 		this.intTagType = intTagType;
+		this.tagBy = tagBy;
 		this.intQuantity = intQuantity;
-		
 	}
 
 
-	public int getIntProductID() {
-		return intProductID;
+	public Product getProduct() {
+		return product;
 	}
 
 
-	public void setIntProductID(int intProductID) {
-		this.intProductID = intProductID;
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 
@@ -43,6 +49,34 @@ public class ProductTag {
 
 	public void setIntQuantity(int intQuantity) {
 		this.intQuantity = intQuantity;
+	}
+
+
+	public Employee getTagBy() {
+		return tagBy;
+	}
+
+
+	public void setTagBy(Employee tagBy) {
+		this.tagBy = tagBy;
+	}
+
+
+	public Date getDateTagged() {
+		return dateTagged;
+	}
+
+
+	public void setDateTagged(Date dateTagged) {
+		this.dateTagged = dateTagged;
+	}
+
+	public int getIntTagID() {
+		return intTagID;
+	}
+
+	public void setIntTagID(int intTagID) {
+		this.intTagID = intTagID;
 	}
 	
 	
