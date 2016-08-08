@@ -56,4 +56,12 @@ public class ProductSalesServiceImpl implements ProductSalesService {
 		return repo.declineProductSales(intID);	
 	}
 
+	@Override
+	public List<ProductSales> getAllProductRequest() {
+
+		ProductSalesRepository repo = new ProductSalesJDBCRepository();
+		
+		return repo.getAllProductRequest();	
+	}
+
 }

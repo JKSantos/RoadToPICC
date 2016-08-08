@@ -39,22 +39,15 @@
         vm.discountList = data.data.discountList;
       });
 
-    vm.quantity = []
-      vm.change = function(quant){
-       
-            vm.quantity.push(quant);
-        
-        
-      }
-     vm.user = {
-       selectedProducts: [{
-        id: 0, quantity: 0
-       }]
-     };
-    console.log(vm.user.roles);
-     vm.checkFirst = function() {
-       vm.user.roles.splice(0, $scope.user.roles.length); 
-       vm.user.roles.push(1);
-     };
+    vm.getProductIDQuantity = function(){
+        for(var i = 0; i < $scope.productList.length; i++){
+              var product = $scope.productList[i];
+              if(product.){
+
+              }else{
+                
+              }
+          }
+    };
   }
 })();

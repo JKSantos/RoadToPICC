@@ -117,5 +117,11 @@ public class ProductSales {
 		}
 		return null;
 	}
+	
+	public static List<ProductSales> getAllProductRequest(){
+		ProductSalesService service = new ProductSalesServiceImpl();
+		
+		return service.getAllProductRequest();
+	}
 
 }

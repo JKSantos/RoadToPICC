@@ -19,5 +19,7 @@ public interface ProductSalesRepository {
 	public boolean acceptProductSales(int intID, Date datDeliveryDate) throws SQLException;
 	
 	public boolean declineProductSales(int intID) throws SQLException;
+	
+	public List<ProductSales> getAllProductRequest();
 
 }
