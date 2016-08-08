@@ -8,7 +8,7 @@
     function paymentFactory($http){
       var orderDetails = [{}];
       var paymentDetails = [{}];
-      var subtotal;
+      var subtotal = 0;
       return{
         getPayments: function(){
           return paymentDetails;
@@ -31,30 +31,48 @@
         },
         insertTotal: function(total){
           subtotal = total;
+          console.log(subtotal);
         },
         saveOrderDetails: function(myData){
-          console.log(data);
-            var name = myData.strName;
-            var street = excape(angular.toJson($scope.street));
-            var contact = excape(angular.toJson($scope.contact));
-               
-               $http({
-                    method: 'POST',
-                    url: 'http://localhost:8080/SalonManagement/createOrder',
-                    data: {'strName=' +name,
-                           'strStreet='+myData.strStreet,
-                           'strContactNo='+myData.strContactNo,
-                           'inLocationID='+myData.inLocationID,
-                           'orderType=' +myData.orderType,
-                           'selectedProducts=' +myData.selectedProducts,
-                           'productQuantity=' +myData.productQuantity
-                    },
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                 }).success(function(data, status, headers, config) {
-                      alert(status);
-                 }).error(function(data, status, headers, config) {
-                      alert(status);
-                 });
+            console.log(myData);
+            var psdata = {
+              "intLocationID": myData.intLocationID,
+              "orderType": myData.orderType,
+              "productQuantity": myData.productQuantity,
+              "selectedProducts": myData.selectedProducts,
+              "strContactNo": myData.strContactNo,
+              "strName": myData.strName,
+              "strStreet": myData.strStreet,
+              "strTotalPrice": myData.strTotalPrice
+            }
+
+            swal({
+                title: "Create this order?",
+                text: "",
+                type: "info",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
+            },
+            function () {
+                setTimeout(function () {
+                    $.ajax({
+                        url: 'createOrder',
+                        type: 'post',
+                        data: psdata,
+                        dataType: 'json',
+                        async: true,
+                        success: function (data) {
+                            swal("Successfully created!", ".", "success");
+                            $('#crProductSales').closeModal();
+                        },
+                        error: function () {
+                            sweetAlert("Oops...", "Something went wrong!", "error");
+                        }
+                    });
+                }, 1000);
+            });
+
             }
         }
     }

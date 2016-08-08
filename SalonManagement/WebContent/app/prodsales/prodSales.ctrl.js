@@ -77,11 +77,10 @@
               total += (product.total);
           }
           $scope.totalAmount = total;
-
-          var subTotal = $scope.totalAmount;
-          paymentFactory.insertTotal(subTotal);
+          paymentFactory.insertTotal($scope.totalAmount);
       };
 
+      var st = paymentFactory.getSubTotal();
       $scope.setProdSalesPayment = function(custDetails){
         $scope.customerDetails.push({
           orderType: custDetails.order.value,
@@ -90,7 +89,8 @@
           strStreet: custDetails.street,
           intLocationID: custDetails.location.intLocationID,
           selectedProducts:  commaProducts(),
-          productQuantity: commaQuantity()
+          productQuantity: commaQuantity(),
+          strTotalPrice: paymentFactory.getSubTotal()
         });
           console.log($scope.customerDetails);
           paymentFactory.saveOrderDetails($scope.customerDetails[1]);

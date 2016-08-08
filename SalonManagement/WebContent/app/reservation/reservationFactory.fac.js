@@ -29,4 +29,5 @@
           subtotal = total;
         }
     }
+  }
 })();

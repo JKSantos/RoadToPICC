@@ -6,6 +6,7 @@
     .controller('reservationCtrl', reservationCtrl);
 
     function reservationCtrl($scope, paymentFactory, locationFactory){
+      $scope.selected = 'product';
 
       $scope.customerDetails = [{
         intID: 1,
@@ -59,6 +60,10 @@
 
        locationFactory.getExtraCharges().then(function(data){
         $scope.extraChargeList = data.data.extraChargeList;
+      });
+
+      locationFactory.getDiscounts().then(function(data){
+        $scope.discountList = data.data.discountList;
       });
 
       var sum = paymentFactory.getSubTotal();

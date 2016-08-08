@@ -28,12 +28,12 @@
           });
         },
          getPromos: function(){
-          return $http.get('http://localhost:8080/SalonManagement/api/v1/getAllPromo').then(function (data) {
+          return $http.get('http://localhost:8080/SalonManagement/getAllPromoNoDetails').then(function (data) {
             return data;
           });
         },
          getPackages: function(){
-          return $http.get('http://localhost:8080/SalonManagement/api/v1/getAllPackage').then(function (data) {
+          return $http.get('http://localhost:8080/SalonManagement/getPackageNoDetails').then(function (data) {
             return data;
           });
         },
@@ -43,7 +43,7 @@
           });
         },
         getDiscounts: function(){
-          return $http.get('http://localhost:8080/SalonManagement/api/v1/getAllPackage').then(function (data) {
+          return $http.get('http://localhost:8080/SalonManagement/getAllDiscountNoDetails').then(function (data) {
             return data;
           });
         }

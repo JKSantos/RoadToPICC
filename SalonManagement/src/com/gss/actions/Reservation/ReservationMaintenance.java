@@ -19,14 +19,14 @@ public class ReservationMaintenance {
 	
 	public String execute(){
 		
-		this.productList = Product.getAllProduct();
-		this.serviceList = Service.getAllService();
-		this.packageList = Package.getAllPackage();
-		this.promoList = Promo.getAllPromo();
-		this.employeeList = Employee.getEmployeeList();
-		this.discountList = Discount.getAllDiscount();
-		this.extraChargeList = ExtraCharge.getAllExtraCharge();
-		this.reservationList = Reservation.getAllReservation();
+//		this.productList = Product.getAllProduct();
+//		this.serviceList = Service.getAllService();
+//		this.packageList = Package.getAllPackage();
+//		this.promoList = Promo.getAllPromo();
+//		this.employeeList = Employee.getEmployeeList();
+//		this.discountList = Discount.getAllDiscount();
+//		this.extraChargeList = ExtraCharge.getAllExtraCharge();
+//		this.reservationList = Reservation.getAllReservation();
 		
 		return "success";
 	}

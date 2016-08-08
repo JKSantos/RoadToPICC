@@ -179,7 +179,7 @@
                     <div class="stepreservation well">
                         <div class="row">
                             <div class="col s4">
-                                <select name="" id="discountFilter">
+                                <select name="" id="discountFilter" ng-model="selected">
                                     <option value="product" selected>Product</option>
                                     <option value="service">Service</option>
                                     <option value="package">Package</option>
@@ -201,79 +201,164 @@
                                 </div>
                             </nav>
 
-                            <div class="row">
-                                <h4>Product</h4>
-                                <div class="input-field col s6" id="crDivOrderLoc">
-                                      <select class="browser-default" ng-options="product.strProductName for product in productList" 
-                                      ng-model = "details.selectedProduct">
-                                      </select>
-                                </div>
-
-                                <div class="input-field col s6">
-                                    <input type="text" id="crOrderContact" ng-model = "details.productQuantity"/>
-                                    <label for="crOrderContact"><b>Quantity</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
-                                </div>
+                            <div class="col s12">
+                                <ul class="collapsible" data-collapsible="accordion">
+                                    <li>
+                                        <div class="collapsible-header" id="listheadcollapsible"><i class="material-icons">view_list</i>{{selected | uppercase}} LIST
+                                        </div>
+                                        <div class="collapsible-body" id="listcollapsible"
+                                             style="margin:0px 0px 0px 0px !important; padding: 0px 0px 0px 0px !important;">
+                                            <div class="tablewrapper" ng-controller = "reservationTable as vm" ng-show="selected == 'product'">
+                                               <table datatable="ng" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs" class="row-border hover">
+                                               {{vm.user.selectedProducts.id}}
+                                               {{vm.quantity}}
+                                                      <thead>
+                                                      <tr>
+                                                          <th>Select</th>
+                                                          <th>Name</th>
+                                                          <th>Price</th>
+                                                          <th>Quantity</th>
+                                                      </tr>
+                                                      </thead>
+                                                      <tbody>
+                                                      <tr ng-repeat="product in vm.productList">
+                                                          <td>
+                                                            <input type="checkbox" id="ReserveProdCB{{ product.intProductID }}" checklist-model="vm.user.selectedProducts.id" checklist-value="product.intProductID" ng-model="isChecked" ng-change="vm.change(prodQuantity)"/>
+                                                            <label for="ReserveProdCB{{ product.intProductID }}"></label>
+                                                          </td>
+                                                          <td>{{product.strProductName}}</td>
+                                                          <td>{{product.dblProductPrice | currency: "Php"}}</td>
+                                                          <td>
+                                                            <input type="text" id="reserveProdQty{{ product.intProductID }}" ng-model="prodQuantity"/>
+                                                          </td>
+                                                      </tr>
+                                                      </tbody>
+                                                  </table>
+                                            </div>
+                                            <div class="tablewrapper" ng-controller = "reservationTable as vm" ng-show="selected == 'service'">
+                                                <table datatable="ng" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs" class="row-border hover">
+                                                      <thead>
+                                                      <tr>
+                                                          <th>Select</th>
+                                                          <th>Name</th>
+                                                          <th>Price</th>
+                                                          <th>Quantity</th>
+                                                      </tr>
+                                                      </thead>
+                                                      <tbody>
+                                                      <tr ng-repeat="service in vm.serviceList">
+                                                          <td>
+                                                            <input type="checkbox" id="reserveServCB{{ service.intServiceID }}" value="{{ service.intServiceID }}"/>
+                                                            <label for="reserveServCB{{ service.intServiceID }}"></label>
+                                                          </td>
+                                                          <td>{{ service.strServiceName }}</td>
+                                                          <td>{{ service.dblServicePrice | currency:"Php" }}</td>
+                                                          <td>
+                                                            <input type="text" id="reserveServQty{{ service.intServiceID }}"/>
+                                                          </td>
+                                                      </tr>
+                                                      </tbody>
+                                                  </table>
+                                            </div>
+                                            <div class="tablewrapper" ng-controller = "reservationTable as vm" ng-show="selected == 'package'">
+                                                <table datatable="ng" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs" class="row-border hover">
+                                                      <thead>
+                                                      <tr>
+                                                          <th>Select</th>
+                                                          <th>Name</th>
+                                                          <th>Price</th>
+                                                          <th>Quantity</th>
+                                                      </tr>
+                                                      </thead>
+                                                      <tbody>
+                                                      <tr ng-repeat="package in vm.packageList">
+                                                          <td>
+                                                            <input type="checkbox" id="reservePackCB{{ package.intPackageID }}" value="{{ package.intPackageID }}"/>
+                                                            <label for="reservePackCB{{ package.intPackageID }}"></label>
+                                                          </td>
+                                                          <td>{{ package.strPackageName }}</td>
+                                                          <td>{{ package.dblPackagePrice | currency:"Php" }}</td>
+                                                          <td>
+                                                            <input type="text" id="reservePackQty{{ package.intPackageID }}"/>
+                                                          </td>
+                                                      </tr>
+                                                      </tbody>
+                                                  </table>
+                                            </div>
+                                            <div class="tablewrapper" ng-controller = "reservationTable as vm" ng-show="selected == 'promo'">
+                                                <table datatable="ng" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs" class="row-border hover">
+                                                      <thead>
+                                                      <tr>
+                                                          <th>Select</th>
+                                                          <th>Name</th>
+                                                          <th>Price</th>
+                                                          <th>Quantity</th>
+                                                      </tr>
+                                                      </thead>
+                                                      <tbody>
+                                                      <tr ng-repeat="promo in vm.promoList">
+                                                          <td>
+                                                            <input type="checkbox" id="reservePromoCB{{ promo.intPromoID }}" value="{{ promo.intPromoID }}"/>
+                                                            <label for="reservePromoCB{{ promo.intPromoID }}"></label>
+                                                          </td>
+                                                          <td>{{ promo.strPromoName }}</td>
+                                                          <td>{{ promo.dblPromoPrice | currency:"Php" }}</td>
+                                                          <td>
+                                                            <input type="text" id="reservePromoQty{{ promo.intPromoID }}"/>
+                                                          </td>
+                                                      </tr>
+                                                      </tbody>
+                                                  </table>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
+                            <div class="col s12" style="margin-top: -10px !important;">
+                                <ul class="collapsible" data-collapsible="accordion">
+                                    <li>
+                                        <div class="collapsible-header"><i class="material-icons">perm_identity</i>Employee</div>
+                                        <div class="collapsible-body">
+                                            <table id="employeeReservationtbl"
+                                                   class="cell-border row-border display centered responsive-table highlight"
+                                                   cellspacing="0" width="100%"
+                                                   style="border: 1px solid #bdbdbd; margin-top: -30px !important;"
+                                                   rowspan="5">
+                                                <thead>
+                                                <tr>
+                                                    <th class="dt-head-center no-sort">Select</th>
+                                                    <th class="dt-head-left">Name</th>
+                                                </tr>
+                                                </thead>
+                                                <tfoot style="border: 1px solid #bdbdbd;">
+                                                <tr>
+                                                    <th class="dt-head-center no-sort">Select</th>
+                                                    <th class="dt-head-left">Name</th>
+                                                </tr>
+                                                </tfoot>
 
-                            <div class="row">
-                                <h4>Service</h4>
-                                <div class="input-field col s6" id="crDivOrderLoc">
-                                      <select class="browser-default" ng-options="service.strServiceName for service in serviceList" 
-                                      ng-model = "details.selectedService">
-                                      </select>
-                                </div>
+                                                <tbody>
+                                                <c:forEach items="${employeeList}" var="emp">
+                                                    <tr>
+                                                        <td class="dt-body-left">
+                                                            <input type="checkbox" name="checkedPromos"
+                                                                   id="emp${emp.intEmpID}"
+                                                                   class="packcheckbox x${emp.intEmpID}"
+                                                                   value="${emp.intEmpID}"
+                                                                   style="margin: 0px !important; padding: 0px !important;"><label
+                                                                for="emp${emp.intEmpID}"></label>
+                                                        </td>
+                                                        <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;"
+                                                            class="dt-body-left ">${emp.strEmpFirstName} ${emp.strEmpMiddleName} ${emp.strEmpLastName}
+                                                        </td>
+                                                    </tr>
+                                                </c:forEach>
 
-                                <div class="input-field col s6">
-                                    <input type="text" id="crOrderContact" ng-model = "details.serviceQuantity"/>
-                                    <label for="crOrderContact"><b>Quantity</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <h4>Package</h4>
-                                <div class="input-field col s6" id="crDivOrderLoc">
-                                      <select class="browser-default" ng-options="package.strPackageName for package in packageList" 
-                                      ng-model = "details.selectedPackage">
-                                      </select>
-                                </div>
-
-                                <div class="input-field col s6">
-                                    <input type="text" id="crOrderContact" ng-model = "details.packageQuantity"/>
-                                    <label for="crOrderContact"><b>Quantity</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <h4>Promos</h4>
-                                <div class="input-field col s6" id="crDivOrderLoc">
-                                      <select class="browser-default" ng-options="promo.strPromoName for promo in promoList" 
-                                      ng-model = "details.selectedPackage">
-                                      </select>
-                                </div>
-
-                                <div class="input-field col s6">
-                                    <input type="text" id="crOrderContact" ng-model = "details.promoQuantity"/>
-                                    <label for="crOrderContact"><b>Quantity</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <h4>Discount</h4>
-                                <div class="input-field col s6" id="crDivOrderLoc">
-                                      <select class="browser-default" ng-options="promo.strPromoName for promo in promoList" 
-                                      ng-model = "details.selectedPackage">
-                                      </select>
-                                </div>
-
-                                <div class="input-field col s6">
-                                    <input type="text" id="crOrderContact" ng-model = "details.promoQuantity"/>
-                                    <label for="crOrderContact"><b>Quantity</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
-                                </div>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
 
                             
