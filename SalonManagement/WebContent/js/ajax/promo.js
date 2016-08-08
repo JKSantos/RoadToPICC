@@ -9,7 +9,7 @@ window.onload = updatePromoCreatePackageTable();
 function updatePromoTable() {
     $.ajax({
         type: 'post',
-        url: 'api/v1/getAllPromo',
+        url: 'getAllPromoNoDetails',
         dataType: 'json',
         async: true,
         beforeSend: function () {
@@ -24,7 +24,7 @@ function updatePromoTable() {
                 $.each(promoList, function (i, promo) {
                     var price,
                         guidelines;
-                    var addbtn = "<button class='waves-effect waves-purple btn-flat transparent black-text'" +
+                    var addbtn = "<button class=' waves-effect waves-purple btn-flat transparent black-text'" +
                         " style='padding-left: 10px;padding-right:10px; margin: 5px;' value='" + promo.intPromoID + "'" +
                         " onclick='openUpdatePromo(this.value)'>" +
                         "<i class='material-icons'>edit</i></button>" +

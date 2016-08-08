@@ -42,6 +42,29 @@ $(function () {
 
     });
 
+
+    $(document).ready(function () {
+        $('#upPromoFilter').change(function () {
+            var $filter = $(this);
+            console.log($filter.val());
+
+            if ($filter.val() == "product") {
+                $('#upPromoTblProd').parents('div.tablewrapper').first().fadeIn(500);
+                $('#upPromoTblServ').parents('div.tablewrapper').first().hide();
+                $('#upPromoTblPackage').parents('div.tablewrapper').first().hide();
+            } else if ($filter.val() == "service") {
+                $('#upPromoTblServ').parents('div.tablewrapper').first().fadeIn(500);
+                $('#upPromoTblProd').parents('div.tablewrapper').first().hide();
+                $('#upPromoTblPackage').parents('div.tablewrapper').first().hide();
+            } else if ($filter.val() == "package") {
+                $('#upPromoTblProd').parents('div.tablewrapper').first().hide();
+                $('#upPromoTblServ').parents('div.tablewrapper').first().hide();
+                $('#upPromoTblPackage').parents('div.tablewrapper').first().fadeIn(500);
+            }
+        });
+
+    });
+
 });
 
 $(document).ready(function () {
@@ -938,59 +961,6 @@ $('.updateServAddCatBtn').click(function () {
     }
 });
 
-function createProductSale() {
-    var strOrderType = $('select[name=strOrderType]').val(),
-        strOrderContact = $('#crOrderContact').val(),
-        strOrderName = $('#crOrderName').val(),
-        strOrderStreet = $('#crOrderStreet').val(),
-        strOrderLocation = $('select[name=strOrderLocation]').val(),
-        checkedValues = $('input:checkbox:checked').map(function () {
-            return this.value;
-        }).get().toString(),
-        quantity = $("#createPSForm .psQty").map(function () {
-            return $(this).val();
-        }).get().toString();
-
-    swal({
-            title: "Submit?",
-            text: "", showCancelButton: true,
-            closeOnConfirm: false,
-            showLoaderOnConfirm: true,
-        },
-        function () {
-            setTimeout(function () {
-                $.ajax({
-                    type: 'post',
-                    url: 'createOrder',
-                    data: {
-                        "orderType": strOrderType,
-                        "strContactNo": strOrderContact,
-                        "strName": strOrderName,
-                        "strStreet": strOrderStreet,
-                        "intLocationID": strOrderLocation,
-                        "selectedProducts": checkedValues,
-                        "productQuantity": quantity
-                    },
-                    dataType: 'json',
-                    async: true,
-                    success: function (data) {
-                        if (data.status === 'success') {
-                            swal("Order was successfully submitted!", "success");
-                            updatePSTable();
-                            $('#crProductSales').closeModal();
-                        } else {
-                            sweetAlert("Oops...", "Something went wrong!", "error");
-                        }
-                    },
-                    error: function (data) {
-                        sweetAlert("Oops...", "Something went wrong!", "error");
-                    }
-                });
-
-            }, 1000);
-        });
-
-}
 
 // $('#defsubmitbtn').click(function () {
 //    if($('#defForm').valid()){
@@ -1113,6 +1083,31 @@ $('.updateEmpBirthday').each(function () {
 
 
 $('.datepicker-promo').pickadate({
+    selectYears: 15,
+    selectMonths: true,
+    labelMonthNext: 'Next month',
+    labelMonthPrev: 'Previous month',
+    labelMonthSelect: 'Select a month',
+    labelYearSelect: 'Select a year',
+    monthsFull: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    weekdaysFull: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    weekdaysLetter: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+    today: 'Today',
+    clear: 'Clear',
+    close: 'Close',
+    format: 'mmmm/d/yyyy',
+    min: "Today",
+    yearRange: "Today:2030",
+    onSet: function (arg1) {
+        if ('select' in arg1) { //prevent closing on selecting month/year
+            this.close();
+        }
+    }
+});
+
+$('.datepicker-promoUpdate').pickadate({
     selectYears: 15,
     selectMonths: true,
     labelMonthNext: 'Next month',

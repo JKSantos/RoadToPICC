@@ -9,7 +9,7 @@ function openViewPackage(id) {
         in_duration: 300, // Transition in duration
         out_duration: 300, // Transition out duration
     });
-    $('#viewContainer .chip').remove();
+    $('#viewContainer .card').remove();
     $.ajax({
         type: 'get',
         url: 'api/v1/getAllPackage',

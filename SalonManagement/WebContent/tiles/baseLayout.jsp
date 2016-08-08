@@ -173,12 +173,15 @@
 <script type="text/javascript" src="js/jquery.formatCurrency-1.4.0.js"></script>
 <script type="text/javascript" src="js/moment-with-locale.js"></script>
 <!-- <script type="text/javascript" src="js/ProductsSales/ajax.js"></script> -->
+<!-- jQuery Ajax -->
 <script type="text/javascript" src="js/ajax/extracharge.js"></script>
 <script type="text/javascript" src="js/ajax/package.js"></script>
 <script type="text/javascript" src="js/ajax/package-view.js"></script>
 <script type="text/javascript" src="js/ajax/package-update.js"></script>
 <script type="text/javascript" src="js/ajax/package-deactivate.js"></script>
 <script type="text/javascript" src="js/ajax/promo.js"></script>
+<script type="text/javascript" src="js/ajax/promo-update.js"></script>
+<script type="text/javascript" src="js/ajax/promo-update-func.js"></script>
 <script type="text/javascript" src="js/perfect-scrollbar.jquery.min.js"></script>
 <script type="text/javascript" src="js/baselayout.js"></script>
 <!-- Angular imports -->

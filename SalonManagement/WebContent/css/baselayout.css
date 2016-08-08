@@ -59,6 +59,13 @@
     margin-top: -30px !important;
 }
 
+#upPromoModal {
+    width: 700px !important;
+    height: 590px !important;
+    max-height: 100% !important;
+    margin-top: -30px !important;
+}
+
 #createPackageModal {
     width: 600px !important;
     height: 590px !important;
@@ -308,6 +315,21 @@ nav .nav-wrapper form, nav .nav-wrapper form .input-field {
 }
 
 #crpromotblpackage tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#upPromoTblProd tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#upPromoTblServ tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#upPromoTblPackage tbody tr td {
     padding-top: 0px !important;
     padding-bottom: 0px !important;
 }

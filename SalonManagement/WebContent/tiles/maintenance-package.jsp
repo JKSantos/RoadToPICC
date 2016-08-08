@@ -135,13 +135,6 @@
                              aria-valuemin="0"
                              aria-valuemax="100" style="color: white;"></div>
                     </div>
-                    <!--<div id="card-alert" class="card red z-depth-barts">-->
-                    <!--<div class="card-content center white-text errorcontainer">-->
-                    <!--</div>-->
-                    <!--<button type="button" class="close red-text" data-dismiss="alert" aria-label="Close">-->
-                    <!--<span aria-hidden="true"><i class="material-icons">close</i></span>-->
-                    <!--</button>-->
-                    <!--</div>-->
                     <div class="crpackageerrorcontainer card red center input-field col s12 white-text z-depth-barts">
 
                     </div>
