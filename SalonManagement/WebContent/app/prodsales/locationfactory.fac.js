@@ -16,6 +16,36 @@
           return $http.get('http://localhost:8080/SalonManagement/api/v1/getAllProduct').then(function (data) {
             return data;
           });
+        },
+         getEmployees: function(){
+          return $http.get('http://localhost:8080/SalonManagement/api/v1/getAllEmployee').then(function (data) {
+            return data;
+          });
+        },
+         getServices: function(){
+          return $http.get('http://localhost:8080/SalonManagement/api/v1/getAllService').then(function (data) {
+            return data;
+          });
+        },
+         getPromos: function(){
+          return $http.get('http://localhost:8080/SalonManagement/api/v1/getAllPromo').then(function (data) {
+            return data;
+          });
+        },
+         getPackages: function(){
+          return $http.get('http://localhost:8080/SalonManagement/api/v1/getAllPackage').then(function (data) {
+            return data;
+          });
+        },
+        getExtraCharges: function(){
+          return $http.get('http://localhost:8080/SalonManagement/api/v1/getAllOtherCharge').then(function (data) {
+            return data;
+          });
+        },
+        getDiscounts: function(){
+          return $http.get('http://localhost:8080/SalonManagement/api/v1/getAllPackage').then(function (data) {
+            return data;
+          });
         }
       }
     }

@@ -16,7 +16,7 @@ public class SendMessageViaFowiz {
 	public static void main(String[] args) throws IOException{
 		 String myPasscode = "6405021";
 	        String myUsername = "santos.jeffrey0023";    
-	        String toPhoneNumber = "09356337223";
+	        String toPhoneNumber = "09079356518";
 	        String myMessage = "Hi+papa+jeron";
 
 	        HttpClient client = new DefaultHttpClient();

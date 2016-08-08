@@ -188,6 +188,7 @@
 <script type="text/javascript" src="app/walkin/walkin.fac.js"></script>
 <script type="text/javascript" src="app/prodsales/locationfactory.fac.js"></script>
 <script type="text/javascript" src="app/prodsales/prodSales.ctrl.js"></script>
+<script type="text/javascript" src="app/reservation/reservation.ctrl.js"></script>
 
 
 
