@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation"
+		value="true" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.custom.i18n.resources"
+		value="ApplicationResources"/>
+		
+	<package name="discount" extends="struts-default, json-default" namespace="/">
+	
+		<result-types>
+         	<result-type name="tiles" 
+         	class="org.apache.struts2.views.tiles.TilesResult" />
+      	</result-types>
+	
+		<action name="discountMaintenance" class="com.gss.actions.DiscountMaintenanceAction" method="execute">
+			<result name="success" type="tiles">discount</result>
+		</action>
+
+		<action name="createDiscount" class="com.gss.actions.CreateDiscountAction" method="execute">
+			<result name="success">redirect-maintenance-discount.jsp</result>
+			<result name="failed">redirect-maintenance-discount.jsp</result>
+		</action>
+		
+		<action name="updateDiscount" class="com.gss.actions.UpdateDiscountAction" method="execute">
+			<result name="success">redirect-maintenance-discount.jsp</result>
+			<result name="failed">redirect-maintenance-discount.jsp</result>
+		</action>
+		
+		<action name="deactivateDiscount" class="com.gss.actions.DeactivateDiscountAction" method="execute">
+			<result name="success">redirect-maintenance-discount.jsp</result>
+			<result name="failed">redirect-maintenance-discount.jsp</result>
+		</action>
+		
+		<action name="getDiscountByID" class="com.gss.actions.Discount.GetDiscountByID" method="execute">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="getAllDiscountNoDetails" class="com.gss.actions.Discount.GetAllDiscountNoDetails" method="execute">
+			<result name="success" type="json"></result>
+		</action>
+	
+	</package>	
+		
+		
+</struts>

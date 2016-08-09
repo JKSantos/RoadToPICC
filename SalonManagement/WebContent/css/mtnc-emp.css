@@ -28,11 +28,11 @@
 }
 
 .aside1 {
-    background: transparent;
+    background: white;
     border-radius: 1px;
-    margin: 10px;
+    margin: 5px;
     text-align: center;
-    width: 120px;
+    width: 550px;
     height: 30%;
 }
 
@@ -41,16 +41,16 @@
     border-radius: 1px;
     margin: 10px;
     text-align: center;
-    width: 100px;
+    width: 130px;
     height: 30%;
 }
 
 .aside2 {
-    background: transparent;
+    background: white;
     border-radius: 1px;
-    margin: 10px;
+    margin: 5px;
     text-align: center;
-    width: 120px;
+    width: 50px;
     height: 30%;
 }
 
@@ -79,19 +79,19 @@
     }
 
     .aside1 {
-        order: 1;
-    }
-
-    .aside2 {
         order: 2;
     }
 
-    .aside3 {
+    .aside2 {
         order: 3;
     }
 
-    .main {
+    .aside3 {
         order: 4;
+    }
+
+    .main {
+        order: 1;
     }
 
     .footer {

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation"
+		value="true" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.custom.i18n.resources"
+		value="ApplicationResources"/>
+		
+	<package name="othercharge" extends="struts-default, json-default" namespace="/">
+	
+		<result-types>
+         	<result-type name="tiles" 
+         	class="org.apache.struts2.views.tiles.TilesResult" />
+      	</result-types>
+	
+		<action name="extraChargeMaintenance" class="com.gss.actions.ExtraChargeMaintenanceAction" method="execute">
+			<result name="success" type="tiles">extra</result>
+		</action>
+
+		<action name="createExtraCharge" class="com.gss.actions.CreateExtraChargeAction" method="execute">
+			<result name="success" type="json"/>
+			<result name="failed" type="json"/>
+		</action>
+
+		<action name="updateExtraCharge" class="com.gss.actions.UpdateExtraChargeAction" method="execute">
+			<result name="success" type="json"/>
+			<result name="failed" type="json"/>
+		</action>
+		
+		<action name="deactivateExtraCharge" class="com.gss.actions.DeactivateExtraChargeAction" method="execute">
+			<result name="success" type="json"/>
+		</action>
+	
+	</package>	
+		
+		
+</struts>

@@ -1,17 +1,19 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<div class="wrapper" ng-controller = "prodSalesCtrl">
-    <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
+
+<div ng-controller="prodSalesCtrl">
+<div class="wrapper" id="MainWrap" ng-controller = "prodSalesCtrl">
+    <div class="aside aside1 z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
             <h3 class="grey-text text-darken-1">Product Sales</h3>
-            <a class="pscrbtn z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
-               href="#crProductSales" style="margin-top: 30px; margin-left: 15px;"><i
-                    class="material-icons">add</i></a>
+            <a class="pscrbtn z-depth-1 hoverable waves-effect waves-light modal-trigger btn left green darken-2 white-text"
+               href="#crProductSales" style="margin-top: 30px; margin-left: 15px;">CHECK OUT<i
+                    class="material-icons right">shopping_cart</i></a>
             <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
                href="#prodsalesArchive" style="margin-top: 30px; margin-left: 15px;"><i
                     class="material-icons">archive</i></a>
-            <nav class="right white hoverable  z-depth-1" style="width: 300px; margin-right: 20px;">
+            <nav class="right white hoverable  z-depth-1" style="width: 40%;">
                 <div class="nav-wrapper col s4">
                     <form>
                         <div class="input-field">
@@ -59,25 +61,51 @@
 
             </div>
 
-            <div class="row center">
-              <div class="card small col s3" style="padding: 30px;"ng-repeat="product in productList">
-                <div class="card-image waves-effect waves-block waves-light">
-                  <img class="activator" src="{{product.strPhotoPath}}">
+            <div class="row ">
+                <div class="col s3" ng-repeat="product in productList">
+                    <div class="card small">
+                    <div class="card-image waves-effect waves-block waves-light">
+                      <img class="activator" ng-src="{{product.strPhotoPath}}">
+                    </div>
+                    <div class="card-content">
+                      <span class="activator grey-text text-darken-4 light"><i class="material-icons right">add_shopping_cart</i></span>
+                      <h5 style='font-size: 15px; line-height: 15px !important;'><b>{{product.strProductName}}</b>
+                      <p>{{product.dblProductPrice | currency:"Php "}}</p></h5>
+                    </div>
+                    <div class="card-reveal">
+
+                    <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
+                    <h4 style='font-size: 15px; line-height: 15px !important;'>
+                        <b>{{product.strProductName}}</b><br/>
+                        <span class="grey-text text-darken-4">{{product.dblProductPrice | currency:"Php "}}</span>
+                    </h4>
+                        <div class="input-field col s12">
+                            <input type="number" id="crPSQty{{product.intProductID}}" ng-model = "details.quantity"/>
+                            <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
+                        </div>
+                        <h6 class="grey-text text-darken-4">{{product.dblProductPrice * details.quantity | currency: "Php "}}</h6>
+                        
+                        <button class="waves-effect waves-light btn" ng-click="addToCart($index); calculateTotal()">
+                            <i class="material-icons left" style="padding: 0px !important; margin: 0px !important;">
+                            shopping_basket</i>BUY NOW!</button>
+                    </div>
                 </div>
-                <div class="card-content">
-                  <span class="card-title activator grey-text text-darken-4">{{product.strProductName}}<i class="material-icons right">more_vert</i></span>
-                </br>
-                <span class="card-title grey-text text-darken-4 thin">{{product.dblProductPrice | currency}}<i class="material-icons right">close</i></span>
                 </div>
-                <div class="card-reveal">
-                  <span class="card-title grey-text text-darken-4">{{product.dblProductPrice | currency}}<i class="material-icons right">close</i></span>
-                  <div class="input-field col s12 row">
-                      <input type="text" name="strOrderContact" id="orderQuantity"  ng-model = "details.orderQuantity"/>
-                      <label for="orderQuantity"><b>Quantity</b><i
-                        class="material-icons red-text tiny">error_outline</i></label>
-                  </div>
+                
+            </div>
+            <ul>
+                <li ng-repeat = "orders in orderList">{{orders.product}} - {{orders.total | currency: "Php"}} </li>
+            </ul>
+            <h4>Total: {{totalAmount | currency:"Php "}} </h4>
+        </div>
+
+        <div class="aside aside2 z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
+            <div class="row">
+                <div class="col s12 transparent">
+                    <h5>Request of</h5>
+                    <ul class="collection with-header" id="reqList">
+                    </ul>
                 </div>
-              </div>
             </div>
         </div>
     </div>
@@ -100,9 +128,8 @@
                              aria-valuemax="100" style="color: white;"></div>
                     </div>
                     <div class="row">
-                        <div class="stepps well" style="margin-top: 20px;">
+                        <div class="stepps well">    
                             <div class="container">
-                                <div class="row col s12"><p>Order Type</p></div>
                                 <div class="input-field col s6" >
                                   <p>Order Type</p>
                                   <select class="browser-default" ng-options="order.name for order in orderType track by order.id" ng-model = "details.order"
@@ -127,86 +154,9 @@
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s6" id="crDivOrderLoc">
-                                  <select class="browser-default" ng-options="location.strBarangay for location in locationList" ng-model = "details.location">
+                                  <select class="browser-default" ng-options="location.strBarangay for location in locationList" 
+                                  ng-model = "details.location">
                                   </select>
-
-                                  <p>{{details.location}}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="stepps well">
-
-                                <nav class="right white z-depth-1 col s6 offset-s6 hoverable" style="width: 300px; margin-right: 20px;">
-                                    <div class="nav-wrapper col s12">
-                                        <form>
-                                            <div class="input-field">
-                                                <input id="crpsSearch" placeholder="Search"
-                                                       class=" grey-text text-darken-4"
-                                                       type="search" style="border: none !important;">
-                                                <label for="crpsSearch"><i
-                                                        class="material-icons grey-text text-darken-4">search</i></label>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </nav>
-                            <div class="col s12">
-                                <ul class="collapsible" data-collapsible="accordion">
-                                    <li>
-                                        <div class="collapsible-header" id="listheadcollapsible"><i
-                                                class="material-icons">view_list</i>List
-                                        </div>
-                                        <div class="collapsible-body" id="listcollapsible"
-                                             style="margin:0px 0px 0px 0px !important; padding: 0px 0px 0px 0px !important;">
-                                            <table id="crpstbl"
-                                                   class="hoverable z-depth-1 cell-border row-border display centered responsive-table highlight"
-                                                   cellspacing="0"
-                                                   width="100%"
-                                                   style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;"
-                                                   rowspan="10">
-                                                <thead>
-                                                <tr>
-                                                    <th class="no-sort"></th>
-                                                    <th class="dt-head-left">Name</th>
-                                                    <th class="dt-head-left">Description</th>
-                                                    <th class="dt-head-right">Price</th>
-                                                    <th class="dt-head-right">Quantity</th>
-                                                </tr>
-                                                </thead>
-                                                <tfoot style="border: 1px solid #bdbdbd;">
-                                                <tr>
-                                                    <th class="no-sort"></th>
-                                                    <th class="dt-head-left">Name</th>
-                                                    <th class="dt-head-left">Description</th>
-                                                    <th class="dt-head-right">Price</th>
-                                                    <th class="dt-head-right">Quantity</th>
-                                                </tr>
-                                                </tfoot>
-
-                                                <tbody>
-                                                <tr>
-                                                    <td class="no-sort"></td>
-                                                    <td class="dt-body-left">Name</td>
-                                                    <td class="dt-body-left">Description</td>
-                                                    <td class="dt-body-right">Price</td>
-                                                    <th class="dt-body-right">Quantity</th>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <div class="col s9 z-depth-barts white prodservlist" id="prodservContainer">
-                                    <h6 class="center" style="padding-top: -2px !important;"><b>Selected Items</b></h6>
-                                    <div class="col s12" id="pslist"
-                                         style="margin-top: -13px !important; margin-bottom: 5px !important;"></div>
-                                </div>
-                                <div class="col s3">
-                                    <div class="input-field col s12" style="margin-top: 20px !important;">
-                                        <input type="text" class="right-align prodPrice" name="" id="crPackPrice" disabled
-                                               placeholder="Price" style="color: #424242 !important; border: none !important;"/>
-                                        <label for="crPackPrice" style="color: #424242 !important;" class="active"><b>Price</b><i
-                                                class="material-icons red-text tiny">error_outline</i></label>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -225,15 +175,13 @@
                         class="actionps nextformps waves-effect waves-light white-text btn-flat purple"
                         style="margin-left: 3px; margin-right:3px;">NEXT
                 </button>
-                <button type="submit" value="Submit" id="crCreateOrderBtn" onclick="createProductSale()"
+                <button type="submit" value="Submit" id="crCreateOrderBtn"
                         class="actionps submitformps waves-effect waves-light white-text btn-flat purple"
-                        style="margin-left:3px; margin-right:3px;">CREATE
+                        style="margin-left:3px; margin-right:3px;" ng-click="setProdSalesPayment(details); commaProducts(); commaQuantity()">CREATE
                 </button>
             </div>
         </form>
 
         <pre>{{details | json}}</pre>
     </div>
-
-
 </div>

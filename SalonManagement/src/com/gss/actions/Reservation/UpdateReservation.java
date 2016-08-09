@@ -22,6 +22,7 @@ import com.gss.model.ReservedService;
 import com.gss.model.Service;
 import com.gss.model.Package;
 import com.gss.utilities.DateHelper;
+import com.gss.utilities.PriceFormatHelper;
 import com.gss.utilities.QuantityHelper;
 import com.gss.utilities.TimeHelper;
 
@@ -39,9 +40,10 @@ public class UpdateReservation {
 	private String strVenue; //if type is HomeService, value is equal to customer address
 	private int headCount;
 	private List<EmployeeAssigned> employeeAssigned;
-	private Invoice invoice;
+	private String strTotalPrice;
 	private String strStatus;
 	
+	private Invoice invoice;
 	private String fromMeridian;
 	private String toMeridian;
 	private String selectedProducts;
@@ -58,7 +60,7 @@ public class UpdateReservation {
 	private List<String> selectedExtraCharges;
 	private List<String> selectedDiscounts;
 	
-	public String execute() throws SQLException{
+	public String execute() throws Exception{
 	
 		Reservation reservation;
 		
@@ -134,7 +136,7 @@ public class UpdateReservation {
 						discounts.add(discount);
 					}
 					
-				invoice = Invoice.createNullInvoice(extraCharges, discounts);
+				invoice = Invoice.createNullInvoice(extraCharges, discounts, PriceFormatHelper.convertToDouble(this.strTotalPrice, "Php "));
 		
 				reservation = new Reservation(1, customer, includedItems, intReservationType, dateCreated, datFrom, datTo, TimeHelper.parseTime(timFrom, fromMeridian), TimeHelper.parseTime(timTo, toMeridian), strVenue, headCount, employeeAssigned, invoice, strStatus);
 				
@@ -209,5 +211,8 @@ public class UpdateReservation {
 	}
 	public void setIntReservationID(int intReservationID) {
 		this.intReservationID = intReservationID;
+	}
+	public void setStrTotalPrice(String strTotalPrice) {
+		this.strTotalPrice = strTotalPrice;
 	}
 }

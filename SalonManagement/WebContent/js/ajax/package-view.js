@@ -27,11 +27,11 @@ function openViewPackage(id) {
                         var viewData = "<div class='col s3' style='display:none !important;'><div class='card medium z-depth-1' style='margin: 5px !important;'><div class='card-image waves-effect waves-block waves-light'>" +
                             "<img class='activator' src='" + productSrc +"' height='300'></div><div class='card-content'>" +
                             "<span class='card-title activator grey-text text-darken-4' style='font-size: 15px; line-height: 15px !important;'><b>" + productName +
-                            "</b><p>Php " + prodPrice + "</p><p>Quantity: " + data.packageList[i].productList[x].intProductQuantity + "</p>" +
+                            "</b><p>Php " + prodPrice + "</p><p>Quantity: " + data.packageList[i].productList[x].intProductQuantity + "</p></span>" +
                             "</div>" +
                             "<div class='card-reveal'>" +
                             "<span class='card-title grey-text text-darken-4'>" + productName +
-                            "<p style='margin-top: 20px !important;'>" + data.packageList[i].productList[x].product.strProductDesc + "</p>" +
+                            "<p style='margin-top: 20px !important;'>" + data.packageList[i].productList[x].product.strProductDesc + "</p></span>" +
                             "</div>" +
                             "</div></div>"
                         $(viewData).prependTo($('#viewContainer')).fadeIn('slow');

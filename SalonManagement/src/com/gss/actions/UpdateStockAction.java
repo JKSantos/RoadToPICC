@@ -1,5 +1,9 @@
 package com.gss.actions;
 
+import java.sql.Date;
+
+import com.gss.model.Employee;
+import com.gss.model.Product;
 import com.gss.model.ProductTag;
 import com.gss.service.ProductTagImpl;
 import com.gss.service.ProductTags;
@@ -9,18 +13,21 @@ public class UpdateStockAction {
 	private int intProductID;
 	private int intQuantity;
 	private int intType;
+	private int intEmployeeID;
 	
 	public String execute(){
 		
 		boolean recorded = false;
 		
+		Product product = Product.createNullProduct(intProductID);
+		
 		if(intType == 1){
 			ProductTags addStock = new ProductTagImpl();
-			recorded = addStock.addStock(new ProductTag(intProductID, intQuantity, intType));
+			recorded = addStock.addStock(new ProductTag(1, product, new Date(intEmployeeID), intType, Employee.createNullEmployee(intEmployeeID), intQuantity));
 		}
 		else{
 			ProductTags addStock = new ProductTagImpl();
-			recorded = addStock.subtractStock(new ProductTag(intProductID, intQuantity, intType));
+			recorded = addStock.subtractStock(new ProductTag(1, product, new Date(intEmployeeID), intType, Employee.createNullEmployee(intEmployeeID), intQuantity));
 		}
 		
 		if(recorded == true){
@@ -53,6 +60,10 @@ public class UpdateStockAction {
 
 	public void setIntType(int intType) {
 		this.intType = intType;
+	}
+
+	public void setIntEmployeeID(int intEmployeeID) {
+		this.intEmployeeID = intEmployeeID;
 	}
 
 	

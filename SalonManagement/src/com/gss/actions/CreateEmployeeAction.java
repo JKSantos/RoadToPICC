@@ -10,6 +10,7 @@ import com.gss.model.Job;
 import com.gss.service.EmployeeServiceImpl;
 import com.gss.utilities.DateHelper;
 import com.gss.utilities.JobQualificationHelper;
+import com.gss.utilities.NotifyCustomerViaSMS;
 import com.gss.utilities.SendMail;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -35,6 +36,9 @@ public class CreateEmployeeAction {
 	private List<String> selectedJob;
 	private String chkGrantAccess = "off";
 	
+	private String username;
+	private String password;
+	
 	public String execute(){
 		
 		boolean access = false;
@@ -43,6 +47,7 @@ public class CreateEmployeeAction {
 		Employee emp;
 
 		List<Job> selectedJob = new JobQualificationHelper().convertToJob(this.selectedJob);
+		NotifyCustomerViaSMS sms = new NotifyCustomerViaSMS();
 		
 		String path = "";
 		
@@ -71,7 +76,8 @@ public class CreateEmployeeAction {
 		
 		this.strBirthdate = new DateHelper().convert(unConvertedDate);
 		this.datEmpBirthdate = DateHelper.parseDate(strBirthdate);
-		
+		this.username = strUser;
+		this.password = strPass;
 		this.datEmpBirthdate = DateHelper.parseDate(strBirthdate);
 			
 		emp = new Employee(1, strEmpLastName.trim().toUpperCase(), strEmpFirstName.trim().toUpperCase(), strEmpMiddleName.trim().toUpperCase(), datEmpBirthdate, strEmpGender, strEmpAddress.trim().toUpperCase(), strEmpContactNo, strEmpEmail, "A", strUser, strPass, file.getAbsolutePath(), null, selectedJob, access);
@@ -81,6 +87,7 @@ public class CreateEmployeeAction {
 		{	
 			System.out.print("success");
 			mail.sendEmail(this.strEmpEmail, strUser, strPass);
+			sms.sendSMS(getMessage(), this.strEmpContactNo);
 			return "success";
 		}
 		else
@@ -152,6 +159,13 @@ public class CreateEmployeeAction {
 
 	public void setChkGrantAccess(String chkGrantAccess) {
 		this.chkGrantAccess = chkGrantAccess;
+	}
+	
+	public String getMessage(){
+		
+		 String message = ("Congratulations! You are now an employee of our Salon! Please download the job monitoring app at https://goog.gl/SH345GYS. You can also login on our admin page if you are granted the privilege to do so. \n\nYoure Username is " + username + " and your pasword is " + password + ".");
+		
+		return message;
 	}
 
 }

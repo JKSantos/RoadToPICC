@@ -1,5 +1,8 @@
 package com.gss.service;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import com.gss.model.ProductTag;
 
 public interface ProductTags {
@@ -10,4 +13,7 @@ public interface ProductTags {
 	
 	public boolean subtractStock(ProductTag productTag);
 
+	public List<ProductTag> getAllTag() throws SQLException;
+	
+	public boolean restoreTag(ProductTag productTag) throws SQLException;
 }

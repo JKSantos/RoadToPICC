@@ -1,7 +1,7 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="com.gss.model.Discount" %>
-<div class="wrapper">
+<div class="wrapper" ng-controller= "reservationCtrl">
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
             <h3 class="grey-text text-darken-1">Reservation</h3>
@@ -179,7 +179,7 @@
                     <div class="stepreservation well">
                         <div class="row">
                             <div class="col s4">
-                                <select name="" id="discountFilter">
+                                <select name="" id="discountFilter" ng-model="selected">
                                     <option value="product" selected>Product</option>
                                     <option value="service">Service</option>
                                     <option value="package">Package</option>
@@ -200,210 +200,115 @@
                                     </form>
                                 </div>
                             </nav>
+
                             <div class="col s12">
                                 <ul class="collapsible" data-collapsible="accordion">
                                     <li>
-                                        <div class="collapsible-header" id="listheadcollapsible"><i class="material-icons">view_list</i>List
+                                        <div class="collapsible-header" id="listheadcollapsible"><i class="material-icons">view_list</i>{{selected | uppercase}} LIST
                                         </div>
                                         <div class="collapsible-body" id="listcollapsible"
                                              style="margin:0px 0px 0px 0px !important; padding: 0px 0px 0px 0px !important;">
-                                            <div class="tablewrapper">
-                                                <table id="crdiscounttblProduct"
-                                                       class="cell-border row-border display centered responsive-table highlight"
-                                                       cellspacing="0" width="100%"
-                                                       style="border: 1px solid #bdbdbd; margin-top: -30px !important;"
-                                                       rowspan="5">
-                                                    <thead>
-                                                    <tr>
-                                                        <th class="dt-head-center no-sort">Select</th>
-                                                        <th class="dt-head-left">Name</th>
-                                                        <th class="dt-head-left">Category</th>
-                                                        <th class="dt-head-right">Price</th>
-                                                        <th class="dt-head-right">Quantity</th>
-
-                                                    </tr>
-                                                    </thead>
-                                                    <tfoot style="border: 1px solid #bdbdbd;">
-                                                    <tr>
-                                                        <th class="dt-head-center no-sort">Select</th>
-                                                        <th class="dt-head-left">Name</th>
-                                                        <th class="dt-head-left">Category</th>
-                                                        <th class="dt-head-right">Price</th>
-                                                        <th class="dt-head-right">Quantity</th>
-                                                    </tr>
-                                                    </tfoot>
-
-                                                    <tbody>
-
-                                                    <c:forEach items="${productList}" var="product">
-                                                        <tr>
-                                                            <td class="dt-body-left">
-                                                                <input type="checkbox" name="checkedProducts"
-                                                                       id="prodCheck${product.intProductID}" required
-                                                                       class="packcheckbox x{product.intProductID} ignore"
-                                                                       value="${product.intProductID}"><label
-                                                                    for="prodCheck${product.intProductID}"></label>
-                                                            </td>
-                                                            <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;"
-                                                                class="dt-body-left ">${product.strProductName}
-                                                            </td>
-                                                            <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;">
-                                                                Product
-                                                            </td>
-                                                            <td>Php ${product.dblProductPrice}</td>
-                                                            <td><input type="number" min="1" placeholder="Quantity" class="right-align"></td>
-                                                        </tr>
-                                                    </c:forEach>
-
-                                                    </tbody>
-                                                </table>
+                                            <div class="tablewrapper" ng-controller = "reservationTable as vm" ng-show="selected == 'product'">
+                                               <table datatable="ng" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs" class="row-border hover">
+                                               {{vm.user.selectedProducts.id}}
+                                               {{vm.quantity}}
+                                                      <thead>
+                                                      <tr>
+                                                          <th>Select</th>
+                                                          <th>Name</th>
+                                                          <th>Price</th>
+                                                          <th>Quantity</th>
+                                                      </tr>
+                                                      </thead>
+                                                      <tbody>
+                                                      <tr ng-repeat="product in vm.productList">
+                                                          <td>
+                                                            <input type="checkbox" id="ReserveProdCB{{ product.intProductID }}" checklist-model="vm.user.selectedProducts.id" checklist-value="product.intProductID" ng-model="isChecked" ng-change="vm.change(prodQuantity)"/>
+                                                            <label for="ReserveProdCB{{ product.intProductID }}"></label>
+                                                          </td>
+                                                          <td>{{product.strProductName}}</td>
+                                                          <td>{{product.dblProductPrice | currency: "Php"}}</td>
+                                                          <td>
+                                                            <input type="text" id="reserveProdQty{{ product.intProductID }}" ng-model="prodQuantity"/>
+                                                          </td>
+                                                      </tr>
+                                                      </tbody>
+                                                  </table>
                                             </div>
-                                            <div class="tablewrapper">
-                                                <table id="crdiscounttblService"
-                                                       class="cell-border row-border display centered responsive-table highlight"
-                                                       cellspacing="0" width="100%"
-                                                       style="border: 1px solid #bdbdbd; margin-top: -30px !important;"
-                                                       rowspan="5">
-                                                    <thead>
-                                                    <tr>
-                                                        <th class="dt-head-center no-sort">Select</th>
-                                                        <th class="dt-head-left">Name</th>
-                                                        <th class="dt-head-left">Category</th>
-                                                        <th class="dt-head-right">Price</th>
-                                                        <th class="dt-head-right">Quantity</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tfoot style="border: 1px solid #bdbdbd;">
-                                                    <tr>
-                                                        <th class="dt-head-center no-sort">Select</th>
-                                                        <th class="dt-head-left">Name</th>
-                                                        <th class="dt-head-left">Category</th>
-                                                        <th class="dt-head-right">Price</th>
-                                                        <th class="dt-head-right">Quantity</th>
-                                                    </tr>
-                                                    </tfoot>
-
-                                                    <tbody>
-                                                    <c:forEach items="${serviceList}" var="service">
-                                                        <tr>
-                                                            <td class="dt-body-left">
-                                                                <input type="checkbox" name="checkedServices"
-                                                                       id="myCheckBox${service.intServiceID}" required
-                                                                       class="packcheckbox x{service.intServiceID} ignore"
-                                                                       value="${service.intServiceID}"><label
-                                                                    for="myCheckBox${service.intServiceID}"></label>
-                                                            </td>
-                                                            <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;"
-                                                                class="dt-body-left ">${service.strServiceName}
-                                                            </td>
-                                                            <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;">
-                                                                Service
-                                                            </td>
-                                                            <td>Php ${service.dblServicePrice}</td>
-                                                            <td><input type="number" min="1" placeholder="Quantity" class="right-align"></td>
-                                                        </tr>
-                                                    </c:forEach>
-
-                                                    </tbody>
-                                                </table>
+                                            <div class="tablewrapper" ng-controller = "reservationTable as vm" ng-show="selected == 'service'">
+                                                <table datatable="ng" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs" class="row-border hover">
+                                                      <thead>
+                                                      <tr>
+                                                          <th>Select</th>
+                                                          <th>Name</th>
+                                                          <th>Price</th>
+                                                          <th>Quantity</th>
+                                                      </tr>
+                                                      </thead>
+                                                      <tbody>
+                                                      <tr ng-repeat="service in vm.serviceList">
+                                                          <td>
+                                                            <input type="checkbox" id="reserveServCB{{ service.intServiceID }}" value="{{ service.intServiceID }}"/>
+                                                            <label for="reserveServCB{{ service.intServiceID }}"></label>
+                                                          </td>
+                                                          <td>{{ service.strServiceName }}</td>
+                                                          <td>{{ service.dblServicePrice | currency:"Php" }}</td>
+                                                          <td>
+                                                            <input type="text" id="reserveServQty{{ service.intServiceID }}"/>
+                                                          </td>
+                                                      </tr>
+                                                      </tbody>
+                                                  </table>
                                             </div>
-                                            <div class="tablewrapper">
-                                                <table id="crdiscounttblPackage"
-                                                       class="cell-border row-border display centered responsive-table highlight"
-                                                       cellspacing="0" width="100%"
-                                                       style="border: 1px solid #bdbdbd; margin-top: -30px !important;"
-                                                       rowspan="5">
-                                                    <thead>
-                                                    <tr>
-                                                        <th class="dt-head-center no-sort">Select</th>
-                                                        <th class="dt-head-left">Name</th>
-                                                        <th class="dt-head-left">Category</th>
-                                                        <th class="dt-head-right">Price</th>
-                                                        <th class="dt-head-right">Quantity</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tfoot style="border: 1px solid #bdbdbd;">
-                                                    <tr>
-                                                        <th class="dt-head-center no-sort">Select</th>
-                                                        <th class="dt-head-left">Name</th>
-                                                        <th class="dt-head-left">Category</th>
-                                                        <th class="dt-head-right">Price</th>
-                                                        <th class="dt-head-right">Quantity</th>
-                                                    </tr>
-                                                    </tfoot>
-
-                                                    <tbody>
-                                                    <c:forEach items="${packageList}" var="pack">
-                                                        <tr>
-                                                            <td class="dt-body-left">
-                                                                <input type="checkbox" name="checkedPackages"
-                                                                       id="discountPackage${pack.intPackageID}"
-                                                                       class="packcheckbox x{pack.intPackageID}"
-                                                                       value="${pack.intPackageID}"><label
-                                                                    for="discountPackage${pack.intPackageID}"></label>
-                                                            </td>
-                                                            <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;"
-                                                                class="dt-body-left ">${pack.strPackageName}
-                                                            </td>
-                                                            <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;">
-                                                                Package
-                                                            </td>
-                                                            <td>Php ${pack.dblPackagePrice}</td>
-                                                            <td><input type="number" min="1" placeholder="Quantity" class="right-align"></td>
-                                                        </tr>
-                                                    </c:forEach>
-
-                                                    </tbody>
-                                                </table>
+                                            <div class="tablewrapper" ng-controller = "reservationTable as vm" ng-show="selected == 'package'">
+                                                <table datatable="ng" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs" class="row-border hover">
+                                                      <thead>
+                                                      <tr>
+                                                          <th>Select</th>
+                                                          <th>Name</th>
+                                                          <th>Price</th>
+                                                          <th>Quantity</th>
+                                                      </tr>
+                                                      </thead>
+                                                      <tbody>
+                                                      <tr ng-repeat="package in vm.packageList">
+                                                          <td>
+                                                            <input type="checkbox" id="reservePackCB{{ package.intPackageID }}" value="{{ package.intPackageID }}"/>
+                                                            <label for="reservePackCB{{ package.intPackageID }}"></label>
+                                                          </td>
+                                                          <td>{{ package.strPackageName }}</td>
+                                                          <td>{{ package.dblPackagePrice | currency:"Php" }}</td>
+                                                          <td>
+                                                            <input type="text" id="reservePackQty{{ package.intPackageID }}"/>
+                                                          </td>
+                                                      </tr>
+                                                      </tbody>
+                                                  </table>
                                             </div>
-                                            <div class="tablewrapper">
-                                                <table id="crdiscounttblPromo"
-                                                       class="cell-border row-border display centered responsive-table highlight"
-                                                       cellspacing="0" width="100%"
-                                                       style="border: 1px solid #bdbdbd; margin-top: -30px !important;"
-                                                       rowspan="5">
-                                                    <thead>
-                                                    <tr>
-                                                        <th class="dt-head-center no-sort">Select</th>
-                                                        <th class="dt-head-left">Name</th>
-                                                        <th class="dt-head-left">Category</th>
-                                                        <th class="dt-head-right">Price</th>
-                                                        <th class="dt-head-right">Quantity</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tfoot style="border: 1px solid #bdbdbd;">
-                                                    <tr>
-                                                        <th class="dt-head-center no-sort">Select</th>
-                                                        <th class="dt-head-left">Name</th>
-                                                        <th class="dt-head-left">Category</th>
-                                                        <th class="dt-head-right">Price</th>
-                                                        <th class="dt-head-right">Quantity</th>
-                                                    </tr>
-                                                    </tfoot>
-
-                                                    <tbody>
-                                                    <c:forEach items="${promoList}" var="promo">
-                                                        <tr>
-                                                            <td class="dt-body-left">
-                                                                <input type="checkbox" name="checkedPromos"
-                                                                       id="discountPromo${promo.intPromoID}"
-                                                                       class="packcheckbox x{promo.intPromoID}"
-                                                                       value="${promo.intPromoID}"><label
-                                                                    for="discountPromo${promo.intPromoID}"></label>
-                                                            </td>
-                                                            <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;"
-                                                                class="dt-body-left ">${promo.strPromoName}
-                                                            </td>
-                                                            <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;">
-                                                                Promo
-                                                            </td>
-                                                            <td>Php ${promo.dblPromoPrice}</td>
-                                                            <td><input type="number" min="1" placeholder="Quantity" class="right-align"></td>
-                                                        </tr>
-                                                    </c:forEach>
-
-                                                    </tbody>
-                                                </table>
+                                            <div class="tablewrapper" ng-controller = "reservationTable as vm" ng-show="selected == 'promo'">
+                                                <table datatable="ng" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs" class="row-border hover">
+                                                      <thead>
+                                                      <tr>
+                                                          <th>Select</th>
+                                                          <th>Name</th>
+                                                          <th>Price</th>
+                                                          <th>Quantity</th>
+                                                      </tr>
+                                                      </thead>
+                                                      <tbody>
+                                                      <tr ng-repeat="promo in vm.promoList">
+                                                          <td>
+                                                            <input type="checkbox" id="reservePromoCB{{ promo.intPromoID }}" value="{{ promo.intPromoID }}"/>
+                                                            <label for="reservePromoCB{{ promo.intPromoID }}"></label>
+                                                          </td>
+                                                          <td>{{ promo.strPromoName }}</td>
+                                                          <td>{{ promo.dblPromoPrice | currency:"Php" }}</td>
+                                                          <td>
+                                                            <input type="text" id="reservePromoQty{{ promo.intPromoID }}"/>
+                                                          </td>
+                                                      </tr>
+                                                      </tbody>
+                                                  </table>
                                             </div>
                                         </div>
                                     </li>
@@ -455,6 +360,8 @@
                                     </li>
                                 </ul>
                             </div>
+
+                            
 
                             <div class="col s12 z-depth-barts white" id="">
                                 <h6 class="center" style="padding-top: -2px !important;"><b>Selected Items</b></h6>

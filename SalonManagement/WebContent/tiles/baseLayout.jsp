@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" href="css/sweetalert.css"/>
     <link rel="stylesheet" type="text/css" href="css/mainloader.css"/>
     <link rel="stylesheet" type="text/css" href="css/animate.css"/>
+    <link rel="stylesheet" type="text/css" href="css/angular-datatables.css"/>
 
     <link rel="stylesheet" type="text/css" href="css/baselayout.css"/>
     <link rel="stylesheet" type="text/css" href="css/perfect-scrollbar.min.css"/>
@@ -152,11 +153,14 @@
 </div>
 
 
+
 <!--Import jQuery before materialize.js-->
-<script type="text/javascript" src="js/angular.min.js"></script>
+
 <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="js/materialize.js"></script>
 <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="js/materialize.js"></script>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/angular-datatables.min.js"></script>
 <script type="text/javascript" src="js/bartstable.js"></script>
 <!--<script type="text/javascript" src="js/picker.date.js"></script>-->
 <script type="text/javascript" src="js/jquery.validate.js"></script>
@@ -172,6 +176,8 @@
 <script type="text/javascript" src="js/formatted-numbers.js"></script>
 <script type="text/javascript" src="js/jquery.formatCurrency-1.4.0.js"></script>
 <script type="text/javascript" src="js/moment-with-locale.js"></script>
+<script type="text/javascript" src="js/jquery.ellipsis.min.js"></script>
+
 <!-- <script type="text/javascript" src="js/ProductsSales/ajax.js"></script> -->
 <!-- jQuery Ajax -->
 <script type="text/javascript" src="js/ajax/extracharge.js"></script>
@@ -182,8 +188,12 @@
 <script type="text/javascript" src="js/ajax/promo.js"></script>
 <script type="text/javascript" src="js/ajax/promo-update.js"></script>
 <script type="text/javascript" src="js/ajax/promo-update-func.js"></script>
+<script type="text/javascript" src="js/ajax/productOrder.js"></script>
 <script type="text/javascript" src="js/perfect-scrollbar.jquery.min.js"></script>
 <script type="text/javascript" src="js/baselayout.js"></script>
+<script type="text/javascript" src="js/angular-resource.min.js"></script>
+<script type="text/javascript" src="js/angular-checklist.js"></script>
+
 <!-- Angular imports -->
 <script type="text/javascript" src="app/main.js"></script>
 <script type="text/javascript" src="app/payment/payment.ctr.js"></script>
@@ -192,6 +202,10 @@
 <script type="text/javascript" src="app/walkin/walkin.fac.js"></script>
 <script type="text/javascript" src="app/prodsales/locationfactory.fac.js"></script>
 <script type="text/javascript" src="app/prodsales/prodSales.ctrl.js"></script>
+<script type="text/javascript" src="app/reservation/reservation.ctrl.js"></script>
+<script type="text/javascript" src="app/reservation/reservation-table.ctrl.js"></script>
+
+
 
 
 

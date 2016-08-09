@@ -337,3 +337,14 @@ nav .nav-wrapper form, nav .nav-wrapper form .input-field {
 .dataTables_wrapper .dataTables_length {
     display: none !important;
 }
+
+#reqList {
+    width: auto;
+    height: 24em;
+    line-height: 2em;
+    border: 1px solid #ccc;
+    padding: 0;
+    margin: 0;
+    overflow: scroll;
+    overflow-x: hidden;
+}
