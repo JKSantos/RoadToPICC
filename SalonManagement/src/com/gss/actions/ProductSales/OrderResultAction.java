@@ -9,7 +9,7 @@ import com.gss.service.ProductSalesServiceImpl;
 public class OrderResultAction {
 	
 	private int intOrderID;
-	private Date datDeliveryDate;
+	private Date datDeliveryDate = new Date();
 	private String result = "success";
 	
 	public String acceptOrder() throws SQLException{
