@@ -55,6 +55,10 @@
 			<result name="success" type="json"/>
 		</action>
 		
+		<action name="getAllProductRequest" class="com.gss.actions.ProductSales.GetAllProductRequest">
+			<result name="success" type="json"></result>
+		</action>
+		
 	</package>	
 		
 		

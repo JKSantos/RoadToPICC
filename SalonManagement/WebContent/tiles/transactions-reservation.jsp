@@ -210,8 +210,9 @@
                                              style="margin:0px 0px 0px 0px !important; padding: 0px 0px 0px 0px !important;">
                                             <div class="tablewrapper" ng-controller = "reservationTable as vm" ng-show="selected == 'product'">
                                                <table datatable="ng" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs" class="row-border hover">
-                                               {{vm.user.selectedProducts.id}}
-                                               {{vm.quantity}}
+                                               {{vm.user.selectedProducts.id - vm.user.selectedProducts.quantity}}
+                                               
+                                               {{vm.options}}
                                                       <thead>
                                                       <tr>
                                                           <th>Select</th>
@@ -223,7 +224,7 @@
                                                       <tbody>
                                                       <tr ng-repeat="product in vm.productList">
                                                           <td>
-                                                            <input type="checkbox" id="ReserveProdCB{{ product.intProductID }}" checklist-model="vm.user.selectedProducts.id" checklist-value="product.intProductID" ng-model="isChecked" ng-change="vm.change(prodQuantity)"/>
+                                                            <input type="checkbox" id="ReserveProdCB{{ product.intProductID }}" checklist-model="vm.user.selectedProducts.id" checklist-value="product.intProductID" ng-model="isChecked" />
                                                             <label for="ReserveProdCB{{ product.intProductID }}"></label>
                                                           </td>
                                                           <td>{{product.strProductName}}</td>

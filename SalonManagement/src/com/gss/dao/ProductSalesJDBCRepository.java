@@ -298,7 +298,7 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 		}
 	}
 	
-public Invoice getInvoice(int intInvoiceID) {
+	public Invoice getInvoice(int intInvoiceID) {
 		
 		Connection con = jdbc.getConnection();
 		String getInvoice 					= "SELECT * FROM tblInvoice WHERE intInvoiceID = ?;";
@@ -387,6 +387,52 @@ public Invoice getInvoice(int intInvoiceID) {
 			Invoice invoice = new Invoice(intInvoiceID, date, discountList, extraChargeList, totalAmount, remainingBalance, paymentList, Invoice.convertToString(payment));
 			
 			return invoice;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	@Override
+	public List<ProductSales> getAllProductRequest() {
+		
+		Connection con = jdbc.getConnection();
+		
+		String getAllOrder 					= "SELECT * FROM tblOrder WHERE strOrderStatus = 'REQUEST';";
+		
+		try{
+
+			List<ProductSales> salesList 	= new ArrayList<ProductSales>();
+			
+			PreparedStatement getAll 		= con.prepareStatement(getAllOrder);
+			ResultSet orders				= getAll.executeQuery();
+			
+			while(orders.next()){
+				
+				List<ProductOrder> orderDetails = new ArrayList<ProductOrder>();
+				ProductSales salesList1;
+				
+				this.intSalesID = orders.getInt(1);
+				this.datCreated = orders.getDate(2);
+				this.deliveryDate = orders.getDate(3);
+				this.intType = orders.getInt(4);
+				this.strName = orders.getString(5);
+				this.strAddress = orders.getString(6);
+				this.intLocationID = orders.getInt(7);
+				this.strContactNo = orders.getString(8);
+				this.strStatus = orders.getString(9);
+				this.invoice = getInvoice(orders.getInt(10));
+				
+				salesList1 = new ProductSales(this.intSalesID, this.datCreated, this.deliveryDate, this.intType, this.strName, this.strAddress, this.intLocationID, this.strContactNo, orderDetails, this.invoice, this.strStatus);
+				salesList.add(salesList1);
+			}
+			
+			getAll.close();
+			orders.close();
+			
+			con.close();
+			System.out.println(salesList.size());
+			return salesList;
 		}
 		catch(Exception e){
 			e.printStackTrace();

@@ -3,13 +3,15 @@ package com.gss.actions.ProductSales;
 import java.sql.SQLException;
 import java.util.Date;
 
+import com.gss.model.ProductSales;
 import com.gss.service.ProductSalesService;
 import com.gss.service.ProductSalesServiceImpl;
+import com.gss.utilities.NotifyCustomerViaSMS;
 
 public class OrderResultAction {
 	
 	private int intOrderID;
-	private Date datDeliveryDate;
+	private Date datDeliveryDate = new Date();
 	private String result = "success";
 	
 	public String acceptOrder() throws SQLException{
@@ -19,7 +21,11 @@ public class OrderResultAction {
 		
 		if(updated == false)
 			result = "failed";
-		
+		else{
+			ProductSales sales = ProductSales.searchProductSales(this.intOrderID, ProductSales.getAllProductSales());
+			NotifyCustomerViaSMS test = new NotifyCustomerViaSMS();
+			test.sendSMS(getMessage(), sales.getStrContactNo());
+		}
 		return result;
 		
 	}
@@ -45,5 +51,9 @@ public class OrderResultAction {
 
 	public void setDatDeliveryDate(Date datDeliveryDate) {
 		this.datDeliveryDate = datDeliveryDate;
+	}
+	
+	public String getMessage(){
+		return "Your order request was accepted!";
 	}
 }

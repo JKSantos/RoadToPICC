@@ -108,6 +108,16 @@ public class ProductSales {
 		return service.getAllProductSales();
 	}
 	
+	public static ProductSales searchProductSales(int orderID, List<ProductSales> salesList){
+		
+		for(int index = 0; index < salesList.size(); index++){
+			
+			if(salesList.get(index).getIntSalesID() == orderID)
+				return salesList.get(index);
+		}
+		return null;
+	}
+	
 	public static ProductSales search(int invoiceID, List<ProductSales> searchList){
 		
 		for(int index = 0; index < searchList.size(); index++){
@@ -116,6 +126,12 @@ public class ProductSales {
 				return searchList.get(index);
 		}
 		return null;
+	}
+	
+	public static List<ProductSales> getAllProductRequest(){
+		ProductSalesService service = new ProductSalesServiceImpl();
+		
+		return service.getAllProductRequest();
 	}
 
 }
