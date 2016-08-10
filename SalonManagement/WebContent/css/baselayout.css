@@ -38,6 +38,13 @@
     margin-top: -30px !important;
 }
 
+#prodsalesTable {
+    width: 80% !important;
+    height: 590px !important;
+    max-height: 100% !important;
+    margin-top: -30px !important;
+}
+
 #serviceArchive {
     width: 80% !important;
     height: 590px !important;
@@ -330,6 +337,11 @@ nav .nav-wrapper form, nav .nav-wrapper form .input-field {
 }
 
 #upPromoTblPackage tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#prodsalesTable tbody tr td {
     padding-top: 0px !important;
     padding-bottom: 0px !important;
 }

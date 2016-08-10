@@ -42,7 +42,7 @@
     vm.getProductIDQuantity = function(){
         for(var i = 0; i < $scope.productList.length; i++){
               var product = $scope.productList[i];
-              if(product.){
+              if(product){
 
               }else{
                 

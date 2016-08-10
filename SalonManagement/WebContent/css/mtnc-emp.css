@@ -28,11 +28,11 @@
 }
 
 .aside1 {
-    background: white;
+    background: transparent;
     border-radius: 1px;
     margin: 5px;
     text-align: center;
-    width: 550px;
+    width: 130px;
     height: 30%;
 }
 
@@ -46,11 +46,11 @@
 }
 
 .aside2 {
-    background: white;
+    background: transparent;
     border-radius: 1px;
     margin: 5px;
     text-align: center;
-    width: 50px;
+    width: 120px;
     height: 30%;
 }
 
@@ -60,6 +60,24 @@
     margin: 10px;
     text-align: center;
     width: 120px;
+    height: 30%;
+}
+
+.asideAside1 {
+    background: white;
+    border-radius: 1px;
+    margin: 5px;
+    text-align: center;
+    width: 550px;
+    height: 30%;
+}
+
+.asideAside2 {
+    background: white;
+    border-radius: 1px;
+    margin: 5px;
+    text-align: center;
+    width: 10px;
     height: 30%;
 }
 
@@ -94,7 +112,15 @@
         order: 1;
     }
 
-    .footer {
+    .asideAside1 {
         order: 5;
+    }
+
+    .asideAside2 {
+        order: 6;
+    }
+
+    .footer {
+        order: 7;
     }
 }

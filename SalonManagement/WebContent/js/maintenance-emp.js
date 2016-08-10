@@ -197,7 +197,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    var productsalestbl = $('#productsalestbl').DataTable({
+    var productsalestbl = $('#productsalestbl').dataTable({
         "bLengthChange": false,
         "sPaginationType": "full_numbers",
         responsive: true,
@@ -214,7 +214,7 @@ $(document).ready(function () {
         "rowHeight": '10px'
     });
 
-    $("#psSearch").bind('keyup search input paste cut', function () {
+    $("#pstblSearch").bind('keyup search input paste cut', function () {
         productsalestbl.search(this.value).draw();
     });
 });
@@ -1083,6 +1083,31 @@ $('.updateEmpBirthday').each(function () {
 
 
 $('.datepicker-promo').pickadate({
+    selectYears: 15,
+    selectMonths: true,
+    labelMonthNext: 'Next month',
+    labelMonthPrev: 'Previous month',
+    labelMonthSelect: 'Select a month',
+    labelYearSelect: 'Select a year',
+    monthsFull: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    weekdaysFull: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    weekdaysLetter: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+    today: 'Today',
+    clear: 'Clear',
+    close: 'Close',
+    format: 'mmmm/d/yyyy',
+    min: "Today",
+    yearRange: "Today:2030",
+    onSet: function (arg1) {
+        if ('select' in arg1) { //prevent closing on selecting month/year
+            this.close();
+        }
+    }
+});
+
+$('.datepicker-delivery').pickadate({
     selectYears: 15,
     selectMonths: true,
     labelMonthNext: 'Next month',
