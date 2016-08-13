@@ -106,7 +106,7 @@
                             <li><a href="transWalkIn">Walk In</a></li>
                             <li><a href="transReserve">Reservation</a></li>
                             <li><a href="productsales">Product Sales</a></li>
-                            <li><a href="transactions-vip.jsp">Payment</a></li>
+                            <li><a href="payment">Payment</a></li>
                         </ul>
                     </div>
                 </li>
