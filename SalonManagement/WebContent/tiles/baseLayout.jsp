@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="css/mainloader.css"/>
     <link rel="stylesheet" type="text/css" href="css/animate.css"/>
     <link rel="stylesheet" type="text/css" href="css/angular-datatables.css"/>
+    <link rel="stylesheet" type="text/css" href="css/materialize.clockpicker.css"/>
 
     <link rel="stylesheet" type="text/css" href="css/baselayout.css"/>
     <link rel="stylesheet" type="text/css" href="css/perfect-scrollbar.min.css"/>
@@ -106,7 +107,7 @@
                             <li><a href="transWalkIn">Walk In</a></li>
                             <li><a href="transReserve">Reservation</a></li>
                             <li><a href="productsales">Product Sales</a></li>
-                            <li><a href="payment">Payment</a></li>
+                            <li><a href="transactions-vip.jsp">Payment</a></li>
                         </ul>
                     </div>
                 </li>
@@ -162,6 +163,7 @@
 <script type="text/javascript" src="js/angular.min.js"></script>
 <script type="text/javascript" src="js/angular-datatables.min.js"></script>
 <script type="text/javascript" src="js/bartstable.js"></script>
+<script type="text/javascript" src="js/materialize.clockpicker.js"></script>
 <!--<script type="text/javascript" src="js/picker.date.js"></script>-->
 <script type="text/javascript" src="js/jquery.validate.js"></script>
 <script type="text/javascript" src="js/maintenance-emp.js"></script>
@@ -194,6 +196,8 @@
 <script type="text/javascript" src="js/baselayout.js"></script>
 <script type="text/javascript" src="js/angular-resource.min.js"></script>
 <script type="text/javascript" src="js/angular-checklist.js"></script>
+<script type="text/javascript" src="js/angular-materialize.min.js"></script>
+
 
 <!-- Angular imports -->
 <script type="text/javascript" src="app/main.js"></script>
