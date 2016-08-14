@@ -103,7 +103,6 @@ public class Receipt {
 	public String createWalkInReceipt(){
 		return null;
 	}
-    
     public Document createDocument(){
     	Document document = new Document(new Rectangle(350, 550), 10, 10, 10 ,10);
         try {
