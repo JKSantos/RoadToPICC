@@ -1,7 +1,7 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<div class="wrapper">
+<div class="wrapper" ng-controller="walkinCtrl as vm">
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
             <h3 class="grey-text text-darken-1">Walk-In</h3>
@@ -23,41 +23,34 @@
                     </form>
                 </div>
             </nav>
-
-            <table id="walkintbl"
-                   class="hoverable z-depth-1 cell-border row-border display centered responsive-table highlight"
-                   cellspacing="0"
-                   width="100%"
-                   style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;" rowspan="10">
-                <thead>
-                <tr>
-                    <th class="dt-head-left">Name</th>
-                    <th class="dt-head-left">Guest Type</th>
-                    <th class="dt-head-center no-sort">Date</th>
-                    <th class="dt-head-left">Status</th>
-                    <th align="dt-head-center" class="no-sort">Action</th>
-                </tr>
-                </thead>
-                <tfoot style="border: 1px solid #bdbdbd;">
-                <tr>
-                    <th class="dt-head-left">Name</th>
-                    <th class="dt-head-left">Guest Type</th>
-                    <th class="dt-head-center no-sort">Date</th>
-                    <th class="dt-head-left">Status</th>
-                    <th align="dt-head-center" class="no-sort">Action</th>
-                </tr>
-                </tfoot>
-                <tbody>
-                </tbody>
-            </table>
+			
+			<div class=" row col s12">
+			
+			</div>
+			
+            <div class="row" align="left">
+		        <div class="col s4" ng-repeat="customer in vm.customerList">
+		          <div class="card purple darken-1">
+		            <div class="card-content white-text">
+		              <span class="card-title">{{customer.name}}</span>
+		              <p>{{customer.contact}}</p>
+		              <p>{{customer.strTotalPrice | currency: "Php"}}</p>
+		            </div>
+		            <div class="card-action">
+		              <a href="#" class="btn purple waves-effect waves-light" ng-click="vm.moveToPay(customer.id)">
+		              Move to payment</a>
+		            </div>
+		          </div>
+		        </div>
+    		</div>
         </div>
     </div>
 
     <!-- Modal Structure -->
-    <div id="createWalkinModal" class="modal modal-fixed-footer" ng-controller = "walkinCtrl">
+    <div id="createWalkinModal" class="modal modal-fixed-footer"  style="width: 90% !important; height: 90% !important; max-height: 100% !important; margin-top: -40px;">
         <form class="col s12" id="createWalkinForm" method="post" action="">
             <div class="modal-content">
-                <!-- <div class="container"> -->
+
                 <div class="wrapper">
                     <h4 class="center grey-text text-darken-1">Create Walk-In<a id="btnCrExtraExit" type="reset"
                                                                                 value="Reset"
@@ -76,25 +69,39 @@
                             <div class="container">
                                 <div class="input-field col s12">
                                     <input type="text" class="validate" id="crWIName"
-                                           name="" placeholder="Name"/>
-                                    <label for="crWIName" class="active"><b>Name</b><i
+                                           ng-model="details.name" placeholder="Name"
+                                           style='font-size: 22px; line-height: 15px !important;'/>
+                                    <label for="crWIName" class="active" ><b style='font-size: 20px; line-height: 15px !important;'>Name</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <input type="text" id="crWIContact" name="" placeholder="contact"/>
+                                    <input type="text" id="crWIContact" ng-model="details.contact" placeholder="contact"
+                                    		style='font-size: 22px; line-height: 15px !important;'/>
                                     <label for="crWIContact" class="active"><b>Contact</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12" style="margin-top: 15px;">
-                                    <input type="email" name="" id="crWIEmail" placeholder="Email"/>
+                                    <input type="email" ng-model="details.email" id="crWIEmail" placeholder="Email"
+                                    		style='font-size: 22px; line-height: 15px !important;'/>
                                     <label for="crWIEmail" class="active"><b>Email</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="stepwalkin well">
+
+                    <div class="stepwalkin well" ng-controller="walkinCtrl">
                         <div class="row">
+                            <div class="col s4">
+                                <select id="discountFilter" ng-model="vm.selected">
+                                    <option value="product">Product</option>
+                                    <option value="service">Service</option>
+                                    <option value="package">Package</option>
+                                    <option value="promo">Promo</option>
+                                </select>
+                                <label for="discountFilter"><b>Select</b></label>
+                            </div>
+
                             <nav class="right white z-depth-1" style="width: 300px; margin-right: 20px;">
                                 <div class="nav-wrapper col s12">
                                     <form>
@@ -108,323 +115,160 @@
                                     </form>
                                 </div>
                             </nav>
-                            <div class="col s12">
-                                <ul class="collapsible" data-collapsible="accordion">
-                                    <li>
-                                        <div class="collapsible-header" id="listheadcollapsible"><i
-                                                class="material-icons">view_list</i>Products
-                                        </div>
-                                        <div class="collapsible-body" id="listcollapsible"
-                                             style="margin:0px 0px 0px 0px !important; padding: 0px 0px 0px 0px !important;">
-                                            <div class="tablewrapper">
-                                                <table id="crWIProducttbl"
-                                                       class="cell-border row-border display centered responsive-table highlight"
-                                                       cellspacing="0" width="100%"
-                                                       style="border: 1px solid #bdbdbd; margin-top: -30px !important;"
-                                                       rowspan="5">
-                                                    <thead>
-                                                    <tr>
-                                                        <th class="dt-head-center no-sort">Select</th>
-                                                        <th class="dt-head-left">Name</th>
-                                                        <th class="dt-head-right">Price</th>
-                                                        <th class="dt-head-center">Quantity</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tfoot style="border: 1px solid #bdbdbd;">
-                                                    <tr>
-                                                        <th class="dt-head-center no-sort">Select</th>
-                                                        <th class="dt-head-left">Name</th>
-                                                        <th class="dt-head-right">Price</th>
-                                                        <th class="dt-head-center">Quantity</th>
-                                                    </tr>
-                                                    </tfoot>
+                            
+                            <div class="row col s12">
+                        
+                            </div>
 
-                                                    <tbody>
-                                                    <c:forEach items="${productList}" var="product">
-                                                        <tr>
-                                                             <td><input type="checkbox" name="" id="crWIProductCheckbox${product.intProductID}">
-                                                            <label for="crWIProductCheckbox${product.intProductID}"></label></td>
-                                                        <td>Php ${product.strProductName}</td>
-                                                        <td>Php ${product.dblProductPrice}</td>
-                                                        <td>
-                                                            <input type="number" name="" id="crWIProductQty"/>
-                                                            <label for="crWIProductQty"></label>
-                                                        </td>
-                                                        </tr>
-                                                    </c:forEach>
+                             <div ng-show="vm.selected == 'product'">
+                                <div class="row ">
+                                    <div class="col s2" ng-repeat="product in vm.productList">
+                                        <div class="card small">
+                                            <div class="card-image waves-effect waves-block waves-light">
+                                                <img class="activator" ng-src="{{product.strPhotoPath}}">
+                                            </div>
+                                            <div class="card-content">
+                                                <a class="activator grey-text text-darken-4 light btn btn-small center" style="margin-top: -10px;"><i class="material-icons right white-text">add_shopping_cart</i></a>
+                                                <h5 style='font-size: 12px; line-height: 10px !important;'><b>{{product.strProductName}}</b>
+                                                    <p>{{product.dblProductPrice | currency:"P"}}</p></h5>
+                                            </div>
+                                            <div class="card-reveal">
 
+                                                <span class="card-title grey-text text-darken-4"><i
+                                                        class="material-icons right">close</i></span>
+                                                <h4 style='font-size: 12px; line-height: 15px !important;'>
+                                                    <b>{{product.strProductName}}</b><br/>
+                                                    <span class="grey-text text-darken-4">{{product.dblProductPrice | currency:"Php "}}</span>
+                                                </h4>
+                                                <div class="input-field col s12">
+                                                    <input type="number" id="crPSQty{{product.intProductID}}" ng-model="vm.quantity"/>
+                                                    <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
+                                                </div>
+                                                <h6 class="grey-text text-darken-4">{{product.dblProductPrice * vm.quantity | currency:
+                                                    "Php "}}</h6>
 
-
-                                                    </tbody>
-                                                </table>
+                                                <a class="waves-effect waves-light btn" ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
+                                                    <i class="material-icons left" style="padding: 0px !important; margin: 0px !important;">
+                                                        shopping_basket</i>BUY NOW!
+                                                </a>
                                             </div>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="collapsible-header" id="listheadcollapsible1"><i
-                                                class="material-icons">view_list</i>Services
-                                        </div>
-                                        <div class="collapsible-body" id="listcollapsible1"
-                                             style="margin:0px 0px 0px 0px !important; padding: 0px 0px 0px 0px !important;">
-                                            <div class="">
-                                                <table id="crWIServicetbl"
-                                                       class="cell-border row-border display centered responsive-table highlight"
-                                                       cellspacing="0" width="100%"
-                                                       style="border: 1px solid #bdbdbd; margin-top: -30px !important;"
-                                                       rowspan="5">
-                                                    <thead>
-                                                    <tr>
-                                                        <th class="dt-head-center no-sort">Select</th>
-                                                        <th class="dt-head-left">Name</th>
-                                                        <th class="dt-head-right">Price</th>
-                                                        <th class="dt-head-center">Employee</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tfoot style="border: 1px solid #bdbdbd;">
-                                                    <tr>
-                                                        <th class="dt-head-center no-sort">Select</th>
-                                                        <th class="dt-head-left">Name</th>
-                                                        <th class="dt-head-right">Price</th>
-                                                        <th class="dt-head-center">Employee</th>
-                                                    </tr>
-                                                    </tfoot>
+                                    </div>
+                                </div>
+                             </div>
 
-                                                    <tbody>
-                                                      <c:forEach items="${serviceList}" var="service">
-                                                    <tr>
-                                                        <td><input type="checkbox" name="" id="crWIServiceCheckbox${service.intServiceID}">
-                                                            <label for="crWIServiceCheckbox${service.intServiceID}"></label></td>
-                                                        <td>${service.strServiceName}</td>
-                                                        <td>${service.dblServicePrice}</td>
-                                                        <td>
-                                                            <select name="" id="crWIServiceEmpSelect">
-                                                                <option value="default" selected disabled>Employee
-                                                                </option>
-                                                                <c:forEach items="${employeeList}" var="emp">
-                                                  										<option value="${emp.intEmpID}">${emp.strEmpFirstName} ${emp.strEmpMiddleName} ${emp.strEmpLastName}</option>
-                                                									</c:forEach>
-                                                            </select>
-                                                            <label for="crWIServiceEmpSelect"></label>
-                                                        </td>
-                                                    </tr>
-                                                    </c:forEach>
-                                                    </tbody>
-                                                </table>
+                            <div ng-show="vm.selected == 'service'">
+                                <div class="row ">
+                                    <div class="col s3" ng-repeat="service in vm.serviceList">
+                                        <div class="card small">
+                                            <div class="card-image waves-effect waves-block waves-light">
+                                                <img class="activator" ng-src="{{service.strPhotoPath}}">
+                                            </div>
+                                            <div class="card-content">
+                                                <a class="activator grey-text text-darken-4 light btn btn-small center" style="margin-top: -10px;"><i class="material-icons right white-text">add_shopping_cart</i></a>
+                                                <h5 style='font-size: 12px; line-height: 10px !important;'><b>{{service.strServiceName}}</b>
+                                                    <p>{{service.dblServicePrice | currency:"P"}}</p></h5>
+                                            </div>
+                                            <div class="card-reveal">
+
+                                                <span class="card-title grey-text text-darken-4"><i
+                                                        class="material-icons right">close</i></span>
+                                                <h4 style='font-size: 12px; line-height: 15px !important;'>
+                                                    <b>{{service.strServiceName}}</b><br/>
+                                                    <span class="grey-text text-darken-4">{{service.dblServicePrice | currency:"Php "}}</span>
+                                                </h4>
+                                                <div class="input-field col s12">
+                                                    <input type="number" id="crPSQty{{product.intProductID}}" ng-model="vm.quantity"/>
+                                                    <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
+                                                </div>
+                                                <div class="input-field col s12">
+                                                   <select ng-model="vm.selEmployee" id="cREmp" ng-options="employee.strEmpFirstName for employee in vm.employeeList"></select>
+                                                    <label for="cREmp"><b>Employees</b></label>
+                                                </div>
+                                                <h6 class="grey-text text-darken-4">{{service.dblServicePrice * vm.quantity | currency:
+                                                    "Php "}}</h6>
+
+                                                 <a class="waves-effect waves-light btn" ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
+                                                    <i class="material-icons left" style="padding: 0px !important; margin: 0px !important;">
+                                                        shopping_basket</i>BUY NOW!
+                                                </a>
                                             </div>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="collapsible-header" id="listheadcollapsible2"><i
-                                                class="material-icons">view_list</i>Packages
-                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
+                            <div ng-show="vm.selected == 'package'">
+                               <div class="row ">
+                                   <div class="col s2" ng-repeat="package in vm.packageList">
+                                       <div class="card small">
+                                           <div class="card-image waves-effect waves-block waves-light">
+                                               <img class="activator" ng-src="{{service.strPhotoPath}}">
+                                           </div>
+                                           <div class="card-content">
+                                               <a class="activator grey-text text-darken-4 light btn btn-small center" style="margin-top: -10px;"><i class="material-icons right white-text">add_shopping_cart</i></a>
+                                               <h5 style='font-size: 12px; line-height: 10px !important;'><b>{{package.strPackageName}}</b>
+                                                   <p>{{package.dblPackagePrice | currency:"P"}}</p></h5>
+                                           </div>
+                                           <div class="card-reveal">
 
-                                        <div class="collapsible-body" id="listcollapsible2"
-                                             style="margin:0px 0px 0px 0px !important; padding: 0px 0px 0px 0px !important;">
+                                               <span class="card-title grey-text text-darken-4"><i
+                                                       class="material-icons right">close</i></span>
+                                               <h4 style='font-size: 12px; line-height: 15px !important;'>
+                                                   <b>{{package.strPackageName}}</b><br/>
+                                                   <span class="grey-text text-darken-4">{{package.dblPackagePrice | currency:"Php "}}</span>
+                                               </h4>
+                                               <div class="input-field col s12">
+                                                   <input type="number" id="crPSQty{{product.intProductID}}" ng-model="vm.quantity"/>
+                                                   <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
+                                               </div>
+                                               <h6 class="grey-text text-darken-4">{{package.dblPackagePrice * vm.quantity | currency: "Php "}}</h6>
 
-                                                <ul class="collapsible" data-collapsible="accordion">
-                                                    <c:forEach items="${packageList}" var="packagee">
-                                                    <li>
-                                                        <div class="collapsible-header">${packagee.strPackageName}</div>
-                                                        <div class="collapsible-body">
-                                                            <div class="row">
-                                                                <div class="input-field col s12">
-                                                                    <input type="checkbox" name=""
-                                                                           id="crWIPackageCheckbox1"/>
-                                                                    <label for="crWIPackageCheckbox1"><b>Select ${packagee.strPackageName}</b></label><p>
-                                                                    <table>
-                                                                        <thead>
-                                                                        <tr>
-                                                                            <th>Service Name</th>
-                                                                            <th>Employee Assigned</th>
-                                                                        </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                        <c:forEach items="${packagee.serviceList}" var="servicee">
-						                                                    <tr>
-						                                                        <td>${servicee.service.strServiceName}</td>
-						                                                        <td>
-						                                                            <select name="" id="crWIServiceEmpSelect">
-						                                                                <option value="default" selected disabled>Employee
-						                                                                </option>
-						                                                                <c:forEach items="${employeeList}" var="emp">
-						                                                  										<option value="${emp.intEmpID}">${emp.strEmpFirstName} ${emp.strEmpMiddleName} ${emp.strEmpLastName}</option>
-						                                                									</c:forEach>
-						                                                            </select>
-						                                                            <label for="crWIServiceEmpSelect"></label>
-						                                                        </td>
-						                                                    </tr>
-						                                                    </c:forEach>
-                                                                        </tbody>
-                                                                    </table>
-                                                                    <table>
-                                                                        <thead>
-                                                                        <tr>
-                                                                            <th>Product Name</th>
-                                                                            <th>Quantity</th>
-                                                                        </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                        <c:forEach items="${packagee.productList}" var="products">
-						                                                    <tr>
-						                                                        <td>${products.product.strProductName}</td>
-						                                                        <td>
-						                                                            ${products.intProductQuantity}
-						                                                        </td>
-						                                                    </tr>
-						                                                    </c:forEach>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    </c:forEach>
-                                                </ul>
+                                               <a class="waves-effect waves-light btn" ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
+                                                    <i class="material-icons left" style="padding: 0px !important; margin: 0px !important;">
+                                                        shopping_basket</i>BUY NOW!
+                                                </a>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                            </div>
 
-                                        </div>
+                            <div ng-show="vm.selected == 'promo'">
+                                <div class="row ">
+                                   <div class="col s2" ng-repeat="promo in vm.promoList">
+                                       <div class="card small">
+                                           <div class="card-image waves-effect waves-block waves-light">
+                                               <img class="activator" ng-src="{{service.strPhotoPath}}">
+                                           </div>
+                                           <div class="card-content">
+                                               <a class="activator grey-text text-darken-4 light btn btn-small center" style="margin-top: -10px;"><i class="material-icons right white-text">add_shopping_cart</i></a>
+                                               <h5 style='font-size: 12px; line-height: 10px !important;'><b>{{promo.strPromoName}}</b>
+                                                   <p>{{promo.dblPromoPrice | currency:"P"}}</p></h5>
+                                           </div>
+                                           <div class="card-reveal">
 
-                                    </li>
-                                    <li>
-                                        <div class="collapsible-header" id="listheadcollapsible3"><i
-                                                class="material-icons">view_list</i>Promos
-                                        </div>
-                                        <div class="collapsible-body" id="listcollapsible3"
-                                             style="margin:0px 0px 0px 0px !important; padding: 0px 0px 0px 0px !important;">
-                                            <ul class="collapsible" data-collapsible="accordion">
+                                               <span class="card-title grey-text text-darken-4"><i
+                                                       class="material-icons right">close</i></span>
+                                               <h4 style='font-size: 12px; line-height: 15px !important;'>
+                                                   <b>{{promo.strPromoName}}</b><br/>
+                                                   <span class="grey-text text-darken-4">{{promo.dblPromoPrice | currency:"Php "}}</span>
+                                               </h4>
+                                               <div class="input-field col s12">
+                                                   <input type="number" id="crPSQty{{product.intProductID}}" ng-model="vm.quantity"/>
+                                                   <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
+                                               </div>
+                                               <h6 class="grey-text text-darken-4">{{promo.dblPromoPrice * vm.quantity | currency:
+                                                   "Php "}}</h6>
 
-                                                <c:forEach items="${promoList}" var="promo">
-                                                <li>
-                                                    <div class="collapsible-header">
-                                                        ${promo.strPromoName}
-                                                    </div>
-                                                    <div class="collapsible-body">
-                                                        <ul class="collapsible" data-collapsible="accordion">
-                                                            <li>
-                                                                <div class="collapsible-header">Products Included</div>
-                                                                <div class="collapsible-body">
-                                                                	<table>
-                                                                        <thead>
-	                                                                        <tr>
-	                                                                            <th>Product Name</th>
-	                                                                            <th>Quantity</th>
-	                                                                        </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                        	<c:forEach items="${promo.productList}" var="products">
-							                                                    <tr>
-							                                                        <td>${products.product.strProductName}</td>
-							                                                        <td>
-							                                                            ${products.intProductQuantity}
-							                                                        </td>
-							                                                    </tr>
-						                                                    </c:forEach>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                             </li>
-                                                             <li>
-                                                                <div class="collapsible-header">Services Included</div>
-                                                                <div class="collapsible-body">
-                                                                	<table>
-                                                                        <thead>
-	                                                                        <tr>
-	                                                                            <th>Service Name</th>
-	                                                                            <th>Assigned Employee</th>
-	                                                                        </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                        	<c:forEach items="${promo.serviceList}" var="services">
-							                                                    <tr>
-							                                                        <td>${services.service.strServiceName}</td>
-							                                                        <td>
-							                                                             <select name="" id="crWIServiceEmpSelect">
-						                                                                	<option value="default" selected disabled>Employee
-						                                                                	</option>
-						                                                                	<c:forEach items="${employeeList}" var="emp">
-						                                                  						<option value="${emp.intEmpID}">${emp.strEmpFirstName} ${emp.strEmpMiddleName} ${emp.strEmpLastName}</option>
-						                                                					</c:forEach>
-						                                                            	</select>
-							                                                        </td>
-							                                                    </tr>
-						                                                    </c:forEach>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                             </li>
-                                                            <li>
-
-                                                                <div class="collapsible-header">Packages Included</div>
-                                                                <div class="collapsible-body">
-                                                                	<ul class="collapsible" data-collapsible="accordion">
-                                                                        	<c:forEach items="${promo.packageList}" var="packagee">
-						                                                    <li>
-						                                                        <div class="collapsible-header">${packagee.strPackageName}</div>
-						                                                        <div class="collapsible-body">
-						                                                            <div class="row">
-						                                                                <div class="input-field col s12">
-						                                                                    <input type="checkbox" name=""
-						                                                                           id="crWIPackageCheckbox1"/>
-						                                                                    <label for="crWIPackageCheckbox1"><b>Select ${packagee.strPackageName}</b></label><p>
-						                                                                    <table>
-						                                                                        <thead>
-						                                                                        <tr>
-						                                                                            <th>Service Name</th>
-						                                                                            <th>Employee Assigned</th>
-						                                                                        </tr>
-						                                                                        </thead>
-						                                                                        <tbody>
-						                                                                        <c:forEach items="${packagee.serviceList}" var="servicee">
-												                                                    <tr>
-												                                                        <td>${servicee.service.strServiceName}</td>
-												                                                        <td>
-												                                                            <select name="" id="crWIServiceEmpSelect">
-												                                                                <option value="default" selected disabled>Employee
-												                                                                </option>
-												                                                                <c:forEach items="${employeeList}" var="emp">
-												                                                  										<option value="${emp.intEmpID}">${emp.strEmpFirstName} ${emp.strEmpMiddleName} ${emp.strEmpLastName}</option>
-												                                                									</c:forEach>
-												                                                            </select>
-												                                                            <label for="crWIServiceEmpSelect"></label>
-												                                                        </td>
-												                                                    </tr>
-												                                                    </c:forEach>
-						                                                                        </tbody>
-						                                                                    </table>
-						                                                                    <table>
-						                                                                        <thead>
-						                                                                        <tr>
-						                                                                            <th>Product Name</th>
-						                                                                            <th>Quantity</th>
-						                                                                        </tr>
-						                                                                        </thead>
-						                                                                        <tbody>
-						                                                                        <c:forEach items="${packagee.productList}" var="products">
-												                                                    <tr>
-												                                                        <td>${products.product.strProductName}</td>
-												                                                        <td>
-												                                                            ${products.intProductQuantity}
-												                                                        </td>
-												                                                    </tr>
-												                                                    </c:forEach>
-						                                                                        </tbody>
-						                                                                    </table>
-						                                                                </div>
-						                                                            </div>
-						                                                        </div>
-						                                                    </li>
-						                                                    </c:forEach>
-                                                                        </ul>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </li>
-                                                </c:forEach>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
+                                               <a class="waves-effect waves-light btn" ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
+                                                    <i class="material-icons left" style="padding: 0px !important; margin: 0px !important;">
+                                                        shopping_basket</i>BUY NOW!
+                                                </a>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
                             </div>
 
                             <div class="col s12 z-depth-barts white" id="">
@@ -432,21 +276,16 @@
                                 <div class="col s12" id="pslist"
                                      style="margin-top: -13px !important; margin-bottom: 5px !important;"></div>
                             </div>
-                            <div class="col s4 offset-s4" style="margin-top: 10px;">
-                                <div class="input-field col s12">
-                                    <select multiple id="crRDiscount">
-                                        <option value="" disabled selected>Choose your option</option>
-                                        <c:forEach items="${ discountList }" var="discount">
-                                        	<option value="${discount.intDiscountID}">${discount.strDiscountName}</option>
-                                        </c:forEach>
-                                    </select>
-                                    <label for="crRDiscount"><b>Discounts</b></label>
-                                </div>
-                            </div>
+                             <div class="col s4" style="margin-top: 10px;">
+			                   <div class="input-field col s12">
+			                       <select multiple ng-model="vm.selDiscounts" id="crRDiscount" ng-options="discount.strDiscountName for discount in vm.discountList"></select>
+			                        <label for="crRDiscount"><b>Discounts</b></label>
+			                    </div>
+			                </div>
                             <div class="col s4 z-depth-barts white" style="margin-top: 10px;">
                                 <div class="col s12">
                                     <div class="input-field col s12">
-                                        <p>Total: <span class="right-align"></span></p>
+                                        <p>Total:{{vm.sum}}</p>
                                     </div>
                                     <div class="input-field col s12" style="margin-top: 20px !important;">
                                         <input type="text" class="right-align prodPrice" name="" id="crPackPrice"
@@ -456,17 +295,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--<div class="col s12 z-depth-barts white prodservlist" style="margin-top: 5px;"-->
-                            <!--id="servContainer">-->
-                            <!--<h6 class="center" style="padding-top: -2px !important;"><b>Service List</b></h6>-->
-                            <!--<div class="col s6" id="servList"-->
-                            <!--style="margin-top: -13px !important; margin-bottom: 5px !important;"></div>-->
-                            <!--</div>-->
                         </div>
                     </div>
-
                 </div>
             </div>
+
+
             <div class="modal-footer">
                 <button class="red-text btn-flat transparent left" disabled
                         style="margin:0px !important; padding:0px !important;"><i
@@ -478,6 +312,7 @@
                 </button>
                 <button type="submit" value="submit" id="createReservationSubmitForm"
                         class="actionwalkin submitformwalkin waves-effect waves-light white-text btn-flat purple"
+                        ng-click="vm.saveWalkin(details)"
                         style="margin-left:3px; margin-right:3px;">CREATE
                 </button>
                 <button type="button" id="backbtn"
@@ -488,6 +323,4 @@
             </div>
         </form>
     </div>
-
-
 </div>
