@@ -35,7 +35,7 @@ public class CreateContract {
 	
 	public static void main(String[] args) throws BadElementException, MalformedURLException, DocumentException, IOException{
 		
-		Contract contract = new Contract("JEFFREY SANTOS", "JAN LANG", "CZARINA PARAS", "JAN LANG",  createReservation());
+		Contract contract = new Contract("JEFFREY SANTOS", "SALON MANAGEMENT SYSTEM", "189-DR. SIXTO ANTONIO AVENU, ROSARIO PASIG CITY", "CZARINA PARAS", "JAN LANG",  createReservation());
 		contract.setDate();
 		
 		ContractGenerator generator = new ContractGenerator();

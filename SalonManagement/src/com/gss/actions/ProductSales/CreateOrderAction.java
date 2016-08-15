@@ -44,8 +44,6 @@ public class CreateOrderAction{
 			type = 1;
 		}
 		
-		System.out.print(this.intLocationID);
-		
 		ItemDecoder decoder = new ItemDecoder();
 		List<ProductOrder> productList;
 		ProductSalesService salesService = new ProductSalesServiceImpl();

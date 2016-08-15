@@ -8,15 +8,17 @@ import com.gss.utilities.DateHelper;
 public class Contract {
 	
 	public String date;
+	public String managerName;
 	public String providerName;
 	public String providerAddess;
 	public String receiverName;
 	public String receiverAddress;
 	public Reservation reservation;
 	
-	public Contract(String providerName, String providerAddess, String receiverName, String receiverAddress,
-			Reservation reservation) {
+	public Contract(String managerName, String providerName, String providerAddess, String receiverName,
+			String receiverAddress, Reservation reservation) {
 		super();
+		this.managerName = managerName;
 		this.providerName = providerName;
 		this.providerAddess = providerAddess;
 		this.receiverName = receiverName;
@@ -58,6 +60,12 @@ public class Contract {
 	}
 	public void setDate() {
 		this.date = DateHelper.stringDate();
+	}
+	public String getManagerName() {
+		return managerName;
+	}
+	public void setManagerName(String managerName) {
+		this.managerName = managerName;
 	}
 	
 }
