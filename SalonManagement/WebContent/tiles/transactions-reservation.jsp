@@ -40,30 +40,18 @@
                 </tr>
                 </thead>
                 <tbody>
-                	<tr>
-	                	<td class="dt-head-left">HAN AINAN ONGSIP</td>
-	                    <td class="dt-head-left">INDIVIDUAL</td>
-	                    <td class="dt-head-left">EVENT</td>
-	                    <td class="dt-head-left no-sort">TANGHALANG PASIGUENO</td>
-	                    <td class="dt-head-right">2016-08-30</td>
+                	<tr ng-repeat="customer in vm.customerList">
+	                	<td class="dt-head-left">{{customer.customer.strName}}</td>
+	                    <td class="dt-head-left">{{customer.intReservationType}}</td>
+	                    <td class="dt-head-left">{{customer.intReservationType}}</td>
+	                    <td class="dt-head-left no-sort">{{customer.strVenue}}</td>
+	                    <td class="dt-head-right">{{customer.datFrom}}</td>
 	                    <td class="dt-head-left">REQUEST</td>
 	                    <td align="dt-head-center" class="no-sort"><center><button class='waves-effect waves-light modal-trigger btn-flat transparent black-text'
 	                                title='Accept' onclick='acceptOrder(this.value)' id='acc' style='padding: 0px;'>
 	                                <i class='material-icons light-green-text text-darken-3'>check_circle</i></button><button class='prodsalesdeacbtn waves-effect waves-light btn-flat transparent
 	                                red-text text-accent-4' title='Decline' onclick='declineOrder(this.value)'>
 	                                <i class='material-icons'>cancel</i></button></center></td>
-	                </tr>
-	                <tr>
-	                	<td class="dt-head-left">JEFFREY SANTOS</td>
-	                    <td class="dt-head-left">INDIVIDUAL</td>
-	                    <td class="dt-head-left">EVENT</td>
-	                    <td class="dt-head-left no-sort">MOA ARENA</td>
-	                    <td class="dt-head-right">2016-08-15</td>
-	                    <td class="dt-head-left">PENDING</td>
-	                    <td align="dt-head-center" class="no-sort"><center><button class='waves-effect waves-light modal-trigger btn-flat transparent black-text'
-                        title='Update' onclick='openUpdate(this.value)' id='submitbtn' style='padding: 0px;'>
-                        <i class='material-icons'>edit</i></button><button class='prodsalesdeacbtn waves-effect waves-light btn-flat transparent
-                        red-text text-accent-4' title='Deactivate'  onclick='cancelOrder(this.value)'><i class='material-icons'>delete</i></button></center></td>
 	                </tr>
                 </tbody>
                 <tfoot style="border: 1px solid #bdbdbd;">
@@ -448,12 +436,6 @@
                                 <label for="crRSumToTime" class="active"><b>To (Time)</b></label>
                             </div>
 
-                            <script type="text/javascript">
-                              $('#timepicker').pickatime({
-                                autoclose: false,
-                                twelvehour: true
-                              });
-                            </script>
                             <div class="input-field col s6">
                                 <input type="text" name="" id="crRSumHeadCount" />
                                 <label for="crRSumHeadCount"><b>Head Count</b></label>

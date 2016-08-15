@@ -1,7 +1,7 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<div class="wrapper" ng-controller="walkinCtrl">
+<div class="wrapper" ng-controller="walkinCtrl as vm">
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
             <h3 class="grey-text text-darken-1">Walk-In</h3>
@@ -23,38 +23,31 @@
                     </form>
                 </div>
             </nav>
-
-            <table id="walkintbl"
-                   class="hoverable z-depth-1 cell-border row-border display centered responsive-table highlight"
-                   cellspacing="0"
-                   width="100%"
-                   style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;" rowspan="10">
-                <thead>
-                <tr>
-                    <th class="dt-head-left">Name</th>
-                    <th class="dt-head-left">Guest Type</th>
-                    <th class="dt-head-center no-sort">Date</th>
-                    <th class="dt-head-left">Status</th>
-                    <th align="dt-head-center" class="no-sort">Action</th>
-                </tr>
-                </thead>
-                <tfoot style="border: 1px solid #bdbdbd;">
-                <tr>
-                    <th class="dt-head-left">Name</th>
-                    <th class="dt-head-left">Guest Type</th>
-                    <th class="dt-head-center no-sort">Date</th>
-                    <th class="dt-head-left">Status</th>
-                    <th align="dt-head-center" class="no-sort">Action</th>
-                </tr>
-                </tfoot>
-                <tbody>
-                </tbody>
-            </table>
+			
+			<div class=" row col s12">
+			
+			</div>
+			
+            <div class="row" align="left">
+		        <div class="col s4" ng-repeat="customer in vm.customerList">
+		          <div class="card purple darken-1">
+		            <div class="card-content white-text">
+		              <span class="card-title">{{customer.name}}</span>
+		              <p>{{customer.contact}}</p>
+		              <p>{{customer.strTotalPrice | currency: "Php"}}</p>
+		            </div>
+		            <div class="card-action">
+		              <a href="#" class="btn purple waves-effect waves-light" ng-click="vm.moveToPay(customer.id)">
+		              Move to payment</a>
+		            </div>
+		          </div>
+		        </div>
+    		</div>
         </div>
     </div>
 
     <!-- Modal Structure -->
-    <div id="createWalkinModal" class="modal modal-fixed-footer">
+    <div id="createWalkinModal" class="modal modal-fixed-footer"  style="width: 90% !important; height: 90% !important; max-height: 100% !important; margin-top: -40px;">
         <form class="col s12" id="createWalkinForm" method="post" action="">
             <div class="modal-content">
 
@@ -76,17 +69,20 @@
                             <div class="container">
                                 <div class="input-field col s12">
                                     <input type="text" class="validate" id="crWIName"
-                                           name="" placeholder="Name"/>
-                                    <label for="crWIName" class="active"><b>Name</b><i
+                                           ng-model="details.name" placeholder="Name"
+                                           style='font-size: 22px; line-height: 15px !important;'/>
+                                    <label for="crWIName" class="active" ><b style='font-size: 20px; line-height: 15px !important;'>Name</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <input type="text" id="crWIContact" name="" placeholder="contact"/>
+                                    <input type="text" id="crWIContact" ng-model="details.contact" placeholder="contact"
+                                    		style='font-size: 22px; line-height: 15px !important;'/>
                                     <label for="crWIContact" class="active"><b>Contact</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12" style="margin-top: 15px;">
-                                    <input type="email" name="" id="crWIEmail" placeholder="Email"/>
+                                    <input type="email" ng-model="details.email" id="crWIEmail" placeholder="Email"
+                                    		style='font-size: 22px; line-height: 15px !important;'/>
                                     <label for="crWIEmail" class="active"><b>Email</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
@@ -121,10 +117,10 @@
                             </nav>
                             
                             <div class="row col s12">
-
+                        
                             </div>
 
-                             <div >
+                             <div ng-show="vm.selected == 'product'">
                                 <div class="row ">
                                     <div class="col s2" ng-repeat="product in vm.productList">
                                         <div class="card small">
@@ -163,7 +159,7 @@
 
                             <div ng-show="vm.selected == 'service'">
                                 <div class="row ">
-                                    <div class="col s2" ng-repeat="service in vm.serviceList">
+                                    <div class="col s3" ng-repeat="service in vm.serviceList">
                                         <div class="card small">
                                             <div class="card-image waves-effect waves-block waves-light">
                                                 <img class="activator" ng-src="{{service.strPhotoPath}}">
@@ -186,7 +182,7 @@
                                                     <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
                                                 </div>
                                                 <div class="input-field col s12">
-                                                   <select multiple ng-model="vm.selEmployees" id="cREmp" ng-options="employee.strEmpFirstName for employee in vm.employeeList"></select>
+                                                   <select ng-model="vm.selEmployee" id="cREmp" ng-options="employee.strEmpFirstName for employee in vm.employeeList"></select>
                                                     <label for="cREmp"><b>Employees</b></label>
                                                 </div>
                                                 <h6 class="grey-text text-darken-4">{{service.dblServicePrice * vm.quantity | currency:
@@ -280,21 +276,16 @@
                                 <div class="col s12" id="pslist"
                                      style="margin-top: -13px !important; margin-bottom: 5px !important;"></div>
                             </div>
-                            <div class="col s4 offset-s4" style="margin-top: 10px;">
-                                <div class="input-field col s12">
-                                    <select multiple id="crRDiscount">
-                                        <option value="" disabled selected>Choose your option</option>
-                                        <c:forEach items="${ discountList }" var="discount">
-                                        	<option value="${discount.intDiscountID}">${discount.strDiscountName}</option>
-                                        </c:forEach>
-                                    </select>
-                                    <label for="crRDiscount"><b>Discounts</b></label>
-                                </div>
-                            </div>
+                             <div class="col s4" style="margin-top: 10px;">
+			                   <div class="input-field col s12">
+			                       <select multiple ng-model="vm.selDiscounts" id="crRDiscount" ng-options="discount.strDiscountName for discount in vm.discountList"></select>
+			                        <label for="crRDiscount"><b>Discounts</b></label>
+			                    </div>
+			                </div>
                             <div class="col s4 z-depth-barts white" style="margin-top: 10px;">
                                 <div class="col s12">
                                     <div class="input-field col s12">
-                                        <p>Total: <span class="right-align"></span></p>
+                                        <p>Total:{{vm.sum}}</p>
                                     </div>
                                     <div class="input-field col s12" style="margin-top: 20px !important;">
                                         <input type="text" class="right-align prodPrice" name="" id="crPackPrice"
@@ -321,6 +312,7 @@
                 </button>
                 <button type="submit" value="submit" id="createReservationSubmitForm"
                         class="actionwalkin submitformwalkin waves-effect waves-light white-text btn-flat purple"
+                        ng-click="vm.saveWalkin(details)"
                         style="margin-left:3px; margin-right:3px;">CREATE
                 </button>
                 <button type="button" id="backbtn"

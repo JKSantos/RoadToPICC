@@ -5,11 +5,11 @@
     .module('app')
     .controller('walkinCtrl', walkinCtrl);
 
-    function walkinCtrl($scope, paymentFactory, locationFactory){
+    function walkinCtrl($scope, paymentFactory, locationFactory, walkinFactory){
     var vm = this;
     vm.selected = 'product';
-    vm.customerDetails = [{}];
-    vm.reservationDetails =[{}];
+    vm.selEmployee = '';
+    
     var selectprod = "";
     var quantprod = "";
     var selectserv = "";
@@ -18,23 +18,25 @@
     var quantpack = "";
     var selectprom = "";
     var quantprom = "";
-    var selectextra = "";
     var selectdiscount = "";
-    var selectemployees = "";
+    var selectEmp = "";
 
-  
-    vm.quantity = 0;
+    vm.selDiscounts = [];
+    vm.quantity = '';
     vm.productTotal = 0;
     vm.serviceTotal = 0;
     vm.packageTotal = 0;
     vm.promoTotal = 0;
 
-    vm.productOrder = [{}];
-    vm.serviceOrder = [{}];
-    vm.promoOrder = [{}];
-    vm.packageOrder = [{}];
+    vm.productOrder = [];
+    vm.serviceOrder = [];
+    vm.promoOrder = [];
+    vm.packageOrder = [];
 
     vm.details = [{}];
+    
+    vm.customerList = walkinFactory.getCustomers();
+    
 
      locationFactory.getEmployees().then(function(data){
         vm.employeeList = data.data.employeeList;
@@ -68,6 +70,7 @@
       });
 
      vm.addToCart = function(index, selected){
+    	 console.log(vm.customerList);
         if(selected == 'product'){
           vm.productOrder.push({
                             product: vm.productList[index].strProductName, 
@@ -90,22 +93,27 @@
           vm.quantity = '';
           
         }else if(selected == 'service'){
+        	console.log(vm.selEmployee);
            vm.serviceOrder.push({
                             service: vm.serviceList[index].strServiceName, 
                             serviceID: vm.serviceList[index].intServiceID,
                             serviceQuantity: vm.quantity,
-                            serviceTotal: vm.serviceList[index].dblServicePrice * vm.quantity
+                            serviceTotal: vm.serviceList[index].dblServicePrice * vm.quantity,
+                            selectedEmployee: vm.selEmployee.intEmpID
                               });
            var selectedService = "";
            var selectedServiceQuantity = "";
+           var selectedEmployee = "";
            var subTotalService = 0;
            for(var i = 1; i < vm.serviceOrder.length; i++){
                selectedService += vm.serviceOrder[i].serviceID + ",";
                selectedServiceQuantity += vm.serviceOrder[i].serviceQuantity + ",";
+               selectedEmployee += vm.serviceOrder[i].selectedEmployee + ",";
                subTotalService += vm.serviceOrder[i].serviceTotal;
            }
            selectserv = selectedService;
-           quantserv = selectedServiceQuantity;    
+           quantserv = selectedServiceQuantity;   
+           selectEmp = selectedEmployee;
            vm.serviceTotal = subTotalService;
            vm.quantity = '';
         }else if(selected == 'package'){
@@ -158,59 +166,28 @@
       };
 
       function toString(){
-        var selectedExtra = "";
         var selectedDiscount = "";
-        var selectedEmployeee = "";
-        for(var i = 0; i < vm.extraCharge.length; i++){
-            selectedExtra += vm.extraCharge[i].intECID + ",";
-        }
         for(var i = 0; i < vm.selDiscounts.length; i++){  
             selectedDiscount += vm.selDiscounts[i].intDiscountID  + ",";
         }
-        for(var i = 0; i < vm.selEmployees.length; i++){
-            selectedEmployeee += vm.selEmployees[i].intEmpID + ",";
-        }
-        selectextra = selectedExtra;
         selectdiscount = selectedDiscount;
-        selectemployees = selectedEmployeee;
       }
 
 
-      vm.saveReservation = function(details){
-      toString();
-      vm.customerDetails.push({
-        intID: 1,
-        strName: vm.details.name,
-        strAddress: vm.details.address,
-        strContactNo: vm.details.contact,
-        strEmail: vm.details.email
-      });
-
-      vm.reservationDetails.push({
-        customer: vm.customerDetails,
-        intReservationType: 1,
-        datFrom: vm.details.dtFrom,
-        datTo: vm.details.dtTo,
-        timFrom: vm.details.tmFrom,
-        timTo: vm.details.tmTo,
-        strVenue: vm.details.venue,
-        headCount: vm.details.headCount,
-        selectedEmployees: selectemployees,
-        selectedProducts: selectprod,
-        selectedServices: selectserv,
-        selectedPackages: selectpack,
-        selectedPromos: selectprom,
-        productQuantity: quantprod,
-        serviceQuantity: quantserv,
-        packageQuantity: quantpack,
-        promoQuantity: quantprom,
-        selectedExtraCharges: selectextra,
-        selectedDiscounts: selectdiscount,
-        strTotalPrice: vm.sum
-      });
-
-      console.log(vm.reservationDetails);
+      vm.saveWalkin = function(details){
+    	  toString();
+    	  var total = vm.sum;
+    	  var name = details.name;
+    	  var contact = details.contact;
+    	  var email = details.email;
+    	  walkinFactory.insertCustomer(name, contact, email, selectEmp,
+    			  					   selectprod, selectserv, selectpack, selectprom,
+    			  					   quantprod, quantserv, quantpack, quantprom, selectdiscount, total);
       };
+      
+      vm.moveToPay = function(id){
+    	  walkinFactory.moveToPayment(id);
+      }
   }
 })();
 

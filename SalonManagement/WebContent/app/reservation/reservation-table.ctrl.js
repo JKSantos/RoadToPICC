@@ -5,11 +5,8 @@
 		.module('app')
 		.controller('reservationTable', reservationTable);
 
-		function reservationTable($scope, paymentFactory, locationFactory){
+		function reservationTable($scope, paymentFactory, locationFactory, reservationFactory){
 			var vm = this;
-
-		
-
 		vm.customerDetails = [{}];
 		vm.reservationDetails =[{}];
 		var selectprod = "";
@@ -42,7 +39,8 @@
 		vm.packageList = [];
 
 		vm.details = [{}];
-
+		vm.customerList = reservationFactory.getCustomers();
+		
 		 locationFactory.getEmployees().then(function(data){
 				vm.employeeList = data.data.employeeList;
 			});
@@ -168,6 +166,7 @@
 				var selectedExtra = "";
 				var selectedDiscount = "";
 				var selectedEmployeee = "";
+				vm.selEmployees = [];
 				for(var i = 0; i < vm.extraCharge.length; i++){
 						selectedExtra += vm.extraCharge[i].intECID + ",";
 				}
@@ -185,38 +184,23 @@
 
 			vm.saveReservation = function(details){
 			toString();
-			vm.customerDetails.push({
-				intID: 1,
-				strName: vm.details.name,
-				strAddress: vm.details.address,
-				strContactNo: vm.details.contact,
-				strEmail: vm.details.email
-			});
-
-			vm.reservationDetails.push({
-				customer: vm.customerDetails,
-				intReservationType: 1,
-				datFrom: vm.details.dtFrom,
-				datTo: vm.details.dtTo,
-				timFrom: vm.details.tmFrom,
-				timTo: vm.details.tmTo,
-				strVenue: vm.details.venue,
-				headCount: vm.details.headCount,
-				selectedEmployees: selectemployees,
-				selectedProducts: selectprod,
-				selectedServices: selectserv,
-				selectedPackages: selectpack,
-				selectedPromos: selectprom,
-				productQuantity: quantprod,
-				serviceQuantity: quantserv,
-				packageQuantity: quantpack,
-				promoQuantity: quantprom,
-				selectedExtraCharges: selectextra,
-				selectedDiscounts: selectdiscount,
-				strTotalPrice: vm.sum
-			});
-
-			console.log(vm.reservationDetails);
+			var name = vm.details.name;
+			var address = vm.details.address;
+			var contact = vm.details.contact;
+			var email = vm.details.email;
+			var reservationType = 1; //Kukunin ko palang from view
+			var datFrom = vm.details.dtFrom;
+			var datTo = vm.details.dtTo;
+			var timFrom = vm.details.tmFrom;
+			var timTo = vm.details.tmTo;
+			var venue = vm.details.venue;
+			var headCount = vm.details.headCount;
+			var total = vm.sum;
+			reservationFactory.insertCustomer(name, address, contact, email, reservationType, 
+											datFrom, datTo, timFrom, timTo, venue, 
+											headCount, selectemployees, selectprod, selectserv, selectpack, 
+											selectprom, quantprod, quantserv, quantpack, quantprom, 
+											selectextra, selectdiscount, selectemployees, total);
 			};
 	}
 })();
