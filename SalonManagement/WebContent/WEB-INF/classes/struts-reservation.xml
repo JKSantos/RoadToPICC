@@ -25,6 +25,10 @@
 			<result name="input">page-login-first.jsp</result>
 		</action>
 		
+		<action name="getAllReservationNoDetails" class="com.gss.actions.Reservation.GetAllReservationNoDetails">
+			<result name="success" type="json"></result>
+		</action>
+		
 	</package>	
 		
 		
