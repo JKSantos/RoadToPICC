@@ -9,7 +9,7 @@ public interface WalkInService {
 	
 	public boolean createWalkIn(WalkIn walkin) throws SQLException;
 	
-	public boolean updateWalkIn(WalkIn walkin);
+	public boolean updateWalkIn(WalkIn walkin)  throws SQLException ;
 	
 	public boolean cancelWalkIn(int intWalkInID);
 	
