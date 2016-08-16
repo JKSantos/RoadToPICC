@@ -5,10 +5,10 @@
         .module('app')
         .factory('locationFactory', locationFactory);
 
-    function locationFactory($http) {
+    function locationFactory($http, $resource) {
         return {
             getLocation: function () {
-                return $http.get('http://localhost:8080/SalonManagement/api/v1/getAllLocation').then(function (data) {
+                return $resource('api/v1/getAllLocation').get().$promise.then(function (data) {
                     return data;
                 });
             },
@@ -44,6 +44,16 @@
             },
             getDiscounts: function () {
                 return $http.get('http://localhost:8080/SalonManagement/getAllDiscountNoDetails').then(function (data) {
+                    return data;
+                });
+            },
+            getRequest: function () {
+                return $resource('getAllProductRequest').get().$promise.then(function (data) {
+                    return data;
+                });
+            },
+            getOrders: function() {
+                return $resource('orders').get().$promise.then(function (data) {
                     return data;
                 });
             }

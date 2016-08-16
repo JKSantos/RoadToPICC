@@ -214,9 +214,7 @@ $(document).ready(function () {
         "rowHeight": '10px'
     });
 
-    $("#pstblSearch").bind('keyup search input paste cut', function () {
-        productsalestbl.search(this.value).draw();
-    });
+    
 });
 
 

@@ -160,6 +160,7 @@
 <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="js/materialize.js"></script>
 <script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/angular-animate.min.js"></script>
 <script type="text/javascript" src="js/angular-datatables.min.js"></script>
 <script type="text/javascript" src="js/bartstable.js"></script>
 <!--<script type="text/javascript" src="js/picker.date.js"></script>-->
@@ -171,12 +172,14 @@
 <script type="text/javascript" src="js/jquery.formatter.min.js"></script>
 <script type="text/javascript" src="js/dropify.min.js"></script>
 <script type="text/javascript" src="js/sweetalert.min.js"></script>
+<script type="text/javascript" src="js/angular-SweetAlert.min.js"></script>
 <script type="text/javascript" src="js/ellipsis.js"></script>
 <script type="text/javascript" src="js/priceformat.js"></script>
 <script type="text/javascript" src="js/formatted-numbers.js"></script>
 <script type="text/javascript" src="js/jquery.formatCurrency-1.4.0.js"></script>
 <script type="text/javascript" src="js/moment-with-locale.js"></script>
 <script type="text/javascript" src="js/jquery.ellipsis.min.js"></script>
+<script type="text/javascript" src="js/lodash.min.js"></script>
 
 <!-- <script type="text/javascript" src="js/ProductsSales/ajax.js"></script> -->
 <!-- jQuery Ajax -->
@@ -188,8 +191,6 @@
 <script type="text/javascript" src="js/ajax/promo.js"></script>
 <script type="text/javascript" src="js/ajax/promo-update.js"></script>
 <script type="text/javascript" src="js/ajax/promo-update-func.js"></script>
-<script type="text/javascript" src="js/ajax/productOrder-table.js"></script>
-<script type="text/javascript" src="js/ajax/productOrder.js"></script>
 <script type="text/javascript" src="js/perfect-scrollbar.jquery.min.js"></script>
 <script type="text/javascript" src="js/baselayout.js"></script>
 <script type="text/javascript" src="js/angular-resource.min.js"></script>

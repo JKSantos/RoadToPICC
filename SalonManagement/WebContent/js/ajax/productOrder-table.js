@@ -13,10 +13,14 @@ function updatePOTable() {
             var orderList = data.orderList,
                 ajaxPSTable = $('#productsalestbl').DataTable();
 
+            $("#pstblSearch").bind('keyup search input paste cut', function () {
+                ajaxPSTable.search(this.value).draw();
+            });
+            
             if (orderList != null) {
                 ajaxPSTable.clear().draw();
                 $.each(orderList, function (i, order) {
-                    if(order.strStatus != "REQUEST") {
+                    if (order.strStatus != "REQUEST") {
                         var type,
                             status;
                         var addbtn = "<button class='waves-effect waves-purple btn-flat transparent black-text'" +
@@ -33,7 +37,7 @@ function updatePOTable() {
                             type = 'Delivery';
                         }
 
-                        if(order.strStatus == "PENDING" || order.strStatus == "COMPLETE") {
+                        if (order.strStatus == "PENDING" || order.strStatus == "COMPLETE") {
                             status = order.strStatus;
                         }
                         ajaxPSTable.row.add([
@@ -47,47 +51,10 @@ function updatePOTable() {
 
                         ajaxPSTable.draw();
                     } else {
-                        
+
                     }
                 });
             }
         }
     });
-}
-
-function cancelOrder(id, deactivateid) {
-    var psdata = {
-            'intOrderID': id
-        },
-        $pstr = $('#' + deactivateid).closest('tr'),
-        psname = $pstr.find('td:eq(0)').text();
-    swal({
-            title: "Are you sure you want to cancel the order of " + psname + "?",
-            text: "",
-            type: "info",
-            showCancelButton: true,
-            closeOnConfirm: false,
-            showLoaderOnConfirm: true
-        },
-        function () {
-            setTimeout(function () {
-                $.ajax({
-                    url: 'deactivateOrder',
-                    type: 'post',
-                    data: psdata,
-                    dataType: 'json',
-                    async: true,
-                    success: function (data) {
-                        swal("Successfully cancelled!", ".", "success");
-                        $pstr.find('td').fadeOut(300, function () {
-                            $pstr.remove();
-                        });
-                        updatePackageTable();
-                    },
-                    error: function (data) {
-                        sweetAlert("Oops...", "Something went wrong!", "error");
-                    }
-                });
-            }, 1000);
-        });
 }

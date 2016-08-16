@@ -29,11 +29,12 @@ public class CreateOrderAction{
 	private String orderType;
 	private String selectedProducts;
 	private String productQuantity;
-	private String strTotalPrice;
+	private String strTotalPrice = "1";
 	private String status;
 	
 	public String execute() throws Exception{
 
+		System.out.println("Price: " + this.strTotalPrice);
 		int type = 2;
 		List<ExtraCharge> extraCharges = new ArrayList<ExtraCharge>();
 		List<Discount> discounts = new ArrayList<Discount>();
@@ -42,8 +43,9 @@ public class CreateOrderAction{
 		
 		if(orderType.equals("delivery")){
 			type = 1;
+		} else {
+			type = 2;
 		}
-		
 		System.out.print(this.intLocationID);
 		
 		ItemDecoder decoder = new ItemDecoder();
