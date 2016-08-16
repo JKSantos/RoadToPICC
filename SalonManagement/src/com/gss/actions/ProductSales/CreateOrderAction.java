@@ -46,7 +46,6 @@ public class CreateOrderAction{
 		} else {
 			type = 2;
 		}
-		System.out.print(this.intLocationID);
 		
 		ItemDecoder decoder = new ItemDecoder();
 		List<ProductOrder> productList;

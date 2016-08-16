@@ -2,6 +2,7 @@ package com.gss.utilities;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -74,4 +75,30 @@ public class DateHelper {
 		 
 	 }
 
+	 public static String stringDate(){
+		 
+		 LocalDateTime now = LocalDateTime.now();
+		 int year = now.getYear();
+		 int intMonth = now.getMonthValue();
+		 int day = now.getDayOfMonth();
+		 String month = null;
+		 
+		 switch(intMonth){
+		 	case 1: month = "January"; break;
+		 	case 2: month = "February"; break;
+		 	case 3: month = "March"; break;
+		 	case 4: month = "April"; break;
+		 	case 5: month = "May"; break;
+		 	case 6: month = "June"; break;
+		 	case 7: month = "July"; break;
+		 	case 8: month = "August"; break;
+		 	case 9: month = "September"; break;
+		 	case 10: month = "October"; break;
+		 	case 11: month = "November"; break;
+		 	case 12: month = "December"; break;
+		 }
+		 
+		 return (month + " " + String.valueOf(day) + ", " + String.valueOf(year)).toUpperCase();
+		 
+	 }
 }

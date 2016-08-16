@@ -22,12 +22,12 @@ public class WalkInJDBCRepository implements WalkInRepository{
 		
 		String createWalkIn 				= "CALL createWalkIn(?, ?, ?)";
 		String createProductWalkIn 			= "CALL createProductWalkIn(?, ?, ?)";
-		String createServiceWalkIn 			= "CALL createServiceWalkIn(?, ?, ?)";
+		String createServiceWalkIn 			= "CALL createServiceWalkIn(?, ?, ?, ?)";
 		String createPackageWalkIn 			= "CALL createPackageWalkIn(?, ?, ?)";
-		String createEmpAssignment 			= "INSERT INTO tblEmployeeAssignment(intAssignmentStatus) VALUE(1)";
-		String createDetail					= "CALL createAssignmentDetail(?, ?, ?)";
+		String createEmpAssignment 			= "CALL insertAssignmentStatus();";
+		String createDetail					= "CALL createAssignmentDetail(?, ?, ?, ?)";
 		String createPromoWalkIn 			= "CALL createPromoWalkIn(?, ?)";
-		String createPackagePromo			= "CALL createPackagePromoWalkIn(?, ?)";
+		String createPackagePromo			= "CALL createPackagePromoWalkIn(?, ?, ?)";
 		String createPromoService			= "CALL createPackagePromoServiceWalkIn(?, ?, ?)";
 		String createDiscount					= "CALL createInvoiceDiscount(?, ?);";
 		
@@ -55,7 +55,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 			//Inserting new Walk-In record
 			insertWalkIn.setString(1, walkin.getStrName());
 			insertWalkIn.setString(2, walkin.getStrContactNo());
-			insertWalkIn.setDouble(2, walkin.getInvoice().getDblTotalPrice());
+			insertWalkIn.setDouble(3, walkin.getInvoice().getDblTotalPrice());
 			insertWalkInResult = insertWalkIn.executeQuery();
 			
 			//parsing inserted Walk-In ID
@@ -89,6 +89,214 @@ public class WalkInJDBCRepository implements WalkInRepository{
 				insertService.setInt(1, intWalkInID);
 				insertService.setInt(2, walkin.getServices().get(intCtr).getService().getIntServiceID());
 				insertService.setInt(3, walkin.getServices().get(intCtr).getEmployeeAssigned().getIntEmpID());
+				insertService.setString(4, walkin.getServices().get(intCtr).getStrServiceStatus());
+				insertService.addBatch();
+			}
+			
+			//Executing service batch insert
+			insertService.executeBatch();
+			insertService.clearBatch();
+			
+			//Batch insert for packages included
+			for(int intCtr = 0; intCtr < walkin.getPackages().size(); intCtr++){
+				
+				insertEmpAssignmentResult = insertEmpAssignment.executeQuery();
+				PackageWalkIn packagee = walkin.getPackages().get(intCtr);
+	
+				//parsing inserted Employee Assignment ID
+				while(insertEmpAssignmentResult.next()){
+					intEmpAssignmentID = insertEmpAssignmentResult.getInt(1);
+				}
+				
+				insertEmpAssignmentResult.close();
+				
+				insertPackage.setInt(1, intWalkInID);
+				insertPackage.setInt(2, walkin.getPackages().get(intCtr).getPackages().getIntPackageID());
+				insertPackage.setInt(3, intEmpAssignmentID);
+				insertPackage.addBatch();
+				
+				//Size of services inside each package
+				int intPackageServiceSize = walkin.getPackages().get(intCtr).getServiceAssignment().size();
+				
+				for(int intCtrInner = 0; intCtrInner < intPackageServiceSize; intCtrInner++){
+					insertDetail.setInt(1, intEmpAssignmentID);
+					insertDetail.setInt(2, packagee.getServiceAssignment().get(intCtrInner).getEmployeeAssigned().getIntEmpID());
+					insertDetail.setInt(3, packagee.getServiceAssignment().get(intCtrInner).getService().getIntServiceID());
+					insertDetail.setString(4, packagee.getServiceAssignment().get(intCtrInner).getStrServiceStatus());
+					insertDetail.addBatch();
+				}
+			}
+			
+			insertPackage.executeBatch();
+			insertPackage.clearBatch();
+			insertPackage.close();
+			insertDetail.executeBatch();
+			insertDetail.clearBatch();
+			insertDetail.close();
+			
+			
+			//Batch insert for promo included
+			for(int intCtr = 0; intCtr < walkin.getPromo().size(); intCtr++){
+				
+				PromoWalkIn promo = walkin.getPromo().get(intCtr);
+				
+				insertPromo.setInt(1, intWalkInID);
+				insertPromo.setInt(2, walkin.getPromo().get(intCtr).getPromo().getIntPromoID());
+				walkInID = insertPromo.executeQuery();
+				int walkID = 0;
+				
+				while(walkInID.next()){
+					walkID = walkInID.getInt(1);
+				}
+				
+				int intPromoPackageSize = walkin.getPromo().get(intCtr).getPackages().size();
+				
+
+				for(int intCtrInner = 0; intCtrInner < intPromoPackageSize; intCtr++){
+					
+					PackageWalkIn packagee = promo.getPackages().get(intCtrInner);
+					
+					insertEmpAssignmentResult = insertEmpAssignment.executeQuery();
+					
+					//parsing inserted Employee Assignment ID
+					while(insertEmpAssignmentResult.next()){
+						intEmpAssignmentID = insertEmpAssignmentResult.getInt(1);
+					}
+					
+					insertEmpAssignmentResult.close();
+					
+					insertPromoPackage.setInt(1, walkID);
+					insertPromoPackage.setInt(2, intEmpAssignmentID);
+					insertPromoPackage.setInt(3, packagee.getPackages().getIntPackageID());
+					insertPromoPackage.addBatch();
+					
+					for(int innerMostCtr = 0; innerMostCtr < promo.getPackages().size(); innerMostCtr++){
+						
+						//size of services inside the current package in the loop
+						int servicesIncludedSize = packagee.getServiceAssignment().size();
+						
+						for(int packageServiceCtr = 0; packageServiceCtr < servicesIncludedSize; packageServiceCtr++){
+							
+							ServiceWalkIn service = packagee.getServiceAssignment().get(packageServiceCtr);
+							
+							insertDetail.setInt(1, intEmpAssignmentID);
+							insertDetail.setInt(2, service.getService().getIntServiceID());
+							insertDetail.setInt(3, service.getEmployeeAssigned().getIntEmpID());
+							insertDetail.setString(4, service.getStrServiceStatus());
+							insertDetail.addBatch();
+						}
+					}
+					
+					for(int intCtr2 = 0; intCtr2 < walkin.getServices().size(); intCtr2++){
+						
+						//current service in the loop
+						ServiceWalkIn service = promo.getServices().get(intCtr2);
+						
+						insertServicePromo.setInt(1, walkID);
+						insertServicePromo.setInt(2, service.getService().getIntServiceID());
+						insertServicePromo.setInt(3, service.getEmployeeAssigned().getIntEmpID());
+						insertDetail.setString(4, service.getStrServiceStatus());
+						insertServicePromo.addBatch();
+					}
+				}
+				
+				insertPromoPackage.executeBatch();
+				insertDetail.executeBatch();
+				insertServicePromo.executeBatch();
+				insertPromoPackage.close();
+				insertDetail.close();
+				insertServicePromo.close();
+			}
+			
+			con.commit();
+			con.close();
+			return true;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			con.rollback();
+			con.close();
+			
+			return false;
+		}
+	}
+
+	@Override
+	public boolean updateWalkIn(WalkIn walkin) throws SQLException {
+		
+		String createWalkIn 				= "CALL updateWalkIn(?, ?, ?, ?, ?)";
+		String createProductWalkIn 			= "CALL createProductWalkIn(?, ?, ?)";
+		String createServiceWalkIn 			= "CALL createServiceWalkIn(?, ?, ?, ?)";
+		String createPackageWalkIn 			= "CALL createPackageWalkIn(?, ?, ?)";
+		String createEmpAssignment 			= "INSERT INTO tblEmployeeAssignment(intAssignmentStatus) VALUE(1)";
+		String createDetail					= "CALL createAssignmentDetail(?, ?, ?)";
+		String createPromoWalkIn 			= "CALL createPromoWalkIn(?, ?)";
+		String createPackagePromo			= "CALL createPackagePromoWalkIn(?, ?)";
+		String createPromoService			= "CALL createPackagePromoServiceWalkIn(?, ?, ?)";
+		String createDiscount					= "CALL createInvoiceDiscount(?, ?);";
+		String deleteAll					= "CALL deleteWaklInComponents(?);";
+		
+		try{
+			con.setAutoCommit(false);
+			int intWalkInID = 0;
+			int intInvoiceID = 0;
+			int intEmpAssignmentID = 0;
+			
+			//PreparedStatements and ResultSets
+			PreparedStatement insertWalkIn 			= con.prepareStatement(createWalkIn);
+			PreparedStatement insertProduct 		= con.prepareStatement(createProductWalkIn);
+			PreparedStatement insertService			= con.prepareStatement(createServiceWalkIn);
+			PreparedStatement insertPackage 		= con.prepareStatement(createPackageWalkIn);
+			PreparedStatement insertEmpAssignment 	= con.prepareStatement(createEmpAssignment);
+			PreparedStatement insertDetail 			= con.prepareStatement(createDetail);
+			PreparedStatement insertPromo			= con.prepareStatement(createPromoWalkIn);
+			PreparedStatement insertPromoPackage	= con.prepareStatement(createPackagePromo);
+			PreparedStatement insertServicePromo	= con.prepareStatement(createPromoService);
+			PreparedStatement preDiscount			= con.prepareStatement(createDiscount);
+			ResultSet insertWalkInResult;
+			ResultSet insertEmpAssignmentResult;
+			ResultSet walkInID;
+			
+			//Inserting new Walk-In record
+			insertWalkIn.setInt(1, walkin.getIntWalkInID());
+			insertWalkIn.setInt(2, walkin.getInvoice().getIntInvoiceID());
+			insertWalkIn.setString(3, walkin.getStrName());
+			insertWalkIn.setString(4, walkin.getStrContactNo());
+			insertWalkIn.setDouble(5, walkin.getInvoice().getDblTotalPrice());
+			insertWalkInResult = insertWalkIn.executeQuery();
+			
+			//parsing inserted Walk-In ID
+			while(insertWalkInResult.next()){
+				intWalkInID = insertWalkInResult.getInt(1);
+				intInvoiceID = insertWalkInResult.getInt(2);
+			}
+			
+			//Inserting discount batch
+			for(int i = 0; i < walkin.getInvoice().getDiscountList().size(); i++){
+				preDiscount.setInt(1, intInvoiceID);
+				preDiscount.setInt(2, walkin.getInvoice().getDiscountList().get(i).getIntDiscountID());
+				preDiscount.addBatch();
+			}
+			
+			//Inserting product batch
+			for(int intCtr = 0; intCtr < walkin.getProducts().size(); intCtr++){
+				
+				insertProduct.setInt(1, intWalkInID);
+				insertProduct.setInt(2, walkin.getProducts().get(intCtr).getProduct().getIntProductID());
+				insertProduct.setInt(3, walkin.getProducts().get(intCtr).getIntQuantity());
+				insertProduct.addBatch();
+			}
+			
+			//Executing product batch insert
+			insertProduct.executeBatch();
+			insertProduct.clearBatch();
+			
+			//Inserting service batch
+			for(int intCtr = 0; intCtr < walkin.getServices().size(); intCtr++){
+				insertService.setInt(1, intWalkInID);
+				insertService.setInt(2, walkin.getServices().get(intCtr).getService().getIntServiceID());
+				insertService.setInt(3, walkin.getServices().get(intCtr).getEmployeeAssigned().getIntEmpID());
+				insertService.setString(4, walkin.getServices().get(intCtr).getStrServiceStatus());
 				insertService.addBatch();
 			}
 			
@@ -120,6 +328,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 					insertDetail.setInt(1, intEmpAssignmentID);
 					insertDetail.setInt(2, walkin.getPackages().get(intCtr).getServiceAssignment().get(intCtrInner).getEmployeeAssigned().getIntEmpID());
 					insertDetail.setInt(3, walkin.getPackages().get(intCtr).getServiceAssignment().get(intCtrInner).getService().getIntServiceID());
+					insertDetail.setString(4, walkin.getPackages().get(intCtr).getServiceAssignment().get(intCtrInner).getStrServiceStatus());
 					insertDetail.addBatch();
 				}
 			}
@@ -161,6 +370,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 					
 					insertPromoPackage.setInt(1, walkID);
 					insertPromoPackage.setInt(2, intEmpAssignmentID);
+					insertPromoPackage.setInt(3, packagee.getPackages().getIntPackageID());
 					insertPromoPackage.addBatch();
 					
 					for(int innerMostCtr = 0; innerMostCtr < promo.getPackages().size(); innerMostCtr++){
@@ -175,6 +385,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 							insertDetail.setInt(1, intEmpAssignmentID);
 							insertDetail.setInt(2, service.getService().getIntServiceID());
 							insertDetail.setInt(3, service.getEmployeeAssigned().getIntEmpID());
+							insertDetail.setString(4, service.getStrServiceStatus());
 							insertDetail.addBatch();
 						}
 					}
@@ -187,6 +398,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 						insertServicePromo.setInt(1, walkID);
 						insertServicePromo.setInt(2, service.getService().getIntServiceID());
 						insertServicePromo.setInt(3, service.getEmployeeAssigned().getIntEmpID());
+						insertDetail.setString(4, service.getStrServiceStatus());
 						insertServicePromo.addBatch();
 					}
 				}
@@ -204,18 +416,12 @@ public class WalkInJDBCRepository implements WalkInRepository{
 			return true;
 		}
 		catch(Exception e){
-			System.out.println(e.fillInStackTrace());
+			e.printStackTrace();
 			con.rollback();
 			con.close();
 			
 			return false;
 		}
-	}
-
-	@Override
-	public boolean updateWalkIn(WalkIn walkin) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override

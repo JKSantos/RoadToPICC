@@ -25,6 +25,10 @@
 			<result name="success" type="json"></result>
 		</action>
 		
+		<action name="payment" class="com.gss.actions.Payment.PaymentTransaction">
+			<result name="success" type="tiles">payment</result>
+		</action> 
+		
 		<action name="createPayment" class="com.gss.actions.Payment.CreatePaymentAction">
 			<result name="success" type="json"></result>
 		</action>

@@ -5,9 +5,8 @@
         .module("app", ['datatables', 'checklist-model', 'ngResource', 'oitozero.ngSweetAlert', 'filters']);
 
     angular
-        .module('filters', []).
-        
-    filter('truncate', function () {
+        .module('filters', [])
+        .filter('truncate', function () {
         return function (text, length, end) {
             if (isNaN(length))
                 length = 10;

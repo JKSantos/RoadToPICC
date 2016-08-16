@@ -11,6 +11,7 @@ public class PriceFormatHelper {
     {
         NumberFormat format = NumberFormat.getInstance(Locale.US);
 
+        System.out.println(currency);
         String validString = price.replaceAll(currency, "");
         
         Number number = format.parse(validString);

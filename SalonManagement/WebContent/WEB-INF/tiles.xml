@@ -87,5 +87,10 @@
     	<put-attribute name="title"			value="Home"/>
     	<put-attribute name="body"			value="/tiles/admin-home.jsp"/>
     </definition>
+    
+    <definition name="payment" extends="baseLayout">
+    	<put-attribute name="title"			value="Payment"/>
+    	<put-attribute name="body"			value="/tiles/transactions-payment.jsp"/>
+    </definition>
   
 </tiles-definitions>

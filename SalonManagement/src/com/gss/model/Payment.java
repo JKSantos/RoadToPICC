@@ -20,6 +20,8 @@ public class Payment {
 	/*	ang pagset ng data nyan galing sa jsp
 	 * 	gagamitin mong variables payment.intPaymentID, payment.intInvoiceID, payment.strPaymentType, etc.
 	 */
+	
+	
 
 	public Payment(int intPaymentID, int intInvoiceID, String strPaymentType, double dblPaymentAmount,
 			Date datDateOfPayment) {

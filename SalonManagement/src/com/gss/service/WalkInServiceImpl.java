@@ -18,7 +18,7 @@ public class WalkInServiceImpl implements WalkInService{
 	}
 
 	@Override
-	public boolean updateWalkIn(WalkIn walkin) {
+	public boolean updateWalkIn(WalkIn walkin)  throws SQLException  {
 		
 		WalkInRepository repo = new WalkInJDBCRepository();
 		

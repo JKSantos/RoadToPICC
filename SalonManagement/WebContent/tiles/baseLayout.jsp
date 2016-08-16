@@ -195,6 +195,8 @@
 <script type="text/javascript" src="js/baselayout.js"></script>
 <script type="text/javascript" src="js/angular-resource.min.js"></script>
 <script type="text/javascript" src="js/angular-checklist.js"></script>
+<!--<script type="text/javascript" src="js/angular-materialize.min.js"></script>-->
+
 
 <!-- Angular imports -->
 <script type="text/javascript" src="app/main.js"></script>
@@ -204,6 +206,7 @@
 <script type="text/javascript" src="app/walkin/walkin.fac.js"></script>
 <script type="text/javascript" src="app/prodsales/locationfactory.fac.js"></script>
 <script type="text/javascript" src="app/prodsales/prodSales.ctrl.js"></script>
+<script type="text/javascript" src="app/reservation/reservationFactory.fac.js"></script>
 <script type="text/javascript" src="app/reservation/reservation.ctrl.js"></script>
 <script type="text/javascript" src="app/reservation/reservation-table.ctrl.js"></script>
 
