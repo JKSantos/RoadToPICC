@@ -43,7 +43,6 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 		
 		String insertPayment 					= "CALL createPayment(?, ?, ?)";
 		String updateStock						= "CALL updateStock(?, ?);";
-				
 		ProductSales sales = ProductSales.search(payment.getIntInvoiceID(), ProductSales.getAllProductSales());
 		
 		try{

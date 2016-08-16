@@ -263,7 +263,7 @@
                                         orderDetails: '',
                                         subtotal: 0
                                     }];
-                                    $window.location.reload();
+                                    console.log(psdata);
                                 } else {
                                     SweetAlert.swal("Oops", "Something went wrong!", "error");
                                 }

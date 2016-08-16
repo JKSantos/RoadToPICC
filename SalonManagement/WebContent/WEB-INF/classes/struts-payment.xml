@@ -16,17 +16,13 @@
          	<result-type name="tiles" 
          	class="org.apache.struts2.views.tiles.TilesResult" />
       	</result-types>
-
-		<action name="paymentTransaction" class="com.gss.actions.DiscountMaintenanceAction" method="execute">
-			<result name="success" type="tiles">transPayment</result>
-		</action>
 	
 		<action name="getAllUnpaidTransaction" class="com.gss.actions.Payment.GetAllUnpaidTransactions">
 			<result name="success" type="json"></result>
 		</action>
 		
-		<action name="payment" class="com.gss.actions.Payment.PaymentTransaction">
-			<result name="success" type="tiles">payment</result>
+		<action name="paymentTransaction" class="com.gss.actions.Payment.PaymentTransaction">
+			<result name="success" type="tiles">transPayment</result>
 		</action> 
 		
 		<action name="createPayment" class="com.gss.actions.Payment.CreatePaymentAction">

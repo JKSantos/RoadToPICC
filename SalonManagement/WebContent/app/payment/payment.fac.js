@@ -5,11 +5,16 @@
         .module('app')
         .factory('paymentFactory', paymentFactory);
 
-    function paymentFactory($http) {
+    function paymentFactory($resource) {
         var orderDetails = [{}];
         var paymentDetails = [{}];
         var subtotal = 0;
         return {
+            getUnpaidPayments: function () {
+                return $resource('getAllUnpaidTransaction').get().$promise.then(function (data) {
+                    return data;
+                });
+            },
             getPayments: function () {
                 return paymentDetails;
             },

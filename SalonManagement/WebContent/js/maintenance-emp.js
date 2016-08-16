@@ -1105,6 +1105,7 @@ $('.datepicker-promo').pickadate({
     }
 });
 
+
 $('.datepicker-delivery').pickadate({
     selectYears: 15,
     selectMonths: true,
