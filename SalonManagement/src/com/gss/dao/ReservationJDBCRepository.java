@@ -95,9 +95,10 @@ public class ReservationJDBCRepository implements ReservationRepository{
 				this.customer 				= new Customer(this.intReservationID, reservationResult.getString(8), reservationResult.getString(9), reservationResult.getString(10), reservationResult.getString(11));
 				this.headCount				= reservationResult.getInt(12);
 				this.invoice				= getInvoice(reservationResult.getInt(13));
-				this.strVenue				= reservationResult.getString(14);
+				this.strStatus				= reservationResult.getString(14);
 				this.employeeAssigned		= getAllAssignedEmployee(this.intReservationID);
 				this.strVenue				= reservationResult.getString(15);
+				
 				
 				System.out.println("CURRENT RESERVATION ON PROCESS: " + this.customer.getStrName());
 				
@@ -820,7 +821,7 @@ public class ReservationJDBCRepository implements ReservationRepository{
 				this.customer 				= new Customer(this.intReservationID, reservationResult.getString(8), reservationResult.getString(9), reservationResult.getString(10), reservationResult.getString(11));
 				this.headCount				= reservationResult.getInt(12);
 				this.invoice				= getInvoiceNoDetails(reservationResult.getInt(13));
-				this.strVenue				= reservationResult.getString(14);
+				this.strStatus				= reservationResult.getString(14);
 				this.employeeAssigned		= getAllAssignedEmployee(this.intReservationID);
 				this.strVenue				= reservationResult.getString(15);
 				
