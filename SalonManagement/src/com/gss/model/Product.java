@@ -111,4 +111,10 @@ public class Product {
 	public static Product createNullProduct(int intProductID){
 		return new Product(35, "", "", "", 1, null, 1, "", 1);
 	}
+
+	public static List<Product> queryAllProduct() {
+		ProductService service = new ProductServiceImpl();
+		
+		return service.queryAllProduct();
+	}
 }

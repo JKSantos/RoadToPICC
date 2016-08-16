@@ -122,4 +122,40 @@ public class ExtraChargeJDBCRepository implements ExtraChargeRepository{
 		}
 	}
 
+	@Override
+	public List<ExtraCharge> queryAllOtherCharge() {
+		
+		Connection con = jdbc.getConnection();
+		String query = "SELECT * FROM tblExtraCharges ORDER BY strExtraChargeName ASC;";
+		List<ExtraCharge> ecList = new ArrayList<ExtraCharge>();
+		
+		try{
+			PreparedStatement pre = con.prepareStatement(query);
+			ResultSet set = pre.executeQuery();
+			
+			while(set.next()){
+				int intID = set.getInt(1);
+				String name = set.getString(2);
+				String desc = set.getString(3);
+				double price = set.getDouble(4);
+				int stat = set.getInt(5);
+				
+				ExtraCharge extra = new ExtraCharge(intID, name, desc, price, stat);
+				ecList.add(extra);
+			}
+			
+			pre.close();
+			set.close();
+			con.close();
+			
+			return ecList;
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.fillInStackTrace());
+			return null;
+		}
+	}
+
 }

@@ -85,6 +85,12 @@ public class EmployeeMyBatisRepository implements EmployeeRepository{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Employee> queryAllEmployee() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 

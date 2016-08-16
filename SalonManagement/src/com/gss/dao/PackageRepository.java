@@ -19,5 +19,7 @@ public interface PackageRepository {
 	public Package getPackageByID(int intPackageID);
 	
 	public List<Package> getAllPackageNoDetails();
+
+	public List<Package> queryAllPackage();
 	
 }

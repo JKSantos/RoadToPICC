@@ -18,4 +18,6 @@ public interface ProductRepository {
 	
 	public List<Product> getAllProductsNoImage();
 
+	public List<Product> queryAllProduct();
+
 }

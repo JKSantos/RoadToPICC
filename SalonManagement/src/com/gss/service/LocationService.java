@@ -14,4 +14,6 @@ public interface LocationService {
 	
 	public List<Location> getAllLocation();
 
+	public List<Location> queryAllLocation();
+
 }

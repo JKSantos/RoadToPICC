@@ -291,4 +291,59 @@ public class ServiceJDBCRepository implements ServiceRepository{
 		}
 	}
 
+	@Override
+	public List<Service> queryAllService() {
+		JDBCConnection jdbc = new JDBCConnection();
+		Connection con = jdbc.getConnection();
+		String strQuery1 = "CALL queryAllServices()";
+		String strQuery2 = "CALL fetchPrice(?)";
+		List<Service> serviceList = new ArrayList<Service>();
+		
+		
+		try{
+			
+			PreparedStatement pre = con.prepareStatement(strQuery1);
+			ResultSet set = pre.executeQuery();
+			ResultSet set2;
+						
+			while(set.next()){
+				
+				Service service;
+				int intServiceID = set.getInt(1);
+				String strServiceName = set.getString(2);
+				String strServiceCate = set.getString(3);
+				int intServiceStatus = set.getInt(4);
+				String strServiceDesc = set.getString(5);
+				byte[] actualPhoto = null;
+				String strPhotoPath = ":8080/SalonManagement/getImage?ImageID="+ intServiceID + "&type=service";
+				
+				PreparedStatement pre2 = con.prepareStatement(strQuery2);
+				pre2.setInt(1, intServiceID);
+				
+				set2 = pre2.executeQuery();
+				
+				while(set2.next()){
+					double price = set2.getDouble(1);
+					service = new Service(intServiceID, strServiceName, strServiceCate, intServiceStatus, strServiceDesc, price, actualPhoto, strPhotoPath);
+					serviceList.add(service);
+					
+				}
+				
+				pre2.close();
+				set2.close();
+			}
+			
+			set.close();
+			pre.close();
+			con.close();
+			
+			return serviceList;
+		}
+		catch(Exception e){
+			
+			System.out.println(e.fillInStackTrace());
+			return null;
+		}
+	}
+
 }

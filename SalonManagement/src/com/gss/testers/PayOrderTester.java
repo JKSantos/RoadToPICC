@@ -13,7 +13,7 @@ public class PayOrderTester {
 	
 	public static void main(String[] args) throws SQLException{
 		
-		Payment payment = new Payment(1, 50, "FULL PAYMENT", 500, new Date());
+		Payment payment = new Payment(1, 66, "FULL PAYMENT", 500, new Date());
 		
 		System.out.println(Payment.createPayment("order", payment));
 		

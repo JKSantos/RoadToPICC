@@ -429,5 +429,59 @@ public class PackageJDBCRepository implements PackageRepository{
 		}
 	
 	}
+
+	@Override
+	public List<Package> queryAllPackage() {
+		Connection con = jdbc.getConnection();
+		String query = "SELECT * FROM tblPackage ORDER BY strPackageName ASC;";
+		List<Package> packageList = new ArrayList<Package>();
+		
+		try{
+			
+			PreparedStatement pre = con.prepareStatement(query);
+			ResultSet set = pre.executeQuery();
+			
+			while(set.next()){
+				
+				ServiceService serv = new ServiceServiceImpl();
+				ProductService prod = new ProductServiceImpl();
+				List<ServicePackage> servPack = new ArrayList<ServicePackage>();
+				List<ProductPackage> prodPack = new ArrayList<ProductPackage>();
+				
+				List<Product> productList = prod.getAllProductsNoImage();
+				List<Service> serviceList = serv.getAllServiceNoImage();
+				
+				int intID = set.getInt(1);
+				String strName = set.getString(2);
+				String strDesc = set.getString(3);
+				int intType = set.getInt(4);
+				int max = set.getInt(5);
+				String strAvailability = set.getString(6);
+				int intStatus = set.getInt(7);
+				double price = 0;
+				
+				PreparedStatement pre2 = con.prepareStatement("CALL getPackagePrice(?);");
+				pre2.setInt(1, intID);
+				ResultSet set2 = pre2.executeQuery();				
+				
+				while(set2.next()){
+					price = set2.getDouble(1);
+				}
+				
+				Package packagee = new Package(intID, strName, strDesc, intType, max, strAvailability, price, servPack, prodPack, intStatus);
+				packageList.add(packagee);
+				pre2.close();
+			}
+			
+			pre.close();
+			con.close();
+			
+			return packageList;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
 }

@@ -14,6 +14,7 @@ import com.gss.model.PackageWalkIn;
 import com.gss.model.Payment;
 import com.gss.model.Product;
 import com.gss.model.ProductWalkIn;
+import com.gss.model.Promo;
 import com.gss.model.PromoDetails;
 import com.gss.model.PromoWalkIn;
 import com.gss.model.Service;
@@ -42,6 +43,7 @@ public class CreateWalkIn {
 		this.serviceDetails.add(new ServiceDetails(61, 1, 76, "PENDING"));
 		
 		List<ServiceDetails> serviceDetails1 = new ArrayList<ServiceDetails>();
+		List<ServiceDetails> serviceDetails2 = new ArrayList<ServiceDetails>();
 		
 		serviceDetails1.add(new ServiceDetails(61, 1, 76, "ONGOING"));
 		serviceDetails1.add(new ServiceDetails(63, 1, 76, "PENDING"));
@@ -49,7 +51,14 @@ public class CreateWalkIn {
 		
 		
 		PackageDetails pack = new PackageDetails(63, serviceDetails1);
+		
 		this.packageList.add(pack);
+		
+		serviceDetails2.add(new ServiceDetails(61, 1, 76, "ONGOING"));
+		
+		PromoDetails promo = new PromoDetails(34, serviceDetails2, new ArrayList<PackageDetails>());
+		
+		this.promoList.add(promo);
 		
 		WalkInService service = new WalkInServiceImpl();
 		
@@ -125,8 +134,11 @@ public class CreateWalkIn {
 				ServiceWalkIn  serv = new ServiceWalkIn(1, Service.createNullService(detail.getIntServiceID()), Employee.createNullEmployee(detail.getIntEmployeeID()), "PENDING");
 				
 				promoServiceList.add(serv);
+				
 			}
 			
+			PromoWalkIn promoWalkIn = new PromoWalkIn(1, Promo.createNullPromo(this.promoList.get(index).getIntPromoID()), packageWalkInList, promoServiceList);
+			promoList.add(promoWalkIn);
 		}
 		
 		List<Discount> discountList = new ArrayList<Discount>();

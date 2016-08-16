@@ -81,4 +81,10 @@ public class ExtraCharge {
 		return null;
 	}
 
+	public static List<ExtraCharge> queryAllOtherCharge() {
+		ExtraChargeService service = new ExtraChargeServiceImpl();
+		
+		return service.queryAllOtherCharge();
+	}
+
 }

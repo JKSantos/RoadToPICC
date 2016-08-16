@@ -18,4 +18,6 @@ public interface DiscountRepository {
 	public List<Discount> getAllDiscountNoDetails();
 	
 	public Discount getDiscountByID(int discountID);
+
+	public List<Discount> queryAllDiscount();
 }

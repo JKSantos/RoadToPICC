@@ -17,4 +17,6 @@ public interface ProductService {
 	public boolean deactivateProduct(int intProductID);
 	
 	public List<Product> getAllProductsNoImage();
+
+	public List<Product> queryAllProduct();
 }

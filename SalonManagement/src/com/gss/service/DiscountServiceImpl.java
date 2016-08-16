@@ -63,4 +63,12 @@ public class DiscountServiceImpl implements DiscountService{
 		
 		return repo.getDiscountByID(discountID);
 	}
+
+	@Override
+	public List<Discount> queryAllDiscount() {
+
+		DiscountRepository repo = new DiscountJDBCRepository();
+		
+		return repo.queryAllDiscount();
+	}
 }

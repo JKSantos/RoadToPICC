@@ -510,4 +510,60 @@ public class PromoJDBCRepository implements PromoRepository{
 			return null;
 		}
 	}
+
+	@Override
+	public List<Promo> queryAllPromo() {
+		
+		List<Promo> promoList 				= new ArrayList<Promo>();
+		
+		String query 						= "SELECT * FROM tblPromo ORDER BY strPromoName ASC;";
+		String getPromoDiscount				= "CALL getPromoDiscount(?)";
+
+		Connection con = jdbc.getConnection();
+		
+		try{
+			PreparedStatement pre 			= con.prepareStatement(query);
+			PreparedStatement discounts		= con.prepareStatement(getPromoDiscount);
+			ResultSet set 					= pre.executeQuery();
+			ResultSet discountedPrice = null;
+			
+			while(set.next()){
+				
+				List<ProductPackage> prodPack = new ArrayList<ProductPackage>();
+				List<ServicePackage> servPack = new ArrayList<ServicePackage>();
+				List<PackagePackage> packPack = new ArrayList<PackagePackage>();
+				
+				int intID = set.getInt(1);
+				String name = set.getString(2);
+				String desc = set.getString(3);
+				String guide = set.getString(4);
+				int max = set.getInt(5);
+				double price = set.getDouble(6);
+				String avail = set.getString(7);
+				int status = set.getInt(8);
+				
+				discounts.setInt(1, intID);
+				discountedPrice = discounts.executeQuery();
+				
+				while(discountedPrice.next()){
+				
+					price = discountedPrice.getDouble(1);
+				}
+				
+				Promo promo = new Promo(intID, name, desc, guide, price, max, servPack, prodPack, packPack, avail, status);
+				
+				promoList.add(promo);
+			}
+			discounts.close();
+			discountedPrice.close();
+			set.close();
+			pre.close();
+			
+			return promoList;
+		}
+		catch(Exception e){
+			System.out.println(e.fillInStackTrace());
+			return promoList;
+		}
+	}
 }

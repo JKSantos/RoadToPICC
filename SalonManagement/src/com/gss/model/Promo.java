@@ -147,4 +147,11 @@ public class Promo {
 		
 		return service.getAllPromoNoDetails();
 	}
+
+	public static List<Promo> queryAllPromo() {
+		
+		PromoService service = new PromoServiceImpl();
+		
+		return service.queryAllPromo();
+	}
 }

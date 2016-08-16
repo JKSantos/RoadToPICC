@@ -68,4 +68,12 @@ public class EmployeeServiceImpl implements EmployeeService{
 		
 		return repo.getAllEmployeeNoImage();
 	}
+
+	@Override
+	public List<Employee> queryAllEmployee() {
+
+		EmployeeRepository repo = new EmployeeJDBCRepository();
+		
+		return repo.queryAllEmployee();
+	}
 }

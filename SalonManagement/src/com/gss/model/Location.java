@@ -1,5 +1,10 @@
 package com.gss.model;
 
+import java.util.List;
+
+import com.gss.service.LocationService;
+import com.gss.service.LocationServiceImpl;
+
 public class Location {
 	
 	private int intLocationID;
@@ -55,6 +60,12 @@ public class Location {
 
 	public void setStrCity(String strCity) {
 		this.strCity = strCity;
+	}
+
+	public static List<Location> queryAllLocation() {
+		LocationService service = new LocationServiceImpl();
+		
+		return service.queryAllLocation();
 	}
 	
 }

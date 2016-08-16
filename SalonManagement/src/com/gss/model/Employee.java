@@ -195,4 +195,9 @@ public class Employee {
 		
 		return null;
 	}
+	
+	public static List<Employee> queryAllEmployee(){
+		EmployeeService service = new EmployeeServiceImpl();
+		return service.queryAllEmployee();
+	}
 }

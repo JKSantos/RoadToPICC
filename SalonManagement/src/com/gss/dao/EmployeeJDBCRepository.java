@@ -583,4 +583,80 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 		}
 	}
 
+	@Override
+	public List<Employee> queryAllEmployee() {
+		String strQuery1 = "CALL queryAllEmployee()";
+		String strQuery2 = "CALL fetchJob(?)";
+		JDBCConnection jdbc = new JDBCConnection();
+		Connection con = jdbc.getConnection();
+		List<Employee> empList = new ArrayList<Employee>();
+		
+		try{
+			PreparedStatement st = con.prepareStatement(strQuery1);
+			
+			ResultSet set = st.executeQuery(strQuery1);
+
+			while(set.next()){
+				
+				List<Job> jobs = new ArrayList<Job>(); 
+				intEmpID = set.getInt(1);
+				strEmpLastName = set.getString(2);
+				strEmpFirstName = set.getString(3);
+				strEmpMiddleName = set.getString(4);
+				datEmpBirthdate = set.getDate(5);
+				strEmpGender = set.getString(6);
+				strEmpAddress = set.getString(7);
+				strEmpContactNo = set.getString(8);
+				strEmpEmail = set.getString(9);
+				strEmpStatus = set.getString(10);
+				if(set.getString(11) == null){
+					strEmpUsername = "NO ACCESS";
+					strEmpPassword = "NO ACCESS";
+					access = false;
+				}
+				else
+				{
+					strEmpUsername = set.getString(11);
+					strEmpPassword = set.getString(12);
+					access = set.getBoolean(14);
+				}
+				
+				blobEmpPhoto = "Empty";
+				imageBlob = set.getBlob(13);
+				
+				int blobLength = (int) imageBlob.length();  
+				byte[] blobAsBytes = null;
+				
+				
+				PreparedStatement getJobs = con.prepareStatement(strQuery2);
+				getJobs.setInt(1, intEmpID);
+				ResultSet jobSet = getJobs.executeQuery();
+				
+				while(jobSet.next()){
+					String jobDesc = jobSet.getString(1);
+					int jobStatus = jobSet.getInt(2);
+					
+					Job job = new Job(jobDesc, jobStatus);
+					jobs.add(job);
+				}
+				
+				Employee emp = new Employee(intEmpID, strEmpLastName, strEmpFirstName, strEmpMiddleName, datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, strEmpStatus, strEmpUsername, strEmpPassword, blobEmpPhoto, blobAsBytes, jobs, access);
+				
+				empList.add(emp);
+			}
+			
+			st.close();
+			con.close();
+			
+			return empList;
+		}
+		catch(Exception e){
+			
+			System.out.print(e.getMessage());
+			System.out.print("Null Pointer");
+			System.out.println("May mali sa getemployee");
+			return null;
+		}
+	}
+
 }

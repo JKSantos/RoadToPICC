@@ -165,4 +165,11 @@ public class Discount {
 		
 		return service.getAllDiscountNoDetails();
 	}
+
+	public static List<Discount> queryAllDiscount() {
+		
+		DiscountService service = new DiscountServiceImpl();
+		
+		return service.queryAllDiscount();
+	}
 }

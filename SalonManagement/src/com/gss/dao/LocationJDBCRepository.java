@@ -118,4 +118,40 @@ public class LocationJDBCRepository implements LocationRepository{
 		}
 	}
 
+	@Override
+	public List<Location> queryAllLocation() {
+		
+		Connection con = jdbc.getConnection();
+		String query = "SELECT * FROM tblLocation ORDER BY strBarangay, strCity ASC;";
+		
+		List<Location> locationList = new ArrayList<Location>();
+		
+		try{
+			
+			PreparedStatement pre = con.prepareStatement(query);
+			ResultSet result = pre.executeQuery();
+			
+			while(result.next()){
+				
+				int intID = result.getInt(1);
+				String strBrgy = result.getString(2);
+				String strCity = result.getString(3);
+				double price = result.getDouble(4);
+				int status = result.getInt(5);
+				
+				Location location = new Location(intID, strBrgy, strCity, price, status);
+				locationList.add(location);
+			}
+			
+			pre.close();
+			con.close();
+			
+			return locationList;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }

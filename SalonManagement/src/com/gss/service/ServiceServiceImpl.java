@@ -58,4 +58,13 @@ public class ServiceServiceImpl implements ServiceService{
 		return repo.getAllServiceNoImage();
 	}
 
+
+	@Override
+	public List<Service> queryAllService() {
+
+		ServiceRepository repo = new ServiceJDBCRepository();
+		
+		return repo.queryAllService();
+	}
+
 }

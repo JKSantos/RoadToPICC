@@ -3,6 +3,9 @@ package com.gss.model;
 import java.util.Date;
 import java.util.List;
 
+import com.gss.service.WalkInService;
+import com.gss.service.WalkInServiceImpl;
+
 public class WalkIn {
 	
 	private int intWalkInID;
@@ -116,5 +119,15 @@ public class WalkIn {
 	}
 	public void setStrPaymentStatus(String strPaymentStatus) {
 		this.strPaymentStatus = strPaymentStatus;
+	}
+	public static List<WalkIn> getAllWalkInNoDetails(){
+		WalkInService service = new WalkInServiceImpl();
+		
+		return service.getAllWalkInNoDetails();
+	}
+	public static List<WalkIn> getAllWalkIn(){
+		WalkInService service = new WalkInServiceImpl();
+		
+		return service.getAllWalkIn();
 	}
 }
