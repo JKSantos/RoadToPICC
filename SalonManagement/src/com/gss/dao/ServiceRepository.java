@@ -18,4 +18,6 @@ public interface ServiceRepository {
 	
 	public List<Service> getAllServiceNoImage();
 
+	public List<Service> queryAllService();
+
 }

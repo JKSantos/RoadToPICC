@@ -58,4 +58,13 @@ public class ProductServiceImpl implements ProductService{
 		return repo.getAllProductsNoImage();
 	}
 
+
+	@Override
+	public List<Product> queryAllProduct() {
+		
+		ProductRepository repo = new ProductJDBCRepository();
+		
+		return repo.queryAllProduct();
+	}
+
 }

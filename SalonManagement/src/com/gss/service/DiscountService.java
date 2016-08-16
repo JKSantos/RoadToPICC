@@ -16,5 +16,7 @@ public interface DiscountService {
 	public List<Discount> getAllDiscountNoDetails();
 	
 	public Discount getDiscountByID(int discountID);
+
+	public List<Discount> queryAllDiscount();
 	
 }

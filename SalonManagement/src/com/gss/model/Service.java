@@ -106,4 +106,11 @@ public class Service {
 		return new Service(intServiceID, "", "", intServiceID, "", 0, null, "");
 	}
 
+	public static List<Service> queryAllService() {
+		
+		ServiceService service = new ServiceServiceImpl();
+		
+		return service.queryAllService();
+	}
+
 }

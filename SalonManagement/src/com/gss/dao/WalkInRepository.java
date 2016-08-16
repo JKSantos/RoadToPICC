@@ -16,5 +16,7 @@ public interface WalkInRepository {
 	public boolean payWalkIn(int intWalkInID, double dblPaymentAmount);
 	
 	public List<WalkIn> getAllWalkIn();
+	
+	public List<WalkIn> getAllWalkInNoDetails();
 
 }

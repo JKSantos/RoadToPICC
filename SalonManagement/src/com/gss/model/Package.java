@@ -137,5 +137,12 @@ public class Package {
 		return service.getAllPackageNoDetails();
 		
 	}
+
+	public static List<Package> queryAllPackage() {
+		
+		PackageService service = new PackageServiceImpl();
+		
+		return service.queryAllPackage();
+	}
 	
 }

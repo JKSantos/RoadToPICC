@@ -18,4 +18,6 @@ public interface PromoService {
 
 	public Promo getPromoByID(int promoID);
 
+	public List<Promo> queryAllPromo();
+
 }

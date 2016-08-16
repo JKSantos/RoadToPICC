@@ -14,4 +14,6 @@ public interface ExtraChargeRepository {
 	
 	public boolean deactivateExtraCharge(int intExtraChargeID);
 
+	public List<ExtraCharge> queryAllOtherCharge();
+
 }

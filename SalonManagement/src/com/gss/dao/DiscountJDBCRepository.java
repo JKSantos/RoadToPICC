@@ -508,4 +508,51 @@ public class DiscountJDBCRepository implements DiscountRepository{
 		}
 		
 	}
+
+	@Override
+	public List<Discount> queryAllDiscount() {
+		
+		Connection con 						= jdbc.getConnection();
+		List<Discount> 	discountList 		= new ArrayList<Discount>();
+		String strQuery 					= "SELECT * FROM tblDiscount ORDER BY strDiscountName ASC;";
+		
+		try{
+			
+			PreparedStatement preDiscounts 			= con.prepareStatement(strQuery);
+			
+			ResultSet discountSet = null;
+			
+			discountSet = preDiscounts.executeQuery();
+			
+			while(discountSet.next()){
+				
+				List<Product> productList 			= new ArrayList<Product>();
+				List<Service> serviceList 			= new ArrayList<Service>();
+				List<Package> packageList 			= new ArrayList<Package>();
+				List<Promo> promoList 				= new ArrayList<Promo>();
+				
+				this.intID = discountSet.getInt(1);
+				this.applicability = discountSet.getString(2);
+				this.strName = discountSet.getString(3);
+				this.strDesc = discountSet.getString(4);
+				this.strGuide = discountSet.getString(5);
+				this.intType = discountSet.getInt(6);
+				this.dblAmount = discountSet.getDouble(7);
+				this.status = discountSet.getInt(8);
+				
+				Discount discount = new Discount(this.intID, this.applicability, this.strName, this.strDesc, this.strGuide, this.intType, this.dblAmount, productList, serviceList, packageList, promoList, this.status);
+			
+				discountList.add(discount);
+			}
+	
+			preDiscounts.close();
+			discountSet.close();
+			con.close();
+			return discountList;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

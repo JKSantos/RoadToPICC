@@ -17,4 +17,6 @@ public interface PromoRepository {
 	public List<Promo> getAllPromoNoDetails();
 
 	public Promo getPromoByID(int promoID);
+	
+	public List<Promo> queryAllPromo();
 }

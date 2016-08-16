@@ -23,5 +23,7 @@ public interface EmployeeService {
 	public boolean deactivateEmployee(int empID);
 	
 	public List<Employee> getAllEmployeeNoImage();
+	
+	public List<Employee> queryAllEmployee();
 
 }

@@ -49,4 +49,12 @@ public class WalkInServiceImpl implements WalkInService{
 		return repo.getAllWalkIn();
 	}
 
+	@Override
+	public List<WalkIn> getAllWalkInNoDetails() {
+		
+		WalkInRepository repo = new WalkInJDBCRepository();
+		
+		return repo.getAllWalkInNoDetails();
+	}
+
 }

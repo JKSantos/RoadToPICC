@@ -18,4 +18,6 @@ public interface PackageService {
 	
 	public List<Package> getAllPackageNoDetails();
 
+	public List<Package> queryAllPackage();
+
 }

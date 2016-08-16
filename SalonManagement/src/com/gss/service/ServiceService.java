@@ -17,4 +17,6 @@ public interface ServiceService {
 	public boolean deactivateService(int intServiceID);
 	
 	public List<Service> getAllServiceNoImage();
+
+	public List<Service> queryAllService();
 }

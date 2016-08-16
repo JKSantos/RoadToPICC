@@ -4,10 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.gss.connection.JDBCConnection;
+import com.gss.model.Invoice;
 import com.gss.model.PackageWalkIn;
+import com.gss.model.ProductWalkIn;
 import com.gss.model.PromoWalkIn;
 import com.gss.model.ServiceWalkIn;
 import com.gss.model.WalkIn;
@@ -28,7 +32,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 		String createDetail					= "CALL createAssignmentDetail(?, ?, ?, ?)";
 		String createPromoWalkIn 			= "CALL createPromoWalkIn(?, ?)";
 		String createPackagePromo			= "CALL createPackagePromoWalkIn(?, ?, ?)";
-		String createPromoService			= "CALL createPackagePromoServiceWalkIn(?, ?, ?)";
+		String createPromoService			= "CALL createPackagePromoServiceWalkIn(?, ?, ?, ?)";
 		String createDiscount					= "CALL createInvoiceDiscount(?, ?);";
 		
 		try{
@@ -48,9 +52,9 @@ public class WalkInJDBCRepository implements WalkInRepository{
 			PreparedStatement insertPromoPackage	= con.prepareStatement(createPackagePromo);
 			PreparedStatement insertServicePromo	= con.prepareStatement(createPromoService);
 			PreparedStatement preDiscount			= con.prepareStatement(createDiscount);
-			ResultSet insertWalkInResult;
-			ResultSet insertEmpAssignmentResult;
-			ResultSet walkInID;
+			ResultSet insertWalkInResult 			= null;
+			ResultSet insertEmpAssignmentResult 	= null;
+			ResultSet walkInID 						= null;
 			
 			//Inserting new Walk-In record
 			insertWalkIn.setString(1, walkin.getStrName());
@@ -83,6 +87,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 			//Executing product batch insert
 			insertProduct.executeBatch();
 			insertProduct.clearBatch();
+			insertProduct.close();
 			
 			//Inserting service batch
 			for(int intCtr = 0; intCtr < walkin.getServices().size(); intCtr++){
@@ -96,6 +101,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 			//Executing service batch insert
 			insertService.executeBatch();
 			insertService.clearBatch();
+			insertService.close();
 			
 			//Batch insert for packages included
 			for(int intCtr = 0; intCtr < walkin.getPackages().size(); intCtr++){
@@ -129,11 +135,12 @@ public class WalkInJDBCRepository implements WalkInRepository{
 			
 			insertPackage.executeBatch();
 			insertPackage.clearBatch();
-			insertPackage.close();
+			
 			insertDetail.executeBatch();
 			insertDetail.clearBatch();
-			insertDetail.close();
 			
+			
+			System.out.println(walkin.getPromo().size());
 			
 			//Batch insert for promo included
 			for(int intCtr = 0; intCtr < walkin.getPromo().size(); intCtr++){
@@ -163,8 +170,6 @@ public class WalkInJDBCRepository implements WalkInRepository{
 						intEmpAssignmentID = insertEmpAssignmentResult.getInt(1);
 					}
 					
-					insertEmpAssignmentResult.close();
-					
 					insertPromoPackage.setInt(1, walkID);
 					insertPromoPackage.setInt(2, intEmpAssignmentID);
 					insertPromoPackage.setInt(3, packagee.getPackages().getIntPackageID());
@@ -186,27 +191,37 @@ public class WalkInJDBCRepository implements WalkInRepository{
 							insertDetail.addBatch();
 						}
 					}
-					
-					for(int intCtr2 = 0; intCtr2 < walkin.getServices().size(); intCtr2++){
-						
-						//current service in the loop
-						ServiceWalkIn service = promo.getServices().get(intCtr2);
-						
-						insertServicePromo.setInt(1, walkID);
-						insertServicePromo.setInt(2, service.getService().getIntServiceID());
-						insertServicePromo.setInt(3, service.getEmployeeAssigned().getIntEmpID());
-						insertDetail.setString(4, service.getStrServiceStatus());
-						insertServicePromo.addBatch();
-					}
 				}
 				
 				insertPromoPackage.executeBatch();
 				insertDetail.executeBatch();
+				insertPromoPackage.clearBatch();
+				insertDetail.clearBatch();
+				
+				for(int intCtr2 = 0; intCtr2 < promo.getServices().size(); intCtr2++){
+					
+					//current service in the loop
+					ServiceWalkIn service = promo.getServices().get(intCtr2);
+					
+					insertServicePromo.setInt(1, walkID);
+					insertServicePromo.setInt(2, service.getService().getIntServiceID());
+					insertServicePromo.setInt(3, service.getEmployeeAssigned().getIntEmpID());
+					insertServicePromo.setString(4, service.getStrServiceStatus());
+					insertServicePromo.addBatch();
+				}
+				
 				insertServicePromo.executeBatch();
-				insertPromoPackage.close();
-				insertDetail.close();
-				insertServicePromo.close();
+				insertServicePromo.clearBatch();
+				
 			}
+			
+			insertPromo.close();
+			walkInID.close();
+			insertPromoPackage.close();
+			insertDetail.close();
+			insertServicePromo.close();
+			insertEmpAssignmentResult.close();
+			insertPackage.close();
 			
 			con.commit();
 			con.close();
@@ -254,8 +269,8 @@ public class WalkInJDBCRepository implements WalkInRepository{
 			PreparedStatement insertServicePromo	= con.prepareStatement(createPromoService);
 			PreparedStatement preDiscount			= con.prepareStatement(createDiscount);
 			ResultSet insertWalkInResult;
-			ResultSet insertEmpAssignmentResult;
-			ResultSet walkInID;
+			ResultSet insertEmpAssignmentResult = null;
+			ResultSet walkInID = null;
 			
 			//Inserting new Walk-In record
 			insertWalkIn.setInt(1, walkin.getIntWalkInID());
@@ -290,6 +305,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 			//Executing product batch insert
 			insertProduct.executeBatch();
 			insertProduct.clearBatch();
+			insertProduct.close();
 			
 			//Inserting service batch
 			for(int intCtr = 0; intCtr < walkin.getServices().size(); intCtr++){
@@ -303,12 +319,14 @@ public class WalkInJDBCRepository implements WalkInRepository{
 			//Executing service batch insert
 			insertService.executeBatch();
 			insertService.clearBatch();
+			insertService.close();
 			
 			//Batch insert for packages included
 			for(int intCtr = 0; intCtr < walkin.getPackages().size(); intCtr++){
 				
 				insertEmpAssignmentResult = insertEmpAssignment.executeQuery();
-				
+				PackageWalkIn packagee = walkin.getPackages().get(intCtr);
+	
 				//parsing inserted Employee Assignment ID
 				while(insertEmpAssignmentResult.next()){
 					intEmpAssignmentID = insertEmpAssignmentResult.getInt(1);
@@ -322,21 +340,25 @@ public class WalkInJDBCRepository implements WalkInRepository{
 				insertPackage.addBatch();
 				
 				//Size of services inside each package
-				int intPackageServiceSize = walkin.getPackages().get(intCtr).getPackages().getServiceList().size();
+				int intPackageServiceSize = walkin.getPackages().get(intCtr).getServiceAssignment().size();
 				
-				for(int intCtrInner = 0; intCtrInner < intPackageServiceSize; intCtr++){
+				for(int intCtrInner = 0; intCtrInner < intPackageServiceSize; intCtrInner++){
 					insertDetail.setInt(1, intEmpAssignmentID);
-					insertDetail.setInt(2, walkin.getPackages().get(intCtr).getServiceAssignment().get(intCtrInner).getEmployeeAssigned().getIntEmpID());
-					insertDetail.setInt(3, walkin.getPackages().get(intCtr).getServiceAssignment().get(intCtrInner).getService().getIntServiceID());
-					insertDetail.setString(4, walkin.getPackages().get(intCtr).getServiceAssignment().get(intCtrInner).getStrServiceStatus());
+					insertDetail.setInt(2, packagee.getServiceAssignment().get(intCtrInner).getEmployeeAssigned().getIntEmpID());
+					insertDetail.setInt(3, packagee.getServiceAssignment().get(intCtrInner).getService().getIntServiceID());
+					insertDetail.setString(4, packagee.getServiceAssignment().get(intCtrInner).getStrServiceStatus());
 					insertDetail.addBatch();
 				}
 			}
 			
 			insertPackage.executeBatch();
 			insertPackage.clearBatch();
+			
 			insertDetail.executeBatch();
 			insertDetail.clearBatch();
+			
+			
+			System.out.println(walkin.getPromo().size());
 			
 			//Batch insert for promo included
 			for(int intCtr = 0; intCtr < walkin.getPromo().size(); intCtr++){
@@ -366,8 +388,6 @@ public class WalkInJDBCRepository implements WalkInRepository{
 						intEmpAssignmentID = insertEmpAssignmentResult.getInt(1);
 					}
 					
-					insertEmpAssignmentResult.close();
-					
 					insertPromoPackage.setInt(1, walkID);
 					insertPromoPackage.setInt(2, intEmpAssignmentID);
 					insertPromoPackage.setInt(3, packagee.getPackages().getIntPackageID());
@@ -389,27 +409,37 @@ public class WalkInJDBCRepository implements WalkInRepository{
 							insertDetail.addBatch();
 						}
 					}
-					
-					for(int intCtr2 = 0; intCtr2 < walkin.getServices().size(); intCtr2++){
-						
-						//current service in the loop
-						ServiceWalkIn service = promo.getServices().get(intCtr2);
-						
-						insertServicePromo.setInt(1, walkID);
-						insertServicePromo.setInt(2, service.getService().getIntServiceID());
-						insertServicePromo.setInt(3, service.getEmployeeAssigned().getIntEmpID());
-						insertDetail.setString(4, service.getStrServiceStatus());
-						insertServicePromo.addBatch();
-					}
 				}
 				
 				insertPromoPackage.executeBatch();
 				insertDetail.executeBatch();
+				insertPromoPackage.clearBatch();
+				insertDetail.clearBatch();
+				
+				for(int intCtr2 = 0; intCtr2 < promo.getServices().size(); intCtr2++){
+					
+					//current service in the loop
+					ServiceWalkIn service = promo.getServices().get(intCtr2);
+					
+					insertServicePromo.setInt(1, walkID);
+					insertServicePromo.setInt(2, service.getService().getIntServiceID());
+					insertServicePromo.setInt(3, service.getEmployeeAssigned().getIntEmpID());
+					insertServicePromo.setString(4, service.getStrServiceStatus());
+					insertServicePromo.addBatch();
+				}
+				
 				insertServicePromo.executeBatch();
-				insertPromoPackage.close();
-				insertDetail.close();
-				insertServicePromo.close();
+				insertServicePromo.clearBatch();
+				
 			}
+			
+			insertPromo.close();
+			walkInID.close();
+			insertPromoPackage.close();
+			insertDetail.close();
+			insertServicePromo.close();
+			insertEmpAssignmentResult.close();
+			insertPackage.close();
 			
 			con.commit();
 			con.close();
@@ -437,9 +467,61 @@ public class WalkInJDBCRepository implements WalkInRepository{
 	}
 
 	@Override
+	public List<WalkIn> getAllWalkInNoDetails() {
+
+		List<WalkIn> walkin 			= new ArrayList<WalkIn>();
+		List<ProductWalkIn> productList = new ArrayList<ProductWalkIn>();
+		List<ServiceWalkIn> serviceList = new ArrayList<ServiceWalkIn>();
+		List<PackageWalkIn> packageList = new ArrayList<PackageWalkIn>();
+		List<PromoWalkIn> promoList 	= new ArrayList<PromoWalkIn>();
+		Connection con 					= jdbc.getConnection();
+		String getAllWalkIn				= "SELECT * FROM tblWalkIn WHERE strStatus <> 'CANCELLED';";
+		
+		try{
+			
+			PreparedStatement allWalkIn = con.prepareStatement(getAllWalkIn);
+			ResultSet walkInResult 		= allWalkIn.executeQuery();
+			
+			while(walkInResult.next()){
+				int intWalkInID = walkInResult.getInt(1);
+				String strName = walkInResult.getString(2);
+				String strContact = walkInResult.getString(3);
+				Date dateCreated = walkInResult.getDate(4);
+				int intInvoiceID = walkInResult.getInt(5);
+				String strStatus = walkInResult.getString(6);
+				String paymentStatus = "PAID";
+				
+/*				ReservationRepository repo = new ReservationJDBCRepository();
+				Invoice invoice = repo.getInvoice(intInvoiceID);
+				
+				if(invoice.getPaymentList().size() == 0){
+					paymentStatus = "UNPAID";
+				}
+			
+				try{
+					walkin.add(new WalkIn(intWalkInID, strName, "walkin", strContact, dateCreated, serviceList, productList, packageList, promoList, invoice, invoice.getPaymentList().get(0), paymentStatus, strStatus));
+				}
+				catch(IndexOutOfBoundsException ib){
+					walkin.add(new WalkIn(intWalkInID, strName, "walkin", strContact, dateCreated, serviceList, productList, packageList, promoList, invoice, null, paymentStatus, strStatus));
+				}
+*/
+				walkin.add(new WalkIn(intWalkInID, strName, "walkin", strContact, dateCreated, serviceList, productList, packageList, promoList, null, null, paymentStatus, strStatus));
+			}
+		
+			return walkin;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
 	public List<WalkIn> getAllWalkIn() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
 
 }

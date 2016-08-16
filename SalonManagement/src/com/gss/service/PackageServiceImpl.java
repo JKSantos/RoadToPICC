@@ -54,4 +54,12 @@ public class PackageServiceImpl implements PackageService{
 
 	}
 
+	@Override
+	public List<Package> queryAllPackage() {
+		
+		PackageRepository repo = new PackageJDBCRepository();
+		
+		return repo.queryAllPackage();
+	}
+
 }

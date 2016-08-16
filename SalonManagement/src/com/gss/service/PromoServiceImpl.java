@@ -53,4 +53,12 @@ public class PromoServiceImpl implements PromoService{
 		return repo.getPromoByID(promoID);
 	}
 
+	@Override
+	public List<Promo> queryAllPromo() {
+
+		PromoRepository repo = new PromoJDBCRepository();
+		
+		return repo.queryAllPromo();
+	}
+
 }
