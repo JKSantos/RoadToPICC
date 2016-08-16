@@ -4,18 +4,22 @@
         .module('app')
         .controller('paymentCtrl', paymentCtrl);
 
-    function paymentCtrl($scope, $filter, SweetAlert, DTOptionsBuilder, DTColumnDefBuilder, paymentFactory) {
+    function paymentCtrl($scope, $filter, SweetAlert, DTOptionsBuilder, DTColumnDefBuilder, DTDefaultOptions, paymentFactory) {
         var vm = this;
         vm.dateFormat = ["MMMM/D/YYYY"];
+        vm.type = [{
+            option1: "order",
+            option2: "walkin",
+            option3: "reservation"
+        }];
         vm.createPOPayment = createPOPayment;
         vm.paymentSubmit = paymentSubmit;
-
-        vm.dtOptions = DTOptionsBuilder.newOptions()
-            .withPaginationType('full_numbers')
-            .withDisplayLength(10)
-            .withLanguage({
-                "sLoadingRecords": "Loading..."
-            });
+        // vm.dtOptions = DTOptionsBuilder.newOptions()
+        //     .withPaginationType('full_numbers')
+        //     .withDisplayLength(10)
+        //     .withLanguage({
+        //         "sLoadingRecords": "Loading..."
+        //     });
         vm.dtColumnDefs = [
             DTColumnDefBuilder.newColumnDef(0),
             DTColumnDefBuilder.newColumnDef(1).notSortable(),
@@ -28,10 +32,12 @@
 
         paymentFactory.getUnpaidPayments().then(function (data) {
             vm.paymentList = data.orderList;
-            console.log(vm.paymentList);
+        });
+        paymentFactory.getUnpaidPayments().then(function (data) {
+            vm.payReservationList = data.reservationList;
         });
 
-        function createPOPayment(payment, index) {
+        function createPOPayment(payment, index, type) {
             $('#paymentModal').openModal({
                 dismissible: true, // Modal can be dismissed by clicking outside of the modal
                 opacity: .7, // Opacity of modal background
@@ -39,7 +45,9 @@
                 out_duration: 200, // Transition out duration
             });
             vm.paymentType = [{
-                option: 'FULL PAYMENT'
+                option1: 'FULL PAYMENT',
+                option2: 'DOWN PAYMENT',
+                option3: 'COMPLIMENTARY PAYMENT'
             }];
             vm.paymentDetails = [];
             vm.paymentDetails = {
@@ -55,9 +63,11 @@
                 strName: payment.strName,
                 strStatus: payment.strStatus,
                 paymentCreated: new Date(),
-                index: index
+                index: index,
+                type: type //reservation or walkin or order
             };
-            vm.paymentDetails.paymentType = vm.paymentType[0].option;
+            console.log(vm.paymentDetails.type + index + type);
+            vm.paymentDetails.paymentType = vm.paymentType[0].option1;
             vm.paymentDetails.paymentCreated = $filter('date')(vm.paymentDetails.paymentCreated, "MMMM/d/yyyy");
             vm.paymentDetails.totalBalance = $filter('currency')(vm.paymentDetails.invoice.dblTotalPrice, "Php ");
             vm.paymentDetails.remainingBalance = $filter('currency')(vm.paymentDetails.invoice.dblRemainingBalance, "Php ");
@@ -67,18 +77,13 @@
 
         function paymentSubmit(payment) {
             var paymentData = {
-                "payment.intPaymentID": payment.intSalesID,
-                "payment.intInvoiceID": payment.invoice.intInvoiceID,
-                "payment.strPaymentType": "order",
-                "payment.dblPaymentAmount": payment.paymentAmount,
-                "payment.datDateOfPayment": payment.paymentCreated
-            };
-            var j = angular.toJson(paymentData);
-            var paymentList = {
-                "payment": paymentData,
+                "intPaymentID": payment.intSalesID,
+                "intInvoiceID": payment.invoice.intInvoiceID,
+                "strPaymentType": payment.type,
+                "dblPaymentAmount": payment.paymentAmount,
+                "datDateOfPayment": payment.paymentCreated,
                 "paymentType": payment.paymentType
             };
-            console.log(paymentList);
             console.log(paymentData);
             swal({
                     title: "Create the payment for " + payment.strName + "?",
@@ -95,13 +100,14 @@
                         $.ajax({
                             url: 'createPayment',
                             type: 'post',
-                            data: paymentList,
+                            data: paymentData,
                             dataType: 'json',
                             async: true,
                             success: function (data) {
                                 if (data.result == "success") {
                                     SweetAlert.swal("Successfully created!", ".", "success");
                                     vm.paymentList.splice(payment.index, 1);
+                                    $('#paymentModal').closeModal();
                                 } else {
                                     SweetAlert.swal("Oops", "Something went wrong!", "error");
                                 }

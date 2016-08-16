@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.Date;
 
 import com.gss.model.Payment;
+import com.gss.utilities.DateHelper;
 
 public class CreatePaymentAction {
 
@@ -11,16 +12,16 @@ public class CreatePaymentAction {
 	private int intInvoiceID;			//real data
 	private String strPaymentType;		//"order", "walkin", or "reservation"
 	private double dblPaymentAmount;	//real data
-	private Date datDateOfPayment;
+	private String datDateOfPayment;		
 	
 	private String paymentType;
 	private String result = "failed";
 	
 	public String execute() throws SQLException{
 		
+		String unconvertedDate = new DateHelper().convert(this.datDateOfPayment.split("/"));
 		
-		
-		boolean recorded = Payment.createPayment(paymentType, new Payment(intPaymentID, intInvoiceID, strPaymentType, dblPaymentAmount, datDateOfPayment));
+		boolean recorded = Payment.createPayment(paymentType, new Payment(intPaymentID, intInvoiceID, strPaymentType, dblPaymentAmount, DateHelper.parseDate(unconvertedDate)));
 		
 		if(recorded == true)
 			result = "success";
@@ -68,14 +69,6 @@ public class CreatePaymentAction {
 		this.dblPaymentAmount = dblPaymentAmount;
 	}
 
-	public Date getDatDateOfPayment() {
-		return datDateOfPayment;
-	}
-
-	public void setDatDateOfPayment(Date datDateOfPayment) {
-		this.datDateOfPayment = datDateOfPayment;
-	}
-
 	public String getPaymentType() {
 		return paymentType;
 	}
@@ -83,6 +76,15 @@ public class CreatePaymentAction {
 	public void setResult(String result) {
 		this.result = result;
 	}
+
+	public String getDatDateOfPayment() {
+		return datDateOfPayment;
+	}
+
+	public void setDatDateOfPayment(String datDateOfPayment) {
+		this.datDateOfPayment = datDateOfPayment;
+	}
+	
 	
 	
 }

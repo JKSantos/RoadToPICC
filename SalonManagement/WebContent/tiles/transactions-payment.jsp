@@ -5,8 +5,8 @@
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
             <h3 class="grey-text center text-darken-1">Product Maintenance</h3>
-            <a class="btnshadow hoverable z-depth-1 waves-effect waves-light modal-trigger btn-flat purple darken-2 left white-text"
-               href="#" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">add</i></a>
+            <!--<a class="btnshadow hoverable z-depth-1 waves-effect waves-light modal-trigger btn-flat purple darken-2 left white-text"-->
+               <!--href="#" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">add</i></a>-->
             <nav class="right white hoverable  z-depth-1" style="width: 300px; margin-right: 20px;">
                 <div class="nav-wrapper col s4">
                     <form>
@@ -19,8 +19,8 @@
                 </div>
             </nav>
             <table id="paymentTable" datatable="ng" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs"
-                   class="row-border hoverable cell-border z-depth-1"
-                   style="margin-top: -15px !important;">
+                   class="row-border hoverable cell-border z-depth-1" rowspan="10"
+                   style="margin-top: -20px !important;">
                 <thead>
                 <tr>
                     <th class="left-align">Customer Name</th>
@@ -44,7 +44,8 @@
                 </tr>
                 </tfoot>
                 <tbody>
-                <tr ng-repeat="payment in vm.paymentList">
+                <tr ng-repeat="payment in vm.paymentList"
+                    ng-if="payment.strStatus != 'COMPLETE'">
                     <td class="left-align">{{ payment.strName }}</td>
                     <td class="left-align">Product Order</td>
                     <td class="right-align">{{ payment.datCreated }}</td>
@@ -57,7 +58,26 @@
                     <td class="center-align">
                         <button class="waves-effect waves-purple btn-flat transparent black-text"
                                 style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Payment"
-                                ng-click="vm.createPOPayment(payment, $index)">
+                                ng-click="vm.createPOPayment(payment, $index, vm.type[0].option1)">
+                            <i class='material-icons medium'>payment</i>
+                        </button>
+                    </td>
+                </tr>
+                <tr ng-repeat="reserve in vm.payReservationList"
+                    ng-if="reserve.strStatus != 'COMPLETE'">
+                    <td class="left-align">{{ reserve.customer.strName }}</td>
+                    <td class="left-align">Reservation</td>
+                    <td class="right-align">{{ reserve.datCreated }}</td>
+                    <td class="left-align">
+                        <span ng-if="reserve.intReservationType==1">HOME SERVICE</span>
+                        <span ng-if="reserve.intReservationType==2">EVENT</span>
+                    </td>
+                    <td class="right-align">{{ reserve.invoice.dblTotalPrice | currency: "Php " }}</td>
+                    <td class="right-align">{{ reserve.invoice.dblRemainingBalance | currency: "Php " }}</td>
+                    <td class="center-align">
+                        <button class="waves-effect waves-purple btn-flat transparent black-text"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Payment"
+                                ng-click="vm.createPOPayment(reserve, $index, vm.type[0].option3)">
                             <i class='material-icons medium'>payment</i>
                         </button>
                     </td>
@@ -97,7 +117,11 @@
                     <div class="input-field col s6">
                         <select id="paymentDetails.type"
                                 ng-model="vm.paymentDetails.paymentType">
-                            <option value="{{vm.paymentType[0].option}}" selected>Full Payment</option>
+                            <option value="{{vm.paymentType[0].option1}}" selected>Full Payment</option>
+                            <option ng-if="vm.paymentDetails.type == 'reservation'"
+                                    value="{{vm.paymentType[0].option2}}">Down Payment</option>
+                            <option ng-if="vm.paymentDetails.type=='reservation' || vm.paymentDetails.type=='walkin'"
+                                    value="{{vm.paymentType[0].option2}}">Complementary Payment</option>
                         </select>
                     </div>
                     <div class="input-field col s6">

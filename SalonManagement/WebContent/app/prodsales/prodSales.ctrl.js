@@ -134,7 +134,7 @@
                 price: orders.price,
                 index: index
             };
-        }
+        };
 
         $scope.editInCart = function (order) {
             $('#editItem').closeModal();
@@ -263,7 +263,7 @@
                                         orderDetails: '',
                                         subtotal: 0
                                     }];
-                                    console.log(psdata);
+                                    $window.location.reload();
                                 } else {
                                     SweetAlert.swal("Oops", "Something went wrong!", "error");
                                 }

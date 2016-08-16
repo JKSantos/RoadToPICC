@@ -25,8 +25,7 @@
 
             <table id="reservationtbl"
                    class="hoverable z-depth-1 cell-border row-border display centered responsive-table highlight"
-                   cellspacing="0"
-                   width="100%"
+                   datatable="ng" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs"
                    style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;" rowspan="10">
                 <thead>
                 <tr>
