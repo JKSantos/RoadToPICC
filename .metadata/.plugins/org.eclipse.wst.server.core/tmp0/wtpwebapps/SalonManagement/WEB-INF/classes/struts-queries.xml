@@ -16,7 +16,7 @@
 						 class="org.apache.struts2.views.tiles.TilesResult" />
 		</result-types>
 
-		<action name="employeeQueries" class="com.gss.actions.QueriesAction" method="execute">
+		<action name="employeeQueries" class="com.gss.actions.QueriesAction" method="getEmployee">
 			<result name="success" type="tiles">queriesEmployee</result>
 		</action>
 	

@@ -1,12 +1,24 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<div class="wrapper" ng-controller="queryController as vm">
+<div class="wrapper" ng-controller="empQueryController as vm">
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
             <h3 class="grey-text center text-darken-1">Query</h3>
             <!--<a class="btnshadow hoverable z-depth-1 waves-effect waves-light modal-trigger btn-flat purple darken-2 left white-text"-->
                <!--href="#" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">add</i></a>-->
+            <div class="row">
+                <div class="input-field col s3">
+                    <select ng-model="filter.aiFilter"
+                            ng-options="position as position.strEmpValue for position in vm.aifilter">
+                    </select>
+                </div>
+                <div class="input-field col s3">
+                    <select>
+                        <option ng-repeat="pos in vm.position" value="{{pos}}">{{pos}}</option>
+                    </select>
+                </div>   
+            </div>
             <nav class="right white hoverable  z-depth-1" style="width: 300px; margin-right: 20px;">
                 <div class="nav-wrapper col s4">
                     <form>
@@ -19,48 +31,47 @@
                 </div>
             </nav>
             <table id="employeeQueryTable" datatable="ng" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs"
-                   class="row-border hoverable cell-border z-depth-1" rowspan="10"
+                   class="row-border hoverable cell-border responsive z-depth-1" rowspan="10"
                    style="margin-top: -20px !important;">
                 <thead>
                 <tr>
-                    <th class="left-align">Customer Name</th>
-                    <th class="left-align">Transaction Name</th>
-                    <th class="right-align">Transaction Date</th>
-                    <th class="left-align">Transaction Type</th>
-                    <th class="right-align">Total Balance</th>
-                    <th class="right-align">Remaining Balance</th>
-                    <th class="center-align">Action</th>
+                    <th class="left-align">Name</th>
+                    <th class="left-align">Position</th>
+                    <th class="right-align">Contact</th>
+                    <th class="left-align">Email</th>
+                    <th class="left-align">Address</th>
+                    <th class="left-align">Status</th>
                 </tr>
                 </thead>
                 <tfoot>
                 <tr style="border: 1px solid #bdbdbd;">
-                    <th class="left-align">Customer Name</th>
-                    <th class="left-align">Transaction Name</th>
-                    <th class="right-align">Transaction Date</th>
-                    <th class="left-align">Transaction Type</th>
-                    <th class="right-align">Total Balance</th>
-                    <th class="right-align">Remaining Balance</th>
-                    <th class="center-align">Action</th>
+                    <th class="left-align">Name</th>
+                    <th class="left-align">Position</th>
+                    <th class="right-align">Contact</th>
+                    <th class="left-align">Email</th>
+                    <th class="left-align">Address</th>
+                    <th class="left-align">Status</th>
                 </tr>
                 </tfoot>
                 <tbody>
-                <tr ng-repeat="payment in vm.paymentList"
-                    ng-if="payment.strStatus != 'COMPLETE'">
-                    <td class="left-align">{{ payment.strName }}</td>
-                    <td class="left-align">Product Order</td>
-                    <td class="right-align">{{ payment.datCreated }}</td>
-                    <td class="left-align">
-                        <span ng-if="payment.intType==1">DELIVERY</span>
-                        <span ng-if="payment.intType==2">PICK UP</span>
+                <tr ng-repeat="employee in vm.employeeList | filter: AIFilter">
+                    <td class="left-align" style="width: 300px !important;"
+                        title="{{ employee.strEmpFirstName + ' ' + employee.strEmpMiddleName + ' ' + employee.strEmpLastName }}">
+                        {{ employee.strEmpFirstName + ' ' + employee.strEmpMiddleName + ' ' + employee.strEmpLastName }}
                     </td>
-                    <td class="right-align">{{ payment.invoice.dblTotalPrice | currency: "Php " }}</td>
-                    <td class="right-align">{{ payment.invoice.dblRemainingBalance | currency: "Php " }}</td>
-                    <td class="center-align">
-                        <button class="waves-effect waves-purple btn-flat transparent black-text"
-                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Payment"
-                                ng-click="vm.createPOPayment(payment, $index, vm.type[0].option1)">
-                            <i class='material-icons medium'>payment</i>
-                        </button>
+                    <td class="left-align" style="width: 300px !important;">
+                        {{ employee.jobQualification.strJobDesc}},
+                    </td>
+                    <td class="right-align">{{ employee.strEmpContactNo }}</td>
+                    <td class="left-align" style="width: 100px !important;">{{ employee.strEmpEmail }}</td>
+                    <td class="left-align">{{ employee.strEmpAddress }}</td>
+                    <td class="left-align"
+                        ng-if="strEmpStatus == 'I'">
+                        INACTIVE
+                    </td>
+                    <td class="left-align"
+                        ng-if="strEmpStatus != 'I'">
+                        ACTIVE
                     </td>
                 </tr>
                 </tbody>

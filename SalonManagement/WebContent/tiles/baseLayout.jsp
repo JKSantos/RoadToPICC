@@ -113,8 +113,19 @@
             </ul>
             <ul class="collapsible" data-collapsible="accordion">
                 <li>
-                    <a class="collapsible-header" href="employeeQueries"><i
-                            class="material-icons">search</i><b>Queries</b></a>
+                    <a class="collapsible-header"><i class="material-icons">search</i><b>Queries</b></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="employeeQueries">Employee</a></li>
+                            <li><a href="">Product</a></li>
+                            <li><a href="">Service</a></li>
+                            <li><a href="">Package</a></li>
+                            <li><a href="">Delivery Charge</a></li>
+                            <li><a href="">Other Charge</a></li>
+                            <li><a href="">Promo</a></li>
+                            <li><a href="">Discount</a></li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
             <ul class="collapsible" data-collapsible="accordion">
@@ -210,7 +221,7 @@
 <script type="text/javascript" src="app/reservation/reservation.ctrl.js"></script>
 <script type="text/javascript" src="app/reservation/reservation-table.ctrl.js"></script>
 <script type="text/javascript" src="app/queries/queryFactory.fac.js"></script>
-<script type="text/javascript" src="app/queries/queryController.ctrl.js"></script>
+<script type="text/javascript" src="app/queries/employee/empQueryController.ctrl.js"></script>
 
 
 

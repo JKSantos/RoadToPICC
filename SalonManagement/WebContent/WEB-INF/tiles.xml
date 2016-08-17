@@ -85,7 +85,7 @@
 
     <definition name="queriesEmployee" extends="baseLayout">
         <put-attribute name="title"         value="Queries"/>
-        <put-attribute name="body"          value="/tiles/queries.jsp"/>
+        <put-attribute name="body"          value="/tiles/queries-employee.jsp"/>
     </definition>
 
     <definition name="home" extends="baseLayout">
