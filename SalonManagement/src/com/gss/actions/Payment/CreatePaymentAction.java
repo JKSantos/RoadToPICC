@@ -4,8 +4,10 @@ import java.sql.SQLException;
 import java.util.Date;
 
 import com.gss.model.Payment;
+import com.gss.model.ProductSales;
 import com.gss.utilities.DateHelper;
 import com.gss.utilities.PriceFormatHelper;
+import com.gss.utilities.Receipt;
 
 public class CreatePaymentAction {
 
@@ -18,14 +20,23 @@ public class CreatePaymentAction {
 	private String paymentType;
 	private String result = "failed";
 	
+	private String url;
 	public String execute() throws Exception{
 		
 		String unconvertedDate = new DateHelper().convert(this.datDateOfPayment.split("/"));
+		Payment payment = new Payment(intPaymentID, intInvoiceID, strPaymentType, PriceFormatHelper.convertToDouble(dblPaymentAmount, "Php "),this.paymentType,DateHelper.parseDate(unconvertedDate));
 		
-		boolean recorded = Payment.createPayment(paymentType, new Payment(intPaymentID, intInvoiceID, strPaymentType, PriceFormatHelper.convertToDouble(dblPaymentAmount, "Php "),this.paymentType,DateHelper.parseDate(unconvertedDate)));
+		boolean recorded = Payment.createPayment(paymentType, payment);
 		
-		if(recorded == true)
+		if(recorded == true){
 			result = "success";
+			
+			Receipt receipt = new Receipt();
+			
+			receipt.createProductSalesReceipt(ProductSales.search(this.intInvoiceID, ProductSales.getAllProductSales()), "JEFFREY SANTOS", this.datDateOfPayment, payment);
+
+		}
+
 		
 		return result;
 	}
@@ -80,6 +91,10 @@ public class CreatePaymentAction {
 
 	public void setDblPaymentAmount(String dblPaymentAmount) {
 		this.dblPaymentAmount = dblPaymentAmount;
+	}
+
+	public String getUrl() {
+		return url;
 	}
 	
 	

@@ -164,7 +164,7 @@
                                     vm.paymentList.splice(index, 1);
                                     $('#paymentModal').closeModal();
                                 } else {
-                                    SweetAlert.swal("Oops", "Something went wrong!", "error");
+                                    SweetAlert.swal("Oops", "Record Not Saved!", "error");
                                 }
                             },
                             error: function () {

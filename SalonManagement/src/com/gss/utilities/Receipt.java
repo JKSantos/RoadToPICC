@@ -39,8 +39,7 @@ import com.itextpdf.text.pdf.PdfWriter;
  
 public class Receipt {
 
-	private final static String DESTINATION = "C:/java/sample.pdf";
-	
+	private String DESTINATION ="C:/Receipts/Receipt.pdf";
 	private String cashier;
 	private ProductSales sales;
 	private WalkIn walkin;
@@ -65,6 +64,7 @@ public class Receipt {
     	
     	this.orNum = hour + minute + second + millis + day + month + year;
     
+    	//this.DESTINATION = "C:java/" +this.sales.getStrName() + "(" + this.orNum + ").pdf";
     	Document document = createDocument();
         document.open();
 
@@ -116,7 +116,14 @@ public class Receipt {
     
     public Paragraph getDetails(){
     	
-    	PdfPCell dateCell = new PdfPCell(new Phrase("Date:" + this.payment.getDatDateOfPayment() + "\n", getFont()));
+    	Calendar cal = Calendar.getInstance();
+    	cal.setTime(this.payment.getDatDateOfPayment());
+    	
+    	int month = cal.get(Calendar.MONTH);
+    	int day = cal.get(Calendar.DAY_OF_MONTH);
+    	int year = cal.get(Calendar.YEAR);
+    	
+    	PdfPCell dateCell = new PdfPCell(new Phrase("Date:" + month + "-" + day + "-" + year + "\n", getFont()));
     	PdfPCell ORCell = new PdfPCell(new Phrase("Trans #:" + this.orNum, getFont()));
     	PdfPCell cashierCell = new PdfPCell(new Phrase("Cashier:" + this.cashier + "\n", getFont()));
     	
@@ -237,7 +244,7 @@ public class Receipt {
 
     public Image getImage() throws BadElementException, MalformedURLException, IOException{
     	
-    	Image image2 = Image.getInstance("resources/Salon.jpg");
+    	Image image2 = Image.getInstance("resource/Company/Company_Logo.jpg");
  	    image2.scaleAbsolute(50f, 50f);
  	    image2.setAbsolutePosition(10,(490 - image2.getScaledHeight()));
  	    
@@ -245,17 +252,15 @@ public class Receipt {
     }
     
     public Font getFont(){
-    	FontFactory.register("resources/Fonts/DejaVuSans-Oblique.ttf", "DEJAVU_SANS");
-        FontFactory.register("resources/Fonts/fake receipt.ttf", "RECEIPT");
-        FontFactory.register("resources/Fonts/dotty.ttf", "DOTTY");
-        FontFactory.register("resources/Fonts/Merchant Copy Wide.ttf", "8PIN");
+    	
+        FontFactory.register("Merchant Copy Wide.ttf", "8PIN");
         Font font = FontFactory.getFont("8PIN", 9);
         
         return font;
     }
     
     public Font getBiggerFont(int size){
-    	FontFactory.register("resources/Fonts/Merchant Copy Wide.ttf", "8PIN");
+    	FontFactory.register("Merchant Copy Wide.ttf", "8PIN");
         Font font = FontFactory.getFont("8PIN", size);
         
         return font;
@@ -293,9 +298,11 @@ public class Receipt {
     	
     	double paymentAmount = this.payment.getDblPaymentAmount();
     	double totalAmount = this.sales.getInvoice().getDblTotalPrice();
-    	double change = totalAmount - paymentAmount;
+    	double change = paymentAmount - totalAmount;
     	
-    	PdfPCell cellHeader = new PdfPCell(new Phrase("-----------------------5 ITEMS---------------------", getFont()));
+    	int count = this.sales.getProductList().size();
+    	
+    	PdfPCell cellHeader = new PdfPCell(new Phrase("-----------------------"+ count +" ITEMS---------------------", getFont()));
     	PdfPCell totalLabel = new PdfPCell(new Phrase("TOTAL", getBiggerFont(11)));
     	PdfPCell totalValue = new PdfPCell(new Phrase(String.valueOf(totalAmount), getBiggerFont(11)));
     	PdfPCell cashLabel = new PdfPCell(new Phrase("    Cash", getFont()));

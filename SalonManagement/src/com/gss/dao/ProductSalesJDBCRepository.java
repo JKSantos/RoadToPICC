@@ -333,13 +333,13 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 			
 			List<Discount> savedDiscounts = discountService.getAllDiscount();
 			List<ExtraCharge> savedExtraCharge = extraService.getAllExtraCharges();
-			totalAmount = invoiceSet.getDouble(3);
+			
 			List<Payment> paymentList = new ArrayList<Payment>();
 			System.out.println(totalAmount + "   ....");
 			while(invoiceSet.next()){
 				
 				date = invoiceSet.getDate(2);
-				
+				totalAmount = invoiceSet.getDouble(3);
 				
 				
 				preDiscount.setInt(1, intInvoiceID);
