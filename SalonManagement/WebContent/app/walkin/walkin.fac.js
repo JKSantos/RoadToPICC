@@ -19,16 +19,30 @@
     		var topID = walkinDetails.length + 1;
         walkinDetails.push({
       		  id: topID,
-          	strName: name,
-  	        strContactNo: contact,
-  	        productString: selectprod,
+          	name: name,
+  	        contact: contact,
+  	        email: email,
+  	        selectedProducts: selectprod,
   	        productQuantity: quantprod,
   	        serviceDetails: serviceDetails,
   	        packageList: packageDetails,
   	        promoList: promoDetails,
-  	        discounts: selectdiscount,
+  	        selectedDiscounts: selectdiscount,
   	        strTotalPrice: total  
     	  });
+        var walkindata = {
+            id: topID,
+            strName: name,
+            strContactNo: contact,
+            email: email,
+            selectedProducts: selectprod,
+            productQuantity: quantprod,
+            serviceDetails: serviceDetails,
+            packageList: packageDetails,
+            promoList: promoDetails,
+            selectedDiscounts: selectdiscount,
+            strTotalPrice: total 
+        }
         swal({
                 title:"",
                 text: "",
@@ -47,7 +61,23 @@
                         success: function (data) {
                             if (data.status == "success") {
                                 SweetAlert.swal("Successfully created!", ".", "success");
-                                $('#createWalkinModal').closeModal();
+                                console.log($scope.customerDetails[1]);
+                                $scope.requestOrder.push({
+                                    strName: myData.strName,
+                                    intType: myData.orderType
+                                });
+                                console.log($scope.requestOrder);
+                                $('#crProductSales').closeModal();
+                                $scope.customerDetails = [{
+                                    orderType: '',
+                                    contactNumber: '',
+                                    name: '',
+                                    Street: '',
+                                    location: '',
+                                    orderDetails: '',
+                                    subtotal: 0
+                                }];
+                                $window.location.reload();
                             } else {
                                 SweetAlert.swal("Oops", "Something went wrong!", "error");
                             }

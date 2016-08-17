@@ -59,7 +59,7 @@
                     <th class="dt-head-left">Customer Type</th>
                     <th class="dt-head-left">Reservation Type</th>
                     <th class="dt-head-left no-sort">Venue</th>
-                    <th class="dt-head-right">Date of event</th>
+                    <th class="dt-head-right">Reservation Date</th>
                     <th class="dt-head-left">Status</th>
                     <th align="dt-head-center" class="no-sort">Action</th>
                 </tr>

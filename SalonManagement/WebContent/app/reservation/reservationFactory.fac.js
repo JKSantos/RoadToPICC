@@ -54,12 +54,41 @@
         });
         },
         moveToPayment: function(id){
-           for (var i = reservationDetails.length - 1; i >= 0; i--) {
-                 if (reservationDetails[i].id === id) {
-                   reservationDetails.splice(i, 1);
-                     break;
-                 }
-             }
+          swal({
+                title:"",
+                text: "",
+                type: "",
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
+            },
+            function () {
+                setTimeout(function () {
+                    $.ajax({
+                        url: 'createReservation',
+                        type: 'post',
+                        data: reservationDetails,
+                        dataType: 'json',
+                        async: true,
+                        success: function (data) {
+                            if (data.status == "success") {
+                                SweetAlert.swal("Successfully created!", ".", "success");
+                                for (var i = reservationDetails.length - 1; i >= 0; i--) {
+                                      if (reservationDetails[i].id === id) {
+                                        reservationDetails.splice(i, 1);
+                                          break;
+                                      }
+                                  }
+                                $('#createReservationModal').closeModal();
+                            } else {
+                                SweetAlert.swal("Oops", "Something went wrong!", "error");
+                            }
+                        },
+                        error: function () {
+                            SweetAlert.swal("Oops", "Something went wrong!", "error");
+                        }
+                    });
+                }, 1000);
+            });
         }
     }
   }
