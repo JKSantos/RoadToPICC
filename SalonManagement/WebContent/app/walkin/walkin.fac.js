@@ -5,22 +5,23 @@
     .module('app')
     .factory('walkinFactory', walkinFactory)
 
-    function walkinFactory(){
+    function walkinFactory(SweetAlert){
       var walkinDetails = [];
       
       return{
     	  getCustomers: function(){
     		  return walkinDetails;
     	  },
-    	  insertCustomer: function(name, contact, email,
-					     selectprod, quantprod, packageDetails, promoDetails,
+    	  insertCustomer: function(name, contact, email, selectEmp,
+					   selectprod, quantprod, packageDetails, promoDetails,
 	  					 serviceDetails, selectdiscount, total){
     		console.log("I'm on insert!");
+    		console.log(total);
     		var topID = walkinDetails.length + 1;
         walkinDetails.push({
       		  id: topID,
-          	strName: name,
-  	        strContactNo: contact,
+          	name: name,
+  	        contact: contact,
   	        productString: selectprod,
   	        productQuantity: quantprod,
   	        serviceDetails: serviceDetails,
@@ -29,7 +30,17 @@
   	        discounts: selectdiscount,
   	        strTotalPrice: total  
     	  });
-        swal({
+       console.log(walkinDetails);
+        	
+        },
+        moveToPayment: function(id){
+        	 for (var i = walkinDetails.length - 1; i >= 0; i--) {
+                 if (walkinDetails[i].id === id) {
+                	 walkinDetails.splice(i, 1);
+                     break;
+                 }
+             }
+         swal({
                 title:"",
                 text: "",
                 type: "",
@@ -41,32 +52,21 @@
                     $.ajax({
                         url: 'createWalkin',
                         type: 'post',
-                        data: psdata,
+                        data: walkinDetails,
                         dataType: 'json',
                         async: true,
                         success: function (data) {
-                            if (data.status == "success") {
-                                SweetAlert.swal("Successfully created!", ".", "success");
+                                // SweetAlert.swal("Successfully created!", ".", "success");
+                               console.log("error");
+                               console.log(walkinDetails);
                                 $('#createWalkinModal').closeModal();
-                            } else {
-                                SweetAlert.swal("Oops", "Something went wrong!", "error");
-                            }
                         },
                         error: function () {
-                            SweetAlert.swal("Oops", "Something went wrong!", "error");
+                           consol.log("success"); // SweetAlert.swal("Oops", "Something went wrong!", "error");
                         }
                     });
                 }, 1000);
             });
-        	
-        },
-        moveToPayment: function(id){
-        	 for (var i = walkinDetails.length - 1; i >= 0; i--) {
-                 if (walkinDetails[i].id === id) {
-                	 walkinDetails.splice(i, 1);
-                     break;
-                 }
-             }
         }
     }
   }
