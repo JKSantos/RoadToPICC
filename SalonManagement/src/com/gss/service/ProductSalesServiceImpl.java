@@ -64,4 +64,12 @@ public class ProductSalesServiceImpl implements ProductSalesService {
 		return repo.getAllProductRequest();	
 	}
 
+	@Override
+	public List<ProductSales> getAllProductSalesNoDetails() {
+
+		ProductSalesRepository repo = new ProductSalesJDBCRepository();
+		
+		return repo.getAllProductSalesNoDetails();	
+	}
+
 }
