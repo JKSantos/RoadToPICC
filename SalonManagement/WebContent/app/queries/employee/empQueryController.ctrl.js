@@ -12,6 +12,7 @@
             {"id": 1,"strEmpValue": 'ACTIVE'},
             {"id": 2,"strEmpValue": 'INACTIVE'}
             ];
+        vm.selOption = '';
         // vm.dtOptions = DTOptionsBuilder.newOptions()
         //     .withPaginationType('full_numbers')
         //     .withDisplayLength(10)
@@ -29,8 +30,10 @@
 
 
         queryFactory.getEmployee().then(function (data) {
-            vm.employeeList = data.employeeList;
+            vm.employeeList = data.data.employeeList;
+            console.log(vm.employeeList);
             vm.position = getPosition(vm.employeeList);
+            console.log(vm.position);
         });
 
         function getPosition(position) {

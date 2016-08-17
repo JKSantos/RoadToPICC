@@ -88,6 +88,16 @@
         <put-attribute name="body"          value="/tiles/queries-employee.jsp"/>
     </definition>
 
+    <definition name="queriesProduct" extends="baseLayout">
+        <put-attribute name="title"         value="Queries"/>
+        <put-attribute name="body"          value="/tiles/queries-product.jsp"/>
+    </definition>
+
+    <definition name="queriesService" extends="baseLayout">
+        <put-attribute name="title"         value="Queries"/>
+        <put-attribute name="body"          value="/tiles/queries-service.jsp"/>
+    </definition>
+
     <definition name="home" extends="baseLayout">
     	<put-attribute name="title"			value="Home"/>
     	<put-attribute name="body"			value="/tiles/admin-home.jsp"/>

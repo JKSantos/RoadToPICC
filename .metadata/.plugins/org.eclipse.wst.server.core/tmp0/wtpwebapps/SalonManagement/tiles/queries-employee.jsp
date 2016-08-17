@@ -9,28 +9,25 @@
                <!--href="#" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">add</i></a>-->
             <div class="row">
                 <div class="input-field col s3">
-                    <select ng-model="vm.filter.aiFilter"
-                            ng-options="position as position.strEmpValue for position in vm.aifilter">
+                    <select ng-model="vm.selOption">
+                        <option ng-repeat="position in vm.position" value="{{position}}">{{position}}</option>
                     </select>
                 </div>
-                <div class="input-field col s3">
-                    <select>
-                        <option ng-repeat="pos in vm.position" value="{{pos}}">{{pos}}</option>
-                    </select>
-                </div>   
             </div>
             <nav class="right white hoverable  z-depth-1" style="width: 300px; margin-right: 20px;">
                 <div class="nav-wrapper col s4">
                     <form>
                         <div class="input-field">
-                            <input id="querySearch" placeholder="Search" class="grey-text text-darken-4" type="search">
+                            <input id="querySearch" placeholder="Search" class="grey-text text-darken-4" type="search"
+                                    ng-model="queryEmployeeSearch">
                             <label for="querySearch"><i
                                     class="material-icons grey-text text-darken-4">search</i></label>
                         </div>
                     </form>
                 </div>
             </nav>
-            <table id="employeeQueryTable" datatable="ng" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs"
+            <div class="col s12">
+                <table id="employeeQueryTable" datatable="ng" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs"
                    class="row-border hoverable cell-border responsive z-depth-1" rowspan="10"
                    style="margin-top: -20px !important;">
                 <thead>
@@ -54,7 +51,8 @@
                 </tr>
                 </tfoot>
                 <tbody>
-                <tr ng-repeat="employee in vm.employeeList | filter: AIFilter">
+                <tr ng-repeat="employee in vm.employeeList | filter: filter.aiFilter
+                                                           | filter: queryEmployeeSearch">
                     <td class="left-align" style="width: 300px !important;"
                         title="{{ employee.strEmpFirstName + ' ' + employee.strEmpMiddleName + ' ' + employee.strEmpLastName }}">
                         {{ employee.strEmpFirstName + ' ' + employee.strEmpMiddleName + ' ' + employee.strEmpLastName }}
@@ -66,16 +64,17 @@
                     <td class="left-align" style="width: 100px !important;">{{ employee.strEmpEmail }}</td>
                     <td class="left-align">{{ employee.strEmpAddress }}</td>
                     <td class="left-align"
-                        ng-if="strEmpStatus == 'I'">
+                        ng-if="employee.strEmpStatus == 'I'">
                         INACTIVE
                     </td>
                     <td class="left-align"
-                        ng-if="strEmpStatus != 'I'">
+                        ng-if="employee.strEmpStatus == 'A'">
                         ACTIVE
                     </td>
                 </tr>
                 </tbody>
             </table>
+            </div>
 
         </div>
     </div>

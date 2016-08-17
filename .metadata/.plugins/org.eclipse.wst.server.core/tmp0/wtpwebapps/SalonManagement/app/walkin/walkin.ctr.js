@@ -236,7 +236,7 @@
     	  var promoDetails = vm.selPromoDetails;
     	  var serviceDetails = vm.selServiceDetails;
     	  
-    	  console.log(packageDetails);
+    	  console.log(total);
     	  console.log(promoDetails);
     	  console.log(serviceDetails);
     	  walkinFactory.insertCustomer(name, contact, email, selectEmp,

@@ -110,14 +110,12 @@
                         </ul>
                     </div>
                 </li>
-            </ul>
-            <ul class="collapsible" data-collapsible="accordion">
                 <li>
                     <a class="collapsible-header"><i class="material-icons">search</i><b>Queries</b></a>
                     <div class="collapsible-body">
                         <ul>
                             <li><a href="employeeQueries">Employee</a></li>
-                            <li><a href="">Product</a></li>
+                            <li><a href="productQueries">Product</a></li>
                             <li><a href="">Service</a></li>
                             <li><a href="">Package</a></li>
                             <li><a href="">Delivery Charge</a></li>
@@ -222,6 +220,7 @@
 <script type="text/javascript" src="app/reservation/reservation-table.ctrl.js"></script>
 <script type="text/javascript" src="app/queries/queryFactory.fac.js"></script>
 <script type="text/javascript" src="app/queries/employee/empQueryController.ctrl.js"></script>
+<script type="text/javascript" src="app/queries/employee/productQueryController.ctrl.js"></script>
 
 
 
