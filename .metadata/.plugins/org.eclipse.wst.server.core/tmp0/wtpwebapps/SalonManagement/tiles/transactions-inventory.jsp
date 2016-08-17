@@ -105,6 +105,16 @@
                                     <label for="defQty"><b>Quantity</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
+                                <div class="input-field col s12">
+                                    <select name="employees" id="empList">
+                                    	<c:forEach items="${ employeeList }" var="emp">
+                                    		<option value="${ emp.intEmpID }">${ emp.strEmpFirstName } ${ emp.strEmpLastName }</option>
+                                    	</c:forEach>
+                                    </select>
+                                    
+                                    <label for="empList"><b>Tagged by</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
+                                </div>
                                 <div class="input-field col s12" style="margin-top: 5%;">
                                     <input type="hidden" name="intTagType" id="tagTypeDef" value="1"/>
                                 </div>
@@ -138,6 +148,17 @@
                                     <input class="right-align" type="text" name="intQuantity" id="lostQty"
                                            maxlength="3" placeholder="1" required>
                                     <label for="lostQty"><b>Quantity</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
+                                </div>
+                                
+                                <div class="input-field col s12">
+                                    <select name="employees" id="empList2">
+                                    	<c:forEach items="${ employeeList }" var="emp">
+                                    		<option value="${ emp.intEmpID }">${ emp.strEmpFirstName } ${ emp.strEmpLastName }</option>
+                                    	</c:forEach>
+                                    </select>
+                                    
+                                    <label for="empList2"><b>Tagged by</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12" style="margin-top: 5%;">
@@ -174,6 +195,16 @@
                                            maxlength="3" placeholder="1" required>
                                     <label for="expiredQty"><b>Quantity</b><i class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
+                                <div class="input-field col s12">
+                                    <select name="employees" id="empList3">
+                                    	<c:forEach items="${ employeeList }" var="emp">
+                                    		<option value="${ emp.intEmpID }">${ emp.strEmpFirstName } ${ emp.strEmpLastName }</option>
+                                    	</c:forEach>
+                                    </select>
+                                    
+                                    <label for="empList3"><b>Tagged by</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
+                                </div>
                                 <div class="input-field col s12" style="margin-top: 5%;">
                                     <input type="hidden" name="intTagType" id="tagTypeExpired" value="3"/>
                                 </div>
@@ -207,7 +238,7 @@
                         <div class="row">
 
                             <!-- ///// IMPORTANT CODES /////////  DO NOT EDIT /////////////////////////////////////////////////////////-->
-                            <input type="hidden" name="intProductID" value="${product.intProductID}">
+                            <input type="text" name="intProductID" value="${product.intProductID}">
                             <input type="hidden" name="intType" value="1">
                             <!--///////////////////////////////////////////////////////////////////////////////////////////////////////-->
                             <div class="input-field col s8 offset-s2" style="margin-top: 5%;">
@@ -229,6 +260,17 @@
                                        value="${product.intProductQuantity}" min="1" disabled>
                                 <label for="addtotalstock" class="active black-text">Total Stock</label>
                             </div>
+                            
+                            <div class="input-field col s12">
+                                    <select name="employees" id="empList4">
+                                    	<c:forEach items="${ employeeList }" var="emp">
+                                    		<option value="${ emp.intEmpID }">${ emp.strEmpFirstName } ${ emp.strEmpLastName }</option>
+                                    	</c:forEach>
+                                    </select>
+                                    
+                                    <label for="empList4"><b>Tagged by</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
+                                </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -267,6 +309,17 @@
                                        value="${product.intProductQuantity}" min="1" disabled>
                                 <label for="minustotalstock" class="active black-text">Total Stock</label>
                             </div>
+                            
+                            <div class="input-field col s12">
+                                    <select name="employees" id="empList5">
+                                    	<c:forEach items="${ employeeList }" var="emp">
+                                    		<option value="${ emp.intEmpID }">${ emp.strEmpFirstName } ${ emp.strEmpLastName }</option>
+                                    	</c:forEach>
+                                    </select>
+                                    
+                                    <label for="empList5"><b>Tagged by</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
+                                </div>
                         </div>
                     </div>
                     <div class="modal-footer">

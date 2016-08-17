@@ -69,6 +69,8 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 			e1.printStackTrace();
 		}
 		
+		System.out.print("...." + sales.getProductList().size());
+		
 		try{
 			PreparedStatement createPayment		= con.prepareStatement(insertPayment);
 			PreparedStatement updateProducts	= con.prepareStatement(updateStock);
@@ -119,6 +121,7 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 			
 			PreparedStatement getAll 		= con.prepareStatement(getAllOrder);
 			PreparedStatement getAllDetails	= con.prepareStatement(getAllDet);
+			getAll.setInt(1, inInvoiceID);
 			ResultSet orders				= getAll.executeQuery();
 			ResultSet details;
 			
