@@ -21,7 +21,7 @@
 			<result name="input">page-login-first.jsp</result>
 		</action>
 		
-		<action name="walkinNoDetails" class="com.gss.actions.WalkIn.GetAllWalkInNoDetails">
+		<action name="GetAllWalkInNoDetails" class="com.gss.actions.WalkIn.GetAllWalkInNoDetails">
 			<result name="success" type="json"></result>
 		</action>
 

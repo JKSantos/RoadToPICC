@@ -13,7 +13,7 @@ public class UpdateStockAction {
 	private int intProductID;
 	private int intQuantity;
 	private int intType;
-	private int intEmployeeID;
+	private int employees;
 	
 	public String execute(){
 		
@@ -23,16 +23,16 @@ public class UpdateStockAction {
 		
 		if(intType == 1){
 			ProductTags addStock = new ProductTagImpl();
-			recorded = addStock.addStock(new ProductTag(1, product, new Date(intEmployeeID), intType, Employee.createNullEmployee(intEmployeeID), intQuantity));
+			recorded = addStock.addStock(new ProductTag(1, product, new Date(employees), intType, Employee.createNullEmployee(employees), intQuantity));
 		}
 		else{
 			ProductTags addStock = new ProductTagImpl();
-			recorded = addStock.subtractStock(new ProductTag(1, product, new Date(intEmployeeID), intType, Employee.createNullEmployee(intEmployeeID), intQuantity));
+			recorded = addStock.subtractStock(new ProductTag(1, product, new Date(employees), intType, Employee.createNullEmployee(employees), intQuantity));
 		}
 		
 		if(recorded == true){
 			return "success";
-		}
+		}	
 		else{
 			return "failed";
 		}
@@ -62,9 +62,7 @@ public class UpdateStockAction {
 		this.intType = intType;
 	}
 
-	public void setIntEmployeeID(int intEmployeeID) {
-		this.intEmployeeID = intEmployeeID;
+	public void setEmployees(int employees) {
+		this.employees = employees;
 	}
-
-	
 }

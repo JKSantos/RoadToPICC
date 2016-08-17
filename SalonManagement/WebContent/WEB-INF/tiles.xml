@@ -98,6 +98,11 @@
         <put-attribute name="body"          value="/tiles/queries-service.jsp"/>
     </definition>
 
+    <definition name="SalesReport" extends="baseLayout">
+        <put-attribute name="title"         value="Report"/>
+        <put-attribute name="body"          value="/tiles/sales-report.jsp"/>
+    </definition>
+
     <definition name="home" extends="baseLayout">
     	<put-attribute name="title"			value="Home"/>
     	<put-attribute name="body"			value="/tiles/admin-home.jsp"/>

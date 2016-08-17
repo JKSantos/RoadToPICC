@@ -19,15 +19,14 @@
     		var topID = walkinDetails.length + 1;
         walkinDetails.push({
       		  id: topID,
-          	name: name,
-  	        contact: contact,
-  	        email: email,
-  	        selectedProducts: selectprod,
+          	strName: name,
+  	        strContactNo: contact,
+  	        productString: selectprod,
   	        productQuantity: quantprod,
   	        serviceDetails: serviceDetails,
   	        packageList: packageDetails,
   	        promoList: promoDetails,
-  	        selectedDiscounts: selectdiscount,
+  	        discounts: selectdiscount,
   	        strTotalPrice: total  
     	  });
         swal({
@@ -48,23 +47,7 @@
                         success: function (data) {
                             if (data.status == "success") {
                                 SweetAlert.swal("Successfully created!", ".", "success");
-                                console.log($scope.customerDetails[1]);
-                                $scope.requestOrder.push({
-                                    strName: myData.strName,
-                                    intType: myData.orderType
-                                });
-                                console.log($scope.requestOrder);
-                                $('#crProductSales').closeModal();
-                                $scope.customerDetails = [{
-                                    orderType: '',
-                                    contactNumber: '',
-                                    name: '',
-                                    Street: '',
-                                    location: '',
-                                    orderDetails: '',
-                                    subtotal: 0
-                                }];
-                                $window.location.reload();
+                                $('#createWalkinModal').closeModal();
                             } else {
                                 SweetAlert.swal("Oops", "Something went wrong!", "error");
                             }

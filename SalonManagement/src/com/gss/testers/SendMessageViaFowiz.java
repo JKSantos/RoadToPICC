@@ -15,9 +15,9 @@ public class SendMessageViaFowiz {
 	
 	public static void main(String[] args) throws IOException{
 		 String myPasscode = "6405021";
-	        String myUsername = "santos.jeffrey0023";    
-	        String toPhoneNumber = "09079356518";
-	        String myMessage = "Hi+papa+jeron";
+	        String myUsername = "czrey23";    
+	        String toPhoneNumber = "09361144842";
+	        String myMessage = "HELLO!";
 
 	        HttpClient client = new DefaultHttpClient();
 	        HttpGet request = new HttpGet("http://cloud.fowiz.com/api/message_http_api.php?username="+myUsername

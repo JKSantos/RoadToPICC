@@ -309,6 +309,8 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 		DiscountService discountService = new DiscountServiceImpl();
 		ExtraChargeService extraService = new ExtraChargeServiceImpl();
 		
+		double totalAmount = 0;
+		
 		int payment = 0;
 		Date date = null;
 		
@@ -333,11 +335,11 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 			List<ExtraCharge> savedExtraCharge = extraService.getAllExtraCharges();
 			
 			List<Payment> paymentList = new ArrayList<Payment>();
-			
+			System.out.println(totalAmount + "   ....");
 			while(invoiceSet.next()){
 				
 				date = invoiceSet.getDate(2);
-				payment = invoiceSet.getInt(3);
+				totalAmount = invoiceSet.getDouble(3);
 				
 				
 				preDiscount.setInt(1, intInvoiceID);
@@ -374,13 +376,12 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 					double paymentAmount	= paymentSet.getDouble(4);
 					Date dateOfPayment		= paymentSet.getDate(5);
 			
-					Payment extra = new Payment(intID, invoice, strPaymentType, paymentAmount, dateOfPayment);
+					Payment extra = new Payment(intID, invoice, "order", paymentAmount, strPaymentType, dateOfPayment);
 					
 					paymentList.add(extra);
 				}
 			}
 			
-			double totalAmount = Invoice.computeTotalAmount(productList, serviceList, packageList, promoList, extraChargeList);
 			double remainingBalance = Invoice.getRemainingBalance(totalAmount, paymentList);
 			
 			

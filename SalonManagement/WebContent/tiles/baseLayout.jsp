@@ -125,17 +125,19 @@
                         </ul>
                     </div>
                 </li>
-            </ul>
-            <ul class="collapsible" data-collapsible="accordion">
                 <li>
-                    <a class="collapsible-header" href="admin-home.jsp"><i
-                            class="material-icons">settings</i><b>Utilities</b></a>
+                    <a class="collapsible-header"><i class="material-icons">assessment</i><b>Reports</b></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="salesReport">Sales</a></li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
             <ul class="collapsible" data-collapsible="accordion">
                 <li>
                     <a class="collapsible-header" href="admin-home.jsp"><i
-                            class="material-icons">assessment</i><b>Reports</b></a>
+                            class="material-icons">settings</i><b>Utilities</b></a>
                 </li>
             </ul>
         </ul>
@@ -221,6 +223,8 @@
 <script type="text/javascript" src="app/queries/queryFactory.fac.js"></script>
 <script type="text/javascript" src="app/queries/employee/empQueryController.ctrl.js"></script>
 <script type="text/javascript" src="app/queries/employee/productQueryController.ctrl.js"></script>
+<script type="text/javascript" src="app/report/reportsFactory.fac.js"></script>
+<script type="text/javascript" src="app/report/sales/salesReportController.ctrl.js"></script>
 
 
 

@@ -32,6 +32,7 @@
 	<include file="struts-walkin.xml"></include>
 	<include file="struts-payment.xml"></include>
 	<include file="struts-queries.xml"></include>
+	<include file="struts-reports.xml"></include>
 
 	<package name="default" extends="struts-default, json-default" namespace="/">
 		<result-types>
