@@ -38,6 +38,13 @@
     margin-top: -30px !important;
 }
 
+#prodsalesTable {
+    width: 80% !important;
+    height: 590px !important;
+    max-height: 100% !important;
+    margin-top: -30px !important;
+}
+
 #serviceArchive {
     width: 80% !important;
     height: 590px !important;
@@ -59,11 +66,26 @@
     margin-top: -30px !important;
 }
 
+#upPromoModal {
+    width: 700px !important;
+    height: 590px !important;
+    max-height: 100% !important;
+    margin-top: -30px !important;
+}
+
 #createPackageModal {
     width: 600px !important;
     height: 590px !important;
     max-height: 100% !important;
     margin-top: -30px !important;
+}
+
+#viewModalPackage {
+    width: 80% !important;
+    height: 590px !important;
+    max-height: 100% !important;
+    margin-top: -30px !important;
+
 }
 
 .updatePackageModal {
@@ -304,6 +326,65 @@ nav .nav-wrapper form, nav .nav-wrapper form .input-field {
     padding-bottom: 0px !important;
 }
 
+#upPromoTblProd tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#upPromoTblServ tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#upPromoTblPackage tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#prodsalesTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#psTBL tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#paymentTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
 .dataTables_wrapper .dataTables_length {
     display: none !important;
+}
+
+.reqList {
+    width: auto;
+    height: 15em;
+    line-height: 2em;
+    border: 1px solid #ccc;
+    padding: 0;
+    margin: 0;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.order.ng-enter, .classified.ng-move {
+    transition: 0.4s all;
+    opacity: 0;
+}
+
+.order.ng-enter.ng-enter-active, .classified.ng-move.ng-move-active {
+    opacity: 1;
+}
+
+.order.ng-leave {
+    animation: 0.4s fade_order;
+}
+
+@keyframes fade_order {
+    from { opacity: 1; }
+    to { opacity: 0; }
 }

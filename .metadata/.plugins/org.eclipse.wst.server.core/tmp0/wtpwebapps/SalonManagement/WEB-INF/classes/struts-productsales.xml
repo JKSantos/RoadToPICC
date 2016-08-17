@@ -30,8 +30,8 @@
 		<default-interceptor-ref name="appDefault"/> 
 		
 		<action name="createOrder" class="com.gss.actions.ProductSales.CreateOrderAction">
-			<result name="success" type="json"></result>
-			<result name="failed" type="json"></result>
+			<result name="success" type="json"/>
+			<result name="failed" type="json"/>
 		</action>
 		
 		<action name="productsales" class="com.gss.actions.ProductSales.ProductSalesMaintenanceAction">
@@ -40,18 +40,22 @@
 		</action>
 		
 		<action name="orders" class="com.gss.actions.ProductSales.GetAllOrder">
-			<result name="success" type="json"></result>
+			<result name="success" type="json"/>
 		</action>
 		
 		<action name="deactivateOrder" class="com.gss.actions.ProductSales.DeactivateOrderAction">
-			<result name="success" type="json"></result>
+			<result name="success" type="json"/>
 		</action>
 		
 		<action name="acceptOrder" class="com.gss.actions.ProductSales.OrderResultAction" method="acceptOrder">
-			<result name="success" type="json"></result>
+			<result name="success" type="json"/>
 		</action>
 		
 		<action name="declineOrder" class="com.gss.actions.ProductSales.OrderResultAction" method="declineOrder">
+			<result name="success" type="json"/>
+		</action>
+		
+		<action name="getAllProductRequest" class="com.gss.actions.ProductSales.GetAllProductRequest">
 			<result name="success" type="json"></result>
 		</action>
 		

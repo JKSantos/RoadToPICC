@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" href="css/sweetalert.css"/>
     <link rel="stylesheet" type="text/css" href="css/mainloader.css"/>
     <link rel="stylesheet" type="text/css" href="css/animate.css"/>
+    <link rel="stylesheet" type="text/css" href="css/angular-datatables.css"/>
 
     <link rel="stylesheet" type="text/css" href="css/baselayout.css"/>
     <link rel="stylesheet" type="text/css" href="css/perfect-scrollbar.min.css"/>
@@ -105,21 +106,21 @@
                             <li><a href="transWalkIn">Walk In</a></li>
                             <li><a href="transReserve">Reservation</a></li>
                             <li><a href="productsales">Product Sales</a></li>
-                            <li><a href="transactions-vip.jsp">Payment</a></li>
+                            <li><a href="paymentTransaction">Payment</a></li>
                         </ul>
                     </div>
                 </li>
             </ul>
             <ul class="collapsible" data-collapsible="accordion">
                 <li>
-                    <a class="collapsible-header" href="admin-home.jsp"><i
-                            class="material-icons">settings</i><b>Utilities</b></a>
+                    <a class="collapsible-header" href="employeeQueries"><i
+                            class="material-icons">search</i><b>Queries</b></a>
                 </li>
             </ul>
             <ul class="collapsible" data-collapsible="accordion">
                 <li>
                     <a class="collapsible-header" href="admin-home.jsp"><i
-                            class="material-icons">search</i><b>Queries</b></a>
+                            class="material-icons">settings</i><b>Utilities</b></a>
                 </li>
             </ul>
             <ul class="collapsible" data-collapsible="accordion">
@@ -152,11 +153,15 @@
 </div>
 
 
+
 <!--Import jQuery before materialize.js-->
-<script type="text/javascript" src="js/angular.min.js"></script>
+
 <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="js/materialize.js"></script>
 <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="js/materialize.js"></script>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/angular-animate.min.js"></script>
+<script type="text/javascript" src="js/angular-datatables.min.js"></script>
 <script type="text/javascript" src="js/bartstable.js"></script>
 <!--<script type="text/javascript" src="js/picker.date.js"></script>-->
 <script type="text/javascript" src="js/jquery.validate.js"></script>
@@ -167,19 +172,32 @@
 <script type="text/javascript" src="js/jquery.formatter.min.js"></script>
 <script type="text/javascript" src="js/dropify.min.js"></script>
 <script type="text/javascript" src="js/sweetalert.min.js"></script>
+<script type="text/javascript" src="js/angular-SweetAlert.min.js"></script>
 <script type="text/javascript" src="js/ellipsis.js"></script>
 <script type="text/javascript" src="js/priceformat.js"></script>
 <script type="text/javascript" src="js/formatted-numbers.js"></script>
 <script type="text/javascript" src="js/jquery.formatCurrency-1.4.0.js"></script>
 <script type="text/javascript" src="js/moment-with-locale.js"></script>
+<script type="text/javascript" src="js/jquery.ellipsis.min.js"></script>
+<script type="text/javascript" src="js/lodash.min.js"></script>
+
 <!-- <script type="text/javascript" src="js/ProductsSales/ajax.js"></script> -->
+<!-- jQuery Ajax -->
 <script type="text/javascript" src="js/ajax/extracharge.js"></script>
 <script type="text/javascript" src="js/ajax/package.js"></script>
+<script type="text/javascript" src="js/ajax/package-view.js"></script>
 <script type="text/javascript" src="js/ajax/package-update.js"></script>
 <script type="text/javascript" src="js/ajax/package-deactivate.js"></script>
 <script type="text/javascript" src="js/ajax/promo.js"></script>
+<script type="text/javascript" src="js/ajax/promo-update.js"></script>
+<script type="text/javascript" src="js/ajax/promo-update-func.js"></script>
 <script type="text/javascript" src="js/perfect-scrollbar.jquery.min.js"></script>
 <script type="text/javascript" src="js/baselayout.js"></script>
+<script type="text/javascript" src="js/angular-resource.min.js"></script>
+<script type="text/javascript" src="js/angular-checklist.js"></script>
+<!--<script type="text/javascript" src="js/angular-materialize.min.js"></script>-->
+
+
 <!-- Angular imports -->
 <script type="text/javascript" src="app/main.js"></script>
 <script type="text/javascript" src="app/payment/payment.ctr.js"></script>
@@ -188,6 +206,13 @@
 <script type="text/javascript" src="app/walkin/walkin.fac.js"></script>
 <script type="text/javascript" src="app/prodsales/locationfactory.fac.js"></script>
 <script type="text/javascript" src="app/prodsales/prodSales.ctrl.js"></script>
+<script type="text/javascript" src="app/reservation/reservationFactory.fac.js"></script>
+<script type="text/javascript" src="app/reservation/reservation.ctrl.js"></script>
+<script type="text/javascript" src="app/reservation/reservation-table.ctrl.js"></script>
+<script type="text/javascript" src="app/queries/queryFactory.fac.js"></script>
+<script type="text/javascript" src="app/queries/queryController.ctrl.js"></script>
+
+
 
 
 

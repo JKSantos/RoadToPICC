@@ -32,8 +32,18 @@
                     return data;
                 });
             },
+            getPromosWithDetails: function () {
+                return $http.get('http://localhost:8080/SalonManagement/api/v1/getAllPromo').then(function (data) {
+                    return data;
+                });
+            },
             getPackages: function () {
                 return $http.get('http://localhost:8080/SalonManagement/getPackageNoDetails').then(function (data) {
+                    return data;
+                });
+            },
+            getPackagesWithDetails: function () {
+                return $http.get('http://localhost:8080/SalonManagement/api/v1/getAllPackage').then(function (data) {
                     return data;
                 });
             },

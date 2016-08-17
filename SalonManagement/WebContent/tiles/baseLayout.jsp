@@ -113,14 +113,14 @@
             </ul>
             <ul class="collapsible" data-collapsible="accordion">
                 <li>
-                    <a class="collapsible-header" href="admin-home.jsp"><i
-                            class="material-icons">settings</i><b>Utilities</b></a>
+                    <a class="collapsible-header" href="employeeQueries"><i
+                            class="material-icons">search</i><b>Queries</b></a>
                 </li>
             </ul>
             <ul class="collapsible" data-collapsible="accordion">
                 <li>
                     <a class="collapsible-header" href="admin-home.jsp"><i
-                            class="material-icons">search</i><b>Queries</b></a>
+                            class="material-icons">settings</i><b>Utilities</b></a>
                 </li>
             </ul>
             <ul class="collapsible" data-collapsible="accordion">
@@ -209,6 +209,8 @@
 <script type="text/javascript" src="app/reservation/reservationFactory.fac.js"></script>
 <script type="text/javascript" src="app/reservation/reservation.ctrl.js"></script>
 <script type="text/javascript" src="app/reservation/reservation-table.ctrl.js"></script>
+<script type="text/javascript" src="app/queries/queryFactory.fac.js"></script>
+<script type="text/javascript" src="app/queries/queryController.ctrl.js"></script>
 
 
 

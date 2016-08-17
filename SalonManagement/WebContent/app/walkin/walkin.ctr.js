@@ -57,20 +57,22 @@
         vm.serviceList = data.data.serviceList;
       });
 
-    locationFactory.getPromos().then(function(data){
+    locationFactory.getPromosWithDetails().then(function(data){
         vm.promoList = data.data.promoList;
       });
 
-    locationFactory.getPackages().then(function(data){
+    locationFactory.getPackagesWithDetails().then(function(data){
         vm.packageList = data.data.packageList;
       });
 
     locationFactory.getDiscounts().then(function(data){
         vm.discountList = data.data.discountList;
       });
-
+    
+    vm.assignEmployee = function(index){
+    
+    }
      vm.addToCart = function(index, selected){
-    	 console.log(vm.customerList);
         if(selected == 'product'){
           vm.productOrder.push({
                             product: vm.productList[index].strProductName, 
@@ -97,8 +99,8 @@
            vm.serviceOrder.push({
                             service: vm.serviceList[index].strServiceName, 
                             serviceID: vm.serviceList[index].intServiceID,
-                            serviceQuantity: vm.quantity,
-                            serviceTotal: vm.serviceList[index].dblServicePrice * vm.quantity,
+                            serviceQuantity: 1,
+                            serviceTotal: vm.serviceList[index].dblServicePrice ,
                             selectedEmployee: vm.selEmployee.intEmpID
                               });
            var selectedService = "";
@@ -117,18 +119,36 @@
            vm.serviceTotal = subTotalService;
            vm.quantity = '';
         }else if(selected == 'package'){
+           
+           vm.packageContains = vm.packageList[index].serviceList;
+           
+           vm.assignEmployee = function(){
+        	    vm.selPackageDetails = [];
+                
+			   vm.selPackageDetails.push({
+		 	   intServiceID: vm.packageContains[index].service.intServiceID,
+		 	   intQuantity: 1,
+		 	   intEmployeeID: vm.selEmployeePerService.intEmpID,
+		 	   strStatus: 'pending'
+		        });
+			   	console.log(selPackageDetails);
+           };
+           $('#packageListModal').openModal({
+               dismissible: true, // Modal can be dismissed by clicking outside of the modal
+               opacity: .7, // Opacity of modal background
+               in_duration: 200, // Transition in duration
+               out_duration: 200, // Transition out duration
+           });
            vm.packageOrder.push({
                             package: vm.packageList[index].strPackageName, 
                             packageID: vm.packageList[index].intPackageID,
-                            packageQuantity: vm.quantity,
-                            packageTotal: vm.packageList[index].dblPackagePrice * vm.quantity
+                            packageQuantity: 1,
+                            packageTotal: vm.packageList[index].dblPackagePrice
                               });
            var selectedPackage = "";
-           var selectedPackageQuantity = "";
            var subTotalPackage = 0;
            for(var i = 1; i < vm.packageOrder.length; i++){
                selectedPackage += vm.packageOrder[i].packageID + ",";
-               selectedPackageQuantity += vm.packageOrder[i].packageQuantity + ",";
                subTotalPackage += vm.packageOrder[i].packageTotal;
 
            }
@@ -140,8 +160,8 @@
            vm.promoOrder.push({
                             promo: vm.promoList[index].strPromoName, 
                             promoID: vm.promoList[index].strPromoName,
-                            promoQuantity: vm.quantity,
-                            promoTotal: vm.promoList[index].dblPromoPrice * vm.quantity
+                            promoQuantity: 1,
+                            promoTotal: vm.promoList[index].dblPromoPrice
                               });
            var selectedPromo = "";
            var selectedPromoQuantity = "";
@@ -180,6 +200,7 @@
     	  var name = details.name;
     	  var contact = details.contact;
     	  var email = details.email;
+    	  var packageDetails = vm.selPackageDetails;
     	  walkinFactory.insertCustomer(name, contact, email, selectEmp,
     			  					   selectprod, selectserv, selectpack, selectprom,
     			  					   quantprod, quantserv, quantpack, quantprom, selectdiscount, total);
