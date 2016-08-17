@@ -32,8 +32,8 @@
 		        <div class="col s4" ng-repeat="customer in vm.customerList">
 		          <div class="card purple darken-1">
 		            <div class="card-content white-text">
-		              <span class="card-title">{{customer.name}}</span>
-		              <p>{{customer.contact}}</p>
+		              <span class="card-title">{{customer.strName}}</span>
+		              <p>{{customer.strContactNo}}</p>
 		              <p>{{customer.strTotalPrice | currency: "Php"}}</p>
 		            </div>
 		            <div class="card-action">
