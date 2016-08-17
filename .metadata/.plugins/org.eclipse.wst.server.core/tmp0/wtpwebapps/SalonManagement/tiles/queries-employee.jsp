@@ -9,7 +9,7 @@
                <!--href="#" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">add</i></a>-->
             <div class="row">
                 <div class="input-field col s3">
-                    <select ng-model="filter.aiFilter"
+                    <select ng-model="vm.filter.aiFilter"
                             ng-options="position as position.strEmpValue for position in vm.aifilter">
                     </select>
                 </div>

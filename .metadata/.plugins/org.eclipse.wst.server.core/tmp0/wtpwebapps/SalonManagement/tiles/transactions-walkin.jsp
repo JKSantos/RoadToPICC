@@ -69,19 +69,19 @@
                             <div class="container">
                                 <div class="input-field col s12">
                                     <input type="text" class="validate" id="crWIName"
-                                           ng-model="details.name" placeholder="Name"
+                                           ng-model="vm.details.name" placeholder="Name"
                                            style='font-size: 22px; line-height: 15px !important;'/>
                                     <label for="crWIName" class="active" ><b style='font-size: 20px; line-height: 15px !important;'>Name</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <input type="text" id="crWIContact" ng-model="details.contact" placeholder="contact"
+                                    <input type="text" id="crWIContact" ng-model="vm.details.contact" placeholder="contact"
                                     		style='font-size: 22px; line-height: 15px !important;'/>
                                     <label for="crWIContact" class="active"><b>Contact</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12" style="margin-top: 15px;">
-                                    <input type="email" ng-model="details.email" id="crWIEmail" placeholder="Email"
+                                    <input type="email" ng-model="vm.details.email" id="crWIEmail" placeholder="Email"
                                     		style='font-size: 22px; line-height: 15px !important;'/>
                                     <label for="crWIEmail" class="active"><b>Email</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
@@ -89,7 +89,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="stepwalkin well" ng-controller="walkinCtrl">
                         <div class="row">
                             <div class="col s4">
@@ -230,9 +229,7 @@
                                 <div class="row ">
                                    <div class="col s2" ng-repeat="promo in vm.promoList">
                                        <div class="card small">
-                                           <div class="card-image waves-effect waves-block waves-light">
-                                               <img class="activator" ng-src="{{service.strPhotoPath}}">
-                                           </div>
+                                           
                                            <div class="card-content">
                                                <a class="activator grey-text text-darken-4 light btn btn-small center" style="margin-top: -10px;"><i class="material-icons right white-text">add_shopping_cart</i></a>
                                                <h5 style='font-size: 12px; line-height: 10px !important;'><b>{{promo.strPromoName}}</b>
@@ -323,7 +320,44 @@
                     <td>
                     	 <button id="btnAssign"
 	                    class="waves-effect waves-light white-text btn-flat purple"
-	                    ng-click="vm.assignEmployee(index)">ASSIGN
+	                    ng-click="vm.assignEmployeePackage($index)">ASSIGN
+            </button>
+                    </td>
+            	</tr>
+            </table>
+            <div class="container">
+                <div class="row">
+                    
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="red-text btn-flat transparent left" disabled
+                    style="margin:0px !important; padding:0px !important;"><i
+                    class="material-icons">error_outline</i>&nbspRequired field
+            </button>
+            <button type="submit" value="Submit" id="paymentDetails.submit"
+                    class="waves-effect waves-light white-text btn-flat purple"
+                    style="margin-left:3px; margin-right:3px;"
+                    ng-click="">DONE
+            </button>
+        </div>
+    </div>
+    
+     <div id="promoListModal" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4 class="grey-text center text-darken-1">Promo Contains</h4>
+            <table>
+            	<tr ng-repeat="services in vm.promoContains" >
+            		<td>{{services.service.strServiceName}}</td>
+            		<td> <div class="input-field col s12">
+                         <select ng-model="vm.selEmployeePerService" id="cREmp1" ng-options="employee.strEmpFirstName for employee in vm.employeeList"></select>
+                          <label for="cREmp1"><b>Employees</b></label>
+                      </div></td>
+                    <td>
+                    	 <button id="btnAssign"
+	                    class="waves-effect waves-light white-text btn-flat purple"
+	                    ng-click="vm.assignEmployeePromo($index)">ASSIGN
             </button>
                     </td>
             	</tr>

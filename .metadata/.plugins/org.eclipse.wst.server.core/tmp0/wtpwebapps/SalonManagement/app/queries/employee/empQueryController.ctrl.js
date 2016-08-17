@@ -12,8 +12,6 @@
             {"id": 1,"strEmpValue": 'ACTIVE'},
             {"id": 2,"strEmpValue": 'INACTIVE'}
             ];
-        vm.filter = [];
-        vm.filter.aiFilter = vm.aifilter[0];
         // vm.dtOptions = DTOptionsBuilder.newOptions()
         //     .withPaginationType('full_numbers')
         //     .withDisplayLength(10)

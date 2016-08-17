@@ -12,10 +12,9 @@
     	  getCustomers: function(){
     		  return walkinDetails;
     	  },
-    	  insertCustomer: function(name, contact, email, selEmployee, selProducts,
-    			  				   selServices, selPackages, selPromos, quantProdcut,
-    			  				   quantService, quantPackage, quantPromo, selDiscounts,
-    			  				   totalPrice){
+    	  insertCustomer: function(name, contact, email,
+					   selectprod, quantprod, packageDetails, promoDetails,
+	  					 serviceDetails, selectdiscount, total){
     		console.log("I'm on insert!");
     		var topID = walkinDetails.length + 1;
         	walkinDetails.push({
@@ -23,17 +22,13 @@
         	name: name,
 	        contact: contact,
 	        email: email,
-	        selectedEmployees: selEmployee,
-	        selectedProducts: selProducts,
-	        selectedServices: selServices,
-	        selectedPackages: selPackages,
-	        selectedPromos: selPromos,
-	        productQuantity: quantProdcut,
-	        serviceQuantity: quantService,
-	        packageQuantity: quantPackage,
-	        promoQuantity: quantPromo,
-	        selectedDiscounts: selDiscounts,
-	        strTotalPrice: totalPrice  
+	        selectedProducts: selectprod,
+	        productQuantity: quantprod,
+	        serviceDetails: serviceDetails,
+	        packageList: packageDetails,
+	        promoList: promoDetails,
+	        selectedDiscounts: selectdiscount,
+	        strTotalPrice: total  
     	  });
         	
         	console.log(walkinDetails);
