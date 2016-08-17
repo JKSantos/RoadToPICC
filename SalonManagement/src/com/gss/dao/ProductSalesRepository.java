@@ -22,4 +22,6 @@ public interface ProductSalesRepository {
 	
 	public List<ProductSales> getAllProductRequest();
 
+	public List<ProductSales> getAllProductSalesNoDetails();
+
 }

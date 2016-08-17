@@ -40,7 +40,7 @@
             function () {
                 setTimeout(function () {
                     $.ajax({
-                        url: 'createOrder',
+                        url: 'createWalkin',
                         type: 'post',
                         data: psdata,
                         dataType: 'json',

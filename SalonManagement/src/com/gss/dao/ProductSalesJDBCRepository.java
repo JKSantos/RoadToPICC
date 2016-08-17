@@ -439,5 +439,57 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 			return null;
 		}
 	}
+	@Override
+	public List<ProductSales> getAllProductSalesNoDetails() {
+		Connection con = jdbc.getConnection();
+		
+		String getAllOrder 					= "SELECT * FROM tblOrder WHERE strOrderStatus <> 'CANCELLED' AND strOrderStatus <> 'DECLINED';";
+		String getAllDet 					= "SELECT * FROM tblOrderDetails WHERE intOrderID = ?";
+		
+		try{
+			ProductService service = new ProductServiceImpl();
+			List<ProductSales> salesList 	= new ArrayList<ProductSales>();
+			List<Product> productList 		= service.getAllProductsNoImage();
+			
+			PreparedStatement getAll 		= con.prepareStatement(getAllOrder);
+			PreparedStatement getAllDetails	= con.prepareStatement(getAllDet);
+			ResultSet orders				= getAll.executeQuery();
+			ResultSet details;
+			
+			while(orders.next()){
+				
+				List<ProductOrder> orderDetails = new ArrayList<ProductOrder>();
+				ProductSales salesList1;
+				
+				this.intSalesID = orders.getInt(1);
+				this.datCreated = orders.getDate(2);
+				this.deliveryDate = orders.getDate(3);
+				this.intType = orders.getInt(4);
+				this.strName = orders.getString(5);
+				this.strAddress = orders.getString(6);
+				this.intLocationID = orders.getInt(7);
+				this.strContactNo = orders.getString(8);
+				this.strStatus = orders.getString(9);
+				this.invoice = getInvoice(orders.getInt(10));
+				
+
+				
+				salesList1 = new ProductSales(this.intSalesID, this.datCreated, this.deliveryDate, this.intType, this.strName, this.strAddress, this.intLocationID, this.strContactNo, orderDetails, this.invoice, this.strStatus);
+				salesList.add(salesList1);
+			}
+			
+			getAll.close();
+			getAllDetails.close();
+			orders.close();
+			
+			con.close();
+			System.out.println(salesList.size());
+			return salesList;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 }
