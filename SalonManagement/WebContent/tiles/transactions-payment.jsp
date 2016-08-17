@@ -170,9 +170,6 @@
                             <i class="material-icons tiny red-text">error_outline</i>
                         </label>
                     </div>
-                    <div class="col s12">
-                        <pre>{{vm.paymentDetails | json }}</pre>
-                    </div>
                 </div>
             </div>
         </div>

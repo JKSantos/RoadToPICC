@@ -143,7 +143,7 @@
             }
             console.log(paymentData);
             swal({
-                    title: "Create the payment for " + name + "?",
+                    title: "Create payment for " + name + "?",
                     text: "",
                     type: "",
                     confirmButtonColor: "#81d4fa",
