@@ -19,16 +19,24 @@
 		<action name="employeeQueries" class="com.gss.actions.QueriesAction" method="getEmployee">
 			<result name="success" type="tiles">queriesEmployee</result>
 		</action>
+
+		<action name="productQueries" class="com.gss.actions.QueriesAction" method="getProducts">
+			<result name="success" type="tiles">queriesProduct</result>
+		</action>
+
+		<action name="serviceQueries" class="com.gss.actions.QueriesAction" method="getService">
+			<result name="success" type="tiles">queriesService</result>
+		</action>
 	
 		<action name="employeeQuery" class="com.gss.actions.Employee.QueryAllEmployee">
 			<result name="success" type="json"></result>
 		</action>
 		
-		<action name="product" class="com.gss.actions.Product.QueryAllProduct">
+		<action name="productQuery" class="com.gss.actions.Product.QueryAllProduct">
 			<result name="success" type="json"></result>
 		</action>
 		
-		<action name="service" class="com.gss.actions.Service.QueryAllService">
+		<action name="serviceQuery" class="com.gss.actions.Service.QueryAllService">
 			<result name="success" type="json"></result>
 		</action>
 		

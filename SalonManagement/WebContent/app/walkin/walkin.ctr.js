@@ -36,6 +36,8 @@
     vm.details = [{}];
     
     vm.customerList = walkinFactory.getCustomers();
+    vm.packageList = {};
+    vm.promoList = {};
     
 
      locationFactory.getEmployees().then(function(data){
@@ -69,9 +71,6 @@
         vm.discountList = data.data.discountList;
       });
     
-    vm.assignEmployee = function(index){
-    
-    }
      vm.addToCart = function(index, selected){
         if(selected == 'product'){
           vm.productOrder.push({
@@ -96,6 +95,8 @@
           
         }else if(selected == 'service'){
         	console.log(vm.selEmployee);
+        	vm.selServiceDetails = [];
+        	
            vm.serviceOrder.push({
                             service: vm.serviceList[index].strServiceName, 
                             serviceID: vm.serviceList[index].intServiceID,
@@ -103,6 +104,14 @@
                             serviceTotal: vm.serviceList[index].dblServicePrice ,
                             selectedEmployee: vm.selEmployee.intEmpID
                               });
+           
+           vm.selServiceDetails.push({
+ 		 	   intServiceID:vm.serviceList[index].intServiceID,
+ 		 	   intQuantity: 1,
+ 		 	   intEmployeeID:  vm.selEmployee.intEmpID,
+ 		 	   strStatus: 'pending'
+ 		        });
+           
            var selectedService = "";
            var selectedServiceQuantity = "";
            var selectedEmployee = "";
@@ -122,7 +131,7 @@
            
            vm.packageContains = vm.packageList[index].serviceList;
            
-           vm.assignEmployee = function(){
+           vm.assignEmployeePackage = function(index){
         	    vm.selPackageDetails = [];
                 
 			   vm.selPackageDetails.push({
@@ -131,7 +140,7 @@
 		 	   intEmployeeID: vm.selEmployeePerService.intEmpID,
 		 	   strStatus: 'pending'
 		        });
-			   	console.log(selPackageDetails);
+			   	console.log(vm.selPackageDetails);
            };
            $('#packageListModal').openModal({
                dismissible: true, // Modal can be dismissed by clicking outside of the modal
@@ -153,10 +162,33 @@
 
            }
            selectpack = selectedPackage;
-           quantpack = selectedPackageQuantity;
            vm.packageTotal = subTotalPackage;
            vm.quantity = '';
         }else if(selected == 'promo'){
+        	 
+        	 vm.promoContains = vm.promoList[index].serviceList;
+            
+             vm.assignEmployeePromo = function(index){
+            	 console.log('Ken Pogi');
+          	   vm.selPromoDetails = [];
+               console.log(vm.promoContains);
+               console.log(index);
+  			   vm.selPromoDetails.push({
+  		 	   intServiceID: vm.promoContains[index].service.intServiceID,
+  		 	   intQuantity: 1,
+  		 	   intEmployeeID: vm.selEmployeePerService.intEmpID,
+  		 	   strStatus: 'pending'
+  		        });
+  			   	console.log(vm.selPromoDetails);
+             };
+             
+             $('#promoListModal').openModal({
+                 dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                 opacity: .7, // Opacity of modal background
+                 in_duration: 200, // Transition in duration
+                 out_duration: 200, // Transition out duration
+             });
+             
            vm.promoOrder.push({
                             promo: vm.promoList[index].strPromoName, 
                             promoID: vm.promoList[index].strPromoName,
@@ -168,12 +200,10 @@
            var subTotalPromo = 0;
            for(var i = 1; i < vm.promoOrder.length; i++){
                selectedPromo += vm.promoOrder[i].promoID + ",";
-               selectedPromoQuantity += vm.promoOrder[i].promoQuantity + ",";
                subTotalPromo += vm.promoOrder[i].promoTotal;
 
            }
            selectprom = selectedPromo;
-           quantprom = selectedPromoQuantity;
            vm.promoTotal = subTotalPromo;
            vm.quantity = '';
         }
@@ -196,14 +226,22 @@
 
       vm.saveWalkin = function(details){
     	  toString();
+    	  
+    	  
     	  var total = vm.sum;
-    	  var name = details.name;
-    	  var contact = details.contact;
-    	  var email = details.email;
+    	  var name = vm.details.name;
+    	  var contact = vm.details.contact;
+    	  var email = vm.details.email;
     	  var packageDetails = vm.selPackageDetails;
+    	  var promoDetails = vm.selPromoDetails;
+    	  var serviceDetails = vm.selServiceDetails;
+    	  
+    	  console.log(total);
+    	  console.log(promoDetails);
+    	  console.log(serviceDetails);
     	  walkinFactory.insertCustomer(name, contact, email, selectEmp,
-    			  					   selectprod, selectserv, selectpack, selectprom,
-    			  					   quantprod, quantserv, quantpack, quantprom, selectdiscount, total);
+    			  					   selectprod, quantprod, packageDetails, promoDetails,
+    			  					 serviceDetails, selectdiscount, total);
       };
       
       vm.moveToPay = function(id){
