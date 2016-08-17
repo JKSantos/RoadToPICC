@@ -1,0 +1,15 @@
+SMS
+	Message
+	Username
+	passcode
+
+Email
+	Message
+	Salon email
+	
+Currency
+	from php to other currencies
+
+Transaction
+	number of allowed headcount for transactions
+	ratio of employees to customers

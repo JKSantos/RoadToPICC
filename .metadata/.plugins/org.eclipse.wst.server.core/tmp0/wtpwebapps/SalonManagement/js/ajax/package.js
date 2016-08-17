@@ -21,6 +21,10 @@ function updatePackageTable() {
                     var type;
                     var addbtn = "<button class='waves-effect waves-purple btn-flat transparent black-text'" +
                         " style='padding-left: 10px;padding-right:10px; margin: 5px;' value='" + package.intPackageID + "'" +
+                        " onclick='openViewPackage(this.value)'>" +
+                        "<i class='material-icons'>visibility</i></button>" +
+                        "<button class='waves-effect waves-purple btn-flat transparent black-text'" +
+                        " style='padding-left: 10px;padding-right:10px; margin: 5px;' value='" + package.intPackageID + "'" +
                         " onclick='openUpdatePackage(this.value)'>" +
                         "<i class='material-icons'>edit</i></button>" +
                         "<button id='deactivateID" + package.intPackageID + "' class='waves-effect waves-purple btn-flat transparent red-text text-accent-4'" +
@@ -480,6 +484,3 @@ function createPackage() {
 
 
 //CREATE PACKAGE END
-
-
-//update package end

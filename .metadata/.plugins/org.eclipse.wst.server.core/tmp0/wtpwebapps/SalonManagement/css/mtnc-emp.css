@@ -30,9 +30,9 @@
 .aside1 {
     background: transparent;
     border-radius: 1px;
-    margin: 10px;
+    margin: 5px;
     text-align: center;
-    width: 120px;
+    width: 130px;
     height: 30%;
 }
 
@@ -41,14 +41,14 @@
     border-radius: 1px;
     margin: 10px;
     text-align: center;
-    width: 100px;
+    width: 130px;
     height: 30%;
 }
 
 .aside2 {
     background: transparent;
     border-radius: 1px;
-    margin: 10px;
+    margin: 5px;
     text-align: center;
     width: 120px;
     height: 30%;
@@ -60,6 +60,24 @@
     margin: 10px;
     text-align: center;
     width: 120px;
+    height: 30%;
+}
+
+.asideAside1 {
+    background: white;
+    border-radius: 1px;
+    margin: 5px;
+    text-align: center;
+    width: 550px;
+    height: 30%;
+}
+
+.asideAside2 {
+    background: white;
+    border-radius: 1px;
+    margin: 5px;
+    text-align: center;
+    width: 10px;
     height: 30%;
 }
 
@@ -79,22 +97,30 @@
     }
 
     .aside1 {
-        order: 1;
-    }
-
-    .aside2 {
         order: 2;
     }
 
-    .aside3 {
+    .aside2 {
         order: 3;
     }
 
-    .main {
+    .aside3 {
         order: 4;
     }
 
-    .footer {
+    .main {
+        order: 1;
+    }
+
+    .asideAside1 {
         order: 5;
+    }
+
+    .asideAside2 {
+        order: 6;
+    }
+
+    .footer {
+        order: 7;
     }
 }

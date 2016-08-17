@@ -1,0 +1,10 @@
+package com.gss.actions;
+
+public class QueriesAction {
+	
+	public String execute(){
+		
+		return "success";
+	}
+
+}
