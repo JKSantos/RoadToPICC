@@ -13,64 +13,24 @@ public class Payment {
 	
 	private int intPaymentID;			//dummy data
 	private int intInvoiceID;			//real data
-	private String strPaymentType;		//"order", "walkin", or "reservation"
+	private String transactionType;		//"order", "walkin", or "reservation"
 	private double dblPaymentAmount;	//real data
+	private String paymentType;
 	private Date datDateOfPayment;		//dummy data
 	
 	/*	ang pagset ng data nyan galing sa jsp
 	 * 	gagamitin mong variables payment.intPaymentID, payment.intInvoiceID, payment.strPaymentType, etc.
 	 */
 	
-	
-
-	public Payment(int intPaymentID, int intInvoiceID, String strPaymentType, double dblPaymentAmount,
-			Date datDateOfPayment) {
+	public Payment(int intPaymentID, int intInvoiceID, String transactionType, double dblPaymentAmount,
+			String paymentType, Date datDateOfPayment) {
 		super();
 		this.intPaymentID = intPaymentID;
 		this.intInvoiceID = intInvoiceID;
-		this.strPaymentType = strPaymentType;
+		this.transactionType = transactionType;
 		this.dblPaymentAmount = dblPaymentAmount;
+		this.paymentType = paymentType;
 		this.datDateOfPayment = datDateOfPayment;
-	}
-
-	public int getIntPaymentID() {
-		return intPaymentID;
-	}
-
-	public void setIntPaymentID(int intPaymentID) {
-		this.intPaymentID = intPaymentID;
-	}
-
-	public String getStrPaymentType() {
-		return strPaymentType;
-	}
-
-	public void setStrPaymentType(String strPaymentType) {
-		this.strPaymentType = strPaymentType;
-	}
-
-	public double getDblPaymentAmount() {
-		return dblPaymentAmount;
-	}
-
-	public void setDblPaymentAmount(double dblPaymentAmount) {
-		this.dblPaymentAmount = dblPaymentAmount;
-	}
-
-	public Date getDatDateOfPayment() {
-		return datDateOfPayment;
-	}
-
-	public void setDatDateOfPayment(Date datDateOfPayment) {
-		this.datDateOfPayment = datDateOfPayment;
-	}
-
-	public int getIntInvoiceID() {
-		return intInvoiceID;
-	}
-
-	public void setIntInvoiceID(int intInvoiceID) {
-		this.intInvoiceID = intInvoiceID;
 	}
 	
 	public static String convertPaymentStatus(int status){
@@ -85,7 +45,55 @@ public class Payment {
 			return "UNPAID";
 		
 	}
-	
+
+	public int getIntPaymentID() {
+		return intPaymentID;
+	}
+
+	public void setIntPaymentID(int intPaymentID) {
+		this.intPaymentID = intPaymentID;
+	}
+
+	public int getIntInvoiceID() {
+		return intInvoiceID;
+	}
+
+	public void setIntInvoiceID(int intInvoiceID) {
+		this.intInvoiceID = intInvoiceID;
+	}
+
+	public String getTransactionType() {
+		return transactionType;
+	}
+
+	public void setTransactionType(String transactionType) {
+		this.transactionType = transactionType;
+	}
+
+	public double getDblPaymentAmount() {
+		return dblPaymentAmount;
+	}
+
+	public void setDblPaymentAmount(double dblPaymentAmount) {
+		this.dblPaymentAmount = dblPaymentAmount;
+	}
+
+	public String getPaymentType() {
+		return paymentType;
+	}
+
+	public void setPaymentType(String paymentType) {
+		this.paymentType = paymentType;
+	}
+
+	public Date getDatDateOfPayment() {
+		return datDateOfPayment;
+	}
+
+	public void setDatDateOfPayment(Date datDateOfPayment) {
+		this.datDateOfPayment = datDateOfPayment;
+	}
+
 	public static String convertToString(int payment){
 		
 		String converted = "";
@@ -111,14 +119,16 @@ public class Payment {
 		
 		PaymentService service = new PaymentServiceImpl();
 		
-		if(paymentType.equals("reservation")){
+		if(payment.getTransactionType().equalsIgnoreCase("reservation")){
 			return service.createReservationPayment(payment);
 		}
-		else if(paymentType.equals("walkin")){
+		else if(payment.getTransactionType().equals("walkin")){
 			return service.createWalkInPayment(payment);
 		}
-		else
+		else if(payment.getTransactionType().equals("order"))
 			return service.createProductSalesPayment(payment);
+		
+		return false;
 		
 	}
 	

@@ -162,7 +162,7 @@ public class Invoice {
 	
 	public static double getRemainingBalance(double totalAmount, List<Payment> paymentList){
 		
-		double remainingAmount = 0;
+		double remainingAmount = totalAmount;
 		double payment = 0;
 		
 		for(int i = 0; i < paymentList.size(); i++){

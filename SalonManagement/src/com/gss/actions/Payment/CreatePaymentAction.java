@@ -5,23 +5,24 @@ import java.util.Date;
 
 import com.gss.model.Payment;
 import com.gss.utilities.DateHelper;
+import com.gss.utilities.PriceFormatHelper;
 
 public class CreatePaymentAction {
 
 	private int intPaymentID;			//dummy data
 	private int intInvoiceID;			//real data
 	private String strPaymentType;		//"order", "walkin", or "reservation"
-	private double dblPaymentAmount;	//real data
+	private String dblPaymentAmount;	//real data
 	private String datDateOfPayment;		
 	
 	private String paymentType;
 	private String result = "failed";
 	
-	public String execute() throws SQLException{
+	public String execute() throws Exception{
 		
 		String unconvertedDate = new DateHelper().convert(this.datDateOfPayment.split("/"));
 		
-		boolean recorded = Payment.createPayment(paymentType, new Payment(intPaymentID, intInvoiceID, strPaymentType, dblPaymentAmount, DateHelper.parseDate(unconvertedDate)));
+		boolean recorded = Payment.createPayment(paymentType, new Payment(intPaymentID, intInvoiceID, strPaymentType, PriceFormatHelper.convertToDouble(dblPaymentAmount, "Php "),this.paymentType,DateHelper.parseDate(unconvertedDate)));
 		
 		if(recorded == true)
 			result = "success";
@@ -61,14 +62,6 @@ public class CreatePaymentAction {
 		this.strPaymentType = strPaymentType;
 	}
 
-	public double getDblPaymentAmount() {
-		return dblPaymentAmount;
-	}
-
-	public void setDblPaymentAmount(double dblPaymentAmount) {
-		this.dblPaymentAmount = dblPaymentAmount;
-	}
-
 	public String getPaymentType() {
 		return paymentType;
 	}
@@ -83,6 +76,10 @@ public class CreatePaymentAction {
 
 	public void setDatDateOfPayment(String datDateOfPayment) {
 		this.datDateOfPayment = datDateOfPayment;
+	}
+
+	public void setDblPaymentAmount(String dblPaymentAmount) {
+		this.dblPaymentAmount = dblPaymentAmount;
 	}
 	
 	

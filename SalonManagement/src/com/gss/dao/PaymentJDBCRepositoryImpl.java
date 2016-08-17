@@ -50,7 +50,7 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 			PreparedStatement updateProducts	= con.prepareStatement(updateStock);
 			
 			createPayment.setInt(1, payment.getIntInvoiceID());
-			createPayment.setString(2, payment.getStrPaymentType());
+			createPayment.setString(2, payment.getPaymentType());
 			createPayment.setDouble(3, payment.getDblPaymentAmount());
 			
 			createPayment.execute();
@@ -160,7 +160,7 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 			PreparedStatement updateProducts	= con.prepareStatement(updateStock);
 			
 			createPayment.setInt(1, payment.getIntInvoiceID());
-			createPayment.setString(2, payment.getStrPaymentType());
+			createPayment.setString(2, payment.getPaymentType());
 			createPayment.setDouble(3, payment.getDblPaymentAmount());
 			
 			createPayment.execute();
@@ -206,6 +206,7 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 		ExtraChargeService extraService = new ExtraChargeServiceImpl();
 		
 		int payment = 0;
+		double totalAmount = 0;
 		Date date = null;
 		
 		try{
@@ -233,7 +234,7 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 			while(invoiceSet.next()){
 				
 				date = invoiceSet.getDate(2);
-				payment = invoiceSet.getInt(3);
+				totalAmount = invoiceSet.getInt(3);
 				
 				
 				preDiscount.setInt(1, intInvoiceID);
@@ -266,17 +267,16 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 				while(paymentSet.next()){
 					int intID 				= paymentSet.getInt(1);
 					int invoice		 		= paymentSet.getInt(2);
-					int intPaymentType 		= paymentSet.getInt(3);
+					String strPaymentType 	= paymentSet.getString(3);
 					double paymentAmount	= paymentSet.getDouble(4);
 					Date dateOfPayment		= paymentSet.getDate(5);
 			
-					Payment extra = new Payment(intID, invoice, Payment.convertToString(intPaymentType), paymentAmount, dateOfPayment);
+					Payment extra = new Payment(intID, invoice, "reservation", paymentAmount, strPaymentType, dateOfPayment);
 					
 					paymentList.add(extra);
 				}
 			}
 			
-			double totalAmount = Invoice.computeTotalAmount(productList, serviceList, packageList, promoList, extraChargeList);
 			double remainingBalance = Invoice.getRemainingBalance(totalAmount, paymentList);
 			
 			
