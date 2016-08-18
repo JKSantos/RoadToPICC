@@ -115,7 +115,7 @@
     
     <definition name="ProductTags" extends="baseLayout">
     	<put-attribute name="title"			value="Product Tags"/>
-    	<put-attribute name="body"			value="/tiles/queries-productTags.jsp"/>
+    	<put-attribute name="body"			value="/tiles/reports-productTags.jsp"/>
     </definition>
   
 </tiles-definitions>

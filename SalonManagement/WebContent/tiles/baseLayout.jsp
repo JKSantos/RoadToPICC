@@ -130,6 +130,7 @@
                     <div class="collapsible-body">
                         <ul>
                             <li><a href="salesReport">Sales</a></li>
+                            <li><a href="productTags">Product Tags</a></li>
                         </ul>
                     </div>
                 </li>
