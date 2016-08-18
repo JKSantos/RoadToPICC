@@ -112,5 +112,10 @@
     	<put-attribute name="title"			value="Payment"/>
     	<put-attribute name="body"			value="/tiles/transactions-payment.jsp"/>
     </definition>
+    
+    <definition name="ProductTags" extends="baseLayout">
+    	<put-attribute name="title"			value="Product Tags"/>
+    	<put-attribute name="body"			value="/tiles/queries-productTags.jsp"/>
+    </definition>
   
 </tiles-definitions>

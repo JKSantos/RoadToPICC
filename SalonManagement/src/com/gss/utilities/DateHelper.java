@@ -101,4 +101,13 @@ public class DateHelper {
 		 return (month + " " + String.valueOf(day) + ", " + String.valueOf(year)).toUpperCase();
 		 
 	 }
+
+	 public static String stringDate(Date date){
+		 
+		 Calendar cal = Calendar.getInstance();
+		 
+		 cal.setTime(date);
+		 
+		 return String.valueOf(cal.get(Calendar.MONTH)) + String.valueOf(cal.get(Calendar.DAY_OF_MONTH)) + String.valueOf(cal.get(Calendar.YEAR));
+	 }
 }

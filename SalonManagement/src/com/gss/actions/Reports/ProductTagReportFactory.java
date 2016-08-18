@@ -1,0 +1,202 @@
+package com.gss.actions.Reports;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.List;
+
+import com.gss.model.ProductOrder;
+import com.gss.model.ProductTagReport;
+import com.gss.utilities.DateHelper;
+import com.gss.utilities.NumberGenerator;
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Font.FontFamily;
+import com.itextpdf.text.pdf.GrayColor;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
+public class ProductTagReportFactory {
+	
+	private String destination = "resource/Reports/Product_Tag/ProductTag_" + NumberGenerator.localDateTime() + ".pdf";
+	private List<ProductTagReport> report;
+	private String dateFrom;
+	private String dateTo;
+	
+	private int intDefective;
+	private int intLost;
+	private int intExpired;
+	private int intConsumed;
+	
+	public String generateReport(String dateFrom, String dateTo, List<ProductTagReport> report) throws BadElementException, MalformedURLException, DocumentException, IOException{
+		
+		this.report = report;
+		this.dateFrom = dateFrom;
+		this.dateTo = dateTo;
+		
+		Document document = createDocument();
+		
+		document.open();
+		
+		document.add(getHeader());
+		document.add(getTitle());
+		document.add(getTagTable());
+		
+		document.close();
+		
+		return this.destination;
+	}
+	
+	public Paragraph getTagTable(){
+	
+		Paragraph paragraph = new Paragraph();
+		paragraph.setSpacingAfter(15);
+		
+		float[] width = {1, 4, 2, 2, (float) 1.2, 4};
+		PdfPTable table = new PdfPTable(width);
+		table.setWidthPercentage(100);
+		
+		
+		PdfPCell tagID = new PdfPCell(new Phrase("Tag ID", getBoldFont(13)));
+		tagID.setHorizontalAlignment(Element.ALIGN_CENTER);
+		PdfPCell productName = new PdfPCell(new Phrase("ProductName", getBoldFont(13)));
+		productName.setHorizontalAlignment(Element.ALIGN_CENTER);
+		PdfPCell dateTagged = new PdfPCell(new Phrase("Tag Date\n(MM-DD-YYYY)", getBoldFont(13)));
+		dateTagged.setHorizontalAlignment(Element.ALIGN_CENTER);
+		PdfPCell tagType = new PdfPCell(new Phrase("Tag Type", getBoldFont(13)));
+		tagType.setHorizontalAlignment(Element.ALIGN_CENTER);
+		PdfPCell tagQuantity = new PdfPCell(new Phrase("Quantity", getBoldFont(13)));
+		tagQuantity.setHorizontalAlignment(Element.ALIGN_CENTER);
+		PdfPCell employee = new PdfPCell(new Phrase("Tagged By", getBoldFont(13)));
+		employee.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+		table.addCell(tagID);
+		table.addCell(productName);
+		table.addCell(dateTagged);
+		table.addCell(tagType);
+		table.addCell(tagQuantity);
+		table.addCell(employee);
+		
+		Font f = new Font(FontFamily.HELVETICA, 13, Font.NORMAL, GrayColor.GRAYWHITE);
+		table.getDefaultCell().setBackgroundColor(new GrayColor(0.75f));
+		
+		for(int index = 0; index < this.report.size(); index++){
+			
+			ProductTagReport tag = this.report.get(index);
+			
+			PdfPCell id = new PdfPCell(new Phrase(String.valueOf(tag.getIntTagID()), getNormalFont(12)));
+			id.setHorizontalAlignment(Element.ALIGN_CENTER);
+			PdfPCell name = new PdfPCell(new Phrase(tag.getStrProductName(), getNormalFont(12)));
+			name.setHorizontalAlignment(Element.ALIGN_CENTER);
+			PdfPCell date = new PdfPCell(new Phrase(DateHelper.stringDate(tag.getDatDateTagged()), getNormalFont(12)));
+			date.setHorizontalAlignment(Element.ALIGN_CENTER);	
+			PdfPCell type = new PdfPCell(new Phrase(tag.getTagType(), getNormalFont(12)));
+			type.setHorizontalAlignment(Element.ALIGN_CENTER);
+			PdfPCell quantity = new PdfPCell(new Phrase(String.valueOf(tag.getIntQuantity()), getNormalFont(12)));
+			quantity.setHorizontalAlignment(Element.ALIGN_CENTER);
+			PdfPCell emp = new PdfPCell(new Phrase(tag.getStrEmployee(), getNormalFont(12)));
+			emp.setHorizontalAlignment(Element.ALIGN_CENTER);
+		
+			table.addCell(id);
+			table.addCell(name);
+			table.addCell(date);
+			table.addCell(type);
+			table.addCell(quantity);
+			table.addCell(emp);
+		}
+		
+		paragraph.add(table);
+		
+		return paragraph;
+	}
+	
+	public Paragraph getTitle(){
+		Paragraph contractParagraph = new Paragraph(new Phrase("PRODUCT TAG REPORT\n", getBoldFont(20)));
+		
+		contractParagraph.add(new Phrase("From "+ this.dateFrom +" to "+ this.dateTo, getBoldFont(13)));
+		contractParagraph.setAlignment(Element.ALIGN_CENTER);
+		contractParagraph.setSpacingAfter(30);
+		contractParagraph.setSpacingBefore(30);
+		
+		return contractParagraph;
+	}
+	
+	public Document createDocument(){
+		Document document = new Document(PageSize.LETTER.rotate(), 30, 30, 30, 30);
+        try {
+			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(this.destination));
+		} catch (FileNotFoundException | DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return document;
+    }
+	
+	public Font getBoldFont(int size){
+    	
+        Font font = FontFactory.getFont(FontFactory.TIMES, size, Font.BOLD);
+        
+        return font;
+}
+
+	public Font getNormalFont(int size){
+	
+		Font font = FontFactory.getFont(FontFactory.TIMES, size, Font.NORMAL);
+	    
+	    return font;
+	}
+
+	public Paragraph getHeader() throws BadElementException, MalformedURLException, IOException{
+		
+		Image COMPANY_LOGO = Image.getInstance("resource/Company/Company_Logo.jpg");
+		COMPANY_LOGO.scaleAbsolute(80f, 80f);
+		
+		Paragraph paragraph = new Paragraph();
+		Paragraph headerParagraph = new Paragraph();
+		
+		float[] width = {(float) 1.15, (float) 1.35, (float) 3.5, (float) 2.5};
+		
+		PdfPTable table = new PdfPTable(width);
+		table.setWidthPercentage(100);
+		
+		PdfPCell logoCell = new PdfPCell();
+		logoCell.addElement(COMPANY_LOGO);
+		logoCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		logoCell.setBorder(0);
+		
+		PdfPCell headerCell = new PdfPCell();
+		
+		headerParagraph.add(new Phrase("SALON MANAGEMENT SYSTEM\n"));
+		headerParagraph.add(new Phrase("189-Dr. Sixto Antonio Avenue\n"));
+		headerParagraph.add(new Phrase("Rosario, Pasig City\n"));
+		headerParagraph.add(new Phrase("Tel No: +639361144842\n"));
+		headerParagraph.setAlignment(Element.ALIGN_CENTER);
+		
+		headerCell.addElement(headerParagraph);
+		headerCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		headerCell.setBorder(0);
+		
+		PdfPCell nullCell = new PdfPCell();
+		nullCell.setBorder(0);
+		
+		table.addCell(nullCell);
+		table.addCell(logoCell);
+		table.addCell(headerCell);
+		table.addCell(nullCell);
+		
+		paragraph.add(table);
+		
+		return paragraph;
+	}
+
+}

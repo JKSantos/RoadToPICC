@@ -12,6 +12,7 @@ import com.gss.connection.JDBCConnection;
 import com.gss.model.Employee;
 import com.gss.model.Product;
 import com.gss.model.ProductTag;
+import com.gss.model.ProductTagReport;
 
 public class ProductTagJDBCRepository implements ProductTagRepository{
 
@@ -179,6 +180,77 @@ public class ProductTagJDBCRepository implements ProductTagRepository{
 			e.printStackTrace();
 			con.close();
 			return false;
+		}
+	}
+
+	public List<ProductTagReport> getProductTagReport(){
+		
+		Connection 	con 				= jdbc.getConnection();
+		String getAllTags 				= "CALL queryProductTag();";
+		List<ProductTagReport>	reports = new ArrayList<ProductTagReport>();
+		
+		try{
+			PreparedStatement get		= con.prepareStatement(getAllTags);
+			ResultSet tags				= get.executeQuery();
+			
+			while(tags.next()){
+				int intTagID			= tags.getInt(1);
+				String strProductName	= tags.getString(2);
+				Date datDateTagged		= tags.getDate(3);
+				String tagType			= ProductTag.toString(tags.getInt(4));
+				int intQuantity			= tags.getInt(5);
+				int intEmpID			= tags.getInt(6);
+				String strEmployee		= tags.getString(7) + " " + tags.getString(7);
+				
+				ProductTagReport tag = new ProductTagReport(intTagID, strProductName, datDateTagged, tagType, intQuantity, intEmpID, strEmployee);
+				reports.add(tag);
+			}
+			
+			get.close();
+			tags.close();
+			con.close();
+			
+			return reports;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public List<ProductTagReport> getFilteredProductTagReport() {
+		
+		Connection 	con 				= jdbc.getConnection();
+		String getAllTags 				= "CALL queryFilteredProductTag(?, ?, ?, ?);";
+		List<ProductTagReport>	reports = new ArrayList<ProductTagReport>();
+		
+		try{
+			PreparedStatement get		= con.prepareStatement(getAllTags);
+			ResultSet tags				= get.executeQuery();
+			
+			while(tags.next()){
+				int intTagID			= tags.getInt(1);
+				String strProductName	= tags.getString(2);
+				Date datDateTagged		= tags.getDate(3);
+				String tagType			= ProductTag.toString(tags.getInt(4));
+				int intQuantity			= tags.getInt(5);
+				int intEmpID			= tags.getInt(6);
+				String strEmployee		= tags.getString(7) + " " + tags.getString(7);
+				
+				ProductTagReport tag = new ProductTagReport(intTagID, strProductName, datDateTagged, tagType, intQuantity, intEmpID, strEmployee);
+				reports.add(tag);
+			}
+			
+			get.close();
+			tags.close();
+			con.close();
+			
+			return reports;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
 		}
 	}
 }

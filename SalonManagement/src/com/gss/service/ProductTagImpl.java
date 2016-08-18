@@ -6,6 +6,7 @@ import java.util.List;
 import com.gss.dao.ProductTagJDBCRepository;
 import com.gss.dao.ProductTagRepository;
 import com.gss.model.ProductTag;
+import com.gss.model.ProductTagReport;
 
 public class ProductTagImpl implements ProductTags{
 
@@ -47,5 +48,21 @@ public class ProductTagImpl implements ProductTags{
 		ProductTagRepository repo = new ProductTagJDBCRepository();
 		
 		return repo.restoreTag(productTag);
+	}
+	
+	@Override
+	public List<ProductTagReport> getAllProductTag() throws SQLException {
+		
+		ProductTagRepository repo = new ProductTagJDBCRepository();
+		
+		return repo.getProductTagReport();
+	}
+
+	@Override
+	public List<ProductTagReport> getFilteredProductTagReport() {
+		
+		ProductTagRepository repo = new ProductTagJDBCRepository();
+		
+		return repo.getFilteredProductTagReport();
 	}
 }

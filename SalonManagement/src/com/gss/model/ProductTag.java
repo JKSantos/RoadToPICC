@@ -79,5 +79,24 @@ public class ProductTag {
 		this.intTagID = intTagID;
 	}
 	
-	
+	public static String toString(int intTagType){
+		
+		String tag = null;
+		
+		switch(intTagType){
+			case 1:
+				tag = "DEFECTIVE";
+				break;
+			case 2:
+				tag = "LOST";
+				break;
+			case 3:
+				tag = "EXPIRED";
+				break;
+			case 4:
+				tag = "CONSUMED";
+				break;
+		}
+		return tag;
+	}
 }

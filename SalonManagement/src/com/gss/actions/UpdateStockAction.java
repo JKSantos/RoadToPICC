@@ -27,7 +27,7 @@ public class UpdateStockAction {
 		}
 		else{
 			ProductTags addStock = new ProductTagImpl();
-			recorded = addStock.subtractStock(new ProductTag(1, product, new Date(employees), intType, Employee.createNullEmployee(employees), intQuantity));
+			recorded = addStock.subtractStock(new ProductTag(1, product, new Date(employees), 4, Employee.createNullEmployee(employees), intQuantity));
 		}
 		
 		if(recorded == true){
