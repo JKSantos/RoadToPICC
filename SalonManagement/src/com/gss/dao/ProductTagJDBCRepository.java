@@ -13,6 +13,7 @@ import com.gss.model.Employee;
 import com.gss.model.Product;
 import com.gss.model.ProductTag;
 import com.gss.model.ProductTagReport;
+import com.gss.model.TagSum;
 
 public class ProductTagJDBCRepository implements ProductTagRepository{
 
@@ -223,6 +224,7 @@ public class ProductTagJDBCRepository implements ProductTagRepository{
 		
 		Connection 	con 				= jdbc.getConnection();
 		String getAllTags 				= "CALL queryFilteredProductTag(?, ?, ?, ?);";
+		
 		List<ProductTagReport>	reports = new ArrayList<ProductTagReport>();
 		
 		try{
@@ -240,11 +242,61 @@ public class ProductTagJDBCRepository implements ProductTagRepository{
 				
 				ProductTagReport tag = new ProductTagReport(intTagID, strProductName, datDateTagged, tagType, intQuantity, intEmpID, strEmployee);
 				reports.add(tag);
-			}
+			}	
 			
 			get.close();
 			tags.close();
 			con.close();
+			
+			return reports;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@Override
+	public List<TagSum> getTagSum() {
+		
+		Connection 	con 				= jdbc.getConnection();
+		String getProductsWithTag 		= "CALL productsWithTags();";
+		String sum						= "CALL getProductTagSum(?);";
+		
+		List<TagSum>	reports = new ArrayList<TagSum>();
+		
+		try{
+			PreparedStatement withTag	= con.prepareStatement(getProductsWithTag);
+			PreparedStatement sumSet	= con.prepareStatement(sum);
+			ResultSet withTagResult		= withTag.executeQuery();
+			ResultSet sumSetResult		= null;
+			
+			while(withTagResult.next()){
+				int id = withTagResult.getInt(1);
+				
+
+				sumSet.setInt(1, id);
+				sumSetResult = sumSet.executeQuery();
+				
+				while(sumSetResult.next()){
+					int intProductID = sumSetResult.getInt(1);
+					String strProductName = sumSetResult.getString(2);
+					int intTotal = sumSetResult.getInt(3);
+					int def = sumSetResult.getInt(4);
+					int lost = sumSetResult.getInt(5);
+					int exp = sumSetResult.getInt(6);
+					int consumed = sumSetResult.getInt(7);
+					
+					TagSum tagSum = new TagSum(intProductID, strProductName, intTotal, def, lost, exp, consumed);
+					reports.add(tagSum);
+				}
+			}
+			
+			
+			withTag.close();
+			sumSet.close();
+			sumSetResult.close();
+			withTagResult.close();
 			
 			return reports;
 		}
