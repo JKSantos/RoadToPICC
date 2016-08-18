@@ -5,31 +5,40 @@
     .module('app')
     .factory('walkinFactory', walkinFactory)
 
-    function walkinFactory(){
+    function walkinFactory(SweetAlert){
       var walkinDetails = [];
       
       return{
     	  getCustomers: function(){
     		  return walkinDetails;
     	  },
-    	  insertCustomer: function(name, contact, email,
-					     selectprod, quantprod, packageDetails, promoDetails,
+    	  insertCustomer: function(name, contact, email, selectEmp,
+					   selectprod, quantprod, packageDetails, promoDetails,
 	  					 serviceDetails, selectdiscount, total){
     		console.log("I'm on insert!");
+    		console.log(total);
     		var topID = walkinDetails.length + 1;
         walkinDetails.push({
       		  id: topID,
+<<<<<<< HEAD
           	name: name,
   	        contact: contact,
   	        email: email,
   	        selectedProducts: selectprod,
   	        productQuantity: quantprod,
+=======
+      		strName: name,
+      		strContactNo: contact,
+      		productString: selectprod,
+      		productQuantity: quantprod,
+>>>>>>> 3e7b91870db30d6d22897335945f787a05c02edf
   	        serviceDetails: serviceDetails,
   	        packageList: packageDetails,
   	        promoList: promoDetails,
   	        selectedDiscounts: selectdiscount,
   	        strTotalPrice: total  
     	  });
+<<<<<<< HEAD
         var walkindata = {
             id: topID,
             strName: name,
@@ -44,6 +53,13 @@
             strTotalPrice: total 
         }
         swal({
+=======
+       console.log(walkinDetails);
+        	
+        },
+        moveToPayment: function(id){
+         swal({
+>>>>>>> 3e7b91870db30d6d22897335945f787a05c02edf
                 title:"",
                 text: "",
                 type: "",
@@ -55,12 +71,12 @@
                     $.ajax({
                         url: 'createWalkin',
                         type: 'post',
-                        data: psdata,
+                        data: walkinDetails,
                         dataType: 'json',
                         async: true,
                         success: function (data) {
-                            if (data.status == "success") {
                                 SweetAlert.swal("Successfully created!", ".", "success");
+<<<<<<< HEAD
                                 console.log($scope.customerDetails[1]);
                                 $scope.requestOrder.push({
                                     strName: myData.strName,
@@ -81,22 +97,22 @@
                             } else {
                                 SweetAlert.swal("Oops", "Something went wrong!", "error");
                             }
+=======
+                                $('#createWalkinModal').closeModal();
+                                   for (var i = walkinDetails.length - 1; i >= 0; i--) {
+                                         if (walkinDetails[i].id === id) {
+                                           walkinDetails.splice(i, 1);
+                                             break;
+                                         }
+                                     }
+>>>>>>> 3e7b91870db30d6d22897335945f787a05c02edf
                         },
                         error: function () {
-                            SweetAlert.swal("Oops", "Something went wrong!", "error");
+                           SweetAlert.swal("Oops", "Something went wrong!", "error");
                         }
                     });
                 }, 1000);
             });
-        	
-        },
-        moveToPayment: function(id){
-        	 for (var i = walkinDetails.length - 1; i >= 0; i--) {
-                 if (walkinDetails[i].id === id) {
-                	 walkinDetails.splice(i, 1);
-                     break;
-                 }
-             }
         }
     }
   }
