@@ -4,7 +4,7 @@
         .module('app')
         .controller('paymentCtrl', paymentCtrl);
 
-    function paymentCtrl($scope, $filter, SweetAlert, DTOptionsBuilder, DTColumnDefBuilder, DTDefaultOptions, paymentFactory) {
+    function paymentCtrl($scope, $resource, $filter, SweetAlert, DTOptionsBuilder, DTColumnDefBuilder, DTDefaultOptions, paymentFactory, sampleFactory) {
         var vm = this;
         vm.dateFormat = ["MMMM/D/YYYY"];
         vm.type = [{
@@ -14,12 +14,12 @@
         }];
         vm.createPOPayment = createPOPayment;
         vm.paymentSubmit = paymentSubmit;
-        // vm.dtOptions = DTOptionsBuilder.newOptions()
-        //     .withPaginationType('full_numbers')
-        //     .withDisplayLength(10)
-        //     .withLanguage({
-        //         "sLoadingRecords": "Loading..."
-        //     });
+        vm.dtOptions = DTOptionsBuilder.newOptions()
+            .withPaginationType('full_numbers')
+            .withDisplayLength(10)
+            .withLanguage({
+                "sLoadingRecords": "Loading..."
+            });
         vm.dtColumnDefs = [
             DTColumnDefBuilder.newColumnDef(0),
             DTColumnDefBuilder.newColumnDef(1).notSortable(),
@@ -30,13 +30,13 @@
         ];
 
 
-        paymentFactory.getUnpaidPayments().then(function (data) {
+        $resource('getAllUnpaidTransaction').query().$promise.then(function (data) {
             vm.paymentList = data.orderList;
         });
-        paymentFactory.getUnpaidPayments().then(function (data) {
-            vm.payReservationList = data.reservationList;
+        
+        $resource('getAllUnpaidTransaction').query().$promise.then(function (data) {
+            vm.reservationList = data.reservationList;
         });
-
         function createPOPayment(payment, index, type) {
             $('#paymentModal').openModal({
                 dismissible: true, // Modal can be dismissed by clicking outside of the modal
