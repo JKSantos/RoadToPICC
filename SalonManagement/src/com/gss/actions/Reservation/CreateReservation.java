@@ -36,32 +36,36 @@ public class CreateReservation {
 	private Date datFrom;			//important
 	private Date datTo = new Date();//if reservation is home service, this is not needed
 	private String timFrom;			//important
-	private String timTo;			
+	private String timTo = "00:00AM";			
 	private String strVenue; 		//if type is HomeService, value is equal to customer address, same nalang ng address ang ilagay mo dito
 	private int headCount;			//important
 	private List<EmployeeAssigned> employeeAssigned;
-	private String strTotalPrice;
-	private String strStatus;		//important
+	private String strTotalPrice = ""; //important
+	private String strStatus = "";		//important
 	
 	private Invoice invoice;		
 	
-	private String selectedProducts;//only accepts comma separated string, important
-	private String selectedServices;//only accepts comma separated string, important
-	private String selectedPackages;//only accepts comma separated string, important
-	private String selectedPromos;	//only accepts comma separated string, important
+	private String selectedProducts = "";//only accepts comma separated string, important
+	private String selectedServices = "";//only accepts comma separated string, important
+	private String selectedPackages = "";//only accepts comma separated string, important
+	private String selectedPromos = "";	//only accepts comma separated string, important
 	
-	private String productQuantity;	//only accepts comma separated string, important
-	private String serviceQuantity;	//only accepts comma separated string, important
-	private String packageQuantity;	//only accepts comma separated string, important
-	private String promoQuantity;	//only accepts comma separated string, important
+	private String productQuantity = "";	//only accepts comma separated string, important
+	private String serviceQuantity = "";	//only accepts comma separated string, important
+	private String packageQuantity = "";	//only accepts comma separated string, important
+	private String promoQuantity = "";	//only accepts comma separated string, important
 	
-	private List<String> selectedEmployees;		//important
-	private List<String> selectedExtraCharges;	//important
-	private List<String> selectedDiscounts;		//important
+	private String selectedEmployees = "";		//important
+	private String selectedExtraCharges = "";	//important
+	private String selectedDiscounts = "";		//important
 
 	private Discount discount;
 	
 	public String execute() throws Exception{
+		
+		String[] selectedEmployees = this.selectedEmployees.split(",");
+		String[] selectedDiscounts = this.selectedDiscounts.split(",");
+		String[] selectedExtraCharges = this.selectedExtraCharges.split(",");
 	
 		Reservation reservation;
 		
@@ -70,16 +74,16 @@ public class CreateReservation {
 			//ExtraCharges
 			List<ExtraCharge> extraCharges = new ArrayList<ExtraCharge>();
 		
-			for(int index = 0; index < this.selectedDiscounts.size(); index++){
-				ExtraCharge extra = ExtraCharge.createNullExtra(Integer.parseInt(this.selectedExtraCharges.get(index)));
+			for(int index = 0; index < selectedExtraCharges.length; index++){
+				ExtraCharge extra = ExtraCharge.createNullExtra(Integer.parseInt(selectedExtraCharges[index]));
 				extraCharges.add(extra);
 			}
 		
 			//Discounts
 			List<Discount> discounts = new ArrayList<Discount>();
 			
-			for(int index = 0; index < this.selectedDiscounts.size(); index++){
-				Discount discount = Discount.createNullDiscount(Integer.parseInt(this.selectedDiscounts.get(index)));
+			for(int index = 0; index < selectedDiscounts.length; index++){
+				Discount discount = Discount.createNullDiscount(Integer.parseInt(selectedDiscounts[index]));
 				discounts.add(discount);
 				this.discount = discount;
 			}
@@ -99,7 +103,7 @@ public class CreateReservation {
 				
 				for(int index = 0; index < selectedProducts.length; index++){
 					Product product = Product.createNullProduct(Integer.parseInt(selectedProducts[index]));
-					ProductOrder productOrder = DiscountChecker.checkProductDiscount(product, discount, Integer.parseInt(productQuantity[index]));
+					ProductOrder productOrder = new ProductOrder(1, product, Integer.parseInt(productQuantity[index]), 1);
 					products.add(productOrder);
 				}
 					
@@ -109,8 +113,7 @@ public class CreateReservation {
 				
 				for(int index = 0; index < selectedProducts.length; index++){
 					Service service = Service.createNullService(Integer.parseInt(selectedServices[index]));
-					ReservedService reservedService = DiscountChecker.checkServiceDiscount(service, discount, Integer.parseInt(serviceQuantity[index]));
-					services.add(reservedService);
+					ReservedService reservedService = new ReservedService(1, 1, service, Integer.parseInt(serviceQuantity[index]), 1);					services.add(reservedService);
 				}
 					
 				//Package
@@ -119,7 +122,7 @@ public class CreateReservation {
 				
 				for(int index = 0; index < selectedPackages.length; index++){
 					Package packagee = Package.createNullPackage(Integer.parseInt(selectedPackages[index]));
-					ReservedPackage reservedPackage = DiscountChecker.checkPackageDiscount(packagee, discount, Integer.parseInt(packageQuantity[index]));
+					ReservedPackage reservedPackage =new ReservedPackage(1, 1, packagee, Integer.parseInt(packageQuantity[index]), 1);
 					packages.add(reservedPackage);
 				}
 				
@@ -130,13 +133,13 @@ public class CreateReservation {
 				
 				for(int index = 0; index < selectedPromos.length; index++){
 					Promo promo = Promo.createNullPromo(Integer.parseInt(selectedPromos[index]));
-					ReservedPromo reservedPromo = DiscountChecker.checkPromoDiscount(promo, discount, Integer.parseInt(promoQuantity[index]));
+					ReservedPromo reservedPromo = new ReservedPromo(1, 1, promo, Integer.parseInt(promoQuantity[index]), 1);
 					promos.add(reservedPromo);
 				}
 				
 				//for Employee Assigned
-				for(int index = 0; index < this.selectedEmployees.size(); index++){
-					Employee emp = Employee.createNullEmployee(Integer.parseInt(this.selectedEmployees.get(index)));
+				for(int index = 0; index < selectedEmployees.length; index++){
+					Employee emp = Employee.createNullEmployee(Integer.parseInt(selectedEmployees[index]));
 					employeeAssigned.add(new EmployeeAssigned(1, 1, emp, 1));
 				}
 		
@@ -196,13 +199,13 @@ public class CreateReservation {
 	public void setPromoQuantity(String promoQuantity) {
 		this.promoQuantity = promoQuantity;
 	}
-	public void setSelectedEmployees(List<String> selectedEmployees) {
+	public void setSelectedEmployees(String selectedEmployees) {
 		this.selectedEmployees = selectedEmployees;
 	}
-	public void setSelectedExtraCharges(List<String> selectedExtraCharges) {
+	public void setSelectedExtraCharges(String selectedExtraCharges) {
 		this.selectedExtraCharges = selectedExtraCharges;
 	}
-	public void setSelectedDiscounts(List<String> selectedDiscounts) {
+	public void setSelectedDiscounts(String selectedDiscounts) {
 		this.selectedDiscounts = selectedDiscounts;
 	}
 	public void setStrTotalPrice(String strTotalPrice) {

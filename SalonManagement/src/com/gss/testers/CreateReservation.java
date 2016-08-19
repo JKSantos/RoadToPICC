@@ -26,8 +26,8 @@ public class CreateReservation {
 		Date dateCreated = DateHelper.parseDate("2016-03-01");
 		Date datFrom = DateHelper.parseDate("2016-03-04");
 		Date datTo = DateHelper.parseDate("2016-03-04");
-		Time timFrom = TimeHelper.parseTime("2:30", "PM");
-		Time timTo = TimeHelper.parseTime("5:00", "PM");
+		Time timFrom = TimeHelper.parseTime("2:30PM");
+		Time timTo = TimeHelper.parseTime("5:00PM");
 		String strVenue = "Tanghalang Pasigueño";
 		int headCount = 3;
 		List<EmployeeAssigned> employeeAssigned = new ArrayList<EmployeeAssigned>();
@@ -57,12 +57,12 @@ public class CreateReservation {
 		
 			//ProductOrder
 			Product product = new Product(38, strEmailAddress, strEmailAddress, strEmailAddress, headCount, null, headCount, strEmailAddress, headCount);
-			ProductOrder productOrder = DiscountChecker.checkProductDiscount(product, discount, 3);
+			ProductOrder productOrder = new ProductOrder(1, product, 4, 1);
 			products.add(productOrder);
 			
 			//Service
 			Service service1 = Service.createNullService(61);
-			ReservedService reserved = DiscountChecker.checkServiceDiscount(service1, discount, 3);
+			ReservedService reserved = new ReservedService(1, 1, service1, 2, 1);
 			services.add(reserved);
 			
 			//Package

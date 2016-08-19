@@ -11,17 +11,22 @@ public class TimeHelper {
 		String last = String.valueOf(strTime.charAt(strTime.length() - 1));
 		String secondLast =  String.valueOf(strTime.charAt(strTime.length() -2));
 		String meridian = secondLast + last;
+		System.out.println(meridian);
 		
+		int length = strTime.length();
+		
+		strTime = strTime.substring(0, length - 2) + "";
+		System.out.println(strTime);
 		
 		if(meridian.equals("AM")){
-			strTime.replaceAll("AM", "");
+			
 			String[] details = strTime.split(":");
 			time.setHours(Integer.parseInt(details[0]));
 			time.setMinutes(Integer.parseInt(details[1]));
 			time.setSeconds(0);
 		}
 		else{
-			strTime.replaceAll("PM", "");
+			
 			String[] details = strTime.split(":");
 			
 			time.setHours((Integer.parseInt(details[0]) + 12));

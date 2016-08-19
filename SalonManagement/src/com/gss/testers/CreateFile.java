@@ -8,9 +8,9 @@ public class CreateFile {
 	
 	public static void main(String[] args) throws FileNotFoundException{
 		
-		File file = new File("resource/blah.txt");
+		String[] string = "24,".split(",");
 		
-		FileOutputStream stream = new FileOutputStream(file);
+		System.out.print(string[0]);
 	}
 
 }
