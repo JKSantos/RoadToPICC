@@ -41,7 +41,7 @@ public class CreateReservation {
 	private int headCount;			//important
 	private List<EmployeeAssigned> employeeAssigned;
 	private String strTotalPrice = ""; //important
-	private String strStatus = "";		//important
+	private String strStatus = "PENDING";		//important
 	
 	private Invoice invoice;		
 	
