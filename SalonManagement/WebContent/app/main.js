@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module("app", ['datatables', 'checklist-model', 'ngResource', 'oitozero.ngSweetAlert', 'filters', 'ui.materialize.pagination']);
+        .module("app", ['datatables', 'checklist-model', 'ngResource', 'oitozero.ngSweetAlert', 'filters', 'ui.materialize']);
 
     angular
         .module('filters', [])

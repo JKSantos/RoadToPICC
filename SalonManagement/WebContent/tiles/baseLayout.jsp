@@ -191,6 +191,7 @@
 <script type="text/javascript" src="js/jquery.formatCurrency-1.4.0.js"></script>
 <script type="text/javascript" src="js/moment-with-locale.js"></script>
 <script type="text/javascript" src="js/jquery.ellipsis.min.js"></script>
+<script type="text/javascript" src="js/angular-materialize.min.js"></script>
 <script type="text/javascript" src="js/lodash.min.js"></script>
 <script type="text/javascript" src="js/highcharts.js"></script>
 <script type="text/javascript" src="js/exporting.js"></script>
@@ -213,7 +214,6 @@
 
 
 <!-- Angular imports -->
-<script type="text/javascript" src="app/Directives/ui.materialize.pagination.js"></script>
 <script type="text/javascript" src="app/main.js"></script>
 <script type="text/javascript" src="app/payment/payment.ctr.js"></script>
 <script type="text/javascript" src="app/payment/payment.fac.js"></script>

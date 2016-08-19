@@ -72,7 +72,6 @@
                             {{ employee.strEmpFirstName + ' ' + employee.strEmpMiddleName + ' ' +
                             employee.strEmpLastName }}
                         </td>
-<<<<<<< HEAD
                         <td class="left-align">
                             <div class="col 12"
                                  ng-repeat="pos in employee.jobQualification"
@@ -84,20 +83,12 @@
                             <div class="col 12"
                                  ng-repeat="pos in employee.jobQualification"
                                  ng-if="employee.jobQualification.length < 2">
-=======
-                        <td class="left-align" style="width: 300px !important;">
-                            <div class="col 12" ng-repeat="pos in employee.jobQualification" ng-if="employee.jobQualification.length > 1">
-                                {{pos.strJobDesc}}
-                            </div>
-                            <div class="col 12" ng-repeat="pos in employee.jobQualification" ng-if="employee.jobQualification.length < 2">
->>>>>>> 0b776591738b4c5139f2c052f4f1cb1658e8d1a0
                                 {{pos.strJobDesc}}
                             </div>
                         </td>
                         <td class="right-align">{{ employee.strEmpContactNo }}</td>
                         <td class="left-align" style="width: 100px !important;">{{ employee.strEmpEmail }}</td>
                         <td class="left-align">{{ employee.strEmpAddress }}</td>
-<<<<<<< HEAD
                         <td class="left-align"
                             ng-if="employee.strEmpStatus == 'I'">
                             {{employee.strEmpStatus}}NACTIVE
@@ -106,13 +97,6 @@
                             ng-if="employee.strEmpStatus == 'A'">
                             {{employee.strEmpStatus}}CTIVE
                         </td>
-=======
-                        <td class="left-align">
-                            
-                            {{employee.strEmpStatus}}
-                        </td>
-                        
->>>>>>> 0b776591738b4c5139f2c052f4f1cb1658e8d1a0
                     </tr>
                     </tbody>
                 </table>

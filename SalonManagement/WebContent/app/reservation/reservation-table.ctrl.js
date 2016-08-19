@@ -5,7 +5,7 @@
         .module('app')
         .controller('reservationTable', reservationTable);
 
-    function reservationTable($scope, paymentFactory, locationFactory, reservationFactory) {
+    function reservationTable($scope, paymentFactory, locationFactory, reservationFactory, $filter) {
         var vm = this;
         vm.customerDetails = [{}];
         vm.reservationDetails = [{}];
@@ -27,19 +27,43 @@
         vm.serviceTotal = 0;
         vm.packageTotal = 0;
         vm.promoTotal = 0;
-
         vm.productOrder = [{}];
         vm.serviceOrder = [{}];
         vm.promoOrder = [{}];
         vm.packageOrder = [{}];
-
         vm.productList = [];
         vm.serviceList = [];
         vm.promoList = [];
         vm.packageList = [];
-
         vm.details = [{}];
-        vm.customerList = reservationFactory.getCustomers();
+        // vm.customerList = reservationFactory.getCustomers();
+
+        vm.currentTime = new Date();
+        vm.month = ['Januar', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        vm.monthShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        vm.weekdaysFull = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        vm.weekdaysLetter = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+        vm.today = 'Today';
+        vm.clear = 'Clear';
+        vm.close = 'Close';
+        vm.onStart = function () {
+            console.log('onStart');
+        };
+        vm.onRender = function () {
+            console.log('onRender');
+        };
+        vm.onOpen = function () {
+            console.log('onOpen');
+        };
+        vm.onClose = function () {
+            console.log('onClose');
+        };
+
+        vm.details.datFrom = $filter('date')(vm.details.datFrom, "MMMM/d/yyyy");
+
+        locationFactory.getReservations().then(function (data) {
+            vm.customerList = data.reservationList;
+        });
 
         locationFactory.getEmployees().then(function (data) {
             vm.employeeList = data.data.employeeList;

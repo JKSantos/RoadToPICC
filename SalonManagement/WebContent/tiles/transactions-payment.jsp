@@ -22,12 +22,11 @@
                     </form>
                 </div>
             </nav>
-            <table id="paymentTable"
+            <table id="paymentTable" datatable="ng"
                    class="table-barts hoverable z-depth-1 cell-border row-border display responsive-table highlight">
                 <thead>
                 <tr>
-                    <th class="left-align"
-                        ng-click="vm.sortType = 'strName'; vm.sortReverse = !vm.sortReverse">
+                    <th class="left-align">
                         Customer Name
                     </th>
                     <th class="left-align">

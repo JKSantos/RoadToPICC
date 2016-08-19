@@ -406,10 +406,6 @@ nav .nav-wrapper form, nav .nav-wrapper form .input-field {
     to { opacity: 0; }
 }
 
-.table-barts {
-    margin: 120px 0 20px 0;
-}
-
 .table-barts thead {
     border-left: solid 1px #bdbdbd;
     border-right: solid 1px #bdbdbd;

@@ -66,6 +66,11 @@
                 return $resource('orders').get().$promise.then(function (data) {
                     return data;
                 });
+            },
+            getReservations: function() {
+                return $resource('getAllReservationNoDetails').get().$promise.then(function (data) {
+                   return data; 
+                });
             }
         }
     }

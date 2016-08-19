@@ -1,7 +1,7 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="com.gss.model.Discount" %>
-<div class="wrapper" ng-controller= "reservationTable as vm">
+<div class="wrapper" ng-controller="reservationTable as vm">
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
             <h3 class="grey-text text-darken-1">Reservation</h3>
@@ -9,7 +9,8 @@
                href="#createReservationModal" style="margin-top: 30px; margin-left: 15px;"><i
                     class="material-icons">add</i></a>
             <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
-               href="#reservationModal" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">archive</i></a>
+               href="#reservationModal" style="margin-top: 30px; margin-left: 15px;"><i
+                    class="material-icons">archive</i></a>
             <nav class="right white hoverable  z-depth-1" style="width: 300px; margin-right: 20px;">
                 <div class="nav-wrapper col s4">
                     <form>
@@ -23,45 +24,55 @@
                 </div>
             </nav>
 
-            <table id="reservationtbl"
-                   class="hoverable z-depth-1 cell-border row-border display centered responsive-table highlight"
-                   datatable="ng" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs"
+            <table class="hoverable z-depth-1 cell-border row-border display responsive-table highlight"
+                   datatable="ng"
                    style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;" rowspan="10">
                 <thead>
                 <tr>
-                    <th class="dt-head-left">Customer Name</th>
-                    <th class="dt-head-left">Customer Type</th>
-                    <th class="dt-head-left">Reservation Type</th>
-                    <th class="dt-head-left no-sort">Venue</th>
-                    <th class="dt-head-right">Reservation Date</th>
-                    <th class="dt-head-left">Status</th>
-                    <th align="dt-head-center" class="no-sort">Action</th>
+                    <th class="left-align">Customer Name</th>
+                    <th class="left-align">Customer Type</th>
+                    <th class="left-align">Reservation Type</th>
+                    <th class="left-align">Venue</th>
+                    <th class="right-align">Reservation Date</th>
+                    <th class="left-align">Status</th>
+                    <th align="center-align">Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                	<tr ng-repeat="customer in vm.customerList">
-	                	<td class="dt-head-left">{{customer.customer.strName}}</td>
-	                    <td class="dt-head-left">{{customer.intReservationType}}</td>
-	                    <td class="dt-head-left">{{customer.intReservationType}}</td>
-	                    <td class="dt-head-left no-sort">{{customer.strVenue}}</td>
-	                    <td class="dt-head-right">{{customer.datFrom}}</td>
-	                    <td class="dt-head-left">REQUEST</td>
-	                    <td align="dt-head-center" class="no-sort"><center><button class='waves-effect waves-light modal-trigger btn-flat transparent black-text'
-	                                title='Accept' onclick='acceptOrder(this.value)' id='acc' style='padding: 0px;'>
-	                                <i class='material-icons light-green-text text-darken-3'>check_circle</i></button><button class='prodsalesdeacbtn waves-effect waves-light btn-flat transparent
+                <tr ng-repeat="customer in vm.customerList" ng-if="customer.strStatus == 'PENDING'">
+                    <td class="left-align">{{customer.customer.strName}}</td>
+                    <td class="left-align">{{customer.intReservationType }}</td>
+                    <td class="left-align">{{customer.intReservationType}}</td>
+                    <td class="left-align">{{customer.strVenue}}</td>
+                    <td class="right-align">{{customer.datFrom | date: "MMMM/d/yyyy" }}</td>
+                    <td class="left-align">{{customer.strStatus}}</td>
+                    <td align="center-align" class="no-sort">
+                        <center>
+                            <button class='waves-effect waves-light modal-trigger btn-flat transparent black-text'
+                                    title='Accept' onclick='acceptOrder(this.value)' id='acc' style='padding: 0px;'>
+                                <i class='material-icons light-green-text text-darken-3'>
+                                    check_circle
+                                </i>
+                            </button>
+                            <button class='prodsalesdeacbtn waves-effect waves-light btn-flat transparent
 	                                red-text text-accent-4' title='Decline' onclick='declineOrder(this.value)'>
-	                                <i class='material-icons'>cancel</i></button></center></td>
-	                </tr>
+                                <i class='material-icons'>
+                                    cancel
+                                </i>
+                            </button>
+                        </center>
+                    </td>
+                </tr>
                 </tbody>
                 <tfoot style="border: 1px solid #bdbdbd;">
                 <tr>
-                    <th class="dt-head-left">Customer Name</th>
-                    <th class="dt-head-left">Customer Type</th>
-                    <th class="dt-head-left">Reservation Type</th>
-                    <th class="dt-head-left no-sort">Venue</th>
-                    <th class="dt-head-right">Reservation Date</th>
-                    <th class="dt-head-left">Status</th>
-                    <th align="dt-head-center" class="no-sort">Action</th>
+                    <th class="left-align">Customer Name</th>
+                    <th class="left-align">Customer Type</th>
+                    <th class="left-align">Reservation Type</th>
+                    <th class="left-align">Venue</th>
+                    <th class="right-align">Reservation Date</th>
+                    <th class="left-align">Status</th>
+                    <th align="center-align">Action</th>
                 </tr>
                 </tfoot>
                 <tbody>
@@ -71,26 +82,26 @@
     </div>
 
     <!-- Modal Structure -->
-     <div id="quanty" class="modal">
-       <div class="modal-content">
-         <h4>Modal Header</h4>
-         <p>A bunch of text</p>
-       </div>
-       <div class="modal-footer">
-         <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-       </div>
-     </div>
+    <div id="quanty" class="modal">
+        <div class="modal-content">
+            <h4>Modal Header</h4>
+            <p>A bunch of text</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
+    </div>
 
     <!-- Modal Structure -->
     <div id="createReservationModal" class="modal modal-fixed-footer"
-    style="width: 90% !important; height: 90% !important; max-height: 100% !important; margin-top: -40px;">
+         style="width: 70% !important; height: 90% !important; max-height: 100% !important; margin-top: -40px;">
         <form class="col s12" id="createReservationForm" method="post" ng-submit="vm.saveReservation()">
             <div class="modal-content">
                 <!-- <div class="container"> -->
                 <div class="wrapper">
                     <h4 class="center grey-text text-darken-1">Create Reservation<a id="btnCrExtraExit" type="reset"
-                                                                                 value="Reset"
-                                                                                 class="modal-action modal-close"><i
+                                                                                    value="Reset"
+                                                                                    class="modal-action modal-close"><i
                             class="small material-icons right grey-text text-darken-4">close</i></a></h4>
                     <div class="progress">
                         <div class="determinate center active purple darken-4 white-text" role="progressbar"
@@ -101,78 +112,113 @@
 
                     </div>
                     <div class="stepreservation well" style="margin-top: -5px;">
-                        <div class="row">
-                            <h5><b>Customer Details</b></h5>
-                            <div class="input-field col s12">
-                                <input type="text" class="validate" id="crRCustName"
-                                       ng-model="vm.details.name" placeholder="Customer Name"/>
-                                <label for="crRCustName" class="active"><b>Customer Name</b><i
-                                        class="material-icons red-text tiny">error_outline</i></label>
-                            </div>
-                            <div class="input-field col s12" style="margin-top: 15px;">
-                                <input type="text" id="crRAddress" ng-model="vm.details.address"  placeholder="Address"/>
-                                <label for="crRAddress" class="active"><b>Address</b><i
-                                        class="material-icons red-text tiny">error_outline</i></label>
-                            </div>
-                            <div class="input-field col s6">
-                                <input type="text" id="crRContact" ng-model="vm.details.contact"  placeholder="contact"/>
-                                <label for="crRContact" class="active"><b>Contact</b><i
-                                        class="material-icons red-text tiny">error_outline</i></label>
-                            </div>
-                            <div class="input-field col s6" style="margin-top: 15px;">
-                                <input type="email" ng-model="vm.details.email"  id="crREmail" placeholder="Email"/>
-                                <label for="crREmail" class="active"><b>Email</b><i
-                                        class="material-icons red-text tiny">error_outline</i></label>
-                            </div>
-                            <div class="input-field col s6">
-                                <label style="margin-top: -25px;"><b>Customer Type</b></label>
-                                <input type="radio" name="ctype" id="crRCustType1">
-                                <label for="crRCustType1">Individual</label>
-                                <input type="radio" name="ctype" id="crRCustType2">
-                                <label for="crRCustType2">Company</label>
-                            </div>
-                            <div class="input-field col s6">
-                                <input type="text" class="validate"
-                                       id="crRCompanyName" ng-model="vm.details.company" 
-                                       placeholder="Company Name">
-                                <label for="crRCompanyName"><b>Company Name</b></label>
+                        <div class="container">
+                            <div class="row">
+                                <h5><b>Customer Details</b></h5>
+                                <div class="input-field col s12">
+                                    <input type="text" class="validate" id="crRCustName"
+                                           ng-model="vm.details.name" placeholder="Customer Name"/>
+                                    <label for="crRCustName" class="active"><b>Customer Name</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
+                                </div>
+                                <div class="input-field col s12" style="margin-top: 15px;">
+                                    <input type="text" id="crRAddress" ng-model="vm.details.address"
+                                           placeholder="Address"/>
+                                    <label for="crRAddress" class="active"><b>Address</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input type="text" id="crRContact" ng-model="vm.details.contact"
+                                           placeholder="contact"/>
+                                    <label for="crRContact" class="active"><b>Contact</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
+                                </div>
+                                <div class="input-field col s6" style="margin-top: 15px;">
+                                    <input type="email" ng-model="vm.details.email" id="crREmail" placeholder="Email"/>
+                                    <label for="crREmail" class="active"><b>Email</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <label style="margin-top: -25px;"><b>Customer Type</b></label>
+                                    <input type="radio" name="ctype" id="crRCustType1">
+                                    <label for="crRCustType1">Individual</label>
+                                    <input type="radio" name="ctype" id="crRCustType2">
+                                    <label for="crRCustType2">Company</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input type="text" class="validate"
+                                           id="crRCompanyName" ng-model="vm.details.company"
+                                           placeholder="Company Name">
+                                    <label for="crRCompanyName"><b>Company Name</b></label>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="stepreservation well">
-                        <div class="row">
-                            <h5><b>Reservation Details</b></h5>
-                            <div class="input-field col s12">
-                                <input type="text" class="validate" id="crREventVenue"
-                                      ng-model="vm.details.venue"  placeholder="Event Venue"/>
-                                <label for="crREventVenue" class="active"><b>Event Venue</b><i
-                                        class="material-icons red-text tiny">error_outline</i></label>
-                            </div>
-                            <div class="input-field col s6">
-                                <input type="date" ng-model="vm.details.dtFrom" class="datepicker"
-                                       id="abc" placeholder="Ex: 01/01/01"
-                                       required/>
-                                <label for="abc"><b>Date From</b><i
-                                        class="material-icons red-text tiny">error_outline</i></label>
-                            </div>
-                            <div class="input-field col s6">
-                                <input type="date" ng-model="vm.details.dtTo" class="datepicker"
-                                       placeholder="Ex: 01/01/01"
-                                       required/> 
-                            </div>
-                            <div class="input-field col s12">
-                                <label for="timepicker">Time</label>
-                                <input id="timepicker" class="timepicker" type="time">
-                            </div>
-                            <div class="input-field col s6" style="margin-top: 15px;">
-                                <input type="text" ng-model="vm.details.tmTo"  id="crRToTime" placeholder="crRToTime"/>
-                                <label for="crRToTime" class="active"><b>To (Time)</b><i
-                                        class="material-icons red-text tiny">error_outline</i></label>
-                            </div>
-                            <div class="input-field col s6">
-                                <input type="text" ng-model="vm.details.headCount"  id="crRHeadCount" placeholder="Headcount"/>
-                                <label for="crRHeadCount"><b>Head Count</b><i
-                                        class="material-icons red-text tiny">error_outline</i></label>
+                        <div class="container">
+                            <div class="row">
+                                <h5><b>Reservation Details</b></h5>
+                                <div class="input-field col s12">
+                                    <input type="text" class="validate" id="crREventVenue"
+                                           ng-model="vm.details.venue" placeholder="Event Venue"/>
+                                    <label for="crREventVenue" class="active"><b>Event Venue</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input input-date
+                                           type="date"
+                                           id="ngDateFrom"
+                                           placeholder="January/1/2016"
+                                           ng-model="vm.details.datFrom"
+                                           months-full="{{ vm.month }}"
+                                           disable="disable"
+                                           min="{{ vm.currentTime }}"
+                                           max="{{ vm.maxDate }}"
+                                           today="today"
+                                           clear="clear"
+                                           close="close"
+                                           select-years="15"/>
+                                    <pre>{{vm.details.datFrom | json}}</pre>
+                                    <label for="ngDateFrom" class="active"><b>Date From</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input input-date
+                                           type="date"
+                                           placeholder="January/1/2016"
+                                           id="ngDateTo"
+                                           ng-model="vm.details.datTo"
+                                           months-full="{{ vm.month }}"
+                                           months-short="{{ vm.monthShort }}"
+                                           weekdays-full="{{ vm.weekdaysFull }}"
+                                           weekdays-short="{{ vm.weekdaysShort }}"
+                                           weekdays-letter="{{ vm.weekdaysLetter }}"
+                                           disable="disable"
+                                           min="{{vm.details.datFrom}}"
+                                           max="{{ vm.maxDate }}"
+                                           today="today"
+                                           clear="clear"
+                                           close="close"
+                                           select-years="15" />
+                                    <label for="ngDateTo" class="active"><b>Date To</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <label for="timepicker">Time</label>
+                                    <input id="timepicker" class="timepicker" type="time">
+                                </div>
+                                <div class="input-field col s6" style="margin-top: 15px;">
+                                    <input type="text" ng-model="vm.details.tmTo" id="crRToTime"
+                                           placeholder="crRToTime"/>
+                                    <label for="crRToTime" class="active"><b>To (Time)</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input type="text" ng-model="vm.details.headCount" id="crRHeadCount"
+                                           placeholder="Headcount"/>
+                                    <label for="crRHeadCount"><b>Head Count</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -201,189 +247,217 @@
                                 </div>
                             </nav>
 
-                <div class="row col s12">
+                            <div class="row col s12">
 
-                </div>
-       
-                 <div ng-show="vm.selected == 'product'">
-                    <div class="row ">
-                        <div class="col s2" ng-repeat="product in vm.productList">
-                            <div class="card small">
-                                <div class="card-image waves-effect waves-block waves-light">
-                                    <img class="activator" ng-src="{{product.strPhotoPath}}">
-                                </div>
-                                <div class="card-content">
-                                    <a class="activator grey-text text-darken-4 light btn btn-small center" style="margin-top: -10px;"><i class="material-icons right white-text">add_shopping_cart</i></a>
-                                    <h5 style='font-size: 12px; line-height: 10px !important;'><b>{{product.strProductName}}</b>
-                                        <p>{{product.dblProductPrice | currency:"P"}}</p></h5>
-                                </div>
-                                <div class="card-reveal">
+                            </div>
+
+                            <div ng-show="vm.selected == 'product'">
+                                <div class="row ">
+                                    <div class="col s2" ng-repeat="product in vm.productList">
+                                        <div class="card small">
+                                            <div class="card-image waves-effect waves-block waves-light">
+                                                <img class="activator" ng-src="{{product.strPhotoPath}}">
+                                            </div>
+                                            <div class="card-content">
+                                                <a class="activator grey-text text-darken-4 light btn btn-small center"
+                                                   style="margin-top: -10px;"><i
+                                                        class="material-icons right white-text">add_shopping_cart</i></a>
+                                                <h5 style='font-size: 12px; line-height: 10px !important;'><b>{{product.strProductName}}</b>
+                                                    <p>{{product.dblProductPrice | currency:"P"}}</p></h5>
+                                            </div>
+                                            <div class="card-reveal">
 
                                     <span class="card-title grey-text text-darken-4"><i
                                             class="material-icons right">close</i></span>
-                                    <h4 style='font-size: 12px; line-height: 15px !important;'>
-                                        <b>{{product.strProductName}}</b><br/>
-                                        <span class="grey-text text-darken-4">{{product.dblProductPrice | currency:"Php "}}</span>
-                                    </h4>
-                                    <div class="input-field col s12">
-                                        <input type="number" id="crPSQty{{product.intProductID}}" ng-model="vm.quantity"/>
-                                        <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
-                                    </div>
-                                    <h6 class="grey-text text-darken-4">{{product.dblProductPrice * vm.quantity | currency:
-                                        "Php "}}</h6>
+                                                <h4 style='font-size: 12px; line-height: 15px !important;'>
+                                                    <b>{{product.strProductName}}</b><br/>
+                                                    <span class="grey-text text-darken-4">{{product.dblProductPrice | currency:"Php "}}</span>
+                                                </h4>
+                                                <div class="input-field col s12">
+                                                    <input type="number" id="crPSQty{{product.intProductID}}"
+                                                           ng-model="vm.quantity"/>
+                                                    <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
+                                                </div>
+                                                <h6 class="grey-text text-darken-4">{{product.dblProductPrice *
+                                                    vm.quantity | currency:
+                                                    "Php "}}</h6>
 
-                                    <a class="waves-effect waves-light btn" ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
-                                        <i class="material-icons left" style="padding: 0px !important; margin: 0px !important;">
-                                            shopping_basket</i>BUY NOW!
-                                    </a>
+                                                <a class="waves-effect waves-light btn"
+                                                   ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
+                                                    <i class="material-icons left"
+                                                       style="padding: 0px !important; margin: 0px !important;">
+                                                        shopping_basket</i>BUY NOW!
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
-                        </div>
 
-                    </div>
-                 </div>
-
-                <div ng-show="vm.selected == 'service'">
-                    <div class="row ">
-                        <div class="col s2" ng-repeat="service in vm.serviceList">
-                            <div class="card small">
-                                <div class="card-image waves-effect waves-block waves-light">
-                                    <img class="activator" ng-src="{{service.strPhotoPath}}">
-                                </div>
-                                <div class="card-content">
-                                    <a class="activator grey-text text-darken-4 light btn btn-small center" style="margin-top: -10px;"><i class="material-icons right white-text">add_shopping_cart</i></a>
-                                    <h5 style='font-size: 12px; line-height: 10px !important;'><b>{{service.strServiceName}}</b>
-                                        <p>{{service.dblServicePrice | currency:"P"}}</p></h5>
-                                </div>
-                                <div class="card-reveal">
+                            <div ng-show="vm.selected == 'service'">
+                                <div class="row ">
+                                    <div class="col s2" ng-repeat="service in vm.serviceList">
+                                        <div class="card small">
+                                            <div class="card-image waves-effect waves-block waves-light">
+                                                <img class="activator" ng-src="{{service.strPhotoPath}}">
+                                            </div>
+                                            <div class="card-content">
+                                                <a class="activator grey-text text-darken-4 light btn btn-small center"
+                                                   style="margin-top: -10px;"><i
+                                                        class="material-icons right white-text">add_shopping_cart</i></a>
+                                                <h5 style='font-size: 12px; line-height: 10px !important;'><b>{{service.strServiceName}}</b>
+                                                    <p>{{service.dblServicePrice | currency:"P"}}</p></h5>
+                                            </div>
+                                            <div class="card-reveal">
 
                                     <span class="card-title grey-text text-darken-4"><i
                                             class="material-icons right">close</i></span>
-                                    <h4 style='font-size: 12px; line-height: 15px !important;'>
-                                        <b>{{service.strServiceName}}</b><br/>
-                                        <span class="grey-text text-darken-4">{{service.dblServicePrice | currency:"Php "}}</span>
-                                    </h4>
-                                    <div class="input-field col s12">
-                                        <input type="number" id="crPSQty{{product.intProductID}}" ng-model="vm.quantity"/>
-                                        <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
-                                    </div>
-                                    <h6 class="grey-text text-darken-4">{{service.dblServicePrice * vm.quantity | currency:
-                                        "Php "}}</h6>
+                                                <h4 style='font-size: 12px; line-height: 15px !important;'>
+                                                    <b>{{service.strServiceName}}</b><br/>
+                                                    <span class="grey-text text-darken-4">{{service.dblServicePrice | currency:"Php "}}</span>
+                                                </h4>
+                                                <div class="input-field col s12">
+                                                    <input type="number" id="crPSQty{{product.intProductID}}"
+                                                           ng-model="vm.quantity"/>
+                                                    <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
+                                                </div>
+                                                <h6 class="grey-text text-darken-4">{{service.dblServicePrice *
+                                                    vm.quantity | currency:
+                                                    "Php "}}</h6>
 
-                                     <a class="waves-effect waves-light btn" ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
-                                        <i class="material-icons left" style="padding: 0px !important; margin: 0px !important;">
-                                            shopping_basket</i>BUY NOW!
-                                    </a>
+                                                <a class="waves-effect waves-light btn"
+                                                   ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
+                                                    <i class="material-icons left"
+                                                       style="padding: 0px !important; margin: 0px !important;">
+                                                        shopping_basket</i>BUY NOW!
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div ng-show="vm.selected == 'package'">
-                   <div class="row ">
-                       <div class="col s2" ng-repeat="package in vm.packageList">
-                           <div class="card small">
-                               <div class="card-image waves-effect waves-block waves-light">
-                                   <img class="activator" ng-src="{{service.strPhotoPath}}">
-                               </div>
-                               <div class="card-content">
-                                   <a class="activator grey-text text-darken-4 light btn btn-small center" style="margin-top: -10px;"><i class="material-icons right white-text">add_shopping_cart</i></a>
-                                   <h5 style='font-size: 12px; line-height: 10px !important;'><b>{{package.strPackageName}}</b>
-                                       <p>{{package.dblPackagePrice | currency:"P"}}</p></h5>
-                               </div>
-                               <div class="card-reveal">
-
-                                   <span class="card-title grey-text text-darken-4"><i
-                                           class="material-icons right">close</i></span>
-                                   <h4 style='font-size: 12px; line-height: 15px !important;'>
-                                       <b>{{package.strPackageName}}</b><br/>
-                                       <span class="grey-text text-darken-4">{{package.dblPackagePrice | currency:"Php "}}</span>
-                                   </h4>
-                                   <div class="input-field col s12">
-                                       <input type="number" id="crPSQty{{product.intProductID}}" ng-model="vm.quantity"/>
-                                       <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
-                                   </div>
-                                   <h6 class="grey-text text-darken-4">{{package.dblPackagePrice * vm.quantity | currency: "Php "}}</h6>
-
-                                   <a class="waves-effect waves-light btn" ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
-                                        <i class="material-icons left" style="padding: 0px !important; margin: 0px !important;">
-                                            shopping_basket</i>BUY NOW!
-                                    </a>
-                               </div>
-                           </div>
-                       </div>
-                   </div>
-                </div>
-
-                <div ng-show="vm.selected == 'promo'">
-                    <div class="row ">
-                       <div class="col s2" ng-repeat="promo in vm.promoList">
-                           <div class="card small">
-                               <div class="card-image waves-effect waves-block waves-light">
-                                   <img class="activator" ng-src="{{service.strPhotoPath}}">
-                               </div>
-                               <div class="card-content">
-                                   <a class="activator grey-text text-darken-4 light btn btn-small center" style="margin-top: -10px;"><i class="material-icons right white-text">add_shopping_cart</i></a>
-                                   <h5 style='font-size: 12px; line-height: 10px !important;'><b>{{promo.strPromoName}}</b>
-                                       <p>{{promo.dblPromoPrice | currency:"P"}}</p></h5>
-                               </div>
-                               <div class="card-reveal">
+                            <div ng-show="vm.selected == 'package'">
+                                <div class="row ">
+                                    <div class="col s2" ng-repeat="package in vm.packageList">
+                                        <div class="card small">
+                                            <div class="card-image waves-effect waves-block waves-light">
+                                                <img class="activator" ng-src="{{service.strPhotoPath}}">
+                                            </div>
+                                            <div class="card-content">
+                                                <a class="activator grey-text text-darken-4 light btn btn-small center"
+                                                   style="margin-top: -10px;"><i
+                                                        class="material-icons right white-text">add_shopping_cart</i></a>
+                                                <h5 style='font-size: 12px; line-height: 10px !important;'><b>{{package.strPackageName}}</b>
+                                                    <p>{{package.dblPackagePrice | currency:"P"}}</p></h5>
+                                            </div>
+                                            <div class="card-reveal">
 
                                    <span class="card-title grey-text text-darken-4"><i
                                            class="material-icons right">close</i></span>
-                                   <h4 style='font-size: 12px; line-height: 15px !important;'>
-                                       <b>{{promo.strPromoName}}</b><br/>
-                                       <span class="grey-text text-darken-4">{{promo.dblPromoPrice | currency:"Php "}}</span>
-                                   </h4>
-                                   <div class="input-field col s12">
-                                       <input type="number" id="crPSQty{{product.intProductID}}" ng-model="vm.quantity"/>
-                                       <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
-                                   </div>
-                                   <h6 class="grey-text text-darken-4">{{promo.dblPromoPrice * vm.quantity | currency:
-                                       "Php "}}</h6>
+                                                <h4 style='font-size: 12px; line-height: 15px !important;'>
+                                                    <b>{{package.strPackageName}}</b><br/>
+                                                    <span class="grey-text text-darken-4">{{package.dblPackagePrice | currency:"Php "}}</span>
+                                                </h4>
+                                                <div class="input-field col s12">
+                                                    <input type="number" id="crPSQty{{product.intProductID}}"
+                                                           ng-model="vm.quantity"/>
+                                                    <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
+                                                </div>
+                                                <h6 class="grey-text text-darken-4">{{package.dblPackagePrice *
+                                                    vm.quantity | currency: "Php "}}</h6>
 
-                                   <a class="waves-effect waves-light btn" ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
-                                        <i class="material-icons left" style="padding: 0px !important; margin: 0px !important;">
-                                            shopping_basket</i>BUY NOW!
-                                    </a>
-                               </div>
-                           </div>
-                       </div>
-                   </div>
-                </div>
-                                        
-               <div class="col s12 z-depth-barts white" id="">
-                    <h6 class="center" style="padding-top: -2px !important;"><b>Selected Items</b></h6>
-                    <div class="col s12" id="pslist" style="margin-top: -13px !important; margin-bottom: 5px !important;"></div>
-                </div>
-                <div class="col s4" style="margin-top: 10px;">
-                    <div class="input-field col s12">
-                        <select multiple ng-model="vm.extraCharge" id="crROtherCharge" ng-options="charge.strECName for charge in vm.extraChargeList"></select>
-                            
-                        <label for="crROtherCharge"><b>Other Charges</b></label>
-                    </div>
-                </div>
-                <div class="col s4" style="margin-top: 10px;">
-                    <div class="input-field col s12">
-                       <select multiple ng-model="vm.selDiscounts" id="crRDiscount" ng-options="discount.strDiscountName for discount in vm.discountList"></select>
-                        <label for="crRDiscount"><b>Discounts</b></label>
-                    </div>
-                </div>
-                <div class="col s4 z-depth-barts white" style="margin-top: 10px;">
-                    <div class="col s12">
-                        <div class="input-field col s12">
-                            <h5 class="green-text">Total: {{vm.sum | currency: "Php"}}</h5>
-                        </div>
-                        
-                    </div>
-                </div>  
-                 <div class="col s8" style="margin-top: 10px;">
-                    <div class="input-field col s12">
-                       <select multiple ng-model="vm.selEmployees" id="cREmp" ng-options="employee.strEmpFirstName for employee in vm.employeeList"></select>
-                        <label for="cREmp"><b>Employees</b></label>
-                    </div>
-                </div>
+                                                <a class="waves-effect waves-light btn"
+                                                   ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
+                                                    <i class="material-icons left"
+                                                       style="padding: 0px !important; margin: 0px !important;">
+                                                        shopping_basket</i>BUY NOW!
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div ng-show="vm.selected == 'promo'">
+                                <div class="row ">
+                                    <div class="col s2" ng-repeat="promo in vm.promoList">
+                                        <div class="card small">
+                                            <div class="card-image waves-effect waves-block waves-light">
+                                                <img class="activator" ng-src="{{service.strPhotoPath}}">
+                                            </div>
+                                            <div class="card-content">
+                                                <a class="activator grey-text text-darken-4 light btn btn-small center"
+                                                   style="margin-top: -10px;"><i
+                                                        class="material-icons right white-text">add_shopping_cart</i></a>
+                                                <h5 style='font-size: 12px; line-height: 10px !important;'><b>{{promo.strPromoName}}</b>
+                                                    <p>{{promo.dblPromoPrice | currency:"P"}}</p></h5>
+                                            </div>
+                                            <div class="card-reveal">
+
+                                   <span class="card-title grey-text text-darken-4"><i
+                                           class="material-icons right">close</i></span>
+                                                <h4 style='font-size: 12px; line-height: 15px !important;'>
+                                                    <b>{{promo.strPromoName}}</b><br/>
+                                                    <span class="grey-text text-darken-4">{{promo.dblPromoPrice | currency:"Php "}}</span>
+                                                </h4>
+                                                <div class="input-field col s12">
+                                                    <input type="number" id="crPSQty{{product.intProductID}}"
+                                                           ng-model="vm.quantity"/>
+                                                    <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
+                                                </div>
+                                                <h6 class="grey-text text-darken-4">{{promo.dblPromoPrice * vm.quantity
+                                                    | currency:
+                                                    "Php "}}</h6>
+
+                                                <a class="waves-effect waves-light btn"
+                                                   ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
+                                                    <i class="material-icons left"
+                                                       style="padding: 0px !important; margin: 0px !important;">
+                                                        shopping_basket</i>BUY NOW!
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col s12 z-depth-barts white" id="">
+                                <h6 class="center" style="padding-top: -2px !important;"><b>Selected Items</b></h6>
+                                <div class="col s12" id="pslist"
+                                     style="margin-top: -13px !important; margin-bottom: 5px !important;"></div>
+                            </div>
+                            <div class="col s4" style="margin-top: 10px;">
+                                <div class="input-field col s12">
+                                    <select multiple ng-model="vm.extraCharge" id="crROtherCharge"
+                                            ng-options="charge.strECName for charge in vm.extraChargeList"></select>
+
+                                    <label for="crROtherCharge"><b>Other Charges</b></label>
+                                </div>
+                            </div>
+                            <div class="col s4" style="margin-top: 10px;">
+                                <div class="input-field col s12">
+                                    <select multiple ng-model="vm.selDiscounts" id="crRDiscount"
+                                            ng-options="discount.strDiscountName for discount in vm.discountList"></select>
+                                    <label for="crRDiscount"><b>Discounts</b></label>
+                                </div>
+                            </div>
+                            <div class="col s4 z-depth-barts white" style="margin-top: 10px;">
+                                <div class="col s12">
+                                    <div class="input-field col s12">
+                                        <h5 class="green-text">Total: {{vm.sum | currency: "Php"}}</h5>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col s8" style="margin-top: 10px;">
+                                <div class="input-field col s12">
+                                    <select multiple ng-model="vm.selEmployees" id="cREmp"
+                                            ng-options="employee.strEmpFirstName for employee in vm.employeeList"></select>
+                                    <label for="cREmp"><b>Employees</b></label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="stepreservation well">
@@ -399,7 +473,7 @@
                                 <label for="crRSumAddress"><b>Address</b></label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" id="crRSumContact" name="" />
+                                <input type="text" id="crRSumContact" name=""/>
                                 <label for="crRSumContact"><b>Contact</b></label>
                             </div>
                             <div class="input-field col s6" style="margin-top: 15px;">
@@ -431,12 +505,12 @@
                                 <input id="timepicker" class="timepicker" type="time">
                             </div>
                             <div class="input-field col s6" style="margin-top: 15px;">
-                                <input type="text" name="" id="crRSumToTime" />
+                                <input type="text" name="" id="crRSumToTime"/>
                                 <label for="crRSumToTime" class="active"><b>To (Time)</b></label>
                             </div>
 
                             <div class="input-field col s6">
-                                <input type="text" name="" id="crRSumHeadCount" />
+                                <input type="text" name="" id="crRSumHeadCount"/>
                                 <label for="crRSumHeadCount"><b>Head Count</b></label>
                             </div>
                         </div>
@@ -505,11 +579,11 @@
                                 </table>
                                 <p class="red-text">
                                     Note: First payment should be settled right after the reservation is created.
-                                          Second payment will be collected on the day of the event after the program.
+                                    Second payment will be collected on the day of the event after the program.
                                 </p>
 
                                 <p>
-                                	By clicking create, you AGREE to our terms and agreements stated in the
+                                    By clicking create, you AGREE to our terms and agreements stated in the
                                     <a class="blue-text" href="">Reservation Contract</a>
                                 </p>
                             </div>
@@ -539,6 +613,6 @@
             </div>
         </form>
 
-       
+
     </div>
 </div>
