@@ -39,7 +39,7 @@ public class CreateReservation {
 	private String timTo = "00:00AM";			
 	private String strVenue; 		//if type is HomeService, value is equal to customer address, same nalang ng address ang ilagay mo dito
 	private int headCount;			//important
-	private List<EmployeeAssigned> employeeAssigned;
+	private List<EmployeeAssigned> employeeAssigned = new ArrayList<EmployeeAssigned>();
 	private String strTotalPrice = ""; //important
 	private String strStatus = "PENDING";		//important
 	

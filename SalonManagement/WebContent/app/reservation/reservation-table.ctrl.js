@@ -246,7 +246,11 @@
             var headCount = vm.details.headCount;
             var total = vm.sum;
             var reservationData = ({
-                "customer": name,
+                "customer.intID": 1,
+                "customer.strName": vm.details.name,
+                "customer.strAddress": vm.details.address,
+                "customer.strContactNo": vm.details.contact,
+                "customer.strEmail": vm.details.email,
                 "intReservationType": reservationType,
                 "datFrom": datFrom,
                 "datTo": datTo,
