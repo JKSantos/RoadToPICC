@@ -133,5 +133,10 @@ public class ProductSales {
 		
 		return service.getAllProductRequest();
 	}
+	public static List<ProductSales> getAllProductSalesNoDetails() {
+		ProductSalesService service = new ProductSalesServiceImpl();
+		
+		return service.getAllProductSalesNoDetails();
+	}
 
 }

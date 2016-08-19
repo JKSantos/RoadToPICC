@@ -152,21 +152,21 @@
                                     <option value="1" selected>Percentage</option>
                                     <option value="2">Fixed Amount</option>
                                 </select>
-                                <label for="crDiscountAmtType"><b>Amount Type</b><i
+                                <label for="crDiscountAmtType"><b>Discount Type</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>
                             </div>
                             <div class="input-field col s3" id="fixed">
                                 <input type="text" class="validate right-align prodPrice"
                                        id="crDiscountAmountFixed" name="strDiscountPriceFixed"
                                        placeholder="Discount Amount">
-                                <label for="crDiscountAmountFixed"><b>Amount</b><i
+                                <label for="crDiscountAmountFixed"><b>Value</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>
                             </div>
                             <div class="input-field col s3" id="percent">
                                 <input type="text" class="validate right-align"
                                        id="crDiscountAmountPercent" name="strDiscountPricePercent"
                                        placeholder="Discount Amount">
-                                <label for="crDiscountAmountPercent"><b>Amount</b><i
+                                <label for="crDiscountAmountPercent"><b>Value</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>
                             </div>
                         </div>

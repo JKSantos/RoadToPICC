@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="css/sweetalert.css"/>
     <link rel="stylesheet" type="text/css" href="css/mainloader.css"/>
     <link rel="stylesheet" type="text/css" href="css/animate.css"/>
-    <link rel="stylesheet" type="text/css" href="css/angular-datatables.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="css/angular-datatables.css"/>-->
 
     <link rel="stylesheet" type="text/css" href="css/baselayout.css"/>
     <link rel="stylesheet" type="text/css" href="css/perfect-scrollbar.min.css"/>
@@ -110,23 +110,34 @@
                         </ul>
                     </div>
                 </li>
+                <li>
+                    <a class="collapsible-header"><i class="material-icons">search</i><b>Queries</b></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="employeeQueries">Employee</a></li>
+                            <li><a href="productQueries">Product</a></li>
+                            <li><a href="">Service</a></li>
+                            <li><a href="">Package</a></li>
+                            <li><a href="">Delivery Charge</a></li>
+                            <li><a href="">Other Charge</a></li>
+                            <li><a href="">Promo</a></li>
+                            <li><a href="">Discount</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a class="collapsible-header"><i class="material-icons">assessment</i><b>Reports</b></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="salesReport">Sales</a></li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
             <ul class="collapsible" data-collapsible="accordion">
                 <li>
                     <a class="collapsible-header" href="admin-home.jsp"><i
                             class="material-icons">settings</i><b>Utilities</b></a>
-                </li>
-            </ul>
-            <ul class="collapsible" data-collapsible="accordion">
-                <li>
-                    <a class="collapsible-header" href="admin-home.jsp"><i
-                            class="material-icons">search</i><b>Queries</b></a>
-                </li>
-            </ul>
-            <ul class="collapsible" data-collapsible="accordion">
-                <li>
-                    <a class="collapsible-header" href="admin-home.jsp"><i
-                            class="material-icons">assessment</i><b>Reports</b></a>
                 </li>
             </ul>
         </ul>
@@ -199,6 +210,7 @@
 
 
 <!-- Angular imports -->
+<script type="text/javascript" src="app/Directives/ui.materialize.pagination.js"></script>
 <script type="text/javascript" src="app/main.js"></script>
 <script type="text/javascript" src="app/payment/payment.ctr.js"></script>
 <script type="text/javascript" src="app/payment/payment.fac.js"></script>
@@ -207,8 +219,12 @@
 <script type="text/javascript" src="app/prodsales/locationfactory.fac.js"></script>
 <script type="text/javascript" src="app/prodsales/prodSales.ctrl.js"></script>
 <script type="text/javascript" src="app/reservation/reservationFactory.fac.js"></script>
-<script type="text/javascript" src="app/reservation/reservation.ctrl.js"></script>
 <script type="text/javascript" src="app/reservation/reservation-table.ctrl.js"></script>
+<script type="text/javascript" src="app/queries/queryFactory.fac.js"></script>
+<script type="text/javascript" src="app/queries/employee/empQueryController.ctrl.js"></script>
+<script type="text/javascript" src="app/queries/employee/productQueryController.ctrl.js"></script>
+<script type="text/javascript" src="app/report/reportsFactory.fac.js"></script>
+<script type="text/javascript" src="app/report/sales/salesReportController.ctrl.js"></script>
 
 
 

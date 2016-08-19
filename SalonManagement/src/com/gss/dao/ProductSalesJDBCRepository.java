@@ -309,6 +309,8 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 		DiscountService discountService = new DiscountServiceImpl();
 		ExtraChargeService extraService = new ExtraChargeServiceImpl();
 		
+		double totalAmount = 0;
+		
 		int payment = 0;
 		Date date = null;
 		
@@ -333,11 +335,11 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 			List<ExtraCharge> savedExtraCharge = extraService.getAllExtraCharges();
 			
 			List<Payment> paymentList = new ArrayList<Payment>();
-			
+			System.out.println(totalAmount + "   ....");
 			while(invoiceSet.next()){
 				
 				date = invoiceSet.getDate(2);
-				payment = invoiceSet.getInt(3);
+				totalAmount = invoiceSet.getDouble(3);
 				
 				
 				preDiscount.setInt(1, intInvoiceID);
@@ -374,13 +376,12 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 					double paymentAmount	= paymentSet.getDouble(4);
 					Date dateOfPayment		= paymentSet.getDate(5);
 			
-					Payment extra = new Payment(intID, invoice, strPaymentType, paymentAmount, dateOfPayment);
+					Payment extra = new Payment(intID, invoice, "order", paymentAmount, strPaymentType, dateOfPayment);
 					
 					paymentList.add(extra);
 				}
 			}
 			
-			double totalAmount = Invoice.computeTotalAmount(productList, serviceList, packageList, promoList, extraChargeList);
 			double remainingBalance = Invoice.getRemainingBalance(totalAmount, paymentList);
 			
 			
@@ -428,6 +429,58 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 			}
 			
 			getAll.close();
+			orders.close();
+			
+			con.close();
+			System.out.println(salesList.size());
+			return salesList;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	@Override
+	public List<ProductSales> getAllProductSalesNoDetails() {
+		Connection con = jdbc.getConnection();
+		
+		String getAllOrder 					= "SELECT * FROM tblOrder WHERE strOrderStatus <> 'CANCELLED' AND strOrderStatus <> 'DECLINED';";
+		String getAllDet 					= "SELECT * FROM tblOrderDetails WHERE intOrderID = ?";
+		
+		try{
+			ProductService service = new ProductServiceImpl();
+			List<ProductSales> salesList 	= new ArrayList<ProductSales>();
+			List<Product> productList 		= service.getAllProductsNoImage();
+			
+			PreparedStatement getAll 		= con.prepareStatement(getAllOrder);
+			PreparedStatement getAllDetails	= con.prepareStatement(getAllDet);
+			ResultSet orders				= getAll.executeQuery();
+			ResultSet details;
+			
+			while(orders.next()){
+				
+				List<ProductOrder> orderDetails = new ArrayList<ProductOrder>();
+				ProductSales salesList1;
+				
+				this.intSalesID = orders.getInt(1);
+				this.datCreated = orders.getDate(2);
+				this.deliveryDate = orders.getDate(3);
+				this.intType = orders.getInt(4);
+				this.strName = orders.getString(5);
+				this.strAddress = orders.getString(6);
+				this.intLocationID = orders.getInt(7);
+				this.strContactNo = orders.getString(8);
+				this.strStatus = orders.getString(9);
+				this.invoice = getInvoice(orders.getInt(10));
+				
+
+				
+				salesList1 = new ProductSales(this.intSalesID, this.datCreated, this.deliveryDate, this.intType, this.strName, this.strAddress, this.intLocationID, this.strContactNo, orderDetails, this.invoice, this.strStatus);
+				salesList.add(salesList1);
+			}
+			
+			getAll.close();
+			getAllDetails.close();
 			orders.close();
 			
 			con.close();

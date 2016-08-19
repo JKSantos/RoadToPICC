@@ -1,7 +1,7 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="com.gss.model.Discount" %>
-<div class="wrapper">
+<div class="wrapper" ng-controller= "reservationTable as vm">
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
             <h3 class="grey-text text-darken-1">Reservation</h3>
@@ -25,8 +25,7 @@
 
             <table id="reservationtbl"
                    class="hoverable z-depth-1 cell-border row-border display centered responsive-table highlight"
-                   cellspacing="0"
-                   width="100%"
+                   datatable="ng" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs"
                    style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;" rowspan="10">
                 <thead>
                 <tr>
@@ -40,30 +39,18 @@
                 </tr>
                 </thead>
                 <tbody>
-                	<tr>
-	                	<td class="dt-head-left">HAN AINAN ONGSIP</td>
-	                    <td class="dt-head-left">INDIVIDUAL</td>
-	                    <td class="dt-head-left">EVENT</td>
-	                    <td class="dt-head-left no-sort">TANGHALANG PASIGUENO</td>
-	                    <td class="dt-head-right">2016-08-30</td>
+                	<tr ng-repeat="customer in vm.customerList">
+	                	<td class="dt-head-left">{{customer.customer.strName}}</td>
+	                    <td class="dt-head-left">{{customer.intReservationType}}</td>
+	                    <td class="dt-head-left">{{customer.intReservationType}}</td>
+	                    <td class="dt-head-left no-sort">{{customer.strVenue}}</td>
+	                    <td class="dt-head-right">{{customer.datFrom}}</td>
 	                    <td class="dt-head-left">REQUEST</td>
 	                    <td align="dt-head-center" class="no-sort"><center><button class='waves-effect waves-light modal-trigger btn-flat transparent black-text'
 	                                title='Accept' onclick='acceptOrder(this.value)' id='acc' style='padding: 0px;'>
 	                                <i class='material-icons light-green-text text-darken-3'>check_circle</i></button><button class='prodsalesdeacbtn waves-effect waves-light btn-flat transparent
 	                                red-text text-accent-4' title='Decline' onclick='declineOrder(this.value)'>
 	                                <i class='material-icons'>cancel</i></button></center></td>
-	                </tr>
-	                <tr>
-	                	<td class="dt-head-left">JEFFREY SANTOS</td>
-	                    <td class="dt-head-left">INDIVIDUAL</td>
-	                    <td class="dt-head-left">EVENT</td>
-	                    <td class="dt-head-left no-sort">MOA ARENA</td>
-	                    <td class="dt-head-right">2016-08-15</td>
-	                    <td class="dt-head-left">PENDING</td>
-	                    <td align="dt-head-center" class="no-sort"><center><button class='waves-effect waves-light modal-trigger btn-flat transparent black-text'
-                        title='Update' onclick='openUpdate(this.value)' id='submitbtn' style='padding: 0px;'>
-                        <i class='material-icons'>edit</i></button><button class='prodsalesdeacbtn waves-effect waves-light btn-flat transparent
-                        red-text text-accent-4' title='Deactivate'  onclick='cancelOrder(this.value)'><i class='material-icons'>delete</i></button></center></td>
 	                </tr>
                 </tbody>
                 <tfoot style="border: 1px solid #bdbdbd;">
@@ -72,7 +59,7 @@
                     <th class="dt-head-left">Customer Type</th>
                     <th class="dt-head-left">Reservation Type</th>
                     <th class="dt-head-left no-sort">Venue</th>
-                    <th class="dt-head-right">Date of event</th>
+                    <th class="dt-head-right">Reservation Date</th>
                     <th class="dt-head-left">Status</th>
                     <th align="dt-head-center" class="no-sort">Action</th>
                 </tr>
@@ -84,8 +71,20 @@
     </div>
 
     <!-- Modal Structure -->
-    <div id="createReservationModal" class="modal modal-fixed-footer">
-        <form class="col s12" id="createReservationForm" method="post" action="">
+     <div id="quanty" class="modal">
+       <div class="modal-content">
+         <h4>Modal Header</h4>
+         <p>A bunch of text</p>
+       </div>
+       <div class="modal-footer">
+         <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+       </div>
+     </div>
+
+    <!-- Modal Structure -->
+    <div id="createReservationModal" class="modal modal-fixed-footer"
+    style="width: 90% !important; height: 90% !important; max-height: 100% !important; margin-top: -40px;">
+        <form class="col s12" id="createReservationForm" method="post" ng-submit="vm.saveReservation()">
             <div class="modal-content">
                 <!-- <div class="container"> -->
                 <div class="wrapper">
@@ -106,22 +105,22 @@
                             <h5><b>Customer Details</b></h5>
                             <div class="input-field col s12">
                                 <input type="text" class="validate" id="crRCustName"
-                                       name="" placeholder="Customer Name"/>
+                                       ng-model="vm.details.name" placeholder="Customer Name"/>
                                 <label for="crRCustName" class="active"><b>Customer Name</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>
                             </div>
                             <div class="input-field col s12" style="margin-top: 15px;">
-                                <input type="text" id="crRAddress" name="" placeholder="Address"/>
+                                <input type="text" id="crRAddress" ng-model="vm.details.address"  placeholder="Address"/>
                                 <label for="crRAddress" class="active"><b>Address</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" id="crRContact" name="" placeholder="contact"/>
+                                <input type="text" id="crRContact" ng-model="vm.details.contact"  placeholder="contact"/>
                                 <label for="crRContact" class="active"><b>Contact</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>
                             </div>
                             <div class="input-field col s6" style="margin-top: 15px;">
-                                <input type="email" name="" id="crREmail" placeholder="Email"/>
+                                <input type="email" ng-model="vm.details.email"  id="crREmail" placeholder="Email"/>
                                 <label for="crREmail" class="active"><b>Email</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>
                             </div>
@@ -134,7 +133,7 @@
                             </div>
                             <div class="input-field col s6">
                                 <input type="text" class="validate"
-                                       id="crRCompanyName" name=""
+                                       id="crRCompanyName" ng-model="vm.details.company" 
                                        placeholder="Company Name">
                                 <label for="crRCompanyName"><b>Company Name</b></label>
                             </div>
@@ -145,32 +144,33 @@
                             <h5><b>Reservation Details</b></h5>
                             <div class="input-field col s12">
                                 <input type="text" class="validate" id="crREventVenue"
-                                       name="" placeholder="Event Venue"/>
+                                      ng-model="vm.details.venue"  placeholder="Event Venue"/>
                                 <label for="crREventVenue" class="active"><b>Event Venue</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>
                             </div>
-                            <div class="input-field col s6" style="margin-top: 15px;">
-                                <input type="text" id="crRFromDate" name="" placeholder="From (Date)"/>
-                                <label for="crRFromDate" class="active"><b>From (Date)</b><i
-                                        class="material-icons red-text tiny">error_outline</i></label>
-                            </div>
-                            <div class="input-field col s6" style="margin-top: 15px;">
-                                <input type="text" id="crRToDate" name="" placeholder="To (Date)"/>
-                                <label for="crRToDate" class="active"><b>To (Date)</b><i
+                            <div class="input-field col s6">
+                                <input type="date" ng-model="vm.details.dtFrom" class="datepicker"
+                                       id="abc" placeholder="Ex: 01/01/01"
+                                       required/>
+                                <label for="abc"><b>Date From</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" id="crRFromTime" name="" placeholder="From (Time)"/>
-                                <label for="crRFromTime" class="active"><b>From (Time)</b><i
-                                        class="material-icons red-text tiny">error_outline</i></label>
+                                <input type="date" ng-model="vm.details.dtTo" class="datepicker"
+                                       placeholder="Ex: 01/01/01"
+                                       required/> 
+                            </div>
+                            <div class="input-field col s12">
+                                <label for="timepicker">Time</label>
+                                <input id="timepicker" class="timepicker" type="time">
                             </div>
                             <div class="input-field col s6" style="margin-top: 15px;">
-                                <input type="text" name="" id="crRToTime" placeholder="crRToTime"/>
+                                <input type="text" ng-model="vm.details.tmTo"  id="crRToTime" placeholder="crRToTime"/>
                                 <label for="crRToTime" class="active"><b>To (Time)</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" name="" id="crRHeadCount" placeholder="Headcount"/>
+                                <input type="text" ng-model="vm.details.headCount"  id="crRHeadCount" placeholder="Headcount"/>
                                 <label for="crRHeadCount"><b>Head Count</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>
                             </div>
@@ -179,7 +179,7 @@
                     <div class="stepreservation well">
                         <div class="row">
                             <div class="col s4">
-                                <select name="" id="discountFilter">
+                                <select name="" id="discountFilter" ng-model="vm.selected">
                                     <option value="product" selected>Product</option>
                                     <option value="service">Service</option>
                                     <option value="package">Package</option>
@@ -200,306 +200,190 @@
                                     </form>
                                 </div>
                             </nav>
-                            <div class="col s12">
-                                <ul class="collapsible" data-collapsible="accordion">
-                                    <li>
-                                        <div class="collapsible-header" id="listheadcollapsible"><i class="material-icons">view_list</i>List
-                                        </div>
-                                        <div class="collapsible-body" id="listcollapsible"
-                                             style="margin:0px 0px 0px 0px !important; padding: 0px 0px 0px 0px !important;">
-                                            <div class="tablewrapper">
-                                                <table id="crdiscounttblProduct"
-                                                       class="cell-border row-border display centered responsive-table highlight"
-                                                       cellspacing="0" width="100%"
-                                                       style="border: 1px solid #bdbdbd; margin-top: -30px !important;"
-                                                       rowspan="5">
-                                                    <thead>
-                                                    <tr>
-                                                        <th class="dt-head-center no-sort">Select</th>
-                                                        <th class="dt-head-left">Name</th>
-                                                        <th class="dt-head-left">Category</th>
-                                                        <th class="dt-head-right">Price</th>
-                                                        <th class="dt-head-right">Quantity</th>
 
-                                                    </tr>
-                                                    </thead>
-                                                    <tfoot style="border: 1px solid #bdbdbd;">
-                                                    <tr>
-                                                        <th class="dt-head-center no-sort">Select</th>
-                                                        <th class="dt-head-left">Name</th>
-                                                        <th class="dt-head-left">Category</th>
-                                                        <th class="dt-head-right">Price</th>
-                                                        <th class="dt-head-right">Quantity</th>
-                                                    </tr>
-                                                    </tfoot>
+                <div class="row col s12">
 
-                                                    <tbody>
-
-                                                    <c:forEach items="${productList}" var="product">
-                                                        <tr>
-                                                            <td class="dt-body-left">
-                                                                <input type="checkbox" name="checkedProducts"
-                                                                       id="prodCheck${product.intProductID}" required
-                                                                       class="packcheckbox x{product.intProductID} ignore"
-                                                                       value="${product.intProductID}"><label
-                                                                    for="prodCheck${product.intProductID}"></label>
-                                                            </td>
-                                                            <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;"
-                                                                class="dt-body-left ">${product.strProductName}
-                                                            </td>
-                                                            <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;">
-                                                                Product
-                                                            </td>
-                                                            <td>Php ${product.dblProductPrice}</td>
-                                                            <td><input type="number" min="1" placeholder="Quantity" class="right-align"></td>
-                                                        </tr>
-                                                    </c:forEach>
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="tablewrapper">
-                                                <table id="crdiscounttblService"
-                                                       class="cell-border row-border display centered responsive-table highlight"
-                                                       cellspacing="0" width="100%"
-                                                       style="border: 1px solid #bdbdbd; margin-top: -30px !important;"
-                                                       rowspan="5">
-                                                    <thead>
-                                                    <tr>
-                                                        <th class="dt-head-center no-sort">Select</th>
-                                                        <th class="dt-head-left">Name</th>
-                                                        <th class="dt-head-left">Category</th>
-                                                        <th class="dt-head-right">Price</th>
-                                                        <th class="dt-head-right">Quantity</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tfoot style="border: 1px solid #bdbdbd;">
-                                                    <tr>
-                                                        <th class="dt-head-center no-sort">Select</th>
-                                                        <th class="dt-head-left">Name</th>
-                                                        <th class="dt-head-left">Category</th>
-                                                        <th class="dt-head-right">Price</th>
-                                                        <th class="dt-head-right">Quantity</th>
-                                                    </tr>
-                                                    </tfoot>
-
-                                                    <tbody>
-                                                    <c:forEach items="${serviceList}" var="service">
-                                                        <tr>
-                                                            <td class="dt-body-left">
-                                                                <input type="checkbox" name="checkedServices"
-                                                                       id="myCheckBox${service.intServiceID}" required
-                                                                       class="packcheckbox x{service.intServiceID} ignore"
-                                                                       value="${service.intServiceID}"><label
-                                                                    for="myCheckBox${service.intServiceID}"></label>
-                                                            </td>
-                                                            <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;"
-                                                                class="dt-body-left ">${service.strServiceName}
-                                                            </td>
-                                                            <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;">
-                                                                Service
-                                                            </td>
-                                                            <td>Php ${service.dblServicePrice}</td>
-                                                            <td><input type="number" min="1" placeholder="Quantity" class="right-align"></td>
-                                                        </tr>
-                                                    </c:forEach>
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="tablewrapper">
-                                                <table id="crdiscounttblPackage"
-                                                       class="cell-border row-border display centered responsive-table highlight"
-                                                       cellspacing="0" width="100%"
-                                                       style="border: 1px solid #bdbdbd; margin-top: -30px !important;"
-                                                       rowspan="5">
-                                                    <thead>
-                                                    <tr>
-                                                        <th class="dt-head-center no-sort">Select</th>
-                                                        <th class="dt-head-left">Name</th>
-                                                        <th class="dt-head-left">Category</th>
-                                                        <th class="dt-head-right">Price</th>
-                                                        <th class="dt-head-right">Quantity</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tfoot style="border: 1px solid #bdbdbd;">
-                                                    <tr>
-                                                        <th class="dt-head-center no-sort">Select</th>
-                                                        <th class="dt-head-left">Name</th>
-                                                        <th class="dt-head-left">Category</th>
-                                                        <th class="dt-head-right">Price</th>
-                                                        <th class="dt-head-right">Quantity</th>
-                                                    </tr>
-                                                    </tfoot>
-
-                                                    <tbody>
-                                                    <c:forEach items="${packageList}" var="pack">
-                                                        <tr>
-                                                            <td class="dt-body-left">
-                                                                <input type="checkbox" name="checkedPackages"
-                                                                       id="discountPackage${pack.intPackageID}"
-                                                                       class="packcheckbox x{pack.intPackageID}"
-                                                                       value="${pack.intPackageID}"><label
-                                                                    for="discountPackage${pack.intPackageID}"></label>
-                                                            </td>
-                                                            <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;"
-                                                                class="dt-body-left ">${pack.strPackageName}
-                                                            </td>
-                                                            <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;">
-                                                                Package
-                                                            </td>
-                                                            <td>Php ${pack.dblPackagePrice}</td>
-                                                            <td><input type="number" min="1" placeholder="Quantity" class="right-align"></td>
-                                                        </tr>
-                                                    </c:forEach>
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="tablewrapper">
-                                                <table id="crdiscounttblPromo"
-                                                       class="cell-border row-border display centered responsive-table highlight"
-                                                       cellspacing="0" width="100%"
-                                                       style="border: 1px solid #bdbdbd; margin-top: -30px !important;"
-                                                       rowspan="5">
-                                                    <thead>
-                                                    <tr>
-                                                        <th class="dt-head-center no-sort">Select</th>
-                                                        <th class="dt-head-left">Name</th>
-                                                        <th class="dt-head-left">Category</th>
-                                                        <th class="dt-head-right">Price</th>
-                                                        <th class="dt-head-right">Quantity</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tfoot style="border: 1px solid #bdbdbd;">
-                                                    <tr>
-                                                        <th class="dt-head-center no-sort">Select</th>
-                                                        <th class="dt-head-left">Name</th>
-                                                        <th class="dt-head-left">Category</th>
-                                                        <th class="dt-head-right">Price</th>
-                                                        <th class="dt-head-right">Quantity</th>
-                                                    </tr>
-                                                    </tfoot>
-
-                                                    <tbody>
-                                                    <c:forEach items="${promoList}" var="promo">
-                                                        <tr>
-                                                            <td class="dt-body-left">
-                                                                <input type="checkbox" name="checkedPromos"
-                                                                       id="discountPromo${promo.intPromoID}"
-                                                                       class="packcheckbox x{promo.intPromoID}"
-                                                                       value="${promo.intPromoID}"><label
-                                                                    for="discountPromo${promo.intPromoID}"></label>
-                                                            </td>
-                                                            <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;"
-                                                                class="dt-body-left ">${promo.strPromoName}
-                                                            </td>
-                                                            <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;">
-                                                                Promo
-                                                            </td>
-                                                            <td>Php ${promo.dblPromoPrice}</td>
-                                                            <td><input type="number" min="1" placeholder="Quantity" class="right-align"></td>
-                                                        </tr>
-                                                    </c:forEach>
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col s12" style="margin-top: -10px !important;">
-                                <ul class="collapsible" data-collapsible="accordion">
-                                    <li>
-                                        <div class="collapsible-header"><i class="material-icons">perm_identity</i>Employee</div>
-                                        <div class="collapsible-body">
-                                            <table id="employeeReservationtbl"
-                                                   class="cell-border row-border display centered responsive-table highlight"
-                                                   cellspacing="0" width="100%"
-                                                   style="border: 1px solid #bdbdbd; margin-top: -30px !important;"
-                                                   rowspan="5">
-                                                <thead>
-                                                <tr>
-                                                    <th class="dt-head-center no-sort">Select</th>
-                                                    <th class="dt-head-left">Name</th>
-                                                </tr>
-                                                </thead>
-                                                <tfoot style="border: 1px solid #bdbdbd;">
-                                                <tr>
-                                                    <th class="dt-head-center no-sort">Select</th>
-                                                    <th class="dt-head-left">Name</th>
-                                                </tr>
-                                                </tfoot>
-
-                                                <tbody>
-                                                <c:forEach items="${employeeList}" var="emp">
-                                                    <tr>
-                                                        <td class="dt-body-left">
-                                                            <input type="checkbox" name="checkedPromos"
-                                                                   id="emp${emp.intEmpID}"
-                                                                   class="packcheckbox x${emp.intEmpID}"
-                                                                   value="${emp.intEmpID}"
-                                                                   style="margin: 0px !important; padding: 0px !important;"><label
-                                                                for="emp${emp.intEmpID}"></label>
-                                                        </td>
-                                                        <td style="padding-left: 10px !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;"
-                                                            class="dt-body-left ">${emp.strEmpFirstName} ${emp.strEmpMiddleName} ${emp.strEmpLastName}
-                                                        </td>
-                                                    </tr>
-                                                </c:forEach>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div class="col s12 z-depth-barts white" id="">
-                                <h6 class="center" style="padding-top: -2px !important;"><b>Selected Items</b></h6>
-                                <div class="col s12" id="pslist" style="margin-top: -13px !important; margin-bottom: 5px !important;"></div>
-                            </div>
-                            <div class="col s4" style="margin-top: 10px;">
-                                <div class="input-field col s12">
-                                    <select multiple id="crROtherCharge">
-                                        <option value="" disabled selected>Choose your option</option>
-                                        <c:forEach items="${ extraChargeList }" var="ec">
-                                        	<option value="${ec.intECID}">${ec.strECName}</option>
-                                        </c:forEach>
-                                    </select>
-                                    <label for="crROtherCharge"><b>Other Charges</b></label>
+                </div>
+       
+                 <div ng-show="vm.selected == 'product'">
+                    <div class="row ">
+                        <div class="col s2" ng-repeat="product in vm.productList">
+                            <div class="card small">
+                                <div class="card-image waves-effect waves-block waves-light">
+                                    <img class="activator" ng-src="{{product.strPhotoPath}}">
                                 </div>
-                            </div>
-                            <div class="col s4" style="margin-top: 10px;">
-                                <div class="input-field col s12">
-                                    <select multiple id="crRDiscount">
-                                        <option value="" disabled selected>Choose your option</option>
-                                        <c:forEach items="${ discountList }" var="discount">
-                                        	<option value="${discount.intDiscountID}">${discount.strDiscountName}</option>
-                                        </c:forEach>
-                                    </select>
-                                    <label for="crRDiscount"><b>Discounts</b></label>
+                                <div class="card-content">
+                                    <a class="activator grey-text text-darken-4 light btn btn-small center" style="margin-top: -10px;"><i class="material-icons right white-text">add_shopping_cart</i></a>
+                                    <h5 style='font-size: 12px; line-height: 10px !important;'><b>{{product.strProductName}}</b>
+                                        <p>{{product.dblProductPrice | currency:"P"}}</p></h5>
                                 </div>
-                            </div>
-                            <div class="col s4 z-depth-barts white" style="margin-top: 10px;">
-                                <div class="col s12">
+                                <div class="card-reveal">
+
+                                    <span class="card-title grey-text text-darken-4"><i
+                                            class="material-icons right">close</i></span>
+                                    <h4 style='font-size: 12px; line-height: 15px !important;'>
+                                        <b>{{product.strProductName}}</b><br/>
+                                        <span class="grey-text text-darken-4">{{product.dblProductPrice | currency:"Php "}}</span>
+                                    </h4>
                                     <div class="input-field col s12">
-                                        <p>Total: <span class="right-align"></span></p>
+                                        <input type="number" id="crPSQty{{product.intProductID}}" ng-model="vm.quantity"/>
+                                        <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
                                     </div>
-                                    <div class="input-field col s12" style="margin-top: 20px !important;">
-                                        <input type="text" class="right-align prodPrice" name="" id="crPackPrice" placeholder="Price"/>
-                                        <label for="crPackPrice" class="active"><b>Price</b><i
-                                                class="material-icons red-text tiny">error_outline</i></label>
-                                    </div>
+                                    <h6 class="grey-text text-darken-4">{{product.dblProductPrice * vm.quantity | currency:
+                                        "Php "}}</h6>
+
+                                    <a class="waves-effect waves-light btn" ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
+                                        <i class="material-icons left" style="padding: 0px !important; margin: 0px !important;">
+                                            shopping_basket</i>BUY NOW!
+                                    </a>
                                 </div>
                             </div>
-                            <!--<div class="col s12 z-depth-barts white prodservlist" style="margin-top: 5px;"-->
-                            <!--id="servContainer">-->
-                            <!--<h6 class="center" style="padding-top: -2px !important;"><b>Service List</b></h6>-->
-                            <!--<div class="col s6" id="servList"-->
-                            <!--style="margin-top: -13px !important; margin-bottom: 5px !important;"></div>-->
-                            <!--</div>-->
+                        </div>
+
+                    </div>
+                 </div>
+
+                <div ng-show="vm.selected == 'service'">
+                    <div class="row ">
+                        <div class="col s2" ng-repeat="service in vm.serviceList">
+                            <div class="card small">
+                                <div class="card-image waves-effect waves-block waves-light">
+                                    <img class="activator" ng-src="{{service.strPhotoPath}}">
+                                </div>
+                                <div class="card-content">
+                                    <a class="activator grey-text text-darken-4 light btn btn-small center" style="margin-top: -10px;"><i class="material-icons right white-text">add_shopping_cart</i></a>
+                                    <h5 style='font-size: 12px; line-height: 10px !important;'><b>{{service.strServiceName}}</b>
+                                        <p>{{service.dblServicePrice | currency:"P"}}</p></h5>
+                                </div>
+                                <div class="card-reveal">
+
+                                    <span class="card-title grey-text text-darken-4"><i
+                                            class="material-icons right">close</i></span>
+                                    <h4 style='font-size: 12px; line-height: 15px !important;'>
+                                        <b>{{service.strServiceName}}</b><br/>
+                                        <span class="grey-text text-darken-4">{{service.dblServicePrice | currency:"Php "}}</span>
+                                    </h4>
+                                    <div class="input-field col s12">
+                                        <input type="number" id="crPSQty{{product.intProductID}}" ng-model="vm.quantity"/>
+                                        <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
+                                    </div>
+                                    <h6 class="grey-text text-darken-4">{{service.dblServicePrice * vm.quantity | currency:
+                                        "Php "}}</h6>
+
+                                     <a class="waves-effect waves-light btn" ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
+                                        <i class="material-icons left" style="padding: 0px !important; margin: 0px !important;">
+                                            shopping_basket</i>BUY NOW!
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="vm.selected == 'package'">
+                   <div class="row ">
+                       <div class="col s2" ng-repeat="package in vm.packageList">
+                           <div class="card small">
+                               <div class="card-image waves-effect waves-block waves-light">
+                                   <img class="activator" ng-src="{{service.strPhotoPath}}">
+                               </div>
+                               <div class="card-content">
+                                   <a class="activator grey-text text-darken-4 light btn btn-small center" style="margin-top: -10px;"><i class="material-icons right white-text">add_shopping_cart</i></a>
+                                   <h5 style='font-size: 12px; line-height: 10px !important;'><b>{{package.strPackageName}}</b>
+                                       <p>{{package.dblPackagePrice | currency:"P"}}</p></h5>
+                               </div>
+                               <div class="card-reveal">
+
+                                   <span class="card-title grey-text text-darken-4"><i
+                                           class="material-icons right">close</i></span>
+                                   <h4 style='font-size: 12px; line-height: 15px !important;'>
+                                       <b>{{package.strPackageName}}</b><br/>
+                                       <span class="grey-text text-darken-4">{{package.dblPackagePrice | currency:"Php "}}</span>
+                                   </h4>
+                                   <div class="input-field col s12">
+                                       <input type="number" id="crPSQty{{product.intProductID}}" ng-model="vm.quantity"/>
+                                       <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
+                                   </div>
+                                   <h6 class="grey-text text-darken-4">{{package.dblPackagePrice * vm.quantity | currency: "Php "}}</h6>
+
+                                   <a class="waves-effect waves-light btn" ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
+                                        <i class="material-icons left" style="padding: 0px !important; margin: 0px !important;">
+                                            shopping_basket</i>BUY NOW!
+                                    </a>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+                </div>
+
+                <div ng-show="vm.selected == 'promo'">
+                    <div class="row ">
+                       <div class="col s2" ng-repeat="promo in vm.promoList">
+                           <div class="card small">
+                               <div class="card-image waves-effect waves-block waves-light">
+                                   <img class="activator" ng-src="{{service.strPhotoPath}}">
+                               </div>
+                               <div class="card-content">
+                                   <a class="activator grey-text text-darken-4 light btn btn-small center" style="margin-top: -10px;"><i class="material-icons right white-text">add_shopping_cart</i></a>
+                                   <h5 style='font-size: 12px; line-height: 10px !important;'><b>{{promo.strPromoName}}</b>
+                                       <p>{{promo.dblPromoPrice | currency:"P"}}</p></h5>
+                               </div>
+                               <div class="card-reveal">
+
+                                   <span class="card-title grey-text text-darken-4"><i
+                                           class="material-icons right">close</i></span>
+                                   <h4 style='font-size: 12px; line-height: 15px !important;'>
+                                       <b>{{promo.strPromoName}}</b><br/>
+                                       <span class="grey-text text-darken-4">{{promo.dblPromoPrice | currency:"Php "}}</span>
+                                   </h4>
+                                   <div class="input-field col s12">
+                                       <input type="number" id="crPSQty{{product.intProductID}}" ng-model="vm.quantity"/>
+                                       <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
+                                   </div>
+                                   <h6 class="grey-text text-darken-4">{{promo.dblPromoPrice * vm.quantity | currency:
+                                       "Php "}}</h6>
+
+                                   <a class="waves-effect waves-light btn" ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
+                                        <i class="material-icons left" style="padding: 0px !important; margin: 0px !important;">
+                                            shopping_basket</i>BUY NOW!
+                                    </a>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+                </div>
+                                        
+               <div class="col s12 z-depth-barts white" id="">
+                    <h6 class="center" style="padding-top: -2px !important;"><b>Selected Items</b></h6>
+                    <div class="col s12" id="pslist" style="margin-top: -13px !important; margin-bottom: 5px !important;"></div>
+                </div>
+                <div class="col s4" style="margin-top: 10px;">
+                    <div class="input-field col s12">
+                        <select multiple ng-model="vm.extraCharge" id="crROtherCharge" ng-options="charge.strECName for charge in vm.extraChargeList"></select>
+                            
+                        <label for="crROtherCharge"><b>Other Charges</b></label>
+                    </div>
+                </div>
+                <div class="col s4" style="margin-top: 10px;">
+                    <div class="input-field col s12">
+                       <select multiple ng-model="vm.selDiscounts" id="crRDiscount" ng-options="discount.strDiscountName for discount in vm.discountList"></select>
+                        <label for="crRDiscount"><b>Discounts</b></label>
+                    </div>
+                </div>
+                <div class="col s4 z-depth-barts white" style="margin-top: 10px;">
+                    <div class="col s12">
+                        <div class="input-field col s12">
+                            <h5 class="green-text">Total: {{vm.sum | currency: "Php"}}</h5>
+                        </div>
+                        
+                    </div>
+                </div>  
+                 <div class="col s8" style="margin-top: 10px;">
+                    <div class="input-field col s12">
+                       <select multiple ng-model="vm.selEmployees" id="cREmp" ng-options="employee.strEmpFirstName for employee in vm.employeeList"></select>
+                        <label for="cREmp"><b>Employees</b></label>
+                    </div>
+                </div>
                         </div>
                     </div>
                     <div class="stepreservation well">
@@ -542,14 +426,15 @@
                                 <input type="text" id="crRSumToDate" name=""/>
                                 <label for="crRSumToDate" class="active"><b>To (Date)</b></label>
                             </div>
-                            <div class="input-field col s6">
-                                <input type="text" id="crRSumFromTime" name="" />
-                                <label for="crRSumFromTime" class="active"><b>From (Time)</b></label>
+                            <div class="input-field col s12">
+                                <label for="timepicker">Time</label>
+                                <input id="timepicker" class="timepicker" type="time">
                             </div>
                             <div class="input-field col s6" style="margin-top: 15px;">
                                 <input type="text" name="" id="crRSumToTime" />
                                 <label for="crRSumToTime" class="active"><b>To (Time)</b></label>
                             </div>
+
                             <div class="input-field col s6">
                                 <input type="text" name="" id="crRSumHeadCount" />
                                 <label for="crRSumHeadCount"><b>Head Count</b></label>
@@ -622,7 +507,7 @@
                                     Note: First payment should be settled right after the reservation is created.
                                           Second payment will be collected on the day of the event after the program.
                                 </p>
-                                
+
                                 <p>
                                 	By clicking create, you AGREE to our terms and agreements stated in the
                                     <a class="blue-text" href="">Reservation Contract</a>
@@ -642,8 +527,9 @@
                         style="margin-left: 3px; margin-right:3px;">NEXT
                 </button>
                 <button type="submit" value="submit" id="createReservationSubmitForm"
-                        class="actionreserve submitformreserve waves-effect waves-light white-text btn-flat purple"
-                        style="margin-left:3px; margin-right:3px;">CREATE
+                        class=" waves-effect waves-light white-text btn-flat purple"
+                        style="margin-left:3px; margin-right:3px;"
+                        ng-click="vm.saveReservation()">CREATE
                 </button>
                 <button type="button" id="backbtn"
                         class="actionreserve backformreserve waves-effect waves-purple transparent btn-flat"
@@ -652,64 +538,7 @@
 
             </div>
         </form>
+
+       
     </div>
-
-    <c:forEach items="${ecList}" var="extracharge">
-        <div id="ecupdate${extracharge.intECID}" class="updateExtraModal modal modal-fixed-footer">
-            <form class="col s12 updateExtraForm" id="updateExtraForm" method="post" action="updateExtraCharge">
-                <div class="modal-content">
-                    <!-- <div class="container"> -->
-                    <div class="wrapper">
-                        <h4 class="center grey-text text-darken-1">Update Charge<a id="btnUpExtraExit" type="reset"
-                                                                                   value="Reset"
-                                                                                   class="btnUpExtraExit modal-action modal-close"><i
-                                class="small material-icons right grey-text text-darken-4">close</i></a></h4>
-                        <div class="upextraerrorcontainer card red center input-field col s12 white-text z-depth-barts">
-
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input type="hidden" value="${extracharge.intECID}"
-                                       name="intECID">
-                                <input type="text" class="validate" id="upECName" value="${extracharge.strECName}"
-                                       name="strECName" required placeholder="Charge Name">
-                                <label for="upECName" class="active"><b>Charge Name</b><i
-                                        class="material-icons red-text tiny">error_outline</i></label>
-                            </div>
-                            <div class="input-field col s12" style="margin-top: 25px;">
-                                <input type="text" class="validate" id="upECDetails"
-                                       name="strECDetails" required value="${extracharge.strECDetails}"
-                                       placeholder="City">
-                                <label for="upECDetails" class="active"><b>Details</b><i
-                                        class="material-icons red-text tiny">error_outline</i></label>
-                            </div>
-                            <div class="input-field col s6 right">
-                                <input id="upECPrice" name="price" value="${extracharge.dblECPrice}"
-                                       class="upECPrice validate upProdItemPrice right-align" required
-                                       placeholder="Price">
-                                <label for="upECPrice" class="active"><b>Price</b><i
-                                        class="material-icons red-text tiny">error_outline</i></label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="red-text btn-flat transparent left" disabled
-                            style="margin:0px !important; padding:0px !important;"><i
-                            class="material-icons">error_outline</i>&nbspRequired field
-                    </button>
-                    <button type="reset" value="Reset" id="upExtraCancel"
-                            class="upExtraCancel modal-action modal-close waves-effect waves-purple transparent btn-flat">
-                        CANCEL
-                    </button>
-                    <button class="upExtraSubmitBtn waves-effect waves-light purple darken-3 white-text btn-flat"
-                            type="submit"
-                            value="Submit">UPDATE
-                    </button>
-                </div>
-            </form>
-        </div>
-    </c:forEach>
-
-
 </div>

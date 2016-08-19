@@ -32,8 +32,8 @@
 		        <div class="col s4" ng-repeat="customer in vm.customerList">
 		          <div class="card purple darken-1">
 		            <div class="card-content white-text">
-		              <span class="card-title">{{customer.name}}</span>
-		              <p>{{customer.contact}}</p>
+		              <span class="card-title">{{customer.strName}}</span>
+		              <p>{{customer.strContactNo}}</p>
 		              <p>{{customer.strTotalPrice | currency: "Php"}}</p>
 		            </div>
 		            <div class="card-action">
@@ -69,19 +69,19 @@
                             <div class="container">
                                 <div class="input-field col s12">
                                     <input type="text" class="validate" id="crWIName"
-                                           ng-model="details.name" placeholder="Name"
+                                           ng-model="vm.details.name" placeholder="Name"
                                            style='font-size: 22px; line-height: 15px !important;'/>
                                     <label for="crWIName" class="active" ><b style='font-size: 20px; line-height: 15px !important;'>Name</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <input type="text" id="crWIContact" ng-model="details.contact" placeholder="contact"
+                                    <input type="text" id="crWIContact" ng-model="vm.details.contact" placeholder="contact"
                                     		style='font-size: 22px; line-height: 15px !important;'/>
                                     <label for="crWIContact" class="active"><b>Contact</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12" style="margin-top: 15px;">
-                                    <input type="email" ng-model="details.email" id="crWIEmail" placeholder="Email"
+                                    <input type="email" ng-model="vm.details.email" id="crWIEmail" placeholder="Email"
                                     		style='font-size: 22px; line-height: 15px !important;'/>
                                     <label for="crWIEmail" class="active"><b>Email</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
@@ -89,7 +89,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="stepwalkin well" ng-controller="walkinCtrl">
                         <div class="row">
                             <div class="col s4">
@@ -178,15 +177,9 @@
                                                     <span class="grey-text text-darken-4">{{service.dblServicePrice | currency:"Php "}}</span>
                                                 </h4>
                                                 <div class="input-field col s12">
-                                                    <input type="number" id="crPSQty{{product.intProductID}}" ng-model="vm.quantity"/>
-                                                    <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
-                                                </div>
-                                                <div class="input-field col s12">
                                                    <select ng-model="vm.selEmployee" id="cREmp" ng-options="employee.strEmpFirstName for employee in vm.employeeList"></select>
                                                     <label for="cREmp"><b>Employees</b></label>
                                                 </div>
-                                                <h6 class="grey-text text-darken-4">{{service.dblServicePrice * vm.quantity | currency:
-                                                    "Php "}}</h6>
 
                                                  <a class="waves-effect waves-light btn" ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
                                                     <i class="material-icons left" style="padding: 0px !important; margin: 0px !important;">
@@ -210,19 +203,17 @@
                                                <h5 style='font-size: 12px; line-height: 10px !important;'><b>{{package.strPackageName}}</b>
                                                    <p>{{package.dblPackagePrice | currency:"P"}}</p></h5>
                                            </div>
-                                           <div class="card-reveal">
+                                           <div class="card-reveal" >
 
                                                <span class="card-title grey-text text-darken-4"><i
                                                        class="material-icons right">close</i></span>
                                                <h4 style='font-size: 12px; line-height: 15px !important;'>
                                                    <b>{{package.strPackageName}}</b><br/>
-                                                   <span class="grey-text text-darken-4">{{package.dblPackagePrice | currency:"Php "}}</span>
+                                                    <ul ng-repeat="contains in vm.packageContains">
+                                                   		<li>{{contains.service.strServiceName}}</li>
+                                                   </ul>
+                                                   <span class="grey-text tex 	t-darken-4"></span>
                                                </h4>
-                                               <div class="input-field col s12">
-                                                   <input type="number" id="crPSQty{{product.intProductID}}" ng-model="vm.quantity"/>
-                                                   <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
-                                               </div>
-                                               <h6 class="grey-text text-darken-4">{{package.dblPackagePrice * vm.quantity | currency: "Php "}}</h6>
 
                                                <a class="waves-effect waves-light btn" ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
                                                     <i class="material-icons left" style="padding: 0px !important; margin: 0px !important;">
@@ -238,9 +229,7 @@
                                 <div class="row ">
                                    <div class="col s2" ng-repeat="promo in vm.promoList">
                                        <div class="card small">
-                                           <div class="card-image waves-effect waves-block waves-light">
-                                               <img class="activator" ng-src="{{service.strPhotoPath}}">
-                                           </div>
+                                           
                                            <div class="card-content">
                                                <a class="activator grey-text text-darken-4 light btn btn-small center" style="margin-top: -10px;"><i class="material-icons right white-text">add_shopping_cart</i></a>
                                                <h5 style='font-size: 12px; line-height: 10px !important;'><b>{{promo.strPromoName}}</b>
@@ -254,13 +243,7 @@
                                                    <b>{{promo.strPromoName}}</b><br/>
                                                    <span class="grey-text text-darken-4">{{promo.dblPromoPrice | currency:"Php "}}</span>
                                                </h4>
-                                               <div class="input-field col s12">
-                                                   <input type="number" id="crPSQty{{product.intProductID}}" ng-model="vm.quantity"/>
-                                                   <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
-                                               </div>
-                                               <h6 class="grey-text text-darken-4">{{promo.dblPromoPrice * vm.quantity | currency:
-                                                   "Php "}}</h6>
-
+                                             
                                                <a class="waves-effect waves-light btn" ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
                                                     <i class="material-icons left" style="padding: 0px !important; margin: 0px !important;">
                                                         shopping_basket</i>BUY NOW!
@@ -322,5 +305,79 @@
 
             </div>
         </form>
+    </div>
+    
+    <div id="packageListModal" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4 class="grey-text center text-darken-1">Pacakge Contains</h4>
+            <table>
+            	<tr ng-repeat="services in vm.packageContains" >
+            		<td>{{services.service.strServiceName}}</td>
+            		<td> <div class="input-field col s12">
+                         <select ng-model="vm.selEmployeePerService" id="cREmp1" ng-options="employee.strEmpFirstName for employee in vm.employeeList"></select>
+                          <label for="cREmp1"><b>Employees</b></label>
+                      </div></td>
+                    <td>
+                    	 <button id="btnAssign"
+	                    class="waves-effect waves-light white-text btn-flat purple"
+	                    ng-click="vm.assignEmployeePackage($index)">ASSIGN
+            </button>
+                    </td>
+            	</tr>
+            </table>
+            <div class="container">
+                <div class="row">
+                    
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="red-text btn-flat transparent left" disabled
+                    style="margin:0px !important; padding:0px !important;"><i
+                    class="material-icons">error_outline</i>&nbspRequired field
+            </button>
+            <button type="submit" value="Submit" id="paymentDetails.submit"
+                    class="waves-effect waves-light white-text btn-flat purple"
+                    style="margin-left:3px; margin-right:3px;"
+                    ng-click="">DONE
+            </button>
+        </div>
+    </div>
+    
+     <div id="promoListModal" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4 class="grey-text center text-darken-1">Promo Contains</h4>
+            <table>
+            	<tr ng-repeat="services in vm.promoContains" >
+            		<td>{{services.service.strServiceName}}</td>
+            		<td> <div class="input-field col s12">
+                         <select ng-model="vm.selEmployeePerService" id="cREmp1" ng-options="employee.strEmpFirstName for employee in vm.employeeList"></select>
+                          <label for="cREmp1"><b>Employees</b></label>
+                      </div></td>
+                    <td>
+                    	 <button id="btnAssign"
+	                    class="waves-effect waves-light white-text btn-flat purple"
+	                    ng-click="vm.assignEmployeePromo($index)">ASSIGN
+            </button>
+                    </td>
+            	</tr>
+            </table>
+            <div class="container">
+                <div class="row">
+                    
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="red-text btn-flat transparent left" disabled
+                    style="margin:0px !important; padding:0px !important;"><i
+                    class="material-icons">error_outline</i>&nbspRequired field
+            </button>
+            <button type="submit" value="Submit" id="paymentDetails.submit"
+                    class="waves-effect waves-light white-text btn-flat purple"
+                    style="margin-left:3px; margin-right:3px;"
+                    ng-click="">DONE
+            </button>
+        </div>
     </div>
 </div>

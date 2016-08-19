@@ -25,11 +25,28 @@ import com.gss.service.DiscountService;
 import com.gss.service.DiscountServiceImpl;
 import com.gss.service.ExtraChargeService;
 import com.gss.service.ExtraChargeServiceImpl;
+import com.gss.service.ProductService;
+import com.gss.service.ProductServiceImpl;
 
 public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 	
 	private JDBCConnection jdbc = new JDBCConnection();
 	
+
+	private int intSalesID;
+	private Date datCreated;
+	private Date deliveryDate;
+	private int intType;
+	private String strName;
+	private String strAddress;
+	private int intLocationID;
+	private String strContactNo;
+	private Invoice invoice;
+	private String strStatus;
+	private int intID;
+	private int intQuantity;
+	private int intStatus;
+
 	private List<ProductOrder> productList = new ArrayList<ProductOrder>();
 	private List<ReservedService> serviceList = new ArrayList<ReservedService>();
 	private List<ReservedPackage> packageList = new ArrayList<ReservedPackage>();
@@ -43,14 +60,23 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 		
 		String insertPayment 					= "CALL createPayment(?, ?, ?)";
 		String updateStock						= "CALL updateStock(?, ?);";
-		ProductSales sales = ProductSales.search(payment.getIntInvoiceID(), ProductSales.getAllProductSales());
+		
+		ProductSales sales = null;
+		try {
+			sales = getProductBySalesID(payment.getIntInvoiceID());
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		System.out.print("...." + sales.getProductList().size());
 		
 		try{
 			PreparedStatement createPayment		= con.prepareStatement(insertPayment);
 			PreparedStatement updateProducts	= con.prepareStatement(updateStock);
 			
 			createPayment.setInt(1, payment.getIntInvoiceID());
-			createPayment.setString(2, payment.getStrPaymentType());
+			createPayment.setString(2, payment.getPaymentType());
 			createPayment.setDouble(3, payment.getDblPaymentAmount());
 			
 			createPayment.execute();
@@ -77,6 +103,80 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 			return false;
 		}
 		
+	}
+	
+	public ProductSales getProductBySalesID(int inInvoiceID) throws Exception{
+		
+		Connection con = jdbc.getConnection();
+		
+		String getAllOrder 					= "SELECT * FROM tblOrder WHERE intInvoiceID = ? AND strOrderStatus <> 'CANCELLED' AND strOrderStatus <> 'DECLINED';";
+		String getAllDet 					= "SELECT * FROM tblOrderDetails WHERE intOrderID = ?";
+		
+		ProductSales salesList1 = null;
+		
+		try{
+			ProductService service = new ProductServiceImpl();
+			List<ProductSales> salesList 	= new ArrayList<ProductSales>();
+			List<Product> productList 		= service.getAllProductsNoImage();
+			
+			PreparedStatement getAll 		= con.prepareStatement(getAllOrder);
+			PreparedStatement getAllDetails	= con.prepareStatement(getAllDet);
+			getAll.setInt(1, inInvoiceID);
+			ResultSet orders				= getAll.executeQuery();
+			ResultSet details;
+			
+			while(orders.next()){
+				
+				List<ProductOrder> orderDetails = new ArrayList<ProductOrder>();
+				
+				this.intSalesID = orders.getInt(1);
+				this.datCreated = orders.getDate(2);
+				this.deliveryDate = orders.getDate(3);
+				this.intType = orders.getInt(4);
+				this.strName = orders.getString(5);
+				this.strAddress = orders.getString(6);
+				this.intLocationID = orders.getInt(7);
+				this.strContactNo = orders.getString(8);
+				this.strStatus = orders.getString(9);
+				this.invoice = getInvoice(orders.getInt(10));
+				
+				getAllDetails.setInt(1, intSalesID);
+				details = getAllDetails.executeQuery();
+				
+				while(details.next()){
+					
+					this.intID = details.getInt(1);
+					int id = details.getInt(3);
+					this.intQuantity = details.getInt(4);
+					this.intStatus = details.getInt(5);
+					
+					for(int i = 0; i < productList.size(); i++){
+						if(id == productList.get(i).getIntProductID()){
+							Product product = productList.get(i);
+							ProductOrder order = new ProductOrder(this.intID, product, this.intQuantity, this.intStatus);
+							orderDetails.add(order);
+						}
+					}
+				}
+				details.close();
+				
+				salesList1 = new ProductSales(this.intSalesID, this.datCreated, this.deliveryDate, this.intType, this.strName, this.strAddress, this.intLocationID, this.strContactNo, orderDetails, this.invoice, this.strStatus);
+				
+			}
+			
+			getAll.close();
+			getAllDetails.close();
+			orders.close();
+			
+			con.close();
+			
+			return salesList1;
+			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
@@ -160,7 +260,7 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 			PreparedStatement updateProducts	= con.prepareStatement(updateStock);
 			
 			createPayment.setInt(1, payment.getIntInvoiceID());
-			createPayment.setString(2, payment.getStrPaymentType());
+			createPayment.setString(2, payment.getPaymentType());
 			createPayment.setDouble(3, payment.getDblPaymentAmount());
 			
 			createPayment.execute();
@@ -206,6 +306,7 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 		ExtraChargeService extraService = new ExtraChargeServiceImpl();
 		
 		int payment = 0;
+		double totalAmount = 0;
 		Date date = null;
 		
 		try{
@@ -233,7 +334,7 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 			while(invoiceSet.next()){
 				
 				date = invoiceSet.getDate(2);
-				payment = invoiceSet.getInt(3);
+				totalAmount = invoiceSet.getInt(3);
 				
 				
 				preDiscount.setInt(1, intInvoiceID);
@@ -266,17 +367,16 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 				while(paymentSet.next()){
 					int intID 				= paymentSet.getInt(1);
 					int invoice		 		= paymentSet.getInt(2);
-					int intPaymentType 		= paymentSet.getInt(3);
+					String strPaymentType 	= paymentSet.getString(3);
 					double paymentAmount	= paymentSet.getDouble(4);
 					Date dateOfPayment		= paymentSet.getDate(5);
 			
-					Payment extra = new Payment(intID, invoice, Payment.convertToString(intPaymentType), paymentAmount, dateOfPayment);
+					Payment extra = new Payment(intID, invoice, "reservation", paymentAmount, strPaymentType, dateOfPayment);
 					
 					paymentList.add(extra);
 				}
 			}
 			
-			double totalAmount = Invoice.computeTotalAmount(productList, serviceList, packageList, promoList, extraChargeList);
 			double remainingBalance = Invoice.getRemainingBalance(totalAmount, paymentList);
 			
 			

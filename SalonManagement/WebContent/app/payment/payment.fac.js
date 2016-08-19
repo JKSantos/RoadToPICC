@@ -3,8 +3,7 @@
 
     angular
         .module('app')
-        .factory('paymentFactory', paymentFactory)
-        .factory('sampleFactory', sampleFactory);
+        .factory('paymentFactory', paymentFactory);
 
     function paymentFactory($resource) {
         var orderDetails = [{}];
@@ -12,7 +11,9 @@
         var subtotal = 0;
         return {
             getUnpaidPayments: function () {
-                $resource('getAllUnpaidTransaction');
+                return $resource('getAllUnpaidTransaction').get().$promise.then(function (data) {
+                    return data;
+                });
             },
             getPayments: function () {
                 return paymentDetails;

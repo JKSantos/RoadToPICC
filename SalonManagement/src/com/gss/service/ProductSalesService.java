@@ -22,4 +22,6 @@ public boolean createProductSales(ProductSales sales) throws SQLException;
 	
 	public List<ProductSales> getAllProductRequest();
 
+	public List<ProductSales> getAllProductSalesNoDetails();
+
 }

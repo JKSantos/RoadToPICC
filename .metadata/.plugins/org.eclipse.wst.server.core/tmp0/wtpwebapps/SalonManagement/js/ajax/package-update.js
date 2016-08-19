@@ -2,9 +2,10 @@
  * Created by Castillo on 8/2/2016.
  */
 //update package
-window.onload = updatePackageTable();
+
 window.onload = updatePackageProductTable();
 window.onload = updatePackageServiceTable();
+
 
 function updatePackageProductTable() {
     $.ajax({
@@ -256,7 +257,6 @@ function openUpdatePackage(id) {
 
                     for (var z = 0; z < data.packageList[i].productList.length; z++) {
                         var productList = data.packageList[i].productList[z];
-                        console.log('updateProdCheck' + productList.product.intProductID);
                         var prodIDAjax = 'updateProdCheck' + productList.product.intProductID;
 
                         updatePackProdID.each(function () {
@@ -276,8 +276,8 @@ function openUpdatePackage(id) {
 
                                 $('#upPsList').append('<div style="margin: 3px;" class="updatePackChip chip z-depth-1 grey lighten-3 grey-text text-darken-4"' +
                                     ' id="upProdItem' + ajaxProductID + '"><b>' + productList.product.strProductName +
-                                    '</b><span class="span"><span class="grey-text text-darken-3" id="upProdx' + id + '">' +
-                                    '(' + productList.intProductQuantity + ')</span></span>' +
+                                    '</b><span class="span"><span class="grey-text text-darken-3" id="upProdx' + ajaxProductID + '">' +
+                                    ' (' + productList.intProductQuantity + ')</span></span>' +
                                     '<i id="upProdchip' + ajaxProductID + '" class="material-icons upPackChipExit"' +
                                     ' onclick="upPackChipExit(' + ajaxProductID + ')" style="margin-right: 5px !important">' +
                                     'close</i></span></div>').show();
@@ -307,10 +307,14 @@ function openUpdatePackage(id) {
                                         upTotal += ($upQty - upQ) * $upAjaxProdPrice;
                                         $('#upPackTotal').val('Php ' + parseFloat(upTotal).toFixed(2));
                                         $('#upPackPrice').val('Php ' + parseFloat(upTotal).toFixed(2));
+                                        $('#upProdx' + ajaxProductID + '').remove();
+                                        $('#upProdItem' + ajaxProductID + ' .span').append('<span class="grey-text text-darken-3" id="upProdx' + ajaxProductID + '"> (' + $upQty + ')</span>');
                                     } else if ($upQty < upQ) {
                                         upTotal -= (upQ - $upQty) * $upAjaxProdPrice;
                                         $('#upPackTotal').val('Php ' + parseFloat(upTotal).toFixed(2));
                                         $('#upPackPrice').val('Php ' + parseFloat(upTotal).toFixed(2));
+                                        $('#upProdx' + ajaxProductID + '').remove();
+                                        $('#upProdItem' + ajaxProductID + ' .span').append('<span class="grey-text text-darken-3" id="upProdx' + ajaxProductID + '"> (' + $upQty + ')</span>');
                                     }
                                     upQ = $upQty;
                                 });

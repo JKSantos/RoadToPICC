@@ -98,26 +98,11 @@ public class ReservationJDBCRepository implements ReservationRepository{
 				this.strStatus				= reservationResult.getString(14);
 				this.employeeAssigned		= getAllAssignedEmployee(this.intReservationID);
 				this.strVenue				= reservationResult.getString(15);
-				
-				
-				System.out.println("CURRENT RESERVATION ON PROCESS: " + this.customer.getStrName());
-				
-				System.out.print("Fetching Products...");
-				getAllProductOrder(this.intReservationID);
-				System.out.println("Complete...");
-				System.out.print("Fetching Services...");
-				getAllReservedService(this.intReservationID);
-				System.out.println("Complete...");
-				System.out.print("Fetching Packages...");
-				getAllReservedPackage(this.intReservationID);
-				System.out.println("Complete...");
-				System.out.print("Fetching Promo...");
-				getAllReservedPromo(this.intReservationID);
-				System.out.println("Complete...");
+
+				this.includedItems = new ReservationInclusion(getAllProductOrder(this.intReservationID), getAllReservedService(this.intReservationID), getAllReservedPackage(this.intReservationID), getAllReservedPromo(this.intReservationID));
 				
 				Reservation reservation = new Reservation(this.intReservationID, this.customer, this.includedItems, this.intReservationType, this.dateCreated, this.datFrom, this.datTo, this.timFrom, this.timTo, this.strVenue, this.headCount, this.employeeAssigned, this.invoice, this.strStatus);
-				reservationList.add(reservation);
-				
+				reservationList.add(reservation);	
 			}
 			
 			return reservationList;
@@ -740,10 +725,8 @@ public class ReservationJDBCRepository implements ReservationRepository{
 			while(invoiceSet.next()){
 				
 				date = invoiceSet.getDate(2);
-				payment = invoiceSet.getInt(3);
-				totalBalance = invoiceSet.getDouble(4);
-				
-				
+				totalBalance = invoiceSet.getDouble(3);
+	
 				preDiscount.setInt(1, intInvoiceID);
 				discountSet = preDiscount.executeQuery();
 				
@@ -774,11 +757,11 @@ public class ReservationJDBCRepository implements ReservationRepository{
 				while(paymentSet.next()){
 					int intID 				= paymentSet.getInt(1);
 					int invoice		 		= paymentSet.getInt(2);
-					int intPaymentType 		= paymentSet.getInt(3);
+					String strPaymentType 	= paymentSet.getString(3);
 					paymentAmount			= paymentSet.getDouble(4);
 					Date dateOfPayment		= paymentSet.getDate(5);
 			
-					Payment extra = new Payment(intID, invoice, Payment.convertToString(intPaymentType), paymentAmount, dateOfPayment);
+					Payment extra = new Payment(intID, invoice,"reservation" , paymentAmount, strPaymentType, dateOfPayment);
 					
 					paymentList.add(extra);
 				}
@@ -827,8 +810,6 @@ public class ReservationJDBCRepository implements ReservationRepository{
 				
 				List<EmployeeAssigned> employees = new ArrayList<EmployeeAssigned>();
 				
-				System.out.println("CURRENT RESERVATION ON PROCESS: " + this.customer.getStrName());
-				
 				Reservation reservation = new Reservation(this.intReservationID, this.customer, this.includedItems, this.intReservationType, this.dateCreated, this.datFrom, this.datTo, this.timFrom, this.timTo, this.strVenue, this.headCount, employees, this.invoice, this.strStatus);
 				reservationList.add(reservation);
 			}
@@ -872,20 +853,19 @@ public class ReservationJDBCRepository implements ReservationRepository{
 			while(invoiceSet.next()){
 				
 				date = invoiceSet.getDate(2);
-				payment = invoiceSet.getInt(3);
-				totalBalance = invoiceSet.getDouble(4);
+				totalBalance = invoiceSet.getInt(3);
 				
-				prePayment.setInt(1, intInvoiceID);
+				prePayment.setInt(1, intInvoice);
 				paymentSet = prePayment.executeQuery();
 				
 				while(paymentSet.next()){
 					int intID 				= paymentSet.getInt(1);
 					int invoice		 		= paymentSet.getInt(2);
-					int intPaymentType 		= paymentSet.getInt(3);
+					String strPaymentType	= paymentSet.getString(3);
 					paymentAmount			= paymentSet.getDouble(4);
 					Date dateOfPayment		= paymentSet.getDate(5);
 			
-					Payment extra = new Payment(intID, invoice, Payment.convertToString(intPaymentType), paymentAmount, dateOfPayment);
+					Payment extra = new Payment(intID, invoice, "reservation", paymentAmount, strPaymentType, dateOfPayment);
 					
 					paymentList.add(extra);
 				}
@@ -894,7 +874,7 @@ public class ReservationJDBCRepository implements ReservationRepository{
 			double remainingBalance = Invoice.getRemainingBalance(totalBalance, paymentList);
 			
 			
-			Invoice invoice = new Invoice(intInvoiceID, date, discountList, extraChargeList, totalBalance, remainingBalance, paymentList, Invoice.convertToString(payment));
+			Invoice invoice = new Invoice(intInvoice, date, discountList, extraChargeList, totalBalance, remainingBalance, paymentList, Invoice.convertToString(payment));
 			
 			return invoice;
 		}

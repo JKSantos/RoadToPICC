@@ -1,0 +1,13 @@
+
+Aug 17, 2016 10:42:35.74 NEW SESSION
+Aug 17, 2016 10:42:35.74 [7020:4352:0817/104235:ERROR:CONSOLE(416)] "String.format("Error: [$parse:syntax] http://errors.angularjs.org/1.5.7/$parse/syntax?p0=in&p1=is%20an%20unexpected%20token&p2=26&p3=vm.packageList%3B%20contains%20in%20vm.packageContains&p4=in%20vm.packageContains
+Aug 17, 2016 10:42:35.74     at Error (native)
+Aug 17, 2016 10:42:35.76     at http://localhost:8080/SalonManagement/js/angular.min.js:6:412
+Aug 17, 2016 10:42:35.77     at Object.throwError (http://localhost:8080/SalonManagement/js/angular.min.js:228:446)
+Aug 17, 2016 10:42:35.77     at Object.ast (http://localhost:8080/SalonManagement/js/angular.min.js:220:334)
+Aug 17, 2016 10:42:35.77     at Object.compile (http://localhost:8080/SalonManagement/js/angular.min.js:230:198)
+Aug 17, 2016 10:42:35.78     at kc.parse (http://localhost:8080/SalonManagement/js/angular.min.js:258:348)
+Aug 17, 2016 10:42:35.78     at g (http://localhost:8080/SalonManagement/js/angular.min.js:125:278)
+Aug 17, 2016 10:42:35.79     at m.$watchCollection (http://localhost:8080/SalonManagement/js/angular.min.js:141:271)
+Aug 17, 2016 10:42:35.79     at Object.<anonymous> (http://localhost:8080/SalonManagement/js/angular.min.js:300:199)
+Aug 17, 2016 10:42:35.80     at http://localhost:8080/SalonManagement/js/angular.min.js:16:56", "[object Object]"): not enough substitution arguments. Had 1 but needed 2, so substitution was skipped.", source: chrome-devtools://devtools/bundled/inspector.js (416)

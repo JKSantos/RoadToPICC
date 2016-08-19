@@ -84,30 +84,33 @@ public class NotifyCustomerViaSMS implements Runnable{
 	
 	public void loadConfigurations(){
 		
-		Properties prop = new Properties();
-		InputStream input = null;
-
-		try {
-
-			input = new FileInputStream("resource/FowizSMSSenderSettings.properties");
-
-			// load a properties file
-			prop.load(input);
-
-			// get the property value and print it out
-			this.myPasscode = prop.getProperty("passcode");
-			this.myUsername = prop.getProperty("username");
-
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		} finally {
-			if (input != null) {
-				try {
-					input.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
+		this.myPasscode = "6405021";
+		this.myUsername = "czrey23";
+		
+//		Properties prop = new Properties();
+//		InputStream input = null;
+//
+//		try {
+//
+//			input = new FileInputStream("resource/FowizSMSSenderSettings.properties");
+//
+//			// load a properties file
+//			prop.load(input);
+//
+//			// get the property value and print it out
+//			this.myPasscode = prop.getProperty("passcode");
+//			this.myUsername = prop.getProperty("username");
+//
+//		} catch (IOException ex) {
+//			ex.printStackTrace();
+//		} finally {
+//			if (input != null) {
+//				try {
+//					input.close();
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}
 	}
 }

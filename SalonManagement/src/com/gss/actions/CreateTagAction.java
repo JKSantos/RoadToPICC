@@ -13,7 +13,7 @@ public class CreateTagAction {
 	private int intProductID;
 	private int intQuantity;
 	private int intTagType;
-	private int intEmployeeID;
+	private int employees;
 	
 	public String execute(){
 		
@@ -22,8 +22,8 @@ public class CreateTagAction {
 		Product product = Product.createNullProduct(intProductID);
 		
 		ProductTags createTag = new ProductTagImpl();
-		recorded = createTag.defectiveTag(new ProductTag(1, product, new Date(intEmployeeID), intTagType, Employee.createNullEmployee(intEmployeeID), intQuantity));
-		
+		recorded = createTag.defectiveTag(new ProductTag(1, product, new Date(employees), intTagType, Employee.createNullEmployee(employees), intQuantity));
+		System.out.println(employees);
 		if(recorded == true){
 			return "success";
 			
@@ -57,8 +57,8 @@ public class CreateTagAction {
 		this.intTagType = intTagType;
 	}
 
-	public void setIntEmployeeID(int intEmployeeID) {
-		this.intEmployeeID = intEmployeeID;
+	public void setEmployees(int employees) {
+		this.employees = employees;
 	}
 	
 	
