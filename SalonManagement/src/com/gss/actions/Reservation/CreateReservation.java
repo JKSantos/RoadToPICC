@@ -32,16 +32,16 @@ public class CreateReservation {
 	private Customer customer;	//important(check mo com.gss.model.Customer para malaman mo nga data nyan)
 	private ReservationInclusion includedItems;
 	private int intReservationType = 2; //important (Home Service = 1) magbabato ka ng 1 galing mob
-	private Date dateCreated = new Date();
-	private Date datFrom;			//important
-	private Date datTo = new Date();//if reservation is home service, this is not needed
+	private String dateCreated;
+	private String datFrom = "";			//important
+	private String datTo = "";//if reservation is home service, this is not needed
 	private String timFrom;			//important
 	private String timTo = "00:00AM";			
 	private String strVenue; 		//if type is HomeService, value is equal to customer address, same nalang ng address ang ilagay mo dito
 	private int headCount;			//important
 	private List<EmployeeAssigned> employeeAssigned;
 	private String strTotalPrice = ""; //important
-	private String strStatus = "";		//important
+	private String strStatus = "PENDING";		//important
 	
 	private Invoice invoice;		
 	
@@ -98,43 +98,51 @@ public class CreateReservation {
 		includedItems = new ReservationInclusion(products, services, packages, promos);
 				
 				//ProductOrder
-				String[] selectedProducts = this.selectedProducts.split(",");
-				String[] productQuantity = QuantityHelper.removeEmptyQuantity(this.productQuantity.split(","));
-				
-				for(int index = 0; index < selectedProducts.length; index++){
-					Product product = Product.createNullProduct(Integer.parseInt(selectedProducts[index]));
-					ProductOrder productOrder = new ProductOrder(1, product, Integer.parseInt(productQuantity[index]), 1);
-					products.add(productOrder);
+				if(!this.selectedProducts.equals("")){
+					String[] selectedProducts = this.selectedProducts.split(",");
+					String[] productQuantity = QuantityHelper.removeEmptyQuantity(this.productQuantity.split(","));
+					
+					for(int index = 0; index < selectedProducts.length; index++){
+						Product product = Product.createNullProduct(Integer.parseInt(selectedProducts[index]));
+						ProductOrder productOrder = new ProductOrder(1, product, Integer.parseInt(productQuantity[index]), 1);
+						products.add(productOrder);
+					}
 				}
 					
 				//Service
-				String[] selectedServices = this.selectedServices.split(",");
-				String[] serviceQuantity = QuantityHelper.removeEmptyQuantity(this.serviceQuantity.split(","));
+				if(!this.selectedServices.equals("")){
+					String[] selectedServices = this.selectedServices.split(",");
+					String[] serviceQuantity = QuantityHelper.removeEmptyQuantity(this.serviceQuantity.split(","));
 				
-				for(int index = 0; index < selectedProducts.length; index++){
-					Service service = Service.createNullService(Integer.parseInt(selectedServices[index]));
-					ReservedService reservedService = new ReservedService(1, 1, service, Integer.parseInt(serviceQuantity[index]), 1);					services.add(reservedService);
+					for(int index = 0; index < selectedServices.length; index++){
+						Service service = Service.createNullService(Integer.parseInt(selectedServices[index]));
+						ReservedService reservedService = new ReservedService(1, 1, service, Integer.parseInt(serviceQuantity[index]), 1);					services.add(reservedService);
+					}
 				}
-					
 				//Package
-				String[] selectedPackages = this.selectedPackages.split(",");
-				String[] packageQuantity = this.packageQuantity.split(",");
+				if(!this.selectedPackages.equals("")){
+					String[] selectedPackages = this.selectedPackages.split(",");
+					String[] packageQuantity = this.packageQuantity.split(",");
 				
-				for(int index = 0; index < selectedPackages.length; index++){
-					Package packagee = Package.createNullPackage(Integer.parseInt(selectedPackages[index]));
-					ReservedPackage reservedPackage =new ReservedPackage(1, 1, packagee, Integer.parseInt(packageQuantity[index]), 1);
-					packages.add(reservedPackage);
+				
+					for(int index = 0; index < selectedPackages.length; index++){
+						Package packagee = Package.createNullPackage(Integer.parseInt(selectedPackages[index]));
+						ReservedPackage reservedPackage =new ReservedPackage(1, 1, packagee, Integer.parseInt(packageQuantity[index]), 1);
+						packages.add(reservedPackage);
+					}
 				}
 				
 				//Promo
+				if(!this.selectedPromos.equals("")){
+					String[] selectedPromos = this.selectedPromos.split(",");
+					String[] promoQuantity = this.promoQuantity.split(",");
 				
-				String[] selectedPromos = this.selectedPromos.split(",");
-				String[] promoQuantity = this.promoQuantity.split(",");
 				
-				for(int index = 0; index < selectedPromos.length; index++){
-					Promo promo = Promo.createNullPromo(Integer.parseInt(selectedPromos[index]));
-					ReservedPromo reservedPromo = new ReservedPromo(1, 1, promo, Integer.parseInt(promoQuantity[index]), 1);
-					promos.add(reservedPromo);
+					for(int index = 0; index < selectedPromos.length; index++){
+						Promo promo = Promo.createNullPromo(Integer.parseInt(selectedPromos[index]));
+						ReservedPromo reservedPromo = new ReservedPromo(1, 1, promo, Integer.parseInt(promoQuantity[index]), 1);
+						promos.add(reservedPromo);
+					}
 				}
 				
 				//for Employee Assigned
@@ -142,8 +150,11 @@ public class CreateReservation {
 					Employee emp = Employee.createNullEmployee(Integer.parseInt(selectedEmployees[index]));
 					employeeAssigned.add(new EmployeeAssigned(1, 1, emp, 1));
 				}
-		
-				reservation = new Reservation(1, customer, includedItems, intReservationType, dateCreated, datFrom, datTo, TimeHelper.parseTime(timFrom), TimeHelper.parseTime(timTo), strVenue, headCount, employeeAssigned, invoice, strStatus);
+				
+				String dateFrom = new DateHelper().convert(this.datFrom.split("/"));
+				String dateTo = new DateHelper().convert(this.datTo.split("/"));
+				
+				reservation = new Reservation(1, customer, includedItems, intReservationType, new Date(), DateHelper.parseDate(dateFrom), DateHelper.parseDate(dateTo), TimeHelper.parseTime(timFrom), TimeHelper.parseTime(timTo), strVenue, headCount, employeeAssigned, invoice, strStatus);
 				
 		if(Reservation.createReservation(reservation) == true)
 			return "success";
@@ -156,12 +167,6 @@ public class CreateReservation {
 	}
 	public void setIntReservationType(int intReservationType) {
 		this.intReservationType = intReservationType;
-	}
-	public void setDatFrom(String datFrom) {
-		this.datFrom = DateHelper.parseDate(datFrom);
-	}
-	public void setDatTo(String datTo) {
-		this.datTo = DateHelper.parseDate(datTo);
 	}
 	public void setTimFrom(String timFrom) {
 		this.timFrom = timFrom;
@@ -211,4 +216,13 @@ public class CreateReservation {
 	public void setStrTotalPrice(String strTotalPrice) {
 		this.strTotalPrice = strTotalPrice;
 	}
+
+	public void setDatFrom(String datFrom) {
+		this.datFrom = datFrom;
+	}
+
+	public void setDatTo(String datTo) {
+		this.datTo = datTo;
+	}
+	
 }
