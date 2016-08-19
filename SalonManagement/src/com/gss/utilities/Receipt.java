@@ -39,13 +39,13 @@ import com.itextpdf.text.pdf.PdfWriter;
  
 public class Receipt {
 
-	private String DESTINATION ="C:/Receipts/Receipt.pdf";
 	private String cashier;
 	private ProductSales sales;
 	private WalkIn walkin;
 	private Reservation reservation;
 	private Payment payment;
 	private String orNum;
+	private String destination;
 	
 	public String createProductSalesReceipt(ProductSales productSales, String cashier, String date, Payment payment) throws IOException, DocumentException{
 		
@@ -53,18 +53,11 @@ public class Receipt {
     	this.payment = payment;
     	this.sales = productSales;
     	
-    	LocalDateTime now = LocalDateTime.now();
-    	String year = String.valueOf(now.getYear());
-    	String month = String.valueOf(now.getMonthValue());
-    	String day = String.valueOf(now.getDayOfMonth());
-    	String hour = String.valueOf(now.getHour());
-    	String minute = String.valueOf(now.getMinute());
-    	String second = String.valueOf(now.getSecond());
-    	String millis = String.valueOf(now.get(ChronoField.MILLI_OF_SECOND));
-    	
-    	this.orNum = hour + minute + second + millis + day + month + year;
+    	this.orNum = NumberGenerator.localDateTime();
     
-    	//this.DESTINATION = "C:java/" +this.sales.getStrName() + "(" + this.orNum + ").pdf";
+    	String fileName = orNum + this.sales.getStrName().replaceAll(" ", "_");
+    	this.destination = "resource/Receipts/" + fileName;
+    	
     	Document document = createDocument();
         document.open();
 
@@ -93,7 +86,8 @@ public class Receipt {
         
         document.add(paragraph);
         document.close();
-		return DESTINATION;
+        
+		return this.destination;
 	}
 	
 	public String createReservationReceipt(){
@@ -106,7 +100,7 @@ public class Receipt {
     public Document createDocument(){
     	Document document = new Document(new Rectangle(350, 550), 10, 10, 10 ,10);
         try {
-			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(DESTINATION));
+			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(this.destination));
 		} catch (FileNotFoundException | DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

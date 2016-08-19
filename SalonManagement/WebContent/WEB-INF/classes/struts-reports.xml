@@ -19,6 +19,10 @@
 		<action name="salesReport" class="com.gss.actions.ReportsAction" method="Sales">
 			<result name="success" type="tiles">SalesReport</result>
 		</action>
+		
+		<action name="productTags" class="com.gss.actions.Reports.Reports" method="productTags">
+			<result name="success" type="tiles">ProductTags</result>
+		</action>
 	
 	</package>	
 		

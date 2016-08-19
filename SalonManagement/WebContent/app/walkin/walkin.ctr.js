@@ -245,6 +245,7 @@
       
       vm.moveToPay = function(id){
     	  walkinFactory.moveToPayment(id);
+      
       }
   }
 })();

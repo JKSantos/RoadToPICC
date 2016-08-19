@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.gss.model.ProductTag;
+import com.gss.model.ProductTagReport;
 
 public interface ProductTagRepository {
 	
@@ -16,5 +17,9 @@ public interface ProductTagRepository {
 	public List<ProductTag> getAllTag() throws SQLException;
 	
 	public boolean restoreTag(ProductTag productTag) throws SQLException;
+	
+	public List<ProductTagReport> getProductTagReport();
+
+	public List<ProductTagReport> getFilteredProductTagReport();
 
 }
