@@ -481,8 +481,10 @@
                             <div class="col s8" style="margin-top: 10px;">
                                 <div class="input-field col s12">
                                     <select multiple ng-model="vm.selEmployees" id="cREmp"
-                                            ng-options="employee.strEmpFirstName for employee in vm.employeeList"></select>
+                                            ng-options="employee.strEmpFirstName for employee in vm.employeeList">
+                                    </select>
                                     <label for="cREmp"><b>Employees</b></label>
+                                    <pre>{{vm.selEmployees.intEmpID | json}}</pre>
                                 </div>
                             </div>
                         </div>

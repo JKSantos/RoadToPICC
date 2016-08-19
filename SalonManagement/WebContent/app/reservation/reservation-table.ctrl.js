@@ -74,6 +74,7 @@
 
         function changeDatFrom(date) {
             var datFrom = new Date(date);
+            console.log(date);
 
             vm.details.datFrom = $filter('date')(datFrom, "MMMM/d/yyyy");
         }
@@ -183,7 +184,7 @@
             } else if (selected == 'promo') {
                 vm.promoOrder.push({
                     promo: vm.promoList[index].strPromoName,
-                    promoID: vm.promoList[index].strPromoName,
+                    promoID: vm.promoList[index].intPromoID,
                     promoQuantity: vm.quantity,
                     promoTotal: vm.promoList[index].dblPromoPrice * vm.quantity
                 });
@@ -213,7 +214,6 @@
             var selectedExtra = "";
             var selectedDiscount = "";
             var selectedEmployeee = "";
-            vm.selEmployees = [];
             for (var i = 0; i < vm.extraCharge.length; i++) {
                 selectedExtra += vm.extraCharge[i].intECID + ",";
             }
@@ -223,6 +223,7 @@
             for (var i = 0; i < vm.selEmployees.length; i++) {
                 selectedEmployeee += vm.selEmployees[i].intEmpID + ",";
             }
+            console.log(vm.selEmployees);
             selectextra = selectedExtra;
             selectdiscount = selectedDiscount;
             selectemployees = selectedEmployeee;
@@ -230,6 +231,7 @@
 
 
         vm.saveReservation = function (details) {
+            console.log(vm.selEmployees.intEmpID);
             toString();
             var name = vm.details.name;
             var address = vm.details.address;
@@ -252,7 +254,6 @@
                 "timTo": timTo,
                 "strVenue": venue,
                 "headCount": headCount,
-                "strStatus": 'PENDING',
                 "selectedProducts": selectprod,
                 "selectedServices": selectserv,
                 "selectedPackages": selectpack,
