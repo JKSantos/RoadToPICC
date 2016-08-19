@@ -9,6 +9,13 @@
         var vm = this;
         vm.customerDetails = [{}];
         vm.reservationDetails = [{}];
+        vm.reservationType = [{
+            id: 1,
+            type: 'Home Service'
+        }, {
+            id: 2,
+            type: 'Event'
+        }];
         var selectprod = "";
         var quantprod = "";
         var selectserv = "";
@@ -38,6 +45,8 @@
         vm.details = [{}];
         // vm.customerList = reservationFactory.getCustomers();
 
+
+        vm.details.reservationType = vm.reservationType[0];
         vm.currentTime = new Date();
         vm.month = ['Januar', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         vm.monthShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -59,7 +68,20 @@
             console.log('onClose');
         };
 
-        vm.details.datFrom = $filter('date')(vm.details.datFrom, "MMMM/d/yyyy");
+        vm.changeDatFrom = changeDatFrom;
+        vm.changeDatTo = changeDatTo;
+
+        function changeDatFrom(date) {
+            var datFrom = new Date(date);
+
+            vm.details.datFrom = $filter('date')(datFrom, "MMMM/d/yyyy");
+        }
+
+        function changeDatTo(date) {
+            var datTo = new Date(date);
+
+            vm.details.datTo = $filter('date')(datTo, "MMMM/d/yyyy");
+        }
 
         locationFactory.getReservations().then(function (data) {
             vm.customerList = data.reservationList;
@@ -212,19 +234,43 @@
             var address = vm.details.address;
             var contact = vm.details.contact;
             var email = vm.details.email;
-            var reservationType = 1; //Kukunin ko palang from view
-            var datFrom = vm.details.dtFrom;
-            var datTo = vm.details.dtTo;
-            var timFrom = vm.details.tmFrom;
-            var timTo = vm.details.tmTo;
+            var reservationType = vm.details.reservationType.id; //Kukunin ko palang from view
+            var datFrom = vm.details.datFrom;
+            var datTo = vm.details.datTo;
+            var timFrom = vm.details.timeFrom;
+            var timTo = vm.details.timeTo;
             var venue = vm.details.venue;
             var headCount = vm.details.headCount;
             var total = vm.sum;
-            reservationFactory.insertCustomer(name, address, contact, email, reservationType,
-                datFrom, datTo, timFrom, timTo, venue,
-                headCount, selectemployees, selectprod, selectserv, selectpack,
-                selectprom, quantprod, quantserv, quantpack, quantprom,
-                selectextra, selectdiscount, selectemployees, total);
+            var reservationData = ({
+                "customer": name,
+                "intReservationType": reservationType,
+                "datFrom": datFrom,
+                "datTo": datTo,
+                "timFrom": timFrom,
+                "timTo": timTo,
+                "strVenue": venue,
+                "headCount": headCount,
+                "strStatus": 'PENDING',
+                "selectedProducts": selectprod,
+                "selectedServices": selectserv,
+                "selectedPackages": selectpack,
+                "selectedPromos": selectprom,
+                "productQuantity": quantprod,
+                "serviceQuantity": quantserv,
+                "packageQuantity": quantpack,
+                "promoQuantity": quantprom,
+                "selectedEmployees": selectemployees,
+                "selectedExtraCharges": selectextra,
+                "selectedDiscounts": selectdiscount,
+                "strTotalPrice": total
+            });
+            console.log(reservationData);
+            // reservationFactory.insertCustomer(name, address, contact, email, reservationType,
+            //     datFrom, datTo, timFrom, timTo, venue,
+            //     headCount, selectemployees, selectprod, selectserv, selectpack,
+            //     selectprom, quantprod, quantserv, quantpack, quantprom,
+            //     selectextra, selectdiscount, selectemployees, total);
         };
     }
 })();

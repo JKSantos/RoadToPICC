@@ -424,3 +424,11 @@ nav .nav-wrapper form, nav .nav-wrapper form .input-field {
 .boldBarts {
     font-weight: bold !important;
 }
+
+#ngDateFrom-error {
+    display: none !important;
+}
+
+#ngDateTo-error {
+    display: none !important;
+}

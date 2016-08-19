@@ -111,3 +111,8 @@ $('#crServicePrice').priceFormat({
     limit: 9
 });
 
+$('.timepicker').pickatime({
+    autoclose: true,
+    twelvehour: true
+});
+

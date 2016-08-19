@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="css/dropify.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/sweetalert.css"/>
     <link rel="stylesheet" type="text/css" href="css/mainloader.css"/>
+    <link rel="stylesheet" type="text/css" href="css/materialize.clockpicker.css"/>
     <link rel="stylesheet" type="text/css" href="css/animate.css"/>
     <!--<link rel="stylesheet" type="text/css" href="css/angular-datatables.css"/>-->
 
@@ -192,6 +193,7 @@
 <script type="text/javascript" src="js/moment-with-locale.js"></script>
 <script type="text/javascript" src="js/jquery.ellipsis.min.js"></script>
 <script type="text/javascript" src="js/angular-materialize.min.js"></script>
+<script type="text/javascript" src="js/materialize.clockpicker.js"></script>
 <script type="text/javascript" src="js/lodash.min.js"></script>
 <script type="text/javascript" src="js/highcharts.js"></script>
 <script type="text/javascript" src="js/exporting.js"></script>

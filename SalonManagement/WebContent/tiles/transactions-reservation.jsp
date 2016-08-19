@@ -115,10 +115,18 @@
                         <div class="container">
                             <div class="row">
                                 <h5><b>Customer Details</b></h5>
-                                <div class="input-field col s12">
+                                <div class="input-field col s6">
                                     <input type="text" class="validate" id="crRCustName"
                                            ng-model="vm.details.name" placeholder="Customer Name"/>
                                     <label for="crRCustName" class="active"><b>Customer Name</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <select id="rType"
+                                            ng-model="vm.details.reservationType"
+                                            ng-options="type as type.type for type in vm.reservationType">
+                                    </select>
+                                    <label for="rType" class="active"><b>Reservation Type</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12" style="margin-top: 15px;">
@@ -166,7 +174,7 @@
                                 </div>
                                 <div class="input-field col s6">
                                     <input input-date
-                                           type="date"
+                                           type="text"
                                            id="ngDateFrom"
                                            placeholder="January/1/2016"
                                            ng-model="vm.details.datFrom"
@@ -177,14 +185,15 @@
                                            today="today"
                                            clear="clear"
                                            close="close"
-                                           select-years="15"/>
+                                           select-years="15"
+                                           ng-change="vm.changeDatFrom(vm.details.datFrom)"/>
                                     <pre>{{vm.details.datFrom | json}}</pre>
                                     <label for="ngDateFrom" class="active"><b>Date From</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s6">
                                     <input input-date
-                                           type="date"
+                                           type="text"
                                            placeholder="January/1/2016"
                                            id="ngDateTo"
                                            ng-model="vm.details.datTo"
@@ -199,19 +208,37 @@
                                            today="today"
                                            clear="clear"
                                            close="close"
-                                           select-years="15" />
+                                           select-years="15"
+                                           ng-change="vm.changeDatTo(vm.details.datTo)"/>
+                                    <pre>{{vm.details.datTo | json}}</pre>
                                     <label for="ngDateTo" class="active"><b>Date To</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
-                                <div class="input-field col s12">
-                                    <label for="timepicker">Time</label>
-                                    <input id="timepicker" class="timepicker" type="time">
+                                <div class="input-field col s6">
+                                    <input id="reserveTimeFrom"
+                                           class="timepicker"
+                                           type="time"
+                                           ng-model="vm.details.timeFrom"
+                                           placeholder="12:00AM">
+                                    <label for="reserveTimeFrom" class="active">
+                                        <b>From (Time)</b>
+                                        <i class="material-icons red-text tiny">
+                                            error_outline
+                                        </i>
+                                    </label>
                                 </div>
                                 <div class="input-field col s6" style="margin-top: 15px;">
-                                    <input type="text" ng-model="vm.details.tmTo" id="crRToTime"
-                                           placeholder="crRToTime"/>
-                                    <label for="crRToTime" class="active"><b>To (Time)</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                    <input id="reserveTimeTo"
+                                           class="timepicker"
+                                           type="time"
+                                           ng-model="vm.details.timeTo"
+                                           placeholder="12:00AM">
+                                    <label for="reserveTimeTo" class="active">
+                                        <b>To (Time)</b>
+                                        <i class="material-icons red-text tiny">
+                                            error_outline
+                                        </i>
+                                    </label>
                                 </div>
                                 <div class="input-field col s6">
                                     <input type="text" ng-model="vm.details.headCount" id="crRHeadCount"
@@ -601,9 +628,9 @@
                         style="margin-left: 3px; margin-right:3px;">NEXT
                 </button>
                 <button type="submit" value="submit" id="createReservationSubmitForm"
-                        class=" waves-effect waves-light white-text btn-flat purple"
+                        class="actionreserve submitformreserve waves-effect waves-light white-text btn-flat purple"
                         style="margin-left:3px; margin-right:3px;"
-                        ng-click="vm.saveReservation()">CREATE
+                        ng-click="vm.saveReservation(vm.details)">CREATE
                 </button>
                 <button type="button" id="backbtn"
                         class="actionreserve backformreserve waves-effect waves-purple transparent btn-flat"
