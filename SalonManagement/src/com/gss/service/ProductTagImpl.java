@@ -7,6 +7,7 @@ import com.gss.dao.ProductTagJDBCRepository;
 import com.gss.dao.ProductTagRepository;
 import com.gss.model.ProductTag;
 import com.gss.model.ProductTagReport;
+import com.gss.model.TagSum;
 
 public class ProductTagImpl implements ProductTags{
 
@@ -64,5 +65,13 @@ public class ProductTagImpl implements ProductTags{
 		ProductTagRepository repo = new ProductTagJDBCRepository();
 		
 		return repo.getFilteredProductTagReport();
+	}
+
+	@Override
+	public List<TagSum> getTagSum() {
+				
+		ProductTagRepository repo = new ProductTagJDBCRepository();
+		
+		return repo.getTagSum();
 	}
 }

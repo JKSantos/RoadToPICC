@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.gss.model.ProductTag;
 import com.gss.model.ProductTagReport;
+import com.gss.model.TagSum;
 
 public interface ProductTagRepository {
 	
@@ -21,5 +22,7 @@ public interface ProductTagRepository {
 	public List<ProductTagReport> getProductTagReport();
 
 	public List<ProductTagReport> getFilteredProductTagReport();
+
+	public List<TagSum> getTagSum();
 
 }
