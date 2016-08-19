@@ -10,7 +10,13 @@
             <div class="row">
                 <div class="input-field col s3">
                     <select ng-model="vm.selOption">
-                        <option ng-repeat="category in vm.category" value="{{category}}">{{category}}</option>
+                        <option value selected>ALL</option>
+                        <option ng-repeat="category in vm.category" value="{{category}}">{{category | uppercase}}</option>
+                    </select>
+                </div>
+                <div class="input-field col s3">
+                    <select ng-model="vm.selStatus">
+                        <option ng-repeat="status in vm.status" value="{{status}}">{{status}}</option>
                     </select>
                 </div>
             </div>
@@ -27,9 +33,8 @@
                 </div>
             </nav>
             <div class="col s12">
-                <table id="productQueryTable" datatable="ng" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs"
-                   class="row-border hoverable cell-border responsive z-depth-1" rowspan="10"
-                   style="margin-top: -20px !important;">
+                <table id="productQueryTable"
+                   class="table-barts row-border hoverable cell-border responsive z-depth-1">
                 <thead>
                 <tr>
                     <th class="left-align">Name</th>
@@ -49,13 +54,17 @@
                 </tr>
                 </tfoot>
                 <tbody>
-                <tr ng-repeat="product in vm.productList | filter: queryProductSearch">
+                <tr ng-repeat="product in vm.productList |
+                               filter: queryProductSearch |
+                               filter: vm.selOption">
                     <td class="left-align" style="width: 300px !important;"
                         title="{{ product.strProductName }}">
-                        {{ product.strProductName }}
+                        {{ product.strProductName | uppercase }}
                     </td>
                     <td class="left-align" style="width: 300px !important;">
-                        {{ product.strProductCategory }},
+                        <div class="col s12">
+                            {{ product.strProductCategory | uppercase }}
+                        </div>
                     </td>
                     <td class="left-align">{{ product.strProductDesc }}</td>
                     <td class="right-align">{{ product.dblProductPrice | currency: "Php " }}</td>

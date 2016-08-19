@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="css/sweetalert.css"/>
     <link rel="stylesheet" type="text/css" href="css/mainloader.css"/>
     <link rel="stylesheet" type="text/css" href="css/animate.css"/>
-    <link rel="stylesheet" type="text/css" href="css/angular-datatables.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="css/angular-datatables.css"/>-->
 
     <link rel="stylesheet" type="text/css" href="css/baselayout.css"/>
     <link rel="stylesheet" type="text/css" href="css/perfect-scrollbar.min.css"/>
@@ -211,6 +211,7 @@
 
 
 <!-- Angular imports -->
+<script type="text/javascript" src="app/Directives/ui.materialize.pagination.js"></script>
 <script type="text/javascript" src="app/main.js"></script>
 <script type="text/javascript" src="app/payment/payment.ctr.js"></script>
 <script type="text/javascript" src="app/payment/payment.fac.js"></script>
@@ -219,7 +220,6 @@
 <script type="text/javascript" src="app/prodsales/locationfactory.fac.js"></script>
 <script type="text/javascript" src="app/prodsales/prodSales.ctrl.js"></script>
 <script type="text/javascript" src="app/reservation/reservationFactory.fac.js"></script>
-<script type="text/javascript" src="app/reservation/reservation.ctrl.js"></script>
 <script type="text/javascript" src="app/reservation/reservation-table.ctrl.js"></script>
 <script type="text/javascript" src="app/queries/queryFactory.fac.js"></script>
 <script type="text/javascript" src="app/queries/employee/empQueryController.ctrl.js"></script>

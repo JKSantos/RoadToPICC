@@ -199,7 +199,8 @@
            var selectedPromoQuantity = "";
            var subTotalPromo = 0;
            for(var i = 1; i < vm.promoOrder.length; i++){
-               selectedPromo += vm.promoOrder[i].promoID + ",";
+               selectedPromo += vm.promoOrder[i].promoID + ", ";
+
                subTotalPromo += vm.promoOrder[i].promoTotal;
 
            }
@@ -226,7 +227,58 @@
 
       vm.saveWalkin = function(details){
     	  toString();
-    	  
+        // var total = vm.sum;
+        // var name = vm.details.name;
+        // var contact = vm.details.contact;
+        // var email = vm.details.email;
+        // var packageDetails = vm.selPackageDetails;
+        // var promoDetails = vm.selPromoDetails;
+        // var serviceDetails = vm.selServiceDetails;
+        // var walkindata = {
+        //     "strName": name,
+        //     "strContactNo": contact,
+        //     "productString": selectprod,
+        //     "productQuantity": quantprod,
+        //     "serviceDetails": serviceDetails,
+        //     "packageList": packageDetails,
+        //     "promoList": promoDetails,
+        //     "discounts": selectdiscount,
+        //     "strTotalPrice": total 
+        //   };
+
+        //   swal({
+        //         title:"",
+        //         text: "",
+        //         type: "",
+        //         closeOnConfirm: false,
+        //         showLoaderOnConfirm: true
+        //     },
+        //     function () {
+        //         setTimeout(function () {
+        //             $.ajax({
+        //                 url: 'createWalkin',
+        //                 type: 'post',
+        //                 data: walkindata,
+        //                 dataType: 'json',
+        //                 async: true,
+        //                 success: function (data) {
+        //                         SweetAlert.swal("Successfully created!", ".", "success");
+        //                         $('#createWalkinModal').closeModal();
+        //                            // for (var i = walkinData.length - 1; i >= 0; i--) {
+        //                            //       if (walkinData[i].id === id) {
+        //                            //         walkinData.splice(i, 1);
+        //                            //           break;
+        //                            //       }
+        //                            //   }
+        //                 },
+        //                 error: function () {
+        //                   console.log(walkin);
+        //                    SweetAlert.swal("Oops", "Something went wrong!", "error");
+        //                 }
+        //             });
+        //         }, 1000);
+        //     });
+    	 
     	  
     	  var total = vm.sum;
     	  var name = vm.details.name;
@@ -235,7 +287,7 @@
     	  var packageDetails = vm.selPackageDetails;
     	  var promoDetails = vm.selPromoDetails;
     	  var serviceDetails = vm.selServiceDetails;
-    	  
+    	  // AINAN WALA YUNG PRODUCT NA PINAPASA. YUNG SELECTPROD. SAN KINUKUHA YON
     
     	
     	  walkinFactory.insertCustomer(name, contact, email, selectEmp,

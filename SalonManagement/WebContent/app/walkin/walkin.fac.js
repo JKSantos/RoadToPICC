@@ -6,7 +6,8 @@
     .factory('walkinFactory', walkinFactory)
 
     function walkinFactory(SweetAlert){
-      var walkinDetails = [];
+      var walkinDetails = [],
+          walkinData = [];
       
       return{
     	  getCustomers: function(){
@@ -20,46 +21,35 @@
     		var topID = walkinDetails.length + 1;
         walkinDetails.push({
       		  id: topID,
-<<<<<<< HEAD
           	name: name,
   	        contact: contact,
   	        email: email,
   	        selectedProducts: selectprod,
   	        productQuantity: quantprod,
-=======
-      		strName: name,
-      		strContactNo: contact,
-      		productString: selectprod,
-      		productQuantity: quantprod,
->>>>>>> 3e7b91870db30d6d22897335945f787a05c02edf
   	        serviceDetails: serviceDetails,
   	        packageList: packageDetails,
   	        promoList: promoDetails,
   	        selectedDiscounts: selectdiscount,
   	        strTotalPrice: total  
     	  });
-<<<<<<< HEAD
-        var walkindata = {
-            id: topID,
-            strName: name,
-            strContactNo: contact,
-            email: email,
-            selectedProducts: selectprod,
-            productQuantity: quantprod,
-            serviceDetails: serviceDetails,
-            packageList: packageDetails,
-            promoList: promoDetails,
-            selectedDiscounts: selectdiscount,
-            strTotalPrice: total 
-        }
-        swal({
-=======
-       console.log(walkinDetails);
+        walkinData.push({
+            "id": topID,
+            "strName": name,
+            "strContactNo": contact,
+            "productString": selectprod,
+            "productQuantity": quantprod,
+            "serviceDetails": serviceDetails,
+            "packageList": packageDetails,
+            "promoList": promoDetails,
+            "discounts": selectdiscount,
+            "strTotalPrice": total 
+        });
+       console.log(walkinData[0]);
         	
         },
         moveToPayment: function(id){
+          var walkin = walkinData[0];
          swal({
->>>>>>> 3e7b91870db30d6d22897335945f787a05c02edf
                 title:"",
                 text: "",
                 type: "",
@@ -71,43 +61,21 @@
                     $.ajax({
                         url: 'createWalkin',
                         type: 'post',
-                        data: walkinDetails,
+                        data: walkin,
                         dataType: 'json',
                         async: true,
                         success: function (data) {
                                 SweetAlert.swal("Successfully created!", ".", "success");
-<<<<<<< HEAD
-                                console.log($scope.customerDetails[1]);
-                                $scope.requestOrder.push({
-                                    strName: myData.strName,
-                                    intType: myData.orderType
-                                });
-                                console.log($scope.requestOrder);
-                                $('#crProductSales').closeModal();
-                                $scope.customerDetails = [{
-                                    orderType: '',
-                                    contactNumber: '',
-                                    name: '',
-                                    Street: '',
-                                    location: '',
-                                    orderDetails: '',
-                                    subtotal: 0
-                                }];
-                                $window.location.reload();
-                            } else {
-                                SweetAlert.swal("Oops", "Something went wrong!", "error");
-                            }
-=======
                                 $('#createWalkinModal').closeModal();
-                                   for (var i = walkinDetails.length - 1; i >= 0; i--) {
-                                         if (walkinDetails[i].id === id) {
-                                           walkinDetails.splice(i, 1);
+                                   for (var i = walkinData.length - 1; i >= 0; i--) {
+                                         if (walkinData[i].id === id) {
+                                           walkinData.splice(i, 1);
                                              break;
                                          }
                                      }
->>>>>>> 3e7b91870db30d6d22897335945f787a05c02edf
                         },
                         error: function () {
+                          console.log(walkin);
                            SweetAlert.swal("Oops", "Something went wrong!", "error");
                         }
                     });

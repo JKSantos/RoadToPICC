@@ -4,7 +4,7 @@
         .module('app')
         .controller('paymentCtrl', paymentCtrl);
 
-    function paymentCtrl($scope, $filter, SweetAlert, DTOptionsBuilder, DTColumnDefBuilder, DTDefaultOptions, paymentFactory) {
+    function paymentCtrl($scope, $resource, $filter, SweetAlert, DTOptionsBuilder, DTColumnDefBuilder, DTDefaultOptions, paymentFactory) {
         var vm = this;
         vm.dateFormat = ["MMMM/D/YYYY"];
         vm.type = [{
@@ -12,6 +12,8 @@
             option2: "walkin",
             option3: "reservation"
         }];
+        vm.sortType = 'strName';
+        vm.sortReverse = false;
         
         vm.paymentList = [];
         vm.createPOPayment = createPOPayment;
@@ -22,30 +24,24 @@
         //     .withLanguage({
         //         "sLoadingRecords": "Loading..."
         //     });
-        vm.dtColumnDefs = [
-            DTColumnDefBuilder.newColumnDef(0),
-            DTColumnDefBuilder.newColumnDef(1).notSortable(),
-            DTColumnDefBuilder.newColumnDef(2).notSortable(),
-            DTColumnDefBuilder.newColumnDef(3),
-            DTColumnDefBuilder.newColumnDef(4),
-            DTColumnDefBuilder.newColumnDef(5).notSortable()
-        ];
-
-
+        // vm.dtColumnDefs = [
+        //     DTColumnDefBuilder.newColumnDef(0),
+        //     DTColumnDefBuilder.newColumnDef(1).notSortable(),
+        //     DTColumnDefBuilder.newColumnDef(2).notSortable(),
+        //     DTColumnDefBuilder.newColumnDef(3),
+        //     DTColumnDefBuilder.newColumnDef(4),
+        //     DTColumnDefBuilder.newColumnDef(5).notSortable()
+        // ];
         paymentFactory.getUnpaidPayments().then(function (data) {
-            // vm.paymentList = data.orderList;
             for(var i = 0; i < data.orderList.length; i++) {
                 vm.paymentList.push(data.orderList[i]);
             }
             for(var i = 0; i < data.reservationList.length; i++) {
                 vm.paymentList.push(data.reservationList[i]);
             }
-        });
-        // paymentFactory.getUnpaidPayments().then(function (data) {
-        //     // vm.payReservationList = data.reservationList;
-            
-        // });
 
+            console.log(vm.paymentList);
+        });
         function createPOPayment(payment, index, type) {
             $('#paymentModal').openModal({
                 dismissible: true, // Modal can be dismissed by clicking outside of the modal

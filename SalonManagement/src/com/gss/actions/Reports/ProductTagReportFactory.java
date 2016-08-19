@@ -1,25 +1,15 @@
 package com.gss.actions.Reports;
 
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
 
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DefaultPieDataset;
-
 import com.gss.model.ProductOrder;
 import com.gss.model.ProductTagReport;
-import com.gss.model.TagSum;
 import com.gss.utilities.DateHelper;
 import com.gss.utilities.NumberGenerator;
-import com.itextpdf.awt.DefaultFontMapper;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -32,10 +22,8 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.pdf.GrayColor;
-import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 
 public class ProductTagReportFactory {
@@ -50,9 +38,7 @@ public class ProductTagReportFactory {
 	private int intExpired;
 	private int intConsumed;
 	
-	private PdfWriter writer;
-	
-	public String generateReport(String dateFrom, String dateTo, List<ProductTagReport> report, List<TagSum> tag, JFreeChart chart) throws BadElementException, MalformedURLException, DocumentException, IOException{
+	public String generateReport(String dateFrom, String dateTo, List<ProductTagReport> report) throws BadElementException, MalformedURLException, DocumentException, IOException{
 		
 		this.report = report;
 		this.dateFrom = dateFrom;
@@ -65,19 +51,6 @@ public class ProductTagReportFactory {
 		document.add(getHeader());
 		document.add(getTitle());
 		document.add(getTagTable());
-		
-		PdfContentByte contentByte = writer.getDirectContent();
-		PdfTemplate template = contentByte.createTemplate(250, 250);
-		@SuppressWarnings("deprecation")
-		Graphics2D graphics2d = template.createGraphics(250, 250,
-				new DefaultFontMapper());
-		Rectangle2D rectangle2d = new Rectangle2D.Double(700, 50, 250,
-				250);
-
-		chart.draw(graphics2d, rectangle2d);
-		
-		graphics2d.dispose();
-		contentByte.addTemplate(template, 0, 0);
 		
 		document.close();
 		
@@ -161,7 +134,7 @@ public class ProductTagReportFactory {
 	public Document createDocument(){
 		Document document = new Document(PageSize.LETTER.rotate(), 30, 30, 30, 30);
         try {
-			this.writer = PdfWriter.getInstance(document, new FileOutputStream(this.destination));
+			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(this.destination));
 		} catch (FileNotFoundException | DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

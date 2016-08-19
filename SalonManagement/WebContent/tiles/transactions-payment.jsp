@@ -6,25 +6,33 @@
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
             <h3 class="grey-text center text-darken-1">Payment</h3>
             <!--<a class="btnshadow hoverable z-depth-1 waves-effect waves-light modal-trigger btn-flat purple darken-2 left white-text"-->
-               <!--href="#" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">add</i></a>-->
+            <!--href="#" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">add</i></a>-->
             <nav class="right white hoverable  z-depth-1" style="width: 300px; margin-right: 20px;">
                 <div class="nav-wrapper col s4">
                     <form>
                         <div class="input-field">
-                            <input id="paymentSearch" placeholder="Search" class="grey-text text-darken-4" type="search">
+                            <input id="paymentSearch"
+                                   placeholder="Search"
+                                   class="grey-text text-darken-4"
+                                   type="search"
+                                   ng-model="paymentSearch">
                             <label for="paymentSearch"><i
                                     class="material-icons grey-text text-darken-4">search</i></label>
                         </div>
                     </form>
                 </div>
             </nav>
-            <table id="paymentTable" datatable="ng" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs"
-                   class="row-border hoverable cell-border z-depth-1" rowspan="10"
-                   style="margin-top: -20px !important;">
+            <table id="paymentTable"
+                   class="table-barts hoverable z-depth-1 cell-border row-border display responsive-table highlight">
                 <thead>
                 <tr>
-                    <th class="left-align">Customer Name</th>
-                    <th class="left-align">Transaction Name</th>
+                    <th class="left-align"
+                        ng-click="vm.sortType = 'strName'; vm.sortReverse = !vm.sortReverse">
+                        Customer Name
+                    </th>
+                    <th class="left-align">
+                        Transaction Name
+                    </th>
                     <th class="right-align">Transaction Date</th>
                     <th class="left-align">Transaction Type</th>
                     <th class="right-align">Total Balance</th>
@@ -44,7 +52,9 @@
                 </tr>
                 </tfoot>
                 <tbody>
-                <tr ng-repeat="payment in vm.paymentList"
+                <tr ng-repeat="payment in vm.paymentList |
+                               filter: paymentSearch |
+                               orderBy: vm.sortType :vm.sortReverse"
                     ng-if="payment.strStatus != 'COMPLETE'">
                     <td ng-if="payment.strName" class="left-align">{{ payment.strName }}</td>
                     <td ng-if="payment.customer" class="left-align">{{ payment.customer.strName }}</td>
@@ -89,7 +99,6 @@
                 </tr>
                 </tbody>
             </table>
-
         </div>
     </div>
 
@@ -107,11 +116,11 @@
                 <div class="row">
                     <div class="input-field col s6">
                         <input type="hidden"
-                            ng-model="vm.paymentDetails.index"
-                            ng-if="vm.paymentDetails.type == 'order'"/>
+                               ng-model="vm.paymentDetails.index"
+                               ng-if="vm.paymentDetails.type == 'order'"/>
                         <input type="hidden"
-                            ng-model="vm.paymentDetails.index"
-                            ng-if="vm.paymentDetails.type == 'reservation'"/>
+                               ng-model="vm.paymentDetails.index"
+                               ng-if="vm.paymentDetails.type == 'reservation'"/>
                         <input type="text" id="paymentDetails.name" placeholder="Customer Name" readonly
                                ng-model="vm.paymentDetails.strName"
                                ng-if="vm.paymentDetails.type == 'order'">
@@ -130,19 +139,23 @@
                         <label for="paymentDetails.date" class="active"><b>Payment Date</b></label>
                     </div>
                     <div class="input-field col s6">
-                        <input type="text" id="paymentDetails.totalBalance" class="right-align" placeholder="Total Balance"readonly
+                        <input type="text" id="paymentDetails.totalBalance" class="right-align"
+                               placeholder="Total Balance" readonly
                                ng-model="vm.paymentDetails.totalBalance"
                                ng-if="vm.paymentDetails.type == 'order'"/>
-                        <input type="text" id="paymentDetails.totalBalance" class="right-align" placeholder="Total Balance"readonly
+                        <input type="text" id="paymentDetails.totalBalance" class="right-align"
+                               placeholder="Total Balance" readonly
                                ng-model="vm.paymentDetails.totalBalance"
                                ng-if="vm.paymentDetails.type == 'reservation'"/>
                         <label for="paymentDetails.totalBalance" class="active"><b>Total Balance</b></label>
                     </div>
                     <div class="input-field col s6">
-                        <input type="text" id="paymentDetails.remainingBalance" class="right-align" placeholder="Total Balance" readonly
+                        <input type="text" id="paymentDetails.remainingBalance" class="right-align"
+                               placeholder="Total Balance" readonly
                                ng-model="vm.paymentDetails.remainingBalance"
                                ng-if="vm.paymentDetails.type == 'order'"/>
-                        <input type="text" id="paymentDetails.remainingBalance" class="right-align" placeholder="Total Balance" readonly
+                        <input type="text" id="paymentDetails.remainingBalance" class="right-align"
+                               placeholder="Total Balance" readonly
                                ng-model="vm.paymentDetails.remainingBalance"
                                ng-if="vm.paymentDetails.type == 'reservation'"/>
                         <label for="paymentDetails.remainingBalance" class="active"><b>Remaining Balance</b></label>
@@ -160,10 +173,11 @@
                         </select>
                         <label><b>Payment Type</b>
                             <i class="material-icons tiny red-text">error_outline</i>
-                            </label>
+                        </label>
                     </div>
                     <div class="input-field col s6">
-                        <input type="text" id="paymentDetails.paymentAmount" class="right-align" placeholder="Payment Amount" required
+                        <input type="text" id="paymentDetails.paymentAmount" class="right-align"
+                               placeholder="Payment Amount" required
                                ng-model="vm.paymentDetails.paymentAmount"
                                format="number"/>
                         <label for="paymentDetails.paymentAmount" class="active"><b>Payment Amount</b>

@@ -26,6 +26,7 @@ import com.gss.utilities.PriceFormatHelper;
 public class CreateIndividualWalkIn {
 	
 	private String strName;
+	private int id;
 	private String strContactNo;
 	private String productString = "";
 	private String productQuantity = "";
@@ -192,5 +193,13 @@ public class CreateIndividualWalkIn {
 
 	public void setExtraCharges(String extraCharges) {
 		this.extraCharges = extraCharges;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }
