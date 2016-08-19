@@ -192,6 +192,8 @@
 <script type="text/javascript" src="js/moment-with-locale.js"></script>
 <script type="text/javascript" src="js/jquery.ellipsis.min.js"></script>
 <script type="text/javascript" src="js/lodash.min.js"></script>
+<script type="text/javascript" src="js/highcharts.js"></script>
+<script type="text/javascript" src="js/exporting.js"></script>
 
 <!-- <script type="text/javascript" src="js/ProductsSales/ajax.js"></script> -->
 <!-- jQuery Ajax -->

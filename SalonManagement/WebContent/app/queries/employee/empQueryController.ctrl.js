@@ -32,7 +32,7 @@
             vm.employeeList = data.data.employeeList;
             vm.position = getPosition(vm.employeeList);
             vm.status = getStatus(vm.employeeList);
-            vm.selStatus = vm.status[1];
+            console.log(vm.employeeList);
 
         });
 
@@ -56,6 +56,7 @@
             });
 
             return _.uniq(st);
+            
         }
 
     }

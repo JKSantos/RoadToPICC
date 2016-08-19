@@ -15,14 +15,9 @@
                     </select>
                     <label for="selectOption"><b>Position</b></label>
                 </div>
-                <div class="input-field col s3">
-                    <select ng-model="vm.selStatus" id="selectStatus">
-                        <option ng-repeat="status in vm.status" value="{{status}}"
-                                ng-if="status=='A'">{{status}}CTIVE</option>
-                        <option ng-repeat="status in vm.status" value="{{status}}"
-                                ng-if="status=='I'">{{status}}NACTIVE</option>
-                    </select>
-                    <label for="selectStatus"><b>Status</b></label>
+                <div class="input-field col s4">
+                   <select ng-model="vm.selStatus" id="stat" ng-options="status in vm.status"></select>
+                    <label for="stat"><b>Status</b></label>
                 </div>
             </div>
             <nav class="right white hoverable  z-depth-1" style="width: 300px; margin-right: 20px;">
@@ -81,14 +76,11 @@
                         <td class="right-align">{{ employee.strEmpContactNo }}</td>
                         <td class="left-align" style="width: 100px !important;">{{ employee.strEmpEmail }}</td>
                         <td class="left-align">{{ employee.strEmpAddress }}</td>
-                        <td class="left-align"
-                            ng-if="employee.strEmpStatus == 'I'">
-                            {{employee.strEmpStatus}}NACTIVE
+                        <td class="left-align">
+                            
+                            {{employee.strEmpStatus}}
                         </td>
-                        <td class="left-align"
-                            ng-if="employee.strEmpStatus == 'A'">
-                            {{employee.strEmpStatus}}CTIVE
-                        </td>
+                        
                     </tr>
                     </tbody>
                 </table>
