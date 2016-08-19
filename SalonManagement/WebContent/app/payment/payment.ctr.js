@@ -26,8 +26,6 @@
             for(var i = 0; i < data.reservationList.length; i++) {
                 vm.paymentList.push(data.reservationList[i]);
             }
-
-            console.log(vm.paymentList);
         });
 
         function createPOPayment(payment, index, type) {

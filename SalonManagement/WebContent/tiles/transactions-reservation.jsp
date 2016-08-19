@@ -148,15 +148,16 @@
                                 </div>
                                 <div class="input-field col s6">
                                     <label style="margin-top: -25px;"><b>Customer Type</b></label>
-                                    <input type="radio" name="ctype" id="crRCustType1">
+                                    <input type="radio" name="ctype" id="crRCustType1" ng-model="vm.individual" value="Individual">
                                     <label for="crRCustType1">Individual</label>
-                                    <input type="radio" name="ctype" id="crRCustType2">
+                                    <input type="radio" name="ctype" id="crRCustType2" ng-model="vm.individual" value="Company">
                                     <label for="crRCustType2">Company</label>
                                 </div>
                                 <div class="input-field col s6">
                                     <input type="text" class="validate"
                                            id="crRCompanyName" ng-model="vm.details.company"
-                                           placeholder="Company Name">
+                                           placeholder="Company Name"
+                                           ng-disabled="vm.individual == 'Individual'">
                                     <label for="crRCompanyName"><b>Company Name</b></label>
                                 </div>
                             </div>
@@ -187,11 +188,10 @@
                                            close="close"
                                            select-years="15"
                                            ng-change="vm.changeDatFrom(vm.details.datFrom)"/>
-                                    <pre>{{vm.details.datFrom | json}}</pre>
                                     <label for="ngDateFrom" class="active"><b>Date From</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
-                                <div class="input-field col s6">
+                                <div class="input-field col s6" ng-if="vm.details.reservationType.id == 2">
                                     <input input-date
                                            type="text"
                                            placeholder="January/1/2016"
@@ -210,9 +210,11 @@
                                            close="close"
                                            select-years="15"
                                            ng-change="vm.changeDatTo(vm.details.datTo)"/>
-                                    <pre>{{vm.details.datTo | json}}</pre>
-                                    <label for="ngDateTo" class="active"><b>Date To</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                    <label for="ngDateTo" class="active">
+                                        <b>Date To</b>
+                                        <i class="material-icons red-text tiny">
+                                            error_outline</i>
+                                    </label>
                                 </div>
                                 <div class="input-field col s6">
                                     <input id="reserveTimeFrom"
@@ -220,14 +222,14 @@
                                            type="time"
                                            ng-model="vm.details.timeFrom"
                                            placeholder="12:00AM">
-                                    <label for="reserveTimeFrom" class="active">
+                                    <label for="reserveTimeFrom">
                                         <b>From (Time)</b>
                                         <i class="material-icons red-text tiny">
                                             error_outline
                                         </i>
                                     </label>
                                 </div>
-                                <div class="input-field col s6" style="margin-top: 15px;">
+                                <div class="input-field col s6" ng-if="vm.details.reservationType.id == 2">
                                     <input id="reserveTimeTo"
                                            class="timepicker"
                                            type="time"

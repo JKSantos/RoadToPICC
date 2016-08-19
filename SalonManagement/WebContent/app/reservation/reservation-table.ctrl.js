@@ -290,8 +290,9 @@
                             dataType: 'json',
                             async: true,
                             success: function (data) {
-                                    SweetAlert.swal("Successfully created!", ".", "success");
-                                    $('#createReservationModal').closeModal();
+                                SweetAlert.swal("Successfully created!", ".", "success");
+                                $('#createReservationModal').closeModal();
+                                vm.customerList.unshift(reservationData);
                             },
                             error: function () {
                                 SweetAlert.swal("Oops", "Something went wrong!", "error");
