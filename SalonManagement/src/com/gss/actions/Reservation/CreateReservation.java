@@ -44,8 +44,6 @@ public class CreateReservation {
 	private String strStatus;		//important
 	
 	private Invoice invoice;		
-	private String fromMeridian;	//for timeFrom, AM or PM, important
-	private String toMeridian = "AM";		//for timTo, AM or PM, if reservation is home service, this is not needed
 	
 	private String selectedProducts;//only accepts comma separated string, important
 	private String selectedServices;//only accepts comma separated string, important
@@ -142,7 +140,7 @@ public class CreateReservation {
 					employeeAssigned.add(new EmployeeAssigned(1, 1, emp, 1));
 				}
 		
-				reservation = new Reservation(1, customer, includedItems, intReservationType, dateCreated, datFrom, datTo, TimeHelper.parseTime(timFrom, fromMeridian), TimeHelper.parseTime(timTo, toMeridian), strVenue, headCount, employeeAssigned, invoice, strStatus);
+				reservation = new Reservation(1, customer, includedItems, intReservationType, dateCreated, datFrom, datTo, TimeHelper.parseTime(timFrom), TimeHelper.parseTime(timTo), strVenue, headCount, employeeAssigned, invoice, strStatus);
 				
 		if(Reservation.createReservation(reservation) == true)
 			return "success";
@@ -206,12 +204,6 @@ public class CreateReservation {
 	}
 	public void setSelectedDiscounts(List<String> selectedDiscounts) {
 		this.selectedDiscounts = selectedDiscounts;
-	}
-	public void setFromMeridian(String fromMeridian) {
-		this.fromMeridian = fromMeridian;
-	}
-	public void setToMeridian(String toMeridian) {
-		this.toMeridian = toMeridian;
 	}
 	public void setStrTotalPrice(String strTotalPrice) {
 		this.strTotalPrice = strTotalPrice;

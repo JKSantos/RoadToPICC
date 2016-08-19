@@ -44,8 +44,6 @@ public class UpdateReservation {
 	private String strStatus;
 	
 	private Invoice invoice;
-	private String fromMeridian;
-	private String toMeridian;
 	private String selectedProducts;
 	private String selectedServices;
 	private String selectedPackages;
@@ -138,7 +136,7 @@ public class UpdateReservation {
 					
 				invoice = Invoice.createNullInvoice(extraCharges, discounts, PriceFormatHelper.convertToDouble(this.strTotalPrice, "Php "));
 		
-				reservation = new Reservation(1, customer, includedItems, intReservationType, dateCreated, datFrom, datTo, TimeHelper.parseTime(timFrom, fromMeridian), TimeHelper.parseTime(timTo, toMeridian), strVenue, headCount, employeeAssigned, invoice, strStatus);
+				reservation = new Reservation(1, customer, includedItems, intReservationType, dateCreated, datFrom, datTo, TimeHelper.parseTime(timFrom), TimeHelper.parseTime(timTo), strVenue, headCount, employeeAssigned, invoice, strStatus);
 				
 		if(Reservation.createReservation(reservation) == true)
 			return "success";
@@ -202,12 +200,6 @@ public class UpdateReservation {
 	}
 	public void setSelectedDiscounts(List<String> selectedDiscounts) {
 		this.selectedDiscounts = selectedDiscounts;
-	}
-	public void setFromMeridian(String fromMeridian) {
-		this.fromMeridian = fromMeridian;
-	}
-	public void setToMeridian(String toMeridian) {
-		this.toMeridian = toMeridian;
 	}
 	public void setIntReservationID(int intReservationID) {
 		this.intReservationID = intReservationID;
