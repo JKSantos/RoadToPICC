@@ -245,12 +245,15 @@
             var venue = vm.details.venue;
             var headCount = vm.details.headCount;
             var total = vm.sum;
-            var reservationData = ({
+            var customer = {
                 "customer.intID": 1,
                 "customer.strName": vm.details.name,
                 "customer.strAddress": vm.details.address,
                 "customer.strContactNo": vm.details.contact,
                 "customer.strEmail": vm.details.email,
+            }
+            var reservationData = ({
+                "customer": customer,
                 "intReservationType": reservationType,
                 "datFrom": datFrom,
                 "datTo": datTo,
