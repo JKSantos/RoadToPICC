@@ -150,8 +150,11 @@ public class CreateReservation {
 					Employee emp = Employee.createNullEmployee(Integer.parseInt(selectedEmployees[index]));
 					employeeAssigned.add(new EmployeeAssigned(1, 1, emp, 1));
 				}
-		
-				reservation = new Reservation(1, customer, includedItems, intReservationType, new Date(), DateHelper.parseDate(this.datFrom), DateHelper.parseDate(this.datTo), TimeHelper.parseTime(timFrom), TimeHelper.parseTime(timTo), strVenue, headCount, employeeAssigned, invoice, strStatus);
+				
+				String dateFrom = new DateHelper().convert(this.datFrom.split("/"));
+				String dateTo = new DateHelper().convert(this.datTo.split("/"));
+				
+				reservation = new Reservation(1, customer, includedItems, intReservationType, new Date(), DateHelper.parseDate(dateFrom), DateHelper.parseDate(dateTo), TimeHelper.parseTime(timFrom), TimeHelper.parseTime(timTo), strVenue, headCount, employeeAssigned, invoice, strStatus);
 				
 		if(Reservation.createReservation(reservation) == true)
 			return "success";
