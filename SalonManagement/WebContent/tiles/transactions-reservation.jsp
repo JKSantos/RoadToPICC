@@ -180,7 +180,7 @@
                                            ng-model="vm.details.datFrom"
                                            months-full="{{ vm.month }}"
                                            disable="disable"
-                                           min="{{ vm.currentTime }}"
+                                           min="{{ vm.minDate }}"
                                            max="{{ vm.maxDate }}"
                                            today="today"
                                            clear="clear"
@@ -492,19 +492,19 @@
                             <h3 class="center"><b>Summary</b></h3>
                             <h5><b>Customer Details</b></h5>
                             <div class="input-field col s12" id="crRSumCustName">
-                                <input type="text" class="validate"/>
+                                <input type="text" readonly  ng-model="vm.details.name"/>
                                 <label for="crRSumCustName" class=><b>Customer Name</b></label>
                             </div>
                             <div class="input-field col s12" style="margin-top: 15px;">
-                                <input type="text" id="crRSumAddress" name="" placeholder=""/>
+                                <input type="text" readonly id="crRSumAddress" ng-model="vm.details.address"/>
                                 <label for="crRSumAddress"><b>Address</b></label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" id="crRSumContact" name=""/>
+                                <input type="text" readonly id="crRSumContact" ng-model="vm.details.contact"/>
                                 <label for="crRSumContact"><b>Contact</b></label>
                             </div>
                             <div class="input-field col s6" style="margin-top: 15px;">
-                                <input type="email" name="" id="crRSumEmail"/>
+                                <input type="email" readonly id="crRSumEmail" ng-model="vm.details.email"/>
                                 <label for="crRSumEmail" class="active"><b>Email</b></label>
                             </div>
                             <div class="input-field col s6">

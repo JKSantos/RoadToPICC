@@ -5,7 +5,7 @@
         .module('app')
         .controller('reservationTable', reservationTable);
 
-    function reservationTable($scope, paymentFactory, locationFactory, reservationFactory, $filter) {
+    function reservationTable($scope, paymentFactory, locationFactory, reservationFactory, $filter, SweetAlert) {
         var vm = this;
         vm.customerDetails = [{}];
         vm.reservationDetails = [{}];
@@ -55,6 +55,7 @@
         vm.today = 'Today';
         vm.clear = 'Clear';
         vm.close = 'Close';
+        vm.minDate = $filter('date')(vm.currentTime, "MMMM/d/yyyy");
         vm.onStart = function () {
             console.log('onStart');
         };
@@ -266,6 +267,33 @@
                 "strTotalPrice": total
             });
             console.log(reservationData);
+
+            swal({
+                    title: "Create reservation for " + name + "?",
+                    text: "",
+                    type: "",
+                    confirmButtonColor: "#81d4fa",
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true
+                },
+                function () {
+                    setTimeout(function () {
+                        $.ajax({
+                            url: 'createReservation',
+                            type: 'post',
+                            data: reservationData,
+                            dataType: 'json',
+                            async: true,
+                            success: function (data) {
+                                    SweetAlert.swal("Successfully created!", ".", "success");
+                                    $('#createReservationModal').closeModal();
+                            },
+                            error: function () {
+                                SweetAlert.swal("Oops", "Something went wrong!", "error");
+                            }
+                        });
+                    }, 1000);
+                });
             // reservationFactory.insertCustomer(name, address, contact, email, reservationType,
             //     datFrom, datTo, timFrom, timTo, venue,
             //     headCount, selectemployees, selectprod, selectserv, selectpack,
