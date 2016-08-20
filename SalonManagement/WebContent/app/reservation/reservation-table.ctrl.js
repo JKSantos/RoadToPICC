@@ -269,7 +269,8 @@
                 "selectedEmployees": selectemployees,
                 "selectedExtraCharges": selectextra,
                 "selectedDiscounts": selectdiscount,
-                "strTotalPrice": total
+                "strTotalPrice": total,
+                "strStatus": 'PENDING'
             });
             console.log(reservationData);
 

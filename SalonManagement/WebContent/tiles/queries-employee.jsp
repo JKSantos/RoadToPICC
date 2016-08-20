@@ -40,7 +40,7 @@
                 </div>
             </nav>
             <div class="col s12">
-                <table id="employeeQueryTable"
+                <table id="employeeQueryTable" datatable="ng"
                        class="table-barts hoverable z-depth-1 cell-border row-border display responsive-table highlight">
                     <thead>
                     <tr>
