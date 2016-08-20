@@ -55,6 +55,8 @@ public class Receipt {
     	
     	this.orNum = NumberGenerator.localDateTime();
     
+    	System.out.println(this.sales.getStrName() + " << ma,e");
+    	
     	String fileName = orNum + this.sales.getStrName().replaceAll(" ", "_");
     	this.destination = "resource/Receipts/" + fileName;
     	
