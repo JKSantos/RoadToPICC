@@ -58,7 +58,7 @@ public class Receipt {
     	
     	String fileName = this.sales.getStrName().replaceAll(" ", "_") + orNum;
 //    	this.destination = "resource/Receipts/" + "receipt" + ".pdf";
-    	this.destination = "resource/Reports/Product_Tag/ProductTag_" + NumberGenerator.localDateTime() + ".pdf";
+    	this.destination = "C:/Java/Receipts/" + NumberGenerator.localDateTime() + ".pdf";
     	
     	Document document = createDocument();
         document.open();
@@ -340,7 +340,7 @@ public class Receipt {
 
     	Paragraph paragraph = new Paragraph();
     	
-    	double paymentAmount = this.payment.getDblPaymentAmount();
+    	double paymentAmount = this.sales.getInvoice().getDblTotalPrice();
     	double vatSale = paymentAmount - (paymentAmount * .12);
     	double vat = paymentAmount * .12;
     	

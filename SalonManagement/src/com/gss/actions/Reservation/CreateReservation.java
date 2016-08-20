@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.gss.model.Contract;
 import com.gss.model.Customer;
 import com.gss.model.Discount;
 import com.gss.model.Employee;
@@ -21,10 +22,13 @@ import com.gss.model.ReservedPromo;
 import com.gss.model.ReservedService;
 import com.gss.model.Service;
 import com.gss.model.Package;
+import com.gss.utilities.ContractGenerator;
 import com.gss.utilities.DateHelper;
 import com.gss.utilities.DiscountChecker;
 import com.gss.utilities.PriceFormatHelper;
 import com.gss.utilities.QuantityHelper;
+import com.gss.utilities.SearchProduct;
+import com.gss.utilities.SearchService;
 import com.gss.utilities.TimeHelper;
 
 public class CreateReservation {
@@ -73,6 +77,9 @@ public class CreateReservation {
 		String[] selectedDiscounts = this.selectedDiscounts.split(",");
 		String[] selectedExtraCharges = this.selectedExtraCharges.split(",");
 	
+		List<Product> prodList = Product.getAllProduct();
+		List<Service> serviceList = Service.getAllService();
+		
 		Reservation reservation;
 		
 		//for invoice
@@ -80,20 +87,25 @@ public class CreateReservation {
 			//ExtraCharges
 			List<ExtraCharge> extraCharges = new ArrayList<ExtraCharge>();
 		
-			for(int index = 0; index < selectedExtraCharges.length; index++){
-				ExtraCharge extra = ExtraCharge.createNullExtra(Integer.parseInt(selectedExtraCharges[index]));
-				extraCharges.add(extra);
+			
+			if(!this.selectedExtraCharges.equals("")){
+				for(int index = 0; index < selectedExtraCharges.length; index++){
+					ExtraCharge extra = ExtraCharge.createNullExtra(Integer.parseInt(selectedExtraCharges[index]));
+					extraCharges.add(extra);
+				}
 			}
-		
 			//Discounts
 			List<Discount> discounts = new ArrayList<Discount>();
 			
-			for(int index = 0; index < selectedDiscounts.length; index++){
-				Discount discount = Discount.createNullDiscount(Integer.parseInt(selectedDiscounts[index]));
-				discounts.add(discount);
-				this.discount = discount;
+			if(!this.selectedDiscounts.equals("")){
+				for(int index = 0; index < selectedDiscounts.length; index++){
+					Discount discount = Discount.createNullDiscount(Integer.parseInt(selectedDiscounts[index]));
+					discounts.add(discount);
+					this.discount = discount;
+				}
 			}
 			
+			System.out.println("Price " + this.strTotalPrice);
 				invoice = Invoice.createNullInvoice(extraCharges, discounts, PriceFormatHelper.convertToDouble(this.strTotalPrice, "Php "));
 		
 		//for ReservationInlusion
@@ -109,7 +121,7 @@ public class CreateReservation {
 					String[] productQuantity = QuantityHelper.removeEmptyQuantity(this.productQuantity.split(","));
 					
 					for(int index = 0; index < selectedProducts.length; index++){
-						Product product = Product.createNullProduct(Integer.parseInt(selectedProducts[index]));
+						Product product = new SearchProduct().search(Integer.parseInt(selectedProducts[index]), prodList);
 						ProductOrder productOrder = new ProductOrder(1, product, Integer.parseInt(productQuantity[index]), 1);
 						products.add(productOrder);
 					}
@@ -121,7 +133,7 @@ public class CreateReservation {
 					String[] serviceQuantity = QuantityHelper.removeEmptyQuantity(this.serviceQuantity.split(","));
 				
 					for(int index = 0; index < selectedServices.length; index++){
-						Service service = Service.createNullService(Integer.parseInt(selectedServices[index]));
+						Service service = new SearchService().search(Integer.parseInt(selectedServices[index]), serviceList);
 						ReservedService reservedService = new ReservedService(1, 1, service, Integer.parseInt(serviceQuantity[index]), 1);					services.add(reservedService);
 					}
 				}
@@ -166,8 +178,13 @@ public class CreateReservation {
 				
 				reservation = new Reservation(1, customer, includedItems, intReservationType, new Date(), DateHelper.parseDate(dateFrom), DateHelper.parseDate(dateTo), TimeHelper.parseTime(timFrom), TimeHelper.parseTime(timTo), strVenue, headCount, employeeAssigned, invoice, strStatus);
 				
-		if(Reservation.createReservation(reservation) == true)
-			return "success";
+		if(Reservation.createReservation(reservation) == true){
+			
+			ContractGenerator generator = new ContractGenerator();
+			Contract contract = new Contract(DateHelper.stringDate(), "JEFFREY SANTOS", "SALON MANGEMENT SYSTEM", "189-DR. SIXTO ANTONIO AVENUE, ROSARIO PASIG CITY", this.strName.toUpperCase(), this.strAddress.toUpperCase(), reservation);
+			generator.createContract(contract);
+			return "success";	
+		}
 		else
 			return "failed";
 	}

@@ -63,22 +63,22 @@ public class ProductTagReportFactory {
 		document.open();
 		
 		document.add(getHeader());
-		//document.add(getTitle());
+		document.add(getTitle());
 		document.add(getTagTable());
 		
-		PdfContentByte contentByte = writer.getDirectContent();
-		PdfTemplate template = contentByte.createTemplate(500, 300);
-		
-		@SuppressWarnings("deprecation")
-		Graphics2D graphics2d = template.createGraphics(500, 300,
-				new DefaultFontMapper());
-		Rectangle2D rectangle2d = new Rectangle2D.Double(150, -50, 500,
-				300);
-
-		chart.draw(graphics2d, rectangle2d);
-		
-		graphics2d.dispose();
-		contentByte.addTemplate(template, 0, 0);
+//		PdfContentByte contentByte = writer.getDirectContent();
+//		PdfTemplate template = contentByte.createTemplate(500, 300);
+//		
+//		@SuppressWarnings("deprecation")
+//		Graphics2D graphics2d = template.createGraphics(500, 300,
+//				new DefaultFontMapper());
+//		Rectangle2D rectangle2d = new Rectangle2D.Double(150, -50, 500,
+//				300);
+//
+//		chart.draw(graphics2d, rectangle2d);
+//		
+//		graphics2d.dispose();
+//		contentByte.addTemplate(template, 0, 0);
 		
 		document.close();
 		

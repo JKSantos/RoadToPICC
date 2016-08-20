@@ -11,6 +11,7 @@ import com.gss.model.ProductOrder;
 import com.gss.model.ReservedPackage;
 import com.gss.model.ReservedPromo;
 import com.gss.model.ReservedService;
+import com.gss.testers.CreateFile;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -33,12 +34,13 @@ import com.sun.prism.paint.Color;
 
 public class ContractGenerator {
 	
-	private final String DESTINATION = "C:/java/Contract.pdf";
+	private String DESTINATION;
 	private Contract contract;
 
 	public String createContract(Contract contract) throws BadElementException, MalformedURLException, DocumentException, IOException{
 	
 		this.contract = contract;
+		this.DESTINATION = "C:/Java/Contracts/"+contract.getReceiverName().replaceAll(" ", "_") + "_"+NumberGenerator.localDateTime() + ".pdf";
 		
 		Document document = createDocument();
 		document.open();
@@ -166,10 +168,10 @@ public class ContractGenerator {
 	}
 	
 	public Paragraph getHeader() throws BadElementException, MalformedURLException, IOException{
-		
-		Image COMPANY_LOGO = Image.getInstance("resource/Company Profile/Company_Logo.jpg");
-		COMPANY_LOGO.scaleAbsolute(80f, 80f);
-		
+//		
+//		Image COMPANY_LOGO = CreateFile.getImage();
+//		COMPANY_LOGO.scaleAbsolute(80f, 80f);
+//		
 		Paragraph paragraph = new Paragraph();
 		Paragraph headerParagraph = new Paragraph();
 		
@@ -179,7 +181,7 @@ public class ContractGenerator {
 		table.setWidthPercentage(100);
 		
 		PdfPCell logoCell = new PdfPCell();
-		logoCell.addElement(COMPANY_LOGO);
+		logoCell.addElement(new Phrase(""));
 		logoCell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		logoCell.setBorder(0);
 		
@@ -209,10 +211,7 @@ public class ContractGenerator {
 	}
 	
 	public Font getBoldFont(){
-	    	FontFactory.register("resource/Available Fonts/DejaVuSans-Oblique.ttf", "DEJAVU_SANS");
-	        FontFactory.register("resource/Available Fonts/fake receipt.ttf", "RECEIPT");
-	        FontFactory.register("resource/Available Fonts/dotty.ttf", "DOTTY");
-	        FontFactory.register("resource/Available Fonts/Merchant Copy Wide.ttf", "8PIN");
+	  
 	        Font font = FontFactory.getFont(FontFactory.TIMES, 11, Font.BOLD);
 	        
 	        return font;

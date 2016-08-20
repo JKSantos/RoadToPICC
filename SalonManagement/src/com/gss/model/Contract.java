@@ -15,15 +15,20 @@ public class Contract {
 	public String receiverAddress;
 	public Reservation reservation;
 	
-	public Contract(String managerName, String providerName, String providerAddess, String receiverName,
+	
+	public Contract(String date, String managerName, String providerName, String providerAddess, String receiverName,
 			String receiverAddress, Reservation reservation) {
 		super();
+		this.date = date;
 		this.managerName = managerName;
 		this.providerName = providerName;
 		this.providerAddess = providerAddess;
 		this.receiverName = receiverName;
 		this.receiverAddress = receiverAddress;
 		this.reservation = reservation;
+	}
+	public void setDate(String date) {
+		this.date = date;
 	}
 	public String getProviderName() {
 		return providerName;
