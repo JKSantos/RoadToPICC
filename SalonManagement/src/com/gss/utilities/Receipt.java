@@ -47,18 +47,18 @@ public class Receipt {
 	private String orNum;
 	private String destination;
 	
-	public String createProductSalesReceipt(ProductSales productSales, String cashier, String date, Payment payment) throws IOException, DocumentException{
+	public String createProductSalesReceipt(ProductSales productSales, String cashier, String date, Payment payment) throws IOException, NullPointerException, DocumentException{
 		
     	this.cashier = cashier;
     	this.payment = payment;
     	this.sales = productSales;
     	
     	this.orNum = NumberGenerator.localDateTime();
-    
-    	System.out.println(this.sales.getStrName() + " << ma,e");
+ 
     	
-    	String fileName = orNum + this.sales.getStrName().replaceAll(" ", "_");
-    	this.destination = "resource/Receipts/" + fileName;
+    	String fileName = this.sales.getStrName().replaceAll(" ", "_") + orNum;
+//    	this.destination = "resource/Receipts/" + "receipt" + ".pdf";
+    	this.destination = "resource/Reports/Product_Tag/ProductTag_" + NumberGenerator.localDateTime() + ".pdf";
     	
     	Document document = createDocument();
         document.open();

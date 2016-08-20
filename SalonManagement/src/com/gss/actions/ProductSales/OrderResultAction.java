@@ -3,6 +3,8 @@ package com.gss.actions.ProductSales;
 import java.sql.SQLException;
 import java.util.Date;
 
+import com.gss.dao.PaymentJDBCRepositoryImpl;
+import com.gss.dao.ProductSalesJDBCRepository;
 import com.gss.model.ProductSales;
 import com.gss.service.ProductSalesService;
 import com.gss.service.ProductSalesServiceImpl;
@@ -14,7 +16,7 @@ public class OrderResultAction {
 	private Date datDeliveryDate = new Date();
 	private String result = "success";
 	
-	public String acceptOrder() throws SQLException{
+	public String acceptOrder() throws Exception{
 		
 		ProductSalesService service = new ProductSalesServiceImpl();
 		boolean updated = service.acceptProductSales(this.intOrderID, this.datDeliveryDate);
@@ -22,7 +24,7 @@ public class OrderResultAction {
 		if(updated == false)
 			result = "failed";
 		else{
-			ProductSales sales = ProductSales.searchProductSales(this.intOrderID, ProductSales.getAllProductSalesNoDetails());
+			ProductSales sales = new ProductSalesJDBCRepository().getProductBySalesID(this.intOrderID);
 			NotifyCustomerViaSMS test = new NotifyCustomerViaSMS();
 			test.sendSMS(getMessage(), sales.getStrContactNo());
 		}

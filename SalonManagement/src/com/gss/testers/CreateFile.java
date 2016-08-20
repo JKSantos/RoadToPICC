@@ -8,9 +8,9 @@ public class CreateFile {
 	
 	public static void main(String[] args) throws FileNotFoundException{
 		
-		String[] string = "24,".split(",");
+		File file = new File("resource/Receipts/jeff.pdf");
 		
-		System.out.print(string[0]);
+		FileOutputStream stream = new FileOutputStream(file);
 	}
 
 }

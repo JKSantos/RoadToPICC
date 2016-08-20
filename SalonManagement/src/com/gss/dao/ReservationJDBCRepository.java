@@ -70,6 +70,48 @@ public class ReservationJDBCRepository implements ReservationRepository{
 	
 	private int intInvoiceID;
 	
+	public Reservation getReservationByInvoice(int invoiceID){
+		
+		Connection con 						= jdbc.getConnection();
+		String getReservations 				= "SELECT * FROM tblReservation WHERE intInvoiceID = ?;";
+		Reservation reservation = null;
+		
+		List<Reservation> reservationList = new ArrayList<Reservation>();
+		try{
+			
+			PreparedStatement preReservaton = con.prepareStatement(getReservations);
+			preReservaton.setInt(1, invoiceID);
+			ResultSet reservationResult = preReservaton.executeQuery();
+			
+			while(reservationResult.next()){
+				
+				this.intReservationID 		= reservationResult.getInt(1);
+				this.intReservationType 	= reservationResult.getInt(2);
+				this.dateCreated 			= reservationResult.getDate(3);
+				this.datFrom 				= reservationResult.getDate(4);
+				this.datTo 					= reservationResult.getDate(5);
+				this.timFrom				= reservationResult.getTime(6);
+				this.timTo					= reservationResult.getTime(7);
+				this.customer 				= new Customer(this.intReservationID, reservationResult.getString(8), reservationResult.getString(9), reservationResult.getString(10), reservationResult.getString(11));
+				this.headCount				= reservationResult.getInt(12);
+				this.invoice				= getInvoice(reservationResult.getInt(13));
+				this.strStatus				= reservationResult.getString(14);
+				this.employeeAssigned		= getAllAssignedEmployee(this.intReservationID);
+				this.strVenue				= reservationResult.getString(15);
+
+				this.includedItems = new ReservationInclusion(getAllProductOrder(this.intReservationID), getAllReservedService(this.intReservationID), getAllReservedPackage(this.intReservationID), getAllReservedPromo(this.intReservationID));
+				
+				reservation = new Reservation(this.intReservationID, this.customer, this.includedItems, this.intReservationType, this.dateCreated, this.datFrom, this.datTo, this.timFrom, this.timTo, this.strVenue, this.headCount, this.employeeAssigned, this.invoice, this.strStatus);	
+			}
+			
+			return reservation;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	@Override
 	public List<Reservation> getAllReservation() {
 		 
@@ -795,7 +837,7 @@ public class ReservationJDBCRepository implements ReservationRepository{
 			while(reservationResult.next()){
 				
 				this.intReservationID 		= reservationResult.getInt(1);
-				this.intReservationType 	= reservationResult.getInt(1);
+				this.intReservationType 	= reservationResult.getInt(2);
 				this.dateCreated 			= reservationResult.getDate(3);
 				this.datFrom 				= reservationResult.getDate(4);
 				this.datTo 					= reservationResult.getDate(5);

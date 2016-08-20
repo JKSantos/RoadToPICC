@@ -145,6 +145,14 @@
                                     SweetAlert.swal("Successfully created!", ".", "success");
                                     vm.paymentList.splice(index, 1);
                                     $('#paymentModal').closeModal();
+                                    
+                                   if(data.url == "none"){
+                                	   
+                                   }else{
+                                	   var docLocation = data.pth;
+                                       window.open(docLocation,"resizeable,scrollbar"); 
+                                   }
+                                    
                                 } else {
                                     SweetAlert.swal("Oops", "Record Not Saved!", "error");
                                 }

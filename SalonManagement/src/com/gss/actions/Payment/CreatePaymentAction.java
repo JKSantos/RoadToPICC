@@ -3,6 +3,7 @@ package com.gss.actions.Payment;
 import java.sql.SQLException;
 import java.util.Date;
 
+import com.gss.dao.PaymentJDBCRepositoryImpl;
 import com.gss.model.Payment;
 import com.gss.model.ProductSales;
 import com.gss.utilities.DateHelper;
@@ -20,7 +21,7 @@ public class CreatePaymentAction {
 	private String paymentType;
 	private String result = "failed";
 	
-	private String url;
+	private String url = "none";
 	public String execute() throws Exception{
 		
 		String unconvertedDate = new DateHelper().convert(this.datDateOfPayment.split("/"));
@@ -31,10 +32,12 @@ public class CreatePaymentAction {
 		if(recorded == true){
 			result = "success";
 			
-			Receipt receipt = new Receipt();
+			if(this.strPaymentType.equals("order")){
+				Receipt receipt = new Receipt();
+				
+				this.url = receipt.createProductSalesReceipt(new PaymentJDBCRepositoryImpl().getProductBySalesID(this.intInvoiceID), "JEFFREY SANTOS", this.datDateOfPayment, payment);
+			}
 			
-			receipt.createProductSalesReceipt(ProductSales.search(this.intInvoiceID, ProductSales.getAllProductSales()), "JEFFREY SANTOS", this.datDateOfPayment, payment);
-
 		}
 
 		

@@ -69,8 +69,6 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 			e1.printStackTrace();
 		}
 		
-		System.out.print("...." + sales.getProductList().size());
-		
 		try{
 			PreparedStatement createPayment		= con.prepareStatement(insertPayment);
 			PreparedStatement updateProducts	= con.prepareStatement(updateStock);
@@ -253,7 +251,9 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 		String insertPayment 					= "CALL createPayment(?, ?, ?)";
 		String updateStock						= "CALL updateStock(?, ?);";
 				
-		Reservation sales = Reservation.search(payment.getIntInvoiceID(), Reservation.getAllReservation());
+		ReservationJDBCRepository repo = new ReservationJDBCRepository();
+		
+		Reservation sales = repo.getReservationByInvoice(payment.getIntInvoiceID());
 		
 		try{
 			PreparedStatement createPayment		= con.prepareStatement(insertPayment);
