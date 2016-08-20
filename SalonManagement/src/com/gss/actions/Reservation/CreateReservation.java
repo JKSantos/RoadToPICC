@@ -157,8 +157,10 @@ public class CreateReservation {
 					employeeAssigned.add(new EmployeeAssigned(1, 1, emp, 1));
 				}
 				
+				
+				
 				String dateFrom = new DateHelper().convert(this.datFrom.split("/"));
-				String dateTo = new DateHelper().convert(this.datTo.split("/"));
+				String dateTo = new DateHelper().convert(this.datFrom.split("/"));
 				
 				Customer customer = new Customer(1, this.strName, this.strAddress, this.strContactNo, this.strEmail);
 				

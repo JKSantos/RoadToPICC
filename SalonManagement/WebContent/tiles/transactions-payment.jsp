@@ -59,8 +59,8 @@
                     <td ng-if="payment.customer" class="left-align">{{ payment.customer.strName }}</td>
                     <td ng-if="payment.strName" class="left-align">Product Order</td>
                     <td ng-if="payment.customer" class="left-align">Reservation</td>
-                    <td ng-if="payment.strName" class="right-align">{{ payment.datCreated }}</td>
-                    <td ng-if="payment.customer" class="right-align">{{ payment.datCreated }}</td>
+                    <td ng-if="payment.strName" class="right-align">{{ payment.datCreated | date: "MMMM/d/yyyy" }}</td>
+                    <td ng-if="payment.customer" class="right-align">{{ payment.dateCreated | date: "MMMM/d/yyyy" }}</td>
                     <td ng-if="payment.strName" class="left-align">
                         <span ng-if="payment.intType==1">DELIVERY</span>
                         <span ng-if="payment.intType==2">PICK UP</span>
