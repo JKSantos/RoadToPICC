@@ -86,7 +86,7 @@ public class ReservationJDBCRepository implements ReservationRepository{
 			while(reservationResult.next()){
 				
 				this.intReservationID 		= reservationResult.getInt(1);
-				this.intReservationType 	= reservationResult.getInt(1);
+				this.intReservationType 	= reservationResult.getInt(2);
 				this.dateCreated 			= reservationResult.getDate(3);
 				this.datFrom 				= reservationResult.getDate(4);
 				this.datTo 					= reservationResult.getDate(5);

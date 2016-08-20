@@ -23,6 +23,10 @@
 		<action name="productTags" class="com.gss.actions.Reports.Reports" method="productTags">
 			<result name="success" type="tiles">ProductTags</result>
 		</action>
+		
+		<action name="newSalesReport" class="com.gss.actions.Reports.GetSalesReport" method="execute">
+			<result name="success" type="json"></result>
+		</action>
 	
 	
 		<action name="getPoductTags" class="com.gss.actions.Reports.GetProductTagAction" method="execute">
