@@ -30,8 +30,8 @@
                 </div>
             </nav>
             <div class="col s12" style="margin-top: -10px !important;">
-                <table id="salesReportTable" datatable="ng" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs"
-                   class="row-border hoverable cell-border responsive z-depth-1" rowspan="10"
+                <table id="salesReportTable" datatable="ng"
+                   class="table-barts row-border hoverable cell-border responsive z-depth-1" rowspan="10"
                    style="margin-top: -20px !important;">
                 <thead>
                 <tr>
