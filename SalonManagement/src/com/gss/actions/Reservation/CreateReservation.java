@@ -29,7 +29,13 @@ import com.gss.utilities.TimeHelper;
 
 public class CreateReservation {
 	
-	private Customer customer;	//important(check mo com.gss.model.Customer para malaman mo nga data nyan)
+	
+	private String strName;
+	private String strAddress;
+	private String strContactNo;
+	private String strEmail;
+	
+//	private Customer customer;	//important(check mo com.gss.model.Customer para malaman mo nga data nyan)
 	private ReservationInclusion includedItems;
 	private int intReservationType = 2; //important (Home Service = 1) magbabato ka ng 1 galing mob
 	private String dateCreated;
@@ -154,6 +160,8 @@ public class CreateReservation {
 				String dateFrom = new DateHelper().convert(this.datFrom.split("/"));
 				String dateTo = new DateHelper().convert(this.datTo.split("/"));
 				
+				Customer customer = new Customer(1, this.strName, this.strAddress, this.strContactNo, this.strEmail);
+				
 				reservation = new Reservation(1, customer, includedItems, intReservationType, new Date(), DateHelper.parseDate(dateFrom), DateHelper.parseDate(dateTo), TimeHelper.parseTime(timFrom), TimeHelper.parseTime(timTo), strVenue, headCount, employeeAssigned, invoice, strStatus);
 				
 		if(Reservation.createReservation(reservation) == true)
@@ -162,9 +170,9 @@ public class CreateReservation {
 			return "failed";
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
+//	public void setCustomer(Customer customer) {
+//		this.customer = customer;
+//	}
 	public void setIntReservationType(int intReservationType) {
 		this.intReservationType = intReservationType;
 	}
@@ -223,6 +231,26 @@ public class CreateReservation {
 
 	public void setDatTo(String datTo) {
 		this.datTo = datTo;
+	}
+
+	public void setStrName(String strName) {
+		this.strName = strName;
+	}
+
+	public void setStrAddress(String strAddress) {
+		this.strAddress = strAddress;
+	}
+
+	public void setStrContactNo(String strContactNo) {
+		this.strContactNo = strContactNo;
+	}
+
+	public void setStrEmail(String strEmail) {
+		this.strEmail = strEmail;
+	}
+
+	public void setStrStatus(String strStatus) {
+		this.strStatus = strStatus;
 	}
 	
 }
