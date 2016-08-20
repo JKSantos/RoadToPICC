@@ -6,6 +6,20 @@
 
     function salesReportController($scope, $filter, SweetAlert, DTOptionsBuilder, DTColumnDefBuilder, DTDefaultOptions, reportsFactory) {
         var vm = this;
+        
+        reportsFactory.getAllProductTags().then(function (data) {
+            vm.reportList = data.data.report;
+        });
+        
+        var data = [{}];
+        
+        for (var i = 0; i < reportList.length; i++) {
+            data.push({
+            	name: reportlist[i].strProductName,
+            	y: reportList[i].intDefective
+            });
+           console.log(data);
+        }
         	
         $(function () {
             $(document).ready(function () {
@@ -36,27 +50,7 @@
                     series: [{
                         name: 'Brands',
                         colorByPoint: true,
-                        data: [{
-                            name: 'Microsoft Internet Explorer',
-                            y: 56.33
-                        }, {
-                            name: 'Chrome',
-                            y: 24.03,
-                            sliced: true,
-                            selected: true
-                        }, {
-                            name: 'Firefox',
-                            y: 10.38
-                        }, {
-                            name: 'Safari',
-                            y: 4.77
-                        }, {
-                            name: 'Opera',
-                            y: 0.91
-                        }, {
-                            name: 'Proprietary or Undetectable',
-                            y: 0.2
-                        }]
+                        data: data
                     }]
                 });
             });
@@ -67,5 +61,5 @@
             vm.orderList = data.data.orderList;
             console.log(vm.orderList);
         });
-       }
+      }
 })();
