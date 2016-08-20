@@ -292,7 +292,66 @@
                             success: function (data) {
                                 SweetAlert.swal("Successfully created!", ".", "success");
                                 $('#createReservationModal').closeModal();
-                                vm.customerList.unshift(reservationData);
+                                if(reservationType == 1) {
+                                    vm.customerList.push({
+                                        "customer": {
+                                            "strName": vm.details.name,
+                                            "strAddress": vm.details.address,
+                                            "strContactNo": vm.details.contact,
+                                            "strEmail": vm.details.email
+                                        },
+                                        "intReservationType": reservationType,
+                                        "datFrom": datFrom,
+                                        "datTo": datTo,
+                                        "timFrom": timFrom,
+                                        "timTo": timTo,
+                                        "strVenue": venue,
+                                        "headCount": headCount,
+                                        "selectedProducts": selectprod,
+                                        "selectedServices": selectserv,
+                                        "selectedPackages": selectpack,
+                                        "selectedPromos": selectprom,
+                                        "productQuantity": quantprod,
+                                        "serviceQuantity": quantserv,
+                                        "packageQuantity": quantpack,
+                                        "promoQuantity": quantprom,
+                                        "selectedEmployees": selectemployees,
+                                        "selectedExtraCharges": selectextra,
+                                        "selectedDiscounts": selectdiscount,
+                                        "strTotalPrice": total,
+                                        "strStatus": 'REQUEST'
+                                    });
+                                } else {
+                                    vm.customerList.push({
+                                        "customer": {
+                                            "strName": vm.details.name,
+                                            "strAddress": vm.details.address,
+                                            "strContactNo": vm.details.contact,
+                                            "strEmail": vm.details.email
+                                        },
+                                        "intReservationType": reservationType,
+                                        "datFrom": datFrom,
+                                        "datTo": datTo,
+                                        "timFrom": timFrom,
+                                        "timTo": timTo,
+                                        "strVenue": venue,
+                                        "headCount": headCount,
+                                        "selectedProducts": selectprod,
+                                        "selectedServices": selectserv,
+                                        "selectedPackages": selectpack,
+                                        "selectedPromos": selectprom,
+                                        "productQuantity": quantprod,
+                                        "serviceQuantity": quantserv,
+                                        "packageQuantity": quantpack,
+                                        "promoQuantity": quantprom,
+                                        "selectedEmployees": selectemployees,
+                                        "selectedExtraCharges": selectextra,
+                                        "selectedDiscounts": selectdiscount,
+                                        "strTotalPrice": total,
+                                        "strStatus": 'PENDING'
+                                    });
+                                }
+                                
                             },
                             error: function () {
                                 SweetAlert.swal("Oops", "Something went wrong!", "error");
