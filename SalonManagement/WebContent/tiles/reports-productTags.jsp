@@ -9,14 +9,14 @@
             
             
 	      <div class="row">
-	        <div class="col s5">
+	        <div class="col s12">
 	          <div class="card darken-1">
 	            <div class="card-content white-text">
 	             <div id="container" style="min-width: 99%; height: 99%; max-width: 100%; margin: 0 auto"></div>
 	            </div>
 	            <div class="card-action">
 	              <a href="#">ACTIONS</a>
-	              <a href="#">This is a link</a>
+	              <a href="#">PRINT</a>
 	            </div>
 	          </div>
 	        </div>
