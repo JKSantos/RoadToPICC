@@ -148,15 +148,18 @@
                                 </div>
                                 <div class="input-field col s6">
                                     <label style="margin-top: -25px;"><b>Customer Type</b></label>
-                                    <input type="radio" name="ctype" id="crRCustType1">
+                                    <input type="radio" name="ctype" id="crRCustType1" ng-model="vm.individual"
+                                           value="Individual">
                                     <label for="crRCustType1">Individual</label>
-                                    <input type="radio" name="ctype" id="crRCustType2">
+                                    <input type="radio" name="ctype" id="crRCustType2" ng-model="vm.individual"
+                                           value="Company">
                                     <label for="crRCustType2">Company</label>
                                 </div>
                                 <div class="input-field col s6">
                                     <input type="text" class="validate"
                                            id="crRCompanyName" ng-model="vm.details.company"
-                                           placeholder="Company Name">
+                                           placeholder="Company Name"
+                                           ng-disabled="vm.individual == 'Individual'">
                                     <label for="crRCompanyName"><b>Company Name</b></label>
                                 </div>
                             </div>
@@ -187,11 +190,10 @@
                                            close="close"
                                            select-years="15"
                                            ng-change="vm.changeDatFrom(vm.details.datFrom)"/>
-                                    <pre>{{vm.details.datFrom | json}}</pre>
                                     <label for="ngDateFrom" class="active"><b>Date From</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
-                                <div class="input-field col s6">
+                                <div class="input-field col s6" ng-show="vm.details.reservationType.id == 2">
                                     <input input-date
                                            type="text"
                                            placeholder="January/1/2016"
@@ -210,9 +212,11 @@
                                            close="close"
                                            select-years="15"
                                            ng-change="vm.changeDatTo(vm.details.datTo)"/>
-                                    <pre>{{vm.details.datTo | json}}</pre>
-                                    <label for="ngDateTo" class="active"><b>Date To</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                    <label for="ngDateTo" class="active">
+                                        <b>Date To</b>
+                                        <i class="material-icons red-text tiny">
+                                            error_outline</i>
+                                    </label>
                                 </div>
                                 <div class="input-field col s6">
                                     <input id="reserveTimeFrom"
@@ -220,14 +224,14 @@
                                            type="time"
                                            ng-model="vm.details.timeFrom"
                                            placeholder="12:00AM">
-                                    <label for="reserveTimeFrom" class="active">
+                                    <label for="reserveTimeFrom">
                                         <b>From (Time)</b>
                                         <i class="material-icons red-text tiny">
                                             error_outline
                                         </i>
                                     </label>
                                 </div>
-                                <div class="input-field col s6" style="margin-top: 15px;">
+                                <div class="input-field col s6" ng-show="vm.details.reservationType.id == 2">
                                     <input id="reserveTimeTo"
                                            class="timepicker"
                                            type="time"
@@ -490,131 +494,135 @@
                         </div>
                     </div>
                     <div class="stepreservation well">
-                        <div class="row">
-                            <h3 class="center"><b>Summary</b></h3>
-                            <h5><b>Customer Details</b></h5>
-                            <div class="input-field col s12" id="crRSumCustName">
-                                <input type="text" readonly  ng-model="vm.details.name"/>
-                                <label for="crRSumCustName" class=><b>Customer Name</b></label>
-                            </div>
-                            <div class="input-field col s12" style="margin-top: 15px;">
-                                <input type="text" readonly id="crRSumAddress" ng-model="vm.details.address"/>
-                                <label for="crRSumAddress"><b>Address</b></label>
-                            </div>
-                            <div class="input-field col s6">
-                                <input type="text" readonly id="crRSumContact" ng-model="vm.details.contact"/>
-                                <label for="crRSumContact"><b>Contact</b></label>
-                            </div>
-                            <div class="input-field col s6" style="margin-top: 15px;">
-                                <input type="email" readonly id="crRSumEmail" ng-model="vm.details.email"/>
-                                <label for="crRSumEmail" class="active"><b>Email</b></label>
-                            </div>
-                            <div class="input-field col s6">
-                                <input type="text" name="" id="crRSumCustType"/>
-                                <label for="crRSumCustType"><b>Customer Type</b></label>
-                            </div>
+                        <div class="row" ng-show="vm.details.reservationType.id != 2">
                         </div>
-                        <div class="row">
-                            <h5><b>Reservation Details</b></h5>
-                            <div class="input-field col s12">
-                                <input type="text" class="validate" id="crRSumEventVenue"
-                                       name=""/>
-                                <label for="crRSumEventVenue"><b>Event Venue</b></label>
+                        <div  ng-show="vm.details.reservationType.id == 2">
+                            <div class="row">
+                                <h3 class="center"><b>Summary</b></h3>
+                                <h5><b>Customer Details</b></h5>
+                                <div class="input-field col s12" id="crRSumCustName">
+                                    <input type="text" readonly ng-model="vm.details.name"/>
+                                    <label for="crRSumCustName" class=><b>Customer Name</b></label>
+                                </div>
+                                <div class="input-field col s12" style="margin-top: 15px;">
+                                    <input type="text" readonly id="crRSumAddress" ng-model="vm.details.address"/>
+                                    <label for="crRSumAddress"><b>Address</b></label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input type="text" readonly id="crRSumContact" ng-model="vm.details.contact"/>
+                                    <label for="crRSumContact"><b>Contact</b></label>
+                                </div>
+                                <div class="input-field col s6" style="margin-top: 15px;">
+                                    <input type="email" readonly id="crRSumEmail" ng-model="vm.details.email"/>
+                                    <label for="crRSumEmail" class="active"><b>Email</b></label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input type="text" name="" id="crRSumCustType"/>
+                                    <label for="crRSumCustType"><b>Customer Type</b></label>
+                                </div>
                             </div>
-                            <div class="input-field col s6" style="margin-top: 15px;">
-                                <input type="text" id="crRSumFromDate" name=""/>
-                                <label for="crRSumFromDate"><b>From (Date)</b></label>
-                            </div>
-                            <div class="input-field col s6" style="margin-top: 15px;">
-                                <input type="text" id="crRSumToDate" name=""/>
-                                <label for="crRSumToDate" class="active"><b>To (Date)</b></label>
-                            </div>
-                            <div class="input-field col s12">
-                                <label for="timepicker">Time</label>
-                                <input id="timepicker" class="timepicker" type="time">
-                            </div>
-                            <div class="input-field col s6" style="margin-top: 15px;">
-                                <input type="text" name="" id="crRSumToTime"/>
-                                <label for="crRSumToTime" class="active"><b>To (Time)</b></label>
-                            </div>
+                            <div class="row">
+                                <h5><b>Reservation Details</b></h5>
+                                <div class="input-field col s12">
+                                    <input type="text" class="validate" id="crRSumEventVenue"
+                                           name=""/>
+                                    <label for="crRSumEventVenue"><b>Event Venue</b></label>
+                                </div>
+                                <div class="input-field col s6" style="margin-top: 15px;">
+                                    <input type="text" id="crRSumFromDate" name=""/>
+                                    <label for="crRSumFromDate"><b>From (Date)</b></label>
+                                </div>
+                                <div class="input-field col s6" style="margin-top: 15px;">
+                                    <input type="text" id="crRSumToDate" name=""/>
+                                    <label for="crRSumToDate" class="active"><b>To (Date)</b></label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <label for="timepicker">Time</label>
+                                    <input id="timepicker" class="timepicker" type="time">
+                                </div>
+                                <div class="input-field col s6" style="margin-top: 15px;">
+                                    <input type="text" name="" id="crRSumToTime"/>
+                                    <label for="crRSumToTime" class="active"><b>To (Time)</b></label>
+                                </div>
 
-                            <div class="input-field col s6">
-                                <input type="text" name="" id="crRSumHeadCount"/>
-                                <label for="crRSumHeadCount"><b>Head Count</b></label>
+                                <div class="input-field col s6">
+                                    <input type="text" name="" id="crRSumHeadCount"/>
+                                    <label for="crRSumHeadCount"><b>Head Count</b></label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <h5><b>Selected Items</b></h5>
-                            <div class="col s12">
-                                <h6 class="grey-text text-darken-3"><b>Services</b></h6>
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <th class="left-align grey-text text-darken-3">Service Name</th>
-                                        <th class="right-align grey-text text-darken-3">Price</th>
-                                        <th class="right-align grey-text text-darken-3">Quantity</th>
-                                    </tr>
-                                    </thead>
-                                </table>
+                            <div class="row">
+                                <h5><b>Selected Items</b></h5>
+                                <div class="col s12">
+                                    <h6 class="grey-text text-darken-3"><b>Services</b></h6>
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th class="left-align grey-text text-darken-3">Service Name</th>
+                                            <th class="right-align grey-text text-darken-3">Price</th>
+                                            <th class="right-align grey-text text-darken-3">Quantity</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="col s12">
+                                    <h6 class="grey-text text-darken-3"><b>Products</b></h6>
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th class="left-align grey-text text-darken-3">Product Name</th>
+                                            <th class="right-align grey-text text-darken-3">Price</th>
+                                            <th class="right-align grey-text text-darken-3">Quantity</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
                             </div>
-                            <div class="col s12">
-                                <h6 class="grey-text text-darken-3"><b>Products</b></h6>
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <th class="left-align grey-text text-darken-3">Product Name</th>
-                                        <th class="right-align grey-text text-darken-3">Price</th>
-                                        <th class="right-align grey-text text-darken-3">Quantity</th>
-                                    </tr>
-                                    </thead>
-                                </table>
+                            <div class="row">
+                                <h5><b>Other Charges</b></h5>
+                                <div class="col s12">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th class="grey-text text-darken-3">Charge Name</th>
+                                            <th class="grey-text text-darken-3">Price</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <h5><b>Other Charges</b></h5>
-                            <div class="col s12">
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <th class="grey-text text-darken-3">Charge Name</th>
-                                        <th class="grey-text text-darken-3">Price</th>
-                                    </tr>
-                                    </thead>
-                                </table>
+                            <div class="row">
+                                <h5 class="grey-text text-darken-3"><b>Discounts</b></h5>
+                                <div class="col s12">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th class="grey-text text-darken-3">Discount Name</th>
+                                            <th class="grey-text text-darken-3">Price</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <h5 class="grey-text text-darken-3"><b>Discounts</b></h5>
-                            <div class="col s12">
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <th class="grey-text text-darken-3">Discount Name</th>
-                                        <th class="grey-text text-darken-3">Price</th>
-                                    </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col s12">
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <th class="left-align"><b>Payment Type</b></th>
-                                        <th class="right-align"><b>Total Price</b></th>
-                                    </tr>
-                                    </thead>
-                                </table>
-                                <p class="red-text">
-                                    Note: First payment should be settled right after the reservation is created.
-                                    Second payment will be collected on the day of the event after the program.
-                                </p>
+                            <div class="row">
+                                <div class="col s12">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th class="left-align"><b>Payment Type</b></th>
+                                            <th class="right-align"><b>Total Price</b></th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                    <p class="red-text">
+                                        Note: First payment should be settled right after the reservation is created.
+                                        Second payment will be collected on the day of the event after the program.
+                                    </p>
 
-                                <p>
-                                    By clicking create, you AGREE to our terms and agreements stated in the
-                                    <a class="blue-text" href="">Reservation Contract</a>
-                                </p>
+                                    <p>
+                                        By clicking create, you AGREE to our terms and agreements stated in the
+                                        <a class="blue-text" href="">Reservation Contract</a>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>

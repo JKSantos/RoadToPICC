@@ -245,12 +245,15 @@
             var venue = vm.details.venue;
             var headCount = vm.details.headCount;
             var total = vm.sum;
-            var reservationData = ({
+            var customer = {
                 "customer.intID": 1,
                 "customer.strName": vm.details.name,
                 "customer.strAddress": vm.details.address,
                 "customer.strContactNo": vm.details.contact,
                 "customer.strEmail": vm.details.email,
+            }
+            var reservationData = ({
+                "customer": customer,
                 "intReservationType": reservationType,
                 "datFrom": datFrom,
                 "datTo": datTo,
@@ -290,8 +293,9 @@
                             dataType: 'json',
                             async: true,
                             success: function (data) {
-                                    SweetAlert.swal("Successfully created!", ".", "success");
-                                    $('#createReservationModal').closeModal();
+                                SweetAlert.swal("Successfully created!", ".", "success");
+                                $('#createReservationModal').closeModal();
+                                vm.customerList.unshift(reservationData);
                             },
                             error: function () {
                                 SweetAlert.swal("Oops", "Something went wrong!", "error");
