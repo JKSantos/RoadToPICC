@@ -114,7 +114,7 @@ public class ProductTagJDBCRepository implements ProductTagRepository{
 		
 		try{
 			PreparedStatement delete = con.prepareStatement(deleteTag);
-			System.out.println(productTag.getIntTagID());
+			
 			delete.setInt(1, productTag.getIntTagID());
 			
 			ResultSet result = delete.executeQuery();
