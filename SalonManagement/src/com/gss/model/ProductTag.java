@@ -1,6 +1,11 @@
 package com.gss.model;
 
 import java.sql.Date;
+import java.sql.SQLException;
+import java.util.List;
+
+import com.gss.service.ProductTagImpl;
+import com.gss.service.ProductTags;
 
 public class ProductTag {
 	
@@ -98,5 +103,23 @@ public class ProductTag {
 				break;
 		}
 		return tag;
+	}
+	
+	public static List<ProductTag> getAllTagList(){
+		ProductTags service = new ProductTagImpl();
+		
+		try {
+			return service.getAllTag();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public static boolean restoreTag(ProductTag tag) throws SQLException{
+		ProductTags prod = new ProductTagImpl();
+		
+		return prod.restoreTag(tag);
 	}
 }

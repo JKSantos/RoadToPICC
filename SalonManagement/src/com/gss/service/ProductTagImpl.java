@@ -50,14 +50,6 @@ public class ProductTagImpl implements ProductTags{
 		
 		return repo.restoreTag(productTag);
 	}
-	
-	@Override
-	public List<ProductTagReport> getAllProductTag() throws SQLException {
-		
-		ProductTagRepository repo = new ProductTagJDBCRepository();
-		
-		return repo.getProductTagReport();
-	}
 
 	@Override
 	public List<ProductTagReport> getFilteredProductTagReport() {
@@ -73,5 +65,13 @@ public class ProductTagImpl implements ProductTags{
 		ProductTagRepository repo = new ProductTagJDBCRepository();
 		
 		return repo.getTagSum();
+	}
+
+	@Override
+	public List<ProductTagReport> getProductTagReport() {
+		
+		ProductTagRepository repo = new ProductTagJDBCRepository();
+		
+		return repo.getProductTagReport();
 	}
 }

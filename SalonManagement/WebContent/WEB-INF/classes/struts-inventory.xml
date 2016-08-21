@@ -30,7 +30,13 @@
 			<!--<result name="success">redirect-transaction-inventory.jsp</result>-->
 			<result name="success">redirect-transaction-inventory.jsp</result>
 			<result name="failed">transactions-inventory.jsp</result>
-		</action>  
+		</action>
+		
+		<action name="restoreTag" class="com.gss.actions.RestoreTagAction">
+			<!--<result name="success">redirect-transaction-inventory.jsp</result>-->
+			<result name="success">redirect-transaction-inventory.jsp</result>
+			<result name="failed">transactions-inventory.jsp</result>
+		</action> 
 		   
 	</package>
 </struts>
