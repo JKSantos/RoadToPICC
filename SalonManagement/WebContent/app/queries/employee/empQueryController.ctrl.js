@@ -4,9 +4,14 @@
         .module('app')
         .controller('empQueryController', empQueryController);
 
-    function empQueryController($scope, $filter, SweetAlert, DTOptionsBuilder, DTColumnDefBuilder, queryFactory) {
+    function empQueryController($scope, $resource, $filter, SweetAlert, DTOptionsBuilder, DTColumnBuilder, queryFactory) {
         var vm = this;
         vm.getPosition = getPosition;
+        vm.dtInstanceCallback = dtInstanceCallback;
+        vm.searchTable = searchTable;
+        vm.selectPositionInTable = selectPositionInTable;
+        vm.selectStatusInTable = selectStatusInTable;
+        vm.queryEmployeeSearch = '';
         vm.dateFormat = ["MMMM/D/YYYY"];
         vm.aifilter = [
             {"id": 1,"strEmpValue": 'ACTIVE'},
@@ -18,22 +23,39 @@
         //     .withLanguage({
         //         "sLoadingRecords": "Loading..."
         //     });
-        // vm.dtColumnDefs = [
-        //     DTColumnDefBuilder.newColumnDef(0),
-        //     DTColumnDefBuilder.newColumnDef(1).notSortable().withOption('width','100px'),
-        //     DTColumnDefBuilder.newColumnDef(2).notSortable(),
-        //     DTColumnDefBuilder.newColumnDef(3),
-        //     DTColumnDefBuilder.newColumnDef(4),
-        //     DTColumnDefBuilder.newColumnDef(5).notSortable()
+        // vm.dtColumns = [
+        //     DTColumnBuilder.newColumn(0),
+        //     DTColumnBuilder.newColumn(1).notSortable().withOption('width','100px'),
+        //     DTColumnBuilder.newColumn(2).notSortable(),
+        //     DTColumnBuilder.newColumn(3),
+        //     DTColumnBuilder.newColumn(4),
+        //     DTColumnBuilder.newColumn(5).notSortable()
         // ];
 
+        function dtInstanceCallback (dtInstance) {
+            var datatableObj = dtInstance.DataTable;
+            vm.tableInstance = datatableObj;
+        }
+
+        function searchTable () {
+            var query = vm.queryEmployeeSearch;
+            vm.tableInstance.search(query).draw();
+        }
+
+        function selectPositionInTable () {
+            var sel = vm.selOption;
+            vm.tableInstance.search(sel).draw();
+        }
+
+        function selectStatusInTable () {
+            var selStatus = vm.selectStatus;
+            vm.tableInstance.search(selStatus).draw();
+        }
 
         queryFactory.getEmployee().then(function (data) {
-            vm.employeeList = data.data.employeeList;
+            vm.employeeList = data.employeeList;
             vm.position = getPosition(vm.employeeList);
             vm.status = getStatus(vm.employeeList);
-            vm.selStatus = vm.status[1];
-
         });
 
         function getPosition(position) {

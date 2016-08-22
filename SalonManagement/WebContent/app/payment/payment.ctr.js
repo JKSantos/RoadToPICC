@@ -4,7 +4,7 @@
         .module('app')
         .controller('paymentCtrl', paymentCtrl);
 
-    function paymentCtrl($scope, $resource, $filter, SweetAlert, DTOptionsBuilder, DTColumnDefBuilder, DTDefaultOptions, paymentFactory) {
+    function paymentCtrl($scope, $resource, $filter, SweetAlert, DTOptionsBuilder, DTColumnBuilder, DTDefaultOptions, paymentFactory) {
         var vm = this;
         vm.dateFormat = ["MMMM/D/YYYY"];
         vm.type = [{
@@ -14,19 +14,30 @@
         }];
         vm.sortType = 'strName';
         vm.sortReverse = false;
-        
+
         vm.paymentList = [];
         vm.createPOPayment = createPOPayment;
         vm.paymentSubmit = paymentSubmit;
 
         paymentFactory.getUnpaidPayments().then(function (data) {
-            for(var i = 0; i < data.orderList.length; i++) {
+            for (var i = 0; i < data.orderList.length; i++) {
                 vm.paymentList.push(data.orderList[i]);
             }
-            for(var i = 0; i < data.reservationList.length; i++) {
+            for (var i = 0; i < data.reservationList.length; i++) {
                 vm.paymentList.push(data.reservationList[i]);
             }
         });
+
+        vm.dtColumns = [
+            DTColumnBuilder.newColumn(0).withTitle('Customer Name'),
+            DTColumnBuilder.newColumn(1).withTitle('Transaction Name'),
+            DTColumnBuilder.newColumn(2).withTitle('Transaction Date'),
+            DTColumnBuilder.newColumn(3).withTitle('Transaction Type'),
+            DTColumnBuilder.newColumn(4).withTitle('Total Balance'),
+            DTColumnBuilder.newColumn(5).withTitle('Remaining Balance'),
+            DTColumnBuilder.newColumn(6).withTitle('Action'),
+        ];
+        vm.dtOptions = DTOptionsBuilder.newOptions()
 
         function createPOPayment(payment, index, type) {
             $('#paymentModal').openModal({
@@ -36,7 +47,7 @@
                 out_duration: 200, // Transition out duration
             });
             vm.paymentDetails = [];
-            if(type == 'order') {
+            if (type == 'order') {
                 vm.paymentDetails = {
                     datCreated: payment.datCreated,
                     deliveryDate: payment.deliveryDate,
@@ -75,7 +86,7 @@
                 };
                 console.log(vm.paymentDetails);
             }
-            if(type == 'order') {
+            if (type == 'order') {
                 vm.paymentType = [
                     {id: 1, value: 'FULL PAYMENT', name: 'FULL PAYMENT'}
                 ];
@@ -100,7 +111,7 @@
         function paymentSubmit(payment) {
             var name = "",
                 paymentData = {};
-            if(payment.type == 'order') {
+            if (payment.type == 'order') {
                 paymentData = {
                     "intPaymentID": payment.intSalesID,
                     "intInvoiceID": payment.invoice.intInvoiceID,
@@ -145,7 +156,7 @@
                                     SweetAlert.swal("Successfully created!", ".", "success");
                                     vm.paymentList.splice(index, 1);
                                     $('#paymentModal').closeModal();
-                                  
+
                                 } else {
                                     SweetAlert.swal("Oops", "Record Not Saved!", "error");
                                 }

@@ -1,6 +1,13 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="com.gss.model.ExtraCharge"%>
+
+<style>
+    .dataTables_filter {
+        display: none;
+    }
+</style>
+
 <div class="wrapper">
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">

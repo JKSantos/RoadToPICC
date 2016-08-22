@@ -1,6 +1,5 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="com.gss.model.Discount" %>
 <div class="wrapper" ng-controller="reservationTable as vm">
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
@@ -16,7 +15,8 @@
                     <form>
                         <div class="input-field">
                             <input id="reservationSearch" placeholder="Search" class="grey-text text-darken-4"
-                                   type="search" required>
+                                   type="search"
+                                   ng-model="reservationSearch">
                             <label for="reservationSearch"><i
                                     class="material-icons grey-text text-darken-4">search</i></label>
                         </div>
@@ -24,7 +24,8 @@
                 </div>
             </nav>
 
-            <table id="reservationTable" class="hoverable z-depth-1 cell-border row-border display responsive-table highlight"
+            <table id="reservationTable"
+                   class="hoverable z-depth-1 cell-border row-border display responsive-table highlight"
                    datatable="ng"
                    style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;" rowspan="10">
                 <thead>
@@ -39,7 +40,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="customer in vm.customerList.slice().reverse()"
+                <tr ng-repeat="customer in ::vm.customerList.slice().reverse() | filter: reservationSearch"
                     ng-if="customer.strStatus == 'PENDING' || customer.strStatus == 'REQUEST'">
                     <td class="left-align">{{customer.customer.strName}}</td>
                     <td class="left-align">{{customer.intReservationType }}</td>
@@ -508,7 +509,7 @@
                     <div class="stepreservation well">
                         <div class="row" ng-show="vm.details.reservationType.id != 2">
                         </div>
-                        <div  ng-show="vm.details.reservationType.id == 2">
+                        <div ng-show="vm.details.reservationType.id == 2">
                             <div class="row">
                                 <h3 class="center"><b>Summary</b></h3>
                                 <h5><b>Customer Details</b></h5>

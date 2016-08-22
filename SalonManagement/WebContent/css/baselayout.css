@@ -231,6 +231,7 @@
 
 .collapsible-body .navul li a {
     margin-left: 40px !important;
+    color: #eeeeee !important;
 }
 
 .dataTables_filter {
@@ -393,12 +394,12 @@ nav .nav-wrapper form, nav .nav-wrapper form .input-field {
     overflow-x: hidden;
 }
 
-.order.ng-enter, .classified.ng-move {
+.order.ng-enter, .order.ng-move {
     transition: 0.4s all;
     opacity: 0;
 }
 
-.order.ng-enter.ng-enter-active, .classified.ng-move.ng-move-active {
+.order.ng-enter.ng-enter-active, .order.ng-move.ng-move-active {
     opacity: 1;
 }
 
@@ -436,4 +437,12 @@ nav .nav-wrapper form, nav .nav-wrapper form .input-field {
 
 #ngDateTo-error {
     display: none !important;
+}
+
+.collapsibleHighlight li:hover {
+    background-color: #1a1a1a !important;
+}
+
+.collapsibleHighlight li.active {
+    background-color: #1a1a1a !important;
 }

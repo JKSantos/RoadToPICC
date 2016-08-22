@@ -7,6 +7,12 @@
 <%@ page import="com.gss.model.Product" %>
 <%@ page import="java.util.List" %>
 
+<style>
+    .dataTables_filter {
+        display: none;
+    }
+</style>
+
 
 
 <div class="wrapper">

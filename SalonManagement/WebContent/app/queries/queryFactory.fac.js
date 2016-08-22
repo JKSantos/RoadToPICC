@@ -5,10 +5,10 @@
         .module('app')
         .factory('queryFactory', queryFactory);
 
-    function queryFactory($http) {
+    function queryFactory($http, $resource) {
         return {
             getEmployee: function () {
-                return $http.get('employeeQuery').then(function (data) {
+                return $resource('employeeQuery').get().$promise.then(function (data) {
                     return data;
                 });
             },
