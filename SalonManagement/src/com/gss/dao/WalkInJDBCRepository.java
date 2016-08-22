@@ -11,6 +11,7 @@ import java.util.List;
 import com.gss.connection.JDBCConnection;
 import com.gss.model.Invoice;
 import com.gss.model.PackageWalkIn;
+import com.gss.model.ProductQuantity;
 import com.gss.model.ProductWalkIn;
 import com.gss.model.PromoWalkIn;
 import com.gss.model.ServiceWalkIn;
@@ -18,7 +19,7 @@ import com.gss.model.WalkIn;
 
 public class WalkInJDBCRepository implements WalkInRepository{
 
-	private JDBCConnection jdbc = new JDBCConnection();
+	private static JDBCConnection jdbc = new JDBCConnection();
 	private Connection con = jdbc.getConnection();
 	
 	@Override
@@ -454,6 +455,251 @@ public class WalkInJDBCRepository implements WalkInRepository{
 		}
 	}
 
+	
+	public static WalkIn getWalkInByID(String idType, int intID, String returnType){
+		
+		List<WalkIn> walkin 				= new ArrayList<WalkIn>();
+		List<ProductWalkIn> productList 	= new ArrayList<ProductWalkIn>();
+		List<ServiceWalkIn> serviceList 	= new ArrayList<ServiceWalkIn>();
+		List<PackageWalkIn> packageList 	= new ArrayList<PackageWalkIn>();
+		List<PromoWalkIn> promoList 		= new ArrayList<PromoWalkIn>();
+		Connection con 						= jdbc.getConnection();
+		 
+		String getWalkIn 					= null;
+		String productQuery					= "SELECT * FROM tblProductPurchase WHERE intWalkInID = ?";
+		
+		if(idType.equals("invoice")){
+			getWalkIn = "SELECT * FROM tblWalkIn WHERE intInvoiceID = ?;";
+		}
+		else{
+			getWalkIn = "SELECT * FROM tblWalkIn WHERE intWalkInID = ?;";
+		}
+		
+		try{
+			
+			PreparedStatement allWalkIn 			= con.prepareStatement(getWalkIn);
+			PreparedStatement products				= con.prepareStatement(productQuery);
+			PreparedStatement services				= con.prepareStatement("");
+			
+			PreparedStatement packages				= con.prepareStatement("");
+			PreparedStatement packageProduct		= con.prepareStatement("");
+			PreparedStatement packageService		= con.prepareStatement("");
+			
+			PreparedStatement promos				= con.prepareStatement("");
+			PreparedStatement promoService			= con.prepareStatement("");
+			PreparedStatement promoProduct			= con.prepareStatement("");
+			PreparedStatement promoPackage			= con.prepareStatement("");
+			PreparedStatement promoPackageService	= con.prepareStatement("");
+			PreparedStatement promoPackageProduct	= con.prepareStatement("");
+			
+			allWalkIn.setInt(1, intID);
+			ResultSet walkInResult 			= allWalkIn.executeQuery();
+			
+			while(walkInResult.next()){
+				int intWalkInID = walkInResult.getInt(1);
+				String strName = walkInResult.getString(2);
+				String strContact = walkInResult.getString(3);
+				Date dateCreated = walkInResult.getDate(4);
+				int intInvoiceID = walkInResult.getInt(5);
+				String strStatus = walkInResult.getString(6);
+				String paymentStatus = "PAID";
+				
+				
+				//Products
+				products.setInt(1, intWalkInID);
+				
+				
+/*				ReservationRepository repo = new ReservationJDBCRepository();
+				Invoice invoice = repo.getInvoice(intInvoiceID);
+				
+				if(invoice.getPaymentList().size() == 0){
+					paymentStatus = "UNPAID";
+				}
+			
+				try{
+					walkin.add(new WalkIn(intWalkInID, strName, "walkin", strContact, dateCreated, serviceList, productList, packageList, promoList, invoice, invoice.getPaymentList().get(0), paymentStatus, strStatus));
+				}
+				catch(IndexOutOfBoundsException ib){
+					walkin.add(new WalkIn(intWalkInID, strName, "walkin", strContact, dateCreated, serviceList, productList, packageList, promoList, invoice, null, paymentStatus, strStatus));
+				}
+*/
+				walkin.add(new WalkIn(intWalkInID, strName, "walkin", strContact, dateCreated, serviceList, productList, packageList, promoList, null, null, paymentStatus, strStatus));
+			}
+		
+			return walkin.get(0);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	public static List<ProductQuantity> getProducts(int intID){
+		
+		List<WalkIn> walkin 						= new ArrayList<WalkIn>();
+		
+		List<ProductQuantity> quantities			= new ArrayList<ProductQuantity>();
+		Connection con 								= jdbc.getConnection();
+
+		int intPackageID 							= 0;
+		int intPromoID 								= 0;
+		int intPromoPackageID 						= 0;
+		
+		try{
+			
+			PreparedStatement allWalkIn 			= con.prepareStatement("SELECT intWalkInID FROM tblWalkIn WHERE intInvoiceID = ?;");
+			PreparedStatement products				= con.prepareStatement("SELECT intProductID, intQuantity FROM tblProductPurchase WHERE intWalkInID = ?;");
+			
+			PreparedStatement packages				= con.prepareStatement("SELECT intPackageID FROM tblPackageWalkIn WHERE intWalkInID = ?;");
+			PreparedStatement packageProduct		= con.prepareStatement("SELECT intProductID, intQuantity FROM tblProductPackage WHERE intPackageID = ?;");
+			
+			PreparedStatement promos				= con.prepareStatement("SELECT intPromoID FROM tblPromoWalkIn WHERE intWalkInID = ?;");
+			PreparedStatement promoProduct			= con.prepareStatement("SELECT intProductID, intProductQuantity FROM tblProductPromo WHERE intPromoID = ?");
+			PreparedStatement promoPackage			= con.prepareStatement("SELECT intPackageID FROM tblPackagePromo WHERE intPromoID = ?;");
+			PreparedStatement promoPackageProduct	= con.prepareStatement("SELECT intProductID, intQuantity FROM tblProductPackage WHERE intPackageID = ?;");
+			
+			ResultSet productSet 					= null;
+			
+			ResultSet packageSet 					= null;
+			ResultSet packageProductSet 			= null;
+			
+			ResultSet promoSet 						= null;
+			ResultSet promoProductSet 				= null;
+			ResultSet promoPackageSet 				= null;
+			ResultSet promoPackageProductSet 		= null;
+			
+			allWalkIn.setInt(1, intID);
+			ResultSet walkInResult 			= allWalkIn.executeQuery();
+			
+			while(walkInResult.next()){
+				int intWalkInID = walkInResult.getInt(1);
+				
+				//Products
+				products.setInt(1, intWalkInID);
+				productSet = products.executeQuery();
+				
+				while(productSet.next()){
+					int id = intWalkInID;
+					int intProductID = productSet.getInt(1);
+					int intQuantity = productSet.getInt(2);
+					
+					ProductQuantity quantity = new ProductQuantity(id, intProductID, intQuantity);
+					quantities.add(quantity);
+				}
+				
+				products.close();
+				productSet.close();
+				
+				//Packages
+				packages.setInt(1, intWalkInID);
+				packageSet = packages.executeQuery();
+				
+				while(packageSet.next()){
+					intPackageID = packageSet.getInt(1);
+				}
+				
+				packages.close();
+				packageSet.close();
+				
+				//Product Package
+				packageProduct.setInt(1, intPackageID);
+				packageProductSet = packageProduct.executeQuery();
+				
+				while(packageProductSet.next()){
+					int id = intPackageID;
+					int intProductID = packageProductSet.getInt(1);
+					int intQuantity = packageProductSet.getInt(2);
+					
+					ProductQuantity quantity = new ProductQuantity(id, intProductID, intQuantity);
+					quantities.add(quantity);
+				}
+				
+				packageProduct.close();
+				packageProductSet.close();
+				
+				
+				//Promo
+				promos.setInt(1, intWalkInID);
+				promoSet = promos.executeQuery();
+				
+				while(promoSet.next()){
+					intPromoID = promoSet.getInt(1);
+				}
+				
+				promos.close();
+				promoSet.close();
+				
+				//Product Promo
+				promoProduct.setInt(1, intPackageID);
+				promoProductSet = promoProduct.executeQuery();
+				
+				while(promoProductSet.next()){
+					int id = intPromoID;
+					int intProductID = promoProductSet.getInt(1);
+					int intQuantity = promoProductSet.getInt(2);
+					
+					ProductQuantity quantity = new ProductQuantity(id, intProductID, intQuantity);
+					quantities.add(quantity);
+				}
+				
+				promoProduct.close();
+				promoProductSet.close();
+				
+				//Package Promo
+				promoPackage.setInt(1, intPromoID);
+				promoPackageSet = promoPackage.executeQuery();
+				
+				while(promoPackageSet.next()){
+					intPromoPackageID = promoPackageSet.getInt(1);
+				}
+				
+				promoPackage.close();
+				promoPackageSet.close();
+				
+				//Product Package Promo
+				promoPackageProduct.setInt(1, intPackageID);
+				promoPackageProductSet = promoPackageProduct.executeQuery();
+				
+				while(promoPackageProductSet.next()){
+					int id = intPromoPackageID;
+					int intProductID = promoPackageProductSet.getInt(1);
+					int intQuantity = promoPackageProductSet.getInt(2);
+					
+					ProductQuantity quantity = new ProductQuantity(id, intProductID, intQuantity);
+					quantities.add(quantity);
+				}
+				
+				promoPackageProduct.close();
+				promoPackageProductSet.close();
+				
+/*				ReservationRepository repo = new ReservationJDBCRepository();
+				Invoice invoice = repo.getInvoice(intInvoiceID);
+				
+				if(invoice.getPaymentList().size() == 0){
+					paymentStatus = "UNPAID";
+				}
+			
+				try{
+					walkin.add(new WalkIn(intWalkInID, strName, "walkin", strContact, dateCreated, serviceList, productList, packageList, promoList, invoice, invoice.getPaymentList().get(0), paymentStatus, strStatus));
+				}
+				catch(IndexOutOfBoundsException ib){
+					walkin.add(new WalkIn(intWalkInID, strName, "walkin", strContact, dateCreated, serviceList, productList, packageList, promoList, invoice, null, paymentStatus, strStatus));
+				}
+*/
+			}
+		
+			allWalkIn.close();
+			walkInResult.close();
+			con.close();
+			return quantities;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	@Override
 	public boolean cancelWalkIn(int intWalkInID) {
 		// TODO Auto-generated method stub
