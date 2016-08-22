@@ -15,6 +15,7 @@ import com.gss.model.Invoice;
 import com.gss.model.Payment;
 import com.gss.model.Product;
 import com.gss.model.ProductOrder;
+import com.gss.model.ProductQuantity;
 import com.gss.model.ProductSales;
 import com.gss.model.Reservation;
 import com.gss.model.ReservedPackage;
@@ -290,8 +291,47 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 
 	@Override
 	public boolean createWalkInPayment(Payment payment) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+
+		Connection con 							= jdbc.getConnection();
+		con.setAutoCommit(false);
+		
+		String insertPayment 					= "CALL createPayment(?, ?, ?)";
+		String updateStock						= "CALL updateStock(?, ?);";
+				
+		List<ProductQuantity> quantities 		= WalkInJDBCRepository.getProducts(payment.getIntInvoiceID());
+		
+		try{
+			PreparedStatement createPayment		= con.prepareStatement(insertPayment);
+			
+			
+			createPayment.setInt(1, payment.getIntInvoiceID());
+			createPayment.setString(2, payment.getPaymentType());
+			createPayment.setDouble(3, payment.getDblPaymentAmount());
+			
+			createPayment.execute();
+			
+			PreparedStatement updateProducts	= con.prepareStatement(updateStock);
+			
+			for(int index = 0; index < quantities.size(); index++){
+				ProductQuantity quantity = quantities.get(index);
+				
+				updateProducts.setInt(1, quantity.getIntProductID());
+				updateProducts.setInt(2, quantity.getIntQuantity());
+				updateProducts.addBatch();
+			}
+			
+			updateProducts.executeBatch();
+			updateProducts.close();
+			
+			con.commit();
+			con.close();
+			return true;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			con.rollback();
+			return false;
+		}
 	}
 	
 	public Invoice getInvoice(int intInvoiceID) {

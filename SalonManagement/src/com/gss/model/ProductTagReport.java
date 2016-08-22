@@ -67,7 +67,7 @@ public class ProductTagReport {
 	public static List<ProductTagReport> getProductTagReport() throws SQLException{
 		ProductTags service = new ProductTagImpl();
 		
-		return service.getAllProductTag();
+		return service.getProductTagReport();
 	}
 	public static List<ProductTagReport> getFilteredProductTagReport(String dateFilterFrom, String dateFilterTo, String employeeFilter, String tagTypeFilter) throws SQLException{
 		ProductTags service = new ProductTagImpl();

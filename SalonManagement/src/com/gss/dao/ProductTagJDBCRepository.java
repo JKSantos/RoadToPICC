@@ -106,70 +106,18 @@ public class ProductTagJDBCRepository implements ProductTagRepository{
 		}
 	}
 
-	public List<ProductTag> getAllTag() throws SQLException{
-		
-		Connection con = jdbc.getConnection();
-		String query 					= "SELECT * FROM tblProductTag;";
-		List<ProductTag> tagList 		= new ArrayList<ProductTag>();
-		
-		List<Product> productList = Product.getAllProduct();
-		List<Employee> employeeList  = Employee.getEmployeeList();
-		
-		try{
-			
-			PreparedStatement getAllTags = con.prepareStatement(query);
-			
-			ResultSet tags = getAllTags.executeQuery();
-			
-			while(tags.next()){
-				int intTagID = tags.getInt(1);
-				int intProductID = tags.getInt(2);
-				Date tagDate = tags.getDate(3);
-				int intTagType = tags.getInt(4);
-				int intTagBy = tags.getInt(5);
-				int intQuantity = tags.getInt(6);
-				
-				Product product = null;
-				Employee employee = null;
-				
-				for(int i = 0; i < productList.size(); i++){
-					if(intProductID == productList.get(i).getIntProductID()){
-						product = productList.get(i);
-					}
-				}
-				
-				for(int i = 0; i < employeeList.size(); i++){
-					if(intTagBy == employeeList.get(i).getIntEmpID()){
-						employee = employeeList.get(i);
-					}
-				}
-				
-				tagList.add(new ProductTag(intTagID, product, tagDate, intTagType, employee, intQuantity));
-			}
-			
-			getAllTags.close();
-			tags.close();
-			con.close();
-			
-			return tagList;
-		}
-		catch(Exception e){
-			e.printStackTrace();
-			return null;
-		}
-	}
 
 	public boolean restoreTag(ProductTag productTag) throws SQLException{
 		
 		Connection con = jdbc.getConnection();
-		String deleteTag = "DELETE FROM tblProductTag WHERE intTagID = ?";				
+		String deleteTag = "CALL restoreTag(?);";				
 		
 		try{
 			PreparedStatement delete = con.prepareStatement(deleteTag);
+			
 			delete.setInt(1, productTag.getIntTagID());
 			
 			ResultSet result = delete.executeQuery();
-			addStock(productTag);
 			
 			delete.close();
 			result.close();
@@ -299,6 +247,59 @@ public class ProductTagJDBCRepository implements ProductTagRepository{
 			withTagResult.close();
 			
 			return reports;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public List<ProductTag> getAllTag() throws SQLException {
+		Connection con = jdbc.getConnection();
+		String query 					= "SELECT * FROM tblProductTag;";
+		List<ProductTag> tagList 		= new ArrayList<ProductTag>();
+		
+		List<Product> productList = Product.getAllProduct();
+		List<Employee> employeeList  = Employee.getEmployeeList();
+		
+		try{
+			
+			PreparedStatement getAllTags = con.prepareStatement(query);
+			
+			ResultSet tags = getAllTags.executeQuery();
+			
+			while(tags.next()){
+				int intTagID = tags.getInt(1);
+				int intProductID = tags.getInt(2);
+				Date tagDate = tags.getDate(3);
+				int intTagType = tags.getInt(4);
+				int intQuantity = tags.getInt(5);
+				int intTagBy = tags.getInt(6);
+				
+				Product product = null;
+				Employee employee = null;
+				
+				for(int i = 0; i < productList.size(); i++){
+					if(intProductID == productList.get(i).getIntProductID()){
+						product = productList.get(i);
+					}
+				}
+				
+				for(int i = 0; i < employeeList.size(); i++){
+					if(intTagBy == employeeList.get(i).getIntEmpID()){
+						employee = employeeList.get(i);
+					}
+				}
+				
+				tagList.add(new ProductTag(intTagID, product, tagDate, intTagType, employee, intQuantity));
+			}
+			
+			getAllTags.close();
+			tags.close();
+			con.close();
+			
+			return tagList;
 		}
 		catch(Exception e){
 			e.printStackTrace();

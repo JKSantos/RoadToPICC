@@ -162,7 +162,7 @@
             </ul>
             <ul class="collapsible collapsibleHighlight" data-collapsible="accordion">
                 <li>
-                    <a class="collapsible-header" href="admin-home.jsp">
+                    <a class="collapsible-header" href="getDependencies">
                         <span class="grey-text text-lighten-3">
                             <i class="material-icons">settings</i>
                             <b>Utilities</b>

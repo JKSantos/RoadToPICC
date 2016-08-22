@@ -23,7 +23,7 @@ public class CreateTagAction {
 		
 		ProductTags createTag = new ProductTagImpl();
 		recorded = createTag.defectiveTag(new ProductTag(1, product, new Date(employees), intTagType, Employee.createNullEmployee(employees), intQuantity));
-		System.out.println(employees);
+
 		if(recorded == true){
 			return "success";
 			

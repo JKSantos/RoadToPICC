@@ -19,7 +19,7 @@ public interface ProductTags {
 	
 	public boolean restoreTag(ProductTag productTag) throws SQLException;
 	
-	public List<ProductTagReport> getAllProductTag() throws SQLException;
+	public List<ProductTagReport> getProductTagReport();
 
 	public List<ProductTagReport> getFilteredProductTagReport();
 	

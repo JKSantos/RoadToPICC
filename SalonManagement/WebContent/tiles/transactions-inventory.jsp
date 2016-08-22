@@ -9,7 +9,7 @@
             <a class="crinventybtn z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
                href="#deflostexModal" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">add</i></a>
             <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
-               href="#packageArchive" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">archive</i></a>
+               href="#archive" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">archive</i></a>
             <nav class="right white hoverable  z-depth-1" style="width: 300px; margin-right: 20px;">
                 <div class="nav-wrapper col s4">
                     <form>
@@ -106,14 +106,7 @@
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <select name="employees" id="empList">
-                                    	<c:forEach items="${ employeeList }" var="emp">
-                                    		<option value="${ emp.intEmpID }">${ emp.strEmpFirstName } ${ emp.strEmpLastName }</option>
-                                    	</c:forEach>
-                                    </select>
-                                    
-                                    <label for="empList"><b>Tagged by</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                    <input type="hidden" name="employees" value="${sessionScope.id}">
                                 </div>
                                 <div class="input-field col s12" style="margin-top: 5%;">
                                     <input type="hidden" name="intTagType" id="tagTypeDef" value="1"/>
@@ -152,14 +145,7 @@
                                 </div>
                                 
                                 <div class="input-field col s12">
-                                    <select name="employees" id="empList2">
-                                    	<c:forEach items="${ employeeList }" var="emp">
-                                    		<option value="${ emp.intEmpID }">${ emp.strEmpFirstName } ${ emp.strEmpLastName }</option>
-                                    	</c:forEach>
-                                    </select>
-                                    
-                                    <label for="empList2"><b>Tagged by</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                    <input type="hidden" name="employees" value="${sessionScope.id}">
                                 </div>
                                 <div class="input-field col s12" style="margin-top: 5%;">
                                     <input type="hidden" name="intTagType" id="tagTypeLost" value="2"/>
@@ -196,14 +182,7 @@
                                     <label for="expiredQty"><b>Quantity</b><i class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <select name="employees" id="empList3">
-                                    	<c:forEach items="${ employeeList }" var="emp">
-                                    		<option value="${ emp.intEmpID }">${ emp.strEmpFirstName } ${ emp.strEmpLastName }</option>
-                                    	</c:forEach>
-                                    </select>
-                                    
-                                    <label for="empList3"><b>Tagged by</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                    <input type="hidden" name="employees" value="${sessionScope.id}">
                                 </div>
                                 <div class="input-field col s12" style="margin-top: 5%;">
                                     <input type="hidden" name="intTagType" id="tagTypeExpired" value="3"/>
@@ -238,7 +217,7 @@
                         <div class="row">
 
                             <!-- ///// IMPORTANT CODES /////////  DO NOT EDIT /////////////////////////////////////////////////////////-->
-                            <input type="text" name="intProductID" value="${product.intProductID}">
+                            <input type="hiden" name="intProductID" value="${product.intProductID}">
                             <input type="hidden" name="intType" value="1">
                             <!--///////////////////////////////////////////////////////////////////////////////////////////////////////-->
                             <div class="input-field col s8 offset-s2" style="margin-top: 5%;">
@@ -330,4 +309,86 @@
             </div>
         </div>
     </c:forEach>
+    
+    
+    <div id="archive" class="modal" style="width:80% !important">
+        <div class="modal-content">
+            <h4 class="grey-text center text-darken-1">Archive</h4>
+            <nav class="right white hoverable  z-depth-1" style="width: 300px; margin-right: 20px;">
+                <div class="nav-wrapper col s4">
+                    <form>
+                        <div class="input-field">
+                            <input id="empArchiveSearch" placeholder="Search" class="grey-text text-darken-4"
+                                   type="search"/>
+                            <label for="empArchiveSearch">
+                                <i class="material-icons grey-text text-darken-4">search</i>
+                            </label>
+                        </div>
+                    </form>
+                </div>
+            </nav>
+            <table id="empArchiveTbl"
+                   class="hoverable z-depth-1 cell-border row-border display centered responsive-table highlight"
+                   cellspacing="0"
+                   width="100%"
+                   style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;">
+                <thead>
+                <tr>
+                    <th class="no-sort">Tag ID</th>
+                    <th class="dt-head-left">Tag Date</th>
+                    <th class="dt-head-left left-align" align="left">Product Name</th>
+                    <th class="dt-head-lef">Tag Type</th>
+                    <th class="dt-head-left">Quantity</th>
+                    <th class="dt-head-left">Tagged By</th>
+                    <th align="center" class="no-sort">Action</th>
+                </tr>
+                </thead>
+                <tfoot style="border: 1px solid #bdbdbd;">
+                <tr>
+                    <th class="no-sort">Tag ID</th>
+                    <th class="dt-head-left">Tag Date</th>
+                    <th class="dt-head-left left-align" align="left">Product Name</th>
+                    <th class="dt-head-lef">Tag Type</th>
+                    <th class="dt-head-left">Quantity</th>
+                    <th class="dt-head-left">Tagged By</th>
+                    <th align="center" class="no-sort">Action</th>
+                </tr>
+                </tfoot>
+                <tbody>
+                	<c:forEach items="${tagList}" var="tag">
+	                    <tr>
+	                    	<c:set var="tagType" scope="session" value="${ tag.intTagType }"/>
+	                    	<c:if test="${tagType == 1}"><c:set var="tagName" value="DEFECTIVE"/></c:if>
+	                    	<c:if test="${tagType == 2}"><c:set var="tagName" value="LOST"/></c:if>
+	                    	<c:if test="${tagType == 3}"><c:set var="tagName" value="EXPIRED"/></c:if>
+	                    	<c:if test="${tagType == 4}"><c:set var="tagName" value="CONSUMED"/></c:if>
+	                        <td style="padding:0; margin:0;" class="dt-body-center">
+	                            <center>${tag.intTagID}</center>
+	                        </td>
+	                        <td class="dt-body-left">${tag.dateTagged}</td>
+	                        <td style="padding-left: 10px !important; margin-left: 0px;" class="dt-body-left">${tag.product.strProductName}</td>
+	                        <td style="padding-right: 10px !important; margin-right: 0px;" class="dt-body-left ">${tagName}</td>
+	                        
+	                        <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-left ">${tag.intQuantity}</td>
+	                        <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-left ">${tag.tagBy.strEmpFirstName} ${tag.tagBy.strEmpLastName}</td>
+	                        <td class="center" style="padding:0; margin:0;">
+	                        
+	                        <form method="post" action="restoreTag">
+	                        	<input type="hidden" name="intTagID" value="${tag.intTagID}"/>
+	                            <button class="waves-effect waves-light btn-flat green darken-3 white-text"
+	                                    id="empArchiveBtn" style="padding-left: 10px;padding-right:10px; margin: 5px;"
+	                                    title="Restore">
+	                                <i class="material-icons">restore</i>
+	                            </button>
+	                        </form>
+	                        </td>
+	                    </tr>
+					</c:forEach>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </div>
 </div>
