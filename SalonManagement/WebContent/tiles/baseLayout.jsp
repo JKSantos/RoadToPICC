@@ -138,7 +138,7 @@
             </ul>
             <ul class="collapsible" data-collapsible="accordion">
                 <li>
-                    <a class="collapsible-header" href="admin-home.jsp"><i
+                    <a class="collapsible-header" href="getDependencies"><i
                             class="material-icons">settings</i><b>Utilities</b></a>
                 </li>
             </ul>
