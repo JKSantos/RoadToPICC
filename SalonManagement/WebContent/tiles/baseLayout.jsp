@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="css/mainloader.css"/>
     <link rel="stylesheet" type="text/css" href="css/materialize.clockpicker.css"/>
     <link rel="stylesheet" type="text/css" href="css/animate.css"/>
+    <link rel="stylesheet" type="text/css" href="css/fullcalendar.css"/>
     <!--<link rel="stylesheet" type="text/css" href="css/angular-datatables.css"/>-->
 
     <link rel="stylesheet" type="text/css" href="css/baselayout.css"/>
@@ -224,6 +225,8 @@
 <script type="text/javascript" src="js/lodash.min.js"></script>
 <script type="text/javascript" src="js/highcharts.js"></script>
 <script type="text/javascript" src="js/exporting.js"></script>
+<script type="text/javascript" src="js/fullcalendar.js"></script>
+<script type="text/javascript" src="js/moment.min.js"></script>
 
 <!-- <script type="text/javascript" src="js/ProductsSales/ajax.js"></script> -->
 <!-- jQuery Ajax -->
@@ -257,6 +260,7 @@
 <script type="text/javascript" src="app/queries/employee/productQueryController.ctrl.js"></script>
 <script type="text/javascript" src="app/report/reportsFactory.fac.js"></script>
 <script type="text/javascript" src="app/report/sales/salesReportController.ctrl.js"></script>
+<script type="text/javascript" src="app/reservation/reservationCalendarCtrl.ctr.js"></script>
 
 
 </body>
