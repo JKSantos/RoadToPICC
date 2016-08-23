@@ -15,6 +15,11 @@ String gender = null;
 String position = null;
 String granAccess = null;
 %>
+<style>
+    .dataTables_filter {
+    display: none;
+    }
+</style>
 
 
 <!-- <div class="container"> -->

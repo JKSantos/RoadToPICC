@@ -22,22 +22,9 @@
                     </form>
                 </div>
             </nav>
-            <table id="paymentTable" datatable="ng"
+            <table id="paymentTable" datatable="ng" dt-options="vm.dtOptions" dt-columns="vm.dtColumns"
                    class="table-barts hoverable z-depth-1 cell-border row-border display responsive-table highlight">
                 <thead>
-                <tr>
-                    <th class="left-align">
-                        Customer Name
-                    </th>
-                    <th class="left-align">
-                        Transaction Name
-                    </th>
-                    <th class="right-align">Transaction Date</th>
-                    <th class="left-align">Transaction Type</th>
-                    <th class="right-align">Total Balance</th>
-                    <th class="right-align">Remaining Balance</th>
-                    <th class="center-align">Action</th>
-                </tr>
                 </thead>
                 <tfoot>
                 <tr style="border: 1px solid #bdbdbd;">
@@ -51,7 +38,7 @@
                 </tr>
                 </tfoot>
                 <tbody>
-                <tr ng-repeat="payment in vm.paymentList |
+                <tr ng-repeat="payment in ::vm.paymentList |
                                filter: paymentSearch |
                                orderBy: vm.sortType :vm.sortReverse"
                     ng-if="payment.strStatus != 'COMPLETE'">

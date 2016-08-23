@@ -8,6 +8,13 @@
 <%@ page import="com.gss.model.ServicePackage"%>
 <%@ page import="com.gss.model.PackagePackage"%>
 <%@ page import="com.gss.model.Promo"%>
+
+<style>
+    .dataTables_filter {
+        display: none;
+    }
+</style>
+
 <div class="wrapper">
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">

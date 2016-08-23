@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
-<div ng-controller="prodSalesCtrl">
+<div ng-controller="prodSalesCtrl as vm">
     <div class="wrapper" id="MainWrap">
         <div class="aside asideAside1 z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
             <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
@@ -94,7 +94,7 @@
         </div>
 
         <div class="aside asideAside2 transparent">
-            <div class="aside white z-depth-barts">
+            <div class="aside white z-depth-barts" ng-if="orderList.length > 1">
                 <div class="row">
                     <div class="col s12">
                         <h5>Selected Item</h5>
@@ -103,19 +103,20 @@
                                 ng-repeat="orders in orderList"
                                 ng-if="orders.product!='' && orders.total!=0">
                                 <img ng-src="{{orders.strPhotoPath}}" class="circle" height="30" width="30">
-                                <span style="padding-left: 5px !important;" title="{{orders.product}} - {{orders.total | currency: 'Php '}}">
-                                    {{orders.product | truncate: 14}}
+                                <span style="padding-left: 5px !important;" title="{{orders.product}} - {{orders.total | currency: 'Php '}}"
+                                      ng-click="openEditItem($index, orders)">
+                                    {{orders.product | truncate: 17}}
                                 </span>
                                 <button name="" title="Decline" class="secondary-content red-text transparent"
                                         style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border:0px !important;"
                                         ng-click="removeToCart($index, orders)">
-                                    <i class="material-icons" style="padding-top: 7px !important;">clear</i>
+                                    <i class="material-icons" style="padding-top: 8px !important;">clear</i>
                                 </button>
-                                <button name="" title="Accept" class="secondary-content black-text transparent"
-                                        style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border: 0px !important;"
-                                        ng-click="openEditItem($index, orders)">
-                                    <i class="material-icons" style="padding-top: 7px !important;">edit</i>
-                                </button>
+                                <!--<button name="" title="Accept" class="secondary-content black-text transparent"-->
+                                        <!--style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border: 0px !important;"-->
+                                        <!--ng-click="openEditItem($index, orders)">-->
+                                    <!--<i class="material-icons" style="padding-top: 7px !important;">edit</i>-->
+                                <!--</button>-->
                             </li>
                         </ul>
                         <h5>Total: {{totalAmount | currency: "Php "}}</h5>
@@ -137,7 +138,7 @@
                                    ng-if="request.intType==2 || request.intType=='pickup'">
                                     shopping_basket
                                 </i>
-                                <span title="{{ request.strName }}">{{ request.strName | truncate: 13 }}</span>
+                                <span title="{{ request.strName }}">{{ request.strName | truncate: 12 }}</span>
                                 <button name="" title="Decline" class="secondary-content red-text transparent"
                                         style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border:0px !important;"
                                         ng-click="declineOrder(request)">
@@ -285,17 +286,18 @@
                 <div class="nav-wrapper col s4">
                     <form>
                         <div class="input-field">
-                            <input id="psSearchBar" placeholder="Search" class="grey-text text-darken-4" type="search"
-                                   ng-model="filterBySearch">
-                            <label for="psSearchBar">
+                            <input id="searchBoxID" placeholder="Search" class="grey-text text-darken-4" type="search"
+                                   ng-model="vm.searchInTable"
+                                   ng-change="vm.searchTable()">
+                            <label for="searchBoxID">
                                 <i class="material-icons grey-text text-darken-4">search</i>
                             </label>
                         </div>
                     </form>
                 </div>
             </nav>
-            <table id="psTBL" datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs"
-                   class="row-border hoverable cell-border z-depth-1"
+            <table id="psRecordTable" datatable="ng" dt-instance="vm.dtInstanceCallback"
+                   class="row-border hoverable cell-border z-depth-1" width="100%"
                    style="margin-top: -15px !important;">
                 <thead>
                 <tr>
@@ -318,7 +320,7 @@
                 </tr>
                 </tfoot>
                 <tbody>
-                <tr ng-repeat="order in requestOrderList | filter: filterBySearch"
+                <tr ng-repeat="order in requestOrderList"
                     ng-if="order.strStatus != 'REQUEST'">
                     <td class="left-align">{{ order.strName }}</td>
                     <td class="left-align">{{ order.strAddress }}</td>

@@ -32,42 +32,42 @@
     </title>
 </head>
 
-<body class="purple lighten-5 demo" ng-app = "app">
+<body class="purple lighten-5 demo" ng-app="app">
 <div class="wrapper">
     <header class="headnav">
-        <ul id="slide-out" class="side-nav fixed z-depth-0">
-            <li class="user-details" style="height: 64px !important; background-color: #212121 !important;">
-                    <div class="row">
-                        <div class="col col s4 m4 l4" style="padding: 5px !important;">
-                            <img src="<s:url action='getImage'><s:param name='ImageID'>${sessionScope.id}</s:param><s:param name='type'>employee</s:param></s:url>"
-                                 alt="" class="circle responsive-img valign profile-image"
-                                 style="width: 50px !important; height: 50px !important; margin-left: 10px !important;">
-                        </div>
-                        <div class="col col s8 m8 l8">
-                            <ul id="profile-dropdown" class="dropdown-content"
-                                style="margin-top: 55px !important; overflow-y: hidden !important; margin-left: -15px !important;">
-                                <li><a href="#" style="padding-top: 12px !important;"><i
-                                        class="mdi-action-face-unlock"></i>
-                                    Profile</a></li>
-                                <li><a href="#" style="padding-top: 12px !important;"><i
-                                        class="mdi-action-settings"></i>
-                                    Settings</a></li>
-                                <li><a href="#" style="padding-top: 12px !important;"><i
-                                        class="mdi-communication-live-help"></i> Help</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#" style="padding-top: 12px !important;"><i
-                                        class="mdi-action-lock-outline"></i> Lock</a></li>
-                                <li><a href="logout" style="padding-top: 12px !important;"><i
-                                        class="mdi-hardware-keyboard-tab"></i> Logout</a></li>
-                            </ul>
-                            <a class="truncate btn-flat dropdown-button waves-effect waves-light white-text profile-btn"
-                               href="#"
-                               data-activates="profile-dropdown"
-                               style="margin-top: 10px !important; margin-left: -15px !important; padding-right: 0px !important;">${sessionScope.firstName}<i
-                                    class="material-icons right">arrow_drop_down</i></a>
-                            <!--<p class="user-roal">Administrator</p>-->
-                        </div>
+        <ul id="slide-out" class="side-nav fixed z-depth-0" style="background-color: #262626 !important;">
+            <li class="user-details" style="height: 64px !important; background-color: #0d0d0d !important;">
+                <div class="row">
+                    <div class="col col s4 m4 l4" style="padding: 5px !important;">
+                        <img src="<s:url action='getImage'><s:param name='ImageID'>${sessionScope.id}</s:param><s:param name='type'>employee</s:param></s:url>"
+                             alt="" class="circle responsive-img valign profile-image"
+                             style="width: 50px !important; height: 50px !important; margin-left: 10px !important;">
                     </div>
+                    <div class="col col s8 m8 l8">
+                        <ul id="profile-dropdown" class="dropdown-content"
+                            style="margin-top: 55px !important; overflow-y: hidden !important; margin-left: -15px !important;">
+                            <li><a href="#" style="padding-top: 12px !important;"><i
+                                    class="mdi-action-face-unlock"></i>
+                                Profile</a></li>
+                            <li><a href="#" style="padding-top: 12px !important;"><i
+                                    class="mdi-action-settings"></i>
+                                Settings</a></li>
+                            <li><a href="#" style="padding-top: 12px !important;"><i
+                                    class="mdi-communication-live-help"></i> Help</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#" style="padding-top: 12px !important;"><i
+                                    class="mdi-action-lock-outline"></i> Lock</a></li>
+                            <li><a href="logout" style="padding-top: 12px !important;"><i
+                                    class="mdi-hardware-keyboard-tab"></i> Logout</a></li>
+                        </ul>
+                        <a class="truncate btn-flat dropdown-button waves-effect waves-light white-text profile-btn"
+                           href="#"
+                           data-activates="profile-dropdown"
+                           style="margin-top: 10px !important; margin-left: -15px !important; padding-right: 0px !important;">${sessionScope.firstName}<i
+                                class="material-icons right">arrow_drop_down</i></a>
+                        <!--<p class="user-roal">Administrator</p>-->
+                    </div>
+                </div>
             </li>
             <!--<div class="center">-->
             <!--<img src="<s:url action='getImage'><s:param name='ImageID'>${sessionScope.id}</s:param><s:param name='type'>employee</s:param></s:url>"-->
@@ -76,18 +76,27 @@
             <!--<a href="logout" style="padding: 0px !important;">Logout</a>-->
             <!--</div>-->
 
-            <ul class="collapsible" data-collapsible="accordion">
+            <ul class="collapsible collapsibleHighlight" data-collapsible="accordion">
                 <li>
-                    <a class="collapsible-header" href="login"><i
-                            class="material-icons">home</i><b>Home</b></a>
+                    <a class="collapsible-header" href="login">
+                        <span class="grey-text text-lighten-3">
+                            <i class="material-icons">home</i>
+                        <b>Home</b>
+                        </span>
+                    </a>
                 </li>
             </ul>
             <!--  <li class="no-padding"> -->
-            <ul class="collapsible" id="mtnc" data-collapsible="accordion">
+            <ul class="collapsible collapsibleHighlight" data-collapsible="accordion">
                 <li>
-                    <a class="collapsible-header"><i class="material-icons">build</i><b>Maintenance</b></a>
-                    <div class="collapsible-body">
-                        <ul>
+                    <a class="collapsible-header">
+                        <span class="grey-text text-lighten-3">
+                            <i class="material-icons">build</i>
+                            <b>Maintenance</b>
+                        </span>
+                    </a>
+                    <div class="collapsible-body" style="background-color: #333333 !important;">
+                        <ul class="navul">
                             <li><a href="employeeMaintenance">Employee</a></li>
                             <li><a href="productMaintenance">Product</a></li>
                             <li><a href="serviceMaintenance">Service</a></li>
@@ -100,8 +109,13 @@
                     </div>
                 </li>
                 <li>
-                    <a class="collapsible-header"><i class="material-icons">shopping_cart</i><b>Transaction</b></a>
-                    <div class="collapsible-body">
+                    <a class="collapsible-header">
+                        <span class="grey-text text-lighten-3">
+                            <i class="material-icons">shopping_cart</i>
+                            <b>Transaction</b>
+                        </span>
+                    </a>
+                    <div class="collapsible-body" style="background-color: #333333 !important;">
                         <ul class="navul">
                             <li><a href="getInventory">Inventory</a></li>
                             <li><a href="transWalkIn">Walk In</a></li>
@@ -112,9 +126,14 @@
                     </div>
                 </li>
                 <li>
-                    <a class="collapsible-header"><i class="material-icons">search</i><b>Queries</b></a>
-                    <div class="collapsible-body">
-                        <ul>
+                    <a class="collapsible-header">
+                        <span class="grey-text text-lighten-3">
+                        <i class="material-icons">search</i>
+                        <b>Queries</b>
+                        </span>
+                    </a>
+                    <div class="collapsible-body" style="background-color: #333333 !important;">
+                        <ul class="navul">
                             <li><a href="employeeQueries">Employee</a></li>
                             <li><a href="productQueries">Product</a></li>
                             <li><a href="">Service</a></li>
@@ -127,19 +146,28 @@
                     </div>
                 </li>
                 <li>
-                    <a class="collapsible-header"><i class="material-icons">assessment</i><b>Reports</b></a>
-                    <div class="collapsible-body">
-                        <ul>
+                    <a class="collapsible-header">
+                        <span class="grey-text text-lighten-3">
+                            <i class="material-icons">assessment</i>
+                            <b>Reports</b>
+                        </span>
+                    </a>
+                    <div class="collapsible-body" style="background-color: #333333 !important;">
+                        <ul class="navul">
                             <li><a href="salesReport">Sales</a></li>
                             <li><a href="productTags">Product Tags</a></li>
                         </ul>
                     </div>
                 </li>
             </ul>
-            <ul class="collapsible" data-collapsible="accordion">
+            <ul class="collapsible collapsibleHighlight" data-collapsible="accordion">
                 <li>
-                    <a class="collapsible-header" href="getDependencies"><i
-                            class="material-icons">settings</i><b>Utilities</b></a>
+                    <a class="collapsible-header" href="getDependencies">
+                        <span class="grey-text text-lighten-3">
+                            <i class="material-icons">settings</i>
+                            <b>Utilities</b>
+                        </span>
+                    </a>
                 </li>
             </ul>
         </ul>
@@ -164,7 +192,6 @@
 
 
 </div>
-
 
 
 <!--Import jQuery before materialize.js-->
@@ -230,10 +257,6 @@
 <script type="text/javascript" src="app/queries/employee/productQueryController.ctrl.js"></script>
 <script type="text/javascript" src="app/report/reportsFactory.fac.js"></script>
 <script type="text/javascript" src="app/report/sales/salesReportController.ctrl.js"></script>
-
-
-
-
 
 
 </body>
