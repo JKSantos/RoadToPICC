@@ -36,7 +36,7 @@
                    style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;" rowspan="10">
                 <thead>
                 <tr>
-                    <th class="dt-head-left">Baranggay</th>
+                    <th class="dt-head-left">Barangay</th>
                     <th class="dt-head-left">City</th>
                     <th class="dt-head-right">Base Rate</th>
                     <th align="center" class="no-sort">Action</th>
@@ -44,7 +44,7 @@
                 </thead>
                 <tfoot style="border: 1px solid #bdbdbd;">
                 <tr>
-                    <th class="dt-head-left">Baranggay</th>
+                    <th class="dt-head-left">Barangay</th>
                     <th class="dt-head-left">City</th>
                     <th class="dt-head-right">Base Rate</th>
                     <th align="dt-head-center" class="no-sort"><center>Action</center></th>

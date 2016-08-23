@@ -31,6 +31,22 @@
 		<action name="packageQueries" class="com.gss.actions.QueriesAction" method="getPackage">
 			<result name="success" type="tiles">queriesPackage</result>
 		</action>
+
+		<action name="deliveryQueries" class="com.gss.actions.QueriesAction" method="getDelivery">
+			<result name="success" type="tiles">queriesDelivery</result>
+		</action>
+
+		<action name="extraQueries" class="com.gss.actions.QueriesAction" method="getExtra">
+			<result name="success" type="tiles">queriesExtra</result>
+		</action>
+
+		<action name="promoQueries" class="com.gss.actions.QueriesAction" method="getPromoQuery">
+			<result name="success" type="tiles">queriesPromo</result>
+		</action>
+
+		<action name="discountQueries" class="com.gss.actions.QueriesAction" method="getDiscount">
+			<result name="success" type="tiles">queriesDiscount</result>
+		</action>
 	
 		<action name="employeeQuery" class="com.gss.actions.Employee.QueryAllEmployee">
 			<result name="success" type="json"></result>

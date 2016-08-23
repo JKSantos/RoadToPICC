@@ -38,9 +38,7 @@
                 </tr>
                 </tfoot>
                 <tbody>
-                <tr ng-repeat="payment in ::vm.paymentList |
-                               filter: paymentSearch |
-                               orderBy: vm.sortType :vm.sortReverse"
+                <tr ng-repeat="payment in vm.paymentList"
                     ng-if="payment.strStatus != 'COMPLETE'">
                     <td ng-if="payment.strName" class="left-align">{{ payment.strName }}</td>
                     <td ng-if="payment.customer" class="left-align">{{ payment.customer.strName }}</td>

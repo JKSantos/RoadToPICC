@@ -4,7 +4,7 @@
 <div class="wrapper" ng-controller="productQueryController as vm">
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
-            <h3 class="grey-text center text-darken-1">Query</h3>
+            <h3 class="grey-text center text-darken-1">Query - Product</h3>
             <!--<a class="btnshadow hoverable z-depth-1 waves-effect waves-light modal-trigger btn-flat purple darken-2 left white-text"-->
             <!--href="#" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">add</i></a>-->
             <div class="row" style="margin-bottom: -100px !important; margin-top: 50px !important;">

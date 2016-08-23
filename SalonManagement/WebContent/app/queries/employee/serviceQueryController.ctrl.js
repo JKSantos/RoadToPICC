@@ -13,12 +13,6 @@
         vm.getStatus = getStatus;
         vm.selectStatusInTable = selectStatusInTable;
         vm.queryServiceSearch = '';
-        vm.dateFormat = ["MMMM/D/YYYY"];
-        vm.aifilter = [
-            {"id": 1,"strEmpValue": 'ACTIVE'},
-            {"id": 2,"strEmpValue": 'INACTIVE'}
-            ];
-        vm.selOption = '';
 
         function dtInstanceCallback (dtInstance) {
             var datatableObj = dtInstance.DataTable;
