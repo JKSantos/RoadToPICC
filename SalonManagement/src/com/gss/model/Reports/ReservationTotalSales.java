@@ -1,4 +1,4 @@
-package com.gss.model;
+package com.gss.model.Reports;
 
 public class ReservationTotalSales {
 	

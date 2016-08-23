@@ -138,5 +138,11 @@ public class ProductSales {
 		
 		return service.getAllProductSalesNoDetails();
 	}
+	public static String toString(int type){
+		if(type == 1)
+			return "Delivery";
+		else
+			return "Pick Up";
+	}
 
 }

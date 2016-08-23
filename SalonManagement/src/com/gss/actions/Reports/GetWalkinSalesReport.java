@@ -3,9 +3,9 @@ package com.gss.actions.Reports;
 import java.util.List;
 
 import com.gss.dao.ReportsRepository;
-import com.gss.model.ProductOrderSalesReport;
-import com.gss.model.ReservationSalesReport;
-import com.gss.model.WalkInSalesReport;
+import com.gss.model.Reports.ProductOrderSalesReport;
+import com.gss.model.Reports.ReservationSalesReport;
+import com.gss.model.Reports.WalkInSalesReport;
 
 public class GetWalkinSalesReport {
 	

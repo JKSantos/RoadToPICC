@@ -164,4 +164,11 @@ public class Reservation {
 		return reservation;
 		
 	}
+	
+	public static String toString(int type){
+		if(type == 1)
+			return "Home Service";
+		else
+			return "Event";
+	}
 }

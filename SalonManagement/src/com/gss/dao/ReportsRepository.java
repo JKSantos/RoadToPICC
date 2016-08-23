@@ -8,12 +8,12 @@ import java.util.Date;
 import java.util.List;
 
 import com.gss.connection.JDBCConnection;
-import com.gss.model.ProductOrderSalesReport;
-import com.gss.model.ProductOrderTotalSales;
-import com.gss.model.ReservationSalesReport;
-import com.gss.model.ReservationTotalSales;
-import com.gss.model.WalkInSalesReport;
-import com.gss.model.WalkInTotalSales;
+import com.gss.model.Reports.ProductOrderSalesReport;
+import com.gss.model.Reports.ProductOrderTotalSales;
+import com.gss.model.Reports.ReservationSalesReport;
+import com.gss.model.Reports.ReservationTotalSales;
+import com.gss.model.Reports.WalkInSalesReport;
+import com.gss.model.Reports.WalkInTotalSales;
 
 public class ReportsRepository {
 	
@@ -215,4 +215,5 @@ public class ReportsRepository {
 			return null;
 		}
 	}
+
 }

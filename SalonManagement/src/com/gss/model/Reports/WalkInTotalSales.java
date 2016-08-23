@@ -1,17 +1,15 @@
-package com.gss.model;
+package com.gss.model.Reports;
 
-public class ProductOrderTotalSales {
+public class WalkInTotalSales {
 	
 	private String dateFrom;
 	private String dateTo;
-	private String orderType;
 	private double dblPrice;
 	
-	public ProductOrderTotalSales(String dateFrom, String dateTo, String orderType, double dblPrice) {
+	public WalkInTotalSales(String dateFrom, String dateTo, double dblPrice) {
 		super();
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
-		this.orderType = orderType;
 		this.dblPrice = dblPrice;
 	}
 	public String getDateFrom() {
@@ -25,12 +23,6 @@ public class ProductOrderTotalSales {
 	}
 	public void setDateTo(String dateTo) {
 		this.dateTo = dateTo;
-	}
-	public String getOrderType() {
-		return orderType;
-	}
-	public void setOrderType(String orderType) {
-		this.orderType = orderType;
 	}
 	public double getDblPrice() {
 		return dblPrice;
