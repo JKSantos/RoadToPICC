@@ -155,7 +155,9 @@
                     </a>
                     <div class="collapsible-body" style="background-color: #333333 !important;">
                         <ul class="navul">
-                            <li><a href="salesReport">Sales</a></li>
+                            <li><a href="reservationPage">Reservation Sales</a></li>
+                            <li><a href="orderPage">Product Order Sales</a></li>
+                            <li><a href="walkinPage">Walk In Sales</a></li>
                             <li><a href="productTags">Product Tags</a></li>
                         </ul>
                     </div>

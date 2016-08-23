@@ -36,7 +36,6 @@
 			<result name="success" type="json"></result>
 		</action>
 	
-	
 		<action name="getPoductTags" class="com.gss.actions.Reports.GetProductTagAction" method="execute">
 			<result name="success" type="json"></result>
 		</action>
@@ -44,6 +43,19 @@
 		<action name="getProductPurchases" class="com.gss.actions.Reports.GetProductPurchases" method="execute">
 			<result name="success" type="json"></result>
 		</action>
+		
+		<action name="reservationPage" class="com.gss.actions.Reports.SalesReport" method="reservation">
+			<result name="success" type="tiles">reservationReport</result>
+		</action>
+		
+		<action name="orderPage" class="com.gss.actions.Reports.SalesReport" method="order">
+			<result name="success" type="tiles">orderReport</result>
+		</action>
+		
+		<action name="walkinPage" class="com.gss.actions.Reports.SalesReport" method="walkin">
+			<result name="success" type="tiles">walkinReport</result>
+		</action>
+		
 	</package>	
 		
 		
