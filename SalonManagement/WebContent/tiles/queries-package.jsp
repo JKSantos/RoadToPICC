@@ -58,8 +58,8 @@
                     <thead>
                     <tr>
                         <th class="left-align">Name</th>
-                        <th class="left-align">Category</th>
-                        <th class="left-align">Detail</th>
+                        <th class="left-align">Type</th>
+                        <th class="left-align">Description</th>
                         <th class="right-align">Price</th>
                         <th class="left-align">Status</th>
                     </tr>
@@ -67,8 +67,8 @@
                     <tfoot>
                     <tr style="border: 1px solid #bdbdbd;">
                         <th class="left-align">Name</th>
-                        <th class="left-align">Category</th>
-                        <th class="left-align">Detail</th>
+                        <th class="left-align">Type</th>
+                        <th class="left-align">Description</th>
                         <th class="right-align">Price</th>
                         <th class="left-align">Status</th>
                     </tr>
