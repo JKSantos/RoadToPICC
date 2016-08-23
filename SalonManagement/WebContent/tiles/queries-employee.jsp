@@ -12,7 +12,7 @@
                     <select ng-model="vm.selOption" id="selectOption"
                             ng-change="vm.selectPositionInTable()">
                         <option value="" selected>ALL</option>
-                        <option ng-repeat="position in vm.position" value="{{position}}">{{position}}</option>
+                        <option ng-repeat="position in vm.position | unique: 'strJobDesc'" value="{{position}}">{{position}}</option>
                     </select>
                     <label for="selectOption"><b>Position</b></label>
                 </div>

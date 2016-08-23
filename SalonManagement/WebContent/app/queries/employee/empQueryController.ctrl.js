@@ -56,6 +56,7 @@
             vm.employeeList = data.employeeList;
             vm.position = getPosition(vm.employeeList);
             vm.status = getStatus(vm.employeeList);
+            console.log(vm.position);   
         });
 
         function getPosition(position) {
@@ -67,7 +68,7 @@
                 });
             });
 
-            return _.uniq(pos);
+            return pos;
         }
 
         function getStatus(status) {
