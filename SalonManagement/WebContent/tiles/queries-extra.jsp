@@ -60,7 +60,8 @@
                     <tbody>
                     <tr ng-repeat="extra in vm.otherChargeList">
                         <td class="left-align">{{ extra.strECName | uppercase }}</td>
-                        <td class="left-align">{{ extra.strECDetails | uppercase }}</td>
+                        <td class="left-align" ng-if="extra.strECDetails.length > 1">{{ extra.strECDetails | uppercase }}</td>
+                        <td class="left-align" ng-if="extra.strECDetails.length < 2">NONE</td>
                         <td class="right-align">{{ extra.dblECPrice | currency: "Php " }}</td>
                         <td class="center" ng-if="extra.intECStatus == 0">INACTIVE</td>
                         <td class="center" ng-if="extra.intECStatus == 1">ACTIVE</td>
