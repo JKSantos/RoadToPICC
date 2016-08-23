@@ -10,7 +10,7 @@ import java.util.List;
 import com.gss.connection.JDBCConnection;
 import com.gss.model.ProductSales;
 import com.gss.model.Reservation;
-import com.gss.model.WalkIn;
+import com.gss.model.Reports.ProductPurchaseTotal;
 import com.gss.model.Reports.ProductPurchases;
 
 public class ProductSalesReportRepository {
@@ -132,4 +132,86 @@ public class ProductSalesReportRepository {
 		}
 	}
 
+	public static List<ProductPurchaseTotal> getProductPurchasesTotal(String dateFrom, String dateTo){
+		
+		Connection con = jdbc.getConnection();
+		
+		String products						= "SELECT intProductID FROM tblProduct WHERE intProdStatus = 1;";
+		String orderString					= "CALL getProductOrderProductSalesTotal(?, ?, ?)";
+		String reservString					= "CALL getReservationProductSalesTotal(?, ?, ?)";
+		String walkinString					= "CALL getWalkInProductSalesTotal(?, ?, ?)";
+		
+		
+		List<ProductPurchaseTotal> sales			= new ArrayList<ProductPurchaseTotal>();
+		
+		try{
+
+			PreparedStatement productSet			= con.prepareStatement(products);
+			PreparedStatement orderTotal			= con.prepareStatement(orderString);
+			PreparedStatement reservTotal			= con.prepareStatement(reservString);
+			PreparedStatement walkinTotal			= con.prepareStatement(walkinString);
+			
+			ResultSet productIDs					= productSet.executeQuery();
+			ResultSet orderSet						= null;
+			ResultSet reservSet						= null;
+			ResultSet walkinSet						= null;
+			
+			
+			while(productIDs.next()){
+				
+				int intProductID = productIDs.getInt(1);
+				String strProductName = null;
+				int intorderTotal = 0;
+				int intreservTotal = 0;
+				int intwalkinTotal = 0;
+				
+				orderTotal.setString(1, dateFrom);
+				orderTotal.setString(2, dateTo);
+				orderTotal.setInt(3, intProductID);
+				orderSet = orderTotal.executeQuery();
+				
+				while(orderSet.next()){
+					strProductName = orderSet.getString(2);
+					intorderTotal = orderSet.getInt(3);
+				}
+				
+				reservTotal.setString(1, dateFrom);
+				reservTotal.setString(2, dateTo);
+				reservTotal.setInt(3, intProductID);
+				reservSet = reservTotal.executeQuery();
+				
+				while(reservSet.next()){
+					intreservTotal = reservSet.getInt(3);
+				}
+				
+				walkinTotal.setString(1, dateFrom);
+				walkinTotal.setString(2, dateTo);
+				walkinTotal.setInt(3, intProductID);
+				walkinSet = walkinTotal.executeQuery();
+				
+				while(walkinSet.next()){
+					intwalkinTotal = walkinSet.getInt(3);
+				}
+				
+				
+				sales.add(new ProductPurchaseTotal(dateFrom, dateTo, intProductID, strProductName, intorderTotal, intreservTotal, intwalkinTotal));
+			}
+			
+			orderTotal.close();
+			reservTotal.close();
+			walkinTotal.close();
+			walkinSet.close();
+			orderSet.close();
+			reservSet.close();
+			productIDs.close();
+			productSet.close();
+			con.close();
+			
+			return sales;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
 }
