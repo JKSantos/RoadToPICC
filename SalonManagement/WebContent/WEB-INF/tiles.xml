@@ -122,5 +122,10 @@
     	<put-attribute name="title"			value="Utilities"/>
     	<put-attribute name="body"			value="/tiles/utilities.jsp"/>
     </definition>
+    
+    <definition name="createWalkin" extends="baseLayout">
+    	<put-attribute name="title"			value="Create Walk In"/>
+    	<put-attribute name="body"			value="/tiles/transactions-create-walkin.jsp"/>
+    </definition>
   
 </tiles-definitions>
