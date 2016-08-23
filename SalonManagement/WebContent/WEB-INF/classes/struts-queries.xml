@@ -27,6 +27,10 @@
 		<action name="serviceQueries" class="com.gss.actions.QueriesAction" method="getService">
 			<result name="success" type="tiles">queriesService</result>
 		</action>
+
+		<action name="packageQueries" class="com.gss.actions.QueriesAction" method="getPackage">
+			<result name="success" type="tiles">queriesPackage</result>
+		</action>
 	
 		<action name="employeeQuery" class="com.gss.actions.Employee.QueryAllEmployee">
 			<result name="success" type="json"></result>

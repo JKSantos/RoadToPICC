@@ -16,6 +16,11 @@ public class QueriesAction {
 	
 	return "success";
 	}
+	
+	public String getPackage(){
+		
+		return "success";
+	}
 
 	public String ll(){
 	

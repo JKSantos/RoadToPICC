@@ -98,6 +98,11 @@
         <put-attribute name="body"          value="/tiles/queries-service.jsp"/>
     </definition>
 
+    <definition name="queriesPackage" extends="baseLayout">
+        <put-attribute name="title"         value="Queries"/>
+        <put-attribute name="body"          value="/tiles/queries-package.jsp"/>
+    </definition>
+
     <definition name="SalesReport" extends="baseLayout">
         <put-attribute name="title"         value="Report"/>
         <put-attribute name="body"          value="/tiles/sales-report.jsp"/>

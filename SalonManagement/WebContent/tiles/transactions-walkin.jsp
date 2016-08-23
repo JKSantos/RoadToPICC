@@ -17,7 +17,6 @@
                         <label for="discountFilter"><b>Select</b></label>
                     </div>
                     <div class="input-field col s4">
-
                         <a class="crWalkin z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
                            href="#createWalkinModal" style="margin-left: 15px;"><i
                                 class="material-icons">add</i></a>
