@@ -19,14 +19,14 @@
 	                          <form method="post" action="updateDependencies">
 	                             <div class="row">
 			                        <div class="input-field col s6"  style="margin-top: 25px;">
-			                        	<input type="hidden" name="strName" value="Down Payment"/>
-			                            <input type="text" class="validate" id="downpayment"
+			                        	<input type="hidden" name="strName" value="downPayment"/>
+			                            <input type="text" class="validate" id="downPayment"
 			                                   name="strValue" required placeholder="50%">
-			                            <label for="downpayment" class="active"><b>Down Payment(Percentage)</b><i
+			                            <label for="downPayment" class="active"><b>Down Payment(Percentage)</b><i
 			                                    class="material-icons red-text tiny">error_outline</i></label>
 			                        </div>
 			                        <div class="input-field col s6" style="margin-top: 25px;">
-			                        	<input type="hidden" name="strName" value="Head Count per Employee"/>
+			                        	<input type="hidden" name="strName" value="headCount"/>
 			                            <input type="text" class="validate" id="headCount"
 			                                   name="strValue" required
 			                                   placeholder="3">
@@ -34,10 +34,65 @@
 			                                    class="material-icons red-text tiny">error_outline</i></label>
 			                        </div>
 			                        <div class="input-field col s6">
-			                        	<input type="hidden" name="strName" value="Maximum Head Count"/>
-			                            <input id="headCount" name="strValue"
+			                        	<input type="hidden" name="strName" value="maxHeadCount"/>
+			                            <input id="maxHeadCount" name="strValue"
 			                                   class="validate" required placeholder="5">
-			                            <label for="headCount" class="active"><b>Maximum Head Count(Reservation)</b><i
+			                            <label for="maxHeadCount" class="active"><b>Maximum Head Count(Reservation)</b><i
+			                                    class="material-icons red-text tiny">error_outline</i></label>
+			                        </div>
+			                        
+			                        <div class="input-field col s6">
+			                        	<input type="hidden" name="strName" value="reservationMargin"/>
+			                            <input id="reservationMargin" name="strValue"
+			                                   class="validate" required placeholder="5">
+			                            <label for="reservationMargin" class="active"><b>Reservation Margin(Days)</b><i
+			                                    class="material-icons red-text tiny">error_outline</i></label>
+			                        </div>
+			                        
+			                        <div class="input-field col s6">
+			                        	<input type="hidden" name="strName" value="reservationAdjustment"/>
+			                            <input id="reservationAdjustment" name="strValue"
+			                                   class="validate" required placeholder="5">
+			                            <label for="reservationAdjustment" class="active"><b>Price Adjustment(Reservation)</b><i
+			                                    class="material-icons red-text tiny">error_outline</i></label>
+			                        </div>
+			                        
+			                        <div class="input-field col s6">
+			                        	<input type="hidden" name="strName" value="homeAdjustment"/>
+			                            <input id="homeAdjustment" name="strValue"
+			                                   class="validate" required placeholder="5">
+			                            <label for="homeAdjustment" class="active"><b>Price Adjustment(Home Service)</b><i
+			                                    class="material-icons red-text tiny">error_outline</i></label>
+			                        </div>
+			                        <div class="input-field col s6">
+			                        	<input type="hidden" name="strName" value="appointmentGracePeriod"/>
+			                            <input id="appointmentGracePeriod" name="strValue"
+			                                   class="validate" required placeholder="5">
+			                            <label for="appointmentGracePeriod" class="active"><b>Appointment Grace Period(Minutes)</b><i
+			                                    class="material-icons red-text tiny">error_outline</i></label>
+			                        </div>
+			                        
+			                        <div class="input-field col s6">
+			                        	<input type="hidden" name="strName" value="AppointmentMargin"/>
+			                            <input id="AppointmentMargin" name="strValue"
+			                                   class="validate" required placeholder="5">
+			                            <label for="AppointmentMargin" class="active"><b>Appointment Margin(Hours)</b><i
+			                                    class="material-icons red-text tiny">error_outline</i></label>
+			                        </div>
+			                        
+			                        <div class="input-field col s6">
+			                        	<input type="hidden" name="strName" value="minimumPurchase"/>
+			                            <input id="minimumPurchase" name="strValue"
+			                                   class="validate" required placeholder="5">
+			                            <label for="minimumPurchase" class="active"><b>Minimum Purchase Price For Delivery</b><i
+			                                    class="material-icons red-text tiny">error_outline</i></label>
+			                        </div>
+			                        
+			                        <div class="input-field col s6">
+			                        	<input type="hidden" name="strName" value="refund"/>
+			                            <input id="refund" name="strValue"
+			                                   class="validate" required placeholder="5">
+			                            <label for="refund" class="active"><b>Refund Pecentage</b><i
 			                                    class="material-icons red-text tiny">error_outline</i></label>
 			                        </div>
 			                        
