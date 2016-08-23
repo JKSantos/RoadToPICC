@@ -379,6 +379,42 @@ nav .nav-wrapper form, nav .nav-wrapper form .input-field {
     height: 45px !important;
 }
 
+#serviceQueryTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: 45px !important;
+}
+
+#packageQueryTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: 45px !important;
+}
+
+#deliveryQueryTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: 45px !important;
+}
+
+#extraQueryTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: 45px !important;
+}
+
+#promoQueryTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: 45px !important;
+}
+
+#discountQueryTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: 45px !important;
+}
+
 .dataTables_wrapper .dataTables_length {
     display: none !important;
 }

@@ -21,7 +21,33 @@
                 return $resource('serviceQuery').get().$promise.then(function (data) {
                     return data;
                 });
+            },
+            getPackage: function () {
+                return $resource('package').get().$promise.then(function (data) {
+                    return data;
+                });
+            },
+            getDelivery: function () {
+                return $resource('deliveryCharge').get().$promise.then(function (data) {
+                    return data;
+                });
+            },
+            getExtra: function () {
+                return $resource('otherCharge').get().$promise.then(function (data) {
+                    return data;
+                });
+            },
+            getPromo: function () {
+                return $resource('promo').get().$promise.then(function (data) {
+                    return data;
+                });
+            },
+            getDiscount: function () {
+                return $resource('discount').get().$promise.then(function (data) {
+                    return data;
+                });
             }
+
 
         }
     }

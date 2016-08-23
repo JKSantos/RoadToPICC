@@ -138,10 +138,10 @@
                             <li><a href="productQueries">Product</a></li>
                             <li><a href="serviceQueries">Service</a></li>
                             <li><a href="packageQueries">Package</a></li>
-                            <li><a href="">Delivery Charge</a></li>
-                            <li><a href="">Other Charge</a></li>
-                            <li><a href="">Promo</a></li>
-                            <li><a href="">Discount</a></li>
+                            <li><a href="deliveryQueries">Delivery Charge</a></li>
+                            <li><a href="extraQueries">Other Charge</a></li>
+                            <li><a href="promoQueries">Promo</a></li>
+                            <li><a href="discountQueries">Discount</a></li>
                         </ul>
                     </div>
                 </li>
@@ -256,6 +256,11 @@
 <script type="text/javascript" src="app/queries/employee/empQueryController.ctrl.js"></script>
 <script type="text/javascript" src="app/queries/employee/productQueryController.ctrl.js"></script>
 <script type="text/javascript" src="app/queries/employee/serviceQueryController.ctrl.js"></script>
+<script type="text/javascript" src="app/queries/employee/packageQueryController.ctrl.js"></script>
+<script type="text/javascript" src="app/queries/employee/deliveryQueryController.ctrl.js"></script>
+<script type="text/javascript" src="app/queries/employee/extraQueryController.ctrl.js"></script>
+<script type="text/javascript" src="app/queries/employee/promoQueryController.ctrl.js"></script>
+<script type="text/javascript" src="app/queries/employee/discountQueryController.ctrl.js"></script>
 <script type="text/javascript" src="app/report/reportsFactory.fac.js"></script>
 <script type="text/javascript" src="app/report/sales/salesReportController.ctrl.js"></script>
 

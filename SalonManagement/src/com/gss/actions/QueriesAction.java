@@ -21,7 +21,27 @@ public class QueriesAction {
 		
 		return "success";
 	}
+	
+	public String getDelivery(){
+		
+		return "success";
+	}
 
+	public String getExtra(){
+		
+		return "success";
+	}
+
+	public String getPromoQuery(){
+		
+		return "success";
+	}
+	
+	public String getDiscount(){
+		
+		return "success";
+	}
+	
 	public String ll(){
 	
 	return "success";
