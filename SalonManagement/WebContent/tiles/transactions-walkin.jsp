@@ -1,9 +1,9 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<div class="wrapper" ng-controller="walkinCtrl as vm">
+<div class="wrapper" ng-controller="walkinCtrl as vm" style="margin-top: 5px !important;">
     <div class="aside asideAside1 z-depth-barts z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
-        <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
+        <div class="col s12">
             <h3 class="grey-text text-darken-1">Walk-In</h3>
             <div class="row">
                 <div class="col s12">
@@ -21,8 +21,8 @@
                            href="#createWalkinModal" style="margin-left: 15px;"><i
                                 class="material-icons">add</i></a>
                         <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
-                           href="#walkinModal" style="margin-left: 15px;"><i
-                                class="material-icons">archive</i></a>
+                           href="#walkinTable" style="margin-left: 15px;"><i
+                                class="material-icons">border_all</i></a>
                     </div>
                     <div class="input-field col s5">
                         <nav class="right white hoverable z-depth-1"
@@ -55,7 +55,8 @@
 
                 <div ng-show="vm.selected == 'product'" style="margin-top: -50px !important;">
                     <div class="row ">
-                        <div class="col s3 order" ng-repeat="product in vm.productList | toArray: false |filter: vm.walkinSearch">
+                        <div class="col s3 order"
+                             ng-repeat="product in vm.productList | toArray: false |filter: vm.walkinSearch">
                             <div class="card small">
                                 <div class="card-image waves-effect waves-block waves-light">
                                     <img class="activator" ng-src="{{product.strPhotoPath}}">
@@ -96,7 +97,8 @@
 
                 <div ng-show="vm.selected == 'service'" style="margin-top: -50px !important;">
                     <div class="row ">
-                        <div class="col s3" ng-repeat="service in vm.serviceList | toArray: false | filter: vm.walkinSearch">
+                        <div class="col s3"
+                             ng-repeat="service in vm.serviceList | toArray: false | filter: vm.walkinSearch">
                             <div class="card small">
                                 <div class="card-image waves-effect waves-block waves-light">
                                     <img class="activator" ng-src="{{service.strPhotoPath}}">
@@ -135,7 +137,8 @@
 
                 <div ng-show="vm.selected == 'package'" style="margin-top: -50px !important;">
                     <div class="row ">
-                        <div class="col s3" ng-repeat="package in vm.packageList | toArray: false | filter: vm.walkinSearch">
+                        <div class="col s3"
+                             ng-repeat="package in vm.packageList | toArray: false | filter: vm.walkinSearch">
                             <div class="card small">
                                 <div class="card-image waves-effect waves-block waves-light">
                                     <img class="activator" ng-src="{{service.strPhotoPath}}">
@@ -172,7 +175,8 @@
 
                 <div ng-show="vm.selected == 'promo'" style="margin-top: -50px !important;">
                     <div class="row ">
-                        <div class="col s3" ng-repeat="promo in vm.promoList | toArray: false | filter: vm.walkinSearch">
+                        <div class="col s3"
+                             ng-repeat="promo in vm.promoList | toArray: false | filter: vm.walkinSearch">
                             <div class="card small">
 
                                 <div class="card-content">
@@ -202,39 +206,12 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="col s12 z-depth-barts white" id="">
-                    <h6 class="center" style="padding-top: -2px !important;"><b>Selected Items</b></h6>
-                    <div class="col s12" id="pslist"
-                         style="margin-top: -13px !important; margin-bottom: 5px !important;"></div>
-                </div>
-                <div class="col s4" style="margin-top: 10px;">
-                    <div class="input-field col s12">
-                        <select multiple ng-model="vm.selDiscounts" id="crRDiscount"
-                                ng-options="discount.strDiscountName for discount in vm.discountList"></select>
-                        <label for="crRDiscount"><b>Discounts</b></label>
-                    </div>
-                </div>
-                <div class="col s4 z-depth-barts white" style="margin-top: 10px;">
-                    <div class="col s12">
-                        <div class="input-field col s12">
-                            <p>Total:{{vm.sum}}</p>
-                        </div>
-                        <div class="input-field col s12" style="margin-top: 20px !important;">
-                            <input type="text" class="right-align prodPrice" name="" id="crPackPrice"
-                                   placeholder="Price"/>
-                            <label for="crPackPrice" class="active"><b>Price</b><i
-                                    class="material-icons red-text tiny">error_outline</i></label>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 
     <!-- Modal Structure -->
-    <div id="createWalkinModal" class="modal modal-fixed-footer"
-         style="width: 90% !important; height: 90% !important; max-height: 100% !important; margin-top: -40px;">
+    <div id="createWalkinModal" class="modal modal-fixed-footer">
         <form class="col s12" id="createWalkinForm" method="post" action="">
             <div class="modal-content">
 
@@ -243,11 +220,6 @@
                                                                                 value="Reset"
                                                                                 class="modal-action modal-close"><i
                             class="small material-icons right grey-text text-darken-4">close</i></a></h4>
-                    <div class="progress">
-                        <div class="determinate center active purple darken-4 white-text" role="progressbar"
-                             aria-valuemin="0"
-                             aria-valuemax="100" style="color: white;"></div>
-                    </div>
                     <div class="walkinerrorcontainer card red center input-field col s12 white-text z-depth-barts">
 
                     </div>
@@ -275,6 +247,11 @@
                                     <label for="crWIEmail" class="active"><b>Email</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
+                                <div class="input-field col s12">
+                                    <select multiple ng-model="vm.selDiscounts" id="crRDiscount"
+                                            ng-options="discount.strDiscountName for discount in vm.discountList"></select>
+                                    <label for="crRDiscount"><b>Discounts</b></label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -287,19 +264,10 @@
                         style="margin:0px !important; padding:0px !important;"><i
                         class="material-icons">error_outline</i>&nbspRequired field
                 </button>
-                <button type="button" id="nextbtn"
-                        class="actionwalkin nextformwalkin waves-effect waves-light white-text btn-flat purple"
-                        style="margin-left: 3px; margin-right:3px;">NEXT
-                </button>
-                <button type="submit" value="submit" id="createReservationSubmitForm"
-                        class="actionwalkin submitformwalkin waves-effect waves-light white-text btn-flat purple"
+                <a class="waves-effect waves-light white-text btn-flat purple"
                         ng-click="vm.saveWalkin(details)"
                         style="margin-left:3px; margin-right:3px;">CREATE
-                </button>
-                <button type="button" id="backbtn"
-                        class="actionwalkin backformwalkin waves-effect waves-purple transparent btn-flat"
-                        style="margin-left: 3px;margin-right:3px;">BACK
-                </button>
+                </a>
 
             </div>
         </form>
@@ -391,11 +359,13 @@
                 <div class="col s12">
                     <h5>Selected Item</h5>
                     <ul class="collection with-header reqList" style="height: 15em !important;">
-                        <li class="collection-item left-align" style="margin-left:0px !important; padding-left: 5px !important;"
+                        <li class="collection-item left-align"
+                            style="margin-left:0px !important; padding-left: 5px !important;"
                             ng-repeat="orders in orderList"
                             ng-if="orders.product!='' && orders.total!=0">
                             <img ng-src="{{orders.strPhotoPath}}" class="circle" height="30" width="30">
-                                <span style="padding-left: 5px !important;" title="{{orders.product}} - {{orders.total | currency: 'Php '}}">
+                                <span style="padding-left: 5px !important;"
+                                      title="{{orders.product}} - {{orders.total | currency: 'Php '}}">
                                     {{orders.product | truncate: 14}}
                                 </span>
                             <button name="" title="Decline" class="secondary-content red-text transparent"
@@ -410,51 +380,128 @@
                             </button>
                         </li>
                     </ul>
-                    <h5>Total: {{totalAmount | currency: "Php "}}</h5>
+                    <h5>Total: {{ vm.sum | currency: "Php "}}</h5>
                 </div>
             </div>
         </div>
-        <div class="aside white z-depth-barts">
-            <div class="row">
-                <div class="col s12 transparent">
-                    <h5>Request of</h5>
-                    <ul class="collection with-header reqList">
-                        <li class="collection-item left-align" style="margin-left:0px !important; padding-left: 10px !important;"
-                            ng-repeat="request in requestOrder.slice().reverse()">
-                            <i class="material-icons left" style="margin-right:10px !important; margin-top: -3px !important;"
-                               ng-if="request.intType==1 || request.intType=='delivery'">
-                                local_shipping
-                            </i>
-                            <i class="material-icons left" style="margin-right:10px !important; margin-top: -3px !important;"
-                               ng-if="request.intType==2 || request.intType=='pickup'">
-                                shopping_basket
-                            </i>
-                            <span title="{{ request.strName }}">{{ request.strName | truncate: 13 }}</span>
-                            <button name="" title="Decline" class="secondary-content red-text transparent"
-                                    style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border:0px !important;"
-                                    ng-click="declineOrder(request)">
-                                <i class="material-icons" style="padding-top: 7px !important;">clear</i>
-                            </button>
-                            <button name="" title="Accept" class="secondary-content black-text transparent"
-                                    style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border: 0px !important;"
-                                    ng-if="request.intType==1 || request.intType=='delivery'"
-                                    ng-click="acceptDeliveryOrder(request)">
-                                <i class="material-icons" style="padding-top: 7px !important;">done</i>
-                            </button>
-                            <button name="" title="Accept" class="secondary-content black-text transparent"
-                                    style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border: 0px !important;"
-                                    ng-if="request.intType==2 || request.intType=='pickup'"
-                                    ng-click="acceptPickupOrder(request)">
-                                <i class="material-icons" style="padding-top: 7px !important;">done</i>
-                            </button>
-                        </li>
-                    </ul>
-                    <p>
-                        <i class="material-icons">local_shipping</i> - Delivery
-                        <i class="material-icons">shopping_basket</i> - Pick-up
-                    </p>
+        <!--<div class="aside white z-depth-barts">-->
+            <!--<div class="row">-->
+                <!--<div class="col s12 transparent">-->
+                    <!--<h5>Request of</h5>-->
+                    <!--<ul class="collection with-header reqList">-->
+                        <!--<li class="collection-item left-align"-->
+                            <!--style="margin-left:0px !important; padding-left: 10px !important;"-->
+                            <!--ng-repeat="request in requestOrder.slice().reverse()">-->
+                            <!--<i class="material-icons left"-->
+                               <!--style="margin-right:10px !important; margin-top: -3px !important;"-->
+                               <!--ng-if="request.intType==1 || request.intType=='delivery'">-->
+                                <!--local_shipping-->
+                            <!--</i>-->
+                            <!--<i class="material-icons left"-->
+                               <!--style="margin-right:10px !important; margin-top: -3px !important;"-->
+                               <!--ng-if="request.intType==2 || request.intType=='pickup'">-->
+                                <!--shopping_basket-->
+                            <!--</i>-->
+                            <!--<span title="{{ request.strName }}">{{ request.strName | truncate: 13 }}</span>-->
+                            <!--<button name="" title="Decline" class="secondary-content red-text transparent"-->
+                                    <!--style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border:0px !important;"-->
+                                    <!--ng-click="declineOrder(request)">-->
+                                <!--<i class="material-icons" style="padding-top: 7px !important;">clear</i>-->
+                            <!--</button>-->
+                            <!--<button name="" title="Accept" class="secondary-content black-text transparent"-->
+                                    <!--style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border: 0px !important;"-->
+                                    <!--ng-if="request.intType==1 || request.intType=='delivery'"-->
+                                    <!--ng-click="acceptDeliveryOrder(request)">-->
+                                <!--<i class="material-icons" style="padding-top: 7px !important;">done</i>-->
+                            <!--</button>-->
+                            <!--<button name="" title="Accept" class="secondary-content black-text transparent"-->
+                                    <!--style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border: 0px !important;"-->
+                                    <!--ng-if="request.intType==2 || request.intType=='pickup'"-->
+                                    <!--ng-click="acceptPickupOrder(request)">-->
+                                <!--<i class="material-icons" style="padding-top: 7px !important;">done</i>-->
+                            <!--</button>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                    <!--<p>-->
+                        <!--<i class="material-icons">local_shipping</i> - Delivery-->
+                        <!--<i class="material-icons">shopping_basket</i> - Pick-up-->
+                    <!--</p>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+
+    <div id="walkinTable" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4 class="grey-text center text-darken-1">Walk In</h4>
+            <nav class="right white hoverable z-depth-1" style="width: 300px; margin-right: 20px;">
+                <div class="nav-wrapper col s4">
+                    <form>
+                        <div class="input-field">
+                            <input id="searchBoxID" placeholder="Search" class="grey-text text-darken-4" type="search"
+                                   ng-model="vm.searchInTable"
+                                   ng-change="vm.searchTable()">
+                            <label for="searchBoxID">
+                                <i class="material-icons grey-text text-darken-4">search</i>
+                            </label>
+                        </div>
+                    </form>
                 </div>
-            </div>
+            </nav>
+            <table id="psRecordTable" datatable="ng" dt-instance="vm.dtInstanceCallback"
+                   class="row-border hoverable cell-border z-depth-1" width="100%"
+                   style="margin-top: -15px !important;">
+                <thead>
+                <tr>
+                    <th class="left-align">Name</th>
+                    <th class="left-align">Address</th>
+                    <th class="right-align">Contact</th>
+                    <th class="left-align">Type</th>
+                    <th class="left-align">Status</th>
+                    <th class="center-align">Action</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr style="border: 1px solid #bdbdbd;">
+                    <th class="left-align">Name</th>
+                    <th class="left-align">Address</th>
+                    <th class="right-align">Contact</th>
+                    <th class="left-align">Type</th>
+                    <th class="left-align">Status</th>
+                    <th class="center-align">Action</th>
+                </tr>
+                </tfoot>
+                <tbody>
+                <tr ng-repeat="order in requestOrderList"
+                    ng-if="order.strStatus != 'REQUEST'">
+                    <td class="left-align">{{ order.strName }}</td>
+                    <td class="left-align">{{ order.strAddress }}</td>
+                    <td class="right-align">{{ order.strContactNo }}</td>
+                    <td class="left-align">
+                        <span ng-if="order.intType==1">DELIVERY</span>
+                        <span ng-if="order.intType==2">PICK UP</span>
+                    </td>
+                    <td class="left-align">{{ order.strStatus }}</td>
+                    <td class="center-align">
+                        <button class="waves-effect waves-purple btn-flat transparent red-text text-accent-4"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Deactivate"
+                                ng-if="order.strStatus=='PENDING'"
+                                ng-click="deactivateOrder(order)">
+                            <i class='material-icons'>delete</i>
+                        </button>
+                        <button class="btn-flat transparent red-text text-lighten-4"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;"
+                                ng-if="order.strStatus=='COMPLETE'"
+                                ng-disabled=true>
+                            <i class='material-icons'>delete</i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
         </div>
     </div>
 </div>
