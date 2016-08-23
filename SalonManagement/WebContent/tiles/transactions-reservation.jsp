@@ -10,6 +10,9 @@
             <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
                href="#reservationModal" style="margin-top: 30px; margin-left: 15px;"><i
                     class="material-icons">archive</i></a>
+             <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
+               href="#reservationListModal" style="margin-top: 30px; margin-left: 15px;"><i
+                    class="material-icons">list</i></a>
             <nav class="right white hoverable  z-depth-1" style="width: 300px; margin-right: 20px;">
                 <div class="nav-wrapper col s4">
                     <form>
@@ -23,7 +26,22 @@
                     </form>
                 </div>
             </nav>
+            <div class="row"></div>
+            <div ng-controller = "reservationCalendarCtrl as vm">
+            	<div id='calendar'></div>
+            </div>
+            
 
+            
+        </div>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="reservationListModal" class="modal"style = "width: 70% !important; height: 80% !important; border-radius: 10px">
+        <div class="modal-content">
+         	<a href="#!" class=" modal-action modal-close waves-effect waves-purple btn-flat right"><i
+                    class="material-icons red-text" style="font-size: 30px ">highlight_off</i></a>
+            <h3 class="purple-text text-darken-3 thin">Reservation List</h3>
             <table id="reservationTable"
                    class="hoverable z-depth-1 cell-border row-border display responsive-table highlight"
                    datatable="ng"
@@ -95,17 +113,6 @@
     </div>
 
     <!-- Modal Structure -->
-    <div id="quanty" class="modal">
-        <div class="modal-content">
-            <h4>Modal Header</h4>
-            <p>A bunch of text</p>
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-        </div>
-    </div>
-
-    <!-- Modal Structure -->
     <div id="createReservationModal" class="modal modal-fixed-footer"
          style="width: 70% !important; height: 90% !important; max-height: 100% !important; margin-top: -40px;">
         <form class="col s12" id="createReservationForm" method="post" ng-submit="vm.saveReservation()">
@@ -126,14 +133,9 @@
                     </div>
                     <div class="stepreservation well" style="margin-top: -5px;">
                         <div class="container">
+                        <h5><b>Customer Details</b></h5>
                             <div class="row">
-                                <h5><b>Customer Details</b></h5>
-                                <div class="input-field col s6">
-                                    <input type="text" class="validate" id="crRCustName"
-                                           ng-model="vm.details.name" placeholder="Customer Name"/>
-                                    <label for="crRCustName" class="active"><b>Customer Name</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
-                                </div>
+                                
                                 <div class="input-field col s6">
                                     <select id="rType"
                                             ng-model="vm.details.reservationType"
@@ -142,6 +144,22 @@
                                     <label for="rType" class="active"><b>Reservation Type</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
+                                <div class="input-field col s6" ng-if="vm.details.reservationType.id = 2 ">
+                                    <label style="margin-top: -25px;"><b>Customer Type</b></label>
+                                    <input type="radio" name="ctype" id="crRCustType1" ng-model="vm.individual"
+                                           value="Individual">
+                                    <label for="crRCustType1">Individual</label>
+                                    <input type="radio" name="ctype" id="crRCustType2" ng-model="vm.individual"
+                                           value="Company">
+                                    <label for="crRCustType2">Company</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <input type="text" class="validate" id="crRCustName"
+                                           ng-model="vm.details.name" placeholder="Customer Name"/>
+                                    <label for="crRCustName" class="active"><b>Customer Name</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
+                                </div>
+                                
                                 <div class="input-field col s12" style="margin-top: 15px;">
                                     <input type="text" id="crRAddress" ng-model="vm.details.address"
                                            placeholder="Address"/>
@@ -159,15 +177,7 @@
                                     <label for="crREmail" class="active"><b>Email</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
-                                <div class="input-field col s6">
-                                    <label style="margin-top: -25px;"><b>Customer Type</b></label>
-                                    <input type="radio" name="ctype" id="crRCustType1" ng-model="vm.individual"
-                                           value="Individual">
-                                    <label for="crRCustType1">Individual</label>
-                                    <input type="radio" name="ctype" id="crRCustType2" ng-model="vm.individual"
-                                           value="Company">
-                                    <label for="crRCustType2">Company</label>
-                                </div>
+                                
                                 <div class="input-field col s6">
                                     <input type="text" class="validate"
                                            id="crRCompanyName" ng-model="vm.details.company"
