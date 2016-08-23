@@ -13,12 +13,12 @@
                 });
             },
             getProduct: function () {
-                return $http.get('productQuery').then(function (data) {
+                return $resource('productQuery').get().$promise.then(function (data) {
                     return data;
                 });
             },
             getService: function () {
-                return $http.get('serviceQueries').then(function (data) {
+                return $resource('serviceQuery').get().$promise.then(function (data) {
                     return data;
                 });
             }

@@ -8,32 +8,42 @@
         var vm = this;
         vm.getCategory = getCategory;
         vm.getStatus = getStatus;
+        vm.dtInstanceCallback = dtInstanceCallback;
+        vm.searchTable = searchTable;
+        vm.selectCategoryInTable = selectCategoryInTable;
+        vm.selectStatusInTable = selectStatusInTable;
+        vm.queryProductSearch = '';
         vm.dateFormat = ["MMMM/D/YYYY"];
         vm.aifilter = [
             {"id": 1,"strEmpValue": 'ACTIVE'},
             {"id": 2,"strEmpValue": 'INACTIVE'}
             ];
         vm.selOption = '';
-        // vm.dtOptions = DTOptionsBuilder.newOptions()
-        //     .withPaginationType('full_numbers')
-        //     .withDisplayLength(10)
-        //     .withLanguage({
-        //         "sLoadingRecords": "Loading..."
-        //     });
-        // vm.dtColumnDefs = [
-        //     DTColumnDefBuilder.newColumnDef(0),
-        //     DTColumnDefBuilder.newColumnDef(1).notSortable().withOption('width','100px'),
-        //     DTColumnDefBuilder.newColumnDef(2).notSortable(),
-        //     DTColumnDefBuilder.newColumnDef(3),
-        //     DTColumnDefBuilder.newColumnDef(4)
-        // ];
+
+        function dtInstanceCallback (dtInstance) {
+            var datatableObj = dtInstance.DataTable;
+            vm.tableInstance = datatableObj;
+        }
+
+        function searchTable () {
+            var query = vm.queryProductSearch;
+            vm.tableInstance.search(query).draw();
+        }
+
+        function selectCategoryInTable () {
+            var sel = vm.selCategory;
+            vm.tableInstance.search(sel).draw();
+        }
+
+        function selectStatusInTable () {
+            var sel = vm.selStatus;
+            vm.tableInstance.search(sel).draw();
+        }
 
         queryFactory.getProduct().then(function (data) {
-            vm.productList = data.data.productList;
+            vm.productList = data.productList;
             vm.category = getCategory(vm.productList);
             vm.prodStatus = getStatus(vm.productList);
-            console.log(vm.productList);
-            console.log(vm.prodStatus);
 
         });
 
@@ -43,16 +53,16 @@
                     categories.push(item.strProductCategory);
             });
             
-            return _.uniq(categories);
+            return categories;
         }
 
         function getStatus(status) {
-            var status = [];
+            var stat = [];
             angular.forEach(status, function(item, i) {
-                status.push(item.intProductStatus);
+                stat.push(item.intProductStatus);
             });
 
-            return _.uniq(status);
+            return stat;
         }
 
 
