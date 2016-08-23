@@ -48,15 +48,14 @@
         }
 
         function selectStatusInTable () {
-            var selStatus = vm.selectStatus;
-            vm.tableInstance.search(selStatus).draw();
+            var sel = vm.selectStatus;
+            vm.tableInstance.search(sel).draw();
         }
 
         queryFactory.getEmployee().then(function (data) {
             vm.employeeList = data.employeeList;
             vm.position = getPosition(vm.employeeList);
             vm.status = getStatus(vm.employeeList);
-            console.log(vm.position);   
         });
 
         function getPosition(position) {
@@ -78,7 +77,7 @@
                st.push(item.strEmpStatus);
             });
 
-            return _.uniq(st);
+            return st;
         }
 
     }

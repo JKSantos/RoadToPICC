@@ -136,8 +136,8 @@
                         <ul class="navul">
                             <li><a href="employeeQueries">Employee</a></li>
                             <li><a href="productQueries">Product</a></li>
-                            <li><a href="">Service</a></li>
-                            <li><a href="">Package</a></li>
+                            <li><a href="serviceQueries">Service</a></li>
+                            <li><a href="packageQueries">Package</a></li>
                             <li><a href="">Delivery Charge</a></li>
                             <li><a href="">Other Charge</a></li>
                             <li><a href="">Promo</a></li>
@@ -255,6 +255,7 @@
 <script type="text/javascript" src="app/queries/queryFactory.fac.js"></script>
 <script type="text/javascript" src="app/queries/employee/empQueryController.ctrl.js"></script>
 <script type="text/javascript" src="app/queries/employee/productQueryController.ctrl.js"></script>
+<script type="text/javascript" src="app/queries/employee/serviceQueryController.ctrl.js"></script>
 <script type="text/javascript" src="app/report/reportsFactory.fac.js"></script>
 <script type="text/javascript" src="app/report/sales/salesReportController.ctrl.js"></script>
 

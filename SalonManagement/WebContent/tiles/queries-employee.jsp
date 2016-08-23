@@ -8,41 +8,48 @@
             <!--<a class="btnshadow hoverable z-depth-1 waves-effect waves-light modal-trigger btn-flat purple darken-2 left white-text"-->
             <!--href="#" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">add</i></a>-->
             <div class="row" style="margin-bottom: -100px !important; margin-top: 50px !important;">
-                <div class="input-field col s3">
-                    <select ng-model="vm.selOption" id="selectOption"
-                            ng-change="vm.selectPositionInTable()">
-                        <option value="" selected>ALL</option>
-                        <option ng-repeat="position in vm.position | unique: 'strJobDesc'" value="{{position}}">{{position}}</option>
-                    </select>
-                    <label for="selectOption"><b>Position</b></label>
-                </div>
-                <div class="input-field col s3">
-                    <select ng-model="vm.selectStatus" id="selectStatus"
-                            ng-change="vm.selectStatusInTable()">
-                        <option value="" selected>ALL</option>
-                        <option ng-repeat="status in vm.status" value="{{status}}CTIVE"
-                                ng-if="status=='A'">{{status}}CTIVE
-                        </option>
-                        <option ng-repeat="status in vm.status" value="{{status}}NACTIVE"
-                                ng-if="status=='I'">{{status}}NACTIVE
-                        </option>
-                    </select>
-                    <label for="selectStatus"><b>Status</b></label>
+                <div class="col s12">
+                    <div class="input-field col s3">
+                        <select ng-model="vm.selOption" id="selectOption"
+                                ng-change="vm.selectPositionInTable()">
+                            <option value="" selected>ALL</option>
+                            <option ng-repeat="position in vm.position | unique: 'strJobDesc'"
+                                    value="{{position}}">{{position | uppercase}}</option>
+                        </select>
+                        <label for="selectOption"><b>Position</b></label>
+                    </div>
+                    <div class="input-field col s3">
+                        <select ng-model="vm.selectStatus" id="selectStatus"
+                                ng-change="vm.selectStatusInTable()">
+                            <option value="" selected>ALL</option>
+                            <option ng-repeat="status in vm.status | unique: 'strEmpStatus'" value="{{status}}CTIVE"
+                                    ng-if="status=='A'">{{status}}CTIVE
+                            </option>
+                            <option ng-repeat="status in vm.status | unique: 'strEmpStatus'" value="{{status}}NACTIVE"
+                                    ng-if="status=='I'">{{status}}NACTIVE
+                            </option>
+                        </select>
+                        <label for="selectStatus"><b>Status</b></label>
+                    </div>
+                    <div class="input-field col s5 offset-s1">
+                        <nav class="right white hoverable  z-depth-1"
+                             style="margin-top: -20px !important;">
+                            <div class="nav-wrapper col s12">
+                                <form>
+                                    <div class="input-field">
+                                        <input id="queryEmpSearch" placeholder="Search" class="grey-text text-darken-4" type="search"
+                                               ng-model="vm.queryEmployeeSearch"
+                                               ng-change="vm.searchTable()">
+                                        <label for="queryEmpSearch"><i
+                                                class="material-icons grey-text text-darken-4">search</i></label>
+                                    </div>
+                                </form>
+                            </div>
+                        </nav>
+                    </div>
                 </div>
             </div>
-            <nav class="right white hoverable  z-depth-1" style="width: 300px; margin-right: 20px;">
-                <div class="nav-wrapper col s4">
-                    <form>
-                        <div class="input-field">
-                            <input id="queryEmpSearch" placeholder="Search" class="grey-text text-darken-4" type="search"
-                                   ng-model="vm.queryEmployeeSearch"
-                                   ng-change="vm.searchTable()">
-                            <label for="queryEmpSearch"><i
-                                    class="material-icons grey-text text-darken-4">search</i></label>
-                        </div>
-                    </form>
-                </div>
-            </nav>
+
             <div class="col s12">
                 <table id="employeeQueryTable" datatable="ng" dt-instance="vm.dtInstanceCallback"
                        class="table-barts hoverable z-depth-1 cell-border row-border display responsive-table highlight">

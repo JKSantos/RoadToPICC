@@ -7,45 +7,62 @@
     function serviceQueryController($scope, $filter, SweetAlert, DTOptionsBuilder, DTColumnDefBuilder, DTDefaultOptions, queryFactory) {
         var vm = this;
         vm.getCategory = getCategory;
+        vm.dtInstanceCallback = dtInstanceCallback;
+        vm.searchTable = searchTable;
+        vm.selectCategoryInTable = selectCategoryInTable;
+        vm.getStatus = getStatus;
+        vm.selectStatusInTable = selectStatusInTable;
+        vm.queryServiceSearch = '';
         vm.dateFormat = ["MMMM/D/YYYY"];
         vm.aifilter = [
             {"id": 1,"strEmpValue": 'ACTIVE'},
             {"id": 2,"strEmpValue": 'INACTIVE'}
             ];
         vm.selOption = '';
-        vm.dtOptions = DTOptionsBuilder.newOptions()
-            .withPaginationType('full_numbers')
-            .withDisplayLength(10)
-            .withLanguage({
-                "sLoadingRecords": "Loading..."
-            });
-        vm.dtColumnDefs = [
-            DTColumnDefBuilder.newColumnDef(0),
-            DTColumnDefBuilder.newColumnDef(1).notSortable().withOption('width','100px'),
-            DTColumnDefBuilder.newColumnDef(2).notSortable(),
-            DTColumnDefBuilder.newColumnDef(3),
-            DTColumnDefBuilder.newColumnDef(4)
-        ];
+
+        function dtInstanceCallback (dtInstance) {
+            var datatableObj = dtInstance.DataTable;
+            vm.tableInstance = datatableObj;
+        }
+
+        function searchTable () {
+            var query = vm.queryServiceSearch;
+            vm.tableInstance.search(query).draw();
+        }
+
+        function selectCategoryInTable () {
+            var sel = vm.selCategory;
+            vm.tableInstance.search(sel).draw();
+        }
+
+        function selectStatusInTable () {
+            var sel = vm.selStatus;
+            vm.tableInstance.search(sel).draw();
+        }
 
 
         queryFactory.getService().then(function (data) {
-            vm.serviceList = data.data.serviceList;
+            vm.serviceList = data.serviceList;
             vm.category = getCategory(vm.serviceList);
-            // vm.position = getPosition(vm.employeeList);
-            // console.log(vm.position);
-
+            vm.servStatus = getStatus(vm.serviceList);
         });
 
         function getCategory(category) {
             var categories = [];
-            angular.forEach(category, function(item) {
-                angular.forEach(item.strProductCategory, function(job) {
-                    categories.push(job);
-                });
+            angular.forEach(category, function(item, i) {
+                categories.push(item.strServiceCategory);
             });
 
-            console.log(categories);
-            return _.uniq(categories);
+            return categories;
+        }
+
+        function getStatus(status) {
+            var stat = [];
+            angular.forEach(status, function(item, i) {
+                stat.push(item.intServiceStatus);
+            });
+
+            return stat;
         }
 
 
