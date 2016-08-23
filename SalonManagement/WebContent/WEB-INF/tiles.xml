@@ -103,6 +103,26 @@
         <put-attribute name="body"          value="/tiles/queries-package.jsp"/>
     </definition>
 
+    <definition name="queriesDelivery" extends="baseLayout">
+        <put-attribute name="title"         value="Queries"/>
+        <put-attribute name="body"          value="/tiles/queries-delivery.jsp"/>
+    </definition>
+
+    <definition name="queriesExtra" extends="baseLayout">
+        <put-attribute name="title"         value="Queries"/>
+        <put-attribute name="body"          value="/tiles/queries-extra.jsp"/>
+    </definition>
+
+    <definition name="queriesPromo" extends="baseLayout">
+        <put-attribute name="title"         value="Queries"/>
+        <put-attribute name="body"          value="/tiles/queries-promo.jsp"/>
+    </definition>
+
+    <definition name="queriesDiscount" extends="baseLayout">
+        <put-attribute name="title"         value="Queries"/>
+        <put-attribute name="body"          value="/tiles/queries-discount.jsp"/>
+    </definition>
+
     <definition name="SalesReport" extends="baseLayout">
         <put-attribute name="title"         value="Report"/>
         <put-attribute name="body"          value="/tiles/sales-report.jsp"/>

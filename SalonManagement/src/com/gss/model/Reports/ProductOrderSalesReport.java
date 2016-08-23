@@ -1,4 +1,4 @@
-package com.gss.model;
+package com.gss.model.Reports;
 
 import java.sql.Date;
 
