@@ -18,7 +18,7 @@ public class GetProductPurchases {
 	
 	public String execute(){
 		this.productOrderPurchase = ProductSalesReportRepository.getProductOrderProductPurchases(dateFrom, dateTo);
-		this.productReservationPurchase = ProductSalesReportRepository
+		this.productReservationPurchase = ProductSalesReportRepository;
 	}
 
 	public List<ProductPurchases> getProductOrderPurchase() {
