@@ -24,7 +24,15 @@
 			<result name="success" type="tiles">ProductTags</result>
 		</action>
 		
-		<action name="newSalesReport" class="com.gss.actions.Reports.GetSalesReport" method="execute">
+		<action name="reservationSales" class="com.gss.actions.Reports.GetReservationSalesReport" method="execute">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="walkinSales" class="com.gss.actions.Reports.GetWalkInSalesReport" method="execute">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="productOrderSales" class="com.gss.actions.Reports.GetProductOrderSalesReport" method="execute">
 			<result name="success" type="json"></result>
 		</action>
 	
