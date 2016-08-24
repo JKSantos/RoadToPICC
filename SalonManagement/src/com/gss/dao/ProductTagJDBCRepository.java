@@ -132,14 +132,16 @@ public class ProductTagJDBCRepository implements ProductTagRepository{
 		}
 	}
 
-	public List<ProductTagReport> getProductTagReport(){
+	public List<ProductTagReport> getProductTagReport(String dateFrom, String dateTo){
 		
 		Connection 	con 				= jdbc.getConnection();
-		String getAllTags 				= "CALL queryProductTag();";
+		String getAllTags 				= "CALL queryProductTag(?, ?);";
 		List<ProductTagReport>	reports = new ArrayList<ProductTagReport>();
 		
 		try{
 			PreparedStatement get		= con.prepareStatement(getAllTags);
+			get.setString(1, dateFrom);
+			get.setString(2, dateTo);
 			ResultSet tags				= get.executeQuery();
 			
 			while(tags.next()){
@@ -205,11 +207,11 @@ public class ProductTagJDBCRepository implements ProductTagRepository{
 	}
 	
 	@Override
-	public List<TagSum> getTagSum() {
+	public List<TagSum> getTagSum(String dateFrom, String dateTo) {
 		
 		Connection 	con 				= jdbc.getConnection();
 		String getProductsWithTag 		= "CALL productsWithTags();";
-		String sum						= "CALL getProductTagSum(?);";
+		String sum						= "CALL getProductTagSum(?, ?, ?);";
 		
 		List<TagSum>	reports = new ArrayList<TagSum>();
 		
@@ -224,6 +226,8 @@ public class ProductTagJDBCRepository implements ProductTagRepository{
 				
 
 				sumSet.setInt(1, id);
+				sumSet.setString(1, dateFrom);
+				sumSet.setString(2, dateTo);
 				sumSetResult = sumSet.executeQuery();
 				
 				while(sumSetResult.next()){
@@ -235,7 +239,7 @@ public class ProductTagJDBCRepository implements ProductTagRepository{
 					int exp = sumSetResult.getInt(6);
 					int consumed = sumSetResult.getInt(7);
 					
-					TagSum tagSum = new TagSum(intProductID, strProductName, intTotal, def, lost, exp, consumed);
+					TagSum tagSum = new TagSum(dateFrom, dateTo, intProductID, strProductName, intTotal, def, lost, exp, consumed);
 					reports.add(tagSum);
 				}
 			}
