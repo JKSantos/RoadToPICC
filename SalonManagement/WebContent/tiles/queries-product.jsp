@@ -25,10 +25,10 @@
                             <option value="" selected>ALL</option>
                             <option ng-repeat="status in vm.prodStatus | unique: 'intProductStatus'"
                                     ng-if="status == 1"
-                                    value="{{status}}">ACTIVE</option>
+                                    value="ACTIVE">ACTIVE</option>
                             <option ng-repeat="status in vm.prodStatus | unique: 'intProductStatus'"
                                     ng-if="status == 0"
-                                    value="{{status}}">INACTIVE</option>
+                                    value="INACTIVE">INACTIVE</option>
                         </select>
                         <label for="selectStatus"><b>Status</b></label>
                     </div>
