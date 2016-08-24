@@ -27,7 +27,7 @@
                 </div>
             </nav>
             <div class="row"></div>
-            <div ng-controller = "reservationCalendarCtrl">
+            <div>
             	<div id='calendar'></div>
             </div>
 
