@@ -6,6 +6,7 @@
 
     function reservationReportController($scope, $filter, SweetAlert, DTOptionsBuilder, DTColumnDefBuilder, DTDefaultOptions, reportsFactory) {
         var vm = this;
+        chartsInit();
         vm.reportList = [];
         vm.tagSum = [];
         vm.names = [];
@@ -17,6 +18,7 @@
         vm.filter = [];
         vm.filter.datFrom = '';
         vm.filter.datTo = '';
+        vm.customerList = [];
         
         vm.currentTime = new Date();
         vm.month = ['Januar', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -77,30 +79,22 @@
                  data: filterData,
                  async: true,
                  success: function( data, textStatus, jQxhr ){
-                     console.log( data );
+                    getData(data);
+                     
+                     
                  },
                  error: function( jqXhr, textStatus, errorThrown ){
                      console.log("Eeerror");
                  }
              });
         };
-      
-        reportsFactory.getAllProductTags().then(function (data) {
-            vm.reportList = data.data; 
-            vm.tagSum = data.data.tagSum;
-            for (var i = 0; i < vm.tagSum.length; i++) {
-                vm.names[i] = vm.tagSum[i].strProductName;
-                vm.quantity[i] = vm.tagSum[i].intQuantity;
-                vm.consumed[i] = vm.tagSum[i].intConsumed;
-                vm.defective[i] = vm.tagSum[i].intDefective;
-                vm.expired[i] = vm.tagSum[i].intExpired;
-                vm.lost[i] = vm.tagSum[i].intLost;
-            }
-            chartsInit(vm.names, vm.quantity, vm.consumed, vm.defective, vm.expired, vm.lost);
-             
-        });
-        console.log(vm.quantity);
         
+        function getData(data){
+        	//vm.customerList = [];
+        	vm.customerList = data.reservation;
+        	console.log(vm.customerList);
+        };
+      
         
         function chartsInit(names, quantity, consumed, defective, expired, lost){
         	
