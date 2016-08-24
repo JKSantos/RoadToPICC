@@ -44,15 +44,15 @@
 
         function selectPositionInTable () {
             var sel = vm.selOption;
-            vm.tableInstance.search(sel).draw();
+                vm.tableInstance.column(1).search(sel).draw();
         }
 
         function selectStatusInTable () {
             var sel = vm.selectStatus;
-            if(sel != 'ALL'){
+            if(sel == 'ACTIVE' || sel == 'INACTIVE'){
                 vm.tableInstance.column(5).search('^'+sel+'$', true).draw();
-            } else {
-                vm.tableInstance.search(sel).draw();
+            } else if (sel == '') {
+                vm.tableInstance.column(5).search(sel).draw();
             }
         }
 
