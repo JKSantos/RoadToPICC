@@ -725,7 +725,6 @@ public class ReservationJDBCRepository implements ReservationRepository{
 	}
 
 	@Override
-	
 	public Invoice getInvoice(int intInvoiceID) {
 		
 		Connection con = jdbc.getConnection();

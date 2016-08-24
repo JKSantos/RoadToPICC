@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.gss.connection.JDBCConnection;
+import com.gss.model.Reservation;
 import com.gss.model.Reports.ProductOrderSalesReport;
 import com.gss.model.Reports.ProductOrderTotalSales;
 import com.gss.model.Reports.ReservationSalesReport;
@@ -216,4 +217,7 @@ public class ReportsRepository {
 		}
 	}
 
+	public List<Reservation> cancelledReservations(){
+		return null;
+	}
 }
