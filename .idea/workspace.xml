@@ -47,6 +47,44 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="transactions-walkin.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-walkin.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1972">
+              <caret line="285" column="59" selection-start-line="285" selection-start-column="59" selection-end-line="285" selection-end-column="59" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#a#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#nav#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#i#0;n#a#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#2;n#div#2;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#a#0;n#div#1;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+                <marker date="1472034072759" expanded="false" signature="23362:23420" ph="..." />
+                <marker date="1472034072759" expanded="false" signature="23623:23681" ph="..." />
+                <marker date="1472034072759" expanded="false" signature="23985:24043" ph="..." />
+                <marker date="1472034072759" expanded="false" signature="24514:24620" ph="..." />
+                <marker date="1472034072759" expanded="false" signature="24771:24799" ph="..." />
+                <marker date="1472034072759" expanded="false" signature="25021:25128" ph="..." />
+                <marker date="1472034072759" expanded="false" signature="25387:25415" ph="..." />
+                <marker date="1472034072759" expanded="false" signature="25636:25743" ph="..." />
+                <marker date="1472034072759" expanded="false" signature="25998:26026" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="transactions-reservation.jsp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-reservation.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="517" column="66" selection-start-line="517" selection-start-column="66" selection-end-line="517" selection-end-column="66" />
+              <folding>
+                <element signature="n#style#0;n#label#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#0;n#form#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="transactions-productorder.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-productorder.jsp">
           <provider selected="true" editor-type-id="text-editor">
@@ -80,7 +118,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="empQueryController.ctrl.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="empQueryController.ctrl.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/queries/employee/empQueryController.ctrl.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="276">
@@ -173,13 +211,13 @@
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/queries-extra.jsp" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/app/walkin/walkin.ctr.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/css/baselayout.css" />
-        <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-walkin.jsp" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/app/reservation/reservation-table.ctrl.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-productorder.jsp" />
-        <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-reservation.jsp" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/app/prodsales/prodSales.ctrl.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/queries-employee.jsp" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/app/queries/employee/empQueryController.ctrl.js" />
+        <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-walkin.jsp" />
+        <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-reservation.jsp" />
       </list>
     </option>
   </component>
@@ -649,12 +687,12 @@
       <workItem from="1471848580246" duration="1103000" />
       <workItem from="1471884753210" duration="6316000" />
       <workItem from="1471952770471" duration="19623000" />
-      <workItem from="1472021054993" duration="4858000" />
+      <workItem from="1472021054993" duration="5265000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="818561000" />
+    <option name="totallyTimeSpent" value="818968000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -998,39 +1036,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-reservation.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="443" column="120" selection-start-line="443" selection-start-column="120" selection-end-line="443" selection-end-column="120" />
-          <folding>
-            <element signature="n#style#0;n#label#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#0;n#form#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-walkin.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1117">
-          <caret line="487" column="64" selection-start-line="487" selection-start-column="64" selection-end-line="487" selection-end-column="64" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#nav#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#div#1;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <marker date="1471973718577" expanded="false" signature="23361:23419" ph="..." />
-            <marker date="1471973718577" expanded="false" signature="23622:23680" ph="..." />
-            <marker date="1471973718577" expanded="false" signature="23984:24042" ph="..." />
-            <marker date="1471973718577" expanded="false" signature="24513:24619" ph="..." />
-            <marker date="1471973718577" expanded="false" signature="24770:24798" ph="..." />
-            <marker date="1471973718577" expanded="false" signature="25020:25127" ph="..." />
-            <marker date="1471973718577" expanded="false" signature="25386:25414" ph="..." />
-            <marker date="1471973718577" expanded="false" signature="25635:25742" ph="..." />
-            <marker date="1471973718577" expanded="false" signature="25997:26025" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/baseLayout.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="352">
@@ -1106,6 +1111,40 @@
         <state relative-caret-position="276">
           <caret line="46" column="62" selection-start-line="46" selection-start-column="62" selection-end-line="46" selection-end-column="62" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-walkin.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1972">
+          <caret line="285" column="59" selection-start-line="285" selection-start-column="59" selection-end-line="285" selection-end-column="59" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#nav#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i#0;n#a#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#2;n#div#2;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#div#1;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <marker date="1472034072759" expanded="false" signature="23362:23420" ph="..." />
+            <marker date="1472034072759" expanded="false" signature="23623:23681" ph="..." />
+            <marker date="1472034072759" expanded="false" signature="23985:24043" ph="..." />
+            <marker date="1472034072759" expanded="false" signature="24514:24620" ph="..." />
+            <marker date="1472034072759" expanded="false" signature="24771:24799" ph="..." />
+            <marker date="1472034072759" expanded="false" signature="25021:25128" ph="..." />
+            <marker date="1472034072759" expanded="false" signature="25387:25415" ph="..." />
+            <marker date="1472034072759" expanded="false" signature="25636:25743" ph="..." />
+            <marker date="1472034072759" expanded="false" signature="25998:26026" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-reservation.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="517" column="66" selection-start-line="517" selection-start-column="66" selection-end-line="517" selection-end-column="66" />
+          <folding>
+            <element signature="n#style#0;n#label#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#0;n#form#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

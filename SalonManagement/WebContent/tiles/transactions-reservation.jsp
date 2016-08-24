@@ -515,7 +515,7 @@
                                     <select multiple ng-model="vm.selEmployees" id="cREmp"
                                             ng-options="employee.strEmpFirstName for employee in vm.employeeList">
                                     </select>
-                                    <label for="cREmp"><b>Employees</b></label>
+                                    <label for="cREmp"><b>Employee</b></label>
                                     <pre>{{vm.selEmployees.intEmpID | json}}</pre>
                                 </div>
                             </div>
