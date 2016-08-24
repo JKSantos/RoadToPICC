@@ -27,7 +27,7 @@
                 </div>
             </nav>
             <div class="row"></div>
-            <div ng-controller = "reservationCalendarCtrl as vm">
+            <div ng-controller = "reservationCalendarCtrl">
             	<div id='calendar'></div>
             </div>
             
@@ -135,16 +135,18 @@
                         <div class="container">
                         <h5><b>Customer Details</b></h5>
                             <div class="row">
-                                
                                 <div class="input-field col s6">
                                     <select id="rType"
                                             ng-model="vm.details.reservationType"
                                             ng-options="type as type.type for type in vm.reservationType">
                                     </select>
-                                    <label for="rType" class="active"><b>Reservation Type</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                    <label for="rType">
+                                        <b>Reservation Type</b>
+                                        <i class="material-icons red-text tiny">error_outline</i>
+                                    </label>
                                 </div>
-                                <div class="input-field col s6" ng-if="vm.details.reservationType.id = 2 ">
+                                <div class="input-field col s6"
+                                     ng-if="vm.details.reservationType.id == 2">
                                     <label style="margin-top: -25px;"><b>Customer Type</b></label>
                                     <input type="radio" name="ctype" id="crRCustType1" ng-model="vm.individual"
                                            value="Individual">
@@ -154,12 +156,22 @@
                                     <label for="crRCustType2">Company</label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <input type="text" class="validate" id="crRCustName"
-                                           ng-model="vm.details.name" placeholder="Customer Name"/>
-                                    <label for="crRCustName" class="active"><b>Customer Name</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                    <div class="input-field col s6">
+                                        <input type="text" class="validate" id="crRCustName"
+                                               ng-model="vm.details.name" placeholder="Customer Name"/>
+                                        <label for="crRCustName" class="active"><b>Customer Name</b>
+                                            <i class="material-icons red-text tiny">error_outline</i>
+                                        </label>
+                                    </div>
+                                    <div class="input-field col s6"
+                                         ng-if="vm.details.reservationType.id == 2">
+                                        <input type="text" class="validate"
+                                               id="crRCompanyName" ng-model="vm.details.company"
+                                               placeholder="Company Name"
+                                               ng-disabled="vm.individual == 'Individual'">
+                                        <label for="crRCompanyName" class="active"><b>Company Name</b></label>
+                                    </div>
                                 </div>
-                                
                                 <div class="input-field col s12" style="margin-top: 15px;">
                                     <input type="text" id="crRAddress" ng-model="vm.details.address"
                                            placeholder="Address"/>
@@ -176,14 +188,6 @@
                                     <input type="email" ng-model="vm.details.email" id="crREmail" placeholder="Email"/>
                                     <label for="crREmail" class="active"><b>Email</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
-                                </div>
-                                
-                                <div class="input-field col s6">
-                                    <input type="text" class="validate"
-                                           id="crRCompanyName" ng-model="vm.details.company"
-                                           placeholder="Company Name"
-                                           ng-disabled="vm.individual == 'Individual'">
-                                    <label for="crRCompanyName"><b>Company Name</b></label>
                                 </div>
                             </div>
                         </div>
@@ -384,7 +388,7 @@
                                                    ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
                                                     <i class="material-icons left"
                                                        style="padding: 0px !important; margin: 0px !important;">
-                                                        shopping_basket</i>BUY NOW!
+                                                        shopping_basket</i>GET SERVICE
                                                 </a>
                                             </div>
                                         </div>
@@ -426,7 +430,7 @@
                                                    ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
                                                     <i class="material-icons left"
                                                        style="padding: 0px !important; margin: 0px !important;">
-                                                        shopping_basket</i>BUY NOW!
+                                                        shopping_basket</i>GET PACKAGE
                                                 </a>
                                             </div>
                                         </div>
@@ -469,7 +473,7 @@
                                                    ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
                                                     <i class="material-icons left"
                                                        style="padding: 0px !important; margin: 0px !important;">
-                                                        shopping_basket</i>BUY NOW!
+                                                        shopping_basket</i>GET PROMO
                                                 </a>
                                             </div>
                                         </div>
