@@ -202,13 +202,15 @@
                                     <label for="crOrderName"><b>Name</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
-                                <div class="input-field col s6" id="crDivOrderSt">
+                                <div class="input-field col s6" id="crDivOrderSt"
+                                     ng-if="details.order.id == 2">
                                     <input type="text" name="strOrderStreet" id="crOrderStreet"
                                            ng-model="details.street"/>
                                     <label for="crOrderStreet"><b>Street</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
-                                <div class="input-field col s6" id="crDivOrderLoc">
+                                <div class="input-field col s6" id="crDivOrderLoc"
+                                     ng-if="details.order.id == 2">
                                     <select ng-options="location.strBarangay for location in locationList"
                                             ng-model="details.location" id="crOrderLoc">
                                     </select>
@@ -239,8 +241,6 @@
                 </button>
             </div>
         </form>
-
-        <pre>{{details | json}}</pre>
     </div>
 
     <div id="AcceptDeliveryModal" class="modal modal-fixed-footer"
