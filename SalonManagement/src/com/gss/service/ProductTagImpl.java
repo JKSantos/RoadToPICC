@@ -60,18 +60,18 @@ public class ProductTagImpl implements ProductTags{
 	}
 
 	@Override
-	public List<TagSum> getTagSum() {
+	public List<TagSum> getTagSum(String dateFrom, String dateTo) {
 				
 		ProductTagRepository repo = new ProductTagJDBCRepository();
 		
-		return repo.getTagSum();
+		return repo.getTagSum(dateFrom, dateTo);
 	}
 
 	@Override
-	public List<ProductTagReport> getProductTagReport() {
+	public List<ProductTagReport> getProductTagReport(String dateFrom, String dateTo) {
 		
 		ProductTagRepository repo = new ProductTagJDBCRepository();
 		
-		return repo.getProductTagReport();
+		return repo.getProductTagReport(dateTo, dateTo);
 	}
 }

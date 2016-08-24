@@ -19,9 +19,9 @@ public interface ProductTags {
 	
 	public boolean restoreTag(ProductTag productTag) throws SQLException;
 	
-	public List<ProductTagReport> getProductTagReport();
+	public List<ProductTagReport> getProductTagReport(String dateFrom, String dateTo);
 
 	public List<ProductTagReport> getFilteredProductTagReport();
 	
-	public List<TagSum> getTagSum();
+	public List<TagSum> getTagSum(String dateFrom, String dateTo);
 }
