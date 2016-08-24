@@ -15,16 +15,24 @@
                                    placeholder="Search"
                                    class="grey-text text-darken-4"
                                    type="search"
-                                   ng-model="paymentSearch">
+                                   ng-model="vm.paymentSearch"
+                                   ng-change="vm.searchTable()">
                             <label for="paymentSearch"><i
                                     class="material-icons grey-text text-darken-4">search</i></label>
                         </div>
                     </form>
                 </div>
             </nav>
-            <table id="paymentTable" datatable="ng" dt-options="vm.dtOptions" dt-columns="vm.dtColumns"
+            <table id="paymentTable" datatable="ng" dt-instance="vm.dtInstanceCallback"
                    class="table-barts hoverable z-depth-1 cell-border row-border display responsive-table highlight">
                 <thead>
+                    <th class="left-align">Customer Name</th>
+                    <th class="left-align">Transaction Name</th>
+                    <th class="right-align">Transaction Date</th>
+                    <th class="left-align">Transaction Type</th>
+                    <th class="right-align">Total Balance</th>
+                    <th class="right-align">Remaining Balance</th>
+                    <th class="center-align">Action</th>
                 </thead>
                 <tfoot>
                 <tr style="border: 1px solid #bdbdbd;">
@@ -45,7 +53,8 @@
                     <td ng-if="payment.strName" class="left-align">Product Order</td>
                     <td ng-if="payment.customer" class="left-align">Reservation</td>
                     <td ng-if="payment.strName" class="right-align">{{ payment.datCreated | date: "MMMM/d/yyyy" }}</td>
-                    <td ng-if="payment.customer" class="right-align">{{ payment.dateCreated | date: "MMMM/d/yyyy" }}</td>
+                    <td ng-if="payment.customer" class="right-align">{{ payment.dateCreated | date: "MMMM/d/yyyy" }}
+                    </td>
                     <td ng-if="payment.strName" class="left-align">
                         <span ng-if="payment.intType==1">DELIVERY</span>
                         <span ng-if="payment.intType==2">PICK UP</span>

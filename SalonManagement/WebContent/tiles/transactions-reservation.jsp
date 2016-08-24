@@ -27,10 +27,10 @@
                 </div>
             </nav>
             <div class="row"></div>
-            <div ng-controller = "reservationCalendarCtrl">
-            	<div id='calendar'></div>
-            </div>
-            
+            <!--<div ng-controller = "reservationCalendarCtrl">-->
+            	<!--<div id='calendar'></div>-->
+            <!--</div>-->
+            <!---->
 
             
         </div>
@@ -196,7 +196,8 @@
                         <div class="container">
                             <div class="row">
                                 <h5><b>Reservation Details</b></h5>
-                                <div class="input-field col s12">
+                                <div class="input-field col s12"
+                                     ng-if="vm.details.reservationType.id == 2">
                                     <input type="text" class="validate" id="crREventVenue"
                                            ng-model="vm.details.venue" placeholder="Event Venue"/>
                                     <label for="crREventVenue" class="active"><b>Event Venue</b><i
