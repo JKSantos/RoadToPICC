@@ -27,10 +27,10 @@
                 </div>
             </nav>
             <div class="row"></div>
-            <!--<div ng-controller = "reservationCalendarCtrl">-->
-            	<!--<div id='calendar'></div>-->
-            <!--</div>-->
-            <!---->
+            <div ng-controller = "reservationCalendarCtrl">
+            	<div id='calendar'></div>
+            </div>
+
 
             
         </div>
@@ -522,7 +522,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="stepreservation well">
+                    <div class="stepreservation well" ng-hide="vm.details.reservationType.id == 1">
                         <div class="row" ng-show="vm.details.reservationType.id != 2">
                         </div>
                         <div ng-show="vm.details.reservationType.id == 2">
