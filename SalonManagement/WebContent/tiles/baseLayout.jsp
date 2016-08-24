@@ -267,7 +267,8 @@
 <script type="text/javascript" src="app/queries/employee/promoQueryController.ctrl.js"></script>
 <script type="text/javascript" src="app/queries/employee/discountQueryController.ctrl.js"></script>
 <script type="text/javascript" src="app/report/reportsFactory.fac.js"></script>
-<script type="text/javascript" src="app/report/sales/salesReportController.ctrl.js"></script>
+<script type="text/javascript" src="app/report/salesReportController.ctrl.js"></script>
+<script type="text/javascript" src="app/report/reservationReportController.ctrl.js"></script>
 <script type="text/javascript" src="app/reservation/reservationCalendarCtrl.ctr.js"></script>
 
 
