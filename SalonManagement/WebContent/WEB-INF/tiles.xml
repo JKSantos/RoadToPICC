@@ -152,5 +152,20 @@
     	<put-attribute name="title"			value="Create Walk In"/>
     	<put-attribute name="body"			value="/tiles/transactions-create-walkin.jsp"/>
     </definition>
+    
+    <definition name="reservationReport" extends="baseLayout">
+    	<put-attribute name="title"			value="Reservation Report"/>
+    	<put-attribute name="body"			value="/tiles/reports-sales-reservation.jsp"/>
+    </definition>
+    
+     <definition name="orderReport" extends="baseLayout">
+    	<put-attribute name="title"			value="Order Report"/>
+    	<put-attribute name="body"			value="/tiles/reports-sales-order.jsp"/>
+    </definition>
+    
+    <definition name="walkinReport" extends="baseLayout">
+    	<put-attribute name="title"			value="Walk In Report"/>
+    	<put-attribute name="body"			value="/tiles/reports-sales-walkin.jsp"/>
+    </definition>
   
 </tiles-definitions>

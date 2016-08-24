@@ -8,13 +8,15 @@ import java.util.List;
 
 public class GetProductTagAction {
 	
+	private String dateFrom;
+	private String dateTo;
 	private List<ProductTagReport> report;
 	private List<TagSum> tagSum;
 	
 	public String execute() throws SQLException{
 		
-		this.report = ProductTagReport.getProductTagReport();
-		this.tagSum = TagSum.getTagSum();
+		this.report = ProductTagReport.getProductTagReport(dateFrom, dateTo); 
+		this.tagSum = TagSum.getTagSum(dateFrom, dateTo);
 		
 		return "success";
 	}
@@ -25,5 +27,13 @@ public class GetProductTagAction {
 	
 	public List<TagSum> getTagSum() {
 		return tagSum;
+	}
+
+	public void setDateFrom(String dateFrom) {
+		this.dateFrom = dateFrom;
+	}
+
+	public void setDateTo(String dateTo) {
+		this.dateTo = dateTo;
 	}
 }
