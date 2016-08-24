@@ -49,7 +49,11 @@
 
         function selectStatusInTable () {
             var sel = vm.selectStatus;
-            vm.tableInstance.search(sel).draw();
+            if(sel != 'ALL'){
+                vm.tableInstance.column(5).search('^'+sel+'$', true).draw();
+            } else {
+                vm.tableInstance.search(sel).draw();
+            }
         }
 
         queryFactory.getEmployee().then(function (data) {
