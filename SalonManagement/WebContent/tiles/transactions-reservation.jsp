@@ -297,7 +297,8 @@
                                         <div class="input-field">
                                             <input id="crDiscountSearch" placeholder="Search"
                                                    class="grey-text text-darken-4"
-                                                   type="search" style="border: none !important;">
+                                                   type="search" style="border: none !important;"
+                                                   ng-model="searchReservationItem">
                                             <label for="crDiscountSearch"><i
                                                     class="material-icons grey-text text-darken-4">search</i></label>
                                         </div>
@@ -311,7 +312,7 @@
 
                             <div ng-show="vm.selected == 'product'">
                                 <div class="row ">
-                                    <div class="col s2" ng-repeat="product in vm.productList">
+                                    <div class="col s2" ng-repeat="product in vm.productList | filter: searchReservationItem">
                                         <div class="card small">
                                             <div class="card-image waves-effect waves-block waves-light">
                                                 <img class="activator" ng-src="{{product.strPhotoPath}}">
@@ -355,7 +356,7 @@
 
                             <div ng-show="vm.selected == 'service'">
                                 <div class="row ">
-                                    <div class="col s2" ng-repeat="service in vm.serviceList">
+                                    <div class="col s2" ng-repeat="service in vm.serviceList | filter: searchReservationItem ">
                                         <div class="card small">
                                             <div class="card-image waves-effect waves-block waves-light">
                                                 <img class="activator" ng-src="{{service.strPhotoPath}}">
@@ -398,7 +399,7 @@
 
                             <div ng-show="vm.selected == 'package'">
                                 <div class="row ">
-                                    <div class="col s2" ng-repeat="package in vm.packageList">
+                                    <div class="col s2" ng-repeat="package in vm.packageList | filter: searchReservationItem">
                                         <div class="card small">
                                             <div class="card-image waves-effect waves-block waves-light">
                                                 <img class="activator" ng-src="{{service.strPhotoPath}}">
@@ -440,7 +441,7 @@
 
                             <div ng-show="vm.selected == 'promo'">
                                 <div class="row ">
-                                    <div class="col s2" ng-repeat="promo in vm.promoList">
+                                    <div class="col s2" ng-repeat="promo in vm.promoList | filter: searchReservationItem">
                                         <div class="card small">
                                             <div class="card-image waves-effect waves-block waves-light">
                                                 <img class="activator" ng-src="{{service.strPhotoPath}}">

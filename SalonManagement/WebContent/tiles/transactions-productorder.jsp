@@ -18,7 +18,7 @@
                         <form>
                             <div class="input-field">
                                 <input id="psSearch" placeholder="Search" class="grey-text text-darken-4" type="search"
-                                       required/>
+                                       ng-model="searchProduct"/>
                                 <label for="psSearch"><i
                                         class="material-icons grey-text text-darken-4">search</i></label>
                             </div>
@@ -33,7 +33,7 @@
             </div>
 
             <div class="row ">
-                <div class="col s3" ng-repeat="product in productList">
+                <div class="col s3" ng-repeat="product in productList | toArray | filter: searchProduct">
                     <div class="card small">
                         <div class="card-image waves-effect waves-block waves-light">
                             <img class="activator" ng-src="{{product.strPhotoPath}}">
