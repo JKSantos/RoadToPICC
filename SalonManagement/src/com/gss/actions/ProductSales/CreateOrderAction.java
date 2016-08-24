@@ -24,12 +24,12 @@ public class CreateOrderAction{
 	
 	private String strName;
 	private String strStreet;
-	private int intLocationID;
+	private int intLocationID = 2;
 	private String strContactNo;
 	private String orderType;
 	private String selectedProducts;
 	private String productQuantity;
-	private String strTotalPrice = "1";
+	private String strTotalPrice;
 	private String status;
 	
 	public String execute() throws Exception{
