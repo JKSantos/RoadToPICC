@@ -27,10 +27,10 @@
                 </div>
             </nav>
             <div class="row"></div>
-            <div ng-controller = "reservationCalendarCtrl">
+            <div>
             	<div id='calendar'></div>
             </div>
-            
+
 
             
         </div>
@@ -196,7 +196,8 @@
                         <div class="container">
                             <div class="row">
                                 <h5><b>Reservation Details</b></h5>
-                                <div class="input-field col s12">
+                                <div class="input-field col s12"
+                                     ng-if="vm.details.reservationType.id == 2">
                                     <input type="text" class="validate" id="crREventVenue"
                                            ng-model="vm.details.venue" placeholder="Event Venue"/>
                                     <label for="crREventVenue" class="active"><b>Event Venue</b><i
@@ -515,13 +516,13 @@
                                     <select multiple ng-model="vm.selEmployees" id="cREmp"
                                             ng-options="employee.strEmpFirstName for employee in vm.employeeList">
                                     </select>
-                                    <label for="cREmp"><b>Employees</b></label>
+                                    <label for="cREmp"><b>Employee</b></label>
                                     <pre>{{vm.selEmployees.intEmpID | json}}</pre>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="stepreservation well">
+                    <div class="stepreservation well" ng-hide="vm.details.reservationType.id == 1">
                         <div class="row" ng-show="vm.details.reservationType.id != 2">
                         </div>
                         <div ng-show="vm.details.reservationType.id == 2">

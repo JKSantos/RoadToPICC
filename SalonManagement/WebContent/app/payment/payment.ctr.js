@@ -14,10 +14,23 @@
         }];
         vm.sortType = 'strName';
         vm.sortReverse = false;
+        vm.paymentSearch = '';
 
         vm.paymentList = [];
         vm.createPOPayment = createPOPayment;
         vm.paymentSubmit = paymentSubmit;
+        vm.dtInstanceCallback = dtInstanceCallback;
+        vm.searchTable = searchTable;
+
+        function dtInstanceCallback (dtInstance) {
+            var datatableObj = dtInstance.DataTable;
+            vm.tableInstance = datatableObj;
+        }
+
+        function searchTable () {
+            var query = vm.paymentSearch;
+            vm.tableInstance.search(query).draw();
+        }
 
         paymentFactory.getUnpaidPayments().then(function (data) {
             for (var i = 0; i < data.orderList.length; i++) {
@@ -28,16 +41,6 @@
             }
         });
 
-        vm.dtColumns = [
-            DTColumnBuilder.newColumn(0).withTitle('Customer Name'),
-            DTColumnBuilder.newColumn(1).withTitle('Transaction Name'),
-            DTColumnBuilder.newColumn(2).withTitle('Transaction Date'),
-            DTColumnBuilder.newColumn(3).withTitle('Transaction Type'),
-            DTColumnBuilder.newColumn(4).withTitle('Total Balance'),
-            DTColumnBuilder.newColumn(5).withTitle('Remaining Balance'),
-            DTColumnBuilder.newColumn(6).withTitle('Action'),
-        ];
-        vm.dtOptions = DTOptionsBuilder.newOptions()
 
         function createPOPayment(payment, index, type) {
             $('#paymentModal').openModal({

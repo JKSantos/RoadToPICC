@@ -26,12 +26,16 @@
 
         function selectCategoryInTable () {
             var sel = vm.selCategory;
-            vm.tableInstance.search(sel).draw();
+            vm.tableInstance.column(1).search(sel).draw();
         }
 
         function selectStatusInTable () {
             var sel = vm.selStatus;
-            vm.tableInstance.search(sel).draw();
+            if(sel == 'ACTIVE' || sel == 'INACTIVE'){
+                vm.tableInstance.column(4).search('^'+sel+'$', true).draw();
+            } else if (sel == '') {
+                vm.tableInstance.column(4).search(sel).draw();
+            }
         }
 
 

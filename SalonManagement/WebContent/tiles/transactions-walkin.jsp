@@ -120,14 +120,14 @@
                                     <div class="input-field col s12">
                                         <select ng-model="vm.selEmployee" id="cREmp"
                                                 ng-options="employee.strEmpFirstName for employee in vm.employeeList"></select>
-                                        <label for="cREmp"><b>Employees</b></label>
+                                        <label for="cREmp"><b>Employee</b></label>
                                     </div>
 
                                     <a class="waves-effect waves-light btn"
                                        ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
                                         <i class="material-icons left"
                                            style="padding: 0px !important; margin: 0px !important;">
-                                            shopping_basket</i>BUY NOW!
+                                            shopping_basket</i>GET SERVICE!
                                     </a>
                                 </div>
                             </div>
@@ -283,7 +283,7 @@
                         <div class="input-field col s12">
                             <select ng-model="vm.selEmployeePerService" id="cREmp1"
                                     ng-options="employee.strEmpFirstName for employee in vm.employeeList"></select>
-                            <label for="cREmp1"><b>Employees</b></label>
+                            <label for="cREmp1"><b>Employee</b></label>
                         </div>
                     </td>
                     <td>
@@ -323,7 +323,7 @@
                         <div class="input-field col s12">
                             <select ng-model="vm.selEmployeePerService" id="cREmp1"
                                     ng-options="employee.strEmpFirstName for employee in vm.employeeList"></select>
-                            <label for="cREmp1"><b>Employees</b></label>
+                            <label for="cREmp1"><b>Employee</b></label>
                         </div>
                     </td>
                     <td>

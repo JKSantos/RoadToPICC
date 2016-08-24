@@ -61,7 +61,10 @@
                     <tr ng-repeat="promo in vm.promoList">
                         <td class="left-align">{{ promo.strPromoName | uppercase }}</td>
                         <td class="right-align">{{ promo.dblPromoPrice | currency: "Php " }}</td>
-                        <td class="right-align" >{{ promo.strPromoAvailability | date: 'MM/dd/yyyy' }}</td>
+                        <td class="right-align" ng-if="promo.strPromoAvailability == 'NON-EXPIRY'">NON-EXPIRY</td>
+                        <td class="right-align" ng-if="promo.strPromoAvailability != 'NON-EXPIRY'">
+                            {{promo.strPromoAvailability}}
+                        </td>
                         <td class="center" ng-if="promo.intStatus == 0">INACTIVE</td>
                         <td class="center" ng-if="promo.intStatus == 1">ACTIVE</td>
                     </tr>

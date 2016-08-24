@@ -11,7 +11,6 @@
         var vm = this;
         vm.dtInstanceCallback = dtInstanceCallback;
         vm.searchTable = searchTable;
-        vm.selectCityInTable = selectCityInTable;
         vm.selectStatusInTable = selectStatusInTable;
         vm.queryExtraSearch = '';
         vm.status = [
@@ -29,14 +28,13 @@
             vm.tableInstance.search(query).draw();
         }
 
-        function selectCityInTable () {
-            var sel = vm.selCity;
-            vm.tableInstance.search(sel).draw();
-        }
-
         function selectStatusInTable () {
             var sel = vm.selStatus;
-            vm.tableInstance.search(sel).draw();
+            if(sel == 'ACTIVE' || sel == 'INACTIVE'){
+                vm.tableInstance.column(3).search('^'+sel+'$', true).draw();
+            } else if (sel == '') {
+                vm.tableInstance.column(3).search(sel).draw();
+            }
         }
 
         queryFactory.getPromo().then(function (data) {
