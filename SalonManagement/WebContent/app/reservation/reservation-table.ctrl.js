@@ -214,8 +214,8 @@
             var selectedExtra = "";
             var selectedDiscount = "";
             var selectedEmployeee = "";
-            for (var i = 0; i < vm.extraCharge.length; i++) {
-                selectedExtra += vm.extraCharge[i].intECID + ",";
+            for (var i = 0; i < vm.extraChargeList.length; i++) {
+                selectedExtra += vm.extraChargeList[i].intECID + ",";
             }
             for (var i = 0; i < vm.selDiscounts.length; i++) {
                 selectedDiscount += vm.selDiscounts[i].intDiscountID + ",";
@@ -231,7 +231,6 @@
 
 
         vm.saveReservation = function (details) {
-            console.log(vm.selEmployees.intEmpID);
             toString();
             var name = vm.details.name;
             var address = vm.details.address;

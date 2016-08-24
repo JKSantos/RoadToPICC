@@ -314,6 +314,7 @@
                                 if (data.result == "success") {
                                     SweetAlert.swal("Your order request was accepted!", ".", "success");
                                     $scope.requestOrder.splice(index, 1);
+                                    console.log($scope.requestOrderList);
                                     $scope.requestOrderList.push({
                                         strName: request.strName,
                                         strAddress: request.strAddress,

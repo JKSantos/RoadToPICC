@@ -18,7 +18,7 @@
                         <form>
                             <div class="input-field">
                                 <input id="psSearch" placeholder="Search" class="grey-text text-darken-4" type="search"
-                                       required/>
+                                       ng-model="searchProduct"/>
                                 <label for="psSearch"><i
                                         class="material-icons grey-text text-darken-4">search</i></label>
                             </div>
@@ -33,7 +33,7 @@
             </div>
 
             <div class="row ">
-                <div class="col s3" ng-repeat="product in productList">
+                <div class="col s3" ng-repeat="product in productList | toArray | filter: searchProduct">
                     <div class="card small">
                         <div class="card-image waves-effect waves-block waves-light">
                             <img class="activator" ng-src="{{product.strPhotoPath}}">
@@ -202,13 +202,15 @@
                                     <label for="crOrderName"><b>Name</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
-                                <div class="input-field col s6" id="crDivOrderSt">
+                                <div class="input-field col s6" id="crDivOrderSt"
+                                     ng-if="details.order.id == 2">
                                     <input type="text" name="strOrderStreet" id="crOrderStreet"
                                            ng-model="details.street"/>
                                     <label for="crOrderStreet"><b>Street</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
-                                <div class="input-field col s6" id="crDivOrderLoc">
+                                <div class="input-field col s6" id="crDivOrderLoc"
+                                     ng-if="details.order.id == 2">
                                     <select ng-options="location.strBarangay for location in locationList"
                                             ng-model="details.location" id="crOrderLoc">
                                     </select>
@@ -239,8 +241,6 @@
                 </button>
             </div>
         </form>
-
-        <pre>{{details | json}}</pre>
     </div>
 
     <div id="AcceptDeliveryModal" class="modal modal-fixed-footer"
