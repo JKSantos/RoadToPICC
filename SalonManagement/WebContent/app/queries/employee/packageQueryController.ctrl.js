@@ -39,7 +39,11 @@
 
         function selectStatusInTable () {
             var sel = vm.selStatus;
-            vm.tableInstance.search(sel).draw();
+            if(sel == 'ACTIVE' || sel == 'INACTIVE'){
+                vm.tableInstance.column(4).search('^'+sel+'$', true).draw();
+            } else if (sel == '') {
+                vm.tableInstance.column(4).search(sel).draw();
+            }
         }
 
         queryFactory.getPackage().then(function (data) {
