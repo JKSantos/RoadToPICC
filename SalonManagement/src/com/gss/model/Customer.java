@@ -3,16 +3,18 @@ package com.gss.model;
 public class Customer {
 	
 	private int intID;
+	private String strCustomerType;
+	private String strCompanyName;
 	private String strName;
 	private String strAddress;
 	private String strContactNo;
 	private String strEmail;
 	
-	
-	
-	public Customer(int intID, String strName, String strAddress, String strContactNo, String strEmail) {
+	public Customer(int intID, String strCustomerType, String strCompanyName, String strName, String strAddress, String strContactNo, String strEmail) {
 		super();
 		this.intID = intID;
+		this.strCustomerType = strCustomerType;
+		this.strCompanyName = strCompanyName;
 		this.strName = strName;
 		this.strAddress = strAddress;
 		this.strContactNo = strContactNo;
@@ -48,5 +50,21 @@ public class Customer {
 	}
 	public void setStrEmail(String strEmail) {
 		this.strEmail = strEmail;
+	}
+
+	public String getStrCustomerType() {
+		return strCustomerType;
+	}
+
+	public void setStrCustomerType(String strCustomerType) {
+		this.strCustomerType = strCustomerType;
+	}
+
+	public String getStrCompanyName() {
+		return strCompanyName;
+	}
+
+	public void setStrCompanyName(String strCompanyName) {
+		this.strCompanyName = strCompanyName;
 	}
 }

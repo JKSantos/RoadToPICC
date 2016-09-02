@@ -10,11 +10,11 @@ import com.gss.model.WalkIn;
 
 public interface PaymentRepository {
 	
-	public boolean createReservationPayment(Payment payment) throws SQLException;
+	public boolean createReservationPayment(Payment payment, String receipt) throws SQLException;
 	
-	public boolean createWalkInPayment(Payment payment) throws SQLException;
+	public boolean createWalkInPayment(Payment payment, String receipt) throws SQLException;
 	
-	public boolean createProductSalesPayment(Payment payment) throws SQLException;
+	public boolean createProductSalesPayment(Payment payment, String receipt) throws SQLException;
 	
 	public boolean refundPayment() throws SQLException;
 	

@@ -1,14 +1,12 @@
 package com.gss.actions.Payment;
 
-import java.sql.SQLException;
-import java.util.Date;
+import org.apache.commons.lang3.time.StopWatch;
 
-import com.gss.dao.PaymentJDBCRepositoryImpl;
 import com.gss.model.Payment;
-import com.gss.model.ProductSales;
 import com.gss.utilities.DateHelper;
+import com.gss.utilities.NumberGenerator;
 import com.gss.utilities.PriceFormatHelper;
-import com.gss.utilities.Receipt;
+import com.gss.utilities.ProductSalesReceiptThread;
 
 public class CreatePaymentAction {
 
@@ -24,22 +22,28 @@ public class CreatePaymentAction {
 	private String url = "none";
 	public String execute() throws Exception{
 		
-		String unconvertedDate = new DateHelper().convert(this.datDateOfPayment.split("/"));
-		Payment payment = new Payment(intPaymentID, intInvoiceID, strPaymentType, PriceFormatHelper.convertToDouble(dblPaymentAmount, "Php "),this.paymentType,DateHelper.parseDate(unconvertedDate));
+		long startTime = System.currentTimeMillis();
+
 		
-		boolean recorded = Payment.createPayment(paymentType, payment);
+		String unconvertedDate = new DateHelper().convert(this.datDateOfPayment.split("/"));
+		System.out.println(strPaymentType);
+		System.out.println(paymentType);
+		Payment payment = new Payment(intPaymentID, intInvoiceID, paymentType, PriceFormatHelper.convertToDouble(dblPaymentAmount, "Php "),this.paymentType,DateHelper.parseDate(unconvertedDate));
+		
+		this.url = "C:/Java/Receipts/" + NumberGenerator.localDateTime() + ".pdf";
+				
+		boolean recorded = Payment.createPayment(strPaymentType, payment, url);
+		
+		ProductSalesReceiptThread thread = new ProductSalesReceiptThread();
+		long stopTime = System.currentTimeMillis();
+	      long elapsedTime = stopTime - startTime;
+	      System.out.println(elapsedTime);
+		thread.createProductSalesReceipt(this.intInvoiceID, "JEFFREY SANTOS", this.datDateOfPayment, payment, url);
 		
 		if(recorded == true){
+			
 			result = "success";
-			
-			if(this.strPaymentType.equals("order")){
-				Receipt receipt = new Receipt();
-				
-				this.url = receipt.createProductSalesReceipt(new PaymentJDBCRepositoryImpl().getProductBySalesID(this.intInvoiceID), "JEFFREY SANTOS", this.datDateOfPayment, payment);
-			}
-			
 		}
-
 		
 		return result;
 	}

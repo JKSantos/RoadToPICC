@@ -10,7 +10,7 @@ import com.gss.model.WalkIn;
 public class WalkInServiceImpl implements WalkInService{
 
 	@Override
-	public boolean createWalkIn(WalkIn walkin) throws SQLException {
+	public int createWalkIn(WalkIn walkin) throws SQLException {
 
 		WalkInRepository repo = new WalkInJDBCRepository();
 		

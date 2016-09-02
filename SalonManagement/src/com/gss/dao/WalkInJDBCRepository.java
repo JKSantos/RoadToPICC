@@ -23,7 +23,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 	private Connection con = jdbc.getConnection();
 	
 	@Override
-	public boolean createWalkIn(WalkIn walkin) throws SQLException {
+	public int createWalkIn(WalkIn walkin) throws SQLException {
 		
 		String createWalkIn 				= "CALL createWalkIn(?, ?, ?)";
 		String createProductWalkIn 			= "CALL createProductWalkIn(?, ?, ?)";
@@ -36,11 +36,12 @@ public class WalkInJDBCRepository implements WalkInRepository{
 		String createPromoService			= "CALL createPackagePromoServiceWalkIn(?, ?, ?, ?)";
 		String createDiscount					= "CALL createInvoiceDiscount(?, ?);";
 		
+		int intWalkInID = 0;
+		int intInvoiceID = 0;
+		int intEmpAssignmentID = 0;
+		
 		try{
 			con.setAutoCommit(false);
-			int intWalkInID = 0;
-			int intInvoiceID = 0;
-			int intEmpAssignmentID = 0;
 			
 			//PreparedStatements and ResultSets
 			PreparedStatement insertWalkIn 			= con.prepareStatement(createWalkIn);
@@ -226,14 +227,14 @@ public class WalkInJDBCRepository implements WalkInRepository{
 			
 			con.commit();
 			con.close();
-			return true;
+			return intWalkInID;
 		}
 		catch(Exception e){
 			e.printStackTrace();
 			con.rollback();
 			con.close();
 			
-			return false;
+			return 0;
 		}
 	}
 

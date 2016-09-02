@@ -4,29 +4,22 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
+import com.gss.dao.PaymentJDBCRepositoryImpl;
 import com.gss.model.Payment;
 import com.gss.model.ProductSales;
 import com.gss.service.PaymentService;
 import com.gss.service.PaymentServiceImpl;
+import com.gss.utilities.ProductSalesReceiptThread;
 
 public class PayOrderTester {
 	
 	public static void main(String[] args) throws SQLException{
 		
-		Payment payment = new Payment(1, 66, "FULL PAYMENT", 500, null, new Date());
+		Payment payment = new Payment(1, 181, "order", 500, "FULL PAYMENT", new Date());
 		
-		System.out.println(Payment.createPayment("order", payment));
+		ProductSalesReceiptThread prod = new ProductSalesReceiptThread();
+		prod.createProductSalesReceipt(176, "JEFFREY SANTOS", "2016-02-23", payment, "C:/Java/sample.pdf");
 		
-		PaymentService service = new PaymentServiceImpl();
-
-		
-		
-		
-		List<ProductSales> unpaid = service.getAllUnpaidOrder();
-		
-		
-		
-		System.out.println(unpaid.size());
-		
+		prod.createProductSalesReceipt(176, "JEFFREY SANTOS", "2016-02-23", payment, "C:/Java/sample2.pdf");
 	}
 }

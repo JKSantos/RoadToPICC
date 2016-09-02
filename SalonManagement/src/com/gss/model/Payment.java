@@ -115,21 +115,20 @@ public class Payment {
 		return converted;
 	}
 	
-	public static boolean createPayment(String paymentType, Payment payment) throws SQLException{
+	public static boolean createPayment(String paymentType, Payment payment, String receipt) throws SQLException{
 		
 		PaymentService service = new PaymentServiceImpl();
 		
-		if(payment.getTransactionType().equalsIgnoreCase("reservation")){
-			return service.createReservationPayment(payment);
+		if(paymentType.equalsIgnoreCase("reservation")){
+			return service.createReservationPayment(payment, receipt);
 		}
-		else if(payment.getTransactionType().equals("walkin")){
-			return service.createWalkInPayment(payment);
+		else if(paymentType.equalsIgnoreCase("walkin")){
+			return service.createWalkInPayment(payment, receipt);
 		}
-		else if(payment.getTransactionType().equals("order"))
-			return service.createProductSalesPayment(payment);
+		else if(paymentType.equalsIgnoreCase("order"))
+			return service.createProductSalesPayment(payment, receipt);
 		
 		return false;
-		
 	}
 	
 	public static List<ProductSales> getAllUnpaidOrder() throws SQLException{

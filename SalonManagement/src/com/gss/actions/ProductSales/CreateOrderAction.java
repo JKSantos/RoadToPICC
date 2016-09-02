@@ -1,6 +1,5 @@
 package com.gss.actions.ProductSales;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +14,6 @@ import com.gss.service.ProductSalesServiceImpl;
 import com.gss.service.ProductService;
 import com.gss.service.ProductServiceImpl;
 import com.gss.utilities.DateHelper;
-import com.gss.utilities.ItemDecoder;
 import com.gss.utilities.PriceFormatHelper;
 import com.gss.utilities.ProductOrderConverter;
 import com.gss.utilities.QuantityHelper;
@@ -23,7 +21,7 @@ import com.gss.utilities.QuantityHelper;
 public class CreateOrderAction{
 	
 	private String strName;
-	private String strStreet;
+	private String strStreet = "";
 	private int intLocationID = 2;
 	private String strContactNo;
 	private String orderType;
@@ -31,6 +29,7 @@ public class CreateOrderAction{
 	private String productQuantity;
 	private String strTotalPrice;
 	private String status;
+	private int intCreatedID;
 	
 	public String execute() throws Exception{
 
@@ -39,7 +38,7 @@ public class CreateOrderAction{
 		List<ExtraCharge> extraCharges = new ArrayList<ExtraCharge>();
 		List<Discount> discounts = new ArrayList<Discount>();
 		
-		Invoice invoice = Invoice.createNullInvoice(extraCharges, discounts, PriceFormatHelper.convertToDouble(this.strTotalPrice, "Php "));
+		Invoice invoice = Invoice.createNullInvoice(extraCharges, discounts, PriceFormatHelper.convertToDouble(this.strTotalPrice, "Php "), "FULL");
 		
 		if(orderType.equals("delivery")){
 			type = 1;
@@ -47,7 +46,6 @@ public class CreateOrderAction{
 			type = 2;
 		}
 		
-		ItemDecoder decoder = new ItemDecoder();
 		List<ProductOrder> productList;
 		ProductSalesService salesService = new ProductSalesServiceImpl();
 		
@@ -61,8 +59,11 @@ public class CreateOrderAction{
 		
 		ProductSales sales = new ProductSales(1, DateHelper.parseDate("2016-03-04"),DateHelper.parseDate("2016-03-04"), type, strName, strStreet, intLocationID, strContactNo, productList, invoice, "REQUEST");
 
-		if(salesService.createProductSales(sales) == true){
+		int result = salesService.createProductSales(sales);
+		
+		if(result != 0){
 			this.status = "success";
+			this.intCreatedID = result; 
 			return this.status;
 		}
 		else{
@@ -113,6 +114,10 @@ public class CreateOrderAction{
 
 	public void setStrTotalPrice(String strTotalPrice) {
 		this.strTotalPrice = strTotalPrice;
+	}
+	
+	public int getIntCreatedID(){
+		return this.intCreatedID;
 	}
 	
 }

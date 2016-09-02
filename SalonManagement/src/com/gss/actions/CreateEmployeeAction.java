@@ -9,6 +9,7 @@ import com.gss.model.Employee;
 import com.gss.model.Job;
 import com.gss.service.EmployeeServiceImpl;
 import com.gss.utilities.DateHelper;
+import com.gss.utilities.DefaultImage;
 import com.gss.utilities.JobQualificationHelper;
 import com.gss.utilities.NotifyCustomerViaSMS;
 import com.gss.utilities.SendMail;
@@ -79,20 +80,23 @@ public class CreateEmployeeAction {
 		this.username = strUser;
 		this.password = strPass;
 		this.datEmpBirthdate = DateHelper.parseDate(strBirthdate);
-			
-		emp = new Employee(1, strEmpLastName.trim().toUpperCase(), strEmpFirstName.trim().toUpperCase(), strEmpMiddleName.trim().toUpperCase(), datEmpBirthdate, strEmpGender, strEmpAddress.trim().toUpperCase(), strEmpContactNo, strEmpEmail, "A", strUser, strPass, file.getAbsolutePath(), null, selectedJob, access);
-		empService = new EmployeeServiceImpl();
-
+		
+		try{
+			emp = new Employee(1, strEmpLastName.trim().toUpperCase(), strEmpFirstName.trim().toUpperCase(), strEmpMiddleName.trim().toUpperCase(), datEmpBirthdate, strEmpGender, strEmpAddress.trim().toUpperCase(), strEmpContactNo, strEmpEmail, "A", strUser, strPass, file.getAbsolutePath(), null, selectedJob, access);
+			empService = new EmployeeServiceImpl();
+		}catch(NullPointerException e){
+			emp = new Employee(1, strEmpLastName.trim().toUpperCase(), strEmpFirstName.trim().toUpperCase(), strEmpMiddleName.trim().toUpperCase(), datEmpBirthdate, strEmpGender, strEmpAddress.trim().toUpperCase(), strEmpContactNo, strEmpEmail, "A", strUser, strPass, "images/fb.jpg", null, selectedJob, access);
+			empService = new EmployeeServiceImpl();
+		}
+		
 		if(empService.create(emp) == true)
 		{	
-			System.out.print("success");
 			mail.sendEmail(this.strEmpEmail, strUser, strPass);
 			sms.sendSMS(getMessage(), this.strEmpContactNo);
 			return "success";
 		}
 		else
 		{	
-			System.out.print("failed");
 			return "failed";
 		}
 	}

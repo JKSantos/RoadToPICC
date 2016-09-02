@@ -30,7 +30,7 @@ public class GetReservationSalesReport {
 		
 		System.out.println(dateFrom + " ..  " + dateTo);
 
-		this.reservation = ReportsRepository.getReservationSales(dateFrom, dateTo);
+		this.reservation = ReportsRepository.getReservationSales(dateFrom, dateTo);	
 		this.reservationTotal = ReportsRepository.getReservationTotalSales(dateFrom, dateTo);
 		this.orderSales = ReportsRepository.getProductOrderSales(dateFrom, dateTo);
 		this.orderTotalSales = ReportsRepository.getProductOrderTotalSales(dateFrom, dateTo);

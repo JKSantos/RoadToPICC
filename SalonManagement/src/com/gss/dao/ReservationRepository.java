@@ -15,7 +15,7 @@ public interface ReservationRepository {
 	
 	public List<Reservation> getAllReservation();
 	
-	public boolean createReservation(Reservation reservation) throws SQLException;
+	public int createReservation(Reservation reservation) throws SQLException;
 	
 	public boolean updateReservation(Reservation reservation) throws SQLException;
 	

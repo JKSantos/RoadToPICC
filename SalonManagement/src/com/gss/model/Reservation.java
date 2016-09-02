@@ -21,15 +21,17 @@ public class Reservation {
 	private Time timFrom;
 	private Time timTo;
 	private String strVenue;
+	private int intLocation;
 	private int headCount;
 	private List<EmployeeAssigned> employeeAssigned;
 	private Invoice invoice;
 	private String strStatus;
+	private String strContract;
 	
 	public Reservation(int intReservationID, Customer customer, ReservationInclusion includedItems,
 			int intReservationType, Date dateCreated, Date datFrom, Date datTo, Time timFrom, Time timTo,
-			String strVenue, int headCount, List<EmployeeAssigned> employeeAssigned, Invoice invoice,
-			String strStatus) {
+			String strVenue, int intLocation, int headCount, List<EmployeeAssigned> employeeAssigned, Invoice invoice,
+			String strStatus, String strContract) {
 		super();
 		this.intReservationID = intReservationID;
 		this.customer = customer;
@@ -41,10 +43,12 @@ public class Reservation {
 		this.timFrom = timFrom;
 		this.timTo = timTo;
 		this.strVenue = strVenue;
+		this.intLocation = intLocation;
 		this.headCount = headCount;
 		this.employeeAssigned = employeeAssigned;
 		this.invoice = invoice;
 		this.strStatus = strStatus;
+		this.strContract = strContract;
 	}
 	public int getIntReservationID() {
 		return intReservationID;
@@ -140,11 +144,17 @@ public class Reservation {
 		
 		return service.getAllReservationNoDetails();
 	}
-	public static boolean createReservation(Reservation reservation) throws SQLException{
+	public static int createReservation(Reservation reservation) throws SQLException{
 		
 		ReservationService service = new ReservationServiceImpl();
 		
 		return service.createReservation(reservation);
+	}
+	public static boolean updateReservation(Reservation reservation) throws SQLException{
+		
+		ReservationService service = new ReservationServiceImpl();
+		
+		return service.updateReservation(reservation);
 	}
 	
 	public static Reservation search(int intInvoiceID, List<Reservation> reservationList){
@@ -167,8 +177,20 @@ public class Reservation {
 	
 	public static String toString(int type){
 		if(type == 1)
-			return "Home Service";
+			return "HOME SERVICE";
 		else
-			return "Event";
+			return "EVENT";
+	}
+	public int getIntLocation() {
+		return intLocation;
+	}
+	public void setIntLocation(int intLocation) {
+		this.intLocation = intLocation;
+	}
+	public String getStrContract() {
+		return strContract;
+	}
+	public void setStrContract(String strContract) {
+		this.strContract = strContract;
 	}
 }

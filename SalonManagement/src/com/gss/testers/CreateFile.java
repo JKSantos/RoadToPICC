@@ -6,30 +6,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
+import com.gss.utilities.DefaultImage;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Image;
 
 public class CreateFile {
 	
-	public static Image getImage() throws FileNotFoundException{
+	public static void main(String[] args) throws FileNotFoundException{
 		
-		try {
-			Image logo = Image.getInstance("resource/Company/Company_Logo.jpg");
-			
-			System.out.println("gotcha");
-			return logo;
-		} catch (BadElementException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return null;
+		File file = new File("images/fb.jpg");
 	}
 	
 }

@@ -36,6 +36,7 @@ public class UpdateIndividualWalkIn {
 	private String strTotalPrice;
 	private String discounts = "";
 	private String extraCharges = "";
+
 	
 	public String execute() throws Exception{
 		
@@ -139,11 +140,12 @@ public class UpdateIndividualWalkIn {
 			}
 		}
 
-		Invoice invoice = Invoice.createNullInvoice(extraChargeList, discountList, PriceFormatHelper.convertToDouble(this.strTotalPrice, "Php "));
+		Invoice invoice = Invoice.createNullInvoice(extraChargeList, discountList, PriceFormatHelper.convertToDouble(this.strTotalPrice, "Php "), "FULL");
 		
-		WalkIn walkin = new WalkIn(1, "INDIVIDUAL", this.strName, this.strContactNo, new Date(), serviceList, productList, packageList, promoList, invoice, null, "PENDING", "UNPAID");
+		WalkIn walkin = new WalkIn(intWalkInID, "INDIVIDUAL", this.strName, this.strContactNo, new Date(), serviceList, productList, packageList, promoList, invoice, null, "PENDING", "UNPAID");
 	
-		if(service.createWalkIn(walkin) == false){
+		
+		if(service.updateWalkIn(walkin) == false){
 			return "failed";
 		}
 		else{

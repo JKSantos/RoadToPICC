@@ -13,25 +13,25 @@ import com.gss.model.WalkIn;
 public class PaymentServiceImpl implements PaymentService{
 
 	@Override
-	public boolean createReservationPayment(Payment payment) throws SQLException {
+	public boolean createReservationPayment(Payment payment, String receipt) throws SQLException {
 		
 		PaymentRepository repo = new PaymentJDBCRepositoryImpl();
 		
-		return repo.createReservationPayment(payment);
+		return repo.createReservationPayment(payment, receipt);
 	}
 
 	@Override
-	public boolean createWalkInPayment(Payment payment) throws SQLException {
+	public boolean createWalkInPayment(Payment payment, String receipt) throws SQLException {
 		PaymentRepository repo = new PaymentJDBCRepositoryImpl();
 		
-		return repo.createWalkInPayment(payment);
+		return repo.createWalkInPayment(payment, receipt);
 	}
 
 	@Override
-	public boolean createProductSalesPayment(Payment payment) throws SQLException {
+	public boolean createProductSalesPayment(Payment payment, String receipt) throws SQLException {
 		PaymentRepository repo = new PaymentJDBCRepositoryImpl();
 	
-		return repo.createProductSalesPayment(payment);
+		return repo.createProductSalesPayment(payment, receipt);
 	}
 
 	@Override

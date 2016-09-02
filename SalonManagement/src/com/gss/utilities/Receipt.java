@@ -47,19 +47,14 @@ public class Receipt {
 	private String orNum;
 	private String destination;
 	
-	public String createProductSalesReceipt(ProductSales productSales, String cashier, String date, Payment payment) throws IOException, NullPointerException, DocumentException{
+	public String createProductSalesReceipt(ProductSales productSales, String cashier, String date, Payment payment, String path) throws IOException, NullPointerException, DocumentException{
 		
     	this.cashier = cashier;
     	this.payment = payment;
     	this.sales = productSales;
     	
     	this.orNum = NumberGenerator.localDateTime();
- 
-    	
-    	String fileName = this.sales.getStrName().replaceAll(" ", "_") + orNum;
-//    	this.destination = "resource/Receipts/" + "receipt" + ".pdf";
-    	this.destination = "C:/Java/Receipts/" + NumberGenerator.localDateTime() + ".pdf";
-    	
+    	this.destination = path;
     	Document document = createDocument();
         document.open();
 
@@ -77,7 +72,7 @@ public class Receipt {
         document.add(getReceiptFooter());
         document.add(getTaxList());
         
-        document.add(new Phrase("CustomerName:"+ sales.getStrName() + "\n", getFont()));
+        document.add(new Phrase("Customer Name:"+ sales.getStrName() + "\n", getFont()));
         document.add(new Phrase("Address:" + sales.getStrAddress() + "\n", getFont()));
         document.add(new Phrase("Contact No:" + sales.getStrContactNo() + "\n\n\n", getFont()));
         
@@ -119,7 +114,7 @@ public class Receipt {
     	int day = cal.get(Calendar.DAY_OF_MONTH);
     	int year = cal.get(Calendar.YEAR);
     	
-    	PdfPCell dateCell = new PdfPCell(new Phrase("Date:" + month + "-" + day + "-" + year + "\n", getFont()));
+    	PdfPCell dateCell = new PdfPCell(new Phrase("Date:" + (month + 1) + "-" + day + "-" + year + "\n", getFont()));
     	PdfPCell ORCell = new PdfPCell(new Phrase("Trans #:" + this.orNum, getFont()));
     	PdfPCell cashierCell = new PdfPCell(new Phrase("Cashier:" + this.cashier + "\n", getFont()));
     	
@@ -296,7 +291,11 @@ public class Receipt {
     	double totalAmount = this.sales.getInvoice().getDblTotalPrice();
     	double change = paymentAmount - totalAmount;
     	
-    	int count = this.sales.getProductList().size();
+    	int count = 0;
+    	
+    	for(int i = 0; i < this.sales.getProductList().size(); i++){
+    		count += this.sales.getProductList().get(i).getIntQuantity();
+    	}
     	
     	PdfPCell cellHeader = new PdfPCell(new Phrase("-----------------------"+ count +" ITEMS---------------------", getFont()));
     	PdfPCell totalLabel = new PdfPCell(new Phrase("TOTAL", getBiggerFont(11)));
