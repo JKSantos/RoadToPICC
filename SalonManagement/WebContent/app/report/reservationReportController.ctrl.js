@@ -6,7 +6,10 @@
 
     function reservationReportController($scope, $filter, SweetAlert, DTOptionsBuilder, DTColumnDefBuilder, DTDefaultOptions, reportsFactory) {
         var vm = this;
-        chartsInit();
+        var reserve;
+        var walk;
+        var prod;
+        
         vm.reportList = [];
         vm.tagSum = [];
         vm.names = [];
@@ -18,7 +21,15 @@
         vm.filter = [];
         vm.filter.datFrom = '';
         vm.filter.datTo = '';
-        vm.customerList = [];
+        vm.reservationList = [];
+        vm.productOrderList = [];
+        vm.walkinList = [];
+        vm.data = [];
+        
+        vm.reservationTotal = '';
+        vm.orderTotal = '';
+        vm.walkinTotal = '';
+        vm.asdf = '';
         
         vm.currentTime = new Date();
         vm.month = ['Januar', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -91,12 +102,40 @@
         
         function getData(data){
         	//vm.customerList = [];
-        	vm.customerList = data.reservation;
-        	console.log(vm.customerList);
+        	vm.reservationList = data.reservation;
+        	vm.walkinList = data.walkinSales;
+        	vm.productOrderList = data.orderSales;
+        	
+        	 var reservationTotal = data.reservationTotal[0].dblPrice;
+        	 var orderTotal = data.orderTotalSales[0].dblPrice;
+        	 var walkinTotal = data.walkinTotal[0].dblPrice;
+        	 
+        	 vm.reservationTotal = reservationTotal;
+        	 vm.orderTotal = orderTotal;
+        	 vm.walkinTotal = walkinTotal;
+        	 
+        	 vm.returnReserve(reservationTotal);
+        	
+        	reserve = vm.reservationList.length;
+        	walk = vm.walkinList.length;
+        	prod = vm.productOrderList.length;
+        	chartsInit(reserve, prod, walk);
+        	
+        	
+        	console.log(vm.reservationTotal);
+        
         };
+        
+        vm.returnReserve = function(total){
+        //	vm.asdf = 0;
+        	vm.asdf = total;
+        	console.log(vm.asdf);
+        	return total;
+        	
+        }
       
         
-        function chartsInit(names, quantity, consumed, defective, expired, lost){
+        function chartsInit(reserve, prod, walk){
         	
         	$(function () {
 
@@ -130,25 +169,16 @@
         	                name: 'Brands',
         	                colorByPoint: true,
         	                data: [{
-        	                    name: 'Microsoft Internet Explorer',
-        	                    y: 56.33
+        	                    name: 'Walk In',
+        	                    y: walk
         	                }, {
-        	                    name: 'Chrome',
-        	                    y: 24.03,
+        	                    name: 'Reservation',
+        	                    y: reserve,
         	                    sliced: true,
         	                    selected: true
         	                }, {
-        	                    name: 'Firefox',
-        	                    y: 10.38
-        	                }, {
-        	                    name: 'Safari',
-        	                    y: 4.77
-        	                }, {
-        	                    name: 'Opera',
-        	                    y: 0.91
-        	                }, {
-        	                    name: 'Proprietary or Undetectable',
-        	                    y: 0.2
+        	                    name: 'Order Sales',
+        	                    y: prod 
         	                }]
         	            }]
         	        });

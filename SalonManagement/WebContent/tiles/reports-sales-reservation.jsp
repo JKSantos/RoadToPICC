@@ -9,15 +9,23 @@
             <!--<a class="btnshadow hoverable z-depth-1 waves-effect waves-light modal-trigger btn-flat purple darken-2 left white-text"-->
         <div class="row">
         	<div class="col s12"><a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
-               href="#reservationListModal" ng-click = "vm.getData()"><i
-                    class="material-icons">list</i></a></div>
+               href="#reservationListModal" ng-click = "vm.getData()" style="margin-right: 10px"><i
+                    class="material-icons">card_travel</i></a>
+                    
+                    <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
+               href="#orderListModal" ng-click = "vm.getData()" style="margin-right: 10px"><i
+                    class="material-icons">shopping_cart</i></a>
+                    
+                    <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
+               href="#walkinListModal" ng-click = "vm.getData()"><i
+                    class="material-icons">exit_to_app</i></a></div>
         	<div class="col s6">
 	          <div class="card darken-1">
 	            <div class="card-content black-text">
-	             <h2 class="thin purple-text text-darken-2">Products Summary:</h2>
-	             <h4 class="light">Total product loss: <span class="thin">30%</span></h4>
-	             <h4 class="light">Total product defect: <span class="thin">70%</span></h4>
-	             <h4 class="light">Total product expired: <span class="thin">30%</span></h4>
+	             <h2 class="thin purple-text text-darken-2">Sales Summary:</h2>
+	             <h4 class="light">Total Reservation sales: {{vm.reservationTotal}}</h4>
+	             <h4 class="light">Total Order Sales: {{vm.orderTotal}}</h4>
+	             <h4 class="light">Total Walkin Sales: <span class="thin">{{vm.walkinTotal}}</span></h4>
 	            </div>
 	           
 	          </div>
@@ -137,7 +145,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="customer in vm.customerList">
+                <tr ng-repeat="customer in vm.reservationList">
                     <td class="left-align">{{customer.strName}}</td>
                     <td class="left-align">{{customer.intReservationType }}</td>
                     <td class="right-align">{{customer.dtmDateTimeCreaetd | date: "MMMM/d/yyyy" }}</td>
@@ -183,6 +191,137 @@
             </table>
         </div>
     </div>
+    
+    <div id="orderListModal" class="modal"style = "width: 70% !important; height: 80% !important; border-radius: 10px">
+        <div class="modal-content">
+         	<a href="#!" class=" modal-action modal-close waves-effect waves-purple btn-flat right"><i
+                    class="material-icons red-text" style="font-size: 30px ">highlight_off</i></a>
+            <h3 class="purple-text text-darken-3 thin">Order List</h3>
+            <table id=""
+                   class="hoverable z-depth-1 cell-border row-border display responsive-table highlight"
+                 
+                   style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;" rowspan="10">
+                <thead>
+                <tr>
+                    <th class="left-align">Customer Name</th>
+                    <th class="left-align">Customer ID</th>
+                    <th class="left-align">Date Created</th>
+                    <th align="center-align">Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="customer in vm.productOrderList">
+                    <td class="left-align">{{customer.strName}}</td>
+                    <td class="left-align">{{customer.intOrderID }}</td>
+                    <td class="right-align">{{customer.date | date: "MMMM/d/yyyy" }}</td>
+                    <td class="left-align">{{customer.dblAmount}}</td>
+                    <td align="center-align">
+                        <button class="waves-effect waves-purple btn-flat transparent red-text text-accent-4"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Cancel"
+                                ng-if="customer.intReservationType == 1"
+                                ng-click="cancelHomeService(customer, $index)">
+                            <i class='material-icons'>exit</i>
+                        </button>
+                        <button class="waves-effect waves-purple btn-flat transparent grey-text text-darken-4"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Accept"
+                                ng-if="customer.intReservationType == 1"
+                                ng-click="acceptHomeService(customer, $index)">
+                            <i class='material-icons'>done</i>
+                        </button>
+                        <button class="btn-flat transparent red-text text-lighten-4"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;"
+                                ng-if="customer.intReservationType == 2"
+                                ng-disabled=true>
+                            <i class='material-icons'>exit</i>
+                        </button>
+                        <button class="btn-flat transparent grey-text text-lighten-3"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;"
+                                ng-if="customer.intReservationType == 2"
+                                ng-disabled=true>
+                            <i class='material-icons'>done</i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot style="border: 1px solid #bdbdbd;">
+                <tr>
+                    <th class="left-align">Customer Name</th>
+                    <th class="left-align">Customer Type</th>
+                    <th class="left-align">Date Created</th>
+                    <th align="center-align">Amount</th>
+                </tr>
+                </tfoot>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div id="walkinListModal" class="modal"style = "width: 70% !important; height: 80% !important; border-radius: 10px">
+        <div class="modal-content">
+         	<a href="#!" class=" modal-action modal-close waves-effect waves-purple btn-flat right"><i
+                    class="material-icons red-text" style="font-size: 30px ">highlight_off</i></a>
+            <h3 class="purple-text text-darken-3 thin">Walk In List</h3>
+            <table id=""
+                   class="hoverable z-depth-1 cell-border row-border display responsive-table highlight"
+                 
+                   style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;" rowspan="10">
+                <thead>
+                <tr>
+                    <th class="left-align">Customer Name</th>
+                    <th class="left-align">Customer Type</th>
+                    <th class="left-align">Date Created</th>
+                    <th align="center-align">Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="customer in vm.walkinList">
+                    <td class="left-align">{{customer.strName}}</td>
+                    <td class="left-align">{{customer.intReservationType }}</td>
+                    <td class="right-align">{{customer.dtmDateTimeCreaetd | date: "MMMM/d/yyyy" }}</td>
+                    <td class="left-align">{{customer.dblInvoiceAmount}}</td>
+                    <td align="center-align">
+                        <button class="waves-effect waves-purple btn-flat transparent red-text text-accent-4"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Cancel"
+                                ng-if="customer.intReservationType == 1"
+                                ng-click="cancelHomeService(customer, $index)">
+                            <i class='material-icons'>exit</i>
+                        </button>
+                        <button class="waves-effect waves-purple btn-flat transparent grey-text text-darken-4"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Accept"
+                                ng-if="customer.intReservationType == 1"
+                                ng-click="acceptHomeService(customer, $index)">
+                            <i class='material-icons'>done</i>
+                        </button>
+                        <button class="btn-flat transparent red-text text-lighten-4"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;"
+                                ng-if="customer.intReservationType == 2"
+                                ng-disabled=true>
+                            <i class='material-icons'>exit</i>
+                        </button>
+                        <button class="btn-flat transparent grey-text text-lighten-3"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;"
+                                ng-if="customer.intReservationType == 2"
+                                ng-disabled=true>
+                            <i class='material-icons'>done</i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot style="border: 1px solid #bdbdbd;">
+                <tr>
+                    <th class="left-align">Customer Name</th>
+                    <th class="left-align">Customer Type</th>
+                    <th class="left-align">Date Created</th>
+                    <th align="center-align">Amount</th>
+                </tr>
+                </tfoot>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
         </div>
     </div>
 
