@@ -34,7 +34,10 @@
 </head>
 
 <body class="purple lighten-5 demo" ng-app="app">
-<div class="wrapper">
+<div class="wrapper hide-on-large-only">
+    <h1 class="grey-text text-darken-4">Download our application for Mobile and Table!</h1>
+</div>
+<div class="wrapper hide-on-med-and-down">
     <header class="headnav">
         <ul id="slide-out" class="side-nav fixed z-depth-0" style="background-color: #262626 !important;">
             <li class="user-details" style="height: 64px !important; background-color: #0d0d0d !important;">

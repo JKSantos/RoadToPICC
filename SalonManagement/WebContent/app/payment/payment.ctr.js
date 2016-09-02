@@ -33,8 +33,8 @@
         }
 
         paymentFactory.getUnpaidPayments().then(function (data) {
-            for (var i = 0; i < data.orderList.length; i++) {
-                vm.paymentList.push(data.orderList[i]);
+            for (var x = 0; x < data.orderList.length; x++) {
+                vm.paymentList.push(data.orderList[x]);
             }
             for (var i = 0; i < data.reservationList.length; i++) {
                 vm.paymentList.push(data.reservationList[i]);

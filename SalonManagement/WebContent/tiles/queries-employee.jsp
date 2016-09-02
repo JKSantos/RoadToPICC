@@ -94,9 +94,9 @@
                                 {{pos.strJobDesc}}
                             </div>
                         </td>
-                        <td class="right-align">{{ employee.strEmpContactNo }}</td>
+                        <td class="right-align" style="width: 150px !important;">{{ employee.strEmpContactNo }}</td>
                         <td class="left-align" style="width: 100px !important;">{{ employee.strEmpEmail }}</td>
-                        <td class="left-align">{{ employee.strEmpAddress }}</td>
+                        <td class="left-align" style="width: 80px !important;">{{ employee.strEmpAddress }}</td>
                         <td class="left-align"
                             ng-if="employee.strEmpStatus == 'I'">
                             {{employee.strEmpStatus}}NACTIVE
