@@ -13,6 +13,7 @@
             <nav class="right white hoverable  z-depth-1" style="width: 300px; margin-right: 20px;">
                 <div class="nav-wrapper col s4">
                     <form>
+                    
                         <div class="input-field">
                             <input id="inventorySearch" placeholder="Search" class="grey-text text-darken-4"
                                    type="search">
@@ -217,7 +218,7 @@
                         <div class="row">
 
                             <!-- ///// IMPORTANT CODES /////////  DO NOT EDIT /////////////////////////////////////////////////////////-->
-                            <input type="hiden" name="intProductID" value="${product.intProductID}">
+                            <input type="hidden" name="intProductID" value="${product.intProductID}">
                             <input type="hidden" name="intType" value="1">
                             <!--///////////////////////////////////////////////////////////////////////////////////////////////////////-->
                             <div class="input-field col s8 offset-s2" style="margin-top: 5%;">

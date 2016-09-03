@@ -8,7 +8,7 @@ import com.gss.model.ProductSales;
 
 public interface ProductSalesService {
 	
-public boolean createProductSales(ProductSales sales) throws SQLException;
+	public int createProductSales(ProductSales sales) throws SQLException;
 	
 	public boolean updateProductSales(ProductSales Sales) throws SQLException;
 	

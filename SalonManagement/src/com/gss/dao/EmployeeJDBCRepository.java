@@ -40,6 +40,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 	private byte[] bytActualImage;
 	private Blob imageBlob;
 	private boolean access;
+	private String strJobStatus;
 	
 	@Override
 	public List<Employee> getAllEmployee() {
@@ -82,6 +83,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 				
 				blobEmpPhoto = "Empty";
 				imageBlob = set.getBlob(13);
+				strJobStatus = set.getString(15);
 				
 				int blobLength = (int) imageBlob.length();  
 				byte[] blobAsBytes = imageBlob.getBytes(1, blobLength);
@@ -99,7 +101,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 					jobs.add(job);
 				}
 				
-				Employee emp = new Employee(intEmpID, strEmpLastName, strEmpFirstName, strEmpMiddleName, datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, strEmpStatus, strEmpUsername, strEmpPassword, blobEmpPhoto, blobAsBytes, jobs, access);
+				Employee emp = new Employee(intEmpID, strEmpLastName, strEmpFirstName, strEmpMiddleName, datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, strEmpStatus, strEmpUsername, strEmpPassword, blobEmpPhoto, blobAsBytes, jobs, access, strJobStatus);
 				
 				empList.add(emp);
 			
@@ -165,6 +167,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 				blobEmpPhoto = "Empty";
 				imageBlob = set.getBlob(13);
 				access = set.getBoolean(14);
+				strJobStatus = set.getString(15);
 				System.out.println(access);
 				
 				int blobLength = (int) imageBlob.length();  
@@ -183,7 +186,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 					jobs.add(job);
 				}
 				
-				emp = new Employee(intEmpID, strEmpLastName, strEmpFirstName, strEmpMiddleName, datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, strEmpStatus, strEmpUsername, strEmpPassword, blobEmpPhoto, blobAsBytes, jobs, access);
+				emp = new Employee(intEmpID, strEmpLastName, strEmpFirstName, strEmpMiddleName, datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, strEmpStatus, strEmpUsername, strEmpPassword, blobEmpPhoto, blobAsBytes, jobs, access, strJobStatus);
 
 			}
 			
@@ -246,6 +249,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 				
 				blobEmpPhoto = "Empty";
 				imageBlob = employeeResult.getBlob(13);
+				strJobStatus = employeeResult.getString(15);
 				
 				int blobLength = (int) imageBlob.length();  
 				byte[] blobAsBytes = null;
@@ -261,7 +265,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 					jobs.add(job);
 				}
 				
-				employee = new Employee(intEmpID, strEmpLastName, strEmpFirstName, strEmpMiddleName, datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, strEmpStatus, strEmpUsername, strEmpPassword, blobEmpPhoto, blobAsBytes, jobs, access);
+				employee = new Employee(intEmpID, strEmpLastName, strEmpFirstName, strEmpMiddleName, datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, strEmpStatus, strEmpUsername, strEmpPassword, blobEmpPhoto, blobAsBytes, jobs, access, strJobStatus);
 				
 			}
 			
@@ -547,6 +551,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 				
 				blobEmpPhoto = "Empty";
 				imageBlob = set.getBlob(13);
+				strJobStatus = set.getString(15);
 				
 				int blobLength = (int) imageBlob.length();  
 				byte[] blobAsBytes = null;
@@ -564,7 +569,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 					jobs.add(job);
 				}
 				
-				Employee emp = new Employee(intEmpID, strEmpLastName, strEmpFirstName, strEmpMiddleName, datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, strEmpStatus, strEmpUsername, strEmpPassword, blobEmpPhoto, blobAsBytes, jobs, access);
+				Employee emp = new Employee(intEmpID, strEmpLastName, strEmpFirstName, strEmpMiddleName, datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, strEmpStatus, strEmpUsername, strEmpPassword, blobEmpPhoto, blobAsBytes, jobs, access, strJobStatus);
 				
 				empList.add(emp);
 			}
@@ -623,6 +628,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 				
 				blobEmpPhoto = "Empty";
 				imageBlob = set.getBlob(13);
+				strJobStatus = set.getString(15);
 				
 				int blobLength = (int) imageBlob.length();  
 				byte[] blobAsBytes = null;
@@ -640,7 +646,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 					jobs.add(job);
 				}
 				
-				Employee emp = new Employee(intEmpID, strEmpLastName, strEmpFirstName, strEmpMiddleName, datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, strEmpStatus, strEmpUsername, strEmpPassword, blobEmpPhoto, blobAsBytes, jobs, access);
+				Employee emp = new Employee(intEmpID, strEmpLastName, strEmpFirstName, strEmpMiddleName, datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, strEmpStatus, strEmpUsername, strEmpPassword, blobEmpPhoto, blobAsBytes, jobs, access, strJobStatus);
 				
 				empList.add(emp);
 			}

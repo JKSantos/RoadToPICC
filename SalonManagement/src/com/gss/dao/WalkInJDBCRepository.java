@@ -23,7 +23,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 	private Connection con = jdbc.getConnection();
 	
 	@Override
-	public boolean createWalkIn(WalkIn walkin) throws SQLException {
+	public int createWalkIn(WalkIn walkin) throws SQLException {
 		
 		String createWalkIn 				= "CALL createWalkIn(?, ?, ?)";
 		String createProductWalkIn 			= "CALL createProductWalkIn(?, ?, ?)";
@@ -36,11 +36,13 @@ public class WalkInJDBCRepository implements WalkInRepository{
 		String createPromoService			= "CALL createPackagePromoServiceWalkIn(?, ?, ?, ?)";
 		String createDiscount					= "CALL createInvoiceDiscount(?, ?);";
 		
+		int intWalkInID = 0;
+		int intInvoiceID = 0;
+		int intEmpAssignmentID = 0;
+		int insertedEmployeeAssignmentFlag = 0;
+		
 		try{
 			con.setAutoCommit(false);
-			int intWalkInID = 0;
-			int intInvoiceID = 0;
-			int intEmpAssignmentID = 0;
 			
 			//PreparedStatements and ResultSets
 			PreparedStatement insertWalkIn 			= con.prepareStatement(createWalkIn);
@@ -165,7 +167,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 					PackageWalkIn packagee = promo.getPackages().get(intCtrInner);
 					
 					insertEmpAssignmentResult = insertEmpAssignment.executeQuery();
-					
+					insertedEmployeeAssignmentFlag++;
 					//parsing inserted Employee Assignment ID
 					while(insertEmpAssignmentResult.next()){
 						intEmpAssignmentID = insertEmpAssignmentResult.getInt(1);
@@ -217,23 +219,29 @@ public class WalkInJDBCRepository implements WalkInRepository{
 			}
 			
 			insertPromo.close();
-			walkInID.close();
+			
+			if(walkin.getPromo().size() > 0)
+				walkInID.close();
+			
 			insertPromoPackage.close();
 			insertDetail.close();
 			insertServicePromo.close();
-			insertEmpAssignmentResult.close();
+			
+			if(insertedEmployeeAssignmentFlag > 0)
+				insertEmpAssignmentResult.close();
+			
 			insertPackage.close();
 			
 			con.commit();
 			con.close();
-			return true;
+			return intWalkInID;
 		}
 		catch(Exception e){
 			e.printStackTrace();
 			con.rollback();
 			con.close();
 			
-			return false;
+			return 0;
 		}
 	}
 

@@ -11,7 +11,7 @@ import com.gss.model.*;
 import com.gss.service.ReservationService;
 import com.gss.service.ReservationServiceImpl;
 
-public class CreateReservation {
+public class CreateReservation {fzxcZ      vbvbvbvbvb                                                                                                                                                                                                                                                    
 	
 	public static void main(String[] args) throws SQLException{
 		
@@ -19,7 +19,7 @@ public class CreateReservation {
 		
 		Reservation reservation;
 		
-		int intReservationID = 1;
+		int intReservationID = 46;
 		Customer customer;
 		ReservationInclusion includedItems;
 		int intReservationType = 1;
@@ -28,7 +28,7 @@ public class CreateReservation {
 		Date datTo = DateHelper.parseDate("2016-03-04");
 		Time timFrom = TimeHelper.parseTime("2:30PM");
 		Time timTo = TimeHelper.parseTime("5:00PM");
-		String strVenue = "Tanghalang Pasigueño";
+		String strVenue = "Pasig Municipality";
 		int headCount = 3;
 		List<EmployeeAssigned> employeeAssigned = new ArrayList<EmployeeAssigned>();
 		String strStatus = "PENDING";
@@ -39,14 +39,14 @@ public class CreateReservation {
 				List<ExtraCharge> extraCharges = new ArrayList<ExtraCharge>();
 				ExtraCharge extra = new ExtraCharge(26, "", "", headCount, headCount);
 				List<Discount> dicounts = new ArrayList<Discount>();
-				invoice = new Invoice(1, datTo, dicounts, extraCharges, headCount, headCount, null, strStatus);
+				invoice = Invoice.createNullInvoice(extraCharges, dicounts, 1500.00, "FULL");
 		
 		//for customer
-		String strName = "JOSELITO SANTOS";
+		String strName = "JOSELITO RULL SANTOS";
 		String strAddress = "189-Dr. Sixto Antonio Avenue, Rosario Pasig City";
 		String strContactNo = "09361144842";
 		String strEmailAddress = "santos.jeffrey0023@gmail.com";
-		customer = new Customer(1, strName, strAddress, strContactNo, strEmailAddress);
+		customer = new Customer(1, "COMPANY", "MICROSOFT", strName, strAddress, strContactNo, strEmailAddress);
 		
 		//for ReservationInlusion
 		List<ProductOrder> products = new ArrayList<ProductOrder>();
@@ -75,9 +75,9 @@ public class CreateReservation {
 		employeeAssigned.add(new EmployeeAssigned(1, 1, emp, headCount));
 		employeeAssigned.add(new EmployeeAssigned(1, 1, emp, headCount));
 		
-		reservation = new Reservation(intReservationID, customer, includedItems, intReservationType, dateCreated, datFrom, datTo, timFrom, timTo, strVenue, headCount, employeeAssigned, invoice, strStatus);
+		reservation = new Reservation(intReservationID, customer, includedItems, intReservationType, dateCreated, datFrom, datTo, timFrom, timTo, strVenue, 2, headCount, employeeAssigned, invoice, strStatus, "");
 		
-		System.out.println(service.createReservation(reservation));
+		System.out.println(service.updateReservation(reservation));
 	}
 
 }

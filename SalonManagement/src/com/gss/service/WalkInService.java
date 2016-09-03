@@ -7,7 +7,7 @@ import com.gss.model.WalkIn;
 
 public interface WalkInService {
 	
-	public boolean createWalkIn(WalkIn walkin) throws SQLException;
+	public int createWalkIn(WalkIn walkin) throws SQLException;
 	
 	public boolean updateWalkIn(WalkIn walkin)  throws SQLException ;
 	

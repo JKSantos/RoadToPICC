@@ -1,6 +1,5 @@
 package com.gss.actions.Reservation;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +23,6 @@ import com.gss.model.Service;
 import com.gss.model.Package;
 import com.gss.utilities.ContractGenerator;
 import com.gss.utilities.DateHelper;
-import com.gss.utilities.DiscountChecker;
 import com.gss.utilities.PriceFormatHelper;
 import com.gss.utilities.QuantityHelper;
 import com.gss.utilities.SearchProduct;
@@ -33,21 +31,22 @@ import com.gss.utilities.TimeHelper;
 
 public class CreateReservation {
 	
-	
+	private String strCustomerType;
+	private String strCompanyName;
 	private String strName;
 	private String strAddress;
 	private String strContactNo;
 	private String strEmail;
-	
-//	private Customer customer;	//important(check mo com.gss.model.Customer para malaman mo nga data nyan)
+
+	//	private Customer customer;	//important(check mo com.gss.model.Customer para malaman mo nga data nyan)
 	private ReservationInclusion includedItems;
 	private int intReservationType = 2; //important (Home Service = 1) magbabato ka ng 1 galing mob
-	private String dateCreated;
 	private String datFrom = "";			//important
 	private String datTo = "";//if reservation is home service, this is not needed
 	private String timFrom;			//important
 	private String timTo = "00:00AM";			
 	private String strVenue; 		//if type is HomeService, value is equal to customer address, same nalang ng address ang ilagay mo dito
+	private int intLocationID;
 	private int headCount;			//important
 	private List<EmployeeAssigned> employeeAssigned = new ArrayList<EmployeeAssigned>();
 	private String strTotalPrice = ""; //important
@@ -68,8 +67,9 @@ public class CreateReservation {
 	private String selectedEmployees = "";		//important
 	private String selectedExtraCharges = "";	//important
 	private String selectedDiscounts = "";		//important
-
-	private Discount discount;
+	private String paymentType = "";			// kung full or twice
+	
+	private int intCreatedID;
 	
 	public String execute() throws Exception{
 		
@@ -80,7 +80,7 @@ public class CreateReservation {
 		List<Product> prodList = Product.getAllProduct();
 		List<Service> serviceList = Service.getAllService();
 		
-		Reservation reservation;
+		Reservation reservation = null;
 		
 		//for invoice
 		
@@ -101,12 +101,11 @@ public class CreateReservation {
 				for(int index = 0; index < selectedDiscounts.length; index++){
 					Discount discount = Discount.createNullDiscount(Integer.parseInt(selectedDiscounts[index]));
 					discounts.add(discount);
-					this.discount = discount;
 				}
 			}
 			
 			System.out.println("Price " + this.strTotalPrice);
-				invoice = Invoice.createNullInvoice(extraCharges, discounts, PriceFormatHelper.convertToDouble(this.strTotalPrice, "Php "));
+				invoice = Invoice.createNullInvoice(extraCharges, discounts, PriceFormatHelper.convertToDouble(this.strTotalPrice, "Php "), this.paymentType);
 		
 		//for ReservationInlusion
 		List<ProductOrder> products = new ArrayList<ProductOrder>();
@@ -172,20 +171,22 @@ public class CreateReservation {
 				
 				
 				String dateFrom = new DateHelper().convert(this.datFrom.split("/"));
-				String dateTo = new DateHelper().convert(this.datFrom.split("/"));
+				String dateTo = new DateHelper().convert(this.datTo.split("/"));
 				
-				Customer customer = new Customer(1, this.strName, this.strAddress, this.strContactNo, this.strEmail);
-				
-				reservation = new Reservation(1, customer, includedItems, intReservationType, new Date(), DateHelper.parseDate(dateFrom), DateHelper.parseDate(dateTo), TimeHelper.parseTime(timFrom), TimeHelper.parseTime(timTo), strVenue, headCount, employeeAssigned, invoice, strStatus);
-				
-		if(Reservation.createReservation(reservation) == true){
+				Customer customer = new Customer(1, this.strCustomerType, this.strCompanyName, this.strName, this.strAddress, this.strContactNo, this.strEmail);
+				ContractGenerator generator = new ContractGenerator();
+				Contract contract = new Contract(DateHelper.stringDate(), "JEFFREY SANTOS", "SALON MANGEMENT SYSTEM", "189-DR. SIXTO ANTONIO AVENUE, ROSARIO PASIG CITY", this.strName.toUpperCase(), this.strAddress.toUpperCase(), reservation);
+				String contractPath = generator.createContract(contract);
+				reservation = new Reservation(1, customer, includedItems, intReservationType, new Date(), DateHelper.parseDate(dateFrom), DateHelper.parseDate(dateTo), TimeHelper.parseTime(timFrom), TimeHelper.parseTime(timTo), strVenue, headCount, this.intLocationID, employeeAssigned, invoice, strStatus, contractPath);
 			
-			ContractGenerator generator = new ContractGenerator();
-			Contract contract = new Contract(DateHelper.stringDate(), "JEFFREY SANTOS", "SALON MANGEMENT SYSTEM", "189-DR. SIXTO ANTONIO AVENUE, ROSARIO PASIG CITY", this.strName.toUpperCase(), this.strAddress.toUpperCase(), reservation);
-			generator.createContract(contract);
+		int result = Reservation.createReservation(reservation);
+				
+		if(result != 1){
+			this.intCreatedID = result;
 			return "success";	
 		}
 		else
+			this.intCreatedID = result;
 			return "failed";
 	}
 
@@ -272,4 +273,18 @@ public class CreateReservation {
 		this.strStatus = strStatus;
 	}
 	
+	public void setStrCustomerType(String strCustomerType) {
+		this.strCustomerType = strCustomerType;
+	}
+
+	public void setStrCompanyName(String strCompanyName) {
+		this.strCompanyName = strCompanyName;
+	}
+	public void setIntLocationID(int intLocationID){
+		this.intLocationID = intLocationID;
+	}
+
+	public int getIntCreatedID() {
+		return intCreatedID;
+	}
 }

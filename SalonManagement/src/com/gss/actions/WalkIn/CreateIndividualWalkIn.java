@@ -36,6 +36,8 @@ public class CreateIndividualWalkIn {
 	private String discounts = "";
 	private String extraCharges = "";
 	
+	private int intCreatedID;
+	
 	public String execute() throws Exception{
 		
 		WalkInService service = new WalkInServiceImpl();
@@ -141,14 +143,18 @@ public class CreateIndividualWalkIn {
 			}
 		}
 
-		Invoice invoice = Invoice.createNullInvoice(extraChargeList, discountList, PriceFormatHelper.convertToDouble(this.strTotalPrice, "Php "));
+		Invoice invoice = Invoice.createNullInvoice(extraChargeList, discountList, PriceFormatHelper.convertToDouble(this.strTotalPrice, "Php "), "FULL");
 		
 		WalkIn walkin = new WalkIn(1, "INDIVIDUAL", this.strName, this.strContactNo, new Date(), serviceList, productList, packageList, promoList, invoice, null, "PENDING", "UNPAID");
 	
-		if(service.createWalkIn(walkin) == false){
+		int result = service.createWalkIn(walkin);
+		
+		if(result == 0){
+			this.intCreatedID = result;
 			return "failed";
 		}
 		else{
+			this.intCreatedID = result;
 			return "success";
 		}
 	
@@ -192,5 +198,9 @@ public class CreateIndividualWalkIn {
 
 	public void setExtraCharges(String extraCharges) {
 		this.extraCharges = extraCharges;
+	}
+
+	public int getIntCreatedID() {
+		return intCreatedID;
 	}
 }

@@ -55,11 +55,11 @@ public class UpdateEmployeeAction extends ActionSupport{
 		this.datEmpBirthdate = DateHelper.parseDate(strBirthdate);
 		
 		if(imageName.equals("image")){
-			emp = new Employee(intEmpID, strEmpLastName.trim().toUpperCase(), strEmpFirstName.trim().toUpperCase(), strEmpMiddleName.trim().toUpperCase(), this.datEmpBirthdate, strEmpGender, strEmpAddress.trim().toUpperCase(), strEmpContactNo, strEmpEmail, "A", "NO ACCESS", "NO ACCESS", "Image", null, jobList, access);
+			emp = new Employee(intEmpID, strEmpLastName.trim().toUpperCase(), strEmpFirstName.trim().toUpperCase(), strEmpMiddleName.trim().toUpperCase(), this.datEmpBirthdate, strEmpGender, strEmpAddress.trim().toUpperCase(), strEmpContactNo, strEmpEmail, "A", "NO ACCESS", "NO ACCESS", "Image", null, jobList, access, "");
 		}
 		else{
 			imageName = file.getAbsolutePath();
-			emp = new Employee(intEmpID, strEmpLastName.trim().toUpperCase(), strEmpFirstName.trim().toUpperCase(), strEmpMiddleName.trim().toUpperCase(), datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, "A", "NO ACCESS", "NO ACCESS", imageName, null, jobList, access);
+			emp = new Employee(intEmpID, strEmpLastName.trim().toUpperCase(), strEmpFirstName.trim().toUpperCase(), strEmpMiddleName.trim().toUpperCase(), datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, "A", "NO ACCESS", "NO ACCESS", imageName, null, jobList, access, "");
 		}
 		
 		if(empService.updateEmployee(emp) == true)

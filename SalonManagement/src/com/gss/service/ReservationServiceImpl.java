@@ -23,7 +23,7 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 
 	@Override
-	public boolean createReservation(Reservation reservation) throws SQLException {
+	public int createReservation(Reservation reservation) throws SQLException {
 		
 		ReservationRepository repo = new ReservationJDBCRepository();
 		
@@ -32,8 +32,10 @@ public class ReservationServiceImpl implements ReservationService{
 
 	@Override
 	public boolean updateReservation(Reservation reservation) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+
+		ReservationRepository repo = new ReservationJDBCRepository();
+		
+		return repo.updateReservation(reservation);
 	}
 
 	@Override

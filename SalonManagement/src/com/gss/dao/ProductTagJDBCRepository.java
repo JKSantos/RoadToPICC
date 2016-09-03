@@ -226,8 +226,8 @@ public class ProductTagJDBCRepository implements ProductTagRepository{
 				
 
 				sumSet.setInt(1, id);
-				sumSet.setString(1, dateFrom);
-				sumSet.setString(2, dateTo);
+				sumSet.setString(2, dateFrom);
+				sumSet.setString(3, dateTo);
 				sumSetResult = sumSet.executeQuery();
 				
 				while(sumSetResult.next()){

@@ -11,7 +11,7 @@ import com.gss.model.ProductSales;
 public class ProductSalesServiceImpl implements ProductSalesService {
 
 	@Override
-	public boolean createProductSales(ProductSales sales) throws SQLException {
+	public int createProductSales(ProductSales sales) throws SQLException {
 		
 		ProductSalesRepository repo = new ProductSalesJDBCRepository();
 		

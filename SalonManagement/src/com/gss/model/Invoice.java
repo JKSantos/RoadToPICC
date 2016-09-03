@@ -11,12 +11,14 @@ public class Invoice {
 	private List<ExtraCharge> extraChargeList;
 	private double dblTotalPrice;
 	private double dblRemainingBalance;
+	private String paymentType;
 	private List<Payment> paymentList;
 	private String paymentStatus;
-
+	private String receipt;
+	
 	public Invoice(int intInvoiceID, Date datInvoiceDate, List<Discount> discountList,
-			List<ExtraCharge> extraChargeList, double dblTotalPrice, double dblRemainingBalance,
-			List<Payment> paymentList, String paymentStatus) {
+			List<ExtraCharge> extraChargeList, double dblTotalPrice, double dblRemainingBalance, String paymentType,
+			List<Payment> paymentList, String paymentStatus, String receipt) {
 		super();
 		this.intInvoiceID = intInvoiceID;
 		this.datInvoiceDate = datInvoiceDate;
@@ -24,76 +26,124 @@ public class Invoice {
 		this.extraChargeList = extraChargeList;
 		this.dblTotalPrice = dblTotalPrice;
 		this.dblRemainingBalance = dblRemainingBalance;
+		this.paymentType = paymentType;
 		this.paymentList = paymentList;
 		this.paymentStatus = paymentStatus;
+		this.receipt = receipt;
 	}
+	
+	
 
 	public int getIntInvoiceID() {
 		return intInvoiceID;
 	}
 
+
+
 	public void setIntInvoiceID(int intInvoiceID) {
 		this.intInvoiceID = intInvoiceID;
 	}
+
+
 
 	public Date getDatInvoiceDate() {
 		return datInvoiceDate;
 	}
 
+
+
 	public void setDatInvoiceDate(Date datInvoiceDate) {
 		this.datInvoiceDate = datInvoiceDate;
 	}
 
-	public String getPaymentStatus() {
-		return paymentStatus;
-	}
 
-	public void setPaymentStatus(String paymentStatus) {
-		this.paymentStatus = paymentStatus;
-	}
 
 	public List<Discount> getDiscountList() {
 		return discountList;
 	}
 
+
+
 	public void setDiscountList(List<Discount> discountList) {
 		this.discountList = discountList;
 	}
+
+
 
 	public List<ExtraCharge> getExtraChargeList() {
 		return extraChargeList;
 	}
 
+
+
 	public void setExtraChargeList(List<ExtraCharge> extraChargeList) {
 		this.extraChargeList = extraChargeList;
 	}
+
+
 
 	public double getDblTotalPrice() {
 		return dblTotalPrice;
 	}
 
+
+
 	public void setDblTotalPrice(double dblTotalPrice) {
 		this.dblTotalPrice = dblTotalPrice;
 	}
+
+
 
 	public double getDblRemainingBalance() {
 		return dblRemainingBalance;
 	}
 
+
+
 	public void setDblRemainingBalance(double dblRemainingBalance) {
 		this.dblRemainingBalance = dblRemainingBalance;
 	}
+
+
+
+	public String getPaymentType() {
+		return paymentType;
+	}
+
+
+
+	public void setPaymentType(String paymentType) {
+		this.paymentType = paymentType;
+	}
+
+
 
 	public List<Payment> getPaymentList() {
 		return paymentList;
 	}
 
+
+
 	public void setPaymentList(List<Payment> paymentList) {
 		this.paymentList = paymentList;
 	}
-	
-	public static Invoice createNullInvoice(List<ExtraCharge> extraCharges, List<Discount> discounts, Double dblTotalPrice){
-		return new Invoice(1, new Date(), discounts, extraCharges, dblTotalPrice, 0, null, "");
+
+
+
+	public String getPaymentStatus() {
+		return paymentStatus;
+	}
+
+
+
+	public void setPaymentStatus(String paymentStatus) {
+		this.paymentStatus = paymentStatus;
+	}
+
+
+
+	public static Invoice createNullInvoice(List<ExtraCharge> extraCharges, List<Discount> discounts, Double dblTotalPrice, String paymentType){
+		return new Invoice(1, new Date(), discounts, extraCharges, dblTotalPrice, dblTotalPrice, paymentType, null, "", "");
 	}
 	
 	public static String convertToString(int intPaymentStatus){
@@ -174,5 +224,17 @@ public class Invoice {
 		else
 			return remainingAmount - payment;
 		
+	}
+
+
+
+	public String getReceipt() {
+		return receipt;
+	}
+
+
+
+	public void setReceipt(String receipt) {
+		this.receipt = receipt;
 	}
 }

@@ -27,7 +27,7 @@ public class TestReports {
 		ProductTagReportFactory factory = new ProductTagReportFactory();
 		
 		
-		List<TagSum> sum = TagSum.getTagSum();
+		List<TagSum> sum = TagSum.getTagSum("2016-08-01", "2016-08-25");
 		
 		JFreeChart chart = PieGraph.getProductTags(sum, "August 19, 2016", "September 19, 2016");
 		
@@ -37,7 +37,9 @@ public class TestReports {
 //        demo.setVisible(true);
 		
 		try {
-			factory.generateReport("August 19, 2016","September 19, 2016", ProductTagReport.getProductTagReport(), sum, demo.getChart());
+			String str = factory.generateReport("August 19, 2016","September 19, 2016", ProductTagReport.getProductTagReport("2016-08-01", "2016-08-25"), sum, demo.getChart());
+			System.out.print(str);
+		
 		} catch (DocumentException | IOException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -52,19 +52,21 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 	private List<ReservedPromo> promoList = new ArrayList<ReservedPromo>();
 	
 	@Override
-	public boolean createProductSales(ProductSales sales) throws SQLException {
+	public int createProductSales(ProductSales sales) throws SQLException {
 		
 		Connection con 								= jdbc.getConnection();
 		String createProductSales 					= "CALL createProductSales( ?, ?, ?, ?, ?, ?)";
 		String createDetails 						= "CALL createDetail(?, ?, ?)";
 		
+		int intID;
 		try{
 			con.setAutoCommit(false);
 			
 			PreparedStatement insertProductSales 	= con.prepareStatement(createProductSales);
 			PreparedStatement insertDetails 		= con.prepareStatement(createDetails);
+			
 			ResultSet salesID;
-			int intID = 0;
+			intID = 0;
 			
 			insertProductSales.setInt(1, sales.getIntType());
 			insertProductSales.setString(2, sales.getStrName());
@@ -82,7 +84,7 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 				insertDetails.setInt(1, intID);
 				insertDetails.setInt(2, sales.getProductList().get(intCtr).getProduct().getIntProductID());
 				insertDetails.setInt(3, sales.getProductList().get(intCtr).getIntQuantity());
-				insertDetails.addBatch();
+				insertDetails.addBatch();	
 			}
 			
 			insertDetails.executeBatch();
@@ -91,14 +93,15 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 			insertDetails.close();
 			con.commit();
 			con.close();
-			return true;
+			return intID;
 		}
 		catch(Exception e){
 			
 			e.printStackTrace();
 			con.rollback();
 			con.close();
-			return false;
+			
+			return 0;
 		}
 	}
 //undone
@@ -227,10 +230,26 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 		
 		Connection con = jdbc.getConnection();
 		String deactivateSales = "UPDATE tblOrder SET strOrderStatus = 'CANCELLED' WHERE intOrderID = ?";
+		String updateStock						= "CALL updateStock_increment(?, ?);";
 		
 		try{
 			con.setAutoCommit(false);
 			PreparedStatement deactivate = con.prepareStatement(deactivateSales);
+			PreparedStatement updateProducts		= con.prepareStatement(updateStock);
+			
+			ProductSales sales = getProductBySalesID(intID);
+			
+			for(int index = 0; index < sales.getProductList().size(); index++){
+				ProductOrder product = sales.getProductList().get(index);
+				
+				updateProducts.setInt(1, product.getProduct().getIntProductID());
+				updateProducts.setInt(2, product.getIntQuantity());
+				updateProducts.addBatch();
+			}
+			
+			updateProducts.executeBatch();
+			updateProducts.close();
+			
 			deactivate.setInt(1, intID);
 			deactivate.execute();
 			deactivate.close();
@@ -250,16 +269,32 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 	@Override
 	public boolean acceptProductSales(int intID, Date datDeliveryDate) throws SQLException {
 		
-		Connection con = jdbc.getConnection();
-		String deactivateSales = "UPDATE tblOrder SET strOrderStatus = 'PENDING', dateOrderDate = ? WHERE intOrderID = ?";
+		Connection con								= jdbc.getConnection();
+		String deactivateSales 						= "UPDATE tblOrder SET strOrderStatus = 'PENDING', dateOrderDate = ? WHERE intOrderID = ?";
+		String updateStock							= "CALL updateStock_decrement(?, ?);";
 		
 		try{
 			con.setAutoCommit(false);
-			PreparedStatement deactivate = con.prepareStatement(deactivateSales);
+			PreparedStatement deactivate 			= con.prepareStatement(deactivateSales);
+			PreparedStatement updateProducts		= con.prepareStatement(updateStock);
+			
 			deactivate.setDate(1, new java.sql.Date(datDeliveryDate.getTime()));
 			deactivate.setInt(2, intID);
 			deactivate.execute();
 			deactivate.close();
+			
+			ProductSales sales = getProductBySalesID(intID);
+			
+			for(int index = 0; index < sales.getProductList().size(); index++){
+				ProductOrder product = sales.getProductList().get(index);
+				
+				updateProducts.setInt(1, product.getProduct().getIntProductID());
+				updateProducts.setInt(2, product.getIntQuantity());
+				updateProducts.addBatch();
+			}
+			
+			updateProducts.executeBatch();
+			updateProducts.close();
 			
 			con.commit();
 			con.close();
@@ -269,7 +304,7 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 			
 			con.rollback();
 			con.close();
-			return false;
+			return false;	
 		}
 	}
 	@Override
@@ -311,6 +346,8 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 		double totalAmount = 0;
 		
 		int payment = 0;
+		String paymentType = null;
+		String receipt = null;
 		Date date = null;
 		
 		try{
@@ -339,7 +376,8 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 				
 				date = invoiceSet.getDate(2);
 				totalAmount = invoiceSet.getDouble(3);
-				
+				paymentType = invoiceSet.getString(4);
+				receipt = invoiceSet.getString(6);
 				
 				preDiscount.setInt(1, intInvoiceID);
 				discountSet = preDiscount.executeQuery();
@@ -384,7 +422,7 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 			double remainingBalance = Invoice.getRemainingBalance(totalAmount, paymentList);
 			
 			
-			Invoice invoice = new Invoice(intInvoiceID, date, discountList, extraChargeList, totalAmount, remainingBalance, paymentList, Invoice.convertToString(payment));
+			Invoice invoice = new Invoice(intInvoiceID, date, discountList, extraChargeList, totalAmount, remainingBalance, paymentType, paymentList, Invoice.convertToString(payment), receipt);
 			
 			return invoice;
 		}

@@ -25,26 +25,30 @@ public class Employee {
 	private byte[] bytActualImage;
 	private List<Job> jobQualification = new ArrayList<Job>();
 	private boolean accessGranted;
-	
-	
-	public Employee(int intEmpID, String strEmpLastName, String strEmpFirstName, String strEmpMiddleName, Date datBirthdate, String strEmpGender, String strAddress, String strEmpContactNo, String strEmpEmail, String strEmpStatus, String strUsername, String strPassword, String empPhoto, byte[] bytActualPhoto, List<Job> jobQualification, boolean accessGranted)
-	{	
-		this.setIntEmpID(intEmpID);
+	private String strJobStatus;
+
+	public Employee(int intEmpID, String strEmpLastName, String strEmpFirstName, String strEmpMiddleName,
+			Date datEmpBirthdate, String strEmpGender, String strEmpAddress, String strEmpContactNo, String strEmpEmail,
+			String strEmpStatus, String strEmpUsername, String strEmpPassword, String blobEmpPhoto,
+			byte[] bytActualImage, List<Job> jobQualification, boolean accessGranted, String strJobStatus) {
+		super();
+		this.intEmpID = intEmpID;
 		this.strEmpLastName = strEmpLastName;
 		this.strEmpFirstName = strEmpFirstName;
 		this.strEmpMiddleName = strEmpMiddleName;
-		this.strEmpAddress = strAddress;
-		this.datEmpBirthdate = datBirthdate;
-		this.setStrEmpGender(strEmpGender);
-		this.setStrEmpUsername(strUsername);
-		this.strEmpPassword = strPassword;
-		this.strEmpStatus = strEmpStatus;
+		this.datEmpBirthdate = datEmpBirthdate;
+		this.strEmpGender = strEmpGender;
+		this.strEmpAddress = strEmpAddress;
 		this.strEmpContactNo = strEmpContactNo;
-		this.setBlobEmpPhoto(empPhoto);	
-		this.setStrEmpEmail(strEmpEmail);
-		this.setBytActualImage(bytActualPhoto);
-		this.setJobQualification(jobQualification);
+		this.strEmpEmail = strEmpEmail;
+		this.strEmpStatus = strEmpStatus;
+		this.strEmpUsername = strEmpUsername;
+		this.strEmpPassword = strEmpPassword;
+		this.blobEmpPhoto = blobEmpPhoto;
+		this.bytActualImage = bytActualImage;
+		this.jobQualification = jobQualification;
 		this.accessGranted = accessGranted;
+		this.strJobStatus = strJobStatus;
 	}
 
 	public String getStrEmpLastName() {
@@ -177,13 +181,21 @@ public class Employee {
 		this.accessGranted = accessGranted;
 	}
 
+	public String getStrJobStatus() {
+		return strJobStatus;
+	}
+
+	public void setStrJobStatus(String strJobStatus) {
+		this.strJobStatus = strJobStatus;
+	}
+
 	public static List<Employee> getEmployeeList() {
 		EmployeeService service = new EmployeeServiceImpl();
 		return service.getAllEmployeeNoImage();
 	}
 	
 	public static Employee createNullEmployee(int intEmpID){
-		return new Employee(intEmpID, "", "", "", new Date(), "", "", "", "", "", "", "", "", null, null, false);
+		return new Employee(intEmpID, "", "", "", new Date(), "", "", "", "", "", "", "", "", null, null, false, "NOT AVAILABLE");
 	}
 	
 	public static Employee searchEmployee(int intEmployeeID, List<Employee> employeeList){

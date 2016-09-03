@@ -18,9 +18,6 @@ import com.gss.model.ProductOrder;
 import com.gss.model.ProductQuantity;
 import com.gss.model.ProductSales;
 import com.gss.model.Reservation;
-import com.gss.model.ReservedPackage;
-import com.gss.model.ReservedPromo;
-import com.gss.model.ReservedService;
 import com.gss.model.WalkIn;
 import com.gss.service.DiscountService;
 import com.gss.service.DiscountServiceImpl;
@@ -47,20 +44,15 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 	private int intID;
 	private int intQuantity;
 	private int intStatus;
-
-	private List<ProductOrder> productList = new ArrayList<ProductOrder>();
-	private List<ReservedService> serviceList = new ArrayList<ReservedService>();
-	private List<ReservedPackage> packageList = new ArrayList<ReservedPackage>();
-	private List<ReservedPromo> promoList = new ArrayList<ReservedPromo>();
 	
 	@Override
-	public boolean createProductSalesPayment(Payment payment) throws SQLException{
+	public boolean createProductSalesPayment(Payment payment, String receipt) throws SQLException{
 		
 		Connection con 							= jdbc.getConnection();
 		con.setAutoCommit(false);
 		
-		String insertPayment 					= "CALL createPayment(?, ?, ?)";
-		String updateStock						= "CALL updateStock(?, ?);";
+		String insertPayment 					= "CALL createPayment(?, ?, ?, ?)";
+		
 		
 		ProductSales sales = null;
 		try {
@@ -72,25 +64,13 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 		
 		try{
 			PreparedStatement createPayment		= con.prepareStatement(insertPayment);
-			PreparedStatement updateProducts	= con.prepareStatement(updateStock);
 			
 			createPayment.setInt(1, payment.getIntInvoiceID());
 			createPayment.setString(2, payment.getPaymentType());
 			createPayment.setDouble(3, payment.getDblPaymentAmount());
+			createPayment.setString(4, receipt);
 			
 			createPayment.execute();
-			
-			for(int index = 0; index < sales.getProductList().size(); index++){
-				
-				ProductOrder product = sales.getProductList().get(index);
-				
-				updateProducts.setInt(1, product.getProduct().getIntProductID());
-				updateProducts.setInt(2, product.getIntQuantity());
-				updateProducts.addBatch();
-			}
-			
-			updateProducts.executeBatch();
-			updateProducts.close();
 			
 			con.commit();
 			con.close();
@@ -115,7 +95,6 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 		
 		try{
 			ProductService service = new ProductServiceImpl();
-			List<ProductSales> salesList 	= new ArrayList<ProductSales>();
 			List<Product> productList 		= service.getAllProductsNoImage();
 			
 			PreparedStatement getAll 		= con.prepareStatement(getAllOrder);
@@ -244,7 +223,7 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 	}
 
 	@Override
-	public boolean createReservationPayment(Payment payment) throws SQLException {
+	public boolean createReservationPayment(Payment payment, String receipt) throws SQLException {
 		
 		Connection con 							= jdbc.getConnection();
 		con.setAutoCommit(false);
@@ -263,6 +242,7 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 			createPayment.setInt(1, payment.getIntInvoiceID());
 			createPayment.setString(2, payment.getPaymentType());
 			createPayment.setDouble(3, payment.getDblPaymentAmount());
+			createPayment.setString(4, receipt);
 			
 			createPayment.execute();
 			
@@ -290,12 +270,12 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 	}
 
 	@Override
-	public boolean createWalkInPayment(Payment payment) throws SQLException {
+	public boolean createWalkInPayment(Payment payment, String receipt) throws SQLException {
 
 		Connection con 							= jdbc.getConnection();
 		con.setAutoCommit(false);
 		
-		String insertPayment 					= "CALL createPayment(?, ?, ?)";
+		String insertPayment 					= "CALL createPayment(?, ?, ?, ?)";
 		String updateStock						= "CALL updateStock(?, ?);";
 				
 		List<ProductQuantity> quantities 		= WalkInJDBCRepository.getProducts(payment.getIntInvoiceID());
@@ -307,6 +287,7 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 			createPayment.setInt(1, payment.getIntInvoiceID());
 			createPayment.setString(2, payment.getPaymentType());
 			createPayment.setDouble(3, payment.getDblPaymentAmount());
+			createPayment.setString(4, receipt);
 			
 			createPayment.execute();
 			
@@ -347,6 +328,8 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 		
 		int payment = 0;
 		double totalAmount = 0;
+		String paymentType = null;
+		String receipt = null;
 		Date date = null;
 		
 		try{
@@ -375,14 +358,13 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 				
 				date = invoiceSet.getDate(2);
 				totalAmount = invoiceSet.getInt(3);
-				
+				paymentType = invoiceSet.getString(4);
+				receipt = invoiceSet.getString(6);
 				
 				preDiscount.setInt(1, intInvoiceID);
 				discountSet = preDiscount.executeQuery();
 				
 				while(discountSet.next()){
-					int intID 				= discountSet.getInt(1);
-					int invoice 			= discountSet.getInt(2);
 					int intDiscountID 		= discountSet.getInt(3);
 					
 					Discount discount = Discount.searchDiscount(intDiscountID, savedDiscounts);
@@ -393,8 +375,6 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 				extraChargeSet = preExtraCharge.executeQuery();
 				
 				while(extraChargeSet.next()){
-					int intID 			= extraChargeSet.getInt(1);
-					int invoice			= extraChargeSet.getInt(2);
 					int intExtraID 		= extraChargeSet.getInt(3);
 					
 					ExtraCharge extra = ExtraCharge.searchExtraCharge(intExtraID, savedExtraCharge);
@@ -420,7 +400,7 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 			double remainingBalance = Invoice.getRemainingBalance(totalAmount, paymentList);
 			
 			
-			Invoice invoice = new Invoice(intInvoiceID, date, discountList, extraChargeList, totalAmount, remainingBalance, paymentList, Invoice.convertToString(payment));
+			Invoice invoice = new Invoice(intInvoiceID, date, discountList, extraChargeList, totalAmount, remainingBalance, paymentType, paymentList, Invoice.convertToString(payment), receipt);
 			
 			return invoice;
 		}
