@@ -144,5 +144,12 @@ public class Package {
 		
 		return service.queryAllPackage();
 	}
+
+	public static List<Package> getPackageByType(String type) {
+
+		PackageService service = new PackageServiceImpl();
+		
+		return service.getPackageByType(type);
+	}
 	
 }

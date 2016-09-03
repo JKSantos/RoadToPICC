@@ -43,9 +43,8 @@ public class UpdatePromoAction {
 	
 	public String execute(){
 		
-		System.out.println("Services checked: " + servicePromoSelect);
-		System.out.println("Products checked: " + productPromoSelect);
 		System.out.println("Packages checked: " + packagePromoSelect);
+		System.out.println("Packages quantity: " + packagePromoQty);
 		
 		ServiceService serviceService = new ServiceServiceImpl();
 		ProductService productService = new ProductServiceImpl();
@@ -106,6 +105,7 @@ public class UpdatePromoAction {
 			
 			String[] packageOrder = decode.packageOrderByChecked(refPackage, packages);
 			String[] packageQuantity = decode.getPackageQuantity(packageOrder, packageQty);
+
 			
 			for(int i = 0; i < packages.length; i++){
 				for(int j = 0; j < refPackage.size(); j++){

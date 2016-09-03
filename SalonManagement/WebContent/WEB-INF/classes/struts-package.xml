@@ -44,6 +44,10 @@
 			<result name="success" type="json"/>
 		</action>
 		
+		<action name="getPackageByType" class="com.gss.actions.Package.GetPackageByType" method="execute">
+			<result name="success" type="json"/>
+		</action>
+		
 	</package>	
 		
 		

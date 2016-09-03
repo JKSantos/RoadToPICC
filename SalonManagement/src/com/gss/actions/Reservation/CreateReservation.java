@@ -50,7 +50,6 @@ public class CreateReservation {
 	private int headCount;			//important
 	private List<EmployeeAssigned> employeeAssigned = new ArrayList<EmployeeAssigned>();
 	private String strTotalPrice = ""; //important
-	private String strStatus = "PENDING";		//important
 	
 	private Invoice invoice;		
 	
@@ -168,7 +167,10 @@ public class CreateReservation {
 					employeeAssigned.add(new EmployeeAssigned(1, 1, emp, 1));
 				}
 				
+				String strStatus = "PENDING";
 				
+				if(this.intReservationType == 1)
+					strStatus = "REQUEST";
 				
 				String dateFrom = new DateHelper().convert(this.datFrom.split("/"));
 				String dateTo = new DateHelper().convert(this.datTo.split("/"));
@@ -267,10 +269,6 @@ public class CreateReservation {
 
 	public void setStrEmail(String strEmail) {
 		this.strEmail = strEmail;
-	}
-
-	public void setStrStatus(String strStatus) {
-		this.strStatus = strStatus;
 	}
 	
 	public void setStrCustomerType(String strCustomerType) {
