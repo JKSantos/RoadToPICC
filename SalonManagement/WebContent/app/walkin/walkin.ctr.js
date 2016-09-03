@@ -5,7 +5,7 @@
         .module('app')
         .controller('walkinCtrl', walkinCtrl);
 
-    function walkinCtrl($scope, paymentFactory, locationFactory, walkinFactory, SweetAlert) {
+    function walkinCtrl($scope, $http, $httpParamSerializerJQLike, paymentFactory, locationFactory, walkinFactory, SweetAlert) {
         var vm = this;
         vm.selected = 'product';
         vm.selEmployee = '';
@@ -39,6 +39,7 @@
         vm.packageList = {};
         vm.promoList = {};
 
+        vm.selServiceDetails = [];
 
         vm.openEditItem = openEditItem;
         vm.openPackageModal = openPackageModal;
@@ -79,14 +80,14 @@
             vm.discountList = data.data.discountList;
         });
 
-        function openEditItem (index, item) {
+        function openEditItem(index, item) {
             $('#editItem').openModal({
                 dismissible: true, // Modal can be dismissed by clicking outside of the modal
                 opacity: .7, // Opacity of modal background
                 in_duration: 200, // Transition in duration
                 out_duration: 200, // Transition out duration
             });
-            if(item.type == 'product') {
+            if (item.type == 'product') {
                 vm.orderToBeEdit = {
                     product: item.product,
                     productID: item.productID,
@@ -111,7 +112,7 @@
                     index: index
                 };
             }
-            
+
         }
 
         vm.addToCart = function (index, selected) {
@@ -140,7 +141,6 @@
                 vm.quantity = '';
 
             } else if (selected == 'service') {
-                vm.selServiceDetails = [];
 
                 vm.serviceOrder.push({
                     service: vm.serviceList[index].strServiceName,
@@ -155,12 +155,12 @@
                 });
 
                 vm.selServiceDetails.push({
-                    intServiceID: vm.serviceList[index].intServiceID,
-                    intQuantity: 1,
-                    intEmployeeID: vm.selEmployee.intEmpID,
+                    intServiceID: vm.serviceList[index].intServiceID.toString(),
+                    intQuantity: '1',
+                    intEmployeeID: vm.selEmployee.intEmpID.toString(),
                     strStatus: 'pending'
                 });
-
+                console.log(vm.selServiceDetails);
                 var selectedService = "";
                 var selectedServiceQuantity = "";
                 var selectedEmployee = "";
@@ -244,7 +244,7 @@
             console.log(vm.selPackageDetails);
         }
 
-        function openPromoModal (index, promo) {
+        function openPromoModal(index, promo) {
             $('#promoListModal').openModal({
                 dismissible: true, // Modal can be dismissed by clicking outside of the modal
                 opacity: .7, // Opacity of modal background
@@ -255,17 +255,17 @@
             vm.promoContainsPackage = getServiceInPackage(promo.packageList);
         }
 
-        function getServiceInPackage (pack) {
+        function getServiceInPackage(pack) {
             var p = [];
-            angular.forEach(pack, function(item, i) {
-                for(var ii = 0; ii < item.pack.serviceList.length; ii++) {
+            angular.forEach(pack, function (item, i) {
+                for (var ii = 0; ii < item.pack.serviceList.length; ii++) {
                     p.push(item.pack.serviceList[ii]);
                 }
             });
             return p;
         }
 
-        function openPackageModal (index, contains) {
+        function openPackageModal(index, contains) {
             $('#packageListModal').openModal({
                 dismissible: true, // Modal can be dismissed by clicking outside of the modal
                 opacity: .7, // Opacity of modal background
@@ -299,17 +299,17 @@
             var walkinData = {
                 'productString': selectprod,
                 'productQuantity': quantprod,
-                'serviceDetails': vm.selServiceDetails.toString(),
-                'packageList': vm.selPackageDetails.toString(),
-                'promoList': vm.selPromoDetails.toString(),
+                'serviceDetails': vm.selServiceDetails,
+                'packageList': vm.selPackageDetails,
+                'promoList': vm.selPromoDetails,
                 'strTotalPrice': vm.sum,
                 'discounts': selectdiscount,
                 'strName': vm.details.name,
                 'strContactNo': vm.details.contact
             };
-            console.log(walkinData);
+            var url = 'createWalkin';
             swal({
-                    title:"",
+                    title: "",
                     text: "",
                     type: "",
                     closeOnConfirm: false,

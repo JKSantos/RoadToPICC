@@ -53,15 +53,16 @@ public class CreateIndividualWalkIn {
 		String[] discounts = this.discounts.split(",");
 		String[] extraCharges = this.extraCharges.split(",");
 		
-		System.out.println("id" + this.productString);
-		System.out.print("quantity" + this.productQuantity);
+		System.out.println("id" + this.serviceDetails.size());
 		
+		if(!this.productString.equals("")){
 			for(int i = 0; i < products.length; i++){
 			
 				ProductWalkIn  product = new ProductWalkIn(1, Product.createNullProduct(Integer.parseInt(products[i])), (Integer.parseInt(productQuantity[i])));
 			
 				productList.add(product);
 			}
+		}
 		
 		for(int i = 0; i < this.serviceDetails.size(); i++){
 			

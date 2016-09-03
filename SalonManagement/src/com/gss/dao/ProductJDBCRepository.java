@@ -154,7 +154,7 @@ public class ProductJDBCRepository implements ProductRepository{
 				int blobLength = (int)blob.length();
 				byte[] actualPhoto = blob.getBytes(1, blobLength);
 				int intStatus = set.getInt(7);
-				String strPhotoPath = "localhost:8080/SalonManagement/getImage?ImageID=" + intProductID + "&type=product";
+				String strPhotoPath = ":8080/SalonManagement/getImage?ImageID=" + intProductID + "&type=product";
 				
 				PreparedStatement pre2 = con.prepareStatement(strQuery2);
 				pre2.setInt(1, intProductID);
@@ -268,7 +268,7 @@ public class ProductJDBCRepository implements ProductRepository{
 				int blobLength = (int)blob.length();
 				byte[] actualPhoto = null;
 				int intStatus = set.getInt(7);
-				String strPhotoPath = "localhost:8080/SalonManagement/getImage?ImageID=" + intProductID + "&type=product";
+				String strPhotoPath = ":8080/SalonManagement/getImage?ImageID=" + intProductID + "&type=product";
 				
 				PreparedStatement pre2 = con.prepareStatement(strQuery2);
 				pre2.setInt(1, intProductID);
