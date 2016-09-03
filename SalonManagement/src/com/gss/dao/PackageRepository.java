@@ -22,4 +22,6 @@ public interface PackageRepository {
 
 	public List<Package> queryAllPackage();
 	
+	public List<Package> getPackageByType(String type);
+	
 }

@@ -62,4 +62,12 @@ public class PackageServiceImpl implements PackageService{
 		return repo.queryAllPackage();
 	}
 
+	@Override
+	public List<Package> getPackageByType(String type) {
+		
+		PackageRepository repo = new PackageJDBCRepository();
+		
+		return repo.getPackageByType(type);
+	}
+
 }

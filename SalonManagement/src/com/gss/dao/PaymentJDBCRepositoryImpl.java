@@ -276,7 +276,7 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 		con.setAutoCommit(false);
 		
 		String insertPayment 					= "CALL createPayment(?, ?, ?, ?)";
-		String updateStock						= "CALL updateStock(?, ?);";
+		String updateStock						= "CALL updateStock_decrement(?, ?);";
 				
 		List<ProductQuantity> quantities 		= WalkInJDBCRepository.getProducts(payment.getIntInvoiceID());
 		
@@ -303,7 +303,6 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 			
 			updateProducts.executeBatch();
 			updateProducts.close();
-			
 			con.commit();
 			con.close();
 			return true;

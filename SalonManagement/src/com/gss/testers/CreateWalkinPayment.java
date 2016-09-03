@@ -9,7 +9,7 @@ public class CreateWalkinPayment {
 	
 	public static void main(String[] args){
 		
-		Payment payment = new Payment(1, 187, "walkin", 125, "FULL PAYMENT", new Date());
+		Payment payment = new Payment(1, 193, "walkin", 125, "FULL PAYMENT", new Date());
 		
 		try {
 			System.out.println(Payment.createPayment("walkin", payment, "C://Java//WalkinReceipt.pdf"));

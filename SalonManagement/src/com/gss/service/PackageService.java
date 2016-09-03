@@ -19,5 +19,7 @@ public interface PackageService {
 	public List<Package> getAllPackageNoDetails();
 
 	public List<Package> queryAllPackage();
+	
+	public List<Package> getPackageByType(String type);
 
 }
