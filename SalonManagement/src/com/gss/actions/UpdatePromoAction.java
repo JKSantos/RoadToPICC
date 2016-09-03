@@ -71,30 +71,24 @@ public class UpdatePromoAction {
 		
 		if(!servicePromoSelect.equals("")){
 			
-			String[] serviceOrder = decode.serviceOrderByChecked(refService, services);
-			String[] serviceQuantity = decode.getServiceQuantity(serviceOrder, serviceQty);
-			
 			for(int i = 0; i < services.length; i++){
 				for(int j = 0; j < refService.size(); j++){
 					
 					Service sample = refService.get(j);
 					if(Integer.parseInt(services[i]) == sample.getIntServiceID()){
-						serviceList.add(new ServicePackage(1, 1, sample, Integer.parseInt(serviceQuantity[i]), 1));
+						serviceList.add(new ServicePackage(1, 1, sample, Integer.parseInt(serviceQty[i]), 1));
 					}
 				}
 			}
 		}
 		if(!productPromoSelect.equals("")){
-			
-			String[] productOrder = decode.productOrderByChecked(refProduct, products);
-			String[] productQuantity = decode.getProductQuantity(productOrder, productQty);
-			
+
 			for(int i = 0; i < products.length; i++){
 				for(int j = 0; j < refProduct.size(); j++){
 					
 					Product sample = refProduct.get(j);
 					if(Integer.parseInt(products[i]) == sample.getIntProductID()){
-						productList.add(new ProductPackage(1, 1, sample, Integer.parseInt(productQuantity[i]), 1));
+						productList.add(new ProductPackage(1, 1, sample, Integer.parseInt(productQty[i]), 1));
 					}
 				}
 			}
@@ -103,16 +97,12 @@ public class UpdatePromoAction {
 		}
 		if(!packagePromoSelect.equals("")){
 			
-			String[] packageOrder = decode.packageOrderByChecked(refPackage, packages);
-			String[] packageQuantity = decode.getPackageQuantity(packageOrder, packageQty);
-
-			
 			for(int i = 0; i < packages.length; i++){
 				for(int j = 0; j < refPackage.size(); j++){
 					
 					Package sample = refPackage.get(j);
 					if(Integer.parseInt(packages[i]) == sample.getIntPackageID()){
-						packageList.add(new PackagePackage(1, 1, sample, Integer.parseInt(packageQuantity[i]), 1));
+						packageList.add(new PackagePackage(1, 1, sample, Integer.parseInt(packageQty[i]), 1));
 					}
 				}
 			}
