@@ -52,7 +52,7 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 		con.setAutoCommit(false);
 		
 		String insertPayment 					= "CALL createPayment(?, ?, ?, ?)";
-		String updateStock						= "CALL updateStock(?, ?);";
+		
 		
 		ProductSales sales = null;
 		try {
@@ -64,7 +64,6 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 		
 		try{
 			PreparedStatement createPayment		= con.prepareStatement(insertPayment);
-			PreparedStatement updateProducts	= con.prepareStatement(updateStock);
 			
 			createPayment.setInt(1, payment.getIntInvoiceID());
 			createPayment.setString(2, payment.getPaymentType());
@@ -72,18 +71,6 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 			createPayment.setString(4, receipt);
 			
 			createPayment.execute();
-			
-			for(int index = 0; index < sales.getProductList().size(); index++){
-				
-				ProductOrder product = sales.getProductList().get(index);
-				
-				updateProducts.setInt(1, product.getProduct().getIntProductID());
-				updateProducts.setInt(2, product.getIntQuantity());
-				updateProducts.addBatch();
-			}
-			
-			updateProducts.executeBatch();
-			updateProducts.close();
 			
 			con.commit();
 			con.close();
@@ -288,7 +275,7 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 		Connection con 							= jdbc.getConnection();
 		con.setAutoCommit(false);
 		
-		String insertPayment 					= "CALL createPayment(?, ?, ?)";
+		String insertPayment 					= "CALL createPayment(?, ?, ?, ?)";
 		String updateStock						= "CALL updateStock(?, ?);";
 				
 		List<ProductQuantity> quantities 		= WalkInJDBCRepository.getProducts(payment.getIntInvoiceID());

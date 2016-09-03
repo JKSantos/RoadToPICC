@@ -6,8 +6,6 @@ import java.util.List;
 
 import com.gss.service.PaymentService;
 import com.gss.service.PaymentServiceImpl;
-import com.gss.service.ReservationService;
-import com.gss.service.ReservationServiceImpl;
 
 public class Payment {
 	
@@ -15,7 +13,7 @@ public class Payment {
 	private int intInvoiceID;			//real data
 	private String transactionType;		//"order", "walkin", or "reservation"
 	private double dblPaymentAmount;	//real data
-	private String paymentType;
+	private String paymentType;			//FULL or DOWN or COMPLEMENTARY
 	private Date datDateOfPayment;		//dummy data
 	
 	/*	ang pagset ng data nyan galing sa jsp

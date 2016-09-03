@@ -39,6 +39,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 		int intWalkInID = 0;
 		int intInvoiceID = 0;
 		int intEmpAssignmentID = 0;
+		int insertedEmployeeAssignmentFlag = 0;
 		
 		try{
 			con.setAutoCommit(false);
@@ -166,7 +167,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 					PackageWalkIn packagee = promo.getPackages().get(intCtrInner);
 					
 					insertEmpAssignmentResult = insertEmpAssignment.executeQuery();
-					
+					insertedEmployeeAssignmentFlag++;
 					//parsing inserted Employee Assignment ID
 					while(insertEmpAssignmentResult.next()){
 						intEmpAssignmentID = insertEmpAssignmentResult.getInt(1);
@@ -218,11 +219,17 @@ public class WalkInJDBCRepository implements WalkInRepository{
 			}
 			
 			insertPromo.close();
-			walkInID.close();
+			
+			if(walkin.getPromo().size() > 0)
+				walkInID.close();
+			
 			insertPromoPackage.close();
 			insertDetail.close();
 			insertServicePromo.close();
-			insertEmpAssignmentResult.close();
+			
+			if(insertedEmployeeAssignmentFlag > 0)
+				insertEmpAssignmentResult.close();
+			
 			insertPackage.close();
 			
 			con.commit();

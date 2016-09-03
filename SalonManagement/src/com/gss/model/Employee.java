@@ -195,7 +195,7 @@ public class Employee {
 	}
 	
 	public static Employee createNullEmployee(int intEmpID){
-		return new Employee(intEmpID, "", "", "", new Date(), "", "", "", "", "", "", "", "", null, null, false);
+		return new Employee(intEmpID, "", "", "", new Date(), "", "", "", "", "", "", "", "", null, null, false, "NOT AVAILABLE");
 	}
 	
 	public static Employee searchEmployee(int intEmployeeID, List<Employee> employeeList){
