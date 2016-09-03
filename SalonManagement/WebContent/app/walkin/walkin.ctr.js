@@ -40,8 +40,14 @@
         vm.promoList = {};
 
 
+        vm.openEditItem = openEditItem;
+        vm.openPackageModal = openPackageModal;
+
+
         locationFactory.getEmployees().then(function (data) {
             vm.employeeList = data.data.employeeList;
+            vm.selEmployee = vm.employeeList[0];
+            vm.selEmployeePerService = vm.employeeList[0];
         });
 
         locationFactory.getExtraCharges().then(function (data) {
@@ -71,6 +77,41 @@
             vm.discountList = data.data.discountList;
         });
 
+        function openEditItem (index, item) {
+            $('#editItem').openModal({
+                dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                opacity: .7, // Opacity of modal background
+                in_duration: 200, // Transition in duration
+                out_duration: 200, // Transition out duration
+            });
+            if(item.type == 'product') {
+                vm.orderToBeEdit = {
+                    product: item.product,
+                    productID: item.productID,
+                    productQuantity: item.productQuantity,
+                    productTotal: item.productTotal,
+                    productPrice: item.productPrice,
+                    strPhotoPath: item.strPhotoPath,
+                    type: item.type,
+                    index: index
+                };
+            } else if (item.type == 'service') {
+                vm.orderToBeEdit = {
+                    service: item.service,
+                    serviceID: item.serviceID,
+                    serviceQuantity: item.serviceQuantity,
+                    serviceTotal: item.serviceTotal,
+                    servicePrice: item.servicePrice,
+                    strPhotoPath: item.strPhotoPath,
+                    serviceEmployee: item.serviceEmployee,
+                    selectedEmployee: item.selectedEmployee,
+                    type: item.type,
+                    index: index
+                };
+            }
+            
+        }
+
         vm.addToCart = function (index, selected) {
             var selectedProducts = "";
             var selectedProductQuantity = "";
@@ -80,7 +121,10 @@
                     product: vm.productList[index].strProductName,
                     productID: vm.productList[index].intProductID,
                     productQuantity: vm.quantity,
-                    productTotal: vm.productList[index].dblProductPrice * vm.quantity
+                    productTotal: vm.productList[index].dblProductPrice * vm.quantity,
+                    productPrice: vm.productList[index].dblProductPrice,
+                    strPhotoPath: vm.productList[index].strPhotoPath,
+                    type: 'product'
                 });
                 for (var x = 0; x < vm.productOrder.length; x++) {
                     selectedProducts += vm.productOrder[x].productID + ",";
@@ -94,7 +138,6 @@
                 vm.quantity = '';
 
             } else if (selected == 'service') {
-                console.log(vm.selEmployee);
                 vm.selServiceDetails = [];
 
                 vm.serviceOrder.push({
@@ -102,7 +145,11 @@
                     serviceID: vm.serviceList[index].intServiceID,
                     serviceQuantity: 1,
                     serviceTotal: vm.serviceList[index].dblServicePrice,
-                    selectedEmployee: vm.selEmployee.intEmpID
+                    servicePrice: vm.serviceList[index].dblServicePrice,
+                    strPhotoPath: vm.serviceList[index].strPhotoPath,
+                    serviceEmployee: vm.selEmployee.strEmpFirstName + ' ' + vm.selEmployee.strEmpLastName,
+                    selectedEmployee: vm.selEmployee.intEmpID,
+                    type: 'service'
                 });
 
                 vm.selServiceDetails.push({
@@ -128,9 +175,7 @@
                 vm.serviceTotal = subTotalService;
                 vm.quantity = '';
             } else if (selected == 'package') {
-
-                vm.packageContains = vm.packageList[index].serviceList;
-
+                $('#packageListModal').closeModal();
                 vm.assignEmployeePackage = function (index) {
                     vm.selPackageDetails = [];
 
@@ -142,12 +187,6 @@
                     });
                     console.log(vm.selPackageDetails);
                 };
-                $('#packageListModal').openModal({
-                    dismissible: true, // Modal can be dismissed by clicking outside of the modal
-                    opacity: .7, // Opacity of modal background
-                    in_duration: 200, // Transition in duration
-                    out_duration: 200, // Transition out duration
-                });
                 vm.packageOrder.push({
                     package: vm.packageList[index].strPackageName,
                     packageID: vm.packageList[index].intPackageID,
@@ -209,6 +248,17 @@
                 vm.quantity = '';
             }
         };
+        function openPackageModal (index, contains) {
+            $('#packageListModal').openModal({
+                dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                opacity: .7, // Opacity of modal background
+                in_duration: 200, // Transition in duration
+                out_duration: 200, // Transition out duration
+            });
+            vm.packageContainService = vm.packageList[index].serviceList;
+            vm.packageContainProduct = vm.packageList[index].productList;
+            vm.packageIndex = index;
+        }
 
         vm.sumTotal = function () {
             var summed = vm.productTotal + vm.serviceTotal + vm.packageTotal + vm.promoTotal;

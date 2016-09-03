@@ -145,24 +145,22 @@
                                 </div>
                                 <div class="card-content">
                                     <a class="activator grey-text text-darken-4 light btn btn-small center"
-                                       style="margin-top: -10px;"><i class="material-icons right white-text">add_shopping_cart</i></a>
+                                       style="margin-top: -10px;">
+                                        <i class="material-icons right white-text">add_shopping_cart</i>
+                                    </a>
                                     <h5 style='font-size: 12px; line-height: 10px !important;'><b>{{package.strPackageName}}</b>
                                         <p>{{package.dblPackagePrice | currency:"P"}}</p></h5>
                                 </div>
                                 <div class="card-reveal">
-
                                                <span class="card-title grey-text text-darken-4"><i
                                                        class="material-icons right">close</i></span>
                                     <h4 style='font-size: 12px; line-height: 15px !important;'>
                                         <b>{{package.strPackageName}}</b><br/>
-                                        <ul ng-repeat="contains in vm.packageContains">
-                                            <li>{{contains.service.strServiceName}}</li>
-                                        </ul>
                                         <span class="grey-text tex 	t-darken-4"></span>
                                     </h4>
 
                                     <a class="waves-effect waves-light btn"
-                                       ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
+                                       ng-click="vm.openPackageModal($index, package)">
                                         <i class="material-icons left"
                                            style="padding: 0px !important; margin: 0px !important;">
                                             shopping_basket</i>BUY NOW!
@@ -275,9 +273,14 @@
 
     <div id="packageListModal" class="modal modal-fixed-footer">
         <div class="modal-content">
-            <h4 class="grey-text center text-darken-1">Pacakge Contains</h4>
+            <h4 class="grey-text center text-darken-1">Package Contains</h4>
+
+            <div class="chip" ng-repeat="products in vm.packageContainProduct" style="margin: 5px !important;">
+                <img ng-src="{{products.product.strPhotoPath}}">
+                {{ products.product.strProductName }} (<b>{{products.intProductQuantity}}</b>)
+            </div>
             <table>
-                <tr ng-repeat="services in vm.packageContains">
+                <tr ng-repeat="services in vm.packageContainService" style="margin: 0px !important;">
                     <td>{{services.service.strServiceName}}</td>
                     <td>
                         <div class="input-field col s12">
@@ -305,10 +308,10 @@
                     style="margin:0px !important; padding:0px !important;"><i
                     class="material-icons">error_outline</i>&nbspRequired field
             </button>
-            <button type="submit" value="Submit" id="paymentDetails.submit"
+            <button type="submit" value="Submit" id="paymentDetails.submit1"
                     class="waves-effect waves-light white-text btn-flat purple"
                     style="margin-left:3px; margin-right:3px;"
-                    ng-click="">DONE
+                    ng-click="vm.addToCart(vm.packageIndex, vm.selected); vm.sumTotal()">DONE
             </button>
         </div>
     </div>
@@ -361,22 +364,47 @@
                     <ul class="collection with-header reqList" style="height: 15em !important;">
                         <li class="collection-item left-align"
                             style="margin-left:0px !important; padding-left: 5px !important;"
-                            ng-repeat="orders in orderList"
-                            ng-if="orders.product!='' && orders.total!=0">
-                            <img ng-src="{{orders.strPhotoPath}}" class="circle" height="30" width="30">
+                            ng-repeat="order in vm.productOrder">
+                            <img ng-src="{{order.strPhotoPath}}" class="circle" height="30" width="30">
                                 <span style="padding-left: 5px !important;"
-                                      title="{{orders.product}} - {{orders.total | currency: 'Php '}}">
-                                    {{orders.product | truncate: 14}}
+                                      title="{{order.product}} - {{order.productTotal | currency: 'Php '}}"
+                                    ng-click="vm.openEditItem($index, order)">
+                                    {{order.product | truncate: 15}}
                                 </span>
                             <button name="" title="Decline" class="secondary-content red-text transparent"
                                     style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border:0px !important;"
                                     ng-click="removeToCart($index, orders)">
                                 <i class="material-icons" style="padding-top: 7px !important;">clear</i>
                             </button>
-                            <button name="" title="Accept" class="secondary-content black-text transparent"
-                                    style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border: 0px !important;"
-                                    ng-click="openEditItem($index, orders)">
-                                <i class="material-icons" style="padding-top: 7px !important;">edit</i>
+                        </li>
+                        <li class="collection-item left-align"
+                            style="margin-left:0px !important; padding-left: 5px !important;"
+                            ng-repeat="service in vm.serviceOrder">
+                            <img ng-src="{{service.strPhotoPath}}" class="circle" height="30" width="30">
+                                <span style="padding-left: 5px !important;"
+                                      title="{{service.service}} - {{service.serviceTotal | currency: 'Php '}}"
+                                      ng-click="vm.openEditItem($index, service)">
+                                    {{service.service | truncate: 15}}
+                                </span>
+                            <button name="" title="Decline" class="secondary-content red-text transparent"
+                                    style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border:0px !important;"
+                                    ng-click="removeToCart($index, service)">
+                                <i class="material-icons" style="padding-top: 7px !important;">clear</i>
+                            </button>
+                        </li>
+                        <li class="collection-item left-align"
+                            style="margin-left:0px !important; padding-left: 5px !important;"
+                            ng-repeat="package in vm.packageOrder">
+                            <img ng-src="img/package.png" class="circle" height="30" width="30">
+                                <span style="padding-left: 5px !important;"
+                                      title="{{package.package}} - {{package.packageTotal | currency: 'Php '}}"
+                                      ng-click="vm.openEditItem($index, package)">
+                                    {{package.package | truncate: 15}}
+                                </span>
+                            <button name="" title="Decline" class="secondary-content red-text transparent"
+                                    style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border:0px !important;"
+                                    ng-click="removeToCart($index, package)">
+                                <i class="material-icons" style="padding-top: 7px !important;">clear</i>
                             </button>
                         </li>
                     </ul>
@@ -429,6 +457,47 @@
                 <!--</div>-->
             <!--</div>-->
         <!--</div>-->
+    </div>
+
+    <div id="editItem" class="modal modal-fixed-footer">
+        <div class="modal-content" ng-if="vm.orderToBeEdit.type == 'product'">
+            <h4 class="center">{{vm.orderToBeEdit.product}}<br/>
+                <img class="circle" ng-src="{{vm.orderToBeEdit.strPhotoPath}}" height="150" width="150"></h4>
+            <h6 class="center">Price: {{vm.orderToBeEdit.productPrice | currency: "Php "}}</h6>
+            <div class="container">
+                <div class="row">
+                    <div class="input-field col s4 offset-s4" style="margin-top: -20px !important;">
+                        <input type="number" class="center-align" ng-model="vm.orderToBeEdit.productQuantity">
+                    </div>
+                    <div class="input-field col s12" style="margin-top: -10px !important;">
+                        <h5 class="center">Total: {{ (vm.orderToBeEdit.productPrice * vm.orderToBeEdit.productQuantity) | currency: "Php "}}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-content" ng-if="vm.orderToBeEdit.type == 'service'">
+            <h4 class="center">{{vm.orderToBeEdit.service}}<br/>
+                <img class="circle" ng-src="{{vm.orderToBeEdit.strPhotoPath}}" height="150" width="150"></h4>
+            <h6 class="center">Price: {{vm.orderToBeEdit.servicePrice | currency: "Php "}}</h6>
+            <div class="container">
+                <div class="row">
+                    <div class="input-field col s8 offset-s2" style="margin-top: -10px !important;">
+                        <select ng-model="vm.selEmployee" id="cREmp2"
+                                ng-options="employee.strEmpFirstName for employee in vm.employeeList"></select>
+                        <label for="cREmp2"><b>Employee</b></label>
+                    </div>
+                    <div class="input-field col s12" style="margin-top: -10px !important;">
+                        <h5 class="center">Total: {{ vm.orderToBeEdit.servicePrice  | currency: "Php "}}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="waves-effect waves-light btn-flat purple white-text"
+                    ng-click="editInCart(orderToBeEdit)">
+                SAVE
+            </button>
+        </div>
     </div>
 
     <div id="walkinTable" class="modal modal-fixed-footer">
