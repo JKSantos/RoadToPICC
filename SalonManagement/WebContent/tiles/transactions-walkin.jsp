@@ -194,7 +194,7 @@
                                     </h4>
 
                                     <a class="waves-effect waves-light btn"
-                                       ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
+                                       ng-click="vm.openPromoModal($index, promo)">
                                         <i class="material-icons left"
                                            style="padding: 0px !important; margin: 0px !important;">
                                             shopping_basket</i>BUY NOW!
@@ -284,15 +284,15 @@
                     <td>{{services.service.strServiceName}}</td>
                     <td>
                         <div class="input-field col s12">
-                            <select ng-model="vm.selEmployeePerService" id="cREmp1"
+                            <select ng-model="vm.selEmployeePerService" id="cREmp3"
                                     ng-options="employee.strEmpFirstName for employee in vm.employeeList"></select>
-                            <label for="cREmp1"><b>Employee</b></label>
+                            <label for="cREmp3"><b>Employee</b></label>
                         </div>
                     </td>
                     <td>
-                        <button id="btnAssign"
-                                class="waves-effect waves-light white-text btn-flat purple"
-                                ng-click="vm.assignEmployeePackage($index)">ASSIGN
+                        <button class="waves-effect waves-light white-text btn-flat purple"
+                                ng-click="vm.assignEmployeePackage($index)">
+                            ASSIGN
                         </button>
                     </td>
                 </tr>
@@ -336,6 +336,22 @@
                         </button>
                     </td>
                 </tr>
+                <tr ng-repeat="packageService in vm.promoContainsPackage">
+                    <td>{{packageService.service.strServiceName}}</td>
+                    <td>
+                        <div class="input-field col s12">
+                            <select ng-model="vm.selEmployeePerService" id="cREmp4"
+                                    ng-options="employee.strEmpFirstName for employee in vm.employeeList"></select>
+                            <label for="cREmp4"><b>Employee</b></label>
+                        </div>
+                    </td>
+                    <td>
+                        <button id="btnAssign1"
+                                class="waves-effect waves-light white-text btn-flat purple"
+                                ng-click="vm.assignEmployeePromo($index)">ASSIGN
+                        </button>
+                    </td>
+                </tr>
             </table>
             <div class="container">
                 <div class="row">
@@ -351,7 +367,7 @@
             <button type="submit" value="Submit" id="paymentDetails.submit"
                     class="waves-effect waves-light white-text btn-flat purple"
                     style="margin-left:3px; margin-right:3px;"
-                    ng-click="">DONE
+                    ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">DONE
             </button>
         </div>
     </div>
@@ -399,7 +415,7 @@
                                 <span style="padding-left: 5px !important;"
                                       title="{{package.package}} - {{package.packageTotal | currency: 'Php '}}"
                                       ng-click="vm.openEditItem($index, package)">
-                                    {{package.package | truncate: 15}}
+                                    {{package.package | truncate: 11}}
                                 </span>
                             <button name="" title="Decline" class="secondary-content red-text transparent"
                                     style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border:0px !important;"

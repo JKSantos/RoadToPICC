@@ -258,6 +258,7 @@ function openUpdatePromo(id) {
                 $('#upPromoGuidelines').val(data.promo.strPromoGuidelines);
 
                 var upPromoProdName = $('input[name=prodUpPromoSelect]');
+                upPromoProdName.prop('checked', false);
                 $('input[name=upProdPromoQty]').prop('disabled', true);
                 $('.updatePromoChip').remove();
                 upPromoTotal = 0;
@@ -266,7 +267,6 @@ function openUpdatePromo(id) {
                     var prodIDAjax = 'promoUpProdCheck' + data.promo.productList[ii].product.intProductID;
 
                     upPromoProdName.each(function () {
-                        upPromoProdName.prop('checked', false);
                         var updatePromoProdID = $(this).attr('id');
                         if (prodIDAjax == updatePromoProdID) {
                             var ajaxProductID = data.promo.productList[ii].product.intProductID;
@@ -909,7 +909,6 @@ function updatePromo() {
     var prodQty = promoUpdateProductQty.join(', '),
         servQty = promoUpdateServiceQty.join(', '),
         packQty = promoUpdatePackQty.join(', ');
-
     var promoname = $('#upPromoName').val();
 
 
@@ -938,7 +937,7 @@ function updatePromo() {
                         "packagePromoSelect": promoUpdatePackageSelect,
                         "servicePromoQty": servQty,
                         "productPromoQty": prodQty,
-                        "packagePromoQty": promoUpdatePackQty.join(', '),
+                        "packagePromoQty": packQty,
                         "strFree": $("input[name=upFree]:checked").val(),
                         "dblPromoPrice": $('#upPromoPrice').val().replace(/[^\d.]/g, '')
                     },

@@ -42,6 +42,8 @@
 
         vm.openEditItem = openEditItem;
         vm.openPackageModal = openPackageModal;
+        vm.assignEmployeePackage = assignEmployeePackage;
+        vm.openPromoModal = openPromoModal;
 
 
         locationFactory.getEmployees().then(function (data) {
@@ -176,17 +178,7 @@
                 vm.quantity = '';
             } else if (selected == 'package') {
                 $('#packageListModal').closeModal();
-                vm.assignEmployeePackage = function (index) {
-                    vm.selPackageDetails = [];
 
-                    vm.selPackageDetails.push({
-                        intServiceID: vm.packageContains[index].service.intServiceID,
-                        intQuantity: 1,
-                        intEmployeeID: vm.selEmployeePerService.intEmpID,
-                        strStatus: 'pending'
-                    });
-                    console.log(vm.selPackageDetails);
-                };
                 vm.packageOrder.push({
                     package: vm.packageList[index].strPackageName,
                     packageID: vm.packageList[index].intPackageID,
@@ -204,8 +196,7 @@
                 vm.packageTotal = subTotalPackage;
                 vm.quantity = '';
             } else if (selected == 'promo') {
-
-                vm.promoContains = vm.promoList[index].serviceList;
+                $('#promoListModal').closeModal();
 
                 vm.assignEmployeePromo = function (index) {
                     console.log('Ken Pogi');
@@ -220,13 +211,6 @@
                     });
                     console.log(vm.selPromoDetails);
                 };
-
-                $('#promoListModal').openModal({
-                    dismissible: true, // Modal can be dismissed by clicking outside of the modal
-                    opacity: .7, // Opacity of modal background
-                    in_duration: 200, // Transition in duration
-                    out_duration: 200, // Transition out duration
-                });
 
                 vm.promoOrder.push({
                     promo: vm.promoList[index].strPromoName,
@@ -248,6 +232,39 @@
                 vm.quantity = '';
             }
         };
+
+        function assignEmployeePackage(index, id) {
+            vm.selPackageDetails = [];
+            vm.selPackageDetails.push({
+                intServiceID: vm.packageContainService[index].service.intServiceID,
+                intQuantity: 1,
+                intEmployeeID: vm.selEmployeePerService.intEmpID,
+                strStatus: 'pending'
+            });
+            console.log(vm.selPackageDetails);
+        }
+
+        function openPromoModal (index, promo) {
+            $('#promoListModal').openModal({
+                dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                opacity: .7, // Opacity of modal background
+                in_duration: 200, // Transition in duration
+                out_duration: 200, // Transition out duration
+            });
+            vm.promoContains = vm.promoList[index].serviceList;
+            vm.promoContainsPackage = getServiceInPackage(promo.packageList);
+        }
+
+        function getServiceInPackage (pack) {
+            var p = [];
+            angular.forEach(pack, function(item, i) {
+                for(var ii = 0; ii < item.pack.serviceList.length; ii++) {
+                    p.push(item.pack.serviceList[ii]);
+                }
+            });
+            return p;
+        }
+
         function openPackageModal (index, contains) {
             $('#packageListModal').openModal({
                 dismissible: true, // Modal can be dismissed by clicking outside of the modal
