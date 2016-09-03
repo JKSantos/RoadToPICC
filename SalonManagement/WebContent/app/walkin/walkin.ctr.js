@@ -295,12 +295,13 @@
         vm.saveWalkin = function (details) {
             toString();
             console.log(selectprod + '/' + quantprod);
+            console.log(vm.selServiceDetails);
             var walkinData = {
                 'productString': selectprod,
                 'productQuantity': quantprod,
-                'serviceDetails': vm.selServiceDetails,
-                'packageList': vm.selPackageDetails,
-                'promoList': vm.selPromoDetails,
+                'serviceDetails': vm.selServiceDetails.toString(),
+                'packageList': vm.selPackageDetails.toString(),
+                'promoList': vm.selPromoDetails.toString(),
                 'strTotalPrice': vm.sum,
                 'discounts': selectdiscount,
                 'strName': vm.details.name,

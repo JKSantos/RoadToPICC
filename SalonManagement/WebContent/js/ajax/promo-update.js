@@ -269,6 +269,7 @@ function openUpdatePromo(id) {
                     upPromoProdName.each(function () {
                         var updatePromoProdID = $(this).attr('id');
                         if (prodIDAjax == updatePromoProdID) {
+                            console.log(prodIDAjax + ' equal ' + updatePromoProdID);
                             var ajaxProductID = data.promo.productList[ii].product.intProductID;
                             upPromoChk = upPromoChk + 1; //para malaman kung ilan or meron bang nakacheck
                             if (upPromoChk < 1) {
