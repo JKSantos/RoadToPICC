@@ -53,7 +53,6 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 		
 		String insertPayment 					= "CALL createPayment(?, ?, ?, ?)";
 		
-		
 		ProductSales sales = null;
 		try {
 			sales = getProductBySalesID(payment.getIntInvoiceID());
@@ -171,7 +170,6 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 	@Override
 	public List<WalkIn> getAllUnpaidWalkIn() throws SQLException {
 		
-		return null;
 	}
 
 	@Override

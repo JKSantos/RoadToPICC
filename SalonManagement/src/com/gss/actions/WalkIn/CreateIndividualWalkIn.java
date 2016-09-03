@@ -29,7 +29,8 @@ public class CreateIndividualWalkIn {
 	private String strContactNo;
 	private String productString = "";
 	private String productQuantity = "";
-	private List<ServiceDetails> serviceDetails = new ArrayList<ServiceDetails>();
+	private String serviceString = "";		// ID ng service
+	private String employeeAssigned = "";
 	private List<PackageDetails> packageList = new ArrayList<PackageDetails>();
 	private List<PromoDetails> promoList = new ArrayList<PromoDetails>();
 	private String strTotalPrice;
@@ -46,6 +47,9 @@ public class CreateIndividualWalkIn {
 		List<ServiceWalkIn> serviceList = new ArrayList<ServiceWalkIn>();
 		List<PackageWalkIn> packageList = new ArrayList<PackageWalkIn>();
 		List<PromoWalkIn> promoList = new ArrayList<PromoWalkIn>();
+		
+		String[] serviceID = this.serviceString.split(",");
+		String[] employeeID = this.employeeAssigned.split(",");
 		
 		String[] products = this.productString.split(",");
 		String[] productQuantity = this.productQuantity.split(",");
@@ -64,11 +68,9 @@ public class CreateIndividualWalkIn {
 			}
 		}
 		
-		for(int i = 0; i < this.serviceDetails.size(); i++){
+		for(int i = 0; i < serviceID.length; i++){
 			
-			ServiceDetails detail = this.serviceDetails.get(i);
-			
-			ServiceWalkIn  serv = new ServiceWalkIn(1, Service.createNullService(detail.getIntServiceID()), Employee.createNullEmployee(detail.getIntEmployeeID()),detail.getStrStatus());
+			ServiceWalkIn  serv = new ServiceWalkIn(1, Service.createNullService(Integer.parseInt(serviceID[i])), Employee.createNullEmployee(Integer.parseInt(employeeID[i])), "PENDING");
 			
 			serviceList.add(serv);
 		}
@@ -177,10 +179,6 @@ public class CreateIndividualWalkIn {
 		this.productQuantity = productQuantity;
 	}
 
-	public void setServiceDetails(List<ServiceDetails> serviceDetails) {
-		this.serviceDetails = serviceDetails;
-	}
-
 	public void setPackageList(List<PackageDetails> packageList) {
 		this.packageList = packageList;
 	}
@@ -203,5 +201,13 @@ public class CreateIndividualWalkIn {
 
 	public int getIntCreatedID() {
 		return intCreatedID;
+	}
+
+	public void setServiceString(String serviceString) {
+		this.serviceString = serviceString;
+	}
+
+	public void setEmployeeAssigned(String employeeAssigned) {
+		this.employeeAssigned = employeeAssigned;
 	}
 }
