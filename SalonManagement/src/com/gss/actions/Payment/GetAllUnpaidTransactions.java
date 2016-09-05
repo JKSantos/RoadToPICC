@@ -6,16 +6,19 @@ import java.util.List;
 import com.gss.model.Payment;
 import com.gss.model.ProductSales;
 import com.gss.model.Reservation;
+import com.gss.model.WalkIn;
 
 public class GetAllUnpaidTransactions {
 	
 	private List<ProductSales> orderList;
 	private List<Reservation> reservationList;
+	private List<WalkIn> walkinList;
 	
 	public String execute() throws SQLException{
 		
 		this.orderList = Payment.getAllUnpaidOrder();
 		this.reservationList = Payment.getAllUnpaidReservation();
+		this.walkinList = Payment.getAllUnpaidWalkIn();
 		
 		return "success";
 	}
@@ -26,5 +29,9 @@ public class GetAllUnpaidTransactions {
 
 	public List<Reservation> getReservationList() {
 		return reservationList;
+	}
+	
+	public List<WalkIn> getWalkinList(){
+		return this.walkinList;
 	}
 }

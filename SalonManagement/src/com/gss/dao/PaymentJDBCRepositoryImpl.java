@@ -169,7 +169,50 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 
 	@Override
 	public List<WalkIn> getAllUnpaidWalkIn() throws SQLException {
+		Connection con 									= jdbc.getConnection();
+		String getAllUnpaidOrder 						= "CALL getAllUnpaidTransaction(?);";
 		
+		List<WalkIn> walkinList				 			= new ArrayList<WalkIn>();
+
+		try{
+			PreparedStatement getAllProductSales = con.prepareStatement(getAllUnpaidOrder);
+			ResultSet orders;
+			
+			getAllProductSales.setInt(1, 2);
+			orders = getAllProductSales.executeQuery();
+
+			while(orders.next()){
+				
+				WalkIn walkin;
+				
+				int walkinID = orders.getInt(1);
+				String walkinType = "";
+				String strName = orders.getString(2);
+				String strContact = orders.getString(3);
+				Date dateTime = orders.getDate(4);
+				int intInvoiceID = orders.getInt(5);
+				Date invoiceDate = dateTime;
+				double dblAmount = orders.getDouble(9);
+				String paymentType = orders.getString(10);
+				String strStatus = orders.getString(11);
+				String receipt = orders.getString(12);
+				
+				Invoice invoice = new Invoice(intInvoiceID, invoiceDate, null, null, dblAmount, dblAmount, paymentType, null, strStatus, receipt);
+				walkin = new WalkIn(walkinID, walkinType, strName, strContact, dateTime, null, null, null, null, invoice, null, "PENDING", "UNPAID");
+				walkinList.add(walkin);
+			}
+			
+			getAllProductSales.close();
+			orders.close();
+			con.close();
+			
+			return walkinList;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			con.close();
+			return null;
+		}
 	}
 
 	@Override
