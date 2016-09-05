@@ -18,11 +18,13 @@
                     </div>
                     <div class="input-field col s4">
                         <a class="crWalkin z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
-                           href="#createWalkinModal" style="margin-left: 15px;"><i
-                                class="material-icons">add</i></a>
+                           href="#createWalkinModal" style="margin-left: 15px;">
+                            <i class="material-icons">add</i>
+                        </a>
                         <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
-                           href="#walkinTable" style="margin-left: 15px;"><i
-                                class="material-icons">border_all</i></a>
+                           href="#walkinTable" style="margin-left: 15px;">
+                            <i class="material-icons">border_all</i>
+                        </a>
                     </div>
                     <div class="input-field col s5">
                         <nav class="right white hoverable z-depth-1"
@@ -70,7 +72,7 @@
                                 <div class="card-reveal">
 
                                                 <span class="card-title grey-text text-darken-4"><i
-                                                        class="material-icons right">close</i></span>
+                                                        class="material-icons right" id="prodClose{{product.intProductID}}">close</i></span>
                                     <h4 style='font-size: 12px; line-height: 15px !important;'>
                                         <b>{{product.strProductName}}</b><br/>
                                         <span class="grey-text text-darken-4">{{product.dblProductPrice | currency:"Php "}}</span>
@@ -84,7 +86,9 @@
                                         {{product.dblProductPrice * vm.quantity | currency: "Php "}}
                                     </h6>
                                     <a class="waves-effect waves-light btn"
-                                       ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
+                                       ng-click="vm.addToCart($index, vm.selected);
+                                                 vm.sumTotal();
+                                                 vm.closeCard(product.intProductID, vm.selected)">
                                         <i class="material-icons left"
                                            style="padding: 0px !important; margin: 0px !important;">
                                             shopping_basket</i>BUY NOW!
@@ -112,7 +116,7 @@
                                 <div class="card-reveal">
 
                                                 <span class="card-title grey-text text-darken-4"><i
-                                                        class="material-icons right">close</i></span>
+                                                        class="material-icons right" id="servClose{{service.intServiceID}}">close</i></span>
                                     <h4 style='font-size: 12px; line-height: 15px !important;'>
                                         <b>{{service.strServiceName}}</b><br/>
                                         <span class="grey-text text-darken-4">{{service.dblServicePrice | currency:"Php "}}</span>
@@ -124,7 +128,9 @@
                                     </div>
 
                                     <a class="waves-effect waves-light btn"
-                                       ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
+                                       ng-click="vm.addToCart($index, vm.selected);
+                                                 vm.sumTotal();
+                                                 vm.closeCard(service.intServiceID, vm.selected)">
                                         <i class="material-icons left"
                                            style="padding: 0px !important; margin: 0px !important;">
                                             shopping_basket</i>GET SERVICE!
@@ -246,8 +252,11 @@
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <select multiple ng-model="vm.selDiscounts" id="crRDiscount"
-                                            ng-options="discount.strDiscountName for discount in vm.discountList"></select>
+                                    <select multiple
+                                            ng-model="vm.selDiscounts" id="crRDiscount"
+                                            ng-options="discount.strDiscountName for discount in vm.discountList">
+                                        <option id="discOpt" value="" selected disabled>Choose...</option>
+                                    </select>
                                     <label for="crRDiscount"><b>Discounts</b></label>
                                 </div>
                             </div>

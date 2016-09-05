@@ -5,7 +5,7 @@
         .module('app')
         .controller('walkinCtrl', walkinCtrl);
 
-    function walkinCtrl($scope, $http, $httpParamSerializerJQLike, paymentFactory, locationFactory, walkinFactory, SweetAlert) {
+    function walkinCtrl($scope, $http, $window, paymentFactory, locationFactory, walkinFactory, SweetAlert) {
         var vm = this;
         vm.selected = 'product';
         vm.selEmployee = '';
@@ -45,6 +45,7 @@
         vm.openPackageModal = openPackageModal;
         vm.assignEmployeePackage = assignEmployeePackage;
         vm.openPromoModal = openPromoModal;
+        vm.closeCard = closeCard;
 
 
         locationFactory.getEmployees().then(function (data) {
@@ -115,11 +116,22 @@
 
         }
 
+        function closeCard(id, sel) {
+            if (sel == 'product') {
+                var prodClose = 'prodClose' + id;
+                $('#' + prodClose).click();
+            } else if (sel == 'service') {
+                var servClose = 'servClose' + id;
+                $('#' + servClose).click();
+            }
+        }
+
         vm.addToCart = function (index, selected) {
             var selectedProducts = "";
             var selectedProductQuantity = "";
             var subTotalProducts = 0;
             if (selected == 'product') {
+
                 vm.productOrder.push({
                     product: vm.productList[index].strProductName,
                     productID: vm.productList[index].intProductID,
@@ -294,12 +306,14 @@
 
         vm.saveWalkin = function (details) {
             toString();
+            console.log(selectserv + '//' + selectEmp);
             console.log(selectprod + '/' + quantprod);
             console.log(vm.selServiceDetails);
             var walkinData = {
                 'productString': selectprod,
                 'productQuantity': quantprod,
-                'serviceDetails': vm.selServiceDetails,
+                'serviceString': selectserv,
+                'employeeAssigned': selectEmp,
                 'packageList': vm.selPackageDetails,
                 'promoList': vm.selPromoDetails,
                 'strTotalPrice': vm.sum,
@@ -307,32 +321,21 @@
                 'strName': vm.details.name,
                 'strContactNo': vm.details.contact
             };
-            var url = 'createWalkin';
-            swal({
-                    title: "",
-                    text: "",
-                    type: "",
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true
+            $.ajax({
+                url: 'createWalkin',
+                type: 'post',
+                data: walkinData,
+                dataType: 'json',
+                async: true,
+                success: function (data) {
+                    SweetAlert.swal("Successfully created!", ".", "success");
+                    $('#createWalkinModal').closeModal();
+                    $window.location.reload();
                 },
-                function () {
-                    setTimeout(function () {
-                        $.ajax({
-                            url: 'createWalkin',
-                            type: 'post',
-                            data: walkinData,
-                            dataType: 'json',
-                            async: true,
-                            success: function (data) {
-                                SweetAlert.swal("Successfully created!", ".", "success");
-                                $('#createWalkinModal').closeModal();
-                            },
-                            error: function () {
-                                SweetAlert.swal("Oops", "Something went wrong!", "error");
-                            }
-                        });
-                    }, 1000);
-                });
+                error: function () {
+                    SweetAlert.swal("Oops", "Something went wrong!", "error");
+                }
+            });
 
 
             var total = vm.sum;

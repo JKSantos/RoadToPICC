@@ -41,6 +41,10 @@
         var vm = this;
         vm.dtInstanceCallback = dtInstanceCallback;
         vm.searchTable = searchTable;
+        vm.closeCard = closeCard;
+        vm.crProductSales = crProductSales;
+        vm.closePSModal = closePSModal
+
         vm.searchInTable = '';
         $scope.details = {};
 
@@ -96,6 +100,26 @@
         var orderDetails = paymentFactory.getOrderDetails();
         var sum = paymentFactory.getSubTotal();
 
+        function closePSModal() {
+            $scope.details.contact = '';
+            $scope.details.name = '';
+            $scope.details.street = '';
+        }
+
+        function closeCard(id) {
+                var prodClose = 'prodClose' + id;
+                $('#' + prodClose).click();
+        }
+
+        function crProductSales() {
+            $('#crProductSales').openModal({
+                dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                opacity: .7, // Opacity of modal background
+                in_duration: 200, // Transition in duration
+                out_duration: 200, // Transition out duration
+            });
+        }
+
         $scope.addToCart = function (index) {
             $scope.itemTotal = $scope.productList[index].dblProductPrice * $scope.details.quantity;
             $scope.orderList.push({
@@ -105,6 +129,8 @@
                 quantity: $scope.details.quantity,
                 price: $scope.productList[index].dblProductPrice
             });
+
+            $scope.details.quantity = '';
 
             var productId = $scope.productList[index].intProductID;
             var quantity = $scope.details.quantity;
@@ -166,23 +192,27 @@
             
         }
 
-        function commaProducts() {
-            var selectedProducts = "";
-            for (var i = 1; i < orderDetails.length; i++) {
-                var odrdah = orderDetails[i];
-                selectedProducts += orderDetails[i].productID + ",";
+        function commaProducts(createPSForm) {
+            if(createPSForm.$valid) {
+                var selectedProducts = "";
+                for (var i = 1; i < orderDetails.length; i++) {
+                    var odrdah = orderDetails[i];
+                    selectedProducts += orderDetails[i].productID + ",";
+                }
+                return selectedProducts;
             }
-            return selectedProducts;
         }
 
-        function commaQuantity() {
-            var selectedQuantity = "";
-            for (var i = 1; i < orderDetails.length; i++) {
-                var odrdah = orderDetails[i];
-                selectedQuantity += orderDetails[i].productQuantity + ",";
-            }
+        function commaQuantity(createPSForm) {
+            if(createPSForm.$valid) {
+                var selectedQuantity = "";
+                for (var i = 1; i < orderDetails.length; i++) {
+                    var odrdah = orderDetails[i];
+                    selectedQuantity += orderDetails[i].productQuantity + ",";
+                }
 
-            return selectedQuantity;
+                return selectedQuantity;
+            }
         }
 
         $scope.calculateTotal = function () {
@@ -197,19 +227,21 @@
         }; //end
 
         var st = paymentFactory.getSubTotal();
-        $scope.setProdSalesPayment = function (custDetails) {
-            $scope.customerDetails.push({
-                orderType: custDetails.order.value,
-                strContactNo: custDetails.contact,
-                strName: custDetails.name,
-                strStreet: custDetails.street,
-                intLocationID: custDetails.location.intLocationID,
-                selectedProducts: commaProducts(),
-                productQuantity: commaQuantity(),
-                strTotalPrice: paymentFactory.getSubTotal()
-            });
-            console.log($scope.customerDetails);
-            $scope.saveDetails($scope.customerDetails[1]);
+        $scope.setProdSalesPayment = function (custDetails, createPSForm) {
+            if(createPSForm.$valid) {
+                $scope.customerDetails.push({
+                    orderType: custDetails.order.value,
+                    strContactNo: custDetails.contact,
+                    strName: custDetails.name,
+                    strStreet: custDetails.street,
+                    intLocationID: custDetails.location.intLocationID,
+                    selectedProducts: commaProducts(),
+                    productQuantity: commaQuantity(),
+                    strTotalPrice: paymentFactory.getSubTotal()
+                });
+                console.log($scope.customerDetails);
+                $scope.saveDetails($scope.customerDetails[1]);
+            }
         }; //end
 
         $scope.saveDetails = function (myData) {
