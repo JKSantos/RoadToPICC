@@ -108,7 +108,7 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 	@Override
 	public boolean updateProductSales(ProductSales Sales) throws SQLException {
 		Connection con 								= jdbc.getConnection();
-		String updateProductSales 					= "CALL updateProductSales(?, ?, ?, ?)";
+		String updateProductSales 					= "CALL updateProductSales(?, ?, ?, ?, ?, ?, ?)";
 		String deleteProductDetails					= "CALL deleteDetails(?)";
 		String createDetails 						= "CALL createDetail(?, ?, ?)";
 		
@@ -119,12 +119,15 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 			PreparedStatement deleteDetails			= con.prepareStatement(deleteProductDetails);
 			PreparedStatement insertDetails 		= con.prepareStatement(createDetails);
 
-			int intID = 0;
+			int intID = Sales.getIntSalesID();
 			
 			updateSales.setInt(1, Sales.getIntSalesID());
-			updateSales.setDate(2, (java.sql.Date) Sales.getDeliveryDate());
-			updateSales.setString(3, Sales.getStrAddress());
-			updateSales.setInt(4, Sales.getIntLocationID());
+			updateSales.setInt(2, Sales.getIntType());
+			updateSales.setString(3, Sales.getStrName());
+			updateSales.setString(4, Sales.getStrAddress());
+			updateSales.setInt(5, Sales.getIntLocationID());
+			updateSales.setString(6, Sales.getStrContactNo());
+			updateSales.setDouble(7, Sales.getInvoice().getDblTotalPrice());
 			updateSales.execute();
 			
 			deleteDetails.setInt(1, Sales.getIntSalesID());

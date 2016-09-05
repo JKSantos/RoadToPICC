@@ -59,6 +59,10 @@
 			<result name="success" type="json"></result>
 		</action>
 		
+		<action name="updateOrder" class="com.gss.actions.ProductSales.UpdateOrderAction">
+			<result name="success" type="json"></result>
+		</action>
+		
 	</package>	
 		
 		

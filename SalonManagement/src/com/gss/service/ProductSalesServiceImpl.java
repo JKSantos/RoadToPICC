@@ -21,7 +21,9 @@ public class ProductSalesServiceImpl implements ProductSalesService {
 	@Override
 	public boolean updateProductSales(ProductSales Sales) throws SQLException {
 		
-		return false;
+		ProductSalesRepository repo = new ProductSalesJDBCRepository();
+		
+		return repo.updateProductSales(Sales);
 	}
 
 	@Override

@@ -140,4 +140,17 @@ public class Payment {
 		
 		return Reservation.getAllReservationNoDetails();
 	}
+
+	public static List<WalkIn> getAllUnpaidWalkIn() {
+		
+		PaymentService service = new PaymentServiceImpl();
+		
+		try {
+			return service.getAllUnpaidWalkIn();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
 }
