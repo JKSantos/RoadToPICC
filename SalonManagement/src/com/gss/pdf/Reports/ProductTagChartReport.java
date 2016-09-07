@@ -43,16 +43,20 @@ import com.itextpdf.text.pdf.PdfWriter;
 public class ProductTagChartReport {
 
 	
-	private String destination = "resource/Reports/Product_Tag/ProductTag_" + NumberGenerator.localDateTime() + ".pdf";
+	private String destination = "resource/Reports/Product_Tag/ProductTag_Sample_" + NumberGenerator.localDateTime() + ".pdf";
 	private List<ProductTagReport> report;
 	private String dateFrom;
 	private String dateTo;
+	private final int WIDTH	 = 650;
+	private final int HEIGHT = 350;
+	private final int X = 50;
+	private final int Y = -50;
 	
 	private PdfWriter writer;
 	
 	public String generateReport(TagReport report) throws BadElementException, MalformedURLException, DocumentException, IOException{
 		
-		String title = report.getStrType().toLowerCase() + " REPORT";
+		String title = report.getStrType().toLowerCase() + " PRODUCT TAG REPORT";
 		
 		JFreeChart chart = new ProductTagChartModel(title, report).getChart();
 		
@@ -61,20 +65,20 @@ public class ProductTagChartReport {
 		document.open();
 		
 		document.add(getHeader());
-		document.add(getTitle());
-		document.add(getTagTable());
-		document.add(getTotal());
+//		document.add(getTitle());
+//		document.add(getTagTable());
+//		document.add(getTotal());
 		
 		
 		
 		PdfContentByte contentByte = writer.getDirectContent();
-		PdfTemplate template = contentByte.createTemplate(500, 300);
-		
+		PdfTemplate template = contentByte.createTemplate(WIDTH + 50, HEIGHT + 100);
+			
 		@SuppressWarnings("deprecation")
-		Graphics2D graphics2d = template.createGraphics(500, 300,
+		Graphics2D graphics2d = template.createGraphics(WIDTH + 50, HEIGHT + 100,
 				new DefaultFontMapper());
-		java.awt.geom.Rectangle2D rectangle2d = new Rectangle2D.Double(150, -50, 500,
-				300);
+		java.awt.geom.Rectangle2D rectangle2d = new Rectangle2D.Double(X, Y, WIDTH,
+				HEIGHT);
 
 		chart.draw(graphics2d, rectangle2d);
 		

@@ -26,11 +26,13 @@ public class ProductTagChartModel extends ApplicationFrame{
 	
 	private JFreeChart chart;
 	private TagReport report;
+	private String title;
 
 	
     public ProductTagChartModel(final String title, TagReport report) {
-
-        super(title);
+    	
+    	super(title);
+        this.title = title;
         this.report = report;
         final CategoryDataset dataset = createDataset();
         this.chart = createChart(dataset);
@@ -65,10 +67,10 @@ public class ProductTagChartModel extends ApplicationFrame{
         
         for(int i = 0; i < report.getDetails().size(); i++){
         	TagReportDetail detail = report.getDetails().get(i);
-        	dataset.addValue(detail.getTotalDefective(), series[i], classification[i]);
-        	dataset.addValue(detail.getTotalLost(), series[i], classification[i]);
-        	dataset.addValue(detail.getTotalExpired(), series[i], classification[i]);
-        	dataset.addValue(detail.getTotalConsumed(), series[i], classification[i]);
+        	dataset.addValue(detail.getTotalDefective(), series[0], classification[i]);
+        	dataset.addValue(detail.getTotalLost(), series[1], classification[i]);
+        	dataset.addValue(detail.getTotalExpired(), series[2], classification[i]);
+        	dataset.addValue(detail.getTotalConsumed(), series[3], classification[i]);
         }
  
         return dataset;
@@ -86,7 +88,7 @@ public class ProductTagChartModel extends ApplicationFrame{
         
         // create the chart...
         final JFreeChart chart = ChartFactory.createBarChart(
-            "Bar Chart Demo",         // chart title
+            title.toUpperCase(),         // chart title
             "Category",               // domain axis label
             "Value",                  // range axis label
             dataset,                  // data

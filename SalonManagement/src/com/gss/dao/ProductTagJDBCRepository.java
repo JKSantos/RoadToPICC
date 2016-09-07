@@ -381,9 +381,9 @@ public class ProductTagJDBCRepository implements ProductTagRepository{
 						
 						String classification = "";
 						if(type.equalsIgnoreCase("monthly"))
-							classification = DateHelper.intMonthToString(index);
+							classification = DateHelper.intMonthToString(index + 1);
 						else if(type.equalsIgnoreCase("quarterly"))
-							classification = "Quarter " + index;
+							classification = "Quarter " + index + 1;
 						else{
 							String[] date = dateList.get(index).getDateFrom().split("-");
 							classification = date[0];
