@@ -49,7 +49,7 @@ public class ProductTagChartReport {
 	private String dateTo;
 	private final int WIDTH	 = 650;
 	private final int HEIGHT = 350;
-	private final int X = 50;
+	private final int X = 65;
 	private final int Y = -50;
 	
 	private PdfWriter writer;
@@ -72,12 +72,12 @@ public class ProductTagChartReport {
 		
 		
 		PdfContentByte contentByte = writer.getDirectContent();
-		PdfTemplate template = contentByte.createTemplate(WIDTH + 50, HEIGHT + 100);
+		PdfTemplate template = contentByte.createTemplate(WIDTH + 70, HEIGHT + 200);
 			
 		@SuppressWarnings("deprecation")
-		Graphics2D graphics2d = template.createGraphics(WIDTH + 50, HEIGHT + 100,
+		Graphics2D graphics2d = template.createGraphics(WIDTH + 70, HEIGHT + 100,
 				new DefaultFontMapper());
-		java.awt.geom.Rectangle2D rectangle2d = new Rectangle2D.Double(X, Y, WIDTH,
+		java.awt.geom.Rectangle2D rectangle2d = new Rectangle2D.Double(X, 0, WIDTH,
 				HEIGHT);
 
 		chart.draw(graphics2d, rectangle2d);
