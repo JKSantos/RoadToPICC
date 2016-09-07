@@ -45,6 +45,7 @@
         vm.crProductSales = crProductSales;
         vm.closePSModal = closePSModal
 
+        vm.loadingBubble = 1;
         vm.searchInTable = '';
         $scope.details = {};
 
@@ -107,8 +108,8 @@
         }
 
         function closeCard(id) {
-                var prodClose = 'prodClose' + id;
-                $('#' + prodClose).click();
+            var prodClose = 'prodClose' + id;
+            $('#' + prodClose).click();
         }
 
         function crProductSales() {
@@ -130,11 +131,12 @@
                 price: $scope.productList[index].dblProductPrice
             });
 
-            $scope.details.quantity = '';
 
             var productId = $scope.productList[index].intProductID;
             var quantity = $scope.details.quantity;
             paymentFactory.insertOrder(productId, quantity);
+
+            $scope.details.quantity = '';
         };
 
         $scope.removeToCart = function (index, orders) {
@@ -143,7 +145,7 @@
             paymentFactory.subtractTotal(orders.total, index);
         };
 
-        $scope.openEditItem = function(index, orders) {
+        $scope.openEditItem = function (index, orders) {
             $('#editItem').openModal({
                 dismissible: true, // Modal can be dismissed by clicking outside of the modal
                 opacity: .7, // Opacity of modal background
@@ -166,7 +168,7 @@
             var beforeTotal = order.total,
                 finalTotal = order.price * order.quantity,
                 t = 0;
-            if(finalTotal > beforeTotal) {
+            if (finalTotal > beforeTotal) {
                 t = finalTotal - beforeTotal;
                 console.log(t + 't');
                 $scope.totalAmount = $scope.totalAmount + t;
@@ -189,22 +191,19 @@
                 quantity: order.quantity,
                 price: order.price
             });
-            
-        }
 
-        function commaProducts(createPSForm) {
-            if(createPSForm.$valid) {
+        };
+
+        function commaProducts() {
                 var selectedProducts = "";
                 for (var i = 1; i < orderDetails.length; i++) {
                     var odrdah = orderDetails[i];
                     selectedProducts += orderDetails[i].productID + ",";
                 }
                 return selectedProducts;
-            }
         }
 
-        function commaQuantity(createPSForm) {
-            if(createPSForm.$valid) {
+        function commaQuantity() {
                 var selectedQuantity = "";
                 for (var i = 1; i < orderDetails.length; i++) {
                     var odrdah = orderDetails[i];
@@ -212,7 +211,7 @@
                 }
 
                 return selectedQuantity;
-            }
+            console.log(selectedQuantity);
         }
 
         $scope.calculateTotal = function () {
@@ -228,7 +227,6 @@
 
         var st = paymentFactory.getSubTotal();
         $scope.setProdSalesPayment = function (custDetails, createPSForm) {
-            if(createPSForm.$valid) {
                 $scope.customerDetails.push({
                     orderType: custDetails.order.value,
                     strContactNo: custDetails.contact,
@@ -241,10 +239,10 @@
                 });
                 console.log($scope.customerDetails);
                 $scope.saveDetails($scope.customerDetails[1]);
-            }
         }; //end
 
         $scope.saveDetails = function (myData) {
+            vm.loadingBubble = 0;
             var psdata = {
                 "intLocationID": myData.intLocationID,
                 "orderType": myData.orderType,
@@ -255,55 +253,45 @@
                 "strStreet": myData.strStreet,
                 "strTotalPrice": myData.strTotalPrice
             };
-            console.log(psdata);
-            swal({
-                    title: "Create the order of " + psdata.strName + "?",
-                    text: "",
-                    type: "",
-                    showCancelButton: true,
-                    confirmButtonColor: "#81d4fa",
-                    confirmButtonText: "Yes",
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true
-                },
-                function () {
-                    setTimeout(function () {
-                        $.ajax({
-                            url: 'createOrder',
-                            type: 'post',
-                            data: psdata,
-                            dataType: 'json',
-                            async: true,
-                            success: function (data) {
-                                if (data.status == "success") {
-                                    SweetAlert.swal("Successfully created!", ".", "success");
-                                    console.log($scope.customerDetails[1]);
-                                    $scope.requestOrder.push({
-                                        strName: myData.strName,
-                                        intType: myData.orderType
-                                    });
-                                    console.log($scope.requestOrder);
-                                    $('#crProductSales').closeModal();
-                                    $scope.customerDetails = [{
-                                        orderType: '',
-                                        contactNumber: '',
-                                        name: '',
-                                        Street: '',
-                                        location: '',
-                                        orderDetails: '',
-                                        subtotal: 0
-                                    }];
-                                    $window.location.reload();
-                                } else {
-                                    SweetAlert.swal("Oops", "Something went wrong!", "error");
-                                }
-                            },
-                            error: function () {
-                                SweetAlert.swal("Oops", "Something went wrong!", "error");
-                            }
-                        });
-                    }, 1000);
+            setTimeout(function () {
+                $.ajax({
+                    url: 'createOrder',
+                    type: 'post',
+                    data: psdata,
+                    dataType: 'json',
+                    async: true,
+                    success: function (data) {
+                        if (data.status == "success") {
+                            swal("Successfully created!", ".", "success");
+                            console.log($scope.customerDetails[1]);
+                            $scope.requestOrder.push({
+                                intSalesID: data.intCreatedID,
+                                strName: myData.strName,
+                                intType: myData.orderType
+                            });
+                            console.log($scope.requestOrder);
+                            $('#crProductSales').closeModal();
+                            $scope.customerDetails = [{
+                                orderType: '',
+                                contactNumber: '',
+                                name: '',
+                                Street: '',
+                                location: '',
+                                orderDetails: '',
+                                subtotal: 0
+                            }];
+                            console.log(data);
+                            $window.location.reload();
+                        } else {
+                            SweetAlert.swal("Oops", "Something went wrong!", "error");
+                        }
+                    },
+                    error: function () {
+                        vm.loadingBubble = 1;
+                        SweetAlert.swal("Oops", "Something went wrong!", "error");
+                    }
                 });
+            }, 1000);
         }; //end
 
         $scope.acceptPickupOrder = function (request) {

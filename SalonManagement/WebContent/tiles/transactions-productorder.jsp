@@ -286,16 +286,27 @@
                 <button type="submit" value="Submit" id="crCreateOrderBtn"
                         class="actionps submitformps waves-effect waves-light white-text btn-flat purple"
                         style="margin-left:3px; margin-right:3px;"
-                        ng-if="createPSForm.$valid == true"
-                        ng-click="setProdSalesPayment(details, createPSForm); commaProducts(createPSForm); commaQuantity(createPSForm)">
+                        ng-if="createPSForm.$valid == true && vm.loadingBubble == 1"
+                        ng-click="setProdSalesPayment(details); commaProducts(); commaQuantity()">
                     CREATE
                 </button>
                 <button type="submit" value="Submit"
                         class="white-text btn-flat purple"
                         style="margin-left:3px; margin-right:3px; opacity: 0.5 !important; cursor: not-allowed !important;"
-                        ng-if="createPSForm.$valid == false"
+                        ng-if="createPSForm.$valid == false && vm.loadingBubble == 1"
                         ng-disabled="true">
                     CREATE
+                </button>
+                <button type="submit" value="Submit"
+                        class="btn-flat white"
+                        style="margin-left:3px; margin-right:3px;"
+                        ng-if="vm.loadingBubble == 0"
+                        ng-disabled="true">
+                    <div style="margin-top: 9px !important;">
+                        <div class="bubbles1"></div>
+                        <div class="bubbles1"></div>
+                        <div class="bubbles1"></div>
+                    </div>
                 </button>
             </div>
         </form>
