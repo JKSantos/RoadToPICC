@@ -21,6 +21,8 @@
 
     <link rel="stylesheet" type="text/css" href="css/baselayout.css"/>
     <link rel="stylesheet" type="text/css" href="css/perfect-scrollbar.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/angular-validation.css"/>
+
 
     <!--<link rel="stylesheet" type="text/css" href="css/drag.css"/>-->
     <!--<link rel="stylesheet" type="text/css" href="css/animate.css"/>-->
@@ -195,6 +197,7 @@
         <tiles:insertAttribute name="body"></tiles:insertAttribute>
 
     </article>
+
 
 
 </div>

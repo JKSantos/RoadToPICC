@@ -5,7 +5,7 @@
         .module('app')
         .controller('walkinCtrl', walkinCtrl);
 
-    function walkinCtrl($scope, paymentFactory, locationFactory, walkinFactory, SweetAlert) {
+    function walkinCtrl($scope, $http, $window, paymentFactory, locationFactory, walkinFactory, SweetAlert) {
         var vm = this;
         vm.selected = 'product';
         vm.selEmployee = '';
@@ -39,11 +39,13 @@
         vm.packageList = {};
         vm.promoList = {};
 
+        vm.selServiceDetails = [];
 
         vm.openEditItem = openEditItem;
         vm.openPackageModal = openPackageModal;
         vm.assignEmployeePackage = assignEmployeePackage;
         vm.openPromoModal = openPromoModal;
+        vm.closeCard = closeCard;
 
 
         locationFactory.getEmployees().then(function (data) {
@@ -79,14 +81,14 @@
             vm.discountList = data.data.discountList;
         });
 
-        function openEditItem (index, item) {
+        function openEditItem(index, item) {
             $('#editItem').openModal({
                 dismissible: true, // Modal can be dismissed by clicking outside of the modal
                 opacity: .7, // Opacity of modal background
                 in_duration: 200, // Transition in duration
                 out_duration: 200, // Transition out duration
             });
-            if(item.type == 'product') {
+            if (item.type == 'product') {
                 vm.orderToBeEdit = {
                     product: item.product,
                     productID: item.productID,
@@ -111,7 +113,17 @@
                     index: index
                 };
             }
-            
+
+        }
+
+        function closeCard(id, sel) {
+            if (sel == 'product') {
+                var prodClose = 'prodClose' + id;
+                $('#' + prodClose).click();
+            } else if (sel == 'service') {
+                var servClose = 'servClose' + id;
+                $('#' + servClose).click();
+            }
         }
 
         vm.addToCart = function (index, selected) {
@@ -119,6 +131,7 @@
             var selectedProductQuantity = "";
             var subTotalProducts = 0;
             if (selected == 'product') {
+
                 vm.productOrder.push({
                     product: vm.productList[index].strProductName,
                     productID: vm.productList[index].intProductID,
@@ -140,7 +153,6 @@
                 vm.quantity = '';
 
             } else if (selected == 'service') {
-                vm.selServiceDetails = [];
 
                 vm.serviceOrder.push({
                     service: vm.serviceList[index].strServiceName,
@@ -155,12 +167,12 @@
                 });
 
                 vm.selServiceDetails.push({
-                    intServiceID: vm.serviceList[index].intServiceID,
-                    intQuantity: 1,
-                    intEmployeeID: vm.selEmployee.intEmpID,
+                    intServiceID: vm.serviceList[index].intServiceID.toString(),
+                    intQuantity: '1',
+                    intEmployeeID: vm.selEmployee.intEmpID.toString(),
                     strStatus: 'pending'
                 });
-
+                console.log(vm.selServiceDetails);
                 var selectedService = "";
                 var selectedServiceQuantity = "";
                 var selectedEmployee = "";
@@ -244,7 +256,7 @@
             console.log(vm.selPackageDetails);
         }
 
-        function openPromoModal (index, promo) {
+        function openPromoModal(index, promo) {
             $('#promoListModal').openModal({
                 dismissible: true, // Modal can be dismissed by clicking outside of the modal
                 opacity: .7, // Opacity of modal background
@@ -255,17 +267,17 @@
             vm.promoContainsPackage = getServiceInPackage(promo.packageList);
         }
 
-        function getServiceInPackage (pack) {
+        function getServiceInPackage(pack) {
             var p = [];
-            angular.forEach(pack, function(item, i) {
-                for(var ii = 0; ii < item.pack.serviceList.length; ii++) {
+            angular.forEach(pack, function (item, i) {
+                for (var ii = 0; ii < item.pack.serviceList.length; ii++) {
                     p.push(item.pack.serviceList[ii]);
                 }
             });
             return p;
         }
 
-        function openPackageModal (index, contains) {
+        function openPackageModal(index, contains) {
             $('#packageListModal').openModal({
                 dismissible: true, // Modal can be dismissed by clicking outside of the modal
                 opacity: .7, // Opacity of modal background
@@ -294,45 +306,36 @@
 
         vm.saveWalkin = function (details) {
             toString();
+            console.log(selectserv + '//' + selectEmp);
             console.log(selectprod + '/' + quantprod);
             console.log(vm.selServiceDetails);
             var walkinData = {
                 'productString': selectprod,
                 'productQuantity': quantprod,
-                'serviceDetails': vm.selServiceDetails.toString(),
-                'packageList': vm.selPackageDetails.toString(),
-                'promoList': vm.selPromoDetails.toString(),
+                'serviceString': selectserv,
+                'employeeAssigned': selectEmp,
+                'packageList': vm.selPackageDetails,
+                'promoList': vm.selPromoDetails,
                 'strTotalPrice': vm.sum,
                 'discounts': selectdiscount,
                 'strName': vm.details.name,
                 'strContactNo': vm.details.contact
             };
-            console.log(walkinData);
-            swal({
-                    title:"",
-                    text: "",
-                    type: "",
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true
+            $.ajax({
+                url: 'createWalkin',
+                type: 'post',
+                data: walkinData,
+                dataType: 'json',
+                async: true,
+                success: function (data) {
+                    SweetAlert.swal("Successfully created!", ".", "success");
+                    $('#createWalkinModal').closeModal();
+                    $window.location.reload();
                 },
-                function () {
-                    setTimeout(function () {
-                        $.ajax({
-                            url: 'createWalkin',
-                            type: 'post',
-                            data: walkinData,
-                            dataType: 'json',
-                            async: true,
-                            success: function (data) {
-                                SweetAlert.swal("Successfully created!", ".", "success");
-                                $('#createWalkinModal').closeModal();
-                            },
-                            error: function () {
-                                SweetAlert.swal("Oops", "Something went wrong!", "error");
-                            }
-                        });
-                    }, 1000);
-                });
+                error: function () {
+                    SweetAlert.swal("Oops", "Something went wrong!", "error");
+                }
+            });
 
 
             var total = vm.sum;
