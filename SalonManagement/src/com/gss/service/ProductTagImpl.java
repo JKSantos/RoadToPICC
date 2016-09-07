@@ -8,6 +8,7 @@ import com.gss.dao.ProductTagRepository;
 import com.gss.model.ProductTag;
 import com.gss.model.ProductTagReport;
 import com.gss.model.TagSum;
+import com.gss.model.Reports.ProductTagSum;
 
 public class ProductTagImpl implements ProductTags{
 
@@ -72,6 +73,14 @@ public class ProductTagImpl implements ProductTags{
 		
 		ProductTagRepository repo = new ProductTagJDBCRepository();
 		
-		return repo.getProductTagReport(dateTo, dateTo);
+		return repo.getProductTagReport(dateFrom, dateTo);
+	}
+
+	@Override
+	public ProductTagSum getProductTagSum(String dateFrom, String dateTo) {
+		
+		ProductTagRepository repo = new ProductTagJDBCRepository();
+		
+		return repo.getProductTagSum(dateFrom, dateTo);
 	}
 }

@@ -108,6 +108,54 @@ public class DateHelper {
 		 
 		 cal.setTime(date);
 		 
-		 return String.valueOf(cal.get(Calendar.MONTH)) + String.valueOf(cal.get(Calendar.DAY_OF_MONTH)) + String.valueOf(cal.get(Calendar.YEAR));
+		 return String.valueOf(cal.get(Calendar.MONTH)) + "-" + String.valueOf(cal.get(Calendar.DAY_OF_MONTH)) + "-" + String.valueOf(cal.get(Calendar.YEAR));
+	 }
+	 
+	 public static String stringToStringYearFirst(String date){
+		 
+		 String[] stringDate = date.split("-");
+		 
+		 String month = "";
+		 String day = stringDate[2];
+		 String year = stringDate[0];
+		 
+		 switch(Integer.parseInt(stringDate[1])){
+		 	case 1: month = "January"; break;
+		 	case 2: month = "February"; break;
+		 	case 3: month = "March"; break;
+		 	case 4: month = "April"; break;
+		 	case 5: month = "May"; break;
+		 	case 6: month = "June"; break;
+		 	case 7: month = "July"; break;
+		 	case 8: month = "August"; break;
+		 	case 9: month = "September"; break;
+		 	case 10: month = "October"; break;
+		 	case 11: month = "November"; break;
+		 	case 12: month = "December"; break;
+		 }
+		 
+		 return month + " " + day + ", " + year;
+	 }
+
+	 public static String intMonthToString(int intMonth){
+		 
+		 String month = "";
+		 
+		 switch(intMonth){
+		 	case 1: month = "January"; break;
+		 	case 2: month = "February"; break;
+		 	case 3: month = "March"; break;
+		 	case 4: month = "April"; break;
+		 	case 5: month = "May"; break;
+		 	case 6: month = "June"; break;
+		 	case 7: month = "July"; break;
+		 	case 8: month = "August"; break;
+		 	case 9: month = "September"; break;
+		 	case 10: month = "October"; break;
+		 	case 11: month = "November"; break;
+		 	case 12: month = "December"; break;
+		 }
+		 
+		 return month;
 	 }
 }

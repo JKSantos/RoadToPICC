@@ -1,5 +1,6 @@
 package com.gss.model;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.gss.service.PromoService;
@@ -153,5 +154,12 @@ public class Promo {
 		PromoService service = new PromoServiceImpl();
 		
 		return service.queryAllPromo();
+	}
+	
+	public static void checkExpiredPromo() throws SQLException{
+		
+		PromoService service = new PromoServiceImpl();
+		
+		service.checkExpiredPomo();
 	}
 }

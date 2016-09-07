@@ -29,15 +29,16 @@ public class TestReports {
 		
 		List<TagSum> sum = TagSum.getTagSum("2016-08-01", "2016-08-25");
 		
-		JFreeChart chart = PieGraph.getProductTags(sum, "August 19, 2016", "September 19, 2016");
+		JFreeChart chart = PieGraph.getProductTags(sum, "2016-8-1", "2016-8-25");
 		
-		final BarChart demo = new BarChart("Bar Chart Demo", sum, "August 19, 2016", "September 19, 2016");
+		final BarChart demo = new BarChart("Bar Chart Demo", sum, "2016-08-01", "2016-08-25");
 //        demo.pack();
 //        RefineryUtilities.centerFrameOnScreen(demo);
 //        demo.setVisible(true);
+			
 		
 		try {
-			String str = factory.generateReport("August 19, 2016","September 19, 2016", ProductTagReport.getProductTagReport("2016-08-01", "2016-08-25"), sum, demo.getChart());
+			String str = factory.generateReport("2016-8-1","2016-8-25", ProductTagReport.getProductTagReport("2016-8-1", "2016-8-25"), sum, demo.getChart());
 			System.out.print(str);
 		
 		} catch (DocumentException | IOException | SQLException e) {
