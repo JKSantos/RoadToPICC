@@ -1,5 +1,6 @@
 package com.gss.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.gss.model.Promo;
@@ -19,4 +20,6 @@ public interface PromoRepository {
 	public Promo getPromoByID(int promoID);
 	
 	public List<Promo> queryAllPromo();
+	
+	public void checkExpiredPomo() throws SQLException;
 }

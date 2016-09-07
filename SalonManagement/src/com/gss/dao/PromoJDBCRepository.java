@@ -3,8 +3,11 @@ package com.gss.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.eclipse.jdt.internal.compiler.ast.Statement;
 
 import com.gss.connection.JDBCConnection;
 import com.gss.model.Product;
@@ -566,5 +569,27 @@ public class PromoJDBCRepository implements PromoRepository{
 			return promoList;
 		}
 	}
+	
+	public void checkExpiredPomo() throws SQLException{
+		Connection con = jdbc.getConnection();
+		
+		String query = "CALL checkExpiredPromo();";
+		
+		try{
+			
+			PreparedStatement statement = con.prepareStatement(query);
+			
+			statement.execute();
+			
+			statement.close();
+			con.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		finally{
+			con.close();
+		}
+	
+	}	
 
 }

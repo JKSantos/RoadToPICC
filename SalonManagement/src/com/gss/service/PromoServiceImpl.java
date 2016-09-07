@@ -1,5 +1,6 @@
 package com.gss.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.gss.dao.PromoJDBCRepository;
@@ -59,6 +60,14 @@ public class PromoServiceImpl implements PromoService{
 		PromoRepository repo = new PromoJDBCRepository();
 		
 		return repo.queryAllPromo();
+	}
+
+	@Override
+	public void checkExpiredPomo() throws SQLException {
+
+		PromoRepository repo = new PromoJDBCRepository();
+		
+		repo.checkExpiredPomo();
 	}
 
 }

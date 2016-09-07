@@ -14,10 +14,15 @@ import com.gss.model.Product;
 import com.gss.model.ProductTag;
 import com.gss.model.ProductTagReport;
 import com.gss.model.TagSum;
+import com.gss.model.Reports.ProductTagSum;
+import com.gss.model.Reports.TagReport;
+import com.gss.model.Reports.TagReportDetail;
+import com.gss.utilities.DateHelper;
+import com.gss.utilities.ReportDate;
 
 public class ProductTagJDBCRepository implements ProductTagRepository{
 
-	private JDBCConnection jdbc = new JDBCConnection();
+	private static JDBCConnection jdbc = new JDBCConnection();
 	
 	private String strTag = "CALL createTag(?, ?, ?, ?)";
 	private String strAddStock = "UPDATE tblProduct SET intProductQuantity = intProductQuantity + ? WHERE intProductID = ?";
@@ -135,6 +140,9 @@ public class ProductTagJDBCRepository implements ProductTagRepository{
 	public List<ProductTagReport> getProductTagReport(String dateFrom, String dateTo){
 		
 		Connection 	con 				= jdbc.getConnection();
+		
+		System.out.println(dateFrom + " " + dateTo);
+		
 		String getAllTags 				= "CALL queryProductTag(?, ?);";
 		List<ProductTagReport>	reports = new ArrayList<ProductTagReport>();
 		
@@ -151,7 +159,7 @@ public class ProductTagJDBCRepository implements ProductTagRepository{
 				String tagType			= ProductTag.toString(tags.getInt(4));
 				int intQuantity			= tags.getInt(5);
 				int intEmpID			= tags.getInt(6);
-				String strEmployee		= tags.getString(7) + " " + tags.getString(7);
+				String strEmployee		= tags.getString(7) + " " + tags.getString(8);
 				
 				ProductTagReport tag = new ProductTagReport(intTagID, strProductName, datDateTagged, tagType, intQuantity, intEmpID, strEmployee);
 				reports.add(tag);
@@ -214,7 +222,7 @@ public class ProductTagJDBCRepository implements ProductTagRepository{
 		String sum						= "CALL getProductTagSum(?, ?, ?);";
 		
 		List<TagSum>	reports = new ArrayList<TagSum>();
-		
+	
 		try{
 			PreparedStatement withTag	= con.prepareStatement(getProductsWithTag);
 			PreparedStatement sumSet	= con.prepareStatement(sum);
@@ -223,8 +231,6 @@ public class ProductTagJDBCRepository implements ProductTagRepository{
 			
 			while(withTagResult.next()){
 				int id = withTagResult.getInt(1);
-				
-
 				sumSet.setInt(1, id);
 				sumSet.setString(2, dateFrom);
 				sumSet.setString(3, dateTo);
@@ -244,7 +250,7 @@ public class ProductTagJDBCRepository implements ProductTagRepository{
 				}
 			}
 			
-			
+			System.out.print("Tag Sum Size : " + reports.size());
 			withTag.close();
 			sumSet.close();
 			sumSetResult.close();
@@ -304,6 +310,97 @@ public class ProductTagJDBCRepository implements ProductTagRepository{
 			con.close();
 			
 			return tagList;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public ProductTagSum getProductTagSum(String dateFrom, String dateTo){
+		
+		Connection 	con 				= jdbc.getConnection();
+		String sum						= "CALL getTagSum(?, ?);";
+		
+		ProductTagSum	reports = null;
+		
+		try{
+			PreparedStatement sumSet	= con.prepareStatement(sum);
+			sumSet.setString(1, dateFrom);
+			sumSet.setString(2, dateTo);
+			ResultSet sumSetResult		= sumSet.executeQuery();
+
+				while(sumSetResult.next()){
+					
+					int totalDef = sumSetResult.getInt(1);
+					int totalLost = sumSetResult.getInt(2);
+					int totalExp = sumSetResult.getInt(3);
+					int totalCon = sumSetResult.getInt(4);
+					
+					reports = new ProductTagSum(dateFrom, dateTo, totalDef, totalLost, totalExp, totalCon);
+				}
+						
+
+			sumSet.close();
+			sumSetResult.close();
+
+			return reports;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	//Classfied as Monthly, Quarterly, or Annually
+	public static TagReport getTagReport(List<ReportDate> dateList, String type){
+		
+		Connection 	con 				= jdbc.getConnection();
+		String sum						= "CALL getTagSum(?, ?);";
+		
+		try{
+			PreparedStatement sumSet	= con.prepareStatement(sum);
+			ResultSet sumSetResult 		= null;
+			
+			TagReport tagReport = null;
+			List<TagReportDetail> detailList = new ArrayList<TagReportDetail>();
+			
+			for(int index = 0; index < dateList.size(); index++){
+				
+				
+				sumSet.setString(1, dateList.get(index).getDateFrom());
+				sumSet.setString(2, dateList.get(index).getDateTo());
+				sumSetResult = sumSet.executeQuery();
+	
+					while(sumSetResult.next()){
+						
+						int totalDef = sumSetResult.getInt(1);
+						int totalLost = sumSetResult.getInt(2);
+						int totalExp = sumSetResult.getInt(3);
+						int totalCon = sumSetResult.getInt(4);
+						
+						String classification = "";
+						if(type.equalsIgnoreCase("monthly"))
+							classification = DateHelper.intMonthToString(index + 1);
+						else if(type.equalsIgnoreCase("quarterly"))
+							classification = "Quarter " + index + 1;
+						else{
+							String[] date = dateList.get(index).getDateFrom().split("-");
+							classification = date[0];
+						}
+							
+						TagReportDetail detail = new TagReportDetail(classification, totalDef, totalLost, totalExp, totalCon);
+						
+						detailList.add(detail);
+					}
+			}
+
+			sumSet.close();
+			sumSetResult.close();
+			
+			tagReport = new TagReport(type, detailList);
+
+			return tagReport;
 		}
 		catch(Exception e){
 			e.printStackTrace();

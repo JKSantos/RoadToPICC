@@ -15,6 +15,11 @@ public class GetProductTagAction {
 	
 	public String execute() throws SQLException{
 		
+		this.dateFrom = dateFrom.replaceAll("/0", "-");
+		this.dateFrom = dateFrom.replaceAll("/", "-");
+		this.dateTo = dateTo.replaceAll("/0", "-");
+		this.dateTo = dateTo.replaceAll("/", "-");
+		
 		this.report = ProductTagReport.getProductTagReport(dateFrom, dateTo); 
 		this.tagSum = TagSum.getTagSum(dateFrom, dateTo);
 		

@@ -95,6 +95,7 @@
 
         locationFactory.getOrders().then(function (data) {
             $scope.requestOrderList = data.orderList;
+            console.log($scope.requestOrderList);
         });
 
 
@@ -295,6 +296,7 @@
         }; //end
 
         $scope.acceptPickupOrder = function (request) {
+            console.log($scope.requestOrderList);
             var index = $scope.requestOrder.indexOf(request);
             swal({
                     title: "Are you sure you want to accept the order of " + request.strName + "?",
