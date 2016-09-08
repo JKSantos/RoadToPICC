@@ -92,7 +92,7 @@
                     </td>
                 </tr>
                 <tr ng-repeat="payment in vm.paymentList"
-                    ng-if="payment.strStatus == 'PENDING' && payment.customer != ''">
+                    ng-if="payment.strStatus == 'PENDING'">
                     <td ng-if="payment.customer" class="left-align">{{ payment.customer.strName }}</td>
                     <td ng-if="payment.customer" class="left-align">Reservation</td>
                     <td ng-if="payment.customer" class="right-align">{{ payment.dateCreated | date: "MMMM/d/yyyy" }}</td>
