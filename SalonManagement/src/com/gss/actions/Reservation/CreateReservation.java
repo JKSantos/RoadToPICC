@@ -82,6 +82,10 @@ public class CreateReservation {
 		List<Product> prodList = Product.getAllProduct();
 		List<Service> serviceList = Service.getAllService();
 		
+		if(this.intReservationType == 1){
+			this.datTo = this.datFrom;
+		}
+		
 		Reservation reservation = null;
 		
 		//for invoice
@@ -181,6 +185,7 @@ public class CreateReservation {
 				String dateTo = new DateHelper().convert(this.datTo.split("/"));
 				String contractPath = "";
 				Customer customer = new Customer(1, this.strCustomerType, this.strCompanyName, this.strName, this.strAddress, this.strContactNo, this.strEmail);
+				
 				if(this.intReservationType == 2){
 					ContractGenerator generator = new ContractGenerator();
 					Contract contract = new Contract(DateHelper.stringDate(), "JEFFREY SANTOS", "SALON MANGEMENT SYSTEM", "189-DR. SIXTO ANTONIO AVENUE, ROSARIO PASIG CITY", this.strName.toUpperCase(), this.strAddress.toUpperCase(), reservation);

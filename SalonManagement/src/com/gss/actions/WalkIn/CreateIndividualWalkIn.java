@@ -67,12 +67,15 @@ public class CreateIndividualWalkIn {
 			}
 		}
 		
-		for(int i = 0; i < serviceID.length; i++){
-			
-			ServiceWalkIn  serv = new ServiceWalkIn(1, Service.createNullService(Integer.parseInt(serviceID[i])), Employee.createNullEmployee(Integer.parseInt(employeeID[i])), "PENDING");
-			
-			serviceList.add(serv);
+		if(!serviceString.equals("")){
+			for(int i = 0; i < serviceID.length; i++){
+				
+				ServiceWalkIn  serv = new ServiceWalkIn(1, Service.createNullService(Integer.parseInt(serviceID[i])), Employee.createNullEmployee(Integer.parseInt(employeeID[i])), "PENDING");
+				
+				serviceList.add(serv);
+			}
 		}
+		
 		
 		for(int i = 0; i < this.packageList.size(); i++){
 			
