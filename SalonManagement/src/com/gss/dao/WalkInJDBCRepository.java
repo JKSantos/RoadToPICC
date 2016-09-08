@@ -502,7 +502,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 			PreparedStatement promoPackage			= con.prepareStatement("");
 			PreparedStatement promoPackageService	= con.prepareStatement("");
 			PreparedStatement promoPackageProduct	= con.prepareStatement("");
-			
+			 
 			allWalkIn.setInt(1, intID);
 			ResultSet walkInResult 			= allWalkIn.executeQuery();
 			
@@ -517,7 +517,13 @@ public class WalkInJDBCRepository implements WalkInRepository{
 				
 				
 				//Products
-				products.setInt(1, intWalkInID);
+				products.setString(1, idType);
+				products.setInt(2, intID);
+				ResultSet productSet = products.executeQuery();
+				
+				while(productSet.next()){
+					
+				}
 				
 				walkin.add(new WalkIn(intWalkInID, strName, "walkin", strContact, dateCreated, serviceList, productList, packageList, promoList, null, null, paymentStatus, strStatus));
 			}

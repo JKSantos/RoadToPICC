@@ -19,13 +19,13 @@ public class PromoCheckerJob implements InterruptableJob {
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		
-		try {
-			System.out.println("Promo Checker Executing..");
-			Promo.checkExpiredPromo();
-		} catch (SQLException e) {
-			System.out.print("Error occured while executing job....");
-			e.printStackTrace();
-		}
+//		try {
+////			System.out.println("Promo Checker Executing..");
+////			Promo.checkExpiredPromo();
+//		} catch (SQLException e) {
+//			System.out.print("Error occured while executing job....");
+//			e.printStackTrace();
+//		}
 	}
 
 	@Override

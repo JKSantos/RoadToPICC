@@ -49,8 +49,9 @@ public class PaymentServiceImpl implements PaymentService{
 
 	@Override
 	public List<WalkIn> getAllUnpaidWalkIn() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		PaymentRepository repo = new PaymentJDBCRepositoryImpl();
+		
+		return repo.getAllUnpaidWalkIn();
 	}
 
 	@Override
