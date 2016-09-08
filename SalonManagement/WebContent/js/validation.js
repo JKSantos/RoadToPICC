@@ -1751,6 +1751,109 @@ $(function () {
 });
 //promo
 
+//discount
+$(function () {
+
+    $('#createDiscountForm').validate({
+
+        errorClass: 'invalid',
+        validClass: 'valid',
+        errorElement: 'div',
+        errorLabelContainer: '.discounterrorcontainer',
+        errorPlacement: function (error, element) {
+            // Append error within linked label
+            $(element)
+                .closest("form")
+                .find("label[for='" + element.attr("id") + "']");
+        },
+        rules: {
+            strDiscountName: {
+                required: true,
+                regx: "^[A-Za-z0-9\- :'`\s]+$",
+                noSpace: true,
+                minlength: 5
+            },
+            strApplicability: {
+                required: true
+            },
+            strDiscountPricePercent: {
+                required: true,
+                regx: "^[0-9.]+$"
+            },
+            strDiscountPriceFixed: {
+                required: true,
+                valueNotEquals: "Php 0.00",
+                valueNotEquals2: "0.0"
+            }
+        },
+        messages: {
+            strDiscountName: {
+                required: "<span class='white-text'><b>Discount Name</b>: Required</span><br/>",
+                regx: "<span class='white-text'><b>Discount Name</b>: Invalid character/s</span><br/>",
+                noSpace: "<span class='white-text'><b>Discount Name</b>: Empty Field</span><br/>",
+                minlength: "<span class='white-text'><b>Discount Name</b>: Minimum of 5 letters</span><br/>"
+            },
+            strApplicability: {
+                required: "<span class='white-text'><b>Applicability</b>: Required</span><br/>"
+            },
+            strDiscountPricePercent: {
+                required: "<span class='white-text'><b>Value</b>: Required</span><br/>",
+                regx: "<span class='white-text'><b>Value</b>: Invalid amount</span><br/>"
+            },
+            strDiscountPriceFixed: {
+                required: "<span class='white-text'><b>Value</b>: Required</span><br/>",
+                valueNotEquals: "<span class='white-text'><b>Value</b>: Invalid value</span><br/>",
+                valueNotEquals2: "<span class='white-text'><b>Value</b>: Invalid value</span><br/>"
+            }
+        }
+
+
+
+    });
+
+    $('form').on('submit', function (e) {
+        $(".error_note").remove();
+        var select = $(this).find('select').filter("[required=required]");
+        $.each(select, function (index, elm) {
+            val = $(this).val();
+            target = $(this).closest('.input-field');
+            if (typeof target !== "undefined") {
+                input_target = target.find('input.select-dropdown');
+                if (typeof input_target !== "undefined") {
+                    if (val == '' || val == false || val == 0 || val == null) {
+
+                        input_target.css({'border-color': '#EA454B', 'box-shadow': '0 1px 0 0 #EA454B'});
+
+                        $('html,body').animate({scrollTop: $("body").offset().top}, 'slow');
+                        e.preventDefault();
+
+                    } else {
+                        input_target.css({'border-color': '#9e9e9e'});
+                    }
+
+                }
+            }
+        });
+    });
+    $.validator.addMethod("checkboxes", function (value, element) {
+        return $('.chkbox:checked').length > 0;
+    });
+    $.validator.addMethod("regx", function(value, element, regexp){
+        var re = new RegExp(regexp);
+        return this.optional(element) || re.test(value);
+    });
+    $.validator.addMethod("noSpace", function (value, element) {
+        return value.indexOf(" ") != "";
+    });
+    $.validator.addMethod("valueNotEquals", function(value, element, arg){
+        return arg != value;
+    });
+    $.validator.addMethod("valueNotEquals2", function(value, element, arg){
+        return arg != value;
+    });
+});
+//discount
+
 //INVENTORY
 $(function () {
 

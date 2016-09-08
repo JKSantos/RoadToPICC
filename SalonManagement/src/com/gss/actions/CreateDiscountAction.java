@@ -44,6 +44,11 @@ public class CreateDiscountAction {
 		List<Package> packageList = new ArrayList<Package>();
 		List<Promo> promoList = new ArrayList<Promo>();
 		
+		this.checkedPackages = this.checkedPackages.replaceAll(" ", "");
+		this.checkedServices = this.checkedServices.replaceAll(" ", "");
+		this.checkedProducts = this.checkedProducts.replaceAll(" ", "");
+		this.checkedPromos = this.checkedPromos.replaceAll(" ", "");
+		
 		if(!checkedProducts.equals(""))
 			productList = new SearchProduct().searchList(checkedProducts.split(","), Product.getAllProduct());
 		if(!checkedServices.equals(""))
