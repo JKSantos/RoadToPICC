@@ -241,19 +241,19 @@ $(document).ready(function () {
 
 
 $(document).ready(function () {
-    var discounttbl = $('#discounttbl').DataTable({
-        "bLengthChange": false,
-        responsive: true,
-        "order": [],
-        "columnDefs": [
-            {"targets": 'no-sort', "orderable": false},
-            {className: "dt-body-left", "targets": [0, 1, 2, 3]},
-            {className: "dt-body-right", "targets": [4]},
-            {className: "dt-head-center", "targets": [5]},
-            {"targets": [1, 2], render: $.fn.dataTable.render.ellipsis(25)}
-        ],
-        "rowHeight": '10px'
-    });
+    // var discounttbl = $('#discounttbl').DataTable({
+    //     "bLengthChange": false,
+    //     responsive: true,
+    //     "order": [],
+    //     "columnDefs": [
+    //         {"targets": 'no-sort', "orderable": false},
+    //         {className: "dt-body-left", "targets": [0, 1, 2, 3]},
+    //         {className: "dt-body-right", "targets": [4]},
+    //         {className: "dt-head-center", "targets": [5]},
+    //         {"targets": [1, 2], render: $.fn.dataTable.render.ellipsis(25)}
+    //     ],
+    //     "rowHeight": '10px'
+    // });
 
     $("#discountSearch").bind('keyup search input paste cut', function () {
         discounttbl.search(this.value).draw();
@@ -274,56 +274,56 @@ $(document).ready(function () {
         }
     });
 
-    var crdiscounttblProduct = $('#crdiscounttblProduct').DataTable({
-        "bLengthChange": false,
-        responsive: true,
-        "order": [],
-        "columnDefs": [
-            {"targets": 'no-sort', "orderable": false},
-            {className: "dt-body-left", "targets": [0, 1, 2]}
-        ],
-        "rowHeight": '10px'
-    });
+    // var crdiscounttblProduct = $('#crdiscounttblProduct').DataTable({
+    //     "bLengthChange": false,
+    //     responsive: true,
+    //     "order": [],
+    //     "columnDefs": [
+    //         {"targets": 'no-sort', "orderable": false},
+    //         {className: "dt-body-left", "targets": [0, 1, 2]}
+    //     ],
+    //     "rowHeight": '10px'
+    // });
 
-    var crdiscounttblService = $('#crdiscounttblService').DataTable({
-        "bLengthChange": false,
-        responsive: true,
-        "order": [],
-        "columnDefs": [
-            {"targets": 'no-sort', "orderable": false},
-            {className: "dt-body-left", "targets": [0, 1, 2]},
-        ],
-        "rowHeight": '10px'
-    });
+    // var crdiscounttblService = $('#crdiscounttblService').DataTable({
+    //     "bLengthChange": false,
+    //     responsive: true,
+    //     "order": [],
+    //     "columnDefs": [
+    //         {"targets": 'no-sort', "orderable": false},
+    //         {className: "dt-body-left", "targets": [0, 1, 2]},
+    //     ],
+    //     "rowHeight": '10px'
+    // });
 
-    var crdiscounttblPackage = $('#crdiscounttblPackage').DataTable({
-        "bLengthChange": false,
-        responsive: true,
-        "order": [],
-        "columnDefs": [
-            {"targets": 'no-sort', "orderable": false},
-            {className: "dt-body-left", "targets": [0, 1, 2]}
-        ],
-        "rowHeight": '10px'
-    });
+    // var crdiscounttblPackage = $('#crdiscounttblPackage').DataTable({
+    //     "bLengthChange": false,
+    //     responsive: true,
+    //     "order": [],
+    //     "columnDefs": [
+    //         {"targets": 'no-sort', "orderable": false},
+    //         {className: "dt-body-left", "targets": [0, 1, 2]}
+    //     ],
+    //     "rowHeight": '10px'
+    // });
 
-    var crdiscounttblPromo = $('#crdiscounttblPromo').DataTable({
-        "bLengthChange": false,
-        responsive: true,
-        "order": [],
-        "columnDefs": [
-            {"targets": 'no-sort', "orderable": false},
-            {className: "dt-body-left", "targets": [0, 1, 2]}
-        ],
-        "rowHeight": '10px'
-    });
+    // var crdiscounttblPromo = $('#crdiscounttblPromo').DataTable({
+    //     "bLengthChange": false,
+    //     responsive: true,
+    //     "order": [],
+    //     "columnDefs": [
+    //         {"targets": 'no-sort', "orderable": false},
+    //         {className: "dt-body-left", "targets": [0, 1, 2]}
+    //     ],
+    //     "rowHeight": '10px'
+    // });
 
-    $("#crDiscountSearch").bind('keyup search input paste cut', function () {
-        crdiscounttblProduct.search(this.value).draw();
-        crdiscounttblService.search(this.value).draw();
-        crdiscounttblPackage.search(this.value).draw();
-        crdiscounttblPromo.search(this.value).draw();
-    });
+    // $("#crDiscountSearch").bind('keyup search input paste cut', function () {
+    //     crdiscounttblProduct.search(this.value).draw();
+    //     crdiscounttblService.search(this.value).draw();
+    //     crdiscounttblPackage.search(this.value).draw();
+    //     crdiscounttblPromo.search(this.value).draw();
+    // });
 
     $('#discountFilter').change(function () {
         var $filter = $(this);
@@ -358,10 +358,7 @@ $(document).ready(function () {
         $('#crdiscounttblPromo').parents('div.tablewrapper').first().hide();
     });
 
-    $('#createDiscountSubmitForm').click(function () {
-        swal("Successfully created!", "", "success");
-        $('#createDiscountForm').submit();
-    });
+    // discounttbl
 
     $('.radiobtn').click(function () {
         $('#crDiscountGuidelines').attr('disabled', true);
@@ -614,28 +611,48 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    var promotbl = $('#promotbl').dataTable({
-        "bLengthChange": false,
-        "sPaginationType": "full_numbers",
-        responsive: true,
-        "order": [],
-        "columnDefs": [
-            {"targets": 'no-sort', "orderable": false},
-            {"targets": [0], "width": "150px"},
-            {"targets": [2], "width": "100px"},
-            {"targets": [1], "width": "200px"},
-            {"targets": [3], "width": "100"},
-            {"targets": [4], "width": "150"},
-            {className: "dt-body-center", "targets": [4]},
-            {className: "dt-body-left", "targets": [0, 1]},
-            {className: "dt-body-right", "targets": [2, 3]},
-        ],
-        "rowHeight": '10px'
-    });
+    // var promotbl = $('#promotbl').dataTable({
+    //     "bLengthChange": false,
+    //     "sPaginationType": "full_numbers",
+    //     responsive: true,
+    //     "order": [],
+    //     "columnDefs": [
+    //         {"targets": 'no-sort', "orderable": false},
+    //         {"targets": [0], "width": "150px"},
+    //         {"targets": [2], "width": "100px"},
+    //         {"targets": [1], "width": "200px"},
+    //         {"targets": [3], "width": "100"},
+    //         {"targets": [4], "width": "150"},
+    //         {className: "dt-body-center", "targets": [4]},
+    //         {className: "dt-body-left", "targets": [0, 1]},
+    //         {className: "dt-body-right", "targets": [2, 3]},
+    //     ],
+    //     "rowHeight": '10px'
+    // });
+    //
+    // $("#promoSearch").bind('keyup search input paste cut', function () {
+    //     promotbl.search(this.value).draw();
+    // });
+});
 
-    $("#promoSearch").bind('keyup search input paste cut', function () {
-        promotbl.search(this.value).draw();
-    });
+$(document).ready(function () {
+    // var discounttbl = $('#discounttbl').DataTable({
+    //     "bLengthChange": false,
+    //     responsive: true,
+    //     "order": [],
+    //     "columnDefs": [
+    //         {"targets": 'no-sort', "orderable": false},
+    //         {className: "dt-body-left", "targets": [0, 1, 2, 3, 4]},
+    //         {className: "dt-body-right", "targets": [5]},
+    //         {className: "dt-head-center", "targets": [6]},
+    //         {"targets": [1, 2], render: $.fn.dataTable.render.ellipsis(25)}
+    //     ],
+    //     "rowHeight": '10px'
+    // });
+    //
+    // $("#discountSearch").bind('keyup search input paste cut', function () {
+    //     discounttbl.search(this.value).draw();
+    // });
 });
 
 
@@ -1533,40 +1550,6 @@ $('#inventorytbl').on('click', '.inventdeacbtn', function (e) {
             });
         });
 });
-
-$('#discounttbl').on('click', '.discountdeacbtn', function (e) {
-    e.returnValue = false;
-    var discountdeacID = $(this).attr('id');
-    var deactivateDiscount = {
-        'intDiscountID': discountdeacID
-    }
-    var $tr = $(this).closest('tr'),
-        discountname = $tr.find('td:eq(0)').text();
-
-    swal({
-            title: "Are you sure you want to deactivate " + discountname + "?",
-            text: "",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, delete it!",
-            closeOnConfirm: false
-        },
-        function () {
-            swal("Deleted!", ".", "success");
-            $.ajax({
-                type: 'post',
-                url: 'deactivateDiscount',
-                data: deactivateDiscount,
-                success: function (response) {
-                    $tr.find('td').fadeOut(500, function () {
-                        $tr.remove();
-                    });
-                }
-            });
-        });
-});
-
 
 $(document).ready(function () {
     var reservationtbl = $('#reservationtbl').DataTable({

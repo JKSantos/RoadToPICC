@@ -36,12 +36,6 @@ public class LogInAction extends ActionSupport implements SessionAware{
 				return "unauthorized";
 			}
 			else{
-				try {
-					PromoChecker.check();
-				} catch (SchedulerException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				userSession.put("firstName", emp.getStrEmpFirstName());
 				userSession.put("lastName", emp.getStrEmpLastName());
 				userSession.put("id", emp.getIntEmpID());

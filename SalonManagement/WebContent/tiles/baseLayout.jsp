@@ -107,7 +107,7 @@
                             <li><a href="productMaintenance">Product</a></li>
                             <li><a href="serviceMaintenance">Service</a></li>
                             <li><a href="packageMaintenance">Package</a></li>
-                            <li><a href="locationMaintenance">Delivery Charge</a></li>
+                            <li><a href="locationMaintenance">Transportation Charge</a></li>
                             <li><a href="extraChargeMaintenance">Other Charge</a></li>
                             <li><a href="promoMaintenance">Promo</a></li>
                             <li><a href="discountMaintenance">Discount</a></li>
@@ -239,6 +239,10 @@
 <!-- <script type="text/javascript" src="js/ProductsSales/ajax.js"></script> -->
 <!-- jQuery Ajax -->
 <script type="text/javascript" src="js/ajax/extracharge.js"></script>
+<script type="text/javascript" src="js/ajax/discount.js"></script>
+<script type="text/javascript" src="js/ajax/discount-create.js"></script>
+<script type="text/javascript" src="js/ajax/discount-update.js"></script>
+<script type="text/javascript" src="js/ajax/discount-deactivate.js"></script>
 <script type="text/javascript" src="js/ajax/package.js"></script>
 <script type="text/javascript" src="js/ajax/package-view.js"></script>
 <script type="text/javascript" src="js/ajax/package-update.js"></script>
