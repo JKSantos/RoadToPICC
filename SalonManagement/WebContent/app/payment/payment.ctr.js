@@ -22,12 +22,12 @@
         vm.dtInstanceCallback = dtInstanceCallback;
         vm.searchTable = searchTable;
 
-        function dtInstanceCallback (dtInstance) {
+        function dtInstanceCallback(dtInstance) {
             var datatableObj = dtInstance.DataTable;
             vm.tableInstance = datatableObj;
         }
 
-        function searchTable () {
+        function searchTable() {
             var query = vm.paymentSearch;
             vm.tableInstance.search(query).draw();
         }
@@ -39,6 +39,10 @@
             for (var i = 0; i < data.reservationList.length; i++) {
                 vm.paymentList.push(data.reservationList[i]);
             }
+            for (var j = 0; j < data.walkinList.length; j++) {
+                vm.paymentList.push(data.walkinList[j]);
+            }
+            console.log(vm.paymentList);
         });
 
 
@@ -88,6 +92,25 @@
                     index: index
                 };
                 console.log(vm.paymentDetails);
+            } else if (type == 'walkin') {
+                vm.paymentDetails = {
+                    datWalkIn: payment.datWalkIn,
+                    intWalkInID: payment.intWalkInID,
+                    invoice: payment.invoice,
+                    packages: payment.packages,
+                    payment: payment.payment,
+                    products: payment.products,
+                    promo: payment.promo,
+                    services: payment.services,
+                    strContactNo: payment.strContactNo,
+                    strName: payment.strName,
+                    strPaymentStatus: payment.strPaymentStatus,
+                    strWalkInStatus: payment.strWalkInStatus,
+                    strWalkInType: payment.strWalkInType,
+                    paymentCreated: new Date(),
+                    type: type,
+                    index: index
+                }
             }
             if (type == 'order') {
                 vm.paymentType = [
@@ -98,6 +121,16 @@
                 vm.paymentDetails.remainingBalance = $filter('currency')(vm.paymentDetails.invoice.dblRemainingBalance, "Php ");
                 vm.paymentDetails.paymentAmount = $filter('currency')(vm.paymentDetails.paymentAmount, "Php ");
             } else if (type == 'reservation') {
+                vm.paymentType = [
+                    {id: 1, value: 'FULL PAYMENT', name: 'FULL PAYMENT'},
+                    {id: 2, value: 'DOWN PAYMENT', name: 'DOWN PAYMENT'},
+                    {id: 3, value: 'COMPLIMENTARY PAYMENT', name: 'COMPLIMENTARY PAYMENT'}
+                ];
+                vm.paymentDetails.paymentCreated = $filter('date')(vm.paymentDetails.paymentCreated, "MMMM/d/yyyy");
+                vm.paymentDetails.totalBalance = $filter('currency')(vm.paymentDetails.invoice.dblTotalPrice, "Php ");
+                vm.paymentDetails.remainingBalance = $filter('currency')(vm.paymentDetails.invoice.dblRemainingBalance, "Php ");
+                vm.paymentDetails.paymentAmount = $filter('currency')(vm.paymentDetails.paymentAmount, "Php ");
+            } else if (type == 'walkin') {
                 vm.paymentType = [
                     {id: 1, value: 'FULL PAYMENT', name: 'FULL PAYMENT'},
                     {id: 2, value: 'DOWN PAYMENT', name: 'DOWN PAYMENT'},

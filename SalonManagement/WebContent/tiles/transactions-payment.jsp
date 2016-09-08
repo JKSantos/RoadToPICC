@@ -47,41 +47,66 @@
                 </tfoot>
                 <tbody>
                 <tr ng-repeat="payment in vm.paymentList"
-                    ng-if="payment.strStatus != 'COMPLETE'">
-                    <td ng-if="payment.strName" class="left-align">{{ payment.strName }}</td>
-                    <td ng-if="payment.customer" class="left-align">{{ payment.customer.strName }}</td>
-                    <td ng-if="payment.strName" class="left-align">Product Order</td>
-                    <td ng-if="payment.customer" class="left-align">Reservation</td>
-                    <td ng-if="payment.strName" class="right-align">{{ payment.datCreated | date: "MMMM/d/yyyy" }}</td>
-                    <td ng-if="payment.customer" class="right-align">{{ payment.dateCreated | date: "MMMM/d/yyyy" }}
-                    </td>
-                    <td ng-if="payment.strName" class="left-align">
+                    ng-if="payment.strStatus == 'PENDING'">
+                    <td ng-if="payment.intSalesID" class="left-align">{{ payment.strName }}</td>
+                    <td ng-if="payment.intSalesID" class="left-align">Product Order</td>
+                    <td ng-if="payment.intSalesID" class="right-align">{{ payment.datCreated | date: "MMMM/d/yyyy" }}</td>
+                    <td ng-if="payment.intSalesID" class="left-align">
                         <span ng-if="payment.intType==1">DELIVERY</span>
                         <span ng-if="payment.intType==2">PICK UP</span>
                     </td>
-                    <td ng-if="payment.customer" class="left-align">
-                        <span ng-if="reserve.intReservationType==1">HOME SERVICE</span>
-                        <span ng-if="reserve.intReservationType==2">EVENT</span>
-                    </td>
-                    <td ng-if="payment.strName" class="right-align">
+                    <td ng-if="payment.intSalesID" class="right-align">
                         {{ payment.invoice.dblTotalPrice | currency: "Php " }}
                     </td>
-                    <td ng-if="payment.customer" class="right-align">
-                        {{ payment.invoice.dblTotalPrice | currency: "Php " }}
-                    </td>
-                    <td ng-if="payment.strName" class="right-align">
-                        {{ payment.invoice.dblRemainingBalance | currency: "Php " }}
-                    </td>
-                    <td ng-if="payment.customer" class="right-align">
+                    <td ng-if="payment.intSalesID" class="right-align">
                         {{ payment.invoice.dblRemainingBalance | currency: "Php " }}
                     </td>
                     <td class="center-align">
                         <button class="waves-effect waves-purple btn-flat transparent black-text"
                                 style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Payment"
                                 ng-click="vm.createPOPayment(payment, $index, vm.type[0].option1)"
-                                ng-if="payment.strName">
+                                ng-if="payment.intSalesID">
                             <i class='material-icons medium'>payment</i>
                         </button>
+                    </td>
+                </tr>
+                <tr ng-repeat="payment in vm.paymentList"
+                    ng-if="payment.strWalkInStatus == 'PENDING'">
+                    <td ng-if="payment.intWalkInID" class="left-align">{{ payment.strName }}</td>
+                    <td ng-if="payment.intWalkInID" class="left-align">Walk In</td>
+                    <td ng-if="payment.intWalkInID" class="right-align">{{ payment.datWalkIn | date: "MMMM/d/yyyy" }}</td>
+                    <td ng-if="payment.intWalkInID" class="left-align">WALK IN</td>
+                    <td ng-if="payment.intWalkInID" class="right-align">
+                        {{ payment.invoice.dblTotalPrice | currency: "Php " }}
+                    </td>
+                    <td ng-if="payment.intWalkInID" class="right-align">
+                        {{ payment.invoice.dblRemainingBalance | currency: "Php " }}
+                    </td>
+                    <td class="center-align">
+                        <button class="waves-effect waves-purple btn-flat transparent black-text"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Payment"
+                                ng-click="vm.createPOPayment(payment, $index, vm.type[0].option2)"
+                                ng-if="payment.intWalkInID">
+                            <i class='material-icons medium'>payment</i>
+                        </button>
+                    </td>
+                </tr>
+                <tr ng-repeat="payment in vm.paymentList"
+                    ng-if="payment.strStatus == 'PENDING' && payment.customer != ''">
+                    <td ng-if="payment.customer" class="left-align">{{ payment.customer.strName }}</td>
+                    <td ng-if="payment.customer" class="left-align">Reservation</td>
+                    <td ng-if="payment.customer" class="right-align">{{ payment.dateCreated | date: "MMMM/d/yyyy" }}</td>
+                    <td ng-if="payment.customer" class="left-align">
+                        <span ng-if="reserve.intReservationType==1">HOME SERVICE</span>
+                        <span ng-if="reserve.intReservationType==2">EVENT</span>
+                    </td>
+                    <td ng-if="payment.customer" class="right-align">
+                        {{ payment.invoice.dblTotalPrice | currency: "Php " }}
+                    </td>
+                    <td ng-if="payment.customer" class="right-align">
+                        {{ payment.invoice.dblRemainingBalance | currency: "Php " }}
+                    </td>
+                    <td class="center-align">
                         <button class="waves-effect waves-purple btn-flat transparent black-text"
                                 style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Payment"
                                 ng-click="vm.createPOPayment(payment, $index, vm.type[0].option3)"
@@ -105,6 +130,10 @@
                 ng-if="vm.paymentDetails.type == 'reservation'">
                 Payment for {{vm.paymentDetails.customer.strName}}
             </h4>
+            <h4 class="grey-text center text-darken-1"
+                ng-if="vm.paymentDetails.type == 'walkin'">
+                Payment for {{vm.paymentDetails.strName}}
+            </h4>
             <div class="container">
                 <div class="row">
                     <div class="input-field col s6">
@@ -114,12 +143,18 @@
                         <input type="hidden"
                                ng-model="vm.paymentDetails.index"
                                ng-if="vm.paymentDetails.type == 'reservation'"/>
+                        <input type="hidden"
+                               ng-model="vm.paymentDetails.index"
+                               ng-if="vm.paymentDetails.type == 'walkin'"/>
                         <input type="text" id="paymentDetails.name" placeholder="Customer Name" readonly
                                ng-model="vm.paymentDetails.strName"
                                ng-if="vm.paymentDetails.type == 'order'">
                         <input type="text" id="paymentDetails.name" placeholder="Customer Name" readonly
                                ng-model="vm.paymentDetails.customer.strName"
                                ng-if="vm.paymentDetails.type == 'reservation'">
+                        <input type="text" id="paymentDetails.name" placeholder="Customer Name" readonly
+                               ng-model="vm.paymentDetails.strName"
+                               ng-if="vm.paymentDetails.type == 'walkin'">
                         <label for="paymentDetails.name" class="active"><b>Customer Name</b></label>
                     </div>
                     <div class="input-field col s6">
@@ -129,6 +164,9 @@
                         <input type="text" id="paymentDetails.date" placeholder="Payment Date" readonly
                                ng-model="vm.paymentDetails.paymentCreated"
                                ng-if="vm.paymentDetails.type == 'reservation'"/>
+                        <input type="text" id="paymentDetails.date" placeholder="Payment Date" readonly
+                               ng-model="vm.paymentDetails.paymentCreated"
+                               ng-if="vm.paymentDetails.type == 'walkin'"/>
                         <label for="paymentDetails.date" class="active"><b>Payment Date</b></label>
                     </div>
                     <div class="input-field col s6">
@@ -140,6 +178,10 @@
                                placeholder="Total Balance" readonly
                                ng-model="vm.paymentDetails.totalBalance"
                                ng-if="vm.paymentDetails.type == 'reservation'"/>
+                        <input type="text" id="paymentDetails.totalBalance" class="right-align"
+                               placeholder="Total Balance" readonly
+                               ng-model="vm.paymentDetails.totalBalance"
+                               ng-if="vm.paymentDetails.type == 'walkin'"/>
                         <label for="paymentDetails.totalBalance" class="active"><b>Total Balance</b></label>
                     </div>
                     <div class="input-field col s6">
@@ -151,6 +193,10 @@
                                placeholder="Total Balance" readonly
                                ng-model="vm.paymentDetails.remainingBalance"
                                ng-if="vm.paymentDetails.type == 'reservation'"/>
+                        <input type="text" id="paymentDetails.remainingBalance" class="right-align"
+                               placeholder="Total Balance" readonly
+                               ng-model="vm.paymentDetails.remainingBalance"
+                               ng-if="vm.paymentDetails.type == 'walkin'"/>
                         <label for="paymentDetails.remainingBalance" class="active"><b>Remaining Balance</b></label>
                     </div>
                     <div class="input-field col s6">
@@ -162,6 +208,11 @@
                         <select id="paymentDetails.type"
                                 ng-model="vm.paymentDetails.paymentType"
                                 ng-if="vm.paymentDetails.type == 'reservation'"
+                                ng-options="pay.name for pay in vm.paymentType track by pay.id">
+                        </select>
+                        <select id="paymentDetails.type"
+                                ng-model="vm.paymentDetails.paymentType"
+                                ng-if="vm.paymentDetails.type == 'walkin'"
                                 ng-options="pay.name for pay in vm.paymentType track by pay.id">
                         </select>
                         <label><b>Payment Type</b>
