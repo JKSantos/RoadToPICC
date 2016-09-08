@@ -747,74 +747,76 @@ function updatePromoDiscount (id) {
 
 
 function updateDiscount() {
-    var discountProdSelect = [],
-        discountServSelect = [],
-        discountPackSelect = [],
-        discountPromoSelect = [],
-        applicability = '';
+    if($('#updateDiscountForm').valid()){
+        var discountProdSelect = [],
+            discountServSelect = [],
+            discountPackSelect = [],
+            discountPromoSelect = [],
+            applicability = '';
 
-    $.each($("input[name=updateDiscountProduct]:checked"), function () {
-        discountProdSelect.push($(this).val());
-    });
-    $.each($("input[name=updateDiscountService]:checked"), function () {
-        discountServSelect.push($(this).val());
-    });
-    $.each($("input[name=updateDiscountPackage]:checked"), function () {
-        discountPackSelect.push($(this).val());
-    });
-    $.each($("input[name=updateDiscountPromo]:checked"), function () {
-        discountPromoSelect.push($(this).val());
-    });
-
-    discountProdSelect = discountProdSelect.join(',');
-    discountServSelect = discountServSelect.join(',');
-    discountPackSelect = discountPackSelect.join(',');
-    discountPromoSelect = discountPromoSelect.join(',');
-
-
-    var discountname = $('#upDiscountName').val();
-    var discountData = {
-        "intDiscountID": $('#upDiscountID').val(),
-        "strApplicability": $('input[name=strUpdateApplicability]:checked').val(),
-        "strDiscountName": discountname,
-        "strDiscountDetails": $('#upDiscountDetails').val(),
-        "strDiscountGuidelines": $("#upDiscountGuidelines").val(),
-        "strDiscountType": $('#upDiscountAmtType').val(),
-        "strDiscountPriceFixed": $('#upDiscountAmountFixed').val().replace(/[^\d.]/g, ''),
-        "strDiscountPricePercent": parseInt($('#upDiscountAmountPercent').val()),
-        "checkedServices": discountServSelect,
-        "checkedProducts": discountProdSelect,
-        "checkedPackages": discountPackSelect,
-        "checkedPromos": discountPromoSelect
-    };
-
-    console.log(discountData);
-
-    swal({
-            title: "Are you sure you want to update " + discountname + "?",
-            text: "",
-            type: "info",
-            showCancelButton: true,
-            closeOnConfirm: false,
-            showLoaderOnConfirm: true
-        },
-        function () {
-            setTimeout(function () {
-                $.ajax({
-                    url: 'updateDiscount',
-                    type: 'post',
-                    data: discountData,
-                    dataType: 'json',
-                    async: true,
-                    success: function (data) {
-                        swal("Successfully created!", ".", "success");
-                        updateDiscountTable();
-                        $('#updateDiscountModal').closeModal();
-                    },
-                    error: function () {
-                        sweetAlert("Oops...", "Something went wrong!", "error");
-                    }
-                });
-            }, 1000);
+        $.each($("input[name=updateDiscountProduct]:checked"), function () {
+            discountProdSelect.push($(this).val());
         });
+        $.each($("input[name=updateDiscountService]:checked"), function () {
+            discountServSelect.push($(this).val());
+        });
+        $.each($("input[name=updateDiscountPackage]:checked"), function () {
+            discountPackSelect.push($(this).val());
+        });
+        $.each($("input[name=updateDiscountPromo]:checked"), function () {
+            discountPromoSelect.push($(this).val());
+        });
+
+        discountProdSelect = discountProdSelect.join(',');
+        discountServSelect = discountServSelect.join(',');
+        discountPackSelect = discountPackSelect.join(',');
+        discountPromoSelect = discountPromoSelect.join(',');
+
+
+        var discountname = $('#upDiscountName').val();
+        var discountData = {
+            "intDiscountID": $('#upDiscountID').val(),
+            "strApplicability": $('input[name=strUpdateApplicability]:checked').val(),
+            "strDiscountName": discountname,
+            "strDiscountDetails": $('#upDiscountDetails').val(),
+            "strDiscountGuidelines": $("#upDiscountGuidelines").val(),
+            "strDiscountType": $('#upDiscountAmtType').val(),
+            "strDiscountPriceFixed": $('#upDiscountAmountFixed').val().replace(/[^\d.]/g, ''),
+            "strDiscountPricePercent": parseInt($('#upDiscountAmountPercent').val()),
+            "checkedServices": discountServSelect,
+            "checkedProducts": discountProdSelect,
+            "checkedPackages": discountPackSelect,
+            "checkedPromos": discountPromoSelect
+        };
+
+        console.log(discountData);
+
+        swal({
+                title: "Are you sure you want to update " + discountname + "?",
+                text: "",
+                type: "info",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
+            },
+            function () {
+                setTimeout(function () {
+                    $.ajax({
+                        url: 'updateDiscount',
+                        type: 'post',
+                        data: discountData,
+                        dataType: 'json',
+                        async: true,
+                        success: function (data) {
+                            swal("Successfully created!", ".", "success");
+                            updateDiscountTable();
+                            $('#updateDiscountModal').closeModal();
+                        },
+                        error: function () {
+                            sweetAlert("Oops...", "Something went wrong!", "error");
+                        }
+                    });
+                }, 1000);
+            });
+    }
 }
