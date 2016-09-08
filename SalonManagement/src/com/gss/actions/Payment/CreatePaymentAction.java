@@ -39,7 +39,7 @@ public class CreatePaymentAction {
 		}else if(strPaymentType.equals("walkin")){
 			WalkInReceipt walkin = new WalkInReceipt();
 			
-			walkin.createProductSalesReceipt(this.intInvoiceID, "JEFFREY SANTOS", this.datDateOfPayment, payment, url);
+			//walkin.createProductSalesReceipt(this.intInvoiceID, "JEFFREY SANTOS", this.datDateOfPayment, payment, url);
 		}
 		
 		if(recorded == true){

@@ -144,7 +144,7 @@
                             <li><a href="productQueries">Product</a></li>
                             <li><a href="serviceQueries">Service</a></li>
                             <li><a href="packageQueries">Package</a></li>
-                            <li><a href="deliveryQueries">Delivery Charge</a></li>
+                            <li><a href="deliveryQueries">Transpo. Charge</a></li>
                             <li><a href="extraQueries">Other Charge</a></li>
                             <li><a href="promoQueries">Promo</a></li>
                             <li><a href="discountQueries">Discount</a></li>

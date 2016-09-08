@@ -182,7 +182,6 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 			orders = getAllProductSales.executeQuery();
 
 			while(orders.next()){
-				
 				WalkIn walkin;
 				
 				int walkinID = orders.getInt(1);
