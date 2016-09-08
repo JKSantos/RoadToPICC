@@ -72,6 +72,9 @@ public class CreateReservation {
 	
 	public String execute() throws Exception{
 		
+		System.out.println(this.datFrom);
+		System.out.println(this.datTo);
+		
 		String[] selectedEmployees = this.selectedEmployees.split(",");
 		String[] selectedDiscounts = this.selectedDiscounts.split(",");
 		String[] selectedExtraCharges = this.selectedExtraCharges.split(",");
@@ -171,6 +174,8 @@ public class CreateReservation {
 				
 				if(this.intReservationType == 1)
 					strStatus = "REQUEST";
+				
+				
 				
 				String dateFrom = new DateHelper().convert(this.datFrom.split("/"));
 				String dateTo = new DateHelper().convert(this.datTo.split("/"));
