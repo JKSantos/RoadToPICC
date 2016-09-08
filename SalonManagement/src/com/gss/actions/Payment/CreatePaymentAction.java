@@ -2,6 +2,7 @@ package com.gss.actions.Payment;
 
 import org.apache.commons.lang3.time.StopWatch;
 
+import com.gss.Receipts.WalkInReceipt;
 import com.gss.model.Payment;
 import com.gss.utilities.DateHelper;
 import com.gss.utilities.NumberGenerator;
@@ -21,8 +22,6 @@ public class CreatePaymentAction {
 	
 	private String url = "none";
 	public String execute() throws Exception{
-		
-		long startTime = System.currentTimeMillis();
 
 		
 		String unconvertedDate = new DateHelper().convert(this.datDateOfPayment.split("/"));
@@ -34,11 +33,14 @@ public class CreatePaymentAction {
 				
 		boolean recorded = Payment.createPayment(strPaymentType, payment, url);
 		
-		ProductSalesReceiptThread thread = new ProductSalesReceiptThread();
-		long stopTime = System.currentTimeMillis();
-	      long elapsedTime = stopTime - startTime;
-	      System.out.println(elapsedTime);
-		thread.createProductSalesReceipt(this.intInvoiceID, "JEFFREY SANTOS", this.datDateOfPayment, payment, url);
+		if(strPaymentType.equals("order")){
+			ProductSalesReceiptThread thread = new ProductSalesReceiptThread();
+			thread.createProductSalesReceipt(this.intInvoiceID, "JEFFREY SANTOS", this.datDateOfPayment, payment, url);
+		}else if(strPaymentType.equals("walkin")){
+			WalkInReceipt walkin = new WalkInReceipt();
+			
+			walkin.createProductSalesReceipt(this.intInvoiceID, "JEFFREY SANTOS", this.datDateOfPayment, payment, url);
+		}
 		
 		if(recorded == true){
 			

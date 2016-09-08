@@ -474,7 +474,10 @@ public class WalkInJDBCRepository implements WalkInRepository{
 		Connection con 						= jdbc.getConnection();
 		 
 		String getWalkIn 					= null;
-		String productQuery					= "SELECT * FROM tblProductPurchase WHERE intWalkInID = ?";
+		String productQuery					= "CALL getWalkInProducts(?, ?)";
+		String serviceQuery					= "CALL getWalkInServices(?, ?)";
+		String packageQuery				 	= "CALL getWalkInPackages(?, ?)";
+		String promoQuery 				 	= "CALL getWalkInPromos(?, ?)";
 		
 		if(idType.equals("invoice")){
 			getWalkIn = "SELECT * FROM tblWalkIn WHERE intInvoiceID = ?;";
@@ -487,13 +490,13 @@ public class WalkInJDBCRepository implements WalkInRepository{
 			
 			PreparedStatement allWalkIn 			= con.prepareStatement(getWalkIn);
 			PreparedStatement products				= con.prepareStatement(productQuery);
-			PreparedStatement services				= con.prepareStatement("");
+			PreparedStatement services				= con.prepareStatement(serviceQuery);
 			
-			PreparedStatement packages				= con.prepareStatement("");
+			PreparedStatement packages				= con.prepareStatement(packageQuery);
 			PreparedStatement packageProduct		= con.prepareStatement("");
 			PreparedStatement packageService		= con.prepareStatement("");
 			
-			PreparedStatement promos				= con.prepareStatement("");
+			PreparedStatement promos				= con.prepareStatement(promoQuery);
 			PreparedStatement promoService			= con.prepareStatement("");
 			PreparedStatement promoProduct			= con.prepareStatement("");
 			PreparedStatement promoPackage			= con.prepareStatement("");
@@ -516,21 +519,6 @@ public class WalkInJDBCRepository implements WalkInRepository{
 				//Products
 				products.setInt(1, intWalkInID);
 				
-				
-/*				ReservationRepository repo = new ReservationJDBCRepository();
-				Invoice invoice = repo.getInvoice(intInvoiceID);
-				
-				if(invoice.getPaymentList().size() == 0){
-					paymentStatus = "UNPAID";
-				}
-			
-				try{
-					walkin.add(new WalkIn(intWalkInID, strName, "walkin", strContact, dateCreated, serviceList, productList, packageList, promoList, invoice, invoice.getPaymentList().get(0), paymentStatus, strStatus));
-				}
-				catch(IndexOutOfBoundsException ib){
-					walkin.add(new WalkIn(intWalkInID, strName, "walkin", strContact, dateCreated, serviceList, productList, packageList, promoList, invoice, null, paymentStatus, strStatus));
-				}
-*/
 				walkin.add(new WalkIn(intWalkInID, strName, "walkin", strContact, dateCreated, serviceList, productList, packageList, promoList, null, null, paymentStatus, strStatus));
 			}
 		
