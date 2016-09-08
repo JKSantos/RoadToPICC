@@ -10,19 +10,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DefaultPieDataset;
 
-import com.gss.model.ProductOrder;
+import com.gss.dao.Reports.ProductPurchasesRepository;
 import com.gss.model.ProductTagReport;
-import com.gss.model.TagSum;
+import com.gss.model.Reports.ProductPurchase;
 import com.gss.model.Reports.ProductTagSum;
 import com.gss.model.Reports.TagReport;
 import com.gss.utilities.DateHelper;
 import com.gss.utilities.NumberGenerator;
+import com.gss.utilities.ReportsHelper;
 import com.itextpdf.awt.DefaultFontMapper;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Document;
@@ -42,10 +39,11 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 
-public class ProductTagChartReport {
+public class ProductPurchaseChartReport {
 
 	
-	private String destination = "resource/Reports/Product_Tag/ProductTag_Sample_" + NumberGenerator.localDateTime() + ".pdf";
+    
+    private String destination = "resource/Reports/Product_Purchases/Product_Purchase_" + NumberGenerator.localDateTime() + ".pdf";
 	private List<ProductTagReport> report;
 	private String dateFrom;
 	private String dateTo;
@@ -56,19 +54,21 @@ public class ProductTagChartReport {
 	
 	private PdfWriter writer;
 	
-	public String generateReport(TagReport report) throws BadElementException, MalformedURLException, DocumentException, IOException{
+	public String generateReport(ProductPurchase report) throws BadElementException, MalformedURLException, DocumentException, IOException{
 		
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
 		
-		String title = report.getStrType().toLowerCase() + " PRODUCT TAG REPORT OF YEAR " + cal.get(Calendar.YEAR);
+		String title = report.getType().toLowerCase() + " PRODUCT SALES OF YEAR " + cal.get(Calendar.YEAR);
 		
-		if(report.getStrType().equalsIgnoreCase("annual") || report.getStrType().equalsIgnoreCase("annuall")){
-			title = report.getStrType().toLowerCase() + " PRODUCT TAG REPORT FROM " + report.getDetails().get(0).getClassification()
+		if(report.getType().equalsIgnoreCase("annual") || report.getType().equalsIgnoreCase("annuall")){
+			title = report.getType().toLowerCase() + " PRODUCT SALES FROM " + report.getDetails().get(0).getClassification()
 			+ "-" + report.getDetails().get(report.getDetails().size() - 1).getClassification();
 		}
 		
-		JFreeChart chart = new ProductTagChartModel(title, report).getChart();
+		ProductPurchasesStackedChart pro = new ProductPurchasesStackedChart(title.toUpperCase(), report);
+		
+		JFreeChart chart = pro.getChart();
 		
 		Document document = createDocument();
 		
@@ -262,5 +262,4 @@ public class ProductTagChartReport {
 		
 		return paragraph;
 	}
-	
 }

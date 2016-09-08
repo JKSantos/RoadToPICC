@@ -13,7 +13,7 @@ public class TestProductTagReport {
 		ProductTagChartReport report = new ProductTagChartReport();
 		
 		try {
-			report.generateReport(ProductTagJDBCRepository.getTagReport(ReportsHelper.quarterlyReport(), "quarterly"));
+			report.generateReport(ProductTagJDBCRepository.getTagReport(ReportsHelper.monthlyReport(), "monthly"));
 		} catch (DocumentException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

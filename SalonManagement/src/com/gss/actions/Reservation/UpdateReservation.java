@@ -33,8 +33,8 @@ public class UpdateReservation {
 	
 	private int intReservationID;
 	
-	private String strCustomerType;
-	private String strCompanyName;
+	private String strCustomerType = "individual";
+	private String strCompanyName = "";
 	private String strName;
 	private String strAddress;
 	private String strContactNo;
@@ -67,7 +67,7 @@ public class UpdateReservation {
 	private String selectedEmployees = "";		
 	private String selectedExtraCharges = "";	
 	private String selectedDiscounts = "";		
-	private String paymentType = "";		
+	private String paymentType = "FULL PAYMENT";		
 	
 	
 	public String execute() throws Exception{

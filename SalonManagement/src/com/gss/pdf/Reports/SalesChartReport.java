@@ -20,6 +20,7 @@ import com.gss.model.ProductOrder;
 import com.gss.model.ProductTagReport;
 import com.gss.model.TagSum;
 import com.gss.model.Reports.ProductTagSum;
+import com.gss.model.Reports.SalesReport;
 import com.gss.model.Reports.TagReport;
 import com.gss.utilities.DateHelper;
 import com.gss.utilities.NumberGenerator;
@@ -42,10 +43,10 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 
-public class ProductTagChartReport {
+public class SalesChartReport {
 
 	
-	private String destination = "resource/Reports/Product_Tag/ProductTag_Sample_" + NumberGenerator.localDateTime() + ".pdf";
+	private String destination = "resource/Reports/Product_Tag/Sales_" + NumberGenerator.localDateTime() + ".pdf";
 	private List<ProductTagReport> report;
 	private String dateFrom;
 	private String dateTo;
@@ -53,33 +54,29 @@ public class ProductTagChartReport {
 	private final int HEIGHT = 350;
 	private final int X = 65;
 	private final int Y = -50;
-	
+		
 	private PdfWriter writer;
 	
-	public String generateReport(TagReport report) throws BadElementException, MalformedURLException, DocumentException, IOException{
+	public String generateReport(SalesReport report) throws BadElementException, MalformedURLException, DocumentException, IOException{
 		
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
 		
-		String title = report.getStrType().toLowerCase() + " PRODUCT TAG REPORT OF YEAR " + cal.get(Calendar.YEAR);
+		String title = report.getType().toLowerCase() + " SALES REPORT OF YEAR " + cal.get(Calendar.YEAR);
 		
-		if(report.getStrType().equalsIgnoreCase("annual") || report.getStrType().equalsIgnoreCase("annuall")){
-			title = report.getStrType().toLowerCase() + " PRODUCT TAG REPORT FROM " + report.getDetails().get(0).getClassification()
+		if(report.getType().equalsIgnoreCase("annual")){
+			title = report.getType().toLowerCase() + " SALES REPORT FROM " + report.getDetails().get(0).getClassification()
 			+ "-" + report.getDetails().get(report.getDetails().size() - 1).getClassification();
 		}
 		
-		JFreeChart chart = new ProductTagChartModel(title, report).getChart();
+		JFreeChart chart = new SalesChartModel(title, report).getChart();
 		
 		Document document = createDocument();
 		
 		document.open();
 		
 		document.add(getHeader());
-//		document.add(getTitle());
-//		document.add(getTagTable());
-//		document.add(getTotal());
-		
-		
+
 		
 		PdfContentByte contentByte = writer.getDirectContent();
 		PdfTemplate template = contentByte.createTemplate(WIDTH + 70, HEIGHT + 200);
