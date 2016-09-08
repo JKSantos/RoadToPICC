@@ -29,7 +29,7 @@
         var selectemployees = "";
 
         vm.selected = 'product';
-        vm.quantity = 0;
+        vm.quantity = '';
         vm.productTotal = 0;
         vm.serviceTotal = 0;
         vm.packageTotal = 0;
@@ -71,6 +71,10 @@
 
         vm.changeDatFrom = changeDatFrom;
         vm.changeDatTo = changeDatTo;
+        vm.closeCard = closeCard;
+        vm.closeService = closeService;
+        vm.closePackage = closePackage;
+        vm.closePromo = closePromo;
 
         function changeDatFrom(date) {
             var datFrom = new Date(date);
@@ -134,11 +138,7 @@
 
         function calendarInit(data){
             console.log(data);
-            $(document).ready(function() {
-
-                // page is now ready, initialize the calendar...
-
-                $('#calendar').fullCalendar({
+                $('#reservationCalendar').fullCalendar({
                     // put your options and callbacks here
                     events: data,
                     color: 'yellow',   // an option!
@@ -156,8 +156,26 @@
                     }
 
                 })
+        }
 
-            });
+        function closeCard(id) {
+                var prodClose = 'prodClose' + id;
+                $('#' + prodClose).click();
+        }
+        
+        function closeService(id) {
+            var servClose = 'servClose' + id;
+            $('#' + servClose).click();
+        }
+
+        function closePackage(id) {
+            var packClose = 'packClose' + id;
+            $('#' + packClose).click();
+        }
+
+        function closePromo(id) {
+            var promoClose = 'promoClose' + id;
+            $('#' + promoClose).click();
         }
 
         vm.addToCart = function (index, selected) {
@@ -166,7 +184,8 @@
                     product: vm.productList[index].strProductName,
                     productID: vm.productList[index].intProductID,
                     productQuantity: vm.quantity,
-                    productTotal: vm.productList[index].dblProductPrice * vm.quantity
+                    productTotal: vm.productList[index].dblProductPrice * vm.quantity,
+                    photo: vm.productList[index].strPhotoPath
                 });
                 var selectedProducts = "";
                 var selectedProductQuantity = "";
@@ -187,7 +206,8 @@
                     service: vm.serviceList[index].strServiceName,
                     serviceID: vm.serviceList[index].intServiceID,
                     serviceQuantity: vm.quantity,
-                    serviceTotal: vm.serviceList[index].dblServicePrice * vm.quantity
+                    serviceTotal: vm.serviceList[index].dblServicePrice * vm.quantity,
+                    photo: vm.serviceList[index].strPhotoPath
                 });
                 var selectedService = "";
                 var selectedServiceQuantity = "";

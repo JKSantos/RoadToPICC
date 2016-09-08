@@ -28,7 +28,7 @@
             </nav>
             <div class="row"></div>
             <div>
-            	<div id='calendar'></div>
+            	<div id="reservationCalendar"></div>
             </div>
 
 
@@ -328,7 +328,7 @@
                                             <div class="card-reveal">
 
                                     <span class="card-title grey-text text-darken-4"><i
-                                            class="material-icons right">close</i></span>
+                                            class="material-icons right" id="prodClose{{product.intProductID}}">close</i></span>
                                                 <h4 style='font-size: 12px; line-height: 15px !important;'>
                                                     <b>{{product.strProductName}}</b><br/>
                                                     <span class="grey-text text-darken-4">{{product.dblProductPrice | currency:"Php "}}</span>
@@ -343,10 +343,11 @@
                                                     "Php "}}</h6>
 
                                                 <a class="waves-effect waves-light btn"
-                                                   ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
+                                                   ng-click="vm.addToCart($index, vm.selected); vm.sumTotal(); vm.closeCard(product.intProductID);">
                                                     <i class="material-icons left"
                                                        style="padding: 0px !important; margin: 0px !important;">
-                                                        shopping_basket</i>BUY NOW!
+                                                        shopping_basket
+                                                    </i>BUY NOW!
                                                 </a>
                                             </div>
                                         </div>
@@ -372,22 +373,22 @@
                                             <div class="card-reveal">
 
                                     <span class="card-title grey-text text-darken-4"><i
-                                            class="material-icons right">close</i></span>
+                                            class="material-icons right" id="servClose{{service.intServiceID}}">close</i></span>
                                                 <h4 style='font-size: 12px; line-height: 15px !important;'>
                                                     <b>{{service.strServiceName}}</b><br/>
                                                     <span class="grey-text text-darken-4">{{service.dblServicePrice | currency:"Php "}}</span>
                                                 </h4>
                                                 <div class="input-field col s12">
-                                                    <input type="number" id="crPSQty{{product.intProductID}}"
+                                                    <input type="number" id="crPSQty{{service.intServiceID}}"
                                                            ng-model="vm.quantity"/>
-                                                    <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
+                                                    <label for="crPSQty{{service.intServiceID}}"><b>Quantity</b></label>
                                                 </div>
                                                 <h6 class="grey-text text-darken-4">{{service.dblServicePrice *
                                                     vm.quantity | currency:
                                                     "Php "}}</h6>
 
                                                 <a class="waves-effect waves-light btn"
-                                                   ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
+                                                   ng-click="vm.addToCart($index, vm.selected); vm.sumTotal(); vm.closeService(service.intServiceID);">
                                                     <i class="material-icons left"
                                                        style="padding: 0px !important; margin: 0px !important;">
                                                         shopping_basket</i>GET SERVICE
@@ -415,21 +416,21 @@
                                             <div class="card-reveal">
 
                                    <span class="card-title grey-text text-darken-4"><i
-                                           class="material-icons right">close</i></span>
+                                           class="material-icons right" id="packClose{{package.intPackageID}}">close</i></span>
                                                 <h4 style='font-size: 12px; line-height: 15px !important;'>
                                                     <b>{{package.strPackageName}}</b><br/>
                                                     <span class="grey-text text-darken-4">{{package.dblPackagePrice | currency:"Php "}}</span>
                                                 </h4>
                                                 <div class="input-field col s12">
-                                                    <input type="number" id="crPSQty{{product.intProductID}}"
+                                                    <input type="number" id="crPSQty{{package.intPackageID}}"
                                                            ng-model="vm.quantity"/>
-                                                    <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
+                                                    <label for="crPSQty{{package.intPackageID}}"><b>Quantity</b></label>
                                                 </div>
                                                 <h6 class="grey-text text-darken-4">{{package.dblPackagePrice *
                                                     vm.quantity | currency: "Php "}}</h6>
 
                                                 <a class="waves-effect waves-light btn"
-                                                   ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
+                                                   ng-click="vm.addToCart($index, vm.selected); vm.sumTotal(); vm.closePackage(package.intPackageID);">
                                                     <i class="material-icons left"
                                                        style="padding: 0px !important; margin: 0px !important;">
                                                         shopping_basket</i>GET PACKAGE
@@ -457,22 +458,22 @@
                                             <div class="card-reveal">
 
                                    <span class="card-title grey-text text-darken-4"><i
-                                           class="material-icons right">close</i></span>
+                                           class="material-icons right" id="promoClose{{promo.intPromoID}}">close</i></span>
                                                 <h4 style='font-size: 12px; line-height: 15px !important;'>
                                                     <b>{{promo.strPromoName}}</b><br/>
                                                     <span class="grey-text text-darken-4">{{promo.dblPromoPrice | currency:"Php "}}</span>
                                                 </h4>
                                                 <div class="input-field col s12">
-                                                    <input type="number" id="crPSQty{{product.intProductID}}"
+                                                    <input type="number" id="crPSQty{{promo.intPromoID}}"
                                                            ng-model="vm.quantity"/>
-                                                    <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
+                                                    <label for="crPSQty{{promo.intPromoID}}"><b>Quantity</b></label>
                                                 </div>
                                                 <h6 class="grey-text text-darken-4">{{promo.dblPromoPrice * vm.quantity
                                                     | currency:
                                                     "Php "}}</h6>
 
                                                 <a class="waves-effect waves-light btn"
-                                                   ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">
+                                                   ng-click="vm.addToCart($index, vm.selected); vm.sumTotal(); vm.closePromo(promo.intPromoID);">
                                                     <i class="material-icons left"
                                                        style="padding: 0px !important; margin: 0px !important;">
                                                         shopping_basket</i>GET PROMO
@@ -486,7 +487,26 @@
                             <div class="col s12 z-depth-barts white" id="">
                                 <h6 class="center" style="padding-top: -2px !important;"><b>Selected Items</b></h6>
                                 <div class="col s12" id="pslist"
-                                     style="margin-top: -13px !important; margin-bottom: 5px !important;"></div>
+                                     style="margin-top: -13px !important; margin-bottom: 5px !important;">
+                                    <div class="chip" ng-repeat="product in vm.productOrder" style="margin: 2px;"
+                                                      ng-if="product.productTotal > 0">
+                                        <img ng-src="{{product.photo}}" alt="img">
+                                        {{product.product | uppercase }} ({{product.productQuantity}} - {{product.productTotal | currency: "Php "}})
+                                    </div>
+                                    <div class="chip" ng-repeat="service in vm.serviceOrder" style="margin: 2px;"
+                                         ng-if="service.serviceTotal > 0">
+                                        <img ng-src="{{service.photo}}" alt="img">
+                                        {{service.service | uppercase }} ({{service.serviceQuantity}} - {{service.serviceTotal | currency: "Php "}})
+                                    </div>
+                                    <div class="chip" ng-repeat="package in vm.packageOrder" style="margin: 2px;"
+                                         ng-if="package.packageTotal > 0">
+                                        {{package.package | uppercase }} ({{package.packageQuantity}} - {{package.packageTotal | currency: "Php "}})
+                                    </div>
+                                    <div class="chip" ng-repeat="promo in vm.promoOrder" style="margin: 2px;"
+                                         ng-if="promo.promoQuantity > 0">
+                                        {{promo.promo | uppercase }} ({{promo.promoQuantity}} - {{promo.promoTotal | currency: "Php "}})
+                                    </div>
+                                </div>
                             </div>
                             <div class="col s4" style="margin-top: 10px;">
                                 <div class="input-field col s12">
