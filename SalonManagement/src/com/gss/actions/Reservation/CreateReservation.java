@@ -31,8 +31,8 @@ import com.gss.utilities.TimeHelper;
 
 public class CreateReservation {
 	
-	private String strCustomerType;
-	private String strCompanyName;
+	private String strCustomerType = "individual";
+	private String strCompanyName = "";
 	private String strName;
 	private String strAddress;
 	private String strContactNo;
@@ -66,7 +66,7 @@ public class CreateReservation {
 	private String selectedEmployees = "";		//important
 	private String selectedExtraCharges = "";	//important
 	private String selectedDiscounts = "";		//important
-	private String paymentType = "";			// kung full or twice
+	private String paymentType = "FULL PAYMENT";			// kung full or twice
 	
 	private int intCreatedID;
 	
@@ -174,11 +174,13 @@ public class CreateReservation {
 				
 				String dateFrom = new DateHelper().convert(this.datFrom.split("/"));
 				String dateTo = new DateHelper().convert(this.datTo.split("/"));
-				
+				String contractPath = "";
 				Customer customer = new Customer(1, this.strCustomerType, this.strCompanyName, this.strName, this.strAddress, this.strContactNo, this.strEmail);
-				ContractGenerator generator = new ContractGenerator();
-				Contract contract = new Contract(DateHelper.stringDate(), "JEFFREY SANTOS", "SALON MANGEMENT SYSTEM", "189-DR. SIXTO ANTONIO AVENUE, ROSARIO PASIG CITY", this.strName.toUpperCase(), this.strAddress.toUpperCase(), reservation);
-				String contractPath = generator.createContract(contract);
+				if(this.intReservationType == 2){
+					ContractGenerator generator = new ContractGenerator();
+					Contract contract = new Contract(DateHelper.stringDate(), "JEFFREY SANTOS", "SALON MANGEMENT SYSTEM", "189-DR. SIXTO ANTONIO AVENUE, ROSARIO PASIG CITY", this.strName.toUpperCase(), this.strAddress.toUpperCase(), reservation);
+					contractPath = generator.createContract(contract);
+				}
 				reservation = new Reservation(1, customer, includedItems, intReservationType, new Date(), DateHelper.parseDate(dateFrom), DateHelper.parseDate(dateTo), TimeHelper.parseTime(timFrom), TimeHelper.parseTime(timTo), strVenue, headCount, this.intLocationID, employeeAssigned, invoice, strStatus, contractPath);
 			
 		int result = Reservation.createReservation(reservation);

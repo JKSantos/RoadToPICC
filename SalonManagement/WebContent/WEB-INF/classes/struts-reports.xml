@@ -56,6 +56,26 @@
 			<result name="success" type="tiles">walkinReport</result>
 		</action>
 		
+		<action name="tagChart" class="com.gss.actions.Reports.GetProductTagChart" method="execute">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="printTagChart" class="com.gss.actions.Reports.PrintProductTagChart" method="execute">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="salesChart" class="com.gss.actions.Reports.GetSalesChart" method="execute">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="printSalesChart" class="com.gss.actions.Reports.PrintSalesChart">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="getProductPurchases" class="com.gss.actions.Reports.GetProductPurchaseReport">
+			<result name="success" type="json"></result>
+		</action>
+		
 	</package>	
 		
 		
