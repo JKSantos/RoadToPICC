@@ -25,5 +25,7 @@ public interface EmployeeService {
 	public List<Employee> getAllEmployeeNoImage();
 	
 	public List<Employee> queryAllEmployee();
+	
+	public boolean postion(String positionName, int type);
 
 }

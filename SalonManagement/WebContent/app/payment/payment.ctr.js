@@ -124,7 +124,7 @@
                 vm.paymentType = [
                     {id: 1, value: 'FULL PAYMENT', name: 'FULL PAYMENT'},
                     {id: 2, value: 'DOWN PAYMENT', name: 'DOWN PAYMENT'},
-                    {id: 3, value: 'COMPLIMENTARY PAYMENT', name: 'COMPLIMENTARY PAYMENT'}
+                    {id: 3, value: 'COMPLEMENTARY PAYMENT', name: 'COMPLEMENTARY PAYMENT'}
                 ];
                 vm.paymentDetails.paymentCreated = $filter('date')(vm.paymentDetails.paymentCreated, "MMMM/d/yyyy");
                 vm.paymentDetails.totalBalance = $filter('currency')(vm.paymentDetails.invoice.dblTotalPrice, "Php ");
@@ -134,7 +134,7 @@
                 vm.paymentType = [
                     {id: 1, value: 'FULL PAYMENT', name: 'FULL PAYMENT'},
                     {id: 2, value: 'DOWN PAYMENT', name: 'DOWN PAYMENT'},
-                    {id: 3, value: 'COMPLIMENTARY PAYMENT', name: 'COMPLIMENTARY PAYMENT'}
+                    {id: 3, value: 'COMPLEMENTARY PAYMENT', name: 'COMPLEMENTARY PAYMENT'}
                 ];
                 vm.paymentDetails.paymentCreated = $filter('date')(vm.paymentDetails.paymentCreated, "MMMM/d/yyyy");
                 vm.paymentDetails.totalBalance = $filter('currency')(vm.paymentDetails.invoice.dblTotalPrice, "Php ");
@@ -169,6 +169,17 @@
                 };
                 var index = payment.index;
                 name = payment.customer.strName
+            } else if (payment.type == 'walkin') {
+            	paymentData = {
+                        "intPaymentID": payment.intWalkInID,
+                        "intInvoiceID": payment.invoice.intInvoiceID,
+                        "strPaymentType": payment.type,
+                        "dblPaymentAmount": payment.paymentAmount,
+                        "datDateOfPayment": payment.paymentCreated,
+                        "paymentType": payment.paymentType.value
+                    };
+                    var index = payment.index;
+                    name = payment.strName
             }
             console.log(paymentData);
             swal({

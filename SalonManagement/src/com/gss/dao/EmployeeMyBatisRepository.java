@@ -91,6 +91,12 @@ public class EmployeeMyBatisRepository implements EmployeeRepository{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public boolean postion(String positionName, int type) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 	
 

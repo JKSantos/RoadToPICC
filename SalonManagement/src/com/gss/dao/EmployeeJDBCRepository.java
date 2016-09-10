@@ -22,7 +22,7 @@ import java.sql.Blob;
 import java.sql.Connection;
 public class EmployeeJDBCRepository implements EmployeeRepository{
 
-	private JDBCConnection jdbc = new JDBCConnection();
+	private static JDBCConnection jdbc = new JDBCConnection();
 	private int intEmpID;
 	private String strJobDesc;
 	private String strEmpLastName;
@@ -665,4 +665,58 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 		}
 	}
 
+	public boolean postion(String positionName, int type){
+		
+		Connection con = jdbc.getConnection();
+		
+		String query = "";
+		
+		if(type == 1)
+			query = "CALL addPosition(?);";
+		else
+			query = "CALL removePosition(?);";
+		
+		try{
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setString(1, positionName.trim().toUpperCase());
+			
+			statement.execute();
+			
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;	
+		}
+	}
+	
+	public static String searchJob(String jobName){
+		
+		Connection con = jdbc.getConnection();
+		
+		String query = "SELECT intJobID FROM tblJob WHERE strJobDesc = ? AND intStatus = 1;";
+		
+		try{
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setString(1, jobName.trim().toUpperCase());
+			ResultSet set = statement.executeQuery();
+			
+			statement.execute();
+			
+			int id = 0;
+			
+			while(set.next()){
+				id = set.getInt(1);
+			}
+			
+			if(id == 0){
+				return "OK";
+			}else{
+				return "EXISTING";
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

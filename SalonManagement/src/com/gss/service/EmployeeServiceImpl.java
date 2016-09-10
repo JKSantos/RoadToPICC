@@ -76,4 +76,12 @@ public class EmployeeServiceImpl implements EmployeeService{
 		
 		return repo.queryAllEmployee();
 	}
+
+	@Override
+	public boolean postion(String positionName, int type) {
+
+		EmployeeRepository repo = new EmployeeJDBCRepository();
+		
+		return repo.postion(positionName, type);
+	}
 }

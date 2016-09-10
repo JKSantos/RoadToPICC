@@ -35,6 +35,18 @@
 			<result name="success">empMaintenanceRedirect.jsp</result>
 			<result name="failed" type="tiles">employeePage</result>
 		</action>
+		
+		<action name="addPosition" class="com.gss.actions.EmployeePosition" method="add">
+			<result name="success" type="json"></result>
+			<result name="existing" type="json"></result>
+			<result name="failed" type="json"></result>
+		</action>
+		
+		<action name="removePosition" class="com.gss.actions.EmployeePosition" method="remove">
+			<result name="success" type="json"></result>
+			<result name="existing" type="json"></result>
+			<result name="failed" type="json"></result>
+		</action>
 	
 	</package>	
 		

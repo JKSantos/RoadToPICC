@@ -212,4 +212,11 @@ public class Employee {
 		EmployeeService service = new EmployeeServiceImpl();
 		return service.queryAllEmployee();
 	}
+	
+	public static boolean position(String positionName, int type){
+		
+		EmployeeService service = new EmployeeServiceImpl();
+		
+		return service.postion(positionName, type);
+	}
 }
