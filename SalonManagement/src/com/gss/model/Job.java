@@ -1,5 +1,9 @@
 package com.gss.model;
 
+import java.util.List;
+
+import com.gss.dao.EmployeeJDBCRepository;
+
 public class Job {
 	
 	private String strJobDesc;
@@ -26,4 +30,7 @@ public class Job {
 		this.intJobStatus = intJobStatus;
 	}
 
+	public static List<Job> getJob(){
+		return EmployeeJDBCRepository.getJob();
+	}
 }

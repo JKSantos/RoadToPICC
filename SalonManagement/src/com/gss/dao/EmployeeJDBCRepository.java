@@ -719,4 +719,30 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 			return null;
 		}
 	}
+	
+	public static List<Job> getJob(){
+		
+		Connection con = jdbc.getConnection();
+		
+		String query = "SELECT * FROM tblJob WHERE intStatus = 1;";
+		
+		try{
+			PreparedStatement statement = con.prepareStatement(query);
+			ResultSet set = statement.executeQuery();
+			
+			List<Job> jobList = new ArrayList<Job>();
+			
+			while(set.next()){
+				int jobID = set.getInt(1);
+				String jobName = set.getString(2);
+				jobList.add(new Job(jobName, jobID));
+			}
+			
+			return jobList;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
 }
