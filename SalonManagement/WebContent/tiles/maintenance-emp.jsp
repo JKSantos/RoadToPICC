@@ -354,7 +354,7 @@ String granAccess = null;
                                 <div class="input-field col s12" style="margin-top: -20px !important;">
                                     <input type="checkbox" name="chkGrantAccess" id="chkGrantAccess"
                                            class="filled-in" style="color: purple;"/>
-                                    <label for="chkGrantAccess"><b>Grant Access</b></label>
+                                    <label for="chkGrantAccess"><b>Grant System Access</b></label>
                                 </div>
                             </div>
                         </div>

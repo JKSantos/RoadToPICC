@@ -238,6 +238,7 @@
 
 <!-- <script type="text/javascript" src="js/ProductsSales/ajax.js"></script> -->
 <!-- jQuery Ajax -->
+<script type="text/javascript" src="js/ajax/employee-position.js"></script>
 <script type="text/javascript" src="js/ajax/extracharge.js"></script>
 <script type="text/javascript" src="js/ajax/discount.js"></script>
 <script type="text/javascript" src="js/ajax/discount-create.js"></script>
