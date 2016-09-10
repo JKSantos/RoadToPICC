@@ -13,9 +13,12 @@ import java.util.List;
 
 import com.gss.connection.JDBCConnection;
 import com.gss.model.Service;
+import com.gss.model.ServiceCategory;
 
 public class ServiceJDBCRepository implements ServiceRepository{
 
+	static JDBCConnection jdbc = new JDBCConnection();
+	
 	@Override
 	public List<Service> getAllService() {
 		
@@ -342,6 +345,94 @@ public class ServiceJDBCRepository implements ServiceRepository{
 		catch(Exception e){
 			
 			System.out.println(e.fillInStackTrace());
+			return null;
+		}
+	}
+
+	public static List<ServiceCategory> getCategories(){
+		Connection con = jdbc.getConnection();
+				
+		String query = "SELECT * FROM tblServiceCategory WHERE intStatus = 1;";
+		try{
+			PreparedStatement statement = con.prepareStatement(query);
+			ResultSet set = statement.executeQuery();
+			
+			List<ServiceCategory> categoryList = new ArrayList<ServiceCategory>();
+			
+			while(set.next()){
+				int id = set.getInt(1);
+				String category = set.getString(2);
+				
+				categoryList.add(new ServiceCategory(id, category));
+			}
+			
+			statement.close();
+			set.close();
+			con.close();
+			
+			return categoryList;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public static boolean category(String categoryName, int type){
+		
+		Connection con = jdbc.getConnection();
+		
+		String query = "";
+		
+		if(type == 1)
+			query = "CALL addServiceCategory(?);";
+		else
+			query = "CALL removeServiceCategory(?);";
+		try{
+			
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setString(1, categoryName.trim().toUpperCase());
+			
+			statement.execute();
+			
+			statement.close();
+			con.close();
+			
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public static String searchCategory(String categoryName){
+		
+		Connection con = jdbc.getConnection();
+		
+		String query = "SELECT intServiceCateCode FROM tblServiceCategory WHERE strServiceCategory = ? AND intStatus = 1;";
+
+		try{
+			
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setString(1, categoryName.trim().toUpperCase());
+			
+			ResultSet set = statement.executeQuery();
+			int id = 0;
+			
+			while(set.next()){
+				id = set.getInt(1);
+			}
+			
+			statement.close();
+			set.close();
+			con.close();
+			
+			if(id == 0)
+				return "OK";
+			else
+				return "EXISTING";
+		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 	}

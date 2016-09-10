@@ -10,12 +10,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gss.model.ProductCategory;
+
 import com.gss.connection.JDBCConnection;
-import com.gss.model.Discount;
 import com.gss.model.Product;
-import com.gss.utilities.ItemDiscountHelper;
 
 public class ProductJDBCRepository implements ProductRepository{
+	static JDBCConnection jdbc = new JDBCConnection();
 
 	@Override
 	public boolean createProduct(Product product) {
@@ -356,4 +357,91 @@ public class ProductJDBCRepository implements ProductRepository{
 		}
 	}
 
+	public static boolean category(String categoryName, int type){
+		
+		Connection con = jdbc.getConnection();
+		
+		String query = "";
+		
+		if(type == 1)
+			query = "CALL addProductCategory(?);";
+		else
+			query = "CALL removeProductCategory(?);";
+		try{
+			
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setString(1, categoryName.trim().toUpperCase());
+			
+			statement.execute();
+			
+			statement.close();
+			con.close();
+			
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public static String searchCategory(String categoryName){
+		
+		Connection con = jdbc.getConnection();
+		
+		String query = "SELECT intProdCateCode FROM tblProductCategory WHERE strProdCategory = ? AND intStatus = 1;";
+
+		try{
+			
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setString(1, categoryName.trim().toUpperCase());
+			
+			ResultSet set = statement.executeQuery();
+			int id = 0;
+			
+			while(set.next()){
+				id = set.getInt(1);
+			}
+			
+			statement.close();
+			set.close();
+			con.close();
+			
+			if(id == 0)
+				return "OK";
+			else
+				return "EXISTING";
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public static List<ProductCategory> getCategoryList() {
+		Connection con = jdbc.getConnection();
+		
+		String query = "SELECT * FROM tblProductCategory WHERE intStatus = 1;";
+
+		try{
+			
+			PreparedStatement statement = con.prepareStatement(query);	
+			ResultSet set = statement.executeQuery();
+			List<ProductCategory> categoryList = new ArrayList<ProductCategory>();
+			
+			while(set.next()){
+				int id = set.getInt(1);
+				String name = set.getString(2);
+				
+				categoryList.add(new ProductCategory(id, name));
+			}
+			
+			statement.close();
+			set.close();
+			con.close();
+			return categoryList;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
 }
