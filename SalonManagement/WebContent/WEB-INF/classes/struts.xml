@@ -34,6 +34,7 @@
 	<include file="struts-queries.xml"></include>
 	<include file="struts-reports.xml"></include>
 	<include file="struts-dependencies.xml"></include>
+	<include file="struts-service.xml"></include>
 
 	<package name="default" extends="struts-default, json-default" namespace="/">
 		<result-types>
