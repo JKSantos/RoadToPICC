@@ -13,7 +13,7 @@ public class RegisterCustomer {
 	private String strEmail;
 	private String strUsername;
 	private String strPassword;
-	
+		
 	private Verification verification;
 
 	

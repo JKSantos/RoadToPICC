@@ -1,5 +1,6 @@
 package com.gss.actions.Promo;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.quartz.SchedulerException;
@@ -15,7 +16,12 @@ public class GetAllPromoNoDetails {
 	
 	public String execute() throws SchedulerException{
 		
-		PromoChecker.check();
+		try {
+			Promo.checkExpiredPromo();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.promoList = Promo.getAllPromoNoDetails();
 		
 		return result;
