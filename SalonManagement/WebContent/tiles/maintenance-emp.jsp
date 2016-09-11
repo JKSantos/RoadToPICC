@@ -121,7 +121,7 @@ String granAccess = null;
                             </a>
                             <a class="updatebtn waves-effect waves-purple modal-trigger btn-flat transparent black-text empUpdatebtn"
                                href="#emp<%=str%>" style="padding-left: 10px;padding-right:10px; margin: 5px;"
-                               onclick="setBirthDate('#upbday${employee.intEmpID}', '${employee.datEmpBirthdate}')">
+                               onclick="setBirthDate('#upbday${employee.intEmpID}', '${employee.datEmpBirthdate}'); passEmpID(${employee.intEmpID});">
                                 <i class="material-icons">edit</i>
                             </a>
                             <button class="empdeacbtn waves-effect waves-purple btn-flat transparent red-text text-accent-4"
@@ -439,12 +439,21 @@ String granAccess = null;
                         <div class="row">
                             <div class="col s12">
                                 <ul class="tabs tab-demo-active" style="width: 100%; background-color: #fafafa;">
-                                    <li class="tab col s6"><a
-                                            class="firsttab purple-text text-darken-2 active waves-effect waves-light"
-                                            href="#emp${employee.intEmpID}A"><b>INFO 1</b></a></li>
-                                    <li class="tab col s6"><a
-                                            class="secondtab purple-text text-darken-2 waves-effect waves-light"
-                                            href="#emp${employee.intEmpID}B"><b>INFO 2</b></a></li>
+                                    <li class="tab col s6">
+                                        <a class="firsttab purple-text text-darken-2 active waves-effect waves-light"
+                                           href="#emp${employee.intEmpID}A"><b>INFO 1</b>
+                                        </a>
+                                    </li>
+                                    <li class="tab col s6">
+                                        <a class="secondtab purple-text text-darken-2 waves-effect waves-light"
+                                           href="#emp${employee.intEmpID}B"><b>INFO 2</b>
+                                        </a>
+                                    </li>
+                                    <li class="tab col s6">
+                                        <a class="thirdtab purple-text text-darken-2 waves-effect waves-light"
+                                           href="#emp${employee.intEmpID}C"><b>Account</b>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                             <div id="emp${employee.intEmpID}A" class="ftab col s12">
@@ -632,6 +641,50 @@ String granAccess = null;
                                         </div>
                                     </div>
                                 </div>
+                                <div id="emp${employee.intEmpID}C" class="ftab col s12">
+                                    <div class="container">
+                                        <div class="wrapper">
+                                            <div class="row form-group">
+                                                <div class="input-field col s12">
+                                                    <input name="" id="strUpEmpUserName${employee.intEmpID}" type="text"
+                                                           class="validate" placeholder="Ex: Username" required
+                                                           value=""/>
+                                                    <label for="strUpEmpUserName${employee.intEmpID}" class="active">
+                                                        <b>Username</b>
+                                                        <i class="material-icons red-text tiny">error_outline</i></label>
+                                                </div>
+                                                <div class="input-field col s12">
+                                                    <input name="" id="strUpEmpOldPassWord${employee.intEmpID}" type="password"
+                                                           class="validate" placeholder="Old Password"
+                                                           value=""/>
+                                                    <label for="strUpEmpOldPassWord${employee.intEmpID}" class="active">
+                                                        <b>Old Password</b>
+                                                        <i class="material-icons red-text tiny">error_outline</i>
+                                                    </label>
+                                                </div>
+                                                <div class="input-field col s12">
+                                                    <input name="" id="strUpEmpNewPassWord${employee.intEmpID}" type="password"
+                                                           class="validate" placeholder="New Password"
+                                                           required value=""/>
+                                                    <label for="strUpEmpNewPassWord${employee.intEmpID}" class="active">
+                                                        <b>New Password</b>
+                                                        <i class="material-icons red-text tiny">error_outline</i>
+                                                    </label>
+                                                </div>
+                                                <div class="input-field col s12">
+                                                    <input type="password" name="" id="strUpEmpConfPassword${employee.intEmpID}"
+                                                           class="validate" placeholder="New Password"
+                                                           required/>
+                                                    <label for="strUpEmpConfPassword${employee.intEmpID}">
+                                                        <b>Confirm New Password</b>
+                                                        <i class="material-icons red-text tiny">error_outline</i>
+                                                        <span id="pwdontMatch${employee.intEmpID}" class="red-text text-darken-3"> Password don't match</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -659,7 +712,8 @@ String granAccess = null;
                 <div class="row">
                     <div class="errorUpdateoption center input-field col s12 card red white-text z-depth-barts">
                     </div>
-                    <div id="addUpdateoption" class="addUpdateoption center input-field col s12 card red white-text z-depth-barts">
+                    <div id="addUpdateoption"
+                         class="addUpdateoption center input-field col s12 card red white-text z-depth-barts">
                     </div>
                     <div class="col s12">
                         <div class="input-field col s8 offset-s2">
