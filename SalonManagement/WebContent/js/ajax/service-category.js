@@ -214,8 +214,8 @@ function removeUpdateServiceCategory() {
                     }
                 });
                 $('.updateServCategory option').each(function () {
-                    console.log($(this).val());
                     if ($(this).val() == pos) {
+                        console.log($(this).val());
                         $('select').material_select('destroy');
                         $(this).remove();
                         $('select').material_select();

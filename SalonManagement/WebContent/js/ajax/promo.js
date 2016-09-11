@@ -36,14 +36,14 @@ function updatePromoTable() {
                         {"targets": [4], "width": "150"},
                         {className: "dt-body-center", "targets": [4]},
                         {className: "dt-body-left", "targets": [0, 1]},
-                        {className: "dt-body-right", "targets": [2, 3]},
+                        {className: "dt-body-right", "targets": [2, 3]}
                     ],
                     "rowHeight": '10px'
                 });
 
             $("#promoSearch").bind('keyup search input paste cut', function () {
                 tablepromo.search(this.value).draw();
-            });;
+            });
 
             if (promoList != null) {
                 tablepromo.clear().draw();
