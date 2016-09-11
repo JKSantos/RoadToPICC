@@ -265,9 +265,9 @@
                                 <div class="input-field col s12">
                                     <input type="text" class="right-align prodPrice" name="dblPromoPrice"
                                            id="crPromoPrice"
-                                           placeholder="Price" required/>
-                                    <label for="crPromoPrice" class="active"><b>Price</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                           placeholder="Promo Price" required/>
+                                    <label for="crPromoPrice" class="active"><b>Promo Price</b>
+                                        <i class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12" style="margin-top: -15px !important;">
                                     <input name="crFree" type="checkbox" class="filled-in"
@@ -506,9 +506,9 @@
                                 <div class="input-field col s12">
                                     <input type="text" class="right-align prodPrice" name="dblPromoPrice"
                                            id="upPromoPrice"
-                                           placeholder="Price"/>
-                                    <label for="upPromoPrice" class="active"><b>Price</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                           placeholder="Promo Price"/>
+                                    <label for="upPromoPrice" class="active"><b>Promo Price</b>
+                                        <i class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12" style="margin-top: -15px !important;">
                                     <input name="upFree" type="checkbox" class="filled-in"

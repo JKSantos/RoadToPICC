@@ -571,25 +571,25 @@ $(document).ready(function () {
 
 $(document).ready(function () {
 
-    var extratbl = $('#extratbl').dataTable({
-        "bLengthChange": false,
-        "sPaginationType": "full_numbers",
-        responsive: true,
-        "order": [],
-        "columnDefs": [
-            {"targets": 'no-sort', "orderable": false},
-            {className: "dt-body-left", "targets": [0, 1]},
-            {className: "dt-body-right", "targets": [2]},
-            {className: "dt-head-center", "targets": [3]},
-            {"targets": [3], "width": "200px"},
-            {"targets": [2], "type": "formatted-num"}
-        ],
-        "rowHeight": '10px'
-    });
-
-    $("#extraSearch").bind('keyup search input paste cut', function () {
-        extratbl.search(this.value).draw();
-    });
+    // var extratbl = $('#extratbl').dataTable({
+    //     "bLengthChange": false,
+    //     "sPaginationType": "full_numbers",
+    //     responsive: true,
+    //     "order": [],
+    //     "columnDefs": [
+    //         {"targets": 'no-sort', "orderable": false},
+    //         {className: "dt-body-left", "targets": [0, 1]},
+    //         {className: "dt-body-right", "targets": [2]},
+    //         {className: "dt-head-center", "targets": [3]},
+    //         {"targets": [3], "width": "200px"},
+    //         {"targets": [2], "type": "formatted-num"}
+    //     ],
+    //     "rowHeight": '10px'
+    // });
+    //
+    // $("#extraSearch").bind('keyup search input paste cut', function () {
+    //     extratbl.search(this.value).draw();
+    // });
 
 
     var otherchargeArchiveTbl = $('#otherchargeArchiveTbl').DataTable({
@@ -900,81 +900,81 @@ $('.btnUpdateExit').click(function () {
 
 // $
 
-$('#createAddPosition').click(function () {
-    if ($('#createOption').valid()) {
+// $('#createAddPosition').click(function () {
+//     if ($('#createOption').valid()) {
+//
+//         $('select').material_select('destroy');
+//         var addopt = $('#addOptionName').val();
+//         $('#crSelectedJob').append('<option selected>' + addopt + '</option>').attr('value', addopt);
+//         $('select').material_select();
+//
+//         $('#createAddOption').closeModal();
+//     }
+// });
 
-        $('select').material_select('destroy');
-        var addopt = $('#addOptionName').val();
-        $('#crSelectedJob').append('<option selected>' + addopt + '</option>').attr('value', addopt);
-        $('select').material_select();
-
-        $('#createAddOption').closeModal();
-    }
-});
-
-$('.updateAddPosition').each(function () {
-    $(this).click(function () {
-        var upAddOpt = "upAddOpt";
-        if ($('#updateOptionForm').valid()) {
-            $('select').material_select('destroy');
-            var addoptupdate = $('.updateAddOptionName').val();
-            $('.upSelectedJob').append('<option selected class="' + upAddOpt + '">' + addoptupdate + '</option>').attr('value', addoptupdate);
-            $('select').material_select();
-
-            $('#updateOption').closeModal();
-        }
-    });
-});
-
-$('#createAddCatBtn').click(function () {
-    var crAddCatOpt = "crAddCatOpt";
-    if ($('#createAddCatForm').valid()) {
-        $('select').material_select('destroy');
-        var addprodcat = $('#crProdAddCatName').val();
-        $('#crItemCategory').append('<option selected class="' + crAddCatOpt + '">' + addprodcat + '</option>').attr('value', addprodcat);
-        $('select').material_select();
-
-        $('#crProdAddCate').closeModal();
-    }
-});
+// $('.updateAddPosition').each(function () {
+//     $(this).click(function () {
+//         var upAddOpt = "upAddOpt";
+//         if ($('#updateOptionForm').valid()) {
+//             $('select').material_select('destroy');
+//             var addoptupdate = $('.updateAddOptionName').val();
+//             $('.upSelectedJob').append('<option selected class="' + upAddOpt + '">' + addoptupdate + '</option>').attr('value', addoptupdate);
+//             $('select').material_select();
+//
+//             $('#updateOption').closeModal();
+//         }
+//     });
+// });
+//
+// $('#createAddCatBtn').click(function () {
+//     var crAddCatOpt = "crAddCatOpt";
+//     if ($('#createAddCatForm').valid()) {
+//         $('select').material_select('destroy');
+//         var addprodcat = $('#crProdAddCatName').val();
+//         $('#crItemCategory').append('<option selected class="' + crAddCatOpt + '">' + addprodcat + '</option>').attr('value', addprodcat);
+//         $('select').material_select();
+//
+//         $('#crProdAddCate').closeModal();
+//     }
+// });
 
 
-$('.updateProdAddCatBtn').click(function () {
-    var upProdAddCatOpt = "upProdAddCatOpt";
-    if ($('.upProdAddCatForm').valid()) {
-        $('select').material_select('destroy');
-        var upprodcat = $('.upProdAddCatName').val();
-        $('.upItemCategory').append('<option selected class="' + upProdAddCatOpt + '">' + upprodcat + '</option>').attr('value', upprodcat);
-        console.log(upprodcat);
-        $('select').material_select();
+// $('.updateProdAddCatBtn').click(function () {
+//     var upProdAddCatOpt = "upProdAddCatOpt";
+//     if ($('.upProdAddCatForm').valid()) {
+//         $('select').material_select('destroy');
+//         var upprodcat = $('.upProdAddCatName').val();
+//         $('.upItemCategory').append('<option selected class="' + upProdAddCatOpt + '">' + upprodcat + '</option>').attr('value', upprodcat);
+//         console.log(upprodcat);
+//         $('select').material_select();
+//
+//         $('.upProdAddCatModal').closeModal();
+//     }
+// });
 
-        $('.upProdAddCatModal').closeModal();
-    }
-});
-
-$('#createServAddCatBtn').click(function () {
-    var crServAddCatOpt = "crServAddCatOpt";
-    if ($('#createServAddCatForm').valid()) {
-        $('select').material_select('destroy');
-        var addservcat = $('#crServAddCatName').val();
-        $('#crServiceCategory').append('<option selected class="' + crServAddCatOpt + '">' + addservcat + '</option>').attr('value', addservcat);
-        $('select').material_select();
-
-        $('#crServAddCateModal').closeModal();
-    }
-});
-
-$('.updateServAddCatBtn').click(function () {
-    var upServAddCatOpt = "upServAddCatOpt";
-    if ($('.upServAddCatForm').valid()) {
-        $('select').material_select('destroy');
-        var upservcat = $('.upServAddCatName').val();
-        $('.updateServCategory').append('<option selected class="' + upServAddCatOpt + '">' + upservcat + '</option>').attr('value', upservcat);
-        $('select').material_select();
-
-        $('.upServAddCatModal').closeModal();
-    }
-});
+// $('#createServAddCatBtn').click(function () {
+//     var crServAddCatOpt = "crServAddCatOpt";
+//     if ($('#createServAddCatForm').valid()) {
+//         $('select').material_select('destroy');
+//         var addservcat = $('#crServAddCatName').val();
+//         $('#crServiceCategory').append('<option selected class="' + crServAddCatOpt + '">' + addservcat + '</option>').attr('value', addservcat);
+//         $('select').material_select();
+//
+//         $('#crServAddCateModal').closeModal();
+//     }
+// });
+//
+// $('.updateServAddCatBtn').click(function () {
+//     var upServAddCatOpt = "upServAddCatOpt";
+//     if ($('.upServAddCatForm').valid()) {
+//         $('select').material_select('destroy');
+//         var upservcat = $('.upServAddCatName').val();
+//         $('.updateServCategory').append('<option selected class="' + upServAddCatOpt + '">' + upservcat + '</option>').attr('value', upservcat);
+//         $('select').material_select();
+//
+//         $('.upServAddCatModal').closeModal();
+//     }
+// });
 
 
 // $('#defsubmitbtn').click(function () {

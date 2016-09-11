@@ -107,7 +107,7 @@
                             <li><a href="productMaintenance">Product</a></li>
                             <li><a href="serviceMaintenance">Service</a></li>
                             <li><a href="packageMaintenance">Package</a></li>
-                            <li><a href="locationMaintenance">Transpo. Charge</a></li>
+                            <li><a href="locationMaintenance">Transportation Charge</a></li>
                             <li><a href="extraChargeMaintenance">Other Charge</a></li>
                             <li><a href="promoMaintenance">Promo</a></li>
                             <li><a href="discountMaintenance">Discount</a></li>
@@ -144,7 +144,7 @@
                             <li><a href="productQueries">Product</a></li>
                             <li><a href="serviceQueries">Service</a></li>
                             <li><a href="packageQueries">Package</a></li>
-                            <li><a href="deliveryQueries">Transpo. Charge</a></li>
+                            <li><a href="deliveryQueries">Transportation Charge</a></li>
                             <li><a href="extraQueries">Other Charge</a></li>
                             <li><a href="promoQueries">Promo</a></li>
                             <li><a href="discountQueries">Discount</a></li>
@@ -189,11 +189,11 @@
                 <a href="#" class="brand-logo center purple-text text-lighten-5 ">Salon Management System</a>
             </div>
         </nav>
-        <div id="loader-wrapper">
-            <div id="loader"></div>
-            <div class="loader-section section-left"></div>
-            <div class="loader-section section-right"></div>
-        </div>
+        <!--<div id="loader-wrapper">-->
+            <!--<div id="loader"></div>-->
+            <!--<div class="loader-section section-left"></div>-->
+            <!--<div class="loader-section section-right"></div>-->
+        <!--</div>-->
         <tiles:insertAttribute name="body"></tiles:insertAttribute>
 
     </article>
@@ -239,6 +239,8 @@
 <!-- <script type="text/javascript" src="js/ProductsSales/ajax.js"></script> -->
 <!-- jQuery Ajax -->
 <script type="text/javascript" src="js/ajax/employee-position.js"></script>
+<script type="text/javascript" src="js/ajax/product-category.js"></script>
+<script type="text/javascript" src="js/ajax/service-category.js"></script>
 <script type="text/javascript" src="js/ajax/extracharge.js"></script>
 <script type="text/javascript" src="js/ajax/discount.js"></script>
 <script type="text/javascript" src="js/ajax/discount-create.js"></script>

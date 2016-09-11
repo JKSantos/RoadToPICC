@@ -214,9 +214,6 @@
                                 <select id="crItemCategory" name="strItemCategory" class="required"
                                         required style="margin-bottom: -15px !important;">
                                     <option value="default" disabled selected>Choose...</option>
-                                    <c:forEach items="${productCategory}" var="product">
-                                        <option value="${product}">${product}</option>
-                                    </c:forEach>
                                 </select>
                                 <label for="crItemCategory"><b>Category</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>
@@ -264,25 +261,28 @@
                 <div class="row">
                     <div class="col s12">
                         <div class="crprodcat center input-field col s12 card red white-text z-depth-barts">
-
+                        </div>
+                        <div id="addCreateCategory" class="center input-field col s12 card red white-text z-depth-barts">
                         </div>
                         <div class="input-field col s8 offset-s2">
-
                             <select id="createAddCategorySelect" class="browser-default" size="10"
                                     style="height: 120px !important; border-bottom: none !important;">
-                                <c:forEach items="${productCategory}" var="product">
-                                    <option value="${product}">${product}</option>
-                                </c:forEach>
                             </select>
                         </div>
-                        <div class="input-field col s8 offset-s2" style="margin-top: 20px;">
+                        <div class="input-field col s6 offset-s2" style="margin-top: 20px;">
                             <input type="text" class="validate"
                                    id="crProdAddCatName" name="crProdAddCatName"
                                    placeholder="New Category" required/>
                             <label for="crProdAddCatName" class="active"><b>Category</b></label>
                         </div>
+                        <div class="input-field col s2">
+                            <a id="crDeletePosition" onclick="removeCreateCategory();"
+                               class="modal-action waves-effect waves-light red darken-3 btn-flat white-text">
+                                <i class="material-icons">delete</i>
+                            </a>
+                        </div>
                         <div class="input-field col s12 center">
-                            <a id="createAddCatBtn"
+                            <a id="createAddCatBtn" onclick="addCategory();"
                                class="waves-effect waves-light purple darken-3 btn-flat white-text">SAVE
                             </a>
                             <button type="reset" value="Reset" id="crAddProdCatCancel"
@@ -435,27 +435,30 @@
                 <div class="row">
                     <div class="col s12">
                         <div class="upprodcat center input-field col s12 card red white-text z-depth-barts">
-
+                        </div>
+                        <div id="addUpdateCategory" class="addUpdateCategory center input-field col s12 card red white-text z-depth-barts">
                         </div>
                         <div class="input-field col s8 offset-s2">
-
-                            <select id="updateAddCategorySelect" class="browser-default" size="10"
+                            <select id="updateAddCategorySelect" class="browser-default updateAddCategorySelect" size="10"
                                     style="height: 120px !important; border-bottom: none !important;">
-                                <c:forEach items="${productCategory}" var="product">
-                                    <option value="${product}">${product}</option>
-                                </c:forEach>
                             </select>
                         </div>
-                        <div class="input-field col s8 offset-s2" style="margin-top: 20px;">
+                        <div class="input-field col s6 offset-s2" style="margin-top: 20px;">
                             <input type="text" class="validate upProdAddCatName"
                                    id="upProdAddCatName" name="upProdAddCatName"
                                    placeholder="New Category" required/>
                             <label for="upProdAddCatName" class="active"><b>Category</b></label>
                         </div>
-                        <div class="input-field col s12 center">
-                            <a id="updateProdAddCatBtn"
-                               class="updateProdAddCatBtn waves-effect waves-light purple darken-3 btn-flat white-text">SAVE
+                        <div class="input-field col s2">
+                            <a id="upDeletePosition" onclick="removeUpdateCategory();"
+                               class="modal-action waves-effect waves-light red darken-3 btn-flat white-text">
+                                <i class="material-icons">delete</i>
                             </a>
+                        </div>
+                        <div class="input-field col s12 center">
+                            <button id="updateProdAddCatBtn" onclick="addUpdateCategory();"
+                               class="updateProdAddCatBtn waves-effect waves-light purple darken-3 btn-flat white-text">SAVE
+                            </button>
                             <button type="reset" value="Reset" id="upAddProdCatCancel"
                                     class="upAddProdCatCancel modal-close waves-effect waves-purple transparent btn-flat white">
                                 CANCEL

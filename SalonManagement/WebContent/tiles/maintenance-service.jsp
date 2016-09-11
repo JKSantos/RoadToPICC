@@ -74,8 +74,9 @@
                                style="padding-left: 10px;padding-right:10px; margin: 5px;">
                                 <i class="material-icons">visibility</i>
                             </a>
-                            <a class="waves-effect waves-purple modal-trigger btn-flat transparent black-text"
+                            <a class="waves-effect waves-purple modal-trigger btn-flat transparent black-text editbtn"
                                href="#serv${service.intServiceID}"
+                               onclick="showPhpFormat(${service.intServiceID});"
                                style="padding-left: 10px;padding-right:10px; margin: 5px;">
                                 <i class="material-icons">edit</i>
                             </a>
@@ -215,9 +216,6 @@
                                     <select id="crServiceCategory" name="strItemCategory" class="required"
                                             required style="margin-bottom: -15px !important;">
                                         <option value="default" disabled selected>Choose...</option>
-                                        <c:forEach items="${serviceCategory}" var="service">
-                                            <option value="${service}">${service}</option>
-                                        </c:forEach>
                                     </select>
                                     <label for="crServiceCategory"><b>Category</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
@@ -255,7 +253,6 @@
         </div>
 
         <!-- Modal Structure -->
-        <
 
         <!-- add category BEGIN -->
         <div id="crServAddCateModal" class="modal" style="margin-top: 30px;">
@@ -265,25 +262,28 @@
                     <div class="row">
                         <div class="col s12">
                             <div class="crservcat center input-field col s12 card red white-text z-depth-barts">
-
+                            </div>
+                            <div id="addCreateServiceCategory" class="center input-field col s12 card red white-text z-depth-barts">
                             </div>
                             <div class="input-field col s8 offset-s2">
-
                                 <select id="createServAddCategorySelect" class="browser-default" size="10"
                                         style="height: 120px !important; border-bottom: none !important;">
-                                    <c:forEach items="${serviceCategory}" var="service">
-                                        <option value="${service}">${service}</option>
-                                    </c:forEach>
                                 </select>
                             </div>
-                            <div class="input-field col s8 offset-s2" style="margin-top: 20px;">
+                            <div class="input-field col s6 offset-s2" style="margin-top: 20px;">
                                 <input type="text" class="validate"
                                        id="crServAddCatName" name="crServAddCatName"
                                        placeholder="New Category" required/>
                                 <label for="crServAddCatName" class="active"><b>Category</b></label>
                             </div>
+                            <div class="input-field col s2">
+                                <a id="crDeletePosition" onclick="removeCreateServiceCategory();"
+                                   class="modal-action waves-effect waves-light red darken-3 btn-flat white-text">
+                                    <i class="material-icons">delete</i>
+                                </a>
+                            </div>
                             <div class="input-field col s12 center">
-                                <a id="createServAddCatBtn"
+                                <a id="createServAddCatBtn" onclick="addServiceCategory();"
                                    class="waves-effect waves-light purple darken-3 btn-flat white-text">SAVE
                                 </a>
                                 <button type="reset" value="Reset" id="crServAddProdCatCancel"
@@ -305,7 +305,7 @@
             String serviceCate = servID.getStrServiceCategory();
             double price = servID.getDblServicePrice();
             %>
-            <c:set var="price" scope="session" value="${(service.dblServicePrice * 9) + service.dblServicePrice}"/>
+            <c:set var="price" scope="session" value="${(service.dblServicePrice * 0.00) + service.dblServicePrice}"/>
             <div id="serv${service.intServiceID}" class="servUpdateModal modal modal-fixed-footer">
                 <form class="col s12 updateservForm" method="post" id="updateservForm" action="updateItem"
                       enctype="multipart/form-data">
@@ -400,9 +400,9 @@
                                     </div>
                                     <div class="input-field col s6 offset-s6" style="margin-bottom: -15px !important;">
                                         <input type="text" value="<c:out value='${price}'/>"
-                                               class="validate right-align servPrice"
-                                               id="upServPrice" name="price" required placeholder="P9.99"/>
-                                        <label for="upServPrice" class="active"><b>Price</b><i
+                                               class="validate right-align servPrice priceField"
+                                               id="upServPrice${service.intServiceID}" name="price" required placeholder="P9.99"/>
+                                        <label for="upServPrice${service.intServiceID}" class="active"><b>Price</b><i
                                                 class="material-icons red-text tiny">error_outline</i></label>
                                     </div>
                                 </div>
@@ -437,25 +437,28 @@
                     <div class="row">
                         <div class="col s12">
                             <div class="upservcat center input-field col s12 card red white-text z-depth-barts">
-
+                            </div>
+                            <div id="addUpdateServiceCategory" class="addUpdateServiceCategory center input-field col s12 card red white-text z-depth-barts">
                             </div>
                             <div class="input-field col s8 offset-s2">
-
-                                <select id="upServAddCategorySelect" class="browser-default" size="10"
+                                <select id="upServAddCategorySelect" class="browser-default upServAddCategorySelect" size="10"
                                         style="height: 120px !important; border-bottom: none !important;">
-                                    <c:forEach items="${serviceCategory}" var="service">
-                                        <option value="${service}">${service}</option>
-                                    </c:forEach>
                                 </select>
                             </div>
-                            <div class="input-field col s8 offset-s2" style="margin-top: 20px;">
+                            <div class="input-field col s6 offset-s2" style="margin-top: 20px;">
                                 <input type="text" class="validate upServAddCatName"
                                        id="upServAddCatName" name="upServAddCatName"
                                        placeholder="New Category" required/>
                                 <label for="upServAddCatName" class="active"><b>Category</b></label>
                             </div>
+                            <div class="input-field col s2">
+                                <a id="upDeletePosition" onclick="removeUpdateServiceCategory();"
+                                   class="modal-action waves-effect waves-light red darken-3 btn-flat white-text">
+                                    <i class="material-icons">delete</i>
+                                </a>
+                            </div>
                             <div class="input-field col s12 center">
-                                <a id="updateServAddCatBtn"
+                                <a id="updateServAddCatBtn" onclick="addUpdateServiceCategory();"
                                    class="updateServAddCatBtn waves-effect waves-light purple darken-3 btn-flat white-text">SAVE
                                 </a>
                                 <button type="reset" value="Reset" id="upServAddProdCatCancel"

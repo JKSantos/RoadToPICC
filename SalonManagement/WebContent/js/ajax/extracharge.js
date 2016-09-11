@@ -13,7 +13,30 @@ function updateExtraTable() {
         success: function (data) {
             var extraCharge = data.extraChargeList;
             var servPrice = "servPrice";
-            var extraTable = $('#extratbl').DataTable();
+            var extraTable;
+
+            $('#extratbl').DataTable().destroy();
+
+            extraTable = $('#extratbl').DataTable({
+                destroy: true,
+                "bLengthChange": false,
+                "sPaginationType": "full_numbers",
+                responsive: true,
+                "order": [],
+                "columnDefs": [
+                    {"targets": 'no-sort', "orderable": false},
+                    {className: "dt-body-left", "targets": [0, 1]},
+                    {className: "dt-body-right", "targets": [2]},
+                    {className: "dt-head-center", "targets": [3]},
+                    {"targets": [3], "width": "200px"},
+                    {"targets": [2], "type": "formatted-num"}
+                ],
+                "rowHeight": '10px'
+            });
+
+            $("#extraSearch").bind('keyup search input paste cut', function () {
+                extratbl.search(this.value).draw();
+            });
 
             if (extraCharge != null) {
                 extraTable.clear().draw();

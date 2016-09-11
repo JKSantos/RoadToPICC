@@ -51,7 +51,6 @@
                 </tr>
                 </tfoot>
                 <tbody class="extratblbody">
-
                 </tbody>
             </table>
         </div>

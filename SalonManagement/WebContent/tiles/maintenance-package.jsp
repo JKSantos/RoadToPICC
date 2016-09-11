@@ -281,8 +281,8 @@
                                 </div>
                                 <div class="input-field col s12" style="margin-top: 20px !important;">
                                     <input type="text" class="right-align prodPrice" name="createPackagePrice" id="crPackPrice"
-                                           placeholder="Price" required/>
-                                    <label for="crPackPrice" class="active"><b>Price</b><i
+                                           placeholder="Package Price" required/>
+                                    <label for="crPackPrice" class="active"><b>Package Price</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                             </div>
@@ -483,8 +483,8 @@
                                 </div>
                                 <div class="input-field col s12" style="margin-top: 20px !important;">
                                     <input type="text" class="right-align prodPrice" name="updatePackagePrice" id="upPackPrice"
-                                           placeholder="Price" required/>
-                                    <label for="upPackPrice" class="active"><b>Price</b><i
+                                           placeholder="Package Price" required/>
+                                    <label for="upPackPrice" class="active"><b>Package Price</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                             </div>
