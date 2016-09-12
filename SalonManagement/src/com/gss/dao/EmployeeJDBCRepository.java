@@ -745,4 +745,85 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 			return null;
 		}
 	}
+
+	public static boolean changeUserName(String userName, int empID){
+		
+		Connection con = jdbc.getConnection();
+		
+		String query = "UPDATE tblAccount SET strEmpUsername = ? WHERE intEmpID = ?;";
+		
+		try{
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setString(1, userName);
+			statement.setInt(2, empID);
+			
+			statement.execute();
+			
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public static boolean changePassword(String passWord, int empID){
+		Connection con = jdbc.getConnection();
+		
+		String query = "UPDATE tblAccount SET strEmpPassword = ? WHERE intEmpID = ?;";
+		
+		try{
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setString(1, passWord);
+			statement.setInt(2, empID);
+			
+			statement.execute();
+			
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public static String getCurrentPassword(int empID){
+		Connection con = jdbc.getConnection();
+		
+		String query = "SELECT strEmpPassword FROM tblAccount WHERE intEmpID = ?;";
+		String oldPassword = "";
+		try{
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setInt(1, empID);
+			
+			ResultSet set = statement.executeQuery();
+			
+			while(set.next()){
+				oldPassword = set.getString(1);
+			}
+			
+			return oldPassword;
+		}catch(Exception e){
+			e.printStackTrace();
+			return "";
+		}
+	}
+	
+	public static List<String> getAllUsername(){
+		Connection con = jdbc.getConnection();
+		
+		String query = "SELECT strEmpUsername FROM tblAccount;";
+		List<String> usernames = new ArrayList<String>();
+		try{
+			PreparedStatement statement = con.prepareStatement(query);
+			ResultSet set = statement.executeQuery();
+			
+			while(set.next()){
+				 usernames.add(set.getString(1));
+			}
+			
+			return usernames;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
 }
