@@ -55,9 +55,12 @@
                             <li><a href="#" style="padding-top: 12px !important;"><i
                                     class="mdi-action-face-unlock"></i>
                                 Profile</a></li>
-                            <li><a href="#" style="padding-top: 12px !important;"><i
-                                    class="mdi-action-settings"></i>
-                                Settings</a></li>
+                            <li>
+                                <a href="employeeSettings" style="padding-top: 12px !important;">
+                                    <i class="mdi-action-settings"></i>
+                                    Settings
+                                </a>
+                            </li>
                             <li><a href="#" style="padding-top: 12px !important;"><i
                                     class="mdi-communication-live-help"></i> Help</a></li>
                             <li class="divider"></li>
@@ -190,14 +193,13 @@
             </div>
         </nav>
         <!--<div id="loader-wrapper">-->
-            <!--<div id="loader"></div>-->
-            <!--<div class="loader-section section-left"></div>-->
-            <!--<div class="loader-section section-right"></div>-->
+        <!--<div id="loader"></div>-->
+        <!--<div class="loader-section section-left"></div>-->
+        <!--<div class="loader-section section-right"></div>-->
         <!--</div>-->
         <tiles:insertAttribute name="body"></tiles:insertAttribute>
 
     </article>
-
 
 
 </div>

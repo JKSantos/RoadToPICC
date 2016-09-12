@@ -20,6 +20,11 @@
 			<result name="success" type="tiles">employeePage</result>
 			<result name="input">page-login-first.jsp</result>
 		</action>
+
+		<action name="employeeSettings" class="com.gss.actions.EmployeeMaintenanceAction" method="execute">
+			<result name="success" type="tiles">changeAccount</result>
+			<result name="input">page-login-first.jsp</result>
+		</action>
 		
 		<action name="createEmployee" class="com.gss.actions.CreateEmployeeAction" method="execute">
 			<result name="success">empMaintenanceRedirect.jsp</result>
