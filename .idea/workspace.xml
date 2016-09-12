@@ -60,8 +60,8 @@
       <file leaf-file-name="change-account.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/change-account.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="365">
-              <caret line="128" column="84" selection-start-line="128" selection-start-column="61" selection-end-line="128" selection-end-column="84" />
+            <state relative-caret-position="263">
+              <caret line="95" column="93" selection-start-line="95" selection-start-column="75" selection-end-line="95" selection-end-column="93" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -75,8 +75,8 @@
       <file leaf-file-name="employee-controller.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/employee/employee-controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="680">
-              <caret line="186" column="61" selection-start-line="186" selection-start-column="61" selection-end-line="186" selection-end-column="61" />
+            <state relative-caret-position="595">
+              <caret line="193" column="59" selection-start-line="193" selection-start-column="59" selection-end-line="193" selection-end-column="59" />
               <folding />
             </state>
           </provider>
@@ -572,12 +572,12 @@
       <workItem from="1473506860658" duration="1257000" />
       <workItem from="1473572253059" duration="19105000" />
       <workItem from="1473664550114" duration="2757000" />
-      <workItem from="1473671343190" duration="15026000" />
+      <workItem from="1473671343190" duration="15237000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="956421000" />
+    <option name="totallyTimeSpent" value="956632000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="886" extended-state="6" />
@@ -1000,8 +1000,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/change-account.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="128" column="84" selection-start-line="128" selection-start-column="61" selection-end-line="128" selection-end-column="84" />
+        <state relative-caret-position="263">
+          <caret line="95" column="93" selection-start-line="95" selection-start-column="75" selection-end-line="95" selection-end-column="93" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -1013,8 +1013,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/employee/employee-controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="186" column="61" selection-start-line="186" selection-start-column="61" selection-end-line="186" selection-end-column="61" />
+        <state relative-caret-position="595">
+          <caret line="193" column="59" selection-start-line="193" selection-start-column="59" selection-end-line="193" selection-end-column="59" />
           <folding />
         </state>
       </provider>

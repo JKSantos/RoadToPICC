@@ -191,6 +191,11 @@
             });
         }
 
+        $('#empCurrentPassword').on('change', function () {
+            $('#passwordIncorrect .failed').remove();
+            $('#passwordIncorrect .incorrect').remove();
+        });
+
 
     }
 })();
