@@ -265,6 +265,8 @@
 
 <!-- Angular imports -->
 <script type="text/javascript" src="app/main.js"></script>
+<script type="text/javascript" src="app/employee/employee-factory.js"></script>
+<script type="text/javascript" src="app/employee/employee-controller.js"></script>
 <script type="text/javascript" src="app/payment/payment.ctr.js"></script>
 <script type="text/javascript" src="app/payment/payment.fac.js"></script>
 <script type="text/javascript" src="app/walkin/walkin.ctr.js"></script>
