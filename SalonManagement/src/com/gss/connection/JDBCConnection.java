@@ -12,9 +12,7 @@ public class JDBCConnection {
 	    String url = "jdbc:mysql://localhost:3306/dbsalonmanagement";
 	    String username = "root";
 	    String password = "root";
-
-
-	    
+	      
 	    try{
 	    	Class.forName(driverName);
 	    	

@@ -38,6 +38,7 @@ public class LogInAction extends ActionSupport implements SessionAware{
 			else{
 				userSession.put("firstName", emp.getStrEmpFirstName());
 				userSession.put("lastName", emp.getStrEmpLastName());
+				userSession.put("username", emp.getStrEmpUsername());
 				userSession.put("id", emp.getIntEmpID());
 				return success;
 			}
