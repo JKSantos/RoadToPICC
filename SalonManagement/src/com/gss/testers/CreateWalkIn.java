@@ -40,21 +40,21 @@ public class CreateWalkIn {
 	
 	public String execute() throws Exception{
 		
-		this.serviceDetails.add(new ServiceDetails(61, 1, 76, "PENDING"));
+		this.serviceDetails.add(new ServiceDetails(61, 1, 79, "PENDING"));
 		
 		List<ServiceDetails> serviceDetails1 = new ArrayList<ServiceDetails>();
 		List<ServiceDetails> serviceDetails2 = new ArrayList<ServiceDetails>();
 		
-		serviceDetails1.add(new ServiceDetails(61, 1, 76, "ONGOING"));
-		serviceDetails1.add(new ServiceDetails(63, 1, 76, "PENDING"));
-		serviceDetails1.add(new ServiceDetails(64, 1, 76, "PENDING"));
+		serviceDetails1.add(new ServiceDetails(61, 1, 79, "ONGOING"));
+		serviceDetails1.add(new ServiceDetails(63, 1, 68, "PENDING"));
+		serviceDetails1.add(new ServiceDetails(64, 1, 68, "PENDING"));
 		
 		
 		PackageDetails pack = new PackageDetails(63, serviceDetails1);
 		
 		this.packageList.add(pack);
 		
-		serviceDetails2.add(new ServiceDetails(61, 1, 76, "ONGOING"));
+		serviceDetails2.add(new ServiceDetails(61, 1, 79, "ONGOING"));
 		
 		PromoDetails promo = new PromoDetails(34, serviceDetails2, new ArrayList<PackageDetails>());
 		
@@ -163,11 +163,11 @@ public class CreateWalkIn {
 			}
 		}
 
-		Invoice invoice = Invoice.createNullInvoice(extraChargeList, discountList, PriceFormatHelper.convertToDouble(this.strTotalPrice, "Php "));
+		Invoice invoice = Invoice.createNullInvoice(extraChargeList, discountList, PriceFormatHelper.convertToDouble(this.strTotalPrice, "Php "), "FULL PAYMENT");
 		
 		WalkIn walkin = new WalkIn(1, "INDIVIDUAL", this.strName, this.strContactNo, new Date(), serviceList, productList, packageList, promoList, invoice, null, "PENDING", "UNPAID");
 		
-		if(service.createWalkIn(walkin) == false){
+		if(service.createWalkIn(walkin) == 0){
 			return "failed";
 		}
 		else{
@@ -175,5 +175,7 @@ public class CreateWalkIn {
 		}
 	
 	}
+	
+	
 
 }

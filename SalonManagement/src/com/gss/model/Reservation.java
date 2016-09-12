@@ -179,7 +179,7 @@ public class Reservation {
 		if(type == 1)
 			return "HOME SERVICE";
 		else
-			return "EVENT";
+			return "EVENT SERVICE";
 	}
 	public int getIntLocation() {
 		return intLocation;
@@ -192,5 +192,24 @@ public class Reservation {
 	}
 	public void setStrContract(String strContract) {
 		this.strContract = strContract;
+	}
+	public String convertIntStatus(int status){
+
+		String result = "";
+		
+		switch(status){
+			case 0:
+				result = "PENDING";
+			case 1:
+				result = "ON THE WAY TO VENUE";
+			case 2:
+				result = "ON GOING";
+			case 3:
+				result = "ON THE WAY TO SALON";
+			case 4:
+				result = "COMPLETE";
+		}
+		
+		return result;
 	}
 }

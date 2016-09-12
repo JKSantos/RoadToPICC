@@ -66,8 +66,10 @@
 			<result name="incorrect" type="json"></result>
 			<result name="failed" type="json"></result>
 		</action>
+		
+		<action name="getEmployeeJob" class="com.gss.actions.Employee.GetEmployeeJob" method="execute">
+			<result name="success" type="json"></result>
+		</action>
 	
 	</package>	
-		
-		
 </struts>
