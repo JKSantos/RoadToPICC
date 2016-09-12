@@ -196,7 +196,7 @@ public class EmployeeJobRepository {
 		Connection con = jdbc.getConnection();
 		
 		String query = "CALL getReservationJob(?);";
-		
+		List<EmployeeJob> jobList = new ArrayList<EmployeeJob>();
 		try{
 			
 			PreparedStatement statement = con.prepareStatement(query);
@@ -210,11 +210,26 @@ public class EmployeeJobRepository {
 				String transType = details.get(0);
 				String jobDate = details.get(1);
 				String jobType = "NOT SPECIFIED";
+				String customerName = details.get(2);
+				String serviceName = "NOT SPECIFIED";
+				String status = set.getString(4);
+				String venue = details.get(3);
 				
+				EmployeeJob job = new EmployeeJob(jobID, transType, jobType, jobDate, customerName, serviceName, status);
+				job.setIntTransID(transID);
+				job.setStrAddress(venue);
+				
+				jobList.add(job);
 			}
 
+			statement.close();
+			set.close();
+			con.close();
+			
+			return jobList;
 		}catch(Exception e){
 			e.printStackTrace();
+			return null;
 		}
 	}
 	
@@ -222,8 +237,7 @@ public class EmployeeJobRepository {
 		Connection con = jdbc.getConnection();
 		
 		String query = "CALL getReservationType(?);";
-		String type = "";
-		String date = "";
+	
 		List<String> details = new ArrayList<String>();
 		
 		try{
@@ -233,10 +247,24 @@ public class EmployeeJobRepository {
 			ResultSet set = statement.executeQuery();
 			
 			while(set.next()){
-				type = Reservation.toString(set.getInt(1));
-				date = DateHelper.stringDate(set.getDate(2));
+				String type 		= Reservation.toString(set.getInt(1));
+				String date 		= DateHelper.stringDate(set.getDate(2));
+				String customer 	= set.getString(3);
+				String address		= set.getString(4);
+				String venue 		= set.getString(5);
+				String brgy 		= set.getString(6);
+				String city 		= set.getString(7);
+				String finaVenue 	= "";
+				
+				if(type.equalsIgnoreCase("home service")){
+					finaVenue = address + ", " + brgy + ", " + city;
+				}else{
+					finaVenue = venue + ", " + brgy + ", " + city;
+				}
 				details.add(type);
 				details.add(date);
+				details.add(customer);
+				details.add(finaVenue);
 			}
 			
 			statement.close();
@@ -244,6 +272,49 @@ public class EmployeeJobRepository {
 			con.close();
 			
 			return details;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public static List<EmployeeJob> getDeliveryJob(int id){
+		Connection con = jdbc.getConnection();
+		
+		String query = "CALL getDeliveryJob(?);";
+		List<EmployeeJob> jobList = new ArrayList<EmployeeJob>();
+		try{
+			
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setInt(1, id);
+			
+			ResultSet set = statement.executeQuery();
+			
+			while(set.next()){
+				int jobID = set.getInt(1);
+				int transID = set.getInt(2);
+				String transType = "DELIVERY";
+				String jobType = "DELIVERY";
+				String jobDate = DateHelper.stringDate(set.getDate(3));
+				String customer = set.getString(4);
+				String service = "N/A";
+				String status = set.getString(5);
+				String address = set.getString(6);
+				String brgy = set.getString(7);
+				String city = set.getString(8);
+				
+				EmployeeJob job = new EmployeeJob(jobID, transType, jobType, jobDate, customer, service, status);
+				job.setIntTransID(transID);
+				job.setStrAddress(address + ", " + brgy + ", " + city);
+				jobList.add(job);
+			}
+			
+			statement.close();
+			set.close();
+			con.close();
+			
+			return jobList;
+			
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;

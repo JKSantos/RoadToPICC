@@ -10,6 +10,7 @@ public class EmployeeJob {
 	private String strServiceName; 	
 	private String strStatus;
 	private int intTransID;
+	private String strAddress;
 	
 	public EmployeeJob(int intJobID, String strTransType, String strJobType, String strJobDate, String strCustomerName,
 			String strServiceName, String strStatus) {
@@ -85,5 +86,13 @@ public class EmployeeJob {
 
 	public void setIntTransID(int intTransID) {
 		this.intTransID = intTransID;
+	}
+	
+	public String getStrAddress() {
+		return strAddress;
+	}
+
+	public void setStrAddress(String strAddress) {
+		this.strAddress = strAddress;
 	}
 }
