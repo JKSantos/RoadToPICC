@@ -79,33 +79,10 @@ public class CreateIndividualWalkIn {
 			}
 		}
 		
-		
-		for(int i = 0; i < this.packageList.size(); i++){
-			
-			List<ServiceDetails> details = this.packageList.get(i).getServiceList();
-			List<ServiceWalkIn> serv = new ArrayList<ServiceWalkIn>();
-			
-			for(int j = 0; j < details.size(); j++){
-				ServiceDetails serviceDetail = details.get(j);
-				ServiceWalkIn walkin = new ServiceWalkIn(1, Service.createNullService(serviceDetail.getIntServiceID()), Employee.createNullEmployee(serviceDetail.getIntEmployeeID()), serviceDetail.getStrStatus());
-				serv.add(walkin);
-			}
-			
-			PackageWalkIn packageWalkIn = new PackageWalkIn(1, Package.createNullPackage(this.packageList.get(i).getIntPackageID()), serv);
-			packageList.add(packageWalkIn);
-		}
-		
-		
-		for(int index = 0; index < this.promoList.size(); index++){
-			
-			List<PackageWalkIn> packageWalkInList = new ArrayList<PackageWalkIn>();
-			List<PackageDetails> packageDetails = this.promoList.get(index).getPackageList();
-			List<ServiceDetails> promoServiceDetails = this.promoList.get(index).getServiceList();
-			List<ServiceWalkIn> promoServiceList = new ArrayList<ServiceWalkIn>();
-			
-			for(int i = 0; i < packageDetails.size(); i++){
+		try{
+			for(int i = 0; i < this.packageList.size(); i++){
 				
-				List<ServiceDetails> details = packageDetails.get(i).getServiceList();
+				List<ServiceDetails> details = this.packageList.get(i).getServiceList();
 				List<ServiceWalkIn> serv = new ArrayList<ServiceWalkIn>();
 				
 				for(int j = 0; j < details.size(); j++){
@@ -114,19 +91,48 @@ public class CreateIndividualWalkIn {
 					serv.add(walkin);
 				}
 				
-				PackageWalkIn packageWalkIn = new PackageWalkIn(1, Package.createNullPackage(packageDetails.get(i).getIntPackageID()), serv);
-				packageWalkInList.add(packageWalkIn);
+				PackageWalkIn packageWalkIn = new PackageWalkIn(1, Package.createNullPackage(this.packageList.get(i).getIntPackageID()), serv);
+				packageList.add(packageWalkIn);
 			}
-			
-			for(int i = 0; i < promoServiceDetails.size(); i++){
+		}catch(NullPointerException e){
+			//do nothing
+		}
+		
+		try{
+			for(int index = 0; index < this.promoList.size(); index++){
 				
-				ServiceDetails detail = promoServiceDetails.get(i);
+				List<PackageWalkIn> packageWalkInList = new ArrayList<PackageWalkIn>();
+				List<PackageDetails> packageDetails = this.promoList.get(index).getPackageList();
+				List<ServiceDetails> promoServiceDetails = this.promoList.get(index).getServiceList();
+				List<ServiceWalkIn> promoServiceList = new ArrayList<ServiceWalkIn>();
 				
-				ServiceWalkIn  serv = new ServiceWalkIn(1, Service.createNullService(detail.getIntServiceID()), Employee.createNullEmployee(detail.getIntEmployeeID()), detail.getStrStatus());
+				for(int i = 0; i < packageDetails.size(); i++){
+					
+					List<ServiceDetails> details = packageDetails.get(i).getServiceList();
+					List<ServiceWalkIn> serv = new ArrayList<ServiceWalkIn>();
+					
+					for(int j = 0; j < details.size(); j++){
+						ServiceDetails serviceDetail = details.get(j);
+						ServiceWalkIn walkin = new ServiceWalkIn(1, Service.createNullService(serviceDetail.getIntServiceID()), Employee.createNullEmployee(serviceDetail.getIntEmployeeID()), serviceDetail.getStrStatus());
+						serv.add(walkin);
+					}
+					
+					PackageWalkIn packageWalkIn = new PackageWalkIn(1, Package.createNullPackage(packageDetails.get(i).getIntPackageID()), serv);
+					packageWalkInList.add(packageWalkIn);
+				}
 				
-				promoServiceList.add(serv);
+				for(int i = 0; i < promoServiceDetails.size(); i++){
+					
+					ServiceDetails detail = promoServiceDetails.get(i);
+					
+					ServiceWalkIn  serv = new ServiceWalkIn(1, Service.createNullService(detail.getIntServiceID()), Employee.createNullEmployee(detail.getIntEmployeeID()), detail.getStrStatus());
+					
+					promoServiceList.add(serv);
+				}
+				
 			}
-			
+		}catch(NullPointerException e){
+			//do nothing
 		}
 		
 		List<Discount> discountList = new ArrayList<Discount>();
@@ -154,9 +160,13 @@ public class CreateIndividualWalkIn {
 		Invoice invoice = Invoice.createNullInvoice(extraChargeList, discountList, PriceFormatHelper.convertToDouble(this.strTotalPrice, "Php "), "FULL");
 		
 		WalkIn walkin = new WalkIn(1, customerType, this.strName, this.strContactNo, new Date(), serviceList, productList, packageList, promoList, invoice, null, "PENDING", "UNPAID");
+		
+		try{
 		walkin.setAppointmentDate(java.sql.Date.valueOf(appointmentDate));
 		walkin.setAppointmentTime(java.sql.Time.valueOf(appointmentTime));
-		
+		}catch(Exception e){
+			//do nothing
+		}
 		
 		int result = service.createWalkIn(walkin);
 		
