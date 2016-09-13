@@ -212,4 +212,24 @@ public class Reservation {
 		
 		return result;
 	}
+	
+	public static int convertStringStatus(String status){
+
+		int result = 0;
+		
+		switch(status){
+			case "PENDING":
+				result = 0;
+			case "ON THE WAY TO VENUE":
+				result = 1;
+			case "ON GOING":
+				result = 2;
+			case "ON THE WAY TO SALON":
+				result = 3;
+			case "COMPLETE":
+				result = 4;
+		}
+		
+		return result;
+	}
 }

@@ -320,4 +320,48 @@ public class EmployeeJobRepository {
 			return null;
 		}
 	}
+
+	public static boolean updateJobStatus(int jobID, String strTransType, String strJobType, String strStatus){
+		
+		Connection con = jdbc.getConnection();
+		
+		String query = "";
+		
+		if(strTransType.equals("WALKIN") && strJobType.equals("SERVICE"))
+			query = "UDPATE tblServiceWalkIn SET strStatus = ? WHERE intServiceWalkInID = ?;";
+		else if(strTransType.equals("WALKIN") && strJobType.equals("PACKAGE"))
+			query = "UPDATE tblAssignmentDetail SET strAssignmentStatus = ? WHERE intAssignmentDetailID = ?;";
+		else if(strTransType.equals("WALKIN") && strJobType.equals("PROMO"))
+			query = "UPDATE tblwalkinpromoservice SET strStatus = ? WHERE intWalkInPromoServiceID = ?;";
+		else if(strTransType.equals("WALKIN") && strJobType.equals("PROMO PACKAGE"))
+			query = "UPDATE tblAssignmentDetail SET strAssignmentStatus = ? WHERE intAssignmentDetailID = ?;";
+		else if(strTransType.equals("HOME SERVICE") || strTransType.equals("EVENT")){
+			query = "UPDATE tblreservationassignedemployee SET intStatus = ? WHERE ntRAEID = ?;";
+		}
+		else if(strTransType.equals("DELIVERY"))
+			query = "UPDATE tblDelivery SET strStatus = ? WHERE intDeliveryID = ?;";
+		try{
+			
+			PreparedStatement statement = con.prepareStatement(query);
+			
+			if(strTransType.equals("HOME SERVICE") || strTransType.equals("EVENT")){
+				statement.setInt(1, Reservation.convertStringStatus(strStatus));
+				statement.setInt(2, jobID);
+			}else{
+				statement.setString(1, strStatus);
+				statement.setInt(2, jobID);
+			}
+				
+			statement.execute();
+			statement.close();
+			con.close();
+			
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+		
+		
+	}
 }

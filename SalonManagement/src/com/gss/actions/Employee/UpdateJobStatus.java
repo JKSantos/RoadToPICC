@@ -1,20 +1,25 @@
 package com.gss.actions.Employee;
 
+import com.gss.dao.Employee.EmployeeJobRepository;
+
 public class UpdateJobStatus {
 	
-	private int intEmployeeID;
 	private int intJobID;
 	private String strTransType;
 	private String strJobType;
 	private String strStatus;
+	private String result = "failed";
 	
 	public String execute(){
-		return "success";
+		
+		boolean recorded = EmployeeJobRepository.updateJobStatus(intJobID, strTransType, strJobType, strStatus);
+		
+		if(recorded == true)
+			result = "success";
+		
+		return result;
 	}
 	
-	public void setIntEmployeeID(int intEmployeeID) {
-		this.intEmployeeID = intEmployeeID;
-	}
 	public void setIntJobID(int intJobID) {
 		this.intJobID = intJobID;
 	}
@@ -26,5 +31,9 @@ public class UpdateJobStatus {
 	}
 	public void setStrStatus(String strStatus) {
 		this.strStatus = strStatus;
+	}
+
+	public String getResult() {
+		return result;
 	}
 }
