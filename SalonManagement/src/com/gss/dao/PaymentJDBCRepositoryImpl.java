@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -169,6 +170,7 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 
 	@Override
 	public List<WalkIn> getAllUnpaidWalkIn() throws SQLException {
+
 		Connection con 									= jdbc.getConnection();
 		String getAllUnpaidOrder 						= "CALL getAllUnpaidTransaction(?);";
 		
@@ -185,19 +187,25 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 				WalkIn walkin;
 				
 				int walkinID = orders.getInt(1);
-				String walkinType = "";
-				String strName = orders.getString(2);
-				String strContact = orders.getString(3);
-				Date dateTime = orders.getDate(4);
-				int intInvoiceID = orders.getInt(5);
-				Date invoiceDate = dateTime;
-				double dblAmount = orders.getDouble(9);
-				String paymentType = orders.getString(10);
-				String strStatus = orders.getString(11);
-				String receipt = orders.getString(12);
+				String walkinType = orders.getString(2);
+				String strName = orders.getString(3);
+				String strContact = orders.getString(4);
+				Date dateTime = orders.getDate(5);
+				java.sql.Date datDate = orders.getDate(6);
+				Time time = orders.getTime(7);
+				int intInvoiceID = orders.getInt(8);
+				String walkinstatus = orders.getString(9);
+				Date invoiceDate = orders.getDate(11);
+				double dblAmount = orders.getDouble(12);
+				String paymentType = orders.getString(13);
+				String strStatus = Payment.convertPaymentStatus(orders.getInt(14));
+				String receipt = orders.getString(15);
 				
 				Invoice invoice = new Invoice(intInvoiceID, invoiceDate, null, null, dblAmount, dblAmount, paymentType, null, strStatus, receipt);
-				walkin = new WalkIn(walkinID, walkinType, strName, strContact, dateTime, null, null, null, null, invoice, null, "PENDING", "UNPAID");
+				walkin = new WalkIn(walkinID, walkinType, strName, strContact, dateTime, null, null, null, null, invoice, null, walkinstatus, strStatus);
+				
+				walkin.setAppointmentDate(datDate);
+				walkin.setAppointmentTime(time);
 				walkinList.add(walkin);
 			}
 			

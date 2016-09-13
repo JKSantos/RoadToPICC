@@ -21,6 +21,7 @@ import com.gss.model.PromoWalkIn;
 import com.gss.model.Service;
 import com.gss.model.ServiceWalkIn;
 import com.gss.model.WalkIn;
+import com.gss.model.Package;
 
 public class WalkInTransRepository {
 	
@@ -39,12 +40,15 @@ public class WalkInTransRepository {
 		String walkinQuery = "SELECT * FROM tblWalkIn WHERE intWalkInID = ?;";
 		String productQuery = "SELECT * FROM tblProductPurchase WHERE intWalkInID = ?;";
 		String serviceQuery = "SELECT * FROM tblServiceWalkIn WHERE intWalkInID = ?;";
-		
+		String packageQuery = "SELECT * FROM tblPackageWalkIn WHERE intWalkInID = ?;";
+		String packageServiceQuery = "SELECT * FROM tblAssignmentDetail WHERE intAssignmentID = ?;";
 		
 		try{
 			PreparedStatement walkinStmt = con.prepareStatement(walkinQuery);
 			PreparedStatement productStmt = con.prepareStatement(productQuery);
 			PreparedStatement serviceStmt = con.prepareStatement(serviceQuery);
+			PreparedStatement packageStmt = con.prepareStatement(packageQuery);
+			
 			walkinStmt.setInt(1, walkinID);
 			
 			ResultSet walkinRes = walkinStmt.executeQuery();
@@ -107,6 +111,43 @@ public class WalkInTransRepository {
 			
 			serviceStmt.close();
 			serviceSet.close();
+			
+			packageStmt.setInt(1, walkinID);
+			ResultSet packageSet = packageStmt.executeQuery();
+			
+			while(packageSet.next()){
+				
+				List<ServiceWalkIn> packageServices = new ArrayList<ServiceWalkIn>();
+				
+				int id = packageSet.getInt(1);
+				Package pack = Package.createNullPackage(packageSet.getInt(3));
+				int assigmentID = packageSet.getShort(4);
+				
+				PreparedStatement servPackStmt = con.prepareStatement(packageServiceQuery);
+				servPackStmt.setInt(1, assigmentID);
+				ResultSet servPackSet = servPackStmt.executeQuery();
+				
+				while(servPackSet.next()){
+					int intId = servPackSet.getInt(1);
+					Service service = Service.createNullService(servPackSet.getInt(4));
+					String serviceName = getServiceName(servPackSet.getInt(4));
+					service.setStrServiceCategory(serviceName);
+					Employee emp = Employee.createNullEmployee(servPackSet.getInt(3));
+					List<String> empName = getEmployeeName(servPackSet.getInt(3));
+					emp.setStrEmpFirstName(empName.get(0));
+					emp.setStrEmpLastName(empName.get(1));
+					String status = servPackSet.getString(5);
+					
+					ServiceWalkIn servWalkin = new ServiceWalkIn(intId, service, emp, status);
+					packageServices.add(servWalkin);
+				}
+				
+				servPackStmt.close();
+				servPackSet.close();
+				
+				PackageWalkIn packWalkIn = new PackageWalkIn(id, pack, packageServices);
+				packageList.add(packWalkIn);
+			}
 			
 			con.close();
 			return walkin;

@@ -14,14 +14,9 @@ public class GetAllPromoNoDetails {
 	private List<Promo> promoList;
 	private String result = "success";
 	
-	public String execute() throws SchedulerException{
+	public String execute() throws SQLException{
 		
-		try {
-			Promo.checkExpiredPromo();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Promo.checkExpiredPromo();
 		this.promoList = Promo.getAllPromoNoDetails();
 		
 		return result;
