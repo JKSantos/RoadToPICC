@@ -148,28 +148,48 @@ public class CustomerRegistration {
 		}
 	}
 	
-	public static String logInCustomer(String username, String password){
+	public static CustomerAccount logInCustomer(String username, String password){
 		
 		Connection con = jdbc.getConnection();
 		
 		String query = "CALL loginCustomer(?, ?);";
 		
 		String result = "";
+		int id = 0;
+		CustomerAccount customer = null;
 		
 		try{
 			PreparedStatement statement = con.prepareStatement(query);
+			PreparedStatement getCustomerStmt = con.prepareStatement("CALL getCustomer(?);");
 			
 			statement.setString(1, username);
 			statement.setString(2, password);
 			ResultSet set = statement.executeQuery();
+			ResultSet customerSEt = null;
 			
 			while(set.next()){
 				result = set.getString(1);
+				id = set.getInt(2);
 			}
-			return result;
+			
+			getCustomerStmt.setInt(1, id);
+			customerSEt = getCustomerStmt.executeQuery();
+			
+			while(customerSEt.next()){
+				int intID = customerSEt.getInt(1);
+				String name = customerSEt.getString(2);
+				String contact = customerSEt.getString(3);
+				String email = customerSEt.getString(4);
+				String user = customerSEt.getString(5);
+				String pass = customerSEt.getString(6);
+				
+				customer = new CustomerAccount(intID, name, contact, email, user, pass);
+			}
+				
+			return customer;
 		}catch(Exception e){
 			e.printStackTrace();
-			return "failed";
+			return null;
 		}
 		
 	}
