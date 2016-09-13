@@ -115,7 +115,7 @@
         });
 
         locationFactory.getPromosWithDetails().then(function (data) {
-            vm.promoList = data.data.promoList;
+            vm.promoList = data.promoList;
         });
 
         locationFactory.getPackagesWithDetails().then(function (data) {
@@ -453,7 +453,7 @@
             console.log(selectserv + '//' + selectEmp);
             console.log(selectprod + '/' + quantprod);
             console.log(vm.selServiceDetails);
-            var walkinData = {
+            var walkinData = $.param({
                 'productString': selectprod,
                 'productQuantity': quantprod,
                 'serviceString': selectserv,
@@ -464,22 +464,35 @@
                 'discounts': selectdiscount,
                 'strName': vm.details.name,
                 'strContactNo': vm.details.contact
-            };
-            $.ajax({
-                url: 'createWalkin',
-                type: 'post',
-                data: walkinData,
-                dataType: 'json',
-                async: true,
-                success: function (data) {
-                    SweetAlert.swal("Successfully created!", ".", "success");
-                    $('#createWalkinModal').closeModal();
-                    // $window.location.reload();
-                },
-                error: function () {
-                    SweetAlert.swal("Oops", "Something went wrong!", "error");
-                }
             });
+            $http({
+                method: 'post',
+                url: 'http://localhost:8080/SalonManagement/createWalkin',
+                data: walkinData,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                SweetAlert.swal("Successfully created!", ".", "success");
+                $('#createWalkinModal').closeModal();
+            }, function errorCallback(response) {
+                SweetAlert.swal("Oops", "Something went wrong!", "error");
+            });
+            // $.ajax({
+            //     url: 'createWalkin',
+            //     type: 'post',
+            //     data: walkinData,
+            //     dataType: 'json',
+            //     async: true,
+            //     success: function (data) {
+            //         SweetAlert.swal("Successfully created!", ".", "success");
+            //         $('#createWalkinModal').closeModal();
+            //         // $window.location.reload();
+            //     },
+            //     error: function () {
+            //         SweetAlert.swal("Oops", "Something went wrong!", "error");
+            //     }
+            // });
 
 
             var total = vm.sum;

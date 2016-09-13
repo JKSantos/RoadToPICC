@@ -122,12 +122,13 @@
                                         <b>{{service.strServiceName}}</b><br/>
                                         <span class="grey-text text-darken-4">{{service.dblServicePrice | currency:"Php "}}</span>
                                     </h4>
-                                    <div class="input-field col s12">
-                                        <select ng-model="vm.selEmployee" id="cREmp"
+                                    <div class="input-field col s12" id="123123">
+                                        <select id="cREmp123"
+                                                ng-model="vm.selEmployee"
                                                 ng-options="employee.strEmpFirstName for employee in vm.employeeList">
                                             <option value="" selected>Choose...</option>
                                         </select>
-                                        <label for="cREmp"><b>Employee</b></label>
+                                        <label for="cREmp123"><b>Employee</b></label>
                                     </div>
 
                                     <a class="waves-effect waves-light btn"
@@ -144,8 +145,6 @@
                     </div>
                 </div>
                 <div class="col s12">
-
-                    <pre>{{vm.selEmployee | json}}</pre>
                 </div>
 
                 <div ng-show="vm.selected == 'package'" style="margin-top: -50px !important;">
