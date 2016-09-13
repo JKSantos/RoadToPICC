@@ -157,5 +157,68 @@ public class ExtraChargeJDBCRepository implements ExtraChargeRepository{
 			return null;
 		}
 	}
+	
+	public static String checkExtraChargeName(String name){
+		
+		Connection con = new JDBCConnection().getConnection();
+		
+		String query = "CALL checkExtraChargeName(?);";
+		
+		String result = "";
+		
+		try{
+			
+			PreparedStatement pre = con.prepareStatement(query);
+			pre.setString(1, name);
+			
+			ResultSet set = pre.executeQuery();
+			
+			while(set.next()){
+				result = set.getString(1);
+			}
+
+			pre.close();
+			set.close();
+			con.close();
+			
+			return result;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return "failed";
+		}
+	}
+	
+	public static String checkExtraChargeName(String name, int chargeID){
+		
+		Connection con = new JDBCConnection().getConnection();
+		
+		String query = "CALL checkExtraChargeNameWithID(?, ?);";
+		
+		String result = "";
+		
+		try{
+			
+			PreparedStatement pre = con.prepareStatement(query);
+			pre.setString(1, name);
+			pre.setInt(2, chargeID);
+			
+			ResultSet set = pre.executeQuery();
+			
+			while(set.next()){
+				result = set.getString(1);
+			}
+
+			pre.close();
+			set.close();
+			con.close();
+			
+			return result;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return "failed";
+		}
+	}
 
 }

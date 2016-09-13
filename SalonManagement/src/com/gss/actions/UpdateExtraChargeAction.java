@@ -1,5 +1,6 @@
 package com.gss.actions;
 
+import com.gss.dao.ExtraChargeJDBCRepository;
 import com.gss.model.ExtraCharge;
 import com.gss.service.ExtraChargeService;
 import com.gss.service.ExtraChargeServiceImpl;
@@ -12,19 +13,27 @@ public class UpdateExtraChargeAction {
 	private String strECDetails;
 	private String price;
 	
+	private String result;
+	
 	public String execute() throws Exception{
 		
-		System.out.println(intECID + " " + strECName);
-		System.out.println(strECDetails + " " + price);
-		
-		double dblPrice = PriceFormatHelper.convertToDouble((price + "0"), "Php ");
+		double dblECPrice = PriceFormatHelper.convertToDouble((price + "0"), "Php ");
 		ExtraChargeService service = new ExtraChargeServiceImpl();
-		ExtraCharge extra = new ExtraCharge(intECID, strECName, strECDetails, dblPrice, 1);
+		ExtraCharge extra = new ExtraCharge(intECID, strECName.trim().toUpperCase(), strECDetails.trim().toUpperCase(), dblECPrice, 1);
 		
-		if(service.updateExtraCharge(extra) == true)
-			return "success";
-		else
-			return "failed";
+		if(ExtraChargeJDBCRepository.checkExtraChargeName(strECName.trim().toUpperCase()).equalsIgnoreCase("valid")){
+			if(service.updateExtraCharge(extra) == true){
+				result = "success";
+				return result;
+			}
+			else{
+				result = "failed";
+				return result;
+		}
+		}else{
+			result = "existing";
+			return result;
+		}
 
 	}
 

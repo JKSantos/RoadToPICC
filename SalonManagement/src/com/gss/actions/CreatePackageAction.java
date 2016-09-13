@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.gss.utilities.PackageHelper;
 import com.gss.utilities.ItemDecoder;
+import com.gss.dao.LocationJDBCRepository;
+import com.gss.dao.PackageJDBCRepository;
 import com.gss.model.Package;
 import com.gss.model.Product;
 import com.gss.model.ProductPackage;
@@ -28,6 +30,8 @@ public class CreatePackageAction {
 	private String createPackProdType = "";
 	private String createPackServQty = "";
 	private String createPackProdQty = "";
+	
+	private String result;
 	
 	public String execute(){		
 		
@@ -82,13 +86,19 @@ public class CreatePackageAction {
 		Package packagee = new Package(1, strPackageName.toUpperCase().trim(), strPackageDesc.toUpperCase().trim(), PackageHelper.convertToSingleInt(intPackageType), 1, "NON-EXPIRY", dblPackagePrice, serviceList, productList, 1);
 		
 		
-		if(packageService.createPackage(packagee)){
-			System.out.println("success");
-			return "success";
+		if(PackageJDBCRepository.checkPackageName(this.strPackageName.trim()).equalsIgnoreCase("valid")){
+			if(packageService.createPackage(packagee)){
+				result = "success";
+				return "success";
+			}else{
+				result = "failed";
+				return "failed";
+			}	
 		}else{
-			System.out.println("failed");
-			return "failed";
-		}	
+			
+			result = "existing";
+			return result;
+		}
 	}
 
 	public String getStrPackageName() {
@@ -153,5 +163,9 @@ public class CreatePackageAction {
 
 	public void setCreatePackProdQty(String createPackProdQty) {
 		this.createPackProdQty = createPackProdQty;
+	}
+
+	public String getResult() {
+		return result;
 	}
 }

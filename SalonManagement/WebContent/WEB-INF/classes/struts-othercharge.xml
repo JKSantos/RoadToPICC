@@ -23,11 +23,13 @@
 
 		<action name="createExtraCharge" class="com.gss.actions.CreateExtraChargeAction" method="execute">
 			<result name="success" type="json"/>
+			<result name="existing" type="json"/>
 			<result name="failed" type="json"/>
 		</action>
 
 		<action name="updateExtraCharge" class="com.gss.actions.UpdateExtraChargeAction" method="execute">
 			<result name="success" type="json"/>
+			<result name="existing" type="json"/>
 			<result name="failed" type="json"/>
 		</action>
 		
