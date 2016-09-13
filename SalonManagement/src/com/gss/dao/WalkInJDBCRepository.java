@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -734,13 +735,17 @@ public class WalkInJDBCRepository implements WalkInRepository{
 			ResultSet walkInResult 		= allWalkIn.executeQuery();
 			
 			while(walkInResult.next()){
-				int intWalkInID = walkInResult.getInt(1);
-				String strName = walkInResult.getString(2);
-				String strContact = walkInResult.getString(3);
-				Date dateCreated = walkInResult.getDate(4);
-				int intInvoiceID = walkInResult.getInt(5);
-				String strStatus = walkInResult.getString(6);
-				String paymentStatus = "PAID";
+				int id = walkInResult.getInt(1);
+				String type = walkInResult.getString(2);
+				String name = walkInResult.getString(3);
+				String contact1 = walkInResult.getString(4);
+				Date date = walkInResult.getDate(5);
+				java.sql.Date appDate = walkInResult.getDate(6);
+				Time appTime = walkInResult.getTime(7);
+				int invoiceId = walkInResult.getInt(8);
+				String status = walkInResult.getString(9);
+				
+				Invoice invoice = WalkInTransRepository.getInvoice(invoiceId);
 				
 /*				ReservationRepository repo = new ReservationJDBCRepository();
 				Invoice invoice = repo.getInvoice(intInvoiceID);
@@ -756,7 +761,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 					walkin.add(new WalkIn(intWalkInID, strName, "walkin", strContact, dateCreated, serviceList, productList, packageList, promoList, invoice, null, paymentStatus, strStatus));
 				}
 */
-				walkin.add(new WalkIn(intWalkInID, "walkin", strName, strContact, dateCreated, serviceList, productList, packageList, promoList, null, null, paymentStatus, strStatus));
+				walkin.add(new WalkIn(id, type, name, contact1, date, serviceList, productList, packageList, promoList, invoice, null, invoice.getPaymentStatus(), status));
 			}
 		
 			return walkin;
