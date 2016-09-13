@@ -24,8 +24,8 @@
       <file leaf-file-name="baseLayout.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/baseLayout.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="688">
-              <caret line="268" column="82" selection-start-line="268" selection-start-column="82" selection-end-line="268" selection-end-column="82" />
+            <state relative-caret-position="314">
+              <caret line="129" column="52" selection-start-line="129" selection-start-column="41" selection-end-line="129" selection-end-column="52" />
               <folding>
                 <element signature="n#style#0;n#ul#0;n#header#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#li#0;n#ul#0;n#header#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -50,19 +50,24 @@
       <file leaf-file-name="struts-walkin.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/classes/struts-walkin.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="23" column="43" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="43" />
+            <state relative-caret-position="440">
+              <caret line="35" column="35" selection-start-line="35" selection-start-column="22" selection-end-line="35" selection-end-column="35" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="transactions-walkin.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-walkin.jsp">
+      <file leaf-file-name="transactions-walkin-table.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-walkin-table.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-740">
-              <caret line="124" column="84" selection-start-line="124" selection-start-column="84" selection-end-line="124" selection-end-column="84" />
-              <folding />
+            <state relative-caret-position="442">
+              <caret line="26" column="65" selection-start-line="26" selection-start-column="65" selection-end-line="27" selection-end-column="62" />
+              <folding>
+                <element signature="n#style#0;n#a#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -70,28 +75,48 @@
       <file leaf-file-name="walkin.ctr.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/walkin/walkin.ctr.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="73" column="33" selection-start-line="73" selection-start-column="33" selection-end-line="73" selection-end-column="33" />
+            <state relative-caret-position="3315">
+              <caret line="218" column="36" selection-start-line="218" selection-start-column="36" selection-end-line="218" selection-end-column="36" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="transactions-productorder.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-productorder.jsp">
+      <file leaf-file-name="empQueryController.ctrl.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/queries/employee/empQueryController.ctrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="283">
-              <caret line="402" column="24" selection-start-line="402" selection-start-column="24" selection-end-line="413" selection-end-column="33" />
+            <state relative-caret-position="-765">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="locationfactory.fac.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="locationfactory.fac.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/prodsales/locationfactory.fac.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="30" column="54" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="54" />
+            <state relative-caret-position="527">
+              <caret line="60" column="53" selection-start-line="60" selection-start-column="32" selection-end-line="60" selection-end-column="53" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="discount.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/discount.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-17">
+              <caret line="89" column="57" selection-start-line="89" selection-start-column="57" selection-end-line="90" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="transactions-walkin.jsp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-walkin.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="527">
+              <caret line="127" column="79" selection-start-line="127" selection-start-column="79" selection-end-line="127" selection-end-column="79" />
               <folding />
             </state>
           </provider>
@@ -113,9 +138,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/SalonManagement/WebContent/app/queries/employee/deliveryQueryController.ctrl.js" />
-        <option value="$PROJECT_DIR$/SalonManagement/WebContent/app/queries/employee/extraQueryController.ctrl.js" />
-        <option value="$PROJECT_DIR$/SalonManagement/WebContent/app/queries/employee/discountQueryController.ctrl.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/app/queries/employee/promoQueryController.ctrl.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/queries-promo.jsp" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/queries-employee.jsp" />
@@ -138,14 +160,12 @@
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/app/payment/payment.ctr.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-payment.jsp" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/web.xml" />
-        <option value="$PROJECT_DIR$/SalonManagement/WebContent/css/baselayout.css" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/employee-position.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/product-category.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/extracharge.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/service-category.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/maintenance-emp.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/maintenance-emp.jsp" />
-        <option value="$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/tiles.xml" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/classes/struts-employee.xml" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/employee-account.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/baseLayout.jsp" />
@@ -160,10 +180,15 @@
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/validation.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/promo.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/promo-update.js" />
-        <option value="$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/classes/struts-walkin.xml" />
-        <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-walkin.jsp" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/app/prodsales/locationfactory.fac.js" />
+        <option value="$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/tiles.xml" />
+        <option value="$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/classes/struts-walkin.xml" />
+        <option value="$PROJECT_DIR$/SalonManagement/WebContent/app/main.js" />
+        <option value="$PROJECT_DIR$/SalonManagement/WebContent/app/queries/employee/deliveryQueryController.ctrl.js" />
+        <option value="$PROJECT_DIR$/SalonManagement/WebContent/css/baselayout.css" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/app/walkin/walkin.ctr.js" />
+        <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-walkin-table.jsp" />
+        <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-walkin.jsp" />
       </list>
     </option>
   </component>
@@ -204,7 +229,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -343,6 +367,54 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RoadToPICC" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RoadToPICC" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SalonManagement" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebContent" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ajax" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RoadToPICC" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RoadToPICC" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SalonManagement" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebContent" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -370,6 +442,62 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="walkin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RoadToPICC" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RoadToPICC" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SalonManagement" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebContent" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="queries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RoadToPICC" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RoadToPICC" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SalonManagement" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebContent" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="queries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="employee" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -454,6 +582,7 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -597,15 +726,16 @@
       <workItem from="1473664550114" duration="2757000" />
       <workItem from="1473671343190" duration="15579000" />
       <workItem from="1473753523730" duration="6226000" />
+      <workItem from="1473775678746" duration="18503000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="963200000" />
+    <option name="totallyTimeSpent" value="981703000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="886" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16736111" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -641,43 +771,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-payment.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1598">
-          <caret line="94" column="57" selection-start-line="94" selection-start-column="57" selection-end-line="94" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/classes/struts.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-255">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/web.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="34" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/discount-create.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="935">
-          <caret line="55" column="26" selection-start-line="55" selection-start-column="26" selection-end-line="55" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/discount-deactivate.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="31" column="43" selection-start-line="31" selection-start-column="43" selection-end-line="31" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/classes/struts-api.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -690,14 +783,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="27">
           <caret line="9003" column="30" selection-start-line="9003" selection-start-column="13" selection-end-line="9003" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/css/mtnc-emp.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1505">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -717,33 +802,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/css/mystyle.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/queries-employee.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="35" column="36" selection-start-line="35" selection-start-column="36" selection-end-line="35" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/queries-delivery.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-255">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/css/baselayout.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="277" column="0" selection-start-line="277" selection-start-column="0" selection-end-line="280" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -776,13 +838,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/discount.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="89" column="57" selection-start-line="89" selection-start-column="57" selection-end-line="90" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/extracharge.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -802,14 +857,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="16" column="21" selection-start-line="0" selection-start-column="0" selection-end-line="123" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/tiles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2890">
-          <caret line="170" column="35" selection-start-line="170" selection-start-column="22" selection-end-line="170" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -841,28 +888,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/queries/employee/deliveryQueryController.ctrl.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="21" selection-start-line="0" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/payment/payment.ctr.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="77" column="41" selection-start-line="77" selection-start-column="41" selection-end-line="77" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/prodsales/prodSales.ctrl.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="283" column="46" selection-start-line="283" selection-start-column="46" selection-end-line="284" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/css/angular-validation.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -882,7 +907,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2074">
           <caret line="308" column="47" selection-start-line="308" selection-start-column="33" selection-end-line="308" selection-end-column="47" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -890,7 +914,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="371" column="44" selection-start-line="371" selection-start-column="44" selection-end-line="371" selection-end-column="44" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -898,7 +921,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
           <caret line="330" column="51" selection-start-line="330" selection-start-column="34" selection-end-line="330" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -906,7 +928,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="167" column="69" selection-start-line="167" selection-start-column="54" selection-end-line="167" selection-end-column="69" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -922,9 +943,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="12" column="23" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#44#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -952,23 +970,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
           <caret line="882" column="35" selection-start-line="882" selection-start-column="35" selection-end-line="882" selection-end-column="35" />
-          <folding>
-            <marker date="1473757295552" expanded="true" signature="2150:2161" ph="..." />
-            <marker date="1473757295552" expanded="true" signature="4618:4629" ph="..." />
-            <marker date="1473757295552" expanded="true" signature="7127:7138" ph="..." />
-            <marker date="1473757295552" expanded="true" signature="12917:12929" ph="..." />
-            <marker date="1473757295552" expanded="true" signature="13601:13629" ph="..." />
-            <marker date="1473757295552" expanded="true" signature="18185:18197" ph="..." />
-            <marker date="1473757295552" expanded="true" signature="18870:18898" ph="..." />
-            <marker date="1473757295552" expanded="true" signature="23460:23472" ph="..." />
-            <marker date="1473757295552" expanded="true" signature="24159:24187" ph="..." />
-            <marker date="1473757295552" expanded="true" signature="30803:30815" ph="..." />
-            <marker date="1473757295552" expanded="true" signature="31204:31248" ph="..." />
-            <marker date="1473757295552" expanded="true" signature="37979:37991" ph="..." />
-            <marker date="1473757295552" expanded="true" signature="38382:38426" ph="..." />
-            <marker date="1473757295552" expanded="true" signature="45221:45233" ph="..." />
-            <marker date="1473757295552" expanded="true" signature="45639:45683" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -984,9 +985,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="313" column="33" selection-start-line="313" selection-start-column="18" selection-end-line="313" selection-end-column="33" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1002,19 +1000,36 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="688">
           <caret line="135" column="79" selection-start-line="135" selection-start-column="58" selection-end-line="135" selection-end-column="79" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#a#1;n#div#7;n#div#0;n#form#0;n#div#1;n#li#0;n#ul#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#a#0;n#div#9;n#div#0;n#form#0;n#div#1;n#li#1;n#ul#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/walkin/walkin.fac.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-productorder.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="402" column="24" selection-start-line="402" selection-start-column="24" selection-end-line="413" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/tiles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="535">
+          <caret line="155" column="38" selection-start-line="155" selection-start-column="22" selection-end-line="155" selection-end-column="38" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/baseLayout.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="688">
-          <caret line="268" column="82" selection-start-line="268" selection-start-column="82" selection-end-line="268" selection-end-column="82" />
+        <state relative-caret-position="314">
+          <caret line="129" column="52" selection-start-line="129" selection-start-column="41" selection-end-line="129" selection-end-column="52" />
           <folding>
             <element signature="n#style#0;n#ul#0;n#header#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#li#0;n#ul#0;n#header#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -1035,50 +1050,145 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/walkin/walkin.fac.js">
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/payment/payment.ctr.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
+        <state relative-caret-position="1275">
+          <caret line="77" column="41" selection-start-line="77" selection-start-column="41" selection-end-line="77" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="101" column="6" selection-start-line="101" selection-start-column="6" selection-end-line="101" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/queries/employee/deliveryQueryController.ctrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="9" column="64" selection-start-line="9" selection-start-column="64" selection-end-line="9" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/queries-employee.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-238">
+          <caret line="22" column="67" selection-start-line="22" selection-start-column="43" selection-end-line="22" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-payment.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2550">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/classes/struts-walkin.xml">
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/prodsales/prodSales.ctrl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="23" column="43" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="43" />
+        <state relative-caret-position="136">
+          <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="37" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-walkin.jsp">
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/css/mystyle.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-740">
-          <caret line="124" column="84" selection-start-line="124" selection-start-column="84" selection-end-line="124" selection-end-column="84" />
+        <state relative-caret-position="-2754">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-productorder.jsp">
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/css/mtnc-emp.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="402" column="24" selection-start-line="402" selection-start-column="24" selection-end-line="413" selection-end-column="33" />
+        <state relative-caret-position="-816">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/walkin/walkin.ctr.js">
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/css/baselayout.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="73" column="33" selection-start-line="73" selection-start-column="33" selection-end-line="73" selection-end-column="33" />
+        <state relative-caret-position="231">
+          <caret line="247" column="14" selection-start-line="247" selection-start-column="14" selection-end-line="247" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/queries/employee/discountQueryController.ctrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-153">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/queries/employee/empQueryController.ctrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-765">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/prodsales/locationfactory.fac.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="30" column="54" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="54" />
+        <state relative-caret-position="527">
+          <caret line="60" column="53" selection-start-line="60" selection-start-column="32" selection-end-line="60" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/discount.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-17">
+          <caret line="89" column="57" selection-start-line="89" selection-start-column="57" selection-end-line="90" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/classes/struts-walkin.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="35" column="35" selection-start-line="35" selection-start-column="22" selection-end-line="35" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/walkin/walkin.ctr.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3315">
+          <caret line="218" column="36" selection-start-line="218" selection-start-column="36" selection-end-line="218" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-walkin-table.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" column="65" selection-start-line="26" selection-start-column="65" selection-end-line="27" selection-end-column="62" />
+          <folding>
+            <element signature="n#style#0;n#a#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-walkin.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="127" column="79" selection-start-line="127" selection-start-column="79" selection-end-line="127" selection-end-column="79" />
           <folding />
         </state>
       </provider>

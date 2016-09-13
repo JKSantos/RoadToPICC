@@ -7,7 +7,7 @@
         .module('app')
         .controller('deliveryQueryController', deliveryQueryController);
 
-    function deliveryQueryController($scope, $filter, SweetAlert, DTOptionsBuilder, DTColumnDefBuilder, DTDefaultOptions, queryFactory) {
+    function deliveryQueryController($scope, $filter, SweetAlert, queryFactory) {
         var vm = this;
         vm.getCategory = getCategory;
         vm.dtInstanceCallback = dtInstanceCallback;

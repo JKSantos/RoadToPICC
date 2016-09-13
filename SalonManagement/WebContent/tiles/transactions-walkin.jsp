@@ -21,8 +21,8 @@
                            href="#createWalkinModal" style="margin-left: 15px;">
                             <i class="material-icons">add</i>
                         </a>
-                        <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
-                           href="#walkinTable" style="margin-left: 15px;">
+                        <a class="z-depth-1 hoverable waves-effect waves-light btn purple darken-2 left white-text"
+                           href="transWalkinTable" style="margin-left: 15px;">
                             <i class="material-icons">border_all</i>
                         </a>
                     </div>
@@ -72,7 +72,8 @@
                                 <div class="card-reveal">
 
                                                 <span class="card-title grey-text text-darken-4"><i
-                                                        class="material-icons right" id="prodClose{{product.intProductID}}">close</i></span>
+                                                        class="material-icons right"
+                                                        id="prodClose{{product.intProductID}}">close</i></span>
                                     <h4 style='font-size: 12px; line-height: 15px !important;'>
                                         <b>{{product.strProductName}}</b><br/>
                                         <span class="grey-text text-darken-4">{{product.dblProductPrice | currency:"Php "}}</span>
@@ -114,15 +115,18 @@
                                         <p>{{service.dblServicePrice | currency:"P"}}</p></h5>
                                 </div>
                                 <div class="card-reveal">
-
-                                                <span class="card-title grey-text text-darken-4"><i
-                                                        class="material-icons right" id="servClose{{service.intServiceID}}">close</i></span>
+                                    <span class="card-title grey-text text-darken-4">
+                                        <i class="material-icons right" id="servClose{{service.intServiceID}}">close</i>
+                                    </span>
                                     <h4 style='font-size: 12px; line-height: 15px !important;'>
                                         <b>{{service.strServiceName}}</b><br/>
                                         <span class="grey-text text-darken-4">{{service.dblServicePrice | currency:"Php "}}</span>
                                     </h4>
                                     <div class="input-field col s12">
-                                        <select ng-model="vm.selEmployee" id="cREmp"></select>
+                                        <select ng-model="vm.selEmployee" id="cREmp"
+                                                ng-options="employee.strEmpFirstName for employee in vm.employeeList">
+                                            <option value="" selected>Choose...</option>
+                                        </select>
                                         <label for="cREmp"><b>Employee</b></label>
                                     </div>
 
@@ -138,6 +142,10 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="col s12">
+
+                    <pre>{{vm.selEmployee | json}}</pre>
                 </div>
 
                 <div ng-show="vm.selected == 'package'" style="margin-top: -50px !important;">
@@ -271,8 +279,8 @@
                         class="material-icons">error_outline</i>&nbspRequired field
                 </button>
                 <a class="waves-effect waves-light white-text btn-flat purple"
-                        ng-click="vm.saveWalkin(details)"
-                        style="margin-left:3px; margin-right:3px;">CREATE
+                   ng-click="vm.saveWalkin(details)"
+                   style="margin-left:3px; margin-right:3px;">CREATE
                 </a>
 
             </div>
@@ -392,7 +400,7 @@
                             <img ng-src="{{order.strPhotoPath}}" class="circle" height="30" width="30">
                                 <span style="padding-left: 5px !important;"
                                       title="{{order.product}} - {{order.productTotal | currency: 'Php '}}"
-                                    ng-click="vm.openEditItem($index, order)">
+                                      ng-click="vm.openEditItem($index, order)">
                                     {{order.product | truncate: 15}}
                                 </span>
                             <button name="" title="Decline" class="secondary-content red-text transparent"
@@ -437,49 +445,49 @@
             </div>
         </div>
         <!--<div class="aside white z-depth-barts">-->
-            <!--<div class="row">-->
-                <!--<div class="col s12 transparent">-->
-                    <!--<h5>Request of</h5>-->
-                    <!--<ul class="collection with-header reqList">-->
-                        <!--<li class="collection-item left-align"-->
-                            <!--style="margin-left:0px !important; padding-left: 10px !important;"-->
-                            <!--ng-repeat="request in requestOrder.slice().reverse()">-->
-                            <!--<i class="material-icons left"-->
-                               <!--style="margin-right:10px !important; margin-top: -3px !important;"-->
-                               <!--ng-if="request.intType==1 || request.intType=='delivery'">-->
-                                <!--local_shipping-->
-                            <!--</i>-->
-                            <!--<i class="material-icons left"-->
-                               <!--style="margin-right:10px !important; margin-top: -3px !important;"-->
-                               <!--ng-if="request.intType==2 || request.intType=='pickup'">-->
-                                <!--shopping_basket-->
-                            <!--</i>-->
-                            <!--<span title="{{ request.strName }}">{{ request.strName | truncate: 13 }}</span>-->
-                            <!--<button name="" title="Decline" class="secondary-content red-text transparent"-->
-                                    <!--style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border:0px !important;"-->
-                                    <!--ng-click="declineOrder(request)">-->
-                                <!--<i class="material-icons" style="padding-top: 7px !important;">clear</i>-->
-                            <!--</button>-->
-                            <!--<button name="" title="Accept" class="secondary-content black-text transparent"-->
-                                    <!--style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border: 0px !important;"-->
-                                    <!--ng-if="request.intType==1 || request.intType=='delivery'"-->
-                                    <!--ng-click="acceptDeliveryOrder(request)">-->
-                                <!--<i class="material-icons" style="padding-top: 7px !important;">done</i>-->
-                            <!--</button>-->
-                            <!--<button name="" title="Accept" class="secondary-content black-text transparent"-->
-                                    <!--style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border: 0px !important;"-->
-                                    <!--ng-if="request.intType==2 || request.intType=='pickup'"-->
-                                    <!--ng-click="acceptPickupOrder(request)">-->
-                                <!--<i class="material-icons" style="padding-top: 7px !important;">done</i>-->
-                            <!--</button>-->
-                        <!--</li>-->
-                    <!--</ul>-->
-                    <!--<p>-->
-                        <!--<i class="material-icons">local_shipping</i> - Delivery-->
-                        <!--<i class="material-icons">shopping_basket</i> - Pick-up-->
-                    <!--</p>-->
-                <!--</div>-->
-            <!--</div>-->
+        <!--<div class="row">-->
+        <!--<div class="col s12 transparent">-->
+        <!--<h5>Request of</h5>-->
+        <!--<ul class="collection with-header reqList">-->
+        <!--<li class="collection-item left-align"-->
+        <!--style="margin-left:0px !important; padding-left: 10px !important;"-->
+        <!--ng-repeat="request in requestOrder.slice().reverse()">-->
+        <!--<i class="material-icons left"-->
+        <!--style="margin-right:10px !important; margin-top: -3px !important;"-->
+        <!--ng-if="request.intType==1 || request.intType=='delivery'">-->
+        <!--local_shipping-->
+        <!--</i>-->
+        <!--<i class="material-icons left"-->
+        <!--style="margin-right:10px !important; margin-top: -3px !important;"-->
+        <!--ng-if="request.intType==2 || request.intType=='pickup'">-->
+        <!--shopping_basket-->
+        <!--</i>-->
+        <!--<span title="{{ request.strName }}">{{ request.strName | truncate: 13 }}</span>-->
+        <!--<button name="" title="Decline" class="secondary-content red-text transparent"-->
+        <!--style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border:0px !important;"-->
+        <!--ng-click="declineOrder(request)">-->
+        <!--<i class="material-icons" style="padding-top: 7px !important;">clear</i>-->
+        <!--</button>-->
+        <!--<button name="" title="Accept" class="secondary-content black-text transparent"-->
+        <!--style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border: 0px !important;"-->
+        <!--ng-if="request.intType==1 || request.intType=='delivery'"-->
+        <!--ng-click="acceptDeliveryOrder(request)">-->
+        <!--<i class="material-icons" style="padding-top: 7px !important;">done</i>-->
+        <!--</button>-->
+        <!--<button name="" title="Accept" class="secondary-content black-text transparent"-->
+        <!--style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border: 0px !important;"-->
+        <!--ng-if="request.intType==2 || request.intType=='pickup'"-->
+        <!--ng-click="acceptPickupOrder(request)">-->
+        <!--<i class="material-icons" style="padding-top: 7px !important;">done</i>-->
+        <!--</button>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--<p>-->
+        <!--<i class="material-icons">local_shipping</i> - Delivery-->
+        <!--<i class="material-icons">shopping_basket</i> - Pick-up-->
+        <!--</p>-->
+        <!--</div>-->
+        <!--</div>-->
         <!--</div>-->
     </div>
 
@@ -494,7 +502,8 @@
                         <input type="number" class="center-align" ng-model="vm.orderToBeEdit.productQuantity">
                     </div>
                     <div class="input-field col s12" style="margin-top: -10px !important;">
-                        <h5 class="center">Total: {{ (vm.orderToBeEdit.productPrice * vm.orderToBeEdit.productQuantity) | currency: "Php "}}</h5>
+                        <h5 class="center">Total: {{ (vm.orderToBeEdit.productPrice * vm.orderToBeEdit.productQuantity)
+                            | currency: "Php "}}</h5>
                     </div>
                 </div>
             </div>
@@ -511,7 +520,7 @@
                         <label for="cREmp2"><b>Employee</b></label>
                     </div>
                     <div class="input-field col s12" style="margin-top: -10px !important;">
-                        <h5 class="center">Total: {{ vm.orderToBeEdit.servicePrice  | currency: "Php "}}</h5>
+                        <h5 class="center">Total: {{ vm.orderToBeEdit.servicePrice | currency: "Php "}}</h5>
                     </div>
                 </div>
             </div>
