@@ -1,5 +1,7 @@
 package com.gss.actions;
 
+import com.gss.dao.ExtraChargeJDBCRepository;
+import com.gss.dao.LocationJDBCRepository;
 import com.gss.model.ExtraCharge;
 import com.gss.service.ExtraChargeService;
 import com.gss.service.ExtraChargeServiceImpl;
@@ -11,16 +13,27 @@ public class CreateExtraChargeAction {
 	private String strECDetails;
 	private String price;
 	
+	private String result;
+	
 	public String execute() throws Exception{
 		
 		double dblECPrice = PriceFormatHelper.convertToDouble((price + "0"), "Php ");
 		ExtraChargeService service = new ExtraChargeServiceImpl();
-		ExtraCharge extra = new ExtraCharge(1, strECName, strECDetails, dblECPrice, 1);
+		ExtraCharge extra = new ExtraCharge(1, strECName.trim().toUpperCase(), strECDetails.trim().toUpperCase(), dblECPrice, 1);
 		
-		if(service.createExtraCharge(extra) == true)
-			return "success";
-		else
-			return "failed";
+		if(ExtraChargeJDBCRepository.checkExtraChargeName(strECName.trim().toUpperCase()).equalsIgnoreCase("valid")){
+			if(service.createExtraCharge(extra) == true){
+				result = "success";
+				return result;
+			}
+			else{
+				result = "failed";
+				return result;
+		}
+		}else{
+			result = "existing";
+			return result;
+		}
 		
 	}
 
@@ -42,6 +55,10 @@ public class CreateExtraChargeAction {
 
 	public void setPrice(String price) {
 		this.price = price;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
 	}
 
 }

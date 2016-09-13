@@ -3,6 +3,7 @@ package com.gss.actions;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gss.dao.PackageJDBCRepository;
 import com.gss.model.Package;
 import com.gss.model.Product;
 import com.gss.model.ProductPackage;
@@ -29,6 +30,8 @@ public class UpdatePackageAction {
 	private String updatePackProdType = "";
 	private String updatePackServQty = "";
 	private String updatePackProdQty = "";
+	
+	private String result;
 	
 	public String execute(){		
 		
@@ -85,12 +88,18 @@ public class UpdatePackageAction {
 		
 		Package packagee = new Package(Integer.parseInt(intUpdatePackageID), strUpdatePackageName.toUpperCase().trim(), strUpdatePackageDesc.toUpperCase().trim(), PackageHelper.convertToSingleInt(intUpdatePackageType), 1, "NON-EXPIRY", getDblUpdatePackagePrice(), serviceList, productList, 1);
 	
-		if(packageService.updatePackage(packagee)){
-			System.out.println("success");
-			return "success";
+		if(PackageJDBCRepository.checkPackageName(this.strUpdatePackageName.trim(), Integer.parseInt(this.intUpdatePackageID)).equalsIgnoreCase("valid")){
+			if(packageService.updatePackage(packagee)){
+				result = "success";
+				return "success";
+			}else{
+				result = "failed";
+				return "failed";
+			}	
 		}else{
-			System.out.println("failed");
-			return "failed";
+			
+			result = "existing";
+			return result;
 		}
 	}
 
@@ -164,6 +173,10 @@ public class UpdatePackageAction {
 
 	public void setUpdatePackProdQty(String updatePackProdQty) {
 		this.updatePackProdQty = updatePackProdQty;
+	}
+
+	public String getResult() {
+		return result;
 	}
 
 }

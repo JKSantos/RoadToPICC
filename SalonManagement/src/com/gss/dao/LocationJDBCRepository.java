@@ -218,5 +218,4 @@ public class LocationJDBCRepository implements LocationRepository{
 			return "failed";
 		}
 	}
-
 }

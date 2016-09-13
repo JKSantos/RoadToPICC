@@ -589,4 +589,67 @@ public class PackageJDBCRepository implements PackageRepository{
 			return null;
 		}
 	}
+
+	public static String checkPackageName(String strPackageName) {
+		
+		Connection con = new JDBCConnection().getConnection();
+		
+		String query = "CALL checkPackageName(?);";
+		
+		String result = "";
+		
+		try{
+			
+			PreparedStatement pre = con.prepareStatement(query);
+			pre.setString(1, strPackageName);
+			
+			ResultSet set = pre.executeQuery();
+			
+			while(set.next()){
+				result = set.getString(1);
+			}
+
+			pre.close();
+			set.close();
+			con.close();
+			
+			return result;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return "failed";
+		}
+	}
+	
+	public static String checkPackageName(String strPackageName, int packageID) {
+		
+		Connection con = new JDBCConnection().getConnection();
+		
+		String query = "CALL checkPackageNameWithID(?, ?);";
+		
+		String result = "";
+		
+		try{
+			
+			PreparedStatement pre = con.prepareStatement(query);
+			pre.setString(1, strPackageName);
+			pre.setInt(2, packageID);
+			
+			ResultSet set = pre.executeQuery();
+			
+			while(set.next()){
+				result = set.getString(1);
+			}
+
+			pre.close();
+			set.close();
+			con.close();
+			
+			return result;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return "failed";
+		}
+	}
 }

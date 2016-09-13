@@ -24,6 +24,7 @@
 		<action name="createPackage" class="com.gss.actions.CreatePackageAction">
 			<result name="success" type="json"/>
 			<result name="failed" type="json"/>
+			<result name="existing" type="json"/>
 		</action>
 		
 		<action name="deactivatePackage" class="com.gss.actions.DeactivatePackageAction" method="execute">
@@ -34,6 +35,7 @@
 		<action name="updatePackage" class="com.gss.actions.UpdatePackageAction" method="execute">
 			<result name="success" type="json"/>
 			<result name="failed" type="json"/>
+			<result name="existing" type="json"/>
 		</action>
 		
 		<action name="getPackageByID" class="com.gss.actions.Package.GetPackageByID" method="execute">
@@ -46,6 +48,7 @@
 		
 		<action name="getPackageByType" class="com.gss.actions.Package.GetPackageByType" method="execute">
 			<result name="success" type="json"/>
+			<result name="existing" type="json"/>
 		</action>
 		
 	</package>	
