@@ -6,7 +6,6 @@ import java.util.List;
 import org.quartz.SchedulerException;
 
 import com.gss.model.Promo;
-import com.gss.testers.PromoChecker;
 
 public class GetAllPromoNoDetails {
 	
