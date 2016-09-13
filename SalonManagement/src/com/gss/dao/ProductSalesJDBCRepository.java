@@ -472,7 +472,7 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 			orders.close();
 			
 			con.close();
-			System.out.println(salesList.size());
+
 			return salesList;
 		}
 		catch(Exception e){

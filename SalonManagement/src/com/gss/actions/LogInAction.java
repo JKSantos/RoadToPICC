@@ -3,11 +3,9 @@ package com.gss.actions;
 import java.util.Map;
 
 import org.apache.struts2.interceptor.SessionAware;
-import org.quartz.SchedulerException;
 
 import com.gss.model.Employee;
 import com.gss.service.EmployeeServiceImpl;
-import com.gss.testers.PromoChecker;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class LogInAction extends ActionSupport implements SessionAware{
