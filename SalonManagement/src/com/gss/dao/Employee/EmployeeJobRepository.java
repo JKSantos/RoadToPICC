@@ -328,7 +328,7 @@ public class EmployeeJobRepository {
 		String query = "";
 		
 		if(strTransType.equals("WALKIN") && strJobType.equals("SERVICE"))
-			query = "UDPATE tblServiceWalkIn SET strStatus = ? WHERE intServiceWalkInID = ?;";
+			query = "UPDATE tblServiceWalkIn SET strStatus = ? WHERE intServiceWalkInID = ?;";
 		else if(strTransType.equals("WALKIN") && strJobType.equals("PACKAGE"))
 			query = "UPDATE tblAssignmentDetail SET strAssignmentStatus = ? WHERE intAssignmentDetailID = ?;";
 		else if(strTransType.equals("WALKIN") && strJobType.equals("PROMO"))
