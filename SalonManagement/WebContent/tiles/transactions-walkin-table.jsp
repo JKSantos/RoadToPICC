@@ -16,20 +16,20 @@
             <div class="col s12">
                 <div class="input-field col s3">
                     <select id="walkinTableFilter" ng-model="vm.walkinTableFilter">
-                        <option value="walkin" selected>Walkin</option>
-                        <option value="appointment">Appointment</option>
+                        <option value="walkin" selected>WALKIN</option>
+                        <option value="appointment">APPOINTMENT</option>
                     </select>
                     <label for="walkinTableFilter"><b>Select</b></label>
                 </div>
-                <div class="input-field col s4">
-                    <a class="crWalkin z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
-                       href="#createWalkinModal" style="margin-left: 15px;">
-                        <i class="material-icons">add</i>
-                    </a>
-                    <a class="z-depth-1 hoverable waves-effect waves-light btn purple darken-2 left white-text"
-                       href="transWalkinTable" style="margin-left: 15px;">
-                        <i class="material-icons">border_all</i>
-                    </a>
+                <div class="input-field col s3">
+                    <select id="completePendingFilter"
+                            ng-model="vm.completePendingFilter"
+                            ng-change="vm.completePendingFunc()">
+                        <option value="" selected>ALL</option>
+                        <option value="pending">PENDING</option>
+                        <option value="complete">COMPLETE</option>
+                    </select>
+                    <label for="walkinTableFilter"><b>Status</b></label>
                 </div>
                 <nav class="right white hoverable z-depth-1" style="width: 300px; margin-right: 20px;">
                     <div class="nav-wrapper col s12">
@@ -80,16 +80,28 @@
                     <td class="left-align">{{walkin.strWalkInType | uppercase}}</td>
                     <td class="left-align">{{walkin.strWalkInStatus | uppercase}}</td>
                     <td class="center-align">
+                        <button class="waves-effect waves-purple btn-flat transparent black-text text-accent-4"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="View"
+                                ng-if="walkin.strWalkInStatus=='PENDING'"
+                                ng-click="viewWalkin(walkin)">
+                            <i class='material-icons'>visibility</i>
+                        </button>
+                        <button class="waves-effect waves-purple btn-flat transparent black-text text-accent-4"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="View"
+                                ng-if="walkin.strWalkInStatus=='COMPLETE'"
+                                ng-click="viewWalkin(walkin)">
+                            <i class='material-icons'>visibility</i>
+                        </button>
+                        <button class="waves-effect waves-purple btn-flat transparent black-text text-accent-4"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Update"
+                                ng-if="walkin.strWalkInStatus=='PENDING'"
+                                ng-click="vm.editWalkin(walkin)">
+                            <i class='material-icons'>edit</i>
+                        </button>
                         <button class="waves-effect waves-purple btn-flat transparent red-text text-accent-4"
                                 style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Deactivate"
                                 ng-if="walkin.strWalkInStatus=='PENDING'"
-                                ng-click="deactivateOrder(order)">
-                            <i class='material-icons'>delete</i>
-                        </button>
-                        <button class="btn-flat transparent red-text text-lighten-4"
-                                style="padding-left: 10px;padding-right:10px; margin: 5px;"
-                                ng-if="walkin.strWalkInStatus=='COMPLETE'"
-                                ng-disabled=true>
+                                ng-click="deactivateWalkin(walkin)">
                             <i class='material-icons'>delete</i>
                         </button>
                     </td>
@@ -99,7 +111,7 @@
         </div>
 
         <div ng-show="vm.walkinTableFilter == 'appointment'">
-            <table id="walkinAppointmentRecordTable" datatable="ng" dt-instance="vm.dtInstanceCallback"
+            <table id="walkinAppointmentRecordTable" datatable="ng" dt-instance="vm.dtInstanceCallbackAppointment"
                    class="row-border hoverable cell-border z-depth-1" width="100%"
 
                    style="margin-top: -15px !important;">
@@ -153,4 +165,66 @@
             </table>
         </div>
     </div>
+
+    <div id="editWalkin" class="modal modal-fixed-footer">
+        <form>
+        <div class="modal-content">
+            <div class="wrapper">
+                <div class="aside asideAside1 transparent" style="width: 5px !important;">
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="input-field col s6">
+                                <select ng-model="newProduct.product" id="selProductEdit"
+                                        ng-options="product.strProductName for product in vm.productList">
+                                    <option value="" disabled selected>Product</option>
+                                </select>
+                                <label for="selProductEdit">Product</label>
+                            </div>
+                            <div class="input-field col s3">
+                                <input type="number" class="right-align" id="selPrductQty" ng-model="newProduct.qty">
+                                <label for="selPrductQty">Qty</label>
+                            </div>
+                            <div class="input-field col s3">
+                                <button class="waves-effect waves-light btn-flat purple white-text" title="Add"
+                                        ng-click="addProduct(newProduct)">
+                                    <i class='material-icons'>add</i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="aside asideAside2 transparent" style="width: 10px !important;">
+                    <div class="wrapper">
+                        <div class="row">
+                            <div class="col s12">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Service</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td ng-repeat="selectedProduct in vm.selectedProductFromWalkin">{{selectedProduct.prodName}}</td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="waves-effect waves-light btn-flat purple white-text"
+                    ng-click="editInCart(orderToBeEdit)">
+                SAVE
+            </button>
+        </div>
+        </form>
+    </div>
+
+
 </div>

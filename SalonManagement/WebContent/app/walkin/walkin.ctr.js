@@ -7,6 +7,19 @@
 
     function walkinCtrl($scope, $http, $window, paymentFactory, locationFactory, walkinFactory, SweetAlert) {
         var vm = this;
+
+        vm.openEditItem = openEditItem;
+        vm.openPackageModal = openPackageModal;
+        vm.assignEmployeePackage = assignEmployeePackage;
+        vm.openPromoModal = openPromoModal;
+        vm.closeCard = closeCard;
+        vm.dtInstanceCallback = dtInstanceCallback;
+        vm.dtInstanceCallbackAppointment = dtInstanceCallbackAppointment;
+        vm.searchTable = searchTable;
+        vm.completePendingFunc = completePendingFunc;
+
+        vm.editWalkin = editWalkin;
+
         vm.selected = 'product';
         vm.walkinTableFilter = 'walkin';
 
@@ -20,10 +33,6 @@
         var quantprom = "";
         var selectdiscount = "";
         var selectEmp = "";
-
-        $scope.sample = function (emp) {
-            console.log(emp);
-        };
 
         vm.selDiscounts = [];
         vm.quantity = '';
@@ -45,11 +54,44 @@
 
         vm.selServiceDetails = [];
 
-        vm.openEditItem = openEditItem;
-        vm.openPackageModal = openPackageModal;
-        vm.assignEmployeePackage = assignEmployeePackage;
-        vm.openPromoModal = openPromoModal;
-        vm.closeCard = closeCard;
+        vm.searchInTable = '';
+        vm.completePendingFilter = '';
+
+        vm.walkinProdSelected = [];
+
+        function dtInstanceCallback(dtInstance) {
+            var datatableObj = dtInstance.DataTable;
+            vm.tableInstance = datatableObj;
+        }
+
+        function dtInstanceCallbackAppointment(dtInstance) {
+            var datatableObj = dtInstance.DataTable;
+            vm.tableInstanceAppointment = datatableObj;
+        }
+
+        function searchTable() {
+            var query1 = vm.searchInTable;
+            vm.tableInstance.search(query1).draw();
+            vm.tableInstanceAppointment.search(query1).draw();
+        }
+
+        function completePendingFunc() {
+            if (vm.walkinTableFilter == 'walkin') {
+                var sel1 = vm.completePendingFilter;
+                if (sel1 == 'pending' || sel1 == 'complete') {
+                    vm.tableInstance.column(3).search('^' + sel1 + '$', true).draw();
+                } else if (sel1 == '') {
+                    vm.tableInstance.column(3).search(sel1).draw();
+                }
+            } else {
+                var sel2 = vm.completePendingFilter;
+                if (sel2 == 'pending' || sel2 == 'complete') {
+                    vm.tableInstanceAppointment.column(5).search('^' + sel2 + '$', true).draw();
+                } else if (sel2 == '') {
+                    vm.tableInstanceAppointment.column(5).search(sel2).draw();
+                }
+            }
+        }
 
 
         locationFactory.getEmployees().then(function (data) {
@@ -84,9 +126,59 @@
             vm.discountList = data.data.discountList;
         });
 
-        locationFactory.getWalkin().then(function(data) {
-           vm.walkinList = data.walkInList;
+        locationFactory.getWalkin().then(function (data) {
+            vm.walkinList = data.walkInList;
         });
+
+        function editWalkin(walkin) {
+            $.ajax({
+                type: 'post',
+                url: 'getWalkInByID',
+                data: {
+                    'intWalkInID': walkin.intWalkInID
+                },
+                dataType: 'json',
+                async: true,
+                success: function (data) {
+                    var walkin = data.walkin;
+                    console.log(walkin.products);
+                    vm.walkinProdSelected = walkin.products;
+                    vm.selectedProductFromWalkin = pushProduct(vm.walkinProdSelected);
+                },
+                error: function (data) {
+
+                }
+            });
+
+            $('#editWalkin').openModal({
+                dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                opacity: .7, // Opacity of modal background
+                in_duration: 200, // Transition in duration
+                out_duration: 200, // Transition out duration
+            });
+        }
+
+        function pushProduct(products) {
+            var p = [];
+            console.log(products);
+            angular.forEach(products, function (prod) {
+                // p.push({
+                //     'intProductWalkInID': prod.intProductWalkInID,
+                //     'intQuantity': prod.intQuantity
+                // });
+                for (var i = 0; i < vm.productList.length; i++) {
+                    if (prod.product.intProductID == vm.productList[i].intProductID) {
+                        p.push({
+                            'prodID': vm.productList[i].intProductID,
+                            'prodName': vm.productList[i].strProductName,
+                            'prodqty': prod.intQuantity
+                        });
+                    }
+                }
+            });
+            console.log(p);
+            return p;
+        }
 
         function openEditItem(index, item) {
             $('#editItem').openModal({
@@ -337,7 +429,7 @@
                 success: function (data) {
                     SweetAlert.swal("Successfully created!", ".", "success");
                     $('#createWalkinModal').closeModal();
-                    $window.location.reload();
+                    // $window.location.reload();
                 },
                 error: function () {
                     SweetAlert.swal("Oops", "Something went wrong!", "error");

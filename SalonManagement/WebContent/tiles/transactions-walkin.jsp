@@ -125,7 +125,6 @@
                                     <div class="input-field col s12">
                                         <select ng-model="vm.selEmployee" id="cREmp"
                                                 ng-options="employee.strEmpFirstName for employee in vm.employeeList">
-                                            <option value="" disabled selected>Select</option>
                                         </select>
                                         <label for="cREmp"><b>Employee</b></label>
                                     </div>
