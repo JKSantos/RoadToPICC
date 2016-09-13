@@ -63,6 +63,10 @@
 			<result name="success" type="json"></result>
 		</action>
 		
+		<action name="getOrderByID" class="com.gss.actions.ProductSales.GetProductSalesByID">
+			<result name="success" type="json"></result>
+		</action>
+		
 	</package>	
 		
 		

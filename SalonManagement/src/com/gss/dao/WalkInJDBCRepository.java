@@ -25,7 +25,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 	@Override
 	public int createWalkIn(WalkIn walkin) throws SQLException {
 		
-		String createWalkIn 				= "CALL createWalkIn(?, ?, ?)";
+		String createWalkIn 				= "CALL createWalkIn(?, ?, ?, ?, ?, ?)";
 		String createProductWalkIn 			= "CALL createProductWalkIn(?, ?, ?)";
 		String createServiceWalkIn 			= "CALL createServiceWalkIn(?, ?, ?, ?)";
 		String createPackageWalkIn 			= "CALL createPackageWalkIn(?, ?, ?)";
@@ -63,6 +63,9 @@ public class WalkInJDBCRepository implements WalkInRepository{
 			insertWalkIn.setString(1, walkin.getStrName());
 			insertWalkIn.setString(2, walkin.getStrContactNo());
 			insertWalkIn.setDouble(3, walkin.getInvoice().getDblTotalPrice());
+			insertWalkIn.setString(4, walkin.getStrWalkInType());
+			insertWalkIn.setDate(5, walkin.getAppointmentDate());
+			insertWalkIn.setTime(6, walkin.getAppointmentTime());
 			insertWalkInResult = insertWalkIn.executeQuery();
 			
 			//parsing inserted Walk-In ID
