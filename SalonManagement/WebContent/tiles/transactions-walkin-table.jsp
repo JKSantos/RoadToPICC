@@ -197,20 +197,24 @@
                     <div class="wrapper">
                         <div class="row">
                             <div class="col s12">
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <th>Product</th>
-                                        <th>Service</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td ng-repeat="selectedProduct in vm.selectedProductFromWalkin">{{selectedProduct.prodName}}</td>
-                                        <td></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                <div class="col s6">
+                                    <ul class="collection">
+                                        <li class="collection-item"><b>Product</b></li>
+                                        <li class="collection-item"
+                                            ng-repeat="selectedProduct in vm.selectedProductFromWalkin">
+                                            {{selectedProduct.prodName}}
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col s6">
+                                    <ul class="collection">
+                                        <li class="collection-item"><b>Service</b></li>
+                                        <li class="collection-item"
+                                            ng-repeat="selectedService in vm.selectedServiceFromWalkin">
+                                            {{selectedProduct.servName}}
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -131,23 +131,46 @@
         });
 
         function editWalkin(walkin) {
-            $.ajax({
-                type: 'post',
-                url: 'getWalkInByID',
-                data: {
-                    'intWalkInID': walkin.intWalkInID
-                },
-                dataType: 'json',
-                async: true,
-                success: function (data) {
-                    var walkin = data.walkin;
-                    console.log(walkin.products);
-                    vm.walkinProdSelected = walkin.products;
-                    vm.selectedProductFromWalkin = pushProduct(vm.walkinProdSelected);
-                },
-                error: function (data) {
+            // $.ajax({
+            //     type: 'post',
+            //     url: 'getWalkInByID',
+            //     data: {
+            //         'intWalkInID': walkin.intWalkInID
+            //     },
+            //     dataType: 'json',
+            //     async: true,
+            //     success: function (data) {
+            //         var walkin = data.walkin,
+            //             x;
+            //         console.log(walkin.products);
+            //         vm.walkinProdSelected = walkin.products;
+            //         x = pushProduct(vm.walkinProdSelected);
+            //         vm.selectedProductFromWalkin = x;
+            //     },
+            //     error: function (data) {
+            //
+            //     }
+            // });
+            var data = $.param({
+                'intWalkInID': walkin.intWalkInID
+            });
 
+            $http({
+                method: 'post',
+                url: 'http://localhost:8080/SalonManagement/getWalkInByID',
+                data: data,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 }
+            }).then(function successCallback(data) {
+                var walkin = data.data.walkin;
+                vm.walkinProdSelected = walkin.products;
+                vm.walkinServSelected = walkin.services;
+                vm.selectedProductFromWalkin = pushProduct(vm.walkinProdSelected);
+                vm.selectedServiceFromWalkin = pushService(vm.walkinServSelected);
+            }, function errorCallback(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
             });
 
             $('#editWalkin').openModal({
@@ -172,6 +195,28 @@
                             'prodID': vm.productList[i].intProductID,
                             'prodName': vm.productList[i].strProductName,
                             'prodqty': prod.intQuantity
+                        });
+                    }
+                }
+            });
+            console.log(p);
+            return p;
+        }
+
+        function pushService(service) {
+            console.log(service);
+            var p = [];
+            angular.forEach(service, function (serv) {
+                // p.push({
+                //     'intProductWalkInID': prod.intProductWalkInID,
+                //     'intQuantity': prod.intQuantity
+                // });
+                for (var i = 0; i < vm.serviceList.length; i++) {
+                    if (serv.service.intServiceID == vm.serviceList[i].intServiceID) {
+                        p.push({
+                            'servID': vm.serviceList[i].intServiceID,
+                            'servName': vm.serviceList[i].strProductName,
+                            'servQty': serv.intQuantity
                         });
                     }
                 }
