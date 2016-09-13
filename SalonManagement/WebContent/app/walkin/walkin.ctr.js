@@ -8,7 +8,6 @@
     function walkinCtrl($scope, $http, $window, paymentFactory, locationFactory, walkinFactory, SweetAlert) {
         var vm = this;
         vm.selected = 'product';
-        vm.selEmployee = '';
 
         var selectprod = "";
         var quantprod = "";
@@ -20,6 +19,10 @@
         var quantprom = "";
         var selectdiscount = "";
         var selectEmp = "";
+
+        $scope.sample = function (emp) {
+            console.log(emp);
+        };
 
         vm.selDiscounts = [];
         vm.quantity = '';
@@ -50,7 +53,6 @@
 
         locationFactory.getEmployees().then(function (data) {
             vm.employeeList = data.data.employeeList;
-            vm.selEmployee = vm.employeeList[0];
             vm.selEmployeePerService = vm.employeeList[0];
         });
 
@@ -71,7 +73,6 @@
 
         locationFactory.getPromosWithDetails().then(function (data) {
             vm.promoList = data.data.promoList;
-            console.log(data.data);
         });
 
         locationFactory.getPackagesWithDetails().then(function (data) {
