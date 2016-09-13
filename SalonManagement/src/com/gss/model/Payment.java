@@ -153,4 +153,21 @@ public class Payment {
 			return null;
 		}
 	}
+	
+	public static String toStringStatus(int paymentStatus){
+		String converted = "";
+		
+		switch(paymentStatus){
+			case 0:
+				converted = "UNPAID";
+				break;
+			case 2:
+				converted = "PAID";
+				break;
+		}
+		
+		return converted;
+	}
+	
+	
 }

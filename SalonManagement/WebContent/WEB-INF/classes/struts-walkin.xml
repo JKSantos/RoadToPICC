@@ -33,7 +33,8 @@
 			<result name="success" type="tiles">createWalkin</result>
 		</action>
 		
+		<action name="getWalkInByID" class="com.gss.actions.WalkIn.GetWalkInByID">
+			<result name="success" type="json"></result>
+		</action>
 	</package>	
-		
-		
 </struts>

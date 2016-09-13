@@ -23,6 +23,7 @@ import com.gss.model.ServiceWalkIn;
 import com.gss.model.WalkIn;
 import com.gss.service.WalkInService;
 import com.gss.service.WalkInServiceImpl;
+import com.gss.utilities.DateHelper;
 import com.gss.utilities.PriceFormatHelper;
 
 public class CreateWalkIn {
@@ -165,7 +166,10 @@ public class CreateWalkIn {
 
 		Invoice invoice = Invoice.createNullInvoice(extraChargeList, discountList, PriceFormatHelper.convertToDouble(this.strTotalPrice, "Php "), "FULL PAYMENT");
 		
-		WalkIn walkin = new WalkIn(1, "INDIVIDUAL", this.strName, this.strContactNo, new Date(), serviceList, productList, packageList, promoList, invoice, null, "PENDING", "UNPAID");
+		WalkIn walkin = new WalkIn(1, "APPOINTMENT", this.strName, this.strContactNo, new Date(), serviceList, productList, packageList, promoList, invoice, null, "PENDING", "UNPAID");
+		walkin.setAppointmentDate(java.sql.Date.valueOf("2016-9-13"));
+		walkin.setAppointmentTime(java.sql.Time.valueOf("23:30:00"));
+		
 		
 		if(service.createWalkIn(walkin) == 0){
 			return "failed";

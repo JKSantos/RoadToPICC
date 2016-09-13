@@ -1,5 +1,6 @@
 package com.gss.model;
 
+import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +14,8 @@ public class WalkIn {
 	private String strName;
 	private String strContactNo;
 	private Date datWalkIn;
+	private java.sql.Date appointmentDate;
+	private Time appointmentTime;
 	private List<ServiceWalkIn> services;
 	private List<ProductWalkIn> products;
 	private List<PackageWalkIn> packages;
@@ -129,5 +132,21 @@ public class WalkIn {
 		WalkInService service = new WalkInServiceImpl();
 		
 		return service.getAllWalkIn();
+	}
+
+	public java.sql.Date getAppointmentDate() {
+		return appointmentDate;
+	}
+
+	public void setAppointmentDate(java.sql.Date appointmentDate) {
+		this.appointmentDate = appointmentDate;
+	}
+
+	public Time getAppointmentTime() {
+		return appointmentTime;
+	}
+
+	public void setAppointmentTime(Time appointmentTime) {
+		this.appointmentTime = appointmentTime;
 	}
 }
