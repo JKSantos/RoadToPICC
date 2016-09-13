@@ -28,7 +28,7 @@
                 });
             },
             getPromos: function () {
-                return $http.get('http://localhost:8080/SalonManagement/getAllPromoNoDetails').then(function (data) {
+                return $http.get('getAllPromoNoDetails').then(function (data) {
                     return data;
                 });
             },

@@ -71,6 +71,7 @@
 
         locationFactory.getPromosWithDetails().then(function (data) {
             vm.promoList = data.data.promoList;
+            console.log(data.data);
         });
 
         locationFactory.getPackagesWithDetails().then(function (data) {

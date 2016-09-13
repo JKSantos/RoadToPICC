@@ -122,8 +122,7 @@
                                         <span class="grey-text text-darken-4">{{service.dblServicePrice | currency:"Php "}}</span>
                                     </h4>
                                     <div class="input-field col s12">
-                                        <select ng-model="vm.selEmployee" id="cREmp"
-                                                ng-options="employee.strEmpFirstName for employee in vm.employeeList"></select>
+                                        <select ng-model="vm.selEmployee" id="cREmp"></select>
                                         <label for="cREmp"><b>Employee</b></label>
                                     </div>
 
