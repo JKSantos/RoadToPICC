@@ -761,7 +761,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 					walkin.add(new WalkIn(intWalkInID, strName, "walkin", strContact, dateCreated, serviceList, productList, packageList, promoList, invoice, null, paymentStatus, strStatus));
 				}
 */
-				WalkIn walk = new WalkIn(id, type, name, contact1, date, serviceList, productList, packageList, promoList, invoice, null, invoice.getPaymentStatus(), status);
+				WalkIn walk = new WalkIn(id, type, name, contact1, date, serviceList, productList, packageList, promoList, invoice, null, status,  invoice.getPaymentStatus());
 				walk.setAppointmentDate(appDate);
 				walk.setAppointmentTime(appTime);
 				walkin.add(walk);
