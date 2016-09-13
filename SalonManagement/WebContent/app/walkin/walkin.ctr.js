@@ -8,6 +8,7 @@
     function walkinCtrl($scope, $http, $window, paymentFactory, locationFactory, walkinFactory, SweetAlert) {
         var vm = this;
         vm.selected = 'product';
+        vm.walkinTableFilter = 'walkin';
 
         var selectprod = "";
         var quantprod = "";

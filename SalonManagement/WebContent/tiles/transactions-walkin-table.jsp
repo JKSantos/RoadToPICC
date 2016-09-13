@@ -50,101 +50,107 @@
 
 
         </div>
-        <table id="walkinRecordTable" datatable="ng" dt-instance="vm.dtInstanceCallback"
-               class="row-border hoverable cell-border z-depth-1" width="100%"
-               ng-show="vm.walkinTableFilter == 'walkin'"
-               style="margin-top: -15px !important;">
-            <thead>
-            <tr>
-                <th class="left-align">Name</th>
-                <th class="right-align">Contact</th>
-                <th class="left-align">Type</th>
-                <th class="left-align">Status</th>
-                <th class="center-align">Action</th>
-            </tr>
-            </thead>
-            <tfoot>
-            <tr style="border: 1px solid #bdbdbd;">
-                <th class="left-align">Name</th>
-                <th class="right-align">Contact</th>
-                <th class="left-align">Type</th>
-                <th class="left-align">Status</th>
-                <th class="center-align">Action</th>
-            </tr>
-            </tfoot>
-            <tbody>
-            <tr ng-repeat="walkin in vm.walkinList">
-                <td class="left-align">{{walkin.strName | uppercase}}</td>
-                <td class="right-align">{{walkin.strContactNo}}</td>
-                <td class="left-align">{{walkin.strWalkInType | uppercase}}</td>
-                <td class="left-align">{{walkin.strWalkInStatus | uppercase}}</td>
-                <td class="center-align">
-                    <button class="waves-effect waves-purple btn-flat transparent red-text text-accent-4"
-                            style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Deactivate"
-                            ng-if="walkin.strWalkInStatus=='PENDING'"
-                            ng-click="deactivateOrder(order)">
-                        <i class='material-icons'>delete</i>
-                    </button>
-                    <button class="btn-flat transparent red-text text-lighten-4"
-                            style="padding-left: 10px;padding-right:10px; margin: 5px;"
-                            ng-if="walkin.strWalkInStatus=='COMPLETE'"
-                            ng-disabled=true>
-                        <i class='material-icons'>delete</i>
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <table id="walkinAppointmentRecordTable" datatable="ng" dt-instance="vm.dtInstanceCallback"
-               class="row-border hoverable cell-border z-depth-1" width="100%"
-               ng-show="vm.walkinTableFilter == 'appointment'"
-               style="margin-top: -15px !important;">
-            <thead>
-            <tr>
-                <th class="left-align">Name</th>
-                <th class="right-align">Contact</th>
-                <th class="right-align">Date</th>
-                <th class="right-align">Time</th>
-                <th class="left-align">Type</th>
-                <th class="left-align">Status</th>
-                <th class="center-align">Action</th>
-            </tr>
-            </thead>
-            <tfoot>
-            <tr style="border: 1px solid #bdbdbd;">
-                <th class="left-align">Name</th>
-                <th class="right-align">Contact</th>
-                <th class="right-align">Date</th>
-                <th class="right-align">Time</th>
-                <th class="left-align">Type</th>
-                <th class="left-align">Status</th>
-                <th class="center-align">Action</th>
-            </tr>
-            </tfoot>
-            <tbody>
-            <tr ng-repeat="walkin in vm.walkinList">
-                <td class="left-align">{{walkin.strName | uppercase}}</td>
-                <td class="right-align">{{walkin.strContactNo}}</td>
-                <th class="right-align">Date</th>
-                <th class="right-align">Time</th>
-                <td class="left-align">{{walkin.strWalkInType | uppercase}}</td>
-                <td class="left-align">{{walkin.strWalkInStatus | uppercase}}</td>
-                <td class="center-align">
-                    <button class="waves-effect waves-purple btn-flat transparent red-text text-accent-4"
-                            style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Deactivate"
-                            ng-if="walkin.strWalkInStatus=='PENDING'"
-                            ng-click="deactivateOrder(order)">
-                        <i class='material-icons'>delete</i>
-                    </button>
-                    <button class="btn-flat transparent red-text text-lighten-4"
-                            style="padding-left: 10px;padding-right:10px; margin: 5px;"
-                            ng-if="walkin.strWalkInStatus=='COMPLETE'"
-                            ng-disabled=true>
-                        <i class='material-icons'>delete</i>
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div ng-show="vm.walkinTableFilter == 'walkin'">
+            <table id="walkinRecordTable" datatable="ng" dt-instance="vm.dtInstanceCallback"
+                   class="row-border hoverable cell-border z-depth-1" width="100%"
+                   style="margin-top: -15px !important;">
+                <thead>
+                <tr>
+                    <th class="left-align">Name</th>
+                    <th class="right-align">Contact</th>
+                    <th class="left-align">Type</th>
+                    <th class="left-align">Status</th>
+                    <th class="center-align">Action</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr style="border: 1px solid #bdbdbd;">
+                    <th class="left-align">Name</th>
+                    <th class="right-align">Contact</th>
+                    <th class="left-align">Type</th>
+                    <th class="left-align">Status</th>
+                    <th class="center-align">Action</th>
+                </tr>
+                </tfoot>
+                <tbody>
+                <tr ng-repeat="walkin in vm.walkinList"
+                    ng-if="walkin.strWalkInType == 'WALKIN'">
+                    <td class="left-align">{{walkin.strName | uppercase}}</td>
+                    <td class="right-align">{{walkin.strContactNo}}</td>
+                    <td class="left-align">{{walkin.strWalkInType | uppercase}}</td>
+                    <td class="left-align">{{walkin.strWalkInStatus | uppercase}}</td>
+                    <td class="center-align">
+                        <button class="waves-effect waves-purple btn-flat transparent red-text text-accent-4"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Deactivate"
+                                ng-if="walkin.strWalkInStatus=='PENDING'"
+                                ng-click="deactivateOrder(order)">
+                            <i class='material-icons'>delete</i>
+                        </button>
+                        <button class="btn-flat transparent red-text text-lighten-4"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;"
+                                ng-if="walkin.strWalkInStatus=='COMPLETE'"
+                                ng-disabled=true>
+                            <i class='material-icons'>delete</i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div ng-show="vm.walkinTableFilter == 'appointment'">
+            <table id="walkinAppointmentRecordTable" datatable="ng" dt-instance="vm.dtInstanceCallback"
+                   class="row-border hoverable cell-border z-depth-1" width="100%"
+
+                   style="margin-top: -15px !important;">
+                <thead>
+                <tr>
+                    <th class="left-align">Name</th>
+                    <th class="right-align">Contact</th>
+                    <th class="right-align">Date</th>
+                    <th class="right-align">Time</th>
+                    <th class="left-align">Type</th>
+                    <th class="left-align">Status</th>
+                    <th class="center-align">Action</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr style="border: 1px solid #bdbdbd;">
+                    <th class="left-align">Name</th>
+                    <th class="right-align">Contact</th>
+                    <th class="right-align">Date</th>
+                    <th class="right-align">Time</th>
+                    <th class="left-align">Type</th>
+                    <th class="left-align">Status</th>
+                    <th class="center-align">Action</th>
+                </tr>
+                </tfoot>
+                <tbody>
+                <tr ng-repeat="walkin in vm.walkinList"
+                    ng-if="walkin.strWalkInType == 'APPOINTMENT'">
+                    <td class="left-align">{{walkin.strName | uppercase}}</td>
+                    <td class="right-align">{{walkin.strContactNo}}</td>
+                    <th class="right-align">{{walkin.appointmentDate | date: 'MMMM/d/yyyy'}}</th>
+                    <th class="right-align">{{walkin.appointmentTime | date: 'shortTime'}}</th>
+                    <td class="left-align">{{walkin.strWalkInType | uppercase}}</td>
+                    <td class="left-align">{{walkin.strWalkInStatus | uppercase}}</td>
+                    <td class="center-align">
+                        <button class="waves-effect waves-purple btn-flat transparent red-text text-accent-4"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Deactivate"
+                                ng-if="walkin.strWalkInStatus=='PENDING'"
+                                ng-click="deactivateOrder(order)">
+                            <i class='material-icons'>delete</i>
+                        </button>
+                        <button class="btn-flat transparent red-text text-lighten-4"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;"
+                                ng-if="walkin.strWalkInStatus=='COMPLETE'"
+                                ng-disabled=true>
+                            <i class='material-icons'>delete</i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
