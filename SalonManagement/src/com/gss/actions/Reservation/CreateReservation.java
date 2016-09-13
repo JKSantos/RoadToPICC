@@ -31,7 +31,7 @@ import com.gss.utilities.TimeHelper;
 
 public class CreateReservation {
 	
-	private String strCustomerType = "WALKIN";
+	private String strCustomerType = "INDIVIDUAL";
 	private String strCompanyName = "";
 	private String strName;
 	private String strAddress;

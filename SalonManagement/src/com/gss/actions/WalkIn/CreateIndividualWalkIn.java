@@ -36,6 +36,7 @@ public class CreateIndividualWalkIn {
 	private String strTotalPrice;
 	private String discounts = "";
 	private String extraCharges = "";
+	private String customerType = "WALKIN";
 	private String appointmentDate = "";
 	private String appointmentTime = "";
 	
@@ -152,8 +153,11 @@ public class CreateIndividualWalkIn {
 
 		Invoice invoice = Invoice.createNullInvoice(extraChargeList, discountList, PriceFormatHelper.convertToDouble(this.strTotalPrice, "Php "), "FULL");
 		
-		WalkIn walkin = new WalkIn(1, "INDIVIDUAL", this.strName, this.strContactNo, new Date(), serviceList, productList, packageList, promoList, invoice, null, "PENDING", "UNPAID");
-	
+		WalkIn walkin = new WalkIn(1, customerType, this.strName, this.strContactNo, new Date(), serviceList, productList, packageList, promoList, invoice, null, "PENDING", "UNPAID");
+		walkin.setAppointmentDate(java.sql.Date.valueOf(appointmentDate));
+		walkin.setAppointmentTime(java.sql.Time.valueOf(appointmentTime));
+		
+		
 		int result = service.createWalkIn(walkin);
 		
 		if(result == 0){
@@ -221,5 +225,9 @@ public class CreateIndividualWalkIn {
 
 	public void setAppointmentTime(String appointmentTime) {
 		this.appointmentTime = appointmentTime;
+	}
+
+	public void setCustomerType(String customerType) {
+		this.customerType = customerType;
 	}
 }
