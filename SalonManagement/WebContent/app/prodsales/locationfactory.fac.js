@@ -57,6 +57,11 @@
                     return data;
                 });
             },
+            getWalkin: function () {
+              return $resource('GetAllWalkInNoDetails').get().$promise.then(function (data) {
+                    return data;  
+              });
+            },
             getRequest: function () {
                 return $resource('getAllProductRequest').get().$promise.then(function (data) {
                     return data;

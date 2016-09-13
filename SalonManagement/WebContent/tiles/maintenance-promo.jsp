@@ -263,7 +263,7 @@
                                            class="active grey-text text-darken-3"><b>Total</b></label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <input type="text" class="right-align prodPrice" name="dblPromoPrice"
+                                    <input type="text" class="right-align prodPrice" name="crPromoPrice"
                                            id="crPromoPrice"
                                            placeholder="Promo Price" required/>
                                     <label for="crPromoPrice" class="active"><b>Promo Price</b>
@@ -311,13 +311,19 @@
     </div>
 
     <div id="upPromoModal" class="modal modal-fixed-footer">
-        <form id="updatePromoForm" class="col s12">
+        <form id="updatePromoForm" name="updatePromoForm" class="col s12">
             <div class="modal-content">
                 <div class="wrapper">
-                    <h4 class="center grey-text text-darken-1">Update Promo<a id="btnUpPromoExit"
-                                                                              class="modal-action modal-close"><i
-                            class="small material-icons right grey-text text-darken-4">close</i></a></h4>
-                    <div class="uppromoerrorcontainer card red center input-field col s12 white-text z-depth-barts"></div>
+                    <h4 class="center grey-text text-darken-1">
+                        Update Promo
+                        <a id="btnUpPromoExit" class="modal-action modal-close">
+                            <i class="small material-icons right grey-text text-darken-4">close</i>
+                        </a>
+                    </h4>
+                    <div style="margin-bottom: 40px !important;"
+                         class="uppromoerrorcontainer card red center input-field col s12 white-text z-depth-barts">
+
+                    </div>
                     <div class="row">
                         <div class="col s12">
                             <ul class="tabs tab-demo-active" style="width: 100%; background-color: #fafafa; margin-top: -35px !important;">
@@ -332,8 +338,8 @@
                         <div id="promoUpdateA" class="ftab col s12" style="margin-top: 20px !important;">
                             <div class="container">
                                 <div class="input-field col s2">
-                                    <label><b>Availability</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                    <label><b>Availability</b>
+                                        <i class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s5">
                                     <p class="center">
@@ -504,7 +510,7 @@
                                            class="active grey-text text-darken-3"><b>Total</b></label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <input type="text" class="right-align prodPrice" name="dblPromoPrice"
+                                    <input type="text" class="right-align prodPrice" name="upPromoPrice"
                                            id="upPromoPrice"
                                            placeholder="Promo Price"/>
                                     <label for="upPromoPrice" class="active"><b>Promo Price</b>

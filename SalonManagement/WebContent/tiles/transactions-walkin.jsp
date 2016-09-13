@@ -542,13 +542,12 @@
                     </form>
                 </div>
             </nav>
-            <table id="psRecordTable" datatable="ng" dt-instance="vm.dtInstanceCallback"
+            <table id="walkinRecordTable" datatable="ng" dt-instance="vm.dtInstanceCallback"
                    class="row-border hoverable cell-border z-depth-1" width="100%"
                    style="margin-top: -15px !important;">
                 <thead>
                 <tr>
                     <th class="left-align">Name</th>
-                    <th class="left-align">Address</th>
                     <th class="right-align">Contact</th>
                     <th class="left-align">Type</th>
                     <th class="left-align">Status</th>
@@ -558,7 +557,6 @@
                 <tfoot>
                 <tr style="border: 1px solid #bdbdbd;">
                     <th class="left-align">Name</th>
-                    <th class="left-align">Address</th>
                     <th class="right-align">Contact</th>
                     <th class="left-align">Type</th>
                     <th class="left-align">Status</th>
@@ -566,16 +564,11 @@
                 </tr>
                 </tfoot>
                 <tbody>
-                <tr ng-repeat="order in requestOrderList"
-                    ng-if="order.strStatus != 'REQUEST'">
-                    <td class="left-align">{{ order.strName }}</td>
-                    <td class="left-align">{{ order.strAddress }}</td>
-                    <td class="right-align">{{ order.strContactNo }}</td>
-                    <td class="left-align">
-                        <span ng-if="order.intType==1">DELIVERY</span>
-                        <span ng-if="order.intType==2">PICK UP</span>
-                    </td>
-                    <td class="left-align">{{ order.strStatus }}</td>
+                <tr ng-repeat="walkin in vm.walkinList">
+                    <td class="left-align">{{walkin.strName | uppercase}}</td>
+                    <td class="right-align">{{walkin.strContactNo}}</td>
+                    <td class="left-align">{{walkin.strWalkInType | uppercase}}</td>
+                    <td class="left-align">{{walkin.strWalkInStatus | uppercase}}</td>
                     <td class="center-align">
                         <button class="waves-effect waves-purple btn-flat transparent red-text text-accent-4"
                                 style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Deactivate"

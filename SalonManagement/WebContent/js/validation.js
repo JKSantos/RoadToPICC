@@ -437,7 +437,6 @@ $(document).ready(function () {
                 minlength: 2
             },
             strItemDetails: {
-                required: true,
                 minlength: 2
             },
             strItemCategory: {
@@ -458,7 +457,6 @@ $(document).ready(function () {
                 minlength: "<span class='white-text'><b>Name</b>: Minimum of 2 letters</span><br/>"
             },
             strItemDetails: {
-                required: "<span class='white-text'><b>Details</b>: Required</span><br/>",
                 minlength: "<span class='white-text'><b>Details</b>: Minimum of 2 letters</span><br/>"
             },
             strItemCategory: {
@@ -597,7 +595,6 @@ $(".updateProdForm").each(function () {
                 minlength: 2
             },
             strItemDetails: {
-                required: true,
                 minlength: 2
             },
             strItemCategory: {
@@ -619,7 +616,6 @@ $(".updateProdForm").each(function () {
                 minlength: "<span class='white-text'><b>Name</b>: Minimum of 2 letters</span><br/>"
             },
             strItemDetails: {
-                required: "<span class='white-text'><b>Details</b>: Required</span><br/>",
                 minlength: "<span class='white-text'><b>Details</b>: Minimum of 2 letters</span><br/>"
             },
             strItemCategory: {
@@ -752,7 +748,6 @@ $(document).ready(function () {
                 minlength: 2
             },
             strItemDetails: {
-                required: true,
                 minlength: 2
             },
             strItemCategory: {
@@ -773,7 +768,6 @@ $(document).ready(function () {
                 minlength: "<span class='white-text'><b>Name</b>: Minimum of 2 letters</span><br/>"
             },
             strItemDetails: {
-                required: "<span class='white-text'><b>Details</b>: Required</span><br/>",
                 minlength: "<span class='white-text'><b>Details</b>: Minimum of 2 letters</span><br/>"
             },
             strItemCategory: {
@@ -906,7 +900,6 @@ $('.updateservForm').each(function () {
                 minlength: 2
             },
             strItemDetails: {
-                required: true,
                 minlength: 2
             },
             strItemCategory: {
@@ -927,7 +920,6 @@ $('.updateservForm').each(function () {
                 minlength: "<span class='white-text'><b>Name</b>: Minimum of 2 letters</span><br/>"
             },
             strItemDetails: {
-                required: "<span class='white-text'><b>Details</b>: Required</span><br/>",
                 minlength: "<span class='white-text'><b>Details</b>: Minimum of 2 letters</span><br/>"
             },
             strItemCategory: {
@@ -1265,7 +1257,6 @@ $(document).ready(function () {
                 minlength: 2
             },
             strECDetails: {
-                required: true,
                 noSpace: true,
                 minlength: 2
             },
@@ -1283,7 +1274,6 @@ $(document).ready(function () {
                 minlength: "<span class='white-text'><b>Charge Name</b>: Minimum of 2 letters</span><br/>"
             },
             strECDetails: {
-                required: "<span class='white-text'><b>Details</b>: Required</span><br/>",
                 noSpace: "<span class='white-text'><b>Details</b>: Empty Field</span><br/>",
                 minlength: "<span class='white-text'><b>Details</b>: Minimum of 2 letters</span><br/>"
             },
@@ -1357,7 +1347,6 @@ $('.updateExtraForm').each(function () {
                 minlength: 2
             },
             strECDetails: {
-                required: true,
                 noSpace: true,
                 minlength: 2
             },
@@ -1375,7 +1364,6 @@ $('.updateExtraForm').each(function () {
                 minlength: "<span class='white-text'><b>Charge Name</b>: Minimum of 2 letters</span><br/>"
             },
             strECDetails: {
-                required: "<span class='white-text'><b>Details</b>: Required</span><br/>",
                 noSpace: "<span class='white-text'><b>Details</b>: Empty Field</span><br/>",
                 minlength: "<span class='white-text'><b>Details</b>: Minimum of 2 letters</span><br/>"
             },
@@ -1452,7 +1440,6 @@ $(function () {
                 minlength: 2
             },
             strPackageDesc: {
-                required: true,
                 noSpace: true,
                 minlength: 2
             },
@@ -1474,7 +1461,6 @@ $(function () {
                 minlength: "<span class='white-text'><b>Package Name</b>: Minimum of 2 letters</span><br/>"
             },
             strPackageDesc: {
-                required: "<span class='white-text'><b>Description</b>: Required</span><br/>",
                 noSpace: "<span class='white-text'><b>Description</b>: Empty Field</span><br/>",
                 minlength: "<span class='white-text'><b>Description</b>: Minimum of 2 letters</span><br/>"
             },
@@ -1578,7 +1564,6 @@ $(function () {
                 minlength: "<span class='white-text'><b>Package Name</b>: Minimum of 2 letters</span><br/>"
             },
             strUpdatePackageDesc: {
-                required: "<span class='white-text'><b>Description</b>: Required</span><br/>",
                 noSpace: "<span class='white-text'><b>Description</b>: Empty Field</span><br/>",
                 minlength: "<span class='white-text'><b>Description</b>: Minimum of 2 letters</span><br/>"
             },
@@ -1673,8 +1658,7 @@ $(function () {
                 noSpace: true,
                 minlength: 5
             },
-            updatePackagePrice: {
-                required: true,
+            crPromoPrice: {
                 valueNotEquals: "Php 0.00",
                 valueNotEquals2: "0.0"
             }
@@ -1697,8 +1681,116 @@ $(function () {
                 minlength: "<span class='white-text'><b>Guidelines</b>: Minimum of 5 characters</span><br/>",
                 noSpace: "<span class='white-text'><b>Guidelines</b>: Empty Field</span><br/>"
             },
-            updatePackagePrice: {
-                required: "<span class='white-text'><b>Price</b>: Required</span><br/>",
+            crPromoPrice: {
+                valueNotEquals: "<span class='white-text'><b>Price</b>: Invalid value</span><br/>",
+                valueNotEquals2: "<span class='white-text'><b>Price</b>: Invalid value</span><br/>"
+            }
+        }
+
+
+
+    });
+
+    $('form').on('submit', function (e) {
+        $(".error_note").remove();
+        var select = $(this).find('select').filter("[required=required]");
+        $.each(select, function (index, elm) {
+            val = $(this).val();
+            target = $(this).closest('.input-field');
+            if (typeof target !== "undefined") {
+                input_target = target.find('input.select-dropdown');
+                if (typeof input_target !== "undefined") {
+                    if (val == '' || val == false || val == 0 || val == null) {
+
+                        input_target.css({'border-color': '#EA454B', 'box-shadow': '0 1px 0 0 #EA454B'});
+
+                        $('html,body').animate({scrollTop: $("body").offset().top}, 'slow');
+                        e.preventDefault();
+
+                    } else {
+                        input_target.css({'border-color': '#9e9e9e'});
+                    }
+
+                }
+            }
+        });
+    });
+    $.validator.addMethod("checkboxes", function (value, element) {
+        return $('.chkbox:checked').length > 0;
+    });
+    $.validator.addMethod("regx", function(value, element, regexp){
+        var re = new RegExp(regexp);
+        return this.optional(element) || re.test(value);
+    });
+    $.validator.addMethod("noSpace", function (value, element) {
+        return value.indexOf(" ") != "";
+    });
+    $.validator.addMethod("valueNotEquals", function(value, element, arg){
+        return arg != value;
+    });
+    $.validator.addMethod("valueNotEquals2", function(value, element, arg){
+        return arg != value;
+    });
+});
+
+$(function () {
+
+    $('#updatePromoForm').validate({
+
+        errorClass: 'invalid',
+        validClass: 'valid',
+        errorElement: 'div',
+        errorLabelContainer: '.uppromoerrorcontainer',
+        errorPlacement: function (error, element) {
+            // Append error within linked label
+            $(element)
+                .closest("form")
+                .find("label[for='" + element.attr("id") + "']");
+        },
+        rules: {
+            upExp: {
+                required: function () {
+                    return $('[name=upNonExp]:checked').length === 0;
+                }
+            },
+            upPromoName: {
+                required: true,
+                regx: "^[A-Za-z0-9\- :'`\s]+$",
+                noSpace: true,
+                minlength: 5
+            },
+            upPromoDesc: {
+                noSpace: true,
+                minlength: 5
+            },
+            upPromoGuide: {
+                noSpace: true,
+                minlength: 5
+            },
+            upPromoPrice: {
+                valueNotEquals: "Php 0.00",
+                valueNotEquals2: "0.0"
+            }
+        },
+        messages: {
+            upExp: {
+                required: "<span class='white-text'><b>Availability</b>: Required</span><br/>"
+            },
+            upPromoName: {
+                required: "<span class='white-text'><b>Promo Name</b>: Required</span><br/>",
+                regx: "<span class='white-text'><b>Promo Name</b>: Invalid character/s</span><br/>",
+                noSpace: "<span class='white-text'><b>Promo Name</b>: Empty Field</span><br/>",
+                minlength: "<span class='white-text'><b>Promo Name</b>: Minimum of 5 letters</span><br/>"
+            },
+            upPromoDesc: {
+                minlength: "<span class='white-text'><b>Description</b>: Minimum of 5 characters</span><br/>",
+                noSpace: "<span class='white-text'><b>Description</b>: Empty Field</span><br/>"
+            },
+            upPromoGuide: {
+                minlength: "<span class='white-text'><b>Guidelines</b>: Minimum of 5 characters</span><br/>",
+                noSpace: "<span class='white-text'><b>Guidelines</b>: Empty Field</span><br/>"
+            },
+            upPromoPrice: {
                 valueNotEquals: "<span class='white-text'><b>Price</b>: Invalid value</span><br/>",
                 valueNotEquals2: "<span class='white-text'><b>Price</b>: Invalid value</span><br/>"
             }

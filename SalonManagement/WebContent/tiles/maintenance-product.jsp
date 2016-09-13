@@ -207,8 +207,9 @@
                                     <textarea id="crItemDetails" name="strItemDetails"
                                               class="materialize-textarea" placeholder="Details"
                                               maxlength="25" style="margin-top: -10px !important;"></textarea>
-                                <label for="crItemDetails" class="active"><b>Details</b><i
-                                        class="material-icons red-text tiny">error_outline</i></label>
+                                <label for="crItemDetails" class="active">
+                                    <b>Details</b>
+                                </label>
                             </div>
                             <div class="input-field col s8">
                                 <select id="crItemCategory" name="strItemCategory" class="required"
@@ -365,8 +366,9 @@
                                     <textarea id="upItemDetails" name="strItemDetails"
                                               class="materialize-textarea" placeholder="Details"
                                               style="margin-top: -10px !important;">${product.strProductDesc}</textarea>
-                                    <label for="upItemDetails" class="active"><b>Details</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                    <label for="upItemDetails" class="active">
+                                        <b>Details</b>
+                                    </label>
                                 </div>
                                 <div class="input-field col s8">
                                     <select id="upItemCategory" name="strItemCategory"

@@ -81,6 +81,10 @@
             vm.discountList = data.data.discountList;
         });
 
+        locationFactory.getWalkin().then(function(data) {
+           vm.walkinList = data.walkInList;
+        });
+
         function openEditItem(index, item) {
             $('#editItem').openModal({
                 dismissible: true, // Modal can be dismissed by clicking outside of the modal

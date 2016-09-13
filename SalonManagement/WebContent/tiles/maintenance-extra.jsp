@@ -137,10 +137,9 @@
                         </div>
                         <div class="input-field col s12" style="margin-top: 25px;">
                             <input type="text" class="validate" id="crECDetails"
-                                   name="strECDetails" required
-                                   placeholder="City">
-                            <label for="crECDetails" class="active"><b>Details</b><i
-                                    class="material-icons red-text tiny">error_outline</i></label>
+                                   name="strECDetails"
+                                   placeholder="Details">
+                            <label for="crECDetails" class="active"><b>Details</b></label>
                         </div>
                         <div class="input-field col s6 right">
                             <input id="crECPrice" name="price"
@@ -187,9 +186,10 @@
                             </div>
                             <div class="input-field col s12" style="margin-top: 25px;">
                                 <input type="text" class="validate" id="upECDetails"
-                                       name="strECDetails" required placeholder="City">
-                                <label for="upECDetails" class="active"><b>Details</b><i
-                                        class="material-icons red-text tiny">error_outline</i></label>
+                                       name="strECDetails" placeholder="Details">
+                                <label for="upECDetails" class="active">
+                                    <b>Details</b>
+                                </label>
                             </div>
                             <div class="input-field col s6 right">
                                 <input id="upECPrice" name="price"

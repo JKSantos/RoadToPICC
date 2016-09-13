@@ -880,79 +880,81 @@ function upPromoPackageChipExit(packChipID) {
 
 function updatePromo() {
     // var job = document.querySelectorAll('select[name=intPackageType]:selected');
-    var promoUpdateProdSelect = [],
-        promoUpdateServSelect = [],
-        promoUpdatePackageSelect = [];
+    if($('#updatePromoForm').valid()) {
+        var promoUpdateProdSelect = [],
+            promoUpdateServSelect = [],
+            promoUpdatePackageSelect = [];
 
-    $.each($("input[name=prodUpPromoSelect]:checked"), function () {
-        promoUpdateProdSelect.push($(this).val());
-    });
-    $.each($("input[name=servUpPromoSelect]:checked"), function () {
-        promoUpdateServSelect.push($(this).val());
-    });
-    $.each($("input[name=packUpPromoSelect]:checked"), function () {
-        promoUpdatePackageSelect.push($(this).val());
-    });
-
-    var promoUpdateProductQty = $('input[name=prodUpdatePromoQty]:enabled').map(function () {
-        return this.value;
-    }).get(); //get all the quantity enabled in product
-    var promoUpdateServiceQty = $('input[name=servUpdatePromoQty]:enabled').map(function () {
-        return this.value;
-    }).get(); //get all the quantity enabled in service
-    var promoUpdatePackQty = $('input[name=packUpdatePromoQty]:enabled').map(function () {
-        return this.value;
-    }).get();
-
-    promoUpdateProdSelect = promoUpdateProdSelect.join(', ');
-    promoUpdateServSelect = promoUpdateServSelect.join(', ');
-    promoUpdatePackageSelect = promoUpdatePackageSelect.join(', ');
-    var prodQty = promoUpdateProductQty.join(', '),
-        servQty = promoUpdateServiceQty.join(', '),
-        packQty = promoUpdatePackQty.join(', ');
-    var promoname = $('#upPromoName').val();
-
-
-    swal({
-            title: "Are you sure you want to update " + promoname + "?",
-            text: "",
-            type: "info",
-            showCancelButton: true,
-            closeOnConfirm: false,
-            showLoaderOnConfirm: true
-        },
-        function () {
-            setTimeout(function () {
-                $.ajax({
-                    url: 'updatePromo',
-                    type: 'post',
-                    data: {
-                        "intPromoID": $('#upPromoID').val(),
-                        "strPromoName": promoname,
-                        "strPromoDesc": $('#upPromoDescription').val(),
-                        "strPromoGuidelines": $('#upPromoGuidelines').val(),
-                        "strNonExp": $("#upPromoNonExpiry:checked").val(),
-                        "strExp": $('#upPromoExpiration').val(),
-                        "servicePromoSelect": promoUpdateServSelect,
-                        "productPromoSelect": promoUpdateProdSelect,
-                        "packagePromoSelect": promoUpdatePackageSelect,
-                        "servicePromoQty": servQty,
-                        "productPromoQty": prodQty,
-                        "packagePromoQty": packQty,
-                        "strFree": $("input[name=upFree]:checked").val(),
-                        "dblPromoPrice": $('#upPromoPrice').val().replace(/[^\d.]/g, '')
-                    },
-                    dataType: 'json',
-                    async: true,
-                    success: function (data) {
-                        swal("Successfully created!", ".", "success");
-                        updatePromoTable();
-                        $('#upPromoModal').closeModal();
-                    },
-                    error: function () {
-                        sweetAlert("Oops...", "Something went wrong!", "error");
-                    }
-                });
-            }, 1000);
+        $.each($("input[name=prodUpPromoSelect]:checked"), function () {
+            promoUpdateProdSelect.push($(this).val());
         });
+        $.each($("input[name=servUpPromoSelect]:checked"), function () {
+            promoUpdateServSelect.push($(this).val());
+        });
+        $.each($("input[name=packUpPromoSelect]:checked"), function () {
+            promoUpdatePackageSelect.push($(this).val());
+        });
+
+        var promoUpdateProductQty = $('input[name=prodUpdatePromoQty]:enabled').map(function () {
+            return this.value;
+        }).get(); //get all the quantity enabled in product
+        var promoUpdateServiceQty = $('input[name=servUpdatePromoQty]:enabled').map(function () {
+            return this.value;
+        }).get(); //get all the quantity enabled in service
+        var promoUpdatePackQty = $('input[name=packUpdatePromoQty]:enabled').map(function () {
+            return this.value;
+        }).get();
+
+        promoUpdateProdSelect = promoUpdateProdSelect.join(', ');
+        promoUpdateServSelect = promoUpdateServSelect.join(', ');
+        promoUpdatePackageSelect = promoUpdatePackageSelect.join(', ');
+        var prodQty = promoUpdateProductQty.join(', '),
+            servQty = promoUpdateServiceQty.join(', '),
+            packQty = promoUpdatePackQty.join(', ');
+        var promoname = $('#upPromoName').val();
+
+
+        swal({
+                title: "Are you sure you want to update " + promoname + "?",
+                text: "",
+                type: "info",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
+            },
+            function () {
+                setTimeout(function () {
+                    $.ajax({
+                        url: 'updatePromo',
+                        type: 'post',
+                        data: {
+                            "intPromoID": $('#upPromoID').val(),
+                            "strPromoName": promoname,
+                            "strPromoDesc": $('#upPromoDescription').val(),
+                            "strPromoGuidelines": $('#upPromoGuidelines').val(),
+                            "strNonExp": $("#upPromoNonExpiry:checked").val(),
+                            "strExp": $('#upPromoExpiration').val(),
+                            "servicePromoSelect": promoUpdateServSelect,
+                            "productPromoSelect": promoUpdateProdSelect,
+                            "packagePromoSelect": promoUpdatePackageSelect,
+                            "servicePromoQty": servQty,
+                            "productPromoQty": prodQty,
+                            "packagePromoQty": packQty,
+                            "strFree": $("input[name=upFree]:checked").val(),
+                            "dblPromoPrice": $('#upPromoPrice').val().replace(/[^\d.]/g, '')
+                        },
+                        dataType: 'json',
+                        async: true,
+                        success: function (data) {
+                            swal("Successfully created!", ".", "success");
+                            updatePromoTable();
+                            $('#upPromoModal').closeModal();
+                        },
+                        error: function () {
+                            sweetAlert("Oops...", "Something went wrong!", "error");
+                        }
+                    });
+                }, 1000);
+            });
+    }
 }

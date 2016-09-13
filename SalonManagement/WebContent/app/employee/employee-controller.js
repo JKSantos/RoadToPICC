@@ -18,6 +18,7 @@
         vm.retypeActive = retypeActive;
         vm.passwordMatch = passwordMatch;
         vm.savePassword = savePassword;
+        vm.currentPasswordField = currentPasswordField
 
         vm.user = 0;
         vm.pass = 0;
@@ -32,6 +33,14 @@
         empAccountFactory.getUsername().then(function (data) {
             vm.usernames = data.usernames;
         });
+
+        function currentPasswordField(cur) {
+            if(typeof cur !== "undefined") {
+                if(cur.length < 1) {
+                    vm.passwordValid = 0;
+                }
+            }
+        }
 
         function validateUsername(name) {
             vm.success = 0;

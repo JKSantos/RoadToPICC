@@ -209,8 +209,9 @@
                                     <textarea id="crServiceDetails" name="strItemDetails"
                                               class="materialize-textarea" placeholder="Details"
                                               maxlength="25" style="margin-top: -10px !important;"></textarea>
-                                    <label for="crServiceDetails" class="active"><b>Details</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                    <label for="crServiceDetails" class="active">
+                                        <b>Details</b>
+                                    </label>
                                 </div>
                                 <div class="input-field col s8">
                                     <select id="crServiceCategory" name="strItemCategory" class="required"
@@ -367,8 +368,9 @@
                                     <textarea id="upServDetails" name="strItemDetails"
                                               class="materialize-textarea" placeholder="Details"
                                               style="margin-top: -10px !important;">${service.strServiceDesc}</textarea>
-                                        <label for="upServDetails" class="active"><b>Details</b><i
-                                                class="material-icons red-text tiny">error_outline</i></label>
+                                        <label for="upServDetails" class="active">
+                                            <b>Details</b>
+                                        </label>
                                     </div>
                                     <div class="input-field col s8">
                                         <select id="updateServCategory" name="strItemCategory"

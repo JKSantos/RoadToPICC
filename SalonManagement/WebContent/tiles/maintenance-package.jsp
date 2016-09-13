@@ -159,8 +159,8 @@
                                               class="materialize-textarea" length="80"
                                               placeholder="Description"
                                               style="margin-top: -10px !important;"></textarea>
-                                        <label for="crPackageDesc" class="active"><b>Description</b><i
-                                                class="material-icons red-text tiny">error_outline</i></label>
+                                        <label for="crPackageDesc" class="active">
+                                            <b>Description</b></label>
                                     </div>
                                     <div class="input-field col s12">
                                         <select name="intPackageType" id="crPackageType" multiple required>

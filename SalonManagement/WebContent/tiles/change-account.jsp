@@ -94,7 +94,8 @@
                                             <div class="input-field col s4 offset-s4">
                                                 <input type="hidden" id="sessionIDPassword" value="${sessionScope.id}">
                                                 <input type="password" id="empCurrentPassword" placeholder="Current"
-                                                       ng-model="password.current">
+                                                       ng-model="password.current"
+                                                       ng-change="vm.currentPasswordField(password.current);">
                                             </div>
                                             <div class="input-field col s4 offset-s4">
                                                 <input type="password" id="empNewPassword" name="empNewPassword" placeholder="New"

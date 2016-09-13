@@ -610,82 +610,86 @@ function promoPackageCompute(id) {
 }
 
 function createPromo() {
-    // var job = document.querySelectorAll('select[name=intPackageType]:selected');
-    var promoProdSelect = [],
-        promoServSelect = [],
-        promoPackageSelect = [];
+   if($('#updatePromoForm').valid()) {
+       // var job = document.querySelectorAll('select[name=intPackageType]:selected');
+       var promoProdSelect = [],
+           promoServSelect = [],
+           promoPackageSelect = [];
 
-    $.each($("input[name=prodCrPromoSelect]:checked"), function () {
-        promoProdSelect.push($(this).val());
-    });
-    $.each($("input[name=servCrPromoSelect]:checked"), function () {
-        promoServSelect.push($(this).val());
-    });
-    $.each($("input[name=packCrPromoSelect]:checked"), function () {
-        promoPackageSelect.push($(this).val());
-    });
+       $.each($("input[name=prodCrPromoSelect]:checked"), function () {
+           promoProdSelect.push($(this).val());
+       });
+       $.each($("input[name=servCrPromoSelect]:checked"), function () {
+           promoServSelect.push($(this).val());
+       });
+       $.each($("input[name=packCrPromoSelect]:checked"), function () {
+           promoPackageSelect.push($(this).val());
+       });
 
-    var promoProductQty = $('input[name=crProdPromoQty]:enabled').map(function () {
-        return this.value;
-    }).get(); //get all the quantity enabled in product
-    var promoServiceQty = $('input[name=crServPromoQty]:enabled').map(function () {
-        return this.value;
-    }).get(); //get all the quantity enabled in service
-    var promoPackQty = $('input[name=crPackPromoQty]:enabled').map(function () {
-        return this.value;
-    }).get();
+       var promoProductQty = $('input[name=crProdPromoQty]:enabled').map(function () {
+           return this.value;
+       }).get(); //get all the quantity enabled in product
+       var promoServiceQty = $('input[name=crServPromoQty]:enabled').map(function () {
+           return this.value;
+       }).get(); //get all the quantity enabled in service
+       var promoPackQty = $('input[name=crPackPromoQty]:enabled').map(function () {
+           return this.value;
+       }).get();
 
-    promoProdSelect = promoProdSelect.join(', ');
-    promoServSelect = promoServSelect.join(', ');
-    promoPackageSelect = promoPackageSelect.join(', ');
-    promoProductQty = promoProductQty.join(', ');
-    promoServiceQty = promoServiceQty.join(', ');
-    promoPackQty = promoPackQty.join(', ');
+       promoProdSelect = promoProdSelect.join(', ');
+       promoServSelect = promoServSelect.join(', ');
+       promoPackageSelect = promoPackageSelect.join(', ');
+       promoProductQty = promoProductQty.join(', ');
+       promoServiceQty = promoServiceQty.join(', ');
+       promoPackQty = promoPackQty.join(', ');
 
-    var promoname = $('#crPromoName').val();
-    var promodata = {
-        "strPromoName": promoname,
-        "strPromoDesc": $('#crPromoDescription').val(),
-        "strPromoGuidelines": $('#crPromoGuidelines').val(),
-        "strNonExp": $("#crPromoNonExpiry:checked").val(),
-        "strExp": $('#crPromoExpiration').val(),
-        "servicePromoSelect": promoServSelect,
-        "productPromoSelect": promoProdSelect,
-        "packagePromoSelect": promoPackageSelect,
-        "servicePromoQty": promoServiceQty,
-        "productPromoQty": promoProductQty,
-        "packagePromoQty": promoPackQty,
-        "strFree": $("input[name=crFree]:checked").val(),
-        "dblPromoPrice": $('#crPromoPrice').val().replace(/[^\d.]/g, '')
-    };
+       var promoname = $('#crPromoName').val();
+       var promodata = {
+           "strPromoName": promoname,
+           "strPromoDesc": $('#crPromoDescription').val(),
+           "strPromoGuidelines": $('#crPromoGuidelines').val(),
+           "strNonExp": $("#crPromoNonExpiry:checked").val(),
+           "strExp": $('#crPromoExpiration').val(),
+           "servicePromoSelect": promoServSelect,
+           "productPromoSelect": promoProdSelect,
+           "packagePromoSelect": promoPackageSelect,
+           "servicePromoQty": promoServiceQty,
+           "productPromoQty": promoProductQty,
+           "packagePromoQty": promoPackQty,
+           "strFree": $("input[name=crFree]:checked").val(),
+           "dblPromoPrice": $('#crPromoPrice').val().replace(/[^\d.]/g, '')
+       };
 
-    swal({
-            title: "Are you sure you want to create " + promoname + "?",
-            text: "",
-            type: "info",
-            showCancelButton: true,
-            closeOnConfirm: false,
-            showLoaderOnConfirm: true
-        },
-        function () {
-            setTimeout(function () {
-                $.ajax({
-                    url: 'createPromo',
-                    type: 'post',
-                    data: promodata,
-                    dataType: 'json',
-                    async: true,
-                    success: function (data) {
-                        swal("Successfully created!", ".", "success");
-                        updatePromoTable();
-                        $('#crPromoModal').closeModal();
-                    },
-                    error: function () {
-                        sweetAlert("Oops...", "Something went wrong!", "error");
-                    }
-                });
-            }, 1000);
-        });
+       swal({
+               title: "Are you sure you want to create " + promoname + "?",
+               text: "",
+               type: "info",
+               showCancelButton: true,
+               closeOnConfirm: false,
+               showLoaderOnConfirm: true
+           },
+           function () {
+               setTimeout(function () {
+                   $.ajax({
+                       url: 'createPromo',
+                       type: 'post',
+                       data: promodata,
+                       dataType: 'json',
+                       async: true,
+                       success: function (data) {
+                           swal("Successfully created!", ".", "success");
+                           updatePromoTable();
+                           $('#crPromoModal').closeModal();
+                       },
+                       error: function () {
+                           sweetAlert("Oops...", "Something went wrong!", "error");
+                       }
+                   });
+               }, 1000);
+           });
+   } else {
+       
+   }
 }
 
 function deactivatePromo(id, deactivateID) {
