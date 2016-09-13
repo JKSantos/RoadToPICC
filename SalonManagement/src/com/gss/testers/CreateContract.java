@@ -67,14 +67,14 @@ public class CreateContract {
 				List<ExtraCharge> extraCharges = new ArrayList<ExtraCharge>();
 				ExtraCharge extra = new ExtraCharge(26, "", "", headCount, headCount);
 				List<Discount> dicounts = new ArrayList<Discount>();
-				invoice = new Invoice(1, datTo, dicounts, extraCharges, headCount, headCount, null, strStatus);
+				invoice = new Invoice(1, datTo, dicounts, extraCharges, 0, 0, null, null, strStatus, "");
 		
 		//for customer
 		String strName = "JOSELITO SANTOS";
 		String strAddress = "189-Dr. Sixto Antonio Avenue, Rosario Pasig City";
 		String strContactNo = "09361144842";
 		String strEmailAddress = "santos.jeffrey0023@gmail.com";
-		customer = new Customer(1, strName, strAddress, strContactNo, strEmailAddress);
+		customer = new Customer(1, strName, strAddress, strContactNo, strEmailAddress, strEmailAddress, strEmailAddress);
 		
 		//for ReservationInlusion
 		List<ProductOrder> products = new ArrayList<ProductOrder>();
@@ -99,11 +99,11 @@ public class CreateContract {
 		
 		
 		//for Employee Assigned
-		Employee emp = new Employee(79, strEmailAddress, strEmailAddress, strEmailAddress, datTo, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, null, null, false);
+		Employee emp = new Employee(79, strEmailAddress, strEmailAddress, strEmailAddress, datTo, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, null, null, false, strEmailAddress);
 		employeeAssigned.add(new EmployeeAssigned(1, 1, emp, headCount));
 		employeeAssigned.add(new EmployeeAssigned(1, 1, emp, headCount));
 		
-		reservation = new Reservation(intReservationID, customer, includedItems, intReservationType, dateCreated, datFrom, datTo, timFrom, timTo, strVenue, headCount, employeeAssigned, invoice, strStatus);
+		reservation = new Reservation(intReservationID, customer, includedItems, intReservationType, dateCreated, datFrom, datTo, timFrom, timTo, strVenue, headCount, headCount, employeeAssigned, invoice, strStatus, strEmailAddress);
 		
 		return reservation;
 	}

@@ -11,7 +11,7 @@ import com.gss.model.*;
 import com.gss.service.ReservationService;
 import com.gss.service.ReservationServiceImpl;
 
-public class CreateReservation {fzxcZ      vbvbvbvbvb                                                                                                                                                                                                                                                    
+public class CreateReservation {                                                                                                                                                                                                                                                   
 	
 	public static void main(String[] args) throws SQLException{
 		
@@ -22,7 +22,7 @@ public class CreateReservation {fzxcZ      vbvbvbvbvb
 		int intReservationID = 46;
 		Customer customer;
 		ReservationInclusion includedItems;
-		int intReservationType = 1;
+		int intReservationType = 2;
 		Date dateCreated = DateHelper.parseDate("2016-03-01");
 		Date datFrom = DateHelper.parseDate("2016-03-04");
 		Date datTo = DateHelper.parseDate("2016-03-04");
@@ -71,13 +71,14 @@ public class CreateReservation {fzxcZ      vbvbvbvbvb
 		
 		
 		//for Employee Assigned
-		Employee emp = new Employee(79, strEmailAddress, strEmailAddress, strEmailAddress, datTo, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, null, null, false);
+		Employee emp = new Employee(79, strEmailAddress, strEmailAddress, strEmailAddress, datTo, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, null, null, false, "NOT AVAILABLE");
+		Employee emp2 = new Employee(68, strEmailAddress, strEmailAddress, strEmailAddress, datTo, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, null, null, false, "NOT AVAILABLE");
 		employeeAssigned.add(new EmployeeAssigned(1, 1, emp, headCount));
-		employeeAssigned.add(new EmployeeAssigned(1, 1, emp, headCount));
+		employeeAssigned.add(new EmployeeAssigned(1, 1, emp2, headCount));
 		
 		reservation = new Reservation(intReservationID, customer, includedItems, intReservationType, dateCreated, datFrom, datTo, timFrom, timTo, strVenue, 2, headCount, employeeAssigned, invoice, strStatus, "");
 		
-		System.out.println(service.updateReservation(reservation));
+		System.out.println(service.createReservation(reservation));
 	}
 
 }

@@ -31,7 +31,7 @@ import com.gss.utilities.TimeHelper;
 
 public class CreateReservation {
 	
-	private String strCustomerType = "individual";
+	private String strCustomerType = "WALKIN";
 	private String strCompanyName = "";
 	private String strName;
 	private String strAddress;
@@ -43,7 +43,7 @@ public class CreateReservation {
 	private int intReservationType = 2; //important (Home Service = 1) magbabato ka ng 1 galing mob
 	private String datFrom = "";			//important
 	private String datTo = "";//if reservation is home service, this is not needed
-	private String timFrom;			//important
+	private String timFrom = "";			//important
 	private String timTo = "00:00AM";			
 	private String strVenue; 		//if type is HomeService, value is equal to customer address, same nalang ng address ang ilagay mo dito
 	private int intLocationID;
@@ -182,7 +182,12 @@ public class CreateReservation {
 				
 				
 				String dateFrom = new DateHelper().convert(this.datFrom.split("/"));
-				String dateTo = new DateHelper().convert(this.datTo.split("/"));
+				String dateTo = "";
+				if(this.datTo.equals(""))
+					dateTo = new DateHelper().convert(this.datFrom.split("/"));
+				else
+					dateTo = new DateHelper().convert(this.datTo.split("/"));
+				
 				String contractPath = "";
 				Customer customer = new Customer(1, this.strCustomerType, this.strCompanyName, this.strName, this.strAddress, this.strContactNo, this.strEmail);
 				
