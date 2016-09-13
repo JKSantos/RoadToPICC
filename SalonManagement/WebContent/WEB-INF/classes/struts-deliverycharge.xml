@@ -10,7 +10,7 @@
 	<constant name="struts.custom.i18n.resources"
 		value="ApplicationResources"/>
 		
-	<package name="deliverycharge" extends="struts-default" namespace="/">
+	<package name="deliverycharge" extends="struts-default, json-default" namespace="/">
 	
 		<result-types>
          	<result-type name="tiles" 
@@ -34,6 +34,23 @@
 		<action name="deactivateLocation" class="com.gss.actions.DeactivateLocation">
 			<result name="success">redirect-maintenance-location.jsp</result>
 			<result name="failed">maintenance-delivery.jsp</result>
+		</action>
+		
+		<action name="createNewLocation" class="com.gss.actions.Location.CreateLocation">
+			<result name="success" type="json"></result>
+			<result name="existing" type="json"></result>
+			<result name="failed" type="json"></result>
+		</action>
+		
+		<action name="updateNewLocation" class="com.gss.actions.Location.UpdateLocation">
+			<result name="success" type="json"></result>
+			<result name="existing" type="json"></result>
+			<result name="failed" type="json"></result>
+		</action>
+		
+		<action name="deactivateNewLocation" class="com.gss.actions.Location.DeactivateLocation">
+			<result name="success" type="json"></result>
+			<result name="failed" type="json"></result>
 		</action>
 	
 	</package>	

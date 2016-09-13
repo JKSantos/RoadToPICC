@@ -36,6 +36,8 @@ public class CreateIndividualWalkIn {
 	private String strTotalPrice;
 	private String discounts = "";
 	private String extraCharges = "";
+	private String appointmentDate = "";
+	private String appointmentTime = "";
 	
 	private int intCreatedID;
 	
@@ -211,5 +213,13 @@ public class CreateIndividualWalkIn {
 
 	public void setEmployeeAssigned(String employeeAssigned) {
 		this.employeeAssigned = employeeAssigned;
+	}
+
+	public void setAppointmentDate(String appointmentDate) {
+		this.appointmentDate = appointmentDate;
+	}
+
+	public void setAppointmentTime(String appointmentTime) {
+		this.appointmentTime = appointmentTime;
 	}
 }

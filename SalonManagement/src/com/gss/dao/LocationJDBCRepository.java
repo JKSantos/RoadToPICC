@@ -153,5 +153,70 @@ public class LocationJDBCRepository implements LocationRepository{
 			return null;
 		}
 	}
+	
+	public static String checkLocationName(String brgy, String city){
+		
+		Connection con = new JDBCConnection().getConnection();
+		
+		String query = "CALL checkLocation(?, ?);";
+		
+		String result = "";
+		
+		try{
+			
+			PreparedStatement pre = con.prepareStatement(query);
+			pre.setString(1, brgy);
+			pre.setString(2, city);
+			
+			ResultSet set = pre.executeQuery();
+			
+			while(set.next()){
+				result = set.getString(1);
+			}
+
+			pre.close();
+			set.close();
+			con.close();
+			
+			return result;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return "failed";
+		}
+	}
+	
+	public static String checkLocationName(String brgy, String city, int intLocationID){
+		
+		Connection con = new JDBCConnection().getConnection();
+		
+		String query = "CALL checkLocationWithID(?, ?, ?);";
+		
+		String result = "";
+		
+		try{
+			
+			PreparedStatement pre = con.prepareStatement(query);
+			pre.setString(1, brgy);
+			pre.setString(2, city);
+			pre.setInt(3, intLocationID);
+			
+			ResultSet set = pre.executeQuery();
+			
+			while(set.next()){
+				result = set.getString(1);
+			}
+
+			pre.close();
+			set.close();
+			con.close();
+			
+			return result;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return "failed";
+		}
+	}
 
 }
