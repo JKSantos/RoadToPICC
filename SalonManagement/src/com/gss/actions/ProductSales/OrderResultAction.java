@@ -13,6 +13,7 @@ import com.gss.utilities.NotifyCustomerViaSMS;
 public class OrderResultAction {
 	
 	private int intOrderID;
+	private int intEmpID;
 	private Date datDeliveryDate = new Date();
 	private String result = "success";
 	
@@ -27,6 +28,8 @@ public class OrderResultAction {
 			ProductSales sales = new ProductSalesJDBCRepository().getProductBySalesID(this.intOrderID);
 			NotifyCustomerViaSMS test = new NotifyCustomerViaSMS();
 			test.sendSMS(getMessage(), sales.getStrContactNo());
+			
+			ProductSalesJDBCRepository.assignEmployee(intEmpID, intOrderID);
 		}
 		return result;
 		
@@ -58,4 +61,9 @@ public class OrderResultAction {
 	public String getMessage(){
 		return "Your order request was accepted!";
 	}
+
+	public void setIntEmpID(int intEmpID) {
+		this.intEmpID = intEmpID;
+	}
+	
 }

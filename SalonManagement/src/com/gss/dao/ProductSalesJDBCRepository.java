@@ -606,4 +606,31 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 			return null;
 		}
 	}
+	
+	public static boolean assignEmployee(int empid, int orderid) throws SQLException{
+		
+
+		Connection con = new JDBCConnection().getConnection();
+		String deactivateSales = "CALL assignEmployeeDelivery(?, ?);";
+		
+		try{
+			con.setAutoCommit(false);
+			PreparedStatement deactivate = con.prepareStatement(deactivateSales);
+			deactivate.setInt(1, orderid);
+			deactivate.setInt(2, empid);
+			deactivate.execute();
+			deactivate.close();
+			
+			con.commit();
+			con.close();
+			return true;
+		}
+		catch(Exception e){
+			
+			con.rollback();
+			con.close();
+			return false;
+		}
+		
+	}
 }
