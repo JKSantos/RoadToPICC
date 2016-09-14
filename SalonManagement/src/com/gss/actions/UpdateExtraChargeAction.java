@@ -37,6 +37,10 @@ public class UpdateExtraChargeAction {
 
 	}
 
+	public String getResult() {
+		return result;
+	}
+
 	public int getIntECID() {
 		return intECID;
 	}

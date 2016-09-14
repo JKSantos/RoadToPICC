@@ -34,7 +34,11 @@ public class CreateExtraChargeAction {
 			result = "existing";
 			return result;
 		}
+	
 		
+	}
+	public String getResult() {
+		return result;
 	}
 
 	public String getStrECName() {
