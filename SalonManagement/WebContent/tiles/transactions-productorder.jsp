@@ -166,7 +166,7 @@
                                 <button name="" title="Accept" class="secondary-content black-text transparent"
                                         style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border: 0px !important;"
                                         ng-if="request.intType==2 || request.intType=='pickup'"
-                                        ng-click="acceptPickupOrder(request)">
+                                        ng-click="openPickUpOrder(request)">
                                     <i class="material-icons" style="padding-top: 7px !important;">done</i>
                                 </button>
                             </li>
@@ -312,6 +312,43 @@
         </form>
     </div>
 
+    <div id="AcceptPickupModal" class="modal modal-fixed-footer"
+         style="width: 500px !important; height: 400px !important;">
+        <div class="modal-content">
+            <div class="container">
+                <div class="row">
+                    <h4 class="center grey-text text-darken-3">Accept order of<br/>
+                        <span class="grey-text text-darken-4"><b>{{pickup.strName | uppercase}}</b></span></h4>
+
+                    <input type="hidden" ng-model="pickup.intSalesID"/>
+                    <input type="hidden" ng-model="pickup.index"/>
+                    <div class="container">
+                        <div class="input-field col s12" style="margin-top: 50px !important;">
+                            <select ng-model="pickup.selEmployee" id="acceptPickupEmp"
+                                    ng-options="employee.strEmpFirstName for employee in employeeList">
+                                <option value="" disabled selected>Choose...</option>
+                            </select>
+                            <label for="acceptPickupEmp"><b>Employee</b>
+                                <i class="material-icons tiny red-text">error_outline</i>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="red-text btn-flat transparent left" disabled
+                    style="margin:0px !important; padding:0px !important;"><i
+                    class="material-icons red-text">error_outline</i>&nbspRequired field
+            </button>
+            <button id="submitPickup" class="waves-effect waves-light white-text btn-flat purple"
+                    style="margin-left:3px; margin-right:3px;"
+                    ng-click="acceptPickupOrder(pickup)">
+                PROCEED
+            </button>
+        </div>
+    </div>
+
     <div id="AcceptDeliveryModal" class="modal modal-fixed-footer"
          style="width: 500px !important; height: 600px !important;">
         <div class="modal-content">
@@ -324,11 +361,20 @@
                     <input type="hidden" ng-model="delivery.index"/>
                     <div class="container">
                         <div class="input-field col s12" style="margin-top: 50px !important;">
+                            <select ng-model="delivery.selEmployee" id="acceptDelEmp"
+                                    ng-options="employee.strEmpFirstName for employee in employeeList">
+                                <option value="" disabled selected>Choose...</option>
+                            </select>
+                            <label for="acceptDelEmp"><b>Employee</b>
+                                <i class="material-icons tiny red-text">error_outline</i>
+                            </label>
+                        </div>
+                        <div class="input-field col s12" style="margin-top: 50px !important;">
                             <input type="date" name="delDate" class="datepicker-delivery"
                                    id="deliveryDate" placeholder="August/01/2016" required
                                    ng-model="delivery.deliveryDate"/>
-                            <label for="deliveryDate" class="active"><b>Delivery Date</b><i
-                                    class="material-icons tiny red-text">error_outline</i></label>
+                            <label for="deliveryDate" class="active"><b>Delivery Date</b>
+                                <i class="material-icons tiny red-text">error_outline</i></label>
                         </div>
                     </div>
                 </div>
@@ -392,7 +438,8 @@
                 <tr ng-repeat="order in requestOrderList"
                     ng-if="order.strStatus != 'REQUEST'">
                     <td class="left-align">{{ order.strName }}</td>
-                    <td class="left-align">{{ order.strAddress }}</td>
+                    <td class="left-align" ng-if="order.strAddress != ''">{{ order.strAddress }}</td>
+                    <td class="left-align" ng-if="order.strAddress == ''">None</td>
                     <td class="right-align">{{ order.strContactNo }}</td>
                     <td class="left-align">
                         <span ng-if="order.intType==1">DELIVERY</span>

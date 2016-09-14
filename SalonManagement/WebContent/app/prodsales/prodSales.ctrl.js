@@ -85,6 +85,10 @@
             }
         });
 
+        locationFactory.getEmployees().then(function (data) {
+           $scope.employeeList = data.data.employeeList;
+        });
+
         locationFactory.getProducts().then(function (data) {
             $scope.productList = data.data.productList;
         });
@@ -294,9 +298,32 @@
                 });
             }, 1000);
         }; //end
+        
+        $scope.openPickUpOrder = function (request) {
+            var index = $scope.requestOrder.indexOf(request);
+            $('#AcceptPickupModal').openModal({
+                dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                opacity: .7, // Opacity of modal background
+                in_duration: 200, // Transition in duration
+                out_duration: 200, // Transition out duration
+            });
+            $scope.pickup = {
+                'strName': request.strName,
+                'strStatus': request.strStatus,
+                'strAddress': request.strAddress,
+                'intType': request.intType,
+                'productList': request.productList,
+                'strContactNo': request.strContactNo,
+                'intSalesID': request.intSalesID,
+                'intLocationID': request.intLocationID,
+                'deliveryDate': request.deliveryDate,
+                'datCreated': request.datCreated,
+                'index': index
+            }
+            console.log($scope.pickup);
+        };
 
         $scope.acceptPickupOrder = function (request) {
-            console.log($scope.requestOrderList);
             var index = $scope.requestOrder.indexOf(request);
             swal({
                     title: "Are you sure you want to accept the order of " + request.strName + "?",
@@ -314,6 +341,7 @@
                             url: 'acceptOrder',
                             type: 'post',
                             data: {
+                                "intEmpID": request.selEmployee.intEmpID,
                                 "intOrderID": request.intSalesID
                             },
                             dataType: 'json',
@@ -322,7 +350,6 @@
                                 if (data.result == "success") {
                                     SweetAlert.swal("Your order request was accepted!", ".", "success");
                                     $scope.requestOrder.splice(index, 1);
-                                    console.log($scope.requestOrderList);
                                     $scope.requestOrderList.push({
                                         strName: request.strName,
                                         strAddress: request.strAddress,
@@ -330,6 +357,7 @@
                                         intType: request.intType,
                                         strStatus: 'PENDING'
                                     });
+                                    $('#AcceptPickupModal').closeModal();
                                 } else {
                                     SweetAlert.swal("Oops", "Something went wrong!", "error");
                                 }
@@ -380,6 +408,7 @@
                             url: 'acceptOrder',
                             type: 'post',
                             data: {
+                                "intEmployeeID": delivery.selEmployee.intEmpID,
                                 "intOrderID": delivery.intSalesID,
                                 "datDeliveryDate": delivery.deliveryDate
                             },
