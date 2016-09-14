@@ -3,6 +3,16 @@
  */
 window.onload = deliveryTable();
 
+$('#upLocationCrFree').click(function () {
+    if($(this).is(':checked')) {
+        var p = 0.00;
+        $('#crLocationBRate').prop('disabled', true);
+        $('#crLocationBRate').val(p);
+    } else if(!$(this).is(':checked')) {
+        $('#crLocationBRate').prop('disabled', false);
+    }
+});
+
 
 function deliveryTable() {
     $.ajax({

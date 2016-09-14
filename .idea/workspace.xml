@@ -50,8 +50,8 @@
       <file leaf-file-name="maintenance-delivery.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/maintenance-delivery.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="203" column="112" selection-start-line="203" selection-start-column="112" selection-end-line="203" selection-end-column="112" />
+            <state relative-caret-position="535">
+              <caret line="232" column="10" selection-start-line="232" selection-start-column="10" selection-end-line="232" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -60,12 +60,42 @@
       <file leaf-file-name="delivery.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/delivery.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="683">
-              <caret line="112" column="14" selection-start-line="112" selection-start-column="14" selection-end-line="112" selection-end-column="14" />
+            <state relative-caret-position="136">
+              <caret line="10" column="40" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
               <folding>
                 <element signature="e#0#44#0" expanded="false" />
-                <marker date="1473829746742" expanded="true" signature="1667:1718" ph="..." />
-                <marker date="1473829746742" expanded="true" signature="2100:2151" ph="..." />
+                <marker date="1473830694028" expanded="true" signature="1964:2015" ph="..." />
+                <marker date="1473830694028" expanded="true" signature="2397:2448" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="validation.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/validation.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="511">
+              <caret line="1062" column="35" selection-start-line="1062" selection-start-column="35" selection-end-line="1062" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/package.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2805">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <marker date="1471624239114" expanded="true" signature="787:838" ph="..." />
+                <marker date="1471624239114" expanded="true" signature="1161:1212" ph="..." />
+                <marker date="1471624239114" expanded="true" signature="1589:1640" ph="..." />
+                <marker date="1471624239114" expanded="true" signature="4914:4925" ph="..." />
+                <marker date="1471624239114" expanded="true" signature="7342:7353" ph="..." />
+                <marker date="1471624239114" expanded="true" signature="10771:10783" ph="..." />
+                <marker date="1471624239114" expanded="true" signature="11104:11148" ph="..." />
+                <marker date="1471624239114" expanded="true" signature="15916:15928" ph="..." />
+                <marker date="1471624239114" expanded="true" signature="16251:16295" ph="..." />
               </folding>
             </state>
           </provider>
@@ -81,7 +111,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="struts-deliverycharge.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="struts-deliverycharge.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/classes/struts-deliverycharge.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="442">
@@ -167,7 +197,6 @@
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/maintenance-package.jsp" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/maintenance-extra.jsp" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/maintenance-promo.jsp" />
-        <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/validation.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/promo.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/promo-update.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/tiles.xml" />
@@ -183,6 +212,7 @@
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/css/baselayout.css" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/maintenance-delivery.jsp" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/delivery.js" />
+        <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/validation.js" />
       </list>
     </option>
   </component>
@@ -694,12 +724,12 @@
       <workItem from="1473664550114" duration="2757000" />
       <workItem from="1473671343190" duration="15579000" />
       <workItem from="1473753523730" duration="6226000" />
-      <workItem from="1473775678746" duration="25916000" />
+      <workItem from="1473775678746" duration="26710000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="989116000" />
+    <option name="totallyTimeSpent" value="989910000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="886" extended-state="6" />
@@ -739,14 +769,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/classes/struts-products.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="57" column="36" selection-start-line="57" selection-start-column="22" selection-end-line="57" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/product-category.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1037">
@@ -878,21 +900,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
           <caret line="882" column="35" selection-start-line="882" selection-start-column="35" selection-end-line="882" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/validation.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="566">
-          <caret line="1737" column="23" selection-start-line="1737" selection-start-column="8" selection-end-line="1737" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/maintenance-promo.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="313" column="33" selection-start-line="313" selection-start-column="18" selection-end-line="313" selection-end-column="33" />
         </state>
       </provider>
     </entry>
@@ -1167,30 +1174,66 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/classes/struts-deliverycharge.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="44" column="39" selection-start-line="44" selection-start-column="22" selection-end-line="44" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/maintenance-promo.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="518" column="32" selection-start-line="518" selection-start-column="32" selection-end-line="522" selection-end-column="38" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#2;n#div#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/maintenance-delivery.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="203" column="112" selection-start-line="203" selection-start-column="112" selection-end-line="203" selection-end-column="112" />
+        <state relative-caret-position="535">
+          <caret line="232" column="10" selection-start-line="232" selection-start-column="10" selection-end-line="232" selection-end-column="10" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/package.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2805">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1471624239114" expanded="true" signature="787:838" ph="..." />
+            <marker date="1471624239114" expanded="true" signature="1161:1212" ph="..." />
+            <marker date="1471624239114" expanded="true" signature="1589:1640" ph="..." />
+            <marker date="1471624239114" expanded="true" signature="4914:4925" ph="..." />
+            <marker date="1471624239114" expanded="true" signature="7342:7353" ph="..." />
+            <marker date="1471624239114" expanded="true" signature="10771:10783" ph="..." />
+            <marker date="1471624239114" expanded="true" signature="11104:11148" ph="..." />
+            <marker date="1471624239114" expanded="true" signature="15916:15928" ph="..." />
+            <marker date="1471624239114" expanded="true" signature="16251:16295" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/delivery.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="683">
-          <caret line="112" column="14" selection-start-line="112" selection-start-column="14" selection-end-line="112" selection-end-column="14" />
+        <state relative-caret-position="136">
+          <caret line="10" column="40" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
-            <marker date="1473829746742" expanded="true" signature="1667:1718" ph="..." />
-            <marker date="1473829746742" expanded="true" signature="2100:2151" ph="..." />
+            <marker date="1473830694028" expanded="true" signature="1964:2015" ph="..." />
+            <marker date="1473830694028" expanded="true" signature="2397:2448" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/classes/struts-deliverycharge.xml">
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/validation.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="44" column="39" selection-start-line="44" selection-start-column="22" selection-end-line="44" selection-end-column="39" />
+        <state relative-caret-position="511">
+          <caret line="1062" column="35" selection-start-line="1062" selection-start-column="35" selection-end-line="1062" selection-end-column="35" />
           <folding />
         </state>
       </provider>

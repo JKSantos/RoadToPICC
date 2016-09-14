@@ -143,6 +143,11 @@
                             <label for="crLocationCity" class="active"><b>City</b><i
                                     class="material-icons red-text tiny">error_outline</i></label>
                         </div>
+                        <div class="input-field col s6 left">
+                            <input name="upLocationFree" type="checkbox" class="filled-in"
+                                   id="upLocationCrFree" value="on"/>
+                            <label for="upLocationCrFree"><b>Free</b></label>
+                        </div>
                         <div class="input-field col s6 right">
                             <input id="crLocationBRate" name="price"
                                    class="validate upProdItemPrice right-align" required placeholder="Base Rate">
@@ -199,6 +204,11 @@
                             <label for="upLocationCity" class="active"><b>City</b><i
                                     class="material-icons red-text tiny">error_outline</i></label>
                         </div>
+                        <div class="input-field col s6 left">
+                            <input name="upLocationFree" type="checkbox" class="filled-in"
+                                   id="upPromoFree" value="on"/>
+                            <label for="upPromoFree"><b>Free</b></label>
+                        </div>
                         <div class="input-field col s6 right">
                             <input id="upLocationBRate" name="price"
                                    class="validate upProdItemPrice right-align" required placeholder="Base Rate">
@@ -221,7 +231,6 @@
             </div>
         </form>
     </div>
-    </c:forEach>
 
 
 

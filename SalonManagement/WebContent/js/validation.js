@@ -1060,7 +1060,7 @@ $(document).ready(function () {
             price: {
                 required: true,
                 valueNotEquals: "Php 0.00",
-                valueNotEquals2: "0.0"
+                valueNotEquals2: "0"
             }
         },
         messages: {
