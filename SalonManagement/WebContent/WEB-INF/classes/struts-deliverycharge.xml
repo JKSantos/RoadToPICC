@@ -52,6 +52,11 @@
 			<result name="success" type="json"></result>
 			<result name="failed" type="json"></result>
 		</action>
+		
+		<action name="getLocationByID" class="com.gss.actions.Location.GetByID">
+			<result name="success" type="json"></result>
+			<result name="failed" type="json"></result>
+		</action>
 	
 	</package>	
 		

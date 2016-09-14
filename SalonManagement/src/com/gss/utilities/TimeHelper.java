@@ -38,5 +38,20 @@ public class TimeHelper {
 		return time;
 		
 	}
+	
+	public static Time parseTimeHomeService(String strTime){
+		
+		Time time = new Time(0);
+		String[] array = strTime.split(":");
+		
+		time.setHours(Integer.parseInt(array[0]));
+		time.setMinutes(Integer.parseInt(array[1]));
+		time.setSeconds(0);
+	
+		return time;
+		
+	}
+	
+	
 
 }
