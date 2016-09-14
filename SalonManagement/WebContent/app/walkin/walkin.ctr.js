@@ -232,15 +232,30 @@
                 'prodName': product.product.strProductName,
                 'prodqty': product.qty
             });
+            console.log(vm.selectedProductFromWalkin);
         };
         
         $scope.addService = function (service) {
-            $('#editItem').openModal({
+            $('#addServiceModal').openModal({
                 dismissible: true, // Modal can be dismissed by clicking outside of the modal
                 opacity: .7, // Opacity of modal background
                 in_duration: 200, // Transition in duration
                 out_duration: 200, // Transition out duration
             });
+            $scope.serviceInsideModal = service;
+        };
+
+        $scope.addServiceInTable = function (service) {
+            vm.selectedServiceFromWalkin.push({
+               'servID':  service.service.intServiceID,
+                'servName': service.service.strServiceName,
+                'employeeAssigned': service.selEmployee
+            });
+            console.log(service);
+        };
+
+        $scope.removeFromProductList = function (index) {
+            vm.selectedProductFromWalkin.splice(index, 1);
         };
 
         function openEditItem(index, item) {

@@ -226,7 +226,7 @@
                             </div>
                             <div class="input-field col s6 offset-s6" style="margin-bottom: -15px !important;">
                                 <input value="${product.dblProductPrice}" type="text"
-                                       class="validate right-align upProdItemPrice"
+                                       class="validate right-align"
                                        id="ItemPrice" name="price" required placeholder="P9.99"/>
                                 <label for="ItemPrice" class="active"><b>Price</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>
@@ -245,7 +245,7 @@
                 <button type="reset" value="Reset" id="crProdCancel"
                         class=" modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL
                 </button>
-                <button class="waves-effect waves-light purple darken-3 white-text btn-flat" type="submit"
+                <button class="waves-effect waves-light purple darken-3 white-text btn-flat" type="submit" onclick="pricesample()"
                         value="Submit">CREATE
                 </button>
             </div>

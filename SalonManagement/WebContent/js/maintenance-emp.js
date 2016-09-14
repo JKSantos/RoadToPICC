@@ -1656,3 +1656,7 @@ function addCommas(nStr) {
     }
     return x1 + x2;
 }
+
+function pricesample() {
+    console.log($('#ItemPrice').val());
+}

@@ -348,6 +348,12 @@ String granAccess = null;
                                             class="waves-effect waves-light btn-flat modal-option purple darken-3 white-text">
                                         <i class="material-icons">add</i></button>
                                 </div>
+                                <div class="input-field col s8" style="margin-top: -15px !important;">
+                                    <select name="selectedSpecialization" id="crSpecialization" multiple="multiple">
+                                        <option value="default" disabled selected>Choose...</option>
+                                    </select>
+                                    <label for="crSpecialization"><b>Specialization</b></label>
+                                </div>
                                 <div class="input-field col s12" style="margin-top: -20px !important;">
                                     <input type="checkbox" name="chkGrantAccess" id="chkGrantAccess"
                                            class="filled-in" style="color: purple;"/>
@@ -616,6 +622,13 @@ String granAccess = null;
                                                 <button data-target="updateOption"
                                                         class="waves-effect waves-light btn-flat modal-option purple darken-3 white-text">
                                                     <i class="material-icons">add</i></button>
+                                            </div>
+                                            <div class="input-field col s8" style="margin-top: -15px !important;">
+                                                <select name="upSpecialization" id="upSpecialization" multiple="multiple"
+                                                        class="upSpecialization">
+                                                    <option value="default" disabled>Choose...</option>
+                                                </select>
+                                                <label for="upSpecialization"><b>Specialization</b></label>
                                             </div>
                                             <div class="input-field col s12" style="margin-top: -15px !important;">
                                                 <c:choose>
