@@ -168,11 +168,8 @@
             </div>
         </form>
     </div>
-
-    <c:forEach items="${locationList}" var="location">
-    <c:set var="price" scope="session" value="${(location.dblLocationPrice * 0) + location.dblLocationPrice}"/>
     
-    <div id="updateDeliveryModal${location.intLocationID}" class="updateDeliveryModal modal modal-fixed-footer">
+    <div id="updateDeliveryModal" class="updateDeliveryModal modal modal-fixed-footer">
         <form class="col s12 updateDeliveryForm" id="updateDeliveryForm" method="post" action="updateLocation">
             <div class="modal-content">
                 <!-- <div class="container"> -->
@@ -188,23 +185,23 @@
                         <div class="input-field col s12">
 
                             <input type="hidden"
-                                   name="intLocationID" value="${location.intLocationID}">
+                                   name="intLocationID">
 
                             <input type="text" class="validate" id="upLocationBrgy"
-                                   name="strBrgy" required placeholder="Baranggay" value="${location.strBarangay}">
+                                   name="strBrgy" required placeholder="Baranggay">
                             <label for="upLocationBrgy" class="active"><b>Barangay</b><i
                                     class="material-icons red-text tiny">error_outline</i></label>
                         </div>
                         <div class="input-field col s12" style="margin-top: 25px;">
                             <input type="text" class="validate" id="upLocationCity"
                                    name="strCity" required
-                                   placeholder="City" value="${location.strCity}">
+                                   placeholder="City">
                             <label for="upLocationCity" class="active"><b>City</b><i
                                     class="material-icons red-text tiny">error_outline</i></label>
                         </div>
                         <div class="input-field col s6 right">
                             <input id="upLocationBRate" name="price"
-                                   class="validate upProdItemPrice right-align" required placeholder="Base Rate" value="<c:out value='${price}'/>">
+                                   class="validate upProdItemPrice right-align" required placeholder="Base Rate">
                             <label for="upLocationBRate" class="active"><b>Base Rate</b><i
                                     class="material-icons red-text tiny">error_outline</i></label>
                         </div>

@@ -44,7 +44,7 @@ function deliveryTable() {
                     price = 'Php ' + parseFloat(location.dblLocationPrice).toFixed(2);
                     var addbtn = "<button class=' waves-effect waves-purple btn-flat transparent black-text'" +
                         " style='padding-left: 10px;padding-right:10px; margin: 5px;' value='" + location.intLocationID + "'" +
-                        " onclick='openUpdateDiscount(this.value)'>" +
+                        " onclick='openUpdateDelivery(this.value)'>" +
                         "<i class='material-icons'>edit</i></button>" +
                         "<button id='deactivateID" + location.intLocationID + "' class='waves-effect waves-purple btn-flat transparent red-text text-accent-4'" +
                         " style='padding-left: 10px;padding-right:10px; margin: 5px;' value='" + location.intLocationID + "' title='Deactivate'" +
@@ -98,4 +98,18 @@ function createDelivery() {
             }
         });
     }
+}
+
+function openUpdateDelivery(id) {
+    $('#updateDiscountModal').openModal({
+        dismissible: false, // Modal can be dismissed by clicking outside of the modal
+        opacity: .9, // Opacity of modal background
+        in_duration: 300, // Transition in duration
+        out_duration: 300, // Transition out duration
+    });
+
+    $.ajax({
+       type: 'post',
+        url: ''
+    });
 }
