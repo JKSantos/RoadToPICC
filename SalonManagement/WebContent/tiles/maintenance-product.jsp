@@ -44,7 +44,7 @@
                 <tbody>
                 <c:forEach items="${productList}" var="product">
                     <c:set var="price" scope="session"
-                           value="${(product.dblProductPrice)}"></c:set>
+                           value="${(product.dblProductPrice * 0) + product.dblProductPrice}"></c:set>
                     <%! String string = null; %>
                     <% Product prod = (Product)pageContext.getAttribute("product");
                     string = String.valueOf(prod.getIntProductID());
@@ -226,7 +226,7 @@
                             </div>
                             <div class="input-field col s6 offset-s6" style="margin-bottom: -15px !important;">
                                 <input value="${product.dblProductPrice}" type="text"
-                                       class="validate right-align upProdItemPrice"
+                                       class="validate right-align"
                                        id="ItemPrice" name="price" required placeholder="P9.99"/>
                                 <label for="ItemPrice" class="active"><b>Price</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>
@@ -245,7 +245,7 @@
                 <button type="reset" value="Reset" id="crProdCancel"
                         class=" modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL
                 </button>
-                <button class="waves-effect waves-light purple darken-3 white-text btn-flat" type="submit"
+                <button class="waves-effect waves-light purple darken-3 white-text btn-flat" type="submit" onclick="pricesample()"
                         value="Submit">CREATE
                 </button>
             </div>
@@ -304,7 +304,7 @@
         strProdID = String.valueOf(prodID.getIntProductID());
         String productCate = prodID.getStrProductCategory();
         %>
-        <c:set var="price" scope="session" value="${(product.dblProductPrice * 10.00)}"></c:set>
+        <c:set var="price" scope="session" value="${(product.dblProductPrice * 0) + product.dblProductPrice}"></c:set>
         <div id="prod<%=strProdID%>" class="prodUpdateModal modal modal-fixed-footer">
             <form class="col s12 updateProdForm" method="post" id="updateProdForm" action="updateItem"
                   enctype="multipart/form-data">

@@ -59,13 +59,19 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-
     setTimeout(function () {
         $('body').addClass('loaded');
     }, 800);
 });
 
 $('#crItemPrice').priceFormat({
+    prefix: 'Php ',
+    centsSeparator: '.',
+    thousandsSeparator: ',',
+    limit: 9
+});
+
+$('#ItemPrice').priceFormat({
     prefix: 'Php ',
     centsSeparator: '.',
     thousandsSeparator: ',',
@@ -85,6 +91,7 @@ $('.upProdItemPrice').each(function () {
 
 $('.prodPrice').priceFormat({
     prefix: 'Php ',
+    centsLimit: 2,
     centsSeparator: '.',
     thousandsSeparator: ',',
     limit: 9

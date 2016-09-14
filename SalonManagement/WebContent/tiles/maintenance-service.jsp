@@ -306,7 +306,7 @@
             String serviceCate = servID.getStrServiceCategory();
             double price = servID.getDblServicePrice();
             %>
-            <c:set var="price" scope="session" value="${(service.dblServicePrice * 0.00) + service.dblServicePrice}"/>
+            <c:set var="price" scope="session" value="${(service.dblServicePrice * 0) + service.dblServicePrice}"/>
             <div id="serv${service.intServiceID}" class="servUpdateModal modal modal-fixed-footer">
                 <form class="col s12 updateservForm" method="post" id="updateservForm" action="updateItem"
                       enctype="multipart/form-data">
