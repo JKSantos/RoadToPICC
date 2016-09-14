@@ -33,7 +33,7 @@
                 });
             },
             getPromosWithDetails: function () {
-                return $http.get('http://localhost:8080/SalonManagement/api/v1/getAllPromo').then(function (data) {
+                return $resource('http://localhost:8080/SalonManagement/api/v1/getAllPromo').get().$promise.then(function (data) {
                     return data;
                 });
             },

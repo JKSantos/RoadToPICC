@@ -54,6 +54,8 @@
 
         vm.selServiceDetails = [];
 
+        vm.selPackageDetails = [];
+
         vm.searchInTable = '';
         vm.completePendingFilter = '';
 
@@ -115,7 +117,7 @@
         });
 
         locationFactory.getPromosWithDetails().then(function (data) {
-            vm.promoList = data.data.promoList;
+            vm.promoList = data.promoList;
         });
 
         locationFactory.getPackagesWithDetails().then(function (data) {
@@ -168,6 +170,7 @@
                 vm.walkinServSelected = walkin.services;
                 vm.selectedProductFromWalkin = pushProduct(vm.walkinProdSelected);
                 vm.selectedServiceFromWalkin = pushService(vm.walkinServSelected);
+                console.log(vm.selectedServiceFromWalkin);
             }, function errorCallback(response) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
@@ -204,7 +207,6 @@
         }
 
         function pushService(service) {
-            console.log(service);
             var p = [];
             angular.forEach(service, function (serv) {
                 // p.push({
@@ -215,13 +217,12 @@
                     if (serv.service.intServiceID == vm.serviceList[i].intServiceID) {
                         p.push({
                             'servID': vm.serviceList[i].intServiceID,
-                            'servName': vm.serviceList[i].strProductName,
-                            'servQty': serv.intQuantity
+                            'servName': vm.serviceList[i].strServiceName,
+                            'employeeAssigned': serv.employeeAssigned
                         });
                     }
                 }
             });
-            console.log(p);
             return p;
         }
 
@@ -390,14 +391,12 @@
         };
 
         function assignEmployeePackage(index, id) {
-            vm.selPackageDetails = [];
             vm.selPackageDetails.push({
                 intServiceID: vm.packageContainService[index].service.intServiceID,
                 intQuantity: 1,
                 intEmployeeID: vm.selEmployeePerService.intEmpID,
-                strStatus: 'pending'
+                strStatus: 'PENDING'
             });
-            console.log(vm.selPackageDetails);
         }
 
         function openPromoModal(index, promo) {
@@ -450,35 +449,31 @@
 
         vm.saveWalkin = function (details) {
             toString();
-            console.log(selectserv + '//' + selectEmp);
-            console.log(selectprod + '/' + quantprod);
-            console.log(vm.selServiceDetails);
-            var walkinData = {
+            console.log(vm.selPackageDetails);
+            var walkinData = $.param({
                 'productString': selectprod,
                 'productQuantity': quantprod,
                 'serviceString': selectserv,
                 'employeeAssigned': selectEmp,
-                'packageList': vm.selPackageDetails,
                 'promoList': vm.selPromoDetails,
                 'strTotalPrice': vm.sum,
                 'discounts': selectdiscount,
                 'strName': vm.details.name,
                 'strContactNo': vm.details.contact
-            };
-            $.ajax({
-                url: 'createWalkin',
-                type: 'post',
+            });
+            
+            $http({
+                method: 'post',
+                url: 'http://localhost:8080/SalonManagement/createWalkin',
                 data: walkinData,
-                dataType: 'json',
-                async: true,
-                success: function (data) {
-                    SweetAlert.swal("Successfully created!", ".", "success");
-                    $('#createWalkinModal').closeModal();
-                    // $window.location.reload();
-                },
-                error: function () {
-                    SweetAlert.swal("Oops", "Something went wrong!", "error");
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 }
+            }).then(function successCallback(data) {
+                SweetAlert.swal("Successfully created!", ".", "success");
+                $('#createWalkinModal').closeModal();
+            }, function errorCallback(response) {
+                SweetAlert.swal("Oops", "Something went wrong!", "error");
             });
 
 
