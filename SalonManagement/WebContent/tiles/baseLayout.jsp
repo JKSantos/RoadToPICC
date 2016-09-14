@@ -244,6 +244,7 @@
 <script type="text/javascript" src="js/ajax/employee-position.js"></script>
 <script type="text/javascript" src="js/ajax/product-category.js"></script>
 <script type="text/javascript" src="js/ajax/service-category.js"></script>
+<script type="text/javascript" src="js/ajax/delivery.js"></script>
 <script type="text/javascript" src="js/ajax/extracharge.js"></script>
 <script type="text/javascript" src="js/ajax/discount.js"></script>
 <script type="text/javascript" src="js/ajax/discount-create.js"></script>

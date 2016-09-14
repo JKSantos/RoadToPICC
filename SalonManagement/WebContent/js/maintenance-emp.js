@@ -534,22 +534,22 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    var deliverytbl = $('#deliverytbl').DataTable({
-        "bLengthChange": false,
-        "sPaginationType": "full_numbers",
-        responsive: true,
-        "order": [],
-        "columnDefs": [
-            {"targets": 'no-sort', "orderable": false},
-            {"targets": [3], "width": "200px"},
-            {"targets": [2], "type": "formatted-num"}
-        ],
-        "rowHeight": '10px'
-    });
-
-    $("#deliverySearch").bind('keyup search input paste cut', function () {
-        deliverytbl.search(this.value).draw();
-    });
+    // var deliverytbl = $('#deliverytbl').DataTable({
+    //     "bLengthChange": false,
+    //     "sPaginationType": "full_numbers",
+    //     responsive: true,
+    //     "order": [],
+    //     "columnDefs": [
+    //         {"targets": 'no-sort', "orderable": false},
+    //         {"targets": [3], "width": "200px"},
+    //         {"targets": [2], "type": "formatted-num"}
+    //     ],
+    //     "rowHeight": '10px'
+    // });
+    //
+    // $("#deliverySearch").bind('keyup search input paste cut', function () {
+    //     deliverytbl.search(this.value).draw();
+    // });
 
     var deliveryArchiveTbl = $('#deliveryArchiveTbl').DataTable({
         "bLengthChange": false,

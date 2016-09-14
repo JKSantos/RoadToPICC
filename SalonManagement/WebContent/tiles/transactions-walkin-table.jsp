@@ -191,6 +191,21 @@
                                 </button>
                             </div>
                         </div>
+                        <div class="col s12">
+                            <div class="input-field col s9">
+                                <select ng-model="newService.service" id="selServiceEdit"
+                                        ng-options="service.strServiceName for service in vm.serviceList">
+                                    <option value="" disabled selected>Service</option>
+                                </select>
+                                <label for="selServiceEdit">Product</label>
+                            </div>
+                            <div class="input-field col s3">
+                                <button class="waves-effect waves-light btn-flat purple white-text" title="Add"
+                                        ng-click="addService(newService)">
+                                    <i class='material-icons'>add</i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="aside asideAside2 transparent" style="width: 10px !important;">
@@ -199,19 +214,19 @@
                             <div class="col s12">
                                 <div class="col s6">
                                     <ul class="collection">
-                                        <li class="collection-item"><b>Product</b></li>
+                                        <li class="collection-item"><b>Selected Product</b></li>
                                         <li class="collection-item"
                                             ng-repeat="selectedProduct in vm.selectedProductFromWalkin">
-                                            {{selectedProduct.prodName}}
+                                            {{selectedProduct.prodName}} ({{selectedProduct.prodqty}})
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="col s6">
                                     <ul class="collection">
-                                        <li class="collection-item"><b>Service</b></li>
+                                        <li class="collection-item"><b>Selected Service</b></li>
                                         <li class="collection-item"
                                             ng-repeat="selectedService in vm.selectedServiceFromWalkin">
-                                            {{selectedProduct.servName}}
+                                            {{selectedService.servName}}
                                         </li>
                                     </ul>
                                 </div>
