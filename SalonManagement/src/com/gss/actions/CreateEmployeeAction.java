@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.gss.model.Employee;
 import com.gss.model.Job;
+import com.gss.model.Specialization;
 import com.gss.service.EmployeeServiceImpl;
 import com.gss.utilities.DateHelper;
 import com.gss.utilities.DefaultImage;
@@ -40,6 +41,8 @@ public class CreateEmployeeAction {
 	private String username;
 	private String password;
 	
+	private List<String> specialization;
+	
 	public String execute(){
 		
 		boolean access = false;
@@ -63,8 +66,6 @@ public class CreateEmployeeAction {
 		if(chkGrantAccess.equalsIgnoreCase("on"))
 			access = true;
 		
-		System.out.print(chkGrantAccess);
-		
 		String strUser = concatenatedName;
 		concatenatedName = "";
 		name = this.strEmpLastName.split(" ");
@@ -81,11 +82,13 @@ public class CreateEmployeeAction {
 		this.password = strPass;
 		this.datEmpBirthdate = DateHelper.parseDate(strBirthdate);
 		
+		List<Specialization> specialization = Specialization.convertToObject(this.specialization);
+		
 		try{
-			emp = new Employee(1, strEmpLastName.trim().toUpperCase(), strEmpFirstName.trim().toUpperCase(), strEmpMiddleName.trim().toUpperCase(), datEmpBirthdate, strEmpGender, strEmpAddress.trim().toUpperCase(), strEmpContactNo, strEmpEmail, "A", strUser, strPass, file.getAbsolutePath(), null, selectedJob, access, "Not Available");
+			emp = new Employee(1, strEmpLastName.trim().toUpperCase(), strEmpFirstName.trim().toUpperCase(), strEmpMiddleName.trim().toUpperCase(), datEmpBirthdate, strEmpGender, strEmpAddress.trim().toUpperCase(), strEmpContactNo, strEmpEmail, "A", strUser, strPass, file.getAbsolutePath(), null, selectedJob, access, "Not Available", specialization);
 			empService = new EmployeeServiceImpl();
 		}catch(NullPointerException e){
-			emp = new Employee(1, strEmpLastName.trim().toUpperCase(), strEmpFirstName.trim().toUpperCase(), strEmpMiddleName.trim().toUpperCase(), datEmpBirthdate, strEmpGender, strEmpAddress.trim().toUpperCase(), strEmpContactNo, strEmpEmail, "A", strUser, strPass, "images/fb.jpg", null, selectedJob, access, "Not Available");
+			emp = new Employee(1, strEmpLastName.trim().toUpperCase(), strEmpFirstName.trim().toUpperCase(), strEmpMiddleName.trim().toUpperCase(), datEmpBirthdate, strEmpGender, strEmpAddress.trim().toUpperCase(), strEmpContactNo, strEmpEmail, "A", strUser, strPass, "images/fb.jpg", null, selectedJob, access, "Not Available", specialization);
 			empService = new EmployeeServiceImpl();
 		}
 		
@@ -170,6 +173,10 @@ public class CreateEmployeeAction {
 		 String message = ("Congratulations! You are now an employee of our Salon! Please download the job monitoring app at https://goog.gl/SH345GYS. You can also login on our admin page if you are granted the privilege to do so. \n\nYoure Username is " + username + " and your pasword is " + password + ".");
 		
 		return message;
+	}
+
+	public void setSpecialization(List<String> specialization) {
+		this.specialization = specialization;
 	}
 
 }

@@ -26,11 +26,12 @@ public class Employee {
 	private List<Job> jobQualification = new ArrayList<Job>();
 	private boolean accessGranted;
 	private String strJobStatus;
+	private List<Specialization> specialization;
 
 	public Employee(int intEmpID, String strEmpLastName, String strEmpFirstName, String strEmpMiddleName,
 			Date datEmpBirthdate, String strEmpGender, String strEmpAddress, String strEmpContactNo, String strEmpEmail,
 			String strEmpStatus, String strEmpUsername, String strEmpPassword, String blobEmpPhoto,
-			byte[] bytActualImage, List<Job> jobQualification, boolean accessGranted, String strJobStatus) {
+			byte[] bytActualImage, List<Job> jobQualification, boolean accessGranted, String strJobStatus, List<Specialization> specialization) {
 		super();
 		this.intEmpID = intEmpID;
 		this.strEmpLastName = strEmpLastName;
@@ -49,6 +50,7 @@ public class Employee {
 		this.jobQualification = jobQualification;
 		this.accessGranted = accessGranted;
 		this.strJobStatus = strJobStatus;
+		this.specialization = specialization;
 	}
 
 	public String getStrEmpLastName() {
@@ -195,7 +197,7 @@ public class Employee {
 	}
 	
 	public static Employee createNullEmployee(int intEmpID){
-		return new Employee(intEmpID, "", "", "", new Date(), "", "", "", "", "", "", "", "", null, null, false, "NOT AVAILABLE");
+		return new Employee(intEmpID, "", "", "", new Date(), "", "", "", "", "", "", "", "", null, null, false, "NOT AVAILABLE", null);
 	}
 	
 	public static Employee searchEmployee(int intEmployeeID, List<Employee> employeeList){
@@ -218,5 +220,13 @@ public class Employee {
 		EmployeeService service = new EmployeeServiceImpl();
 		
 		return service.postion(positionName, type);
+	}
+
+	public List<Specialization> getSpecialization() {
+		return specialization;
+	}
+
+	public void setSpecialization(List<Specialization> specialization) {
+		this.specialization = specialization;
 	}
 }

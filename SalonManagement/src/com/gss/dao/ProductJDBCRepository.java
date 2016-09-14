@@ -444,4 +444,63 @@ public class ProductJDBCRepository implements ProductRepository{
 			return null;
 		}
 	}
+	
+	public static List<String> getProductNames(){
+		
+		Connection con = jdbc.getConnection();
+		List<String> names = new ArrayList<String>();
+		
+		String query = "SELECT strProductName FROM tblProduct WHERE intProdStatus = 1;";
+
+		try{
+			
+			PreparedStatement statement = con.prepareStatement(query);	
+			ResultSet set = statement.executeQuery();
+			
+			while(set.next()){
+				String name = set.getString(1);
+				
+				names.add(name);
+			}
+			
+			statement.close();
+			set.close();
+			con.close();
+			return names;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public static List<String> getProductNames(int id){
+		
+		Connection con = jdbc.getConnection();
+		List<String> names = new ArrayList<String>();
+		
+		String query = "SELECT strProductName FROM tblProduct WHERE intProdStatus = 1 AND intProductID <> ?;";
+
+		try{
+			
+			PreparedStatement statement = con.prepareStatement(query);	
+			statement.setInt(1, id);
+			ResultSet set = statement.executeQuery();
+			
+			while(set.next()){
+				String name = set.getString(1);
+				
+				names.add(name);
+			}
+			
+			statement.close();
+			set.close();
+			con.close();
+			return names;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

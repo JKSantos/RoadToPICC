@@ -6,10 +6,14 @@ import java.util.Map;
 
 import org.apache.struts2.interceptor.SessionAware;
 
+import com.gss.dao.Specialization.ServiceCategoryDao;
 import com.gss.model.Employee;
 import com.gss.model.EmployeeCategory;
 import com.gss.model.Job;
+import com.gss.model.ServiceCategory;
 import com.gss.service.EmployeeServiceImpl;
+import com.gss.service.ServiceService;
+import com.gss.service.ServiceServiceImpl;
 
 public class EmployeeMaintenanceAction implements SessionAware{
 
@@ -17,6 +21,7 @@ public class EmployeeMaintenanceAction implements SessionAware{
 	private List<Employee> empList;
 	private List<Job> jobList = new ArrayList<Job>();
 	private Map<String, Object> userSession;
+	private List<ServiceCategory> categoryList;
 	
 	public String execute(){
 	
@@ -27,9 +32,11 @@ public class EmployeeMaintenanceAction implements SessionAware{
 		else{
 		
 			EmployeeServiceImpl empService = new EmployeeServiceImpl();
+			ServiceService service = new ServiceServiceImpl();
 			this.empCategory = empService.getAllCategory();
 			this.empList = empService.getAllEmployees();
-		
+			this.categoryList = ServiceCategoryDao.getAllServiceCategory();
+			
 			return "success";
 		}
 	}
@@ -62,5 +69,9 @@ public class EmployeeMaintenanceAction implements SessionAware{
 	public void setSession(Map<String, Object> arg0) {
 		
 		this.userSession = arg0;
+	}
+
+	public List<ServiceCategory> getCategoryList() {
+		return categoryList;
 	}
 }

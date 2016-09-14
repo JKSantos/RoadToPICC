@@ -436,5 +436,64 @@ public class ServiceJDBCRepository implements ServiceRepository{
 			return null;
 		}
 	}
+	
+	public static List<String> getServiceNames(){
+		
+		Connection con = jdbc.getConnection();
+		List<String> names = new ArrayList<String>();
+		
+		String query = "SELECT strServiceName FROM tblService WHERE intServiceStatus = 1;";
+
+		try{
+			
+			PreparedStatement statement = con.prepareStatement(query);	
+			ResultSet set = statement.executeQuery();
+			
+			while(set.next()){
+				String name = set.getString(2);
+				
+				names.add(name);
+			}
+			
+			statement.close();
+			set.close();
+			con.close();
+			return names;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public static List<String> getServiceNames(int id){
+		
+		Connection con = jdbc.getConnection();
+		List<String> names = new ArrayList<String>();
+		
+		String query = "SELECT strServiceName FROM tblService WHERE intServiceStatus = 1 AND intServiceID <> ?;";
+
+		try{
+			
+			PreparedStatement statement = con.prepareStatement(query);	
+			statement.setInt(1, id);
+			ResultSet set = statement.executeQuery();
+			
+			while(set.next()){
+				String name = set.getString(2);
+				
+				names.add(name);
+			}
+			
+			statement.close();
+			set.close();
+			con.close();
+			return names;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 }
