@@ -221,7 +221,6 @@
             </div>
         </form>
     </div>
-    </c:forEach>
 
 
 

@@ -11,7 +11,7 @@ import com.gss.model.Location;
 
 public class LocationJDBCRepository implements LocationRepository{
 
-	private JDBCConnection jdbc = new JDBCConnection();
+	private static JDBCConnection jdbc = new JDBCConnection();
 	
 	public boolean createLocation(Location location) {
 
@@ -216,6 +216,40 @@ public class LocationJDBCRepository implements LocationRepository{
 		}catch(Exception e){
 			e.printStackTrace();
 			return "failed";
+		}
+	}
+	
+	public static Location getLocationByID(int id) {
+		Connection con = jdbc.getConnection();
+		String query = "SELECT * FROM tblLocation WHERE intLocationStatus = 1 AND intLocationID = ?;";
+		
+		Location location = null;
+		
+		try{
+			
+			PreparedStatement pre = con.prepareStatement(query);
+			pre.setInt(1, id);
+			ResultSet result = pre.executeQuery();
+			
+			while(result.next()){
+				
+				int intID = result.getInt(1);
+				String strBrgy = result.getString(2);
+				String strCity = result.getString(3);
+				double price = result.getDouble(4);
+				int status = result.getInt(5);
+				
+				location = new Location(intID, strBrgy, strCity, price, status);
+			}
+			
+			pre.close();
+			con.close();
+			
+			return location;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
 		}
 	}
 }
