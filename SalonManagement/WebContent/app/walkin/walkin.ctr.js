@@ -226,6 +226,23 @@
             return p;
         }
 
+        $scope.addProduct = function (product) {
+            vm.selectedProductFromWalkin.push({
+                'prodID': product.product.intProductID,
+                'prodName': product.product.strProductName,
+                'prodqty': product.qty
+            });
+        };
+        
+        $scope.addService = function (service) {
+            $('#editItem').openModal({
+                dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                opacity: .7, // Opacity of modal background
+                in_duration: 200, // Transition in duration
+                out_duration: 200, // Transition out duration
+            });
+        };
+
         function openEditItem(index, item) {
             $('#editItem').openModal({
                 dismissible: true, // Modal can be dismissed by clicking outside of the modal
@@ -461,7 +478,7 @@
                 'strName': vm.details.name,
                 'strContactNo': vm.details.contact
             });
-            
+
             $http({
                 method: 'post',
                 url: 'http://localhost:8080/SalonManagement/createWalkin',

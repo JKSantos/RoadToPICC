@@ -182,7 +182,7 @@
                             </div>
                             <div class="input-field col s3">
                                 <input type="number" class="right-align" id="selPrductQty" ng-model="newProduct.qty">
-                                <label for="selPrductQty">Qty</label>
+                                <label for="selPrductQty">Quantity</label>
                             </div>
                             <div class="input-field col s3">
                                 <button class="waves-effect waves-light btn-flat purple white-text" title="Add"
@@ -217,7 +217,9 @@
                                         <li class="collection-item"><b>Selected Product</b></li>
                                         <li class="collection-item"
                                             ng-repeat="selectedProduct in vm.selectedProductFromWalkin">
-                                            {{selectedProduct.prodName}} ({{selectedProduct.prodqty}})
+                                            {{selectedProduct.prodName}}
+                                            <span ng-if="selectedProduct.prodqty > 1">({{selectedProduct.prodqty}}pcs)</span>
+                                            <span ng-if="selectedProduct.prodqty == 1">({{selectedProduct.prodqty}}pc)</span>
                                         </li>
                                     </ul>
                                 </div>
