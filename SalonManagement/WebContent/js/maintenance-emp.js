@@ -740,6 +740,7 @@ $('#btnCreateExit').click(function () {
 $('#btnCrLocExit').click(function () {
     $('#createDeliveryForm').trigger("reset");
     $('.deliveryerrorcontainer').hide();
+    $('#crLocationBRate').prop('disabled', false);
 });
 
 $('#btnCrExtraExit').click(function () {
@@ -775,17 +776,20 @@ $('.upExtraCancel').click(function () {
 $('.btnUpLocExit').click(function () {
     $('.updateDeliveryForm').trigger("reset");
     $('.updeliveryerrorcontainer').hide();
+    $('#upLocationBRate').prop('disabled', false);
 });
 
 
 $('#crLocCancel').click(function () {
     $('#createDeliveryForm').trigger("reset");
     $('.deliveryerrorcontainer').hide();
+    $('#crLocationBRate').prop('disabled', false);
 });
 
 $('.upLocCancel').click(function () {
     $('.updateDeliveryForm').trigger("reset");
-    $('.deliveryerrorcontainer').hide();
+    $('.updeliveryerrorcontainer').hide();
+    $('#upLocationBRate').prop('disabled', false);
 });
 
 $('#btnProdCrExit').click(function () {

@@ -143,6 +143,11 @@
                             <label for="crLocationCity" class="active"><b>City</b><i
                                     class="material-icons red-text tiny">error_outline</i></label>
                         </div>
+                        <div class="input-field col s6 left">
+                            <input name="upLocationFree" type="checkbox" class="filled-in"
+                                   id="upLocationCrFree" value="on"/>
+                            <label for="upLocationCrFree"><b>Free</b></label>
+                        </div>
                         <div class="input-field col s6 right">
                             <input id="crLocationBRate" name="price"
                                    class="validate upProdItemPrice right-align" required placeholder="Base Rate">
@@ -170,7 +175,7 @@
     </div>
     
     <div id="updateDeliveryModal" class="updateDeliveryModal modal modal-fixed-footer">
-        <form class="col s12 updateDeliveryForm" id="updateDeliveryForm" method="post" action="updateLocation">
+        <form class="col s12 updateDeliveryForm" id="updateDeliveryForm">
             <div class="modal-content">
                 <!-- <div class="container"> -->
                 <div class="wrapper">
@@ -185,7 +190,7 @@
                         <div class="input-field col s12">
 
                             <input type="hidden"
-                                   name="intLocationID">
+                                   name="intLocationID" id="intLocationID">
 
                             <input type="text" class="validate" id="upLocationBrgy"
                                    name="strBrgy" required placeholder="Baranggay">
@@ -198,6 +203,11 @@
                                    placeholder="City">
                             <label for="upLocationCity" class="active"><b>City</b><i
                                     class="material-icons red-text tiny">error_outline</i></label>
+                        </div>
+                        <div class="input-field col s6 left">
+                            <input name="upLocationFree" type="checkbox" class="filled-in"
+                                   id="upPromoFree" value="on"/>
+                            <label for="upPromoFree"><b>Free</b></label>
                         </div>
                         <div class="input-field col s6 right">
                             <input id="upLocationBRate" name="price"
@@ -215,9 +225,8 @@
                 </button>
                 <a class="upLocCancel modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL
                 </a>
-                <button class="waves-effect waves-light purple darken-3 white-text btn-flat" type="submit"
-                        value="Submit">UPDATE
-                </button>
+                <a class="waves-effect waves-light purple darken-3 white-text btn-flat" onclick="updateDelivery()">UPDATE
+                </a>
             </div>
         </form>
     </div>
