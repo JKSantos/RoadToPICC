@@ -56,22 +56,25 @@ public class DateHelper {
 		 String year = date[2];
 		 String newDate = year + "-";
 		 
-		 if(date[0].length() > 2){
-			 switch(date[0]){
-			 	case "January": month = "1"; break;
-			 	case "February": month = "2"; break;
-			 	case "March": month = "3"; break;
-			 	case "April": month = "4"; break;
-			 	case "May": month = "5"; break;
-			 	case "June": month = "6"; break;
-			 	case "July": month = "7"; break;
-			 	case "August": month = "8"; break;
-			 	case "September": month = "9"; break;
-			 	case "October": month = "10"; break;
-			 	case "November": month = "11"; break;
-			 	case "December": month = "12"; break;
-			 }
-		 }else{
+		 boolean flag = true;
+		 
+		 switch(date[0]){
+		 	case "January": month = "1"; break;
+		 	case "February": month = "2"; break;
+		 	case "March": month = "3"; break;
+		 	case "April": month = "4"; break;
+		 	case "May": month = "5"; break;
+		 	case "June": month = "6"; break;
+		 	case "July": month = "7"; break;
+		 	case "August": month = "8"; break;
+		 	case "September": month = "9"; break;
+		 	case "October": month = "10"; break;
+		 	case "November": month = "11"; break;
+		 	case "December": month = "12"; break;
+		 	default: flag = false;
+		 }
+			
+		if(flag == false){
 			 switch(Integer.parseInt(date[0])){
 			 	case 1: month = "January"; break;
 			 	case 2: month = "February"; break;
@@ -85,7 +88,7 @@ public class DateHelper {
 			 	case 10: month = "October"; break;
 			 	case 11: month = "November"; break;
 			 	case 12: month = "December"; break;
-			 }
+			 } 
 		 }
 		 
 		 return newDate += month + "-" + day;
