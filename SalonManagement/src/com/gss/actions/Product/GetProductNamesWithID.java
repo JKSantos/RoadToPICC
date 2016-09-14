@@ -12,7 +12,7 @@ public class GetProductNamesWithID {
 	
 	public String execute(){
 		
-		this.names = ProductJDBCRepository.getProductNames();
+		this.names = ProductJDBCRepository.getProductNames(id);
 		
 		return "success";
 	}

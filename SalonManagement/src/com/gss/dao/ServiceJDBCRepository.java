@@ -450,7 +450,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 			ResultSet set = statement.executeQuery();
 			
 			while(set.next()){
-				String name = set.getString(2);
+				String name = set.getString(1);
 				
 				names.add(name);
 			}
@@ -480,7 +480,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 			ResultSet set = statement.executeQuery();
 			
 			while(set.next()){
-				String name = set.getString(2);
+				String name = set.getString(1);
 				
 				names.add(name);
 			}
