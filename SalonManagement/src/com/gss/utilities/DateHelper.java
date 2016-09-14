@@ -56,6 +56,8 @@ public class DateHelper {
 		 String year = date[2];
 		 String newDate = year + "-";
 		 
+		 boolean flag = true;
+		 
 		 switch(date[0]){
 		 	case "January": month = "1"; break;
 		 	case "February": month = "2"; break;
@@ -69,6 +71,11 @@ public class DateHelper {
 		 	case "October": month = "10"; break;
 		 	case "November": month = "11"; break;
 		 	case "December": month = "12"; break;
+		 	default: flag = false;
+		 }
+			
+		if(flag == false){
+			 month = date[0];
 		 }
 		 
 		 return newDate += month + "-" + day;
