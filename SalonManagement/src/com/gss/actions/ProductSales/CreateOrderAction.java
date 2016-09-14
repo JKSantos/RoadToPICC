@@ -29,6 +29,8 @@ public class CreateOrderAction{
 	private String productQuantity;
 	private String strTotalPrice;
 	private String status;
+	
+	private int intEmployeeID;
 	private int intCreatedID;
 	
 	public String execute() throws Exception{
@@ -119,5 +121,11 @@ public class CreateOrderAction{
 	public int getIntCreatedID(){
 		return this.intCreatedID;
 	}
+
+	public void setIntEmployeeID(int intEmployeeID) {
+		this.intEmployeeID = intEmployeeID;
+	}
+	
+	
 	
 }
