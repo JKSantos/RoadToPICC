@@ -748,9 +748,15 @@ function updatePackage() {
                         dataType: 'json',
                         async: true,
                         success: function (data) {
-                            swal("Successfully updated!", ".", "success");
-                            updatePackageTable();
-                            $('#updatePackageModal').closeModal();
+                            if (data.result == "success") {
+                                swal("Successfully updated!", ".", "success");
+                                updatePackageTable();
+                                $('#updatePackageModal').closeModal();
+                            } else if (data.result == "existing") {
+                                sweetAlert("Oops...", "This package is already existing!", "error");
+                            } else if (data.result == "failed") {
+                                sweetAlert("Oops...", "Something went wrong!", "error");
+                            }
                         },
                         error: function (ts) {
                             sweetAlert("Oops...", "Something went wrong!", "error");
