@@ -329,10 +329,10 @@
                             <ul class="tabs tab-demo-active" style="width: 100%; background-color: #fafafa; margin-top: -35px !important;">
                                 <li class="tab col s6"><a
                                         class="purple-text text-darken-2 waves-effect waves-light"
-                                        href="#promoUpdateA"><b>INFO 1</b></a></li>
+                                        href="#promoUpdateA"><b>Details</b></a></li>
                                 <li class="tab col s6"><a
                                         class="purple-text text-darken-2 waves-effect waves-light"
-                                        href="#promoUpdateB"><b>INFO 2</b></a></li>
+                                        href="#promoUpdateB"><b>Included Items</b></a></li>
                             </ul>
                         </div>
                         <div id="promoUpdateA" class="ftab col s12" style="margin-top: 20px !important;">
@@ -550,27 +550,4 @@
             </div>
         </form>
     </div>
-
-    <c:forEach items="${promoList}" var="promo">
-        <div id="delete${promo.intPromoID}" class="modal"
-             style="width: 30% !important; height: 40% !important">
-            <form method="post" action="deactivatePromo">
-                <div class="container">
-                    <div class="modal-content">
-                        <div class="row">
-                            <input type="hidden" name="intPromoID" value="${promo.intPromoID}">
-                            <h5 class="red-text">Warning!</h5>
-                            <p>Are you sure you want to deactivate</p>
-                            <p>${promo.strPromoName}</p>
-                        </div>
-                    </div>
-                    <div class="col s12 center" style="margin-bottom: 30px;">
-                        <button class="waves-effect waves-light purple btn-flat white-text">YES</button>
-                        <a href="#"
-                           class="modal-action modal-close waves-effect waves-light transparent btn-flat black-text">NO</a>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </c:forEach>
 </div>

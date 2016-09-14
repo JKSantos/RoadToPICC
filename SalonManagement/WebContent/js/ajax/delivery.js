@@ -52,6 +52,7 @@ function deliveryTable() {
                     var price;
                     if (location.dblLocationPrice > 0) {
                         price = 'Php ' + parseFloat(location.dblLocationPrice).toFixed(2);
+                        price = addCommas(price);
                     } else {
                         price = 'Free';
                     }
