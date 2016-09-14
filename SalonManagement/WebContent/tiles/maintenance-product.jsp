@@ -44,7 +44,7 @@
                 <tbody>
                 <c:forEach items="${productList}" var="product">
                     <c:set var="price" scope="session"
-                           value="${(product.dblProductPrice * 0) + product.dblProductPrice}"></c:set>
+                           value="${(product.dblProductPrice)}"></c:set>
                     <%! String string = null; %>
                     <% Product prod = (Product)pageContext.getAttribute("product");
                     string = String.valueOf(prod.getIntProductID());
@@ -304,7 +304,7 @@
         strProdID = String.valueOf(prodID.getIntProductID());
         String productCate = prodID.getStrProductCategory();
         %>
-        <c:set var="price" scope="session" value="${(product.dblProductPrice * 0) + product.dblProductPrice}"></c:set>
+        <c:set var="price" scope="session" value="${(product.dblProductPrice * 10.00)}"></c:set>
         <div id="prod<%=strProdID%>" class="prodUpdateModal modal modal-fixed-footer">
             <form class="col s12 updateProdForm" method="post" id="updateProdForm" action="updateItem"
                   enctype="multipart/form-data">

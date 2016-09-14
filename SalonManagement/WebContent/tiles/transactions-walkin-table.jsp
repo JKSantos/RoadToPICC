@@ -217,9 +217,13 @@
                                         <li class="collection-item"><b>Selected Product</b></li>
                                         <li class="collection-item"
                                             ng-repeat="selectedProduct in vm.selectedProductFromWalkin">
-                                            {{selectedProduct.prodName}}
+                                            <b>{{selectedProduct.prodName}}</b>
+                                            <br>
                                             <span ng-if="selectedProduct.prodqty > 1">({{selectedProduct.prodqty}}pcs)</span>
                                             <span ng-if="selectedProduct.prodqty == 1">({{selectedProduct.prodqty}}pc)</span>
+                                            <br>
+                                            <span class="red-text" style="cursor: pointer;"
+                                                  ng-click="removeFromProductList($index)">Remove</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -228,7 +232,10 @@
                                         <li class="collection-item"><b>Selected Service</b></li>
                                         <li class="collection-item"
                                             ng-repeat="selectedService in vm.selectedServiceFromWalkin">
-                                            {{selectedService.servName}}
+                                            <b>{{selectedService.servName}}</b>
+                                            <br>
+                                            <span style="font-size: 13px !important;">Employee: {{selectedService.employeeAssigned.strEmpFirstName}}
+                                            {{selectedService.employeeAssigned.strEmpLastName[0]}}.</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -245,6 +252,31 @@
             </button>
         </div>
         </form>
+    </div>
+
+    <div id="addServiceModal" class="modal modal-fixed-footer"
+         style="width: 500px !important; height: 400px !important;">
+        <div class="modal-content">
+            <div class="container">
+                <h5 class="center">Assign Employee for <br>{{serviceInsideModal.service.strServiceName | uppercase}}</h5>
+
+                <div class="input-field col s12" style="margin-top: 50px !important;">
+                    <select ng-model="serviceInsideModal.selEmployee" id="addEmpinService"
+                            ng-options="employee.strEmpFirstName for employee in vm.employeeList">
+                        <option value="" disabled selected>Choose...</option>
+                    </select>
+                    <label for="addEmpinService"><b>Employee</b>
+                        <i class="material-icons tiny red-text">error_outline</i>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat"
+               ng-click="addServiceInTable(serviceInsideModal)">
+                Proceed
+            </a>
+        </div>
     </div>
 
 
