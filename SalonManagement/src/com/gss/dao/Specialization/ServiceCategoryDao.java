@@ -19,8 +19,7 @@ public class ServiceCategoryDao {
 		
 		Connection con = jdbc.getConnection();
 		
-		String query = "SELECT S.intServiceCategoryID, SE.strServiceCategory FROM tblSpecialization S" +
-						"INNER JOIN tblService SE ON S.intServiceCategoryID = SE.intServiceCateCode WHERE intStatus = 1;";
+		String query = "SELECT * FROM tblServiceCategory WHERE intStatus = 1;";
 		
 		try{
 			

@@ -41,7 +41,7 @@ public class CreateEmployeeAction {
 	private String username;
 	private String password;
 	
-	private List<String> specialization;
+	private List<String> selectedSpecialization = new ArrayList<String>();
 	
 	public String execute(){
 		
@@ -82,7 +82,7 @@ public class CreateEmployeeAction {
 		this.password = strPass;
 		this.datEmpBirthdate = DateHelper.parseDate(strBirthdate);
 		
-		List<Specialization> specialization = Specialization.convertToObject(this.specialization);
+		List<Specialization> specialization = Specialization.convertToObject(this.selectedSpecialization);
 		
 		try{
 			emp = new Employee(1, strEmpLastName.trim().toUpperCase(), strEmpFirstName.trim().toUpperCase(), strEmpMiddleName.trim().toUpperCase(), datEmpBirthdate, strEmpGender, strEmpAddress.trim().toUpperCase(), strEmpContactNo, strEmpEmail, "A", strUser, strPass, file.getAbsolutePath(), null, selectedJob, access, "Not Available", specialization);
@@ -175,8 +175,11 @@ public class CreateEmployeeAction {
 		return message;
 	}
 
-	public void setSpecialization(List<String> specialization) {
-		this.specialization = specialization;
+
+	public void setSelectedSpecialization(List<String> selectedSpecialization) {
+		this.selectedSpecialization = selectedSpecialization;
 	}
+
+
 
 }

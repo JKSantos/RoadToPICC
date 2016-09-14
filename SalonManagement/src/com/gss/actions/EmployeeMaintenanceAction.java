@@ -36,7 +36,7 @@ public class EmployeeMaintenanceAction implements SessionAware{
 			this.empCategory = empService.getAllCategory();
 			this.empList = empService.getAllEmployees();
 			this.categoryList = ServiceCategoryDao.getAllServiceCategory();
-			
+
 			return "success";
 		}
 	}

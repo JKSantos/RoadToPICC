@@ -37,7 +37,7 @@ public class UpdateEmployeeAction extends ActionSupport{
 	private String imageName;
 	private String chkGrantAccess = "off";
 	
-	private List<String> specialization;
+	private List<String> upSpecialization = new ArrayList<String>();
 	
 	public String execute(){
 		
@@ -57,7 +57,7 @@ public class UpdateEmployeeAction extends ActionSupport{
 
 		this.datEmpBirthdate = DateHelper.parseDate(strBirthdate);
 		
-		List<Specialization> specialization = Specialization.convertToObject(this.specialization);
+		List<Specialization> specialization = Specialization.convertToObject(this.upSpecialization);
 		
 		if(imageName.equals("image")){
 			emp = new Employee(intEmpID, strEmpLastName.trim().toUpperCase(), strEmpFirstName.trim().toUpperCase(), strEmpMiddleName.trim().toUpperCase(), this.datEmpBirthdate, strEmpGender, strEmpAddress.trim().toUpperCase(), strEmpContactNo, strEmpEmail, "A", "NO ACCESS", "NO ACCESS", "Image", null, jobList, access, "", specialization);
@@ -235,9 +235,12 @@ public class UpdateEmployeeAction extends ActionSupport{
 		this.chkGrantAccess = chkGrantAccess;
 	}
 
-	public void setSpecialization(List<String> specialization) {
-		this.specialization = specialization;
+
+	public void setUpSpecialization(List<String> upSpecialization) {
+		this.upSpecialization = upSpecialization;
 	}
+
+
 
 	
 }
