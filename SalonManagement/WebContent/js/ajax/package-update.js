@@ -748,6 +748,7 @@ function updatePackage() {
                         dataType: 'json',
                         async: true,
                         success: function (data) {
+                            console.log(data);
                             if (data.result == "success") {
                                 swal("Successfully updated!", ".", "success");
                                 updatePackageTable();
