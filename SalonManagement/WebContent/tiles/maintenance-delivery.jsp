@@ -175,7 +175,7 @@
     </div>
     
     <div id="updateDeliveryModal" class="updateDeliveryModal modal modal-fixed-footer">
-        <form class="col s12 updateDeliveryForm" id="updateDeliveryForm" method="post" action="updateLocation">
+        <form class="col s12 updateDeliveryForm" id="updateDeliveryForm">
             <div class="modal-content">
                 <!-- <div class="container"> -->
                 <div class="wrapper">
@@ -190,7 +190,7 @@
                         <div class="input-field col s12">
 
                             <input type="hidden"
-                                   name="intLocationID">
+                                   name="intLocationID" id="intLocationID">
 
                             <input type="text" class="validate" id="upLocationBrgy"
                                    name="strBrgy" required placeholder="Baranggay">
@@ -225,9 +225,8 @@
                 </button>
                 <a class="upLocCancel modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL
                 </a>
-                <button class="waves-effect waves-light purple darken-3 white-text btn-flat" type="submit"
-                        value="Submit">UPDATE
-                </button>
+                <a class="waves-effect waves-light purple darken-3 white-text btn-flat" onclick="updateDelivery()">UPDATE
+                </a>
             </div>
         </form>
     </div>
