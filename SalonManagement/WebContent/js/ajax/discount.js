@@ -127,6 +127,7 @@ function updateDiscountTable() {
                         type = 'Percentage';
                     } else if (discount.intDiscountType == 2) { //Fixed
                         price = 'P' + parseFloat(discount.dblDiscountAmount).toFixed(2);
+                        price = addCommas(price);
                         type = 'Fixed Amount'
                     }
 

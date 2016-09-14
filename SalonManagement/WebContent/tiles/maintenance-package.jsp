@@ -45,6 +45,7 @@
                     <th class="dt-head-left">Package Name</th>
                     <th class="dt-head-left">Type</th>
                     <th class="dt-head-left">Description</th>
+                    <th class="dt-head-right">Price</th>
                     <th align="center" class="no-sort">Action</th>
                 </tr>
                 </thead>
@@ -53,7 +54,8 @@
                     <th class="dt-head-left">Package Name</th>
                     <th class="dt-head-left">Type</th>
                     <th class="dt-head-left">Description</th>
-                    <th align="center" class="no-sort">Action</th>
+                    <th class="dt-head-right">Price</th>
+                    <th align="center" class="no-sort"><center>Action</center></th>
                 </tr>
                 </tfoot>
 
@@ -89,6 +91,7 @@
                         <th class="dt-head-left">Package Name</th>
                         <th class="dt-head-left">Type</th>
                         <th class="dt-head-left">Description</th>
+                        <th class="dt-head-right">Price</th>
                         <th align="center" class="no-sort">Action</th>
                     </tr>
                     </thead>
@@ -97,6 +100,7 @@
                         <th class="dt-head-left">Package Name</th>
                         <th class="dt-head-left">Type</th>
                         <th class="dt-head-left">Description</th>
+                        <th class="dt-head-right">Price</th>
                         <th align="center" class="no-sort">Action</th>
                     </tr>
                     </tfoot>
@@ -282,7 +286,9 @@
                                 <div class="input-field col s12" style="margin-top: 20px !important;">
                                     <input type="text" class="right-align prodPrice" name="createPackagePrice" id="crPackPrice"
                                            placeholder="Package Price" required/>
-                                    <label for="crPackPrice" class="active"><b>Package Price</b><i
+                                    <label for="crPackPrice"
+                                           style="font-size: 13px !important;"
+                                           class="active"><b>Package Price</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                             </div>
@@ -345,10 +351,10 @@
                             <ul class="tabs tab-demo-active" style="width: 100%; background-color: #fafafa;">
                                 <li class="tab col s6"><a
                                         class="purple-text text-darken-2 waves-effect waves-light"
-                                        href="#updateA"><b>INFO 1</b></a></li>
+                                        href="#updateA"><b>Details</b></a></li>
                                 <li class="tab col s6"><a
                                         class="purple-text text-darken-2 waves-effect waves-light"
-                                        href="#updateB"><b>INFO 2</b></a></li>
+                                        href="#updateB"><b>Included Items</b></a></li>
                             </ul>
                         </div>
                         <div id="updateA" class="ftab col s12" style="margin-top: 20px !important;">
@@ -484,7 +490,9 @@
                                 <div class="input-field col s12" style="margin-top: 20px !important;">
                                     <input type="text" class="right-align prodPrice" name="updatePackagePrice" id="upPackPrice"
                                            placeholder="Package Price" required/>
-                                    <label for="upPackPrice" class="active"><b>Package Price</b><i
+                                    <label for="upPackPrice"
+                                           style="font-size: 13px !important;"
+                                           class="active"><b>Package Price</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                             </div>

@@ -13,7 +13,34 @@ function updatePackageTable() {
         async: true,
         success: function (data) {
             var packageList = data.packageList,
-                tablepackage = $('#packagetbl').DataTable();
+                tablepackage;
+
+
+            $('#packagetbl').DataTable().destroy();
+
+                tablepackage = $('#packagetbl').DataTable({
+                destroy: true,
+                "bLengthChange": false,
+                "sPaginationType": "full_numbers",
+                responsive: true,
+                "order": [],
+                "columnDefs": [
+                    {"targets": 'no-sort', "orderable": false},
+                    {className: "dt-body-left", "targets": [0, 1, 2]},
+                    {className: "dt-body-right", "targets": [3]},
+                    {className: "dt-head-right", "targets": [3]},
+                    {className: "dt-head-center", "targets": [0]},
+                    {"targets": [0], "width": "230px"},
+                    {"targets": [3], "width": "200px"},
+                    {"targets": [2], "width": "250px"},
+                    {"targets": [2], render: $.fn.dataTable.render.ellipsis(25)}
+                ],
+                "rowHeight": '10px'
+            });
+
+            $("#packageSearch").bind('keyup search input paste cut', function () {
+                packagetbl.search(this.value).draw();
+            });
 
             if (packageList != null) {
                 tablepackage.clear().draw();
@@ -31,6 +58,8 @@ function updatePackageTable() {
                         " style='padding-left: 10px;padding-right:10px; margin: 5px;' value='" + package.intPackageID + "' title='Deactivate'" +
                         " onclick='deactivatePackage(this.value, this.id)'>" +
                         "<i class='material-icons'>delete</i></button>";
+                    var price = 'Php ' + parseFloat(package.dblPackagePrice).toFixed(2);
+                    price = addCommas(price);
                     if (package.intPackageType == 1) {
                         type = 'Event';
                     } else if (package.intPackageType == 2) {
@@ -50,6 +79,7 @@ function updatePackageTable() {
                         package.strPackageName,
                         type,
                         package.strPackageDesc,
+                        price,
                         addbtn
                     ]);
                 });
