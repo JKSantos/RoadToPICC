@@ -8,6 +8,7 @@ import com.gss.model.Discount;
 import com.gss.model.Package;
 import com.gss.model.Product;
 import com.gss.model.Promo;
+import com.gss.model.Requirement;
 import com.gss.model.Service;
 import com.gss.service.DiscountServiceImpl;
 import com.gss.utilities.PriceFormatHelper;
@@ -30,7 +31,7 @@ public class UpdateDiscountAction {
 	private String checkedProducts = "";
 	private String checkedPackages = "";
 	private String checkedPromos = "";
-	
+	private String requirements = "";
 	private String result;
 
 	public String execute() throws NumberFormatException, SQLException{
@@ -38,18 +39,11 @@ public class UpdateDiscountAction {
 		DiscountServiceImpl service = new DiscountServiceImpl();
 		Discount discount;
 		
-		System.out.println(strApplicability);
-		System.out.println(this.strDiscountName);
-		System.out.println(this.strDiscountDetails);
-		System.out.println(this.strDiscountGuidelines);
-		System.out.println(this.strDiscountType);
-		System.out.println(this.strDiscountPriceFixed);
-		System.out.println(this.strDiscountPricePercent);
-		
 		List<Product> productList = new ArrayList<Product>();
 		List<Service> serviceList = new ArrayList<Service>();
 		List<Package> packageList = new ArrayList<Package>();
 		List<Promo> promoList = new ArrayList<Promo>();
+		List<Requirement> requirementList = new ArrayList<Requirement>();
 		
 		if(!checkedProducts.equals(""))
 			productList = new SearchProduct().searchList(checkedProducts.split(","), Product.getAllProduct());
@@ -59,17 +53,21 @@ public class UpdateDiscountAction {
 			packageList = new SearchPackage().searchList(checkedPackages.split(","), Package.getAllPackage());
 		if(!checkedPromos.equals(""))
 			promoList = new SearchPromo().searchList(checkedPromos.split(","), Promo.getAllPromo());
+		if(!requirements.equals(""))
+			requirementList = Requirement.toOjbect(this.requirements.split(","));
 		 
 		String result = "failed";
 		
 		try{
-			discount = new Discount(1, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), PriceFormatHelper.convertToDouble(strDiscountPriceFixed, "Php "), productList, serviceList, packageList, promoList, 1);
-			this.result = service.updateDiscount(discount);
+			discount = new Discount(this.intDiscountID, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), PriceFormatHelper.convertToDouble(strDiscountPriceFixed, "Php "), productList, serviceList, packageList, promoList, 1);
+			discount.setRequirements(requirementList);
+			this.result = service.createDiscount(discount);
 			return this.result;
 		}
 		catch(Exception e){	
-			discount = new Discount(1, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), strDiscountPricePercent, productList, serviceList, packageList, promoList, 1);
-			this.result = service.updateDiscount(discount);
+			discount = new Discount(this.intDiscountID, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), strDiscountPricePercent, productList, serviceList, packageList, promoList, 1);
+			discount.setRequirements(requirementList);
+			this.result = service.createDiscount(discount);
 			return this.result;
 		}
 	}
@@ -128,5 +126,9 @@ public class UpdateDiscountAction {
 
 	public String getResult() {
 		return result;
+	}
+
+	public void setRequirements(String requirements) {
+		this.requirements = requirements;
 	}
 }

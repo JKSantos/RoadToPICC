@@ -8,6 +8,7 @@ import java.util.List;
 import com.gss.model.Discount;
 import com.gss.model.Product;
 import com.gss.model.Promo;
+import com.gss.model.Requirement;
 import com.gss.model.Service;
 import com.gss.model.Package;
 import com.gss.service.DiscountServiceImpl;
@@ -31,7 +32,7 @@ public class CreateDiscountAction {
 	private String checkedProducts = "";
 	private String checkedPackages = "";
 	private String checkedPromos = "";
-	
+	private String requirements = "";
 	private String result;
 
 	public String execute() throws SQLException{
@@ -43,6 +44,7 @@ public class CreateDiscountAction {
 		List<Service> serviceList = new ArrayList<Service>();
 		List<Package> packageList = new ArrayList<Package>();
 		List<Promo> promoList = new ArrayList<Promo>();
+		List<Requirement> requirementList = new ArrayList<Requirement>();
 		
 		this.checkedPackages = this.checkedPackages.replaceAll(" ", "");
 		this.checkedServices = this.checkedServices.replaceAll(" ", "");
@@ -57,16 +59,20 @@ public class CreateDiscountAction {
 			packageList = new SearchPackage().searchList(checkedPackages.split(","), Package.getAllPackage());
 		if(!checkedPromos.equals(""))
 			promoList = new SearchPromo().searchList(checkedPromos.split(","), Promo.getAllPromo());
+		if(!requirements.equals(""))
+			requirementList = Requirement.toOjbect(this.requirements.split(","));
 		 
 		String result = "failed";
 		
 		try{
 			discount = new Discount(1, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), PriceFormatHelper.convertToDouble(strDiscountPriceFixed, "Php "), productList, serviceList, packageList, promoList, 1);
+			discount.setRequirements(requirementList);
 			this.result = service.createDiscount(discount);
 			return this.result;
 		}
 		catch(Exception e){	
 			discount = new Discount(1, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), strDiscountPricePercent, productList, serviceList, packageList, promoList, 1);
+			discount.setRequirements(requirementList);
 			this.result = service.createDiscount(discount);
 			return this.result;
 		}
@@ -118,5 +124,8 @@ public class CreateDiscountAction {
 
 	public String getResult() {
 		return result;
+	}
+	public void setRequirements(String requirements) {
+		this.requirements = requirements;
 	}
 }

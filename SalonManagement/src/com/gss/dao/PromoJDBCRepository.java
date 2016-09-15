@@ -13,6 +13,7 @@ import com.gss.connection.JDBCConnection;
 import com.gss.model.Product;
 import com.gss.model.ProductPackage;
 import com.gss.model.Promo;
+import com.gss.model.Requirement;
 import com.gss.model.Service;
 import com.gss.model.ServicePackage;
 import com.gss.model.PackagePackage;
@@ -96,6 +97,23 @@ public class PromoJDBCRepository implements PromoRepository{
 				pre2.close();
 			}
 			
+			try{
+				PreparedStatement requirements = con.prepareStatement("INSERT INTO tblPromoRequirement(intPromoID, intRequirementID) VALUES(?, ?);");
+				
+				for(int index = 0; index < promo.getRequirements().size(); index++){
+					Requirement req = promo.getRequirements().get(index);
+					requirements.setInt(1, intID);
+					requirements.setInt(2, req.getIntRequirementID());
+					requirements.addBatch();
+				}
+				
+				requirements.executeBatch();
+				requirements.close();
+				
+			}catch(NullPointerException ne){
+				//do nothing
+			}
+			
 			con.close();
 			return "success";
 		}
@@ -170,6 +188,23 @@ public class PromoJDBCRepository implements PromoRepository{
 				
 				pre2.execute();
 				pre2.close();
+			}
+			
+			try{
+				PreparedStatement requirements = con.prepareStatement("INSERT INTO tblPromoRequirement(intPromoID, intRequirementID) VALUES(?, ?);");
+				
+				for(int index = 0; index < promo.getRequirements().size(); index++){
+					Requirement req = promo.getRequirements().get(index);
+					requirements.setInt(1, intID);
+					requirements.setInt(2, req.getIntRequirementID());
+					requirements.addBatch();
+				}
+				
+				requirements.executeBatch();
+				requirements.close();
+				
+			}catch(NullPointerException ne){
+				//do nothing
 			}
 			
 			return "success";
@@ -293,8 +328,22 @@ public class PromoJDBCRepository implements PromoRepository{
 					}
 				}
 				
-				Promo promo = new Promo(intID, name, desc, guide, price, max, servPack, prodPack, packPack, avail, status);
+				PreparedStatement statement = con.prepareStatement("CALL getPromoRequirement(?);");
+				statement.setInt(1, intID);
+				ResultSet requirementSet = statement.executeQuery();
 				
+				List<Requirement> requirements = new ArrayList<Requirement>();
+				
+				while(requirementSet.next()){
+					Requirement requirement = new Requirement(requirementSet.getInt(1), requirementSet.getString(2), 1);
+					requirements.add(requirement);
+				}
+				
+				statement.close();
+				requirementSet.close();
+				
+				Promo promo = new Promo(intID, name, desc, guide, price, max, servPack, prodPack, packPack, avail, status);
+				promo.setRequirements(requirements);
 				promoList.add(promo);
 			}
 			discounts.close();
@@ -372,8 +421,22 @@ public class PromoJDBCRepository implements PromoRepository{
 					price = discountedPrice.getDouble(1);
 				}
 				
-				Promo promo = new Promo(intID, name, desc, guide, price, max, servPack, prodPack, packPack, avail, status);
+				PreparedStatement statement = con.prepareStatement("CALL getPromoRequirement(?);");
+				statement.setInt(1, intID);
+				ResultSet requirementSet = statement.executeQuery();
 				
+				List<Requirement> requirements = new ArrayList<Requirement>();
+				
+				while(requirementSet.next()){
+					Requirement requirement = new Requirement(requirementSet.getInt(1), requirementSet.getString(2), 1);
+					requirements.add(requirement);
+				}
+				
+				statement.close();
+				requirementSet.close();
+				
+				Promo promo = new Promo(intID, name, desc, guide, price, max, servPack, prodPack, packPack, avail, status);
+				promo.setRequirements(requirements);
 				promoList.add(promo);
 			}
 			discounts.close();
@@ -500,8 +563,22 @@ public class PromoJDBCRepository implements PromoRepository{
 					}
 				}
 				
-				Promo promo = new Promo(intID, name, desc, guide, price, max, servPack, prodPack, packPack, avail, status);
+				PreparedStatement statement = con.prepareStatement("CALL getPromoRequirement(?);");
+				statement.setInt(1, intID);
+				ResultSet requirementSet = statement.executeQuery();
 				
+				List<Requirement> requirements = new ArrayList<Requirement>();
+				
+				while(requirementSet.next()){
+					Requirement requirement = new Requirement(requirementSet.getInt(1), requirementSet.getString(2), 1);
+					requirements.add(requirement);
+				}
+				
+				statement.close();
+				requirementSet.close();
+				
+				Promo promo = new Promo(intID, name, desc, guide, price, max, servPack, prodPack, packPack, avail, status);
+				promo.setRequirements(requirements);
 				promoList.add(promo);
 			}
 			discounts.close();

@@ -7,6 +7,7 @@ import java.util.List;
 import com.gss.model.Product;
 import com.gss.model.ProductPackage;
 import com.gss.model.Promo;
+import com.gss.model.Requirement;
 import com.gss.model.Service;
 import com.gss.model.ServicePackage;
 import com.gss.service.PackageService;
@@ -40,7 +41,7 @@ public class UpdatePromoAction {
 	private String servicePromoQty = "";
 	private String productPromoQty = "";
 	private String packagePromoQty = "";
-	
+	private String requirement = "";
 	private String result;
 	
 	public String execute(){
@@ -59,6 +60,7 @@ public class UpdatePromoAction {
 		List<ServicePackage> serviceList = new ArrayList<ServicePackage>();
 		List<ProductPackage> productList = new ArrayList<ProductPackage>();
 		List<PackagePackage> packageList = new ArrayList<PackagePackage>();
+		List<Requirement> requirements = new ArrayList<Requirement>();
 		
 		PromoService promoService = new PromoServiceImpl();
 		String result;
@@ -109,7 +111,8 @@ public class UpdatePromoAction {
 				}
 			}
 		}
-		
+		if(!requirement.equals(""))
+			requirements = Requirement.toOjbect(this.requirement.split(","));
 		
 		if(!strNonExp.equalsIgnoreCase("on")){
 			
@@ -120,11 +123,13 @@ public class UpdatePromoAction {
 			if(strFree.equals("on")){
 				
 				Promo promo = new Promo(intPromoID, strPromoName, strPromoDesc, strPromoGuidelines, 0, 1, serviceList, productList, packageList, expDate, 1);
+				promo.setRequirements(requirements);
 				this.result = promoService.updatePromo(promo);
 			}
 			else{
 				
 				Promo promo = new Promo(intPromoID, strPromoName, strPromoDesc, strPromoGuidelines, dblPromoPrice, 1, serviceList, productList, packageList, expDate, 1);
+				promo.setRequirements(requirements);
 				this.result = promoService.updatePromo(promo);
 			}
 		}
@@ -133,11 +138,13 @@ public class UpdatePromoAction {
 			if(strFree.equals("on")){
 				
 				Promo promo = new Promo(intPromoID, strPromoName, strPromoDesc, strPromoGuidelines, 0, 1, serviceList, productList, packageList, "NON-EXPIRY", 1);
+				promo.setRequirements(requirements);
 				this.result = promoService.updatePromo(promo);
 			}
 			else{
 				
 				Promo promo = new Promo(intPromoID, strPromoName, strPromoDesc, strPromoGuidelines, dblPromoPrice, 1, serviceList, productList, packageList, "NON-EXPIRY", 1);
+				promo.setRequirements(requirements);
 				this.result = promoService.updatePromo(promo);
 			}
 			
@@ -218,6 +225,11 @@ public class UpdatePromoAction {
 
 	public String getResult() {
 		return result;
+	}
+
+
+	public void setRequirement(String requirement) {
+		this.requirement = requirement;
 	}
 	
 	
