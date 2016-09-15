@@ -1,5 +1,6 @@
 package com.gss.actions;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +30,10 @@ public class UpdateDiscountAction {
 	private String checkedProducts = "";
 	private String checkedPackages = "";
 	private String checkedPromos = "";
+	
+	private String result;
 
-	public String execute() throws NumberFormatException{
+	public String execute() throws NumberFormatException, SQLException{
 
 		DiscountServiceImpl service = new DiscountServiceImpl();
 		Discount discount;
@@ -60,24 +63,14 @@ public class UpdateDiscountAction {
 		String result = "failed";
 		
 		try{
-				discount = new Discount(this.intDiscountID, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), PriceFormatHelper.convertToDouble(strDiscountPriceFixed, "Php "), productList, serviceList, packageList, promoList, 1);
-				
-				if(service.updateDiscount(discount) == true)
-					result = "success";
-			
-				
-			return result;
+			discount = new Discount(1, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), PriceFormatHelper.convertToDouble(strDiscountPriceFixed, "Php "), productList, serviceList, packageList, promoList, 1);
+			this.result = service.updateDiscount(discount);
+			return this.result;
 		}
-		catch(Exception e){
-			e.printStackTrace();
-			
-			discount = new Discount(this.intDiscountID, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), strDiscountPricePercent, productList, serviceList, packageList, promoList, 1);
-			
-			if(service.updateDiscount(discount) == true)
-				result = "success";
-		
-			
-			return result;
+		catch(Exception e){	
+			discount = new Discount(1, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), strDiscountPricePercent, productList, serviceList, packageList, promoList, 1);
+			this.result = service.updateDiscount(discount);
+			return this.result;
 		}
 	}
 
@@ -133,4 +126,7 @@ public class UpdateDiscountAction {
 		this.intDiscountID = intDiscountID;
 	}
 
+	public String getResult() {
+		return result;
+	}
 }

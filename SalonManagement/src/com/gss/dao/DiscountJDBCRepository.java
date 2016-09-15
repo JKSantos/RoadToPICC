@@ -16,6 +16,7 @@ import com.gss.utilities.SearchPackage;
 import com.gss.utilities.SearchProduct;
 import com.gss.utilities.SearchPromo;
 import com.gss.utilities.SearchService;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.gss.model.Package;
 
 public class DiscountJDBCRepository implements DiscountRepository{
@@ -143,7 +144,7 @@ public class DiscountJDBCRepository implements DiscountRepository{
 	}
 
 	@Override
-	public boolean createDiscount(Discount discount) throws SQLException {
+	public String createDiscount(Discount discount) throws SQLException {
 		
 		Connection con 				= jdbc.getConnection();
 		String strQuery 			= "CALL createDiscount(?, ? ,?, ?, ?, ?)";
@@ -217,18 +218,20 @@ public class DiscountJDBCRepository implements DiscountRepository{
 			
 			con.commit();
 			con.close();
-			return true;
+			return "success";
 			
+		}catch(MySQLIntegrityConstraintViolationException m){
+			return "existing";
 		}
-		catch(Exception e){
+		catch(SQLException e){
 			e.printStackTrace();
 			con.rollback();
-			return false;
+			return "failed";
 		}
 	}
 
 	@Override
-	public boolean updateDiscount(Discount discount) throws SQLException {
+	public String updateDiscount(Discount discount) throws SQLException {
 		
 		Connection con 				= jdbc.getConnection();
 		String query 				= "CALL updateDiscount(?, ?, ?, ?, ?, ?, ?)";
@@ -318,12 +321,14 @@ public class DiscountJDBCRepository implements DiscountRepository{
 			
 			con.commit();
 			con.close();
-			return true;
+			return "success";
+		}catch(MySQLIntegrityConstraintViolationException m){
+			return "existing";
 		}
 		catch(Exception e){
 			e.printStackTrace();
 			con.rollback();
-			return false;
+			return "failed";
 		}
 	}
 

@@ -1,5 +1,6 @@
 package com.gss.actions;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +31,10 @@ public class CreateDiscountAction {
 	private String checkedProducts = "";
 	private String checkedPackages = "";
 	private String checkedPromos = "";
+	
+	private String result;
 
-	public String execute(){
-		
-		System.out.println("DISCOUNT TYPE:		" + strDiscountType);
-		System.out.println("DISCOUNT VALUE		" + strDiscountPricePercent);
+	public String execute() throws SQLException{
 
 		DiscountServiceImpl service = new DiscountServiceImpl();
 		Discount discount;
@@ -61,22 +61,14 @@ public class CreateDiscountAction {
 		String result = "failed";
 		
 		try{
-				discount = new Discount(1, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), PriceFormatHelper.convertToDouble(strDiscountPriceFixed, "Php "), productList, serviceList, packageList, promoList, 1);
-				
-				if(service.createDiscount(discount) == true)
-					result = "success";
-			
-				
-			return result;
+			discount = new Discount(1, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), PriceFormatHelper.convertToDouble(strDiscountPriceFixed, "Php "), productList, serviceList, packageList, promoList, 1);
+			this.result = service.createDiscount(discount);
+			return this.result;
 		}
 		catch(Exception e){	
 			discount = new Discount(1, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), strDiscountPricePercent, productList, serviceList, packageList, promoList, 1);
-			
-			if(service.createDiscount(discount) == true)
-				result = "success";
-		
-			
-			return result;
+			this.result = service.createDiscount(discount);
+			return this.result;
 		}
 	}
 
@@ -123,6 +115,8 @@ public class CreateDiscountAction {
 	public void setStrDiscountPricePercent(double strDiscountPricePercent) {
 		this.strDiscountPricePercent = strDiscountPricePercent;
 	}
-	
 
+	public String getResult() {
+		return result;
+	}
 }

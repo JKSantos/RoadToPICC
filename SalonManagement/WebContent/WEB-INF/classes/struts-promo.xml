@@ -20,11 +20,13 @@
 		<action name="createPromo" class="com.gss.actions.CreatePromoAction">
 			<result name="success" type="json"/>
 			<result name="failed" type="json"/>
+			<result name="existing" type="json"/>
 		</action>
 		
 		<action name="updatePromo" class="com.gss.actions.UpdatePromoAction">
 			<result name="success" type="json"/>
 			<result name="failed" type="json"/>
+			<result name="existing" type="json"/>
 		</action>
 		
 		<action name="promoMaintenance" class="com.gss.actions.PromoMaintenanceAction">

@@ -38,6 +38,11 @@
 			<result name="success" type="json"></result>
 			<result name="failed" type="json"></result>
 		</action>
+		
+		<action name="getUsernames" class="com.gss.actions.CustomerAccount.ResendVerification">
+			<result name="success" type="json"></result>
+			<result name="failed" type="json"></result>
+		</action>
 
 	</package>	
 		

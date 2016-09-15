@@ -41,6 +41,8 @@ public class UpdatePromoAction {
 	private String productPromoQty = "";
 	private String packagePromoQty = "";
 	
+	private String result;
+	
 	public String execute(){
 		
 		System.out.println("Packages checked: " + packagePromoSelect);
@@ -59,7 +61,7 @@ public class UpdatePromoAction {
 		List<PackagePackage> packageList = new ArrayList<PackagePackage>();
 		
 		PromoService promoService = new PromoServiceImpl();
-		boolean result;
+		String result;
 		
 		String[] services = servicePromoSelect.split(", ");
 		String[] products = productPromoSelect.split(", ");
@@ -118,12 +120,12 @@ public class UpdatePromoAction {
 			if(strFree.equals("on")){
 				
 				Promo promo = new Promo(intPromoID, strPromoName, strPromoDesc, strPromoGuidelines, 0, 1, serviceList, productList, packageList, expDate, 1);
-				result = promoService.updatePromo(promo);
+				this.result = promoService.updatePromo(promo);
 			}
 			else{
 				
 				Promo promo = new Promo(intPromoID, strPromoName, strPromoDesc, strPromoGuidelines, dblPromoPrice, 1, serviceList, productList, packageList, expDate, 1);
-				result = promoService.updatePromo(promo);
+				this.result = promoService.updatePromo(promo);
 			}
 		}
 		else{
@@ -131,20 +133,17 @@ public class UpdatePromoAction {
 			if(strFree.equals("on")){
 				
 				Promo promo = new Promo(intPromoID, strPromoName, strPromoDesc, strPromoGuidelines, 0, 1, serviceList, productList, packageList, "NON-EXPIRY", 1);
-				result = promoService.updatePromo(promo);
+				this.result = promoService.updatePromo(promo);
 			}
 			else{
 				
 				Promo promo = new Promo(intPromoID, strPromoName, strPromoDesc, strPromoGuidelines, dblPromoPrice, 1, serviceList, productList, packageList, "NON-EXPIRY", 1);
-				result = promoService.updatePromo(promo);
+				this.result = promoService.updatePromo(promo);
 			}
 			
 		}
 		
-		if(result == true)
-			return "success";
-		else
-			return "failed";
+		return this.result;
 	}
 
 
@@ -214,6 +213,11 @@ public class UpdatePromoAction {
 
 	public void setStrPromoGuidelines(String strPromoGuidelines) {
 		this.strPromoGuidelines = strPromoGuidelines;
+	}
+
+
+	public String getResult() {
+		return result;
 	}
 	
 	

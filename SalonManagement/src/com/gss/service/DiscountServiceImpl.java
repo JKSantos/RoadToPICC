@@ -16,28 +16,18 @@ public class DiscountServiceImpl implements DiscountService{
 		return repo.getAllDiscount();
 	}
 	
-	public boolean createDiscount(Discount discount){
+	public String createDiscount(Discount discount) throws SQLException{
 		
 		DiscountRepository repo = new DiscountJDBCRepository();
 		
-		try {
-			return repo.createDiscount(discount);
-		} catch (SQLException e){
-			e.printStackTrace();
-			return false;
-		}
+		return repo.createDiscount(discount);
 	}
 	
-	public boolean updateDiscount(Discount discount){
+	public String updateDiscount(Discount discount) throws SQLException{
 	
 		DiscountRepository repo = new DiscountJDBCRepository();
 		
-		try {
-			return repo.updateDiscount(discount);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
+		return repo.updateDiscount(discount);
 	}
 
 	@Override

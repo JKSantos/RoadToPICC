@@ -41,6 +41,8 @@ public class CreatePromoAction {
 	private String productPromoQty = "";
 	private String packagePromoQty = "";
 	
+	private String result;
+	
 	public String execute(){
 		
 		ServiceService serviceService = new ServiceServiceImpl();
@@ -56,7 +58,7 @@ public class CreatePromoAction {
 		List<PackagePackage> packageList = new ArrayList<PackagePackage>();
 		
 		PromoService promoService = new PromoServiceImpl();
-		boolean result;
+		String result;
 		
 		String[] services = servicePromoSelect.split(", ");
 		String[] products = productPromoSelect.split(", ");
@@ -135,20 +137,17 @@ public class CreatePromoAction {
 			if(strFree.equals("on")){
 				
 				Promo promo = new Promo(1, strPromoName, strPromoDesc, strPromoGuidelines, 0, 1, serviceList, productList, packageList, "NON-EXPIRY", 1);
-				result = promoService.createPromo(promo);
+				this.result = promoService.createPromo(promo);
 			}
 			else{
 				
 				Promo promo = new Promo(1, strPromoName, strPromoDesc, strPromoGuidelines, dblPromoPrice, 1, serviceList, productList, packageList, "NON-EXPIRY", 1);
-				result = promoService.createPromo(promo);
+				this.result = promoService.createPromo(promo);
 			}
 			
 		}
 		
-		if(result == true)
-			return "success";
-		else
-			return "failed";
+		return this.result;
 	}
 
 
@@ -214,6 +213,11 @@ public class CreatePromoAction {
 
 	public void setStrPromoGuidelines(String strPromoGuidelines) {
 		this.strPromoGuidelines = strPromoGuidelines;
+	}
+
+
+	public String getResult() {
+		return result;
 	}
 	
 	

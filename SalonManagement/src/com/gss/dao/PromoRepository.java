@@ -7,9 +7,9 @@ import com.gss.model.Promo;
 
 public interface PromoRepository {
 	
-	public boolean createPromo(Promo promo);
+	public String createPromo(Promo promo);
 	
-	public boolean updatePromo(Promo promo);
+	public String updatePromo(Promo promo);
 	
 	public List<Promo> getAllPromo();
 	
