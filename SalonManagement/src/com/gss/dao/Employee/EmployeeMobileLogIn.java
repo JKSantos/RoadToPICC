@@ -12,6 +12,7 @@ import java.util.List;
 import com.gss.connection.JDBCConnection;
 import com.gss.model.Employee;
 import com.gss.model.Job;
+import com.gss.model.Specialization;
 
 public class EmployeeMobileLogIn {
 	
@@ -65,7 +66,19 @@ public class EmployeeMobileLogIn {
 					jobs.add(job);
 				}
 				
-				emp = new Employee(intEmpID, strEmpLastName, strEmpFirstName, strEmpMiddleName, datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, strEmpStatus, strEmpUsername, strEmpPassword, blobEmpPhoto, blobAsBytes, jobs, access, strJobStatus);
+				PreparedStatement spec = con.prepareStatement("CALL getSpecialization(?);");
+				spec.setInt(1, intEmpID);
+				ResultSet specSet = spec.executeQuery();
+				
+				List<Specialization> specialization = new ArrayList<Specialization>();
+				
+				while(specSet.next()){
+					specialization.add(new Specialization(specSet.getInt(1), specSet.getString(2)));
+				}
+				spec.close();
+				specSet.close();
+				
+				emp = new Employee(intEmpID, strEmpLastName, strEmpFirstName, strEmpMiddleName, datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, strEmpStatus, strEmpUsername, strEmpPassword, blobEmpPhoto, blobAsBytes, jobs, access, strJobStatus, specialization);
 
 			}
 			

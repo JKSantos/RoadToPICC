@@ -1,5 +1,6 @@
 package com.gss.service;
 
+import java.sql.SQLException;
 import java.util.List;
 import com.gss.model.Discount;
 
@@ -7,9 +8,9 @@ public interface DiscountService {
 	
 	public List<Discount> getAllDiscount();
 	
-	public boolean createDiscount(Discount discount);
+	public String createDiscount(Discount discount) throws SQLException;
 	
-	public boolean updateDiscount(Discount discount);
+	public String updateDiscount(Discount discount) throws SQLException;
 	
 	public boolean deactivateDiscount(int intDiscountID);
 	

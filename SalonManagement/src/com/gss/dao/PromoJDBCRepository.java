@@ -13,6 +13,7 @@ import com.gss.connection.JDBCConnection;
 import com.gss.model.Product;
 import com.gss.model.ProductPackage;
 import com.gss.model.Promo;
+import com.gss.model.Requirement;
 import com.gss.model.Service;
 import com.gss.model.ServicePackage;
 import com.gss.model.PackagePackage;
@@ -22,6 +23,7 @@ import com.gss.service.ProductService;
 import com.gss.service.ProductServiceImpl;
 import com.gss.service.ServiceService;
 import com.gss.service.ServiceServiceImpl;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.gss.model.Package;
 
 public class PromoJDBCRepository implements PromoRepository{
@@ -29,7 +31,7 @@ public class PromoJDBCRepository implements PromoRepository{
 	JDBCConnection jdbc = new JDBCConnection();
 	
 	@Override
-	public boolean createPromo(Promo promo) {
+	public String createPromo(Promo promo) {
 		
 		Connection con = jdbc.getConnection();
 		String strQuery1 = "CALL createPromo(?, ?, ?, ?, ?, ?);";
@@ -95,17 +97,36 @@ public class PromoJDBCRepository implements PromoRepository{
 				pre2.close();
 			}
 			
+			try{
+				PreparedStatement requirements = con.prepareStatement("INSERT INTO tblPromoRequirement(intPromoID, intRequirementID) VALUES(?, ?);");
+				
+				for(int index = 0; index < promo.getRequirements().size(); index++){
+					Requirement req = promo.getRequirements().get(index);
+					requirements.setInt(1, intID);
+					requirements.setInt(2, req.getIntRequirementID());
+					requirements.addBatch();
+				}
+				
+				requirements.executeBatch();
+				requirements.close();
+				
+			}catch(NullPointerException ne){
+				//do nothing
+			}
+			
 			con.close();
-			return true;
+			return "success";
 		}
-		catch(Exception e){
-			System.out.println(e.fillInStackTrace());
-			return false;
+		catch(MySQLIntegrityConstraintViolationException e){
+			return "existing";
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return "failed";
 		}
 	}
 
 	@Override
-	public boolean updatePromo(Promo promo) {
+	public String updatePromo(Promo promo) {
 		
 		Connection con = jdbc.getConnection();
 		String query1 = "CALL updatePromo(?, ?, ?, ?, ?, ?, ?)";
@@ -169,14 +190,31 @@ public class PromoJDBCRepository implements PromoRepository{
 				pre2.close();
 			}
 			
-			return true;
+			try{
+				PreparedStatement requirements = con.prepareStatement("INSERT INTO tblPromoRequirement(intPromoID, intRequirementID) VALUES(?, ?);");
+				
+				for(int index = 0; index < promo.getRequirements().size(); index++){
+					Requirement req = promo.getRequirements().get(index);
+					requirements.setInt(1, intID);
+					requirements.setInt(2, req.getIntRequirementID());
+					requirements.addBatch();
+				}
+				
+				requirements.executeBatch();
+				requirements.close();
+				
+			}catch(NullPointerException ne){
+				//do nothing
+			}
+			
+			return "success";
+		}catch(MySQLIntegrityConstraintViolationException m){
+			return "existing";
 		}
-		catch(Exception e){
+		catch(SQLException e){
 			e.printStackTrace();
-			return false;
+			return "failed";
 		}
-		
-		
 	}
 
 	@Override
@@ -290,8 +328,22 @@ public class PromoJDBCRepository implements PromoRepository{
 					}
 				}
 				
-				Promo promo = new Promo(intID, name, desc, guide, price, max, servPack, prodPack, packPack, avail, status);
+				PreparedStatement statement = con.prepareStatement("CALL getPromoRequirement(?);");
+				statement.setInt(1, intID);
+				ResultSet requirementSet = statement.executeQuery();
 				
+				List<Requirement> requirements = new ArrayList<Requirement>();
+				
+				while(requirementSet.next()){
+					Requirement requirement = new Requirement(requirementSet.getInt(1), requirementSet.getString(2), 1);
+					requirements.add(requirement);
+				}
+				
+				statement.close();
+				requirementSet.close();
+				
+				Promo promo = new Promo(intID, name, desc, guide, price, max, servPack, prodPack, packPack, avail, status);
+				promo.setRequirements(requirements);
 				promoList.add(promo);
 			}
 			discounts.close();
@@ -369,8 +421,22 @@ public class PromoJDBCRepository implements PromoRepository{
 					price = discountedPrice.getDouble(1);
 				}
 				
-				Promo promo = new Promo(intID, name, desc, guide, price, max, servPack, prodPack, packPack, avail, status);
+				PreparedStatement statement = con.prepareStatement("CALL getPromoRequirement(?);");
+				statement.setInt(1, intID);
+				ResultSet requirementSet = statement.executeQuery();
 				
+				List<Requirement> requirements = new ArrayList<Requirement>();
+				
+				while(requirementSet.next()){
+					Requirement requirement = new Requirement(requirementSet.getInt(1), requirementSet.getString(2), 1);
+					requirements.add(requirement);
+				}
+				
+				statement.close();
+				requirementSet.close();
+				
+				Promo promo = new Promo(intID, name, desc, guide, price, max, servPack, prodPack, packPack, avail, status);
+				promo.setRequirements(requirements);
 				promoList.add(promo);
 			}
 			discounts.close();
@@ -497,8 +563,22 @@ public class PromoJDBCRepository implements PromoRepository{
 					}
 				}
 				
-				Promo promo = new Promo(intID, name, desc, guide, price, max, servPack, prodPack, packPack, avail, status);
+				PreparedStatement statement = con.prepareStatement("CALL getPromoRequirement(?);");
+				statement.setInt(1, intID);
+				ResultSet requirementSet = statement.executeQuery();
 				
+				List<Requirement> requirements = new ArrayList<Requirement>();
+				
+				while(requirementSet.next()){
+					Requirement requirement = new Requirement(requirementSet.getInt(1), requirementSet.getString(2), 1);
+					requirements.add(requirement);
+				}
+				
+				statement.close();
+				requirementSet.close();
+				
+				Promo promo = new Promo(intID, name, desc, guide, price, max, servPack, prodPack, packPack, avail, status);
+				promo.setRequirements(requirements);
 				promoList.add(promo);
 			}
 			discounts.close();

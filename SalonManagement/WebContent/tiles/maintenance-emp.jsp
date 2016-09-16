@@ -351,6 +351,9 @@ String granAccess = null;
                                 <div class="input-field col s8" style="margin-top: -15px !important;">
                                     <select name="selectedSpecialization" id="crSpecialization" multiple="multiple">
                                         <option value="default" disabled selected>Choose...</option>
+                                        <c:forEach items="${categoryList}" var="category">
+                                             <option value="${category.categoryID}">${category.categoryName}</option>
+                                       	</c:forEach>
                                     </select>
                                     <label for="crSpecialization"><b>Specialization</b></label>
                                 </div>
@@ -626,7 +629,18 @@ String granAccess = null;
                                             <div class="input-field col s8" style="margin-top: -15px !important;">
                                                 <select name="upSpecialization" id="upSpecialization" multiple="multiple"
                                                         class="upSpecialization">
-                                                    <option value="default" disabled>Choose...</option>
+                                                        <option value="default" disabled>Choose...</option>
+                                                  	<c:forEach items="${categoryList}" var="category">
+                                                  		<c:set var="isCheck" scope="session" value=""/>
+                                                  		<c:forEach items="${employee.specialization}" var="spec">
+                                                  			<c:choose>
+                                                  			<c:when test="${category.categoryID == spec.id}">
+                                                    			<c:set var="isCheck" scope="session" value="selected"/>
+                                                    		</c:when>
+                                                    		</c:choose>
+                                                    	</c:forEach>
+                                                    	<option value="${category.categoryID}" ${isCheck}>${category.categoryName}</option>
+                                                    </c:forEach>
                                                 </select>
                                                 <label for="upSpecialization"><b>Specialization</b></label>
                                             </div>

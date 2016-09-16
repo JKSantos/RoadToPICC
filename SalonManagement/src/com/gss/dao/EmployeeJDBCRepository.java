@@ -12,6 +12,7 @@ import com.gss.connection.JDBCConnection;
 import com.gss.model.Employee;
 import com.gss.model.EmployeeCategory;
 import com.gss.model.Job;
+import com.gss.model.Specialization;
 import com.gss.utilities.JobQualificationHelper;
 
 import java.io.File;
@@ -53,6 +54,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 		
 		try{
 			PreparedStatement st = con.prepareStatement(strQuery1);
+		
 			
 			ResultSet set = st.executeQuery(strQuery1);
 
@@ -101,7 +103,19 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 					jobs.add(job);
 				}
 				
-				Employee emp = new Employee(intEmpID, strEmpLastName, strEmpFirstName, strEmpMiddleName, datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, strEmpStatus, strEmpUsername, strEmpPassword, blobEmpPhoto, blobAsBytes, jobs, access, strJobStatus);
+				PreparedStatement spec = con.prepareStatement("CALL getSpecialization(?);");
+				spec.setInt(1, intEmpID);
+				ResultSet specSet = spec.executeQuery();
+				
+				List<Specialization> specialization = new ArrayList<Specialization>();
+				
+				while(specSet.next()){
+					specialization.add(new Specialization(specSet.getInt(1), specSet.getString(2)));
+				}
+				spec.close();
+				specSet.close();
+				
+				Employee emp = new Employee(intEmpID, strEmpLastName, strEmpFirstName, strEmpMiddleName, datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, strEmpStatus, strEmpUsername, strEmpPassword, blobEmpPhoto, blobAsBytes, jobs, access, strJobStatus, specialization);
 				
 				empList.add(emp);
 			
@@ -186,8 +200,19 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 					jobs.add(job);
 				}
 				
-				emp = new Employee(intEmpID, strEmpLastName, strEmpFirstName, strEmpMiddleName, datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, strEmpStatus, strEmpUsername, strEmpPassword, blobEmpPhoto, blobAsBytes, jobs, access, strJobStatus);
-
+				PreparedStatement spec = con.prepareStatement("CALL getSpecialization(?);");
+				spec.setInt(1, intEmpID);
+				ResultSet specSet = spec.executeQuery();
+				
+				List<Specialization> specialization = new ArrayList<Specialization>();
+				
+				while(specSet.next()){
+					specialization.add(new Specialization(specSet.getInt(1), specSet.getString(2)));
+				}
+				
+				emp = new Employee(intEmpID, strEmpLastName, strEmpFirstName, strEmpMiddleName, datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, strEmpStatus, strEmpUsername, strEmpPassword, blobEmpPhoto, blobAsBytes, jobs, access, strJobStatus, specialization);
+				spec.close();
+				specSet.close();
 			}
 			
 			st.close();
@@ -265,7 +290,19 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 					jobs.add(job);
 				}
 				
-				employee = new Employee(intEmpID, strEmpLastName, strEmpFirstName, strEmpMiddleName, datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, strEmpStatus, strEmpUsername, strEmpPassword, blobEmpPhoto, blobAsBytes, jobs, access, strJobStatus);
+				PreparedStatement spec = con.prepareStatement("CALL getSpecialization(?);");
+				spec.setInt(1, intEmpID);
+				ResultSet specSet = spec.executeQuery();
+				
+				List<Specialization> specialization = new ArrayList<Specialization>();
+				
+				while(specSet.next()){
+					specialization.add(new Specialization(specSet.getInt(1), specSet.getString(2)));
+				}
+				spec.close();
+				specSet.close();
+				
+				employee = new Employee(intEmpID, strEmpLastName, strEmpFirstName, strEmpMiddleName, datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, strEmpStatus, strEmpUsername, strEmpPassword, blobEmpPhoto, blobAsBytes, jobs, access, strJobStatus, specialization);
 				
 			}
 			
@@ -285,6 +322,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 		
 		String strQuery1 = "CALL `createEmp`(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		String strQuery2 = "CALL `createJobQualification`(?, ?);";
+		String strQuery3 = "INSERT INTO tblSpecialization(intServiceCategoryID, intEmployeeID) VALUES(?, ?);";
 		List<Job> job = emp.getJobQualification();
 		
 				
@@ -302,6 +340,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 			
 			PreparedStatement createJob = con.prepareStatement(strQuery2);
 			PreparedStatement pre = con.prepareStatement(strQuery1);
+			PreparedStatement spec = con.prepareStatement(strQuery3);
 			pre.setString(1, emp.getStrEmpLastName());
 			pre.setString(2, emp.getStrEmpFirstName());
 			pre.setString(3, emp.getStrEmpMiddleName());
@@ -328,6 +367,18 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 				createJob.setString(2, job.get(i).getStrJobDesc());
 				createJob.execute();
 			}
+			
+			for(int index = 0; index < emp.getSpecialization().size(); index++){
+				Specialization specialization =  emp.getSpecialization().get(index);
+				spec.setInt(1, specialization.getId());
+				spec.setInt(2, intEmpID);
+				spec.addBatch();
+			}
+			
+			spec.executeBatch();
+			spec.close();
+			
+			
 			createJob.close();
 			con.close();
 			
@@ -346,6 +397,8 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 		
 		String strQuery1 = "CALL updateEmployee( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		String updateJob = "CALL updateJob(?, ?)";
+		String delete = "DELETE From tblSpecialization WHERE intEmployeeID = ?;";
+		String insert = "INSERT INTO tblSpecialization(intServiceCategoryID, intEmployeeID) VALUES(?, ?);";
 		
 		JDBCConnection jdbc = new JDBCConnection();
 		Connection con = jdbc.getConnection();
@@ -356,6 +409,8 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 			java.sql.Date sqlDate = new java.sql.Date(emp.getDatEmpBirthdate().getTime());
 			
 			PreparedStatement pre = con.prepareStatement(strQuery1);
+			PreparedStatement spec = con.prepareStatement(insert);
+			PreparedStatement del = con.prepareStatement(delete);
 
 			if(emp.getBlobEmpPhoto().equalsIgnoreCase("image")){
 				pre.setInt(1, emp.getIntEmpID());
@@ -396,6 +451,10 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 			
 			pre.execute();
 			
+			del.setInt(1, emp.getIntEmpID());
+			del.execute();
+			del.close();
+			
 			List<Job> jobList = emp.getJobQualification();
 			
 			for(int i = 0; i < jobList.size(); i++){
@@ -405,6 +464,16 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 				update.execute();
 				update.close();
 			}
+			
+			for(int index = 0; index < emp.getSpecialization().size(); index++){
+				Specialization specialization =  emp.getSpecialization().get(index);
+				spec.setInt(1, specialization.getId());
+				spec.setInt(2, intEmpID);
+				spec.addBatch();
+			}
+			
+			spec.executeBatch();
+			spec.close();
 			
 			pre.close();
 			con.close();
@@ -569,7 +638,19 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 					jobs.add(job);
 				}
 				
-				Employee emp = new Employee(intEmpID, strEmpLastName, strEmpFirstName, strEmpMiddleName, datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, strEmpStatus, strEmpUsername, strEmpPassword, blobEmpPhoto, blobAsBytes, jobs, access, strJobStatus);
+				PreparedStatement spec = con.prepareStatement("CALL getSpecialization(?);");
+				spec.setInt(1, intEmpID);
+				ResultSet specSet = spec.executeQuery();
+				
+				List<Specialization> specialization = new ArrayList<Specialization>();
+				
+				while(specSet.next()){
+					specialization.add(new Specialization(specSet.getInt(1), specSet.getString(2)));
+				}
+				spec.close();
+				specSet.close();
+				
+				Employee emp = new Employee(intEmpID, strEmpLastName, strEmpFirstName, strEmpMiddleName, datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, strEmpStatus, strEmpUsername, strEmpPassword, blobEmpPhoto, blobAsBytes, jobs, access, strJobStatus, specialization);
 				
 				empList.add(emp);
 			}
@@ -646,7 +727,19 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 					jobs.add(job);
 				}
 				
-				Employee emp = new Employee(intEmpID, strEmpLastName, strEmpFirstName, strEmpMiddleName, datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, strEmpStatus, strEmpUsername, strEmpPassword, blobEmpPhoto, blobAsBytes, jobs, access, strJobStatus);
+				PreparedStatement spec = con.prepareStatement("CALL getSpecialization(?);");
+				spec.setInt(1, intEmpID);
+				ResultSet specSet = spec.executeQuery();
+				
+				List<Specialization> specialization = new ArrayList<Specialization>();
+				
+				while(specSet.next()){
+					specialization.add(new Specialization(specSet.getInt(1), specSet.getString(2)));
+				}
+				spec.close();
+				specSet.close();
+				
+				Employee emp = new Employee(intEmpID, strEmpLastName, strEmpFirstName, strEmpMiddleName, datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, strEmpStatus, strEmpUsername, strEmpPassword, blobEmpPhoto, blobAsBytes, jobs, access, strJobStatus, specialization);
 				
 				empList.add(emp);
 			}

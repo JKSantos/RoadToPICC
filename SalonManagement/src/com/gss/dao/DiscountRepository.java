@@ -9,9 +9,9 @@ public interface DiscountRepository {
 	
 	public List<Discount> getAllDiscount();
 	
-	public boolean createDiscount(Discount discount) throws SQLException ;
+	public String createDiscount(Discount discount) throws SQLException ;
 	
-	public boolean updateDiscount(Discount discount) throws SQLException ;
+	public String updateDiscount(Discount discount) throws SQLException ;
 	
 	public boolean deactivateDiscount(int intDiscountID);
 	

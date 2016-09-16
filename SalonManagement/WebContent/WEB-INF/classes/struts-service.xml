@@ -31,6 +31,14 @@
 		<action name="getServiceCategory" class="com.gss.actions.Service.GetServiceCategory" method="execute">
 			<result name="success" type="json"></result>
 		</action>
+		
+		<action name="getServiceNames" class="com.gss.actions.Service.GetServiceNames" method="execute">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="getServiceNamesWithID" class="com.gss.actions.Service.GetServiceNamesWithID" method="execute">
+			<result name="success" type="json"></result>
+		</action>
 
 	</package>	
 		

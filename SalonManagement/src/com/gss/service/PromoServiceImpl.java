@@ -9,14 +9,14 @@ import com.gss.model.Promo;
 
 public class PromoServiceImpl implements PromoService{
 
-	public boolean createPromo(Promo promo) {
+	public String createPromo(Promo promo) {
 		
 		PromoRepository repo = new PromoJDBCRepository();
 		
 		return repo.createPromo(promo);
 	}
 
-	public boolean updatePromo(Promo promo) {
+	public String updatePromo(Promo promo) {
 		
 		PromoRepository repo = new PromoJDBCRepository();
 		

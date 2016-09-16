@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.gss.model.Employee;
 import com.gss.model.Job;
+import com.gss.model.Specialization;
 import com.gss.service.EmployeeServiceImpl;
 import com.gss.utilities.DateHelper;
 import com.gss.utilities.JobQualificationHelper;
@@ -36,6 +37,8 @@ public class UpdateEmployeeAction extends ActionSupport{
 	private String imageName;
 	private String chkGrantAccess = "off";
 	
+	private List<String> upSpecialization = new ArrayList<String>();
+	
 	public String execute(){
 		
 		EmployeeServiceImpl empService = new EmployeeServiceImpl();
@@ -54,12 +57,14 @@ public class UpdateEmployeeAction extends ActionSupport{
 
 		this.datEmpBirthdate = DateHelper.parseDate(strBirthdate);
 		
+		List<Specialization> specialization = Specialization.convertToObject(this.upSpecialization);
+		
 		if(imageName.equals("image")){
-			emp = new Employee(intEmpID, strEmpLastName.trim().toUpperCase(), strEmpFirstName.trim().toUpperCase(), strEmpMiddleName.trim().toUpperCase(), this.datEmpBirthdate, strEmpGender, strEmpAddress.trim().toUpperCase(), strEmpContactNo, strEmpEmail, "A", "NO ACCESS", "NO ACCESS", "Image", null, jobList, access, "");
+			emp = new Employee(intEmpID, strEmpLastName.trim().toUpperCase(), strEmpFirstName.trim().toUpperCase(), strEmpMiddleName.trim().toUpperCase(), this.datEmpBirthdate, strEmpGender, strEmpAddress.trim().toUpperCase(), strEmpContactNo, strEmpEmail, "A", "NO ACCESS", "NO ACCESS", "Image", null, jobList, access, "", specialization);
 		}
 		else{
 			imageName = file.getAbsolutePath();
-			emp = new Employee(intEmpID, strEmpLastName.trim().toUpperCase(), strEmpFirstName.trim().toUpperCase(), strEmpMiddleName.trim().toUpperCase(), datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, "A", "NO ACCESS", "NO ACCESS", imageName, null, jobList, access, "");
+			emp = new Employee(intEmpID, strEmpLastName.trim().toUpperCase(), strEmpFirstName.trim().toUpperCase(), strEmpMiddleName.trim().toUpperCase(), datEmpBirthdate, strEmpGender, strEmpAddress, strEmpContactNo, strEmpEmail, "A", "NO ACCESS", "NO ACCESS", imageName, null, jobList, access, "", specialization);
 		}
 		
 		if(empService.updateEmployee(emp) == true)
@@ -229,6 +234,13 @@ public class UpdateEmployeeAction extends ActionSupport{
 	public void setChkGrantAccess(String chkGrantAccess) {
 		this.chkGrantAccess = chkGrantAccess;
 	}
+
+
+	public void setUpSpecialization(List<String> upSpecialization) {
+		this.upSpecialization = upSpecialization;
+	}
+
+
 
 	
 }

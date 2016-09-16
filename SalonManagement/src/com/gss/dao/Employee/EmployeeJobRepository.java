@@ -295,7 +295,12 @@ public class EmployeeJobRepository {
 				int transID = set.getInt(2);
 				String transType = "DELIVERY";
 				String jobType = "DELIVERY";
-				String jobDate = DateHelper.stringDate(set.getDate(3));
+				String jobDate = "";
+				try{
+					 jobDate = DateHelper.stringDate(set.getDate(3));
+				}catch(NullPointerException e){
+					jobDate = "";
+				}
 				String customer = set.getString(4);
 				String service = "N/A";
 				String status = set.getString(5);

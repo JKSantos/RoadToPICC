@@ -185,6 +185,10 @@ public class CustomerRegistration {
 				
 				customer = new CustomerAccount(intID, name, contact, email, user, pass);
 			}
+			
+			statement.close();
+			set.close();
+			con.close();
 				
 			return customer;
 		}catch(Exception e){
@@ -210,10 +214,45 @@ public class CustomerRegistration {
 				usernameList.add(username);
 			}
 			
+			statement.close();
+			set.close();
+			con.close();
+			
 			return usernameList;
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;
+		}
+	}
+	
+	public static boolean resendSms(String code, int customerID){
+		Connection con = jdbc.getConnection();
+		
+		String query = "SELECT strContactNo FROM tblCustomer WHERE intID = ?;";
+		String message = "Good Day! Your verification code for Salon App is " + code;
+		String contact = "";
+		
+		try{
+			PreparedStatement statement = con.prepareStatement(query);
+			
+			ResultSet set = statement.executeQuery();
+			
+			while(set.next()){
+				
+				contact = set.getString(1);
+			}
+			
+			SMSSender sender = new SMSSender();
+			sender.sendSMS(message, contact);
+			
+			statement.close();
+			set.close();
+			con.close();
+			
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
 		}
 	}
 }

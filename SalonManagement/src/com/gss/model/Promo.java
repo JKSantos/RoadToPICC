@@ -21,6 +21,7 @@ public class Promo {
 	private List<PackagePackage> packageList;
 	private String strPromoAvailability;
 	private int intStatus;
+	private List<Requirement> requirements;
 	
 	public Promo(int intPromoID, String strPromoName, String strPromoDescription, String strPromoGuidelines, double dblPromoPrice, int intMaxHeadCount, List<ServicePackage> serviceList, List<ProductPackage> productList, List<PackagePackage> packageList, String strPromoAvailability, int intStatus){
 		
@@ -161,5 +162,13 @@ public class Promo {
 		PromoService service = new PromoServiceImpl();
 		
 		service.checkExpiredPomo();
+	}
+
+	public List<Requirement> getRequirements() {
+		return requirements;
+	}
+
+	public void setRequirements(List<Requirement> requirements) {
+		this.requirements = requirements;
 	}
 }

@@ -11,11 +11,13 @@ import com.gss.connection.JDBCConnection;
 import com.gss.model.Discount;
 import com.gss.model.Product;
 import com.gss.model.Promo;
+import com.gss.model.Requirement;
 import com.gss.model.Service;
 import com.gss.utilities.SearchPackage;
 import com.gss.utilities.SearchProduct;
 import com.gss.utilities.SearchPromo;
 import com.gss.utilities.SearchService;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.gss.model.Package;
 
 public class DiscountJDBCRepository implements DiscountRepository{
@@ -143,7 +145,7 @@ public class DiscountJDBCRepository implements DiscountRepository{
 	}
 
 	@Override
-	public boolean createDiscount(Discount discount) throws SQLException {
+	public String createDiscount(Discount discount) throws SQLException {
 		
 		Connection con 				= jdbc.getConnection();
 		String strQuery 			= "CALL createDiscount(?, ? ,?, ?, ?, ?)";
@@ -212,23 +214,42 @@ public class DiscountJDBCRepository implements DiscountRepository{
 				prePromo.addBatch();
 			}
 			
+			try{
+				PreparedStatement requirements = con.prepareStatement("INSERT INTO tblDiscountRequirement(intDiscountID, intRequirementID) VALUES(?, ?);");
+				
+				for(int index = 0; index < discount.getRequirements().size(); index++){
+					Requirement req = discount.getRequirements().get(index);
+					requirements.setInt(1, intDiscountID);
+					requirements.setInt(2, req.getIntRequirementID());
+					requirements.addBatch();
+				}
+				
+				requirements.executeBatch();
+				requirements.close();
+				
+			}catch(NullPointerException ne){
+			
+			}
+			
 			prePromo.executeBatch();
 			prePromo.close();
 			
 			con.commit();
 			con.close();
-			return true;
+			return "success";
 			
+		}catch(MySQLIntegrityConstraintViolationException m){
+			return "existing";
 		}
-		catch(Exception e){
+		catch(SQLException e){
 			e.printStackTrace();
 			con.rollback();
-			return false;
+			return "failed";
 		}
 	}
 
 	@Override
-	public boolean updateDiscount(Discount discount) throws SQLException {
+	public String updateDiscount(Discount discount) throws SQLException {
 		
 		Connection con 				= jdbc.getConnection();
 		String query 				= "CALL updateDiscount(?, ?, ?, ?, ?, ?, ?)";
@@ -240,6 +261,7 @@ public class DiscountJDBCRepository implements DiscountRepository{
 		String deleteServices		= "DELETE FROM tblDiscountService WHERE intDiscountID = ?;";
 		String deletePackages		= "DELETE FROM tblDiscountPackage WHERE intDiscountID = ?;";
 		String deletePromos			= "DELETE FROM tblDiscountPromo WHERE intDiscountID = ?;";
+		String deleteRequirements	= "DELETE FROM tblDiscountRequirement WHERE intDiscountID = ?;";
 		int intDiscountID			= discount.getIntDiscountID();
 		
 		try{
@@ -254,6 +276,7 @@ public class DiscountJDBCRepository implements DiscountRepository{
 			PreparedStatement preDelPackage	= con.prepareStatement(deletePackages);
 			PreparedStatement preDelPromo 	= con.prepareStatement(deletePromos);
 			PreparedStatement pre 			= con.prepareStatement(query);
+			PreparedStatement delReq 		= con.prepareStatement(deleteRequirements);
 			
 			pre.setInt(1, discount.getIntDiscountID());
 			pre.setString(2, discount.getApplicability());
@@ -316,14 +339,40 @@ public class DiscountJDBCRepository implements DiscountRepository{
 			prePromo.executeBatch();
 			prePromo.close();
 			
+			delReq.setInt(1, discount.getIntDiscountID());
+			delReq.execute();
+			delReq.close();
+			
+			try{
+				PreparedStatement requirements = con.prepareStatement("INSERT INTO tblDiscountRequirement(intDiscountID, intRequirementID) VALUES(?, ?);");
+				
+				int size = discount.getRequirements().size();
+				
+				for(int index = 0; index < size; index++){
+					Requirement req = discount.getRequirements().get(index);
+					requirements.setInt(1, intDiscountID);
+					requirements.setInt(2, req.getIntRequirementID());
+					requirements.addBatch();
+				}
+				
+				requirements.executeBatch();
+				requirements.close();
+				
+			}catch(NullPointerException ne){
+				
+			}
+			
 			con.commit();
 			con.close();
-			return true;
+			return "success";
+		}catch(MySQLIntegrityConstraintViolationException m){
+			m.printStackTrace();
+			return "existing";
 		}
 		catch(Exception e){
 			e.printStackTrace();
 			con.rollback();
-			return false;
+			return "failed";
 		}
 	}
 
@@ -355,12 +404,15 @@ public class DiscountJDBCRepository implements DiscountRepository{
 		Connection con 						= jdbc.getConnection();
 		List<Discount> 	discountList 		= new ArrayList<Discount>();
 		String strQuery 					= "SELECT * FROM tblDiscount WHERE intStatus = 1;";
+		String getRequirements 				= "CALL getDiscountRequirement(?);";
 		
 		try{
 			
 			PreparedStatement preDiscounts 			= con.prepareStatement(strQuery);
+			PreparedStatement getReq	 			= con.prepareStatement(getRequirements);
 			
 			ResultSet discountSet = null;
+			ResultSet requirementSet = null;
 			
 			discountSet = preDiscounts.executeQuery();
 			
@@ -380,11 +432,23 @@ public class DiscountJDBCRepository implements DiscountRepository{
 				this.dblAmount = discountSet.getDouble(7);
 				this.status = discountSet.getInt(8);
 				
+				getReq.setInt(1, intID);
+				requirementSet = getReq.executeQuery();
+				
+				List<Requirement> requirements = new ArrayList<Requirement>();
+				
+				while(requirementSet.next()){
+					Requirement requirement = new Requirement(requirementSet.getInt(1), requirementSet.getString(2), 1);
+					requirements.add(requirement);
+				}
+				
 				Discount discount = new Discount(this.intID, this.applicability, this.strName, this.strDesc, this.strGuide, this.intType, this.dblAmount, productList, serviceList, packageList, promoList, this.status);
-			
+				discount.setRequirements(requirements);
 				discountList.add(discount);
 			}
 	
+			getReq.close();
+			requirementSet.close();
 			preDiscounts.close();
 			discountSet.close();
 			con.close();
@@ -405,6 +469,7 @@ public class DiscountJDBCRepository implements DiscountRepository{
 		String getServices 					= "SELECT intServiceID FROM tblDiscountService WHERE intDiscountID = ?;";
 		String getPromos 					= "SELECT intPromoID FROM tblDiscountPromo WHERE intDiscountID = ?;";
 		String getPackages 					= "SELECT intPackageID FROM tblDiscountPackage WHERE intDiscountID = ?;";
+		String getRequirements 				= "CALL getDiscountRequirement(?);";
 		
 		List<Product> savedProducts 		= Product.getAllProduct();
 		List<Service> savedServices 		= Service.getAllService();
@@ -418,12 +483,14 @@ public class DiscountJDBCRepository implements DiscountRepository{
 			PreparedStatement preServices			= con.prepareStatement(getServices);
 			PreparedStatement prePromos				= con.prepareStatement(getPromos);
 			PreparedStatement prePackages			= con.prepareStatement(getPackages);
+			PreparedStatement getReq	 			= con.prepareStatement(getRequirements);
 			
 			ResultSet discountSet = null;
 			ResultSet productSet = null;
 			ResultSet serviceSet = null;
 			ResultSet promoSet = null;
 			ResultSet packageSet = null;
+			ResultSet requirementSet = null;
 			
 			preDiscounts.setInt(1, discountID);
 			discountSet = preDiscounts.executeQuery();
@@ -481,13 +548,23 @@ public class DiscountJDBCRepository implements DiscountRepository{
 					promoList.add(promo);
 				}
 				
+				getReq.setInt(1, intID);
+				requirementSet = getReq.executeQuery();
 				
+				List<Requirement> requirements = new ArrayList<Requirement>();
+				
+				while(requirementSet.next()){
+					Requirement requirement = new Requirement(requirementSet.getInt(1), requirementSet.getString(2), 1);
+					requirements.add(requirement);
+				}
 				
 				Discount discount = new Discount(this.intID, this.applicability, this.strName, this.strDesc, this.strGuide, this.intType, this.dblAmount, productList, serviceList, packageList, promoList, this.status);
-			
+				discount.setRequirements(requirements);
 				discountList.add(discount);
 			}
 			
+			getReq.close();
+			requirementSet.close();
 			preProducts.close();
 			preServices.close();
 			prePromos.close();
@@ -515,12 +592,14 @@ public class DiscountJDBCRepository implements DiscountRepository{
 		Connection con 						= jdbc.getConnection();
 		List<Discount> 	discountList 		= new ArrayList<Discount>();
 		String strQuery 					= "SELECT * FROM tblDiscount ORDER BY strDiscountName ASC;";
+		String getRequirements 				= "CALL getDiscountRequirement(?);";
 		
 		try{
 			
 			PreparedStatement preDiscounts 			= con.prepareStatement(strQuery);
-			
+			PreparedStatement getReq	 			= con.prepareStatement(getRequirements);
 			ResultSet discountSet = null;
+			ResultSet requirementSet = null;
 			
 			discountSet = preDiscounts.executeQuery();
 			
@@ -540,11 +619,23 @@ public class DiscountJDBCRepository implements DiscountRepository{
 				this.dblAmount = discountSet.getDouble(7);
 				this.status = discountSet.getInt(8);
 				
+				List<Requirement> requirements = new ArrayList<Requirement>();
+				
+				getReq.setInt(1, intID);
+				requirementSet = getReq.executeQuery();
+				
+				while(requirementSet.next()){
+					Requirement requirement = new Requirement(requirementSet.getInt(1), requirementSet.getString(2), 1);
+					requirements.add(requirement);
+				}
+				
 				Discount discount = new Discount(this.intID, this.applicability, this.strName, this.strDesc, this.strGuide, this.intType, this.dblAmount, productList, serviceList, packageList, promoList, this.status);
-			
+				discount.setRequirements(requirements);
 				discountList.add(discount);
 			}
 	
+			getReq.close();
+			requirementSet.close();
 			preDiscounts.close();
 			discountSet.close();
 			con.close();
