@@ -22,8 +22,9 @@ public class Promo {
 	private String strPromoAvailability;
 	private int intStatus;
 	private List<Requirement> requirements;
+	private int promoType;
 	
-	public Promo(int intPromoID, String strPromoName, String strPromoDescription, String strPromoGuidelines, double dblPromoPrice, int intMaxHeadCount, List<ServicePackage> serviceList, List<ProductPackage> productList, List<PackagePackage> packageList, String strPromoAvailability, int intStatus){
+	public Promo(int intPromoID, String strPromoName, String strPromoDescription, String strPromoGuidelines, double dblPromoPrice, int intMaxHeadCount, List<ServicePackage> serviceList, List<ProductPackage> productList, List<PackagePackage> packageList, String strPromoAvailability, int intStatus, int promoType){
 		
 		this.intPromoID = intPromoID;
 		this.strPromoName = strPromoName;
@@ -35,6 +36,7 @@ public class Promo {
 		this.productList = productList;
 		this.packageList = packageList;
 		this.setStrPromoAvailability(strPromoAvailability);
+		this.promoType = promoType;
 	}
 
 	public int getIntPromoID() {
@@ -133,7 +135,7 @@ public class Promo {
 	}
 	
 	public static Promo createNullPromo(int intPromoID){
-		return new Promo(intPromoID, "", "", "", 0, intPromoID, null, null, null, "", intPromoID);
+		return new Promo(intPromoID, "", "", "", 0, intPromoID, null, null, null, "", intPromoID, 1);
 	}
 	
 	public static Promo getPromoByID(int promoID){
@@ -170,5 +172,13 @@ public class Promo {
 
 	public void setRequirements(List<Requirement> requirements) {
 		this.requirements = requirements;
+	}
+
+	public int getPromoType() {
+		return promoType;
+	}
+
+	public void setPromoType(int promoType) {
+		this.promoType = promoType;
 	}
 }
