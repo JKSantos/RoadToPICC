@@ -16,6 +16,8 @@ $.ajax({
             requirementName.push(req.strRequirementName);
             $('#crRequirement').append('<option value="' + req.intRequirementID + '">' + req.strRequirementName + '</option>');
             $('#addCrRequirementSelect').append('<option value="' + req.intRequirementID + '">' + req.strRequirementName + '</option>');
+            $('#upRequirement').append('<option value="' + req.intRequirementID + '">' + req.strRequirementName + '</option>');
+            $('#addUpRequirementSelect').append('<option value="' + req.intRequirementID + '">' + req.strRequirementName + '</option>');
         });
         console.log(requirementName);
     },
@@ -61,9 +63,11 @@ function crAddNewRequirement() {
             dataType: 'json',
             async: true,
             success: function(data) {
+                var id = data.id
+
                 $('select').material_select('destroy');
-                $('#crRequirement').append('<option value="' + reqname.toUpperCase() + '" selected>' + reqname.toUpperCase() + '</option>');
-                $('#addCrRequirementSelect').append('<option value="' + reqname.toUpperCase() + '" selected>' + reqname.toUpperCase() + '</option>');
+                $('#crRequirement').append('<option value="' + id + '" selected>' + reqname.toUpperCase() + '</option>');
+                $('#addCrRequirementSelect').append('<option value="' + id + '" selected>' + reqname.toUpperCase() + '</option>');
                 $('#crAddNewReq').closeModal();
                 $('select').material_select();
             },
@@ -81,7 +85,27 @@ function crRemoveNewRequirement() {
        type: 'post',
         url: 'removeRequirement',
         data: {
-
+            'intRequirementID': reqname
+        },
+        dataType: 'json',
+        async: true,
+        success: function(data) {
+            $('#addCrRequirementSelect option').each(function () {
+               if($(this).val() == reqname) {
+                   $(this).remove();
+               }
+            });
+            
+            $('#crRequirement option').each(function () {
+                if($(this).val() == reqname) {
+                    $('select').material_select('destroy');
+                    $(this).remove();
+                    $('select').material_select();
+                }
+            });
+        },
+        error: function(data) {
+            
         }
     });
 }

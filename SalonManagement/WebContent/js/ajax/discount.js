@@ -6,7 +6,28 @@
 $('#btnCrDiscountExit').click(function () {
     $('#createDiscountForm').trigger("reset");
     $('.discounterrorcontainer').hide();
-    $('#discnextbtn').prop('disabled', true).css('opacity', '0.3');
+});
+
+$('#createDiscountSubmitForm2').hide();
+
+$('#addDiscountBtn').on('click', function() {
+    $('#createDiscountSubmitForm2').hide();
+});
+
+$('input[name=strApplicability]').on('click', function() {
+    if($(this).val() == 'TOTAL SALES') {
+        $("#createDiscountForm .determinate")
+            .css("width","100%")
+            .html("100%").css("font-size", "15px");
+        $('#createDiscountSubmitForm2').show();
+        $('#discnextbtn').hide();
+    } else if ($(this).val() == 'SELECTED ITEMS') {
+        $("#createDiscountForm .determinate")
+            .css("width","50%")
+            .html("50%").css("font-size", "15px");
+        $('#createDiscountSubmitForm2').hide();
+        $('#discnextbtn').show();
+    }
 });
 
 window.onload = updateDiscountTable();

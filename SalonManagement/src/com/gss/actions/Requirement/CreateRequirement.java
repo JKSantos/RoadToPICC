@@ -5,9 +5,10 @@ import com.gss.dao.RequirementDao;
 public class CreateRequirement {
 	
 	private String strRequirementName;
+	private int id;
 	
 	public String execute(){
-		int id = RequirementDao.createRequirement(strRequirementName);
+		id = RequirementDao.createRequirement(strRequirementName);
 		
 		if(id != 0)
 			return "success";
@@ -19,5 +20,9 @@ public class CreateRequirement {
 
 	public void setStrRequirementName(String strRequirementName) {
 		this.strRequirementName = strRequirementName;
+	}
+	
+	public int getId() {
+		return id;
 	}
 }

@@ -2,6 +2,7 @@
  * Created by Castillo on 9/9/2016.
  */
 
+
 $('#discountUpdateFilter').change(function () {
     var sel = $(this).val();
     if (sel == 'product') {
@@ -29,21 +30,6 @@ $('#discountUpdateFilter').change(function () {
     }
 });
 
-$('input[name=strUpdateApplicability]').click(function () {
-    var appli = $(this).val();
-    if (appli == 'ALL CUSTOMER') {
-        $('#updateDiscountGuidelinesDiv').hide();
-        $('#upDiscountAmtTypeDiv').css('margin-top', '-50px');
-        $('#upPercent').css('margin-top', '-50px');
-        $('#upFixed').css('margin-top', '-50px');
-    } else if (appli == 'DEPENDING ON THE GUIDELINES') {
-        $('#updateDiscountGuidelinesDiv').show();
-        $('#upDiscountAmtTypeDiv').css('margin-top', '10px');
-        $('#upPercent').css('margin-top', '10px');
-        $('#upFixed').css('margin-top', '10px');
-    }
-});
-
 $('#upDiscountAmtType').change(function () {
     var type = $(this).val();
     if (type == 1) {
@@ -52,50 +38,6 @@ $('#upDiscountAmtType').change(function () {
     } else {
         $('#upPercent').hide();
         $('#upFixed').show();
-    }
-});
-
-$('input[name=strUpdateApplicability]').click(function () {
-    if ($(this).val() == 'DEPENDING ON THE GUIDELINES' && $('#upDiscountAmtType').val() == 1) {
-        $('#upDiscountGuidelines, #upDiscountAmountPercent').on('input', function () {
-            if ($('#upDiscountGuidelines').val() == '' || $('#upDiscountAmountPercent').val() == '') {
-                $('#updateDiscountSubmitBtn').prop('disabled', true)
-                    .css('opacity', '0.3');
-            } else {
-                $('#updateDiscountSubmitBtn').prop('disabled', false)
-                    .css('opacity', '1');
-            }
-        });
-    } else if ($(this).val() == 'DEPENDING ON THE GUIDELINES' && $('#upDiscountAmtType').val() == 2) {
-        $('#upDiscountAmountFixed, #upDiscountGuidelines').on('input', function () {
-            if ($('#upDiscountGuidelines').val() == '' || $('#upDiscountAmountFixed').val() == '' || $('#upDiscountAmountFixed').val() == 'Php 0.00') {
-                $('#updateDiscountSubmitBtn').prop('disabled', true)
-                    .css('opacity', '0.3');
-            } else {
-                $('#updateDiscountSubmitBtn').prop('disabled', false)
-                    .css('opacity', '1');
-            }
-        });
-    } else if ($(this).val() == 'ALL CUSTOMER' && $('#upDiscountAmtType').val() == 1) {
-        $('#upDiscountAmountPercent').on('input', function () {
-            if ($('#upDiscountAmountPercent').val() == '') {
-                $('#updateDiscountSubmitBtn').prop('disabled', true)
-                    .css('opacity', '0.3');
-            } else {
-                $('#updateDiscountSubmitBtn').prop('disabled', false)
-                    .css('opacity', '1');
-            }
-        });
-    } else if ($(this).val() == 'ALL CUSTOMER' && $('#upDiscountAmtType').val() == 2) {
-        $('#upDiscountAmountFixed').on('input', function () {
-            if ($('#upDiscountAmountFixed').val() == '' || $('#upDiscountAmountFixed').val() == 'Php 0.00') {
-                $('#upDiscountAmountPercent').prop('disabled', true)
-                    .css('opacity', '0.3');
-            } else {
-                $('#upDiscountAmountPercent').prop('disabled', false)
-                    .css('opacity', '1');
-            }
-        });
     }
 });
 
@@ -135,24 +77,17 @@ function openUpdateDiscount(id) {
             $('#upDiscountName').val(discount.strDiscountName);
             $('#upDiscountDetails').val(discount.strDiscountDesc);
 
-            if (discount.applicability == 'ALL CUSTOMER') {
+            if (discount.applicability == 'TOTAL SALES') {
                 $('#upDiscountRadio1').prop('checked', true);
                 $('#upDiscountRadio2').prop('checked', false);
-
-                $('#updateDiscountGuidelinesDiv').hide();
-                $('#upDiscountAmtTypeDiv').css('margin-top', '-50px');
-                $('#upPercent').css('margin-top', '-50px');
-                $('#upFixed').css('margin-top', '-50px');
+                $('#updateBDiscount').css('pointer-events', 'none');
 
             } else {
                 $('#upDiscountRadio1').prop('checked', false);
                 $('#upDiscountRadio2').prop('checked', true);
+                $('#updateBDiscount').css('pointer-events', 'auto');
 
                 $('#updateDiscountGuidelinesDiv').show();
-                $('#upDiscountGuidelines').val(discount.strDiscountGuidelines);
-                $('#upDiscountAmtTypeDiv').css('margin-top', '10px');
-                $('#upPercent').css('margin-top', '10px');
-                $('#upFixed').css('margin-top', '10px');
             }
 
             if (discount.intDiscountType == 1) { // percentage
