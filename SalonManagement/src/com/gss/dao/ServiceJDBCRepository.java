@@ -43,7 +43,8 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				String strServiceCate = set.getString(3);
 				int intServiceStatus = set.getInt(4);
 				String strServiceDesc = set.getString(5);
-				byte[] actualPhoto = set.getBytes(6);
+				int intType = set.getInt(6);
+				byte[] actualPhoto = set.getBytes(7);
 				String strPhotoPath = "localhost:8080/SalonManagement/getImage?ImageID="+ intServiceID + "&type=service";
 				
 				PreparedStatement pre2 = con.prepareStatement(strQuery2);
@@ -53,7 +54,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				
 				while(set2.next()){
 					double price = set2.getDouble(1);
-					service = new Service(intServiceID, strServiceName, strServiceCate, intServiceStatus, strServiceDesc, price, actualPhoto, strPhotoPath);
+					service = new Service(intServiceID, strServiceName, strServiceCate, intServiceStatus, strServiceDesc, price, actualPhoto, strPhotoPath, intType);
 					serviceList.add(service);
 					
 				}
@@ -95,7 +96,9 @@ public class ServiceJDBCRepository implements ServiceRepository{
 			pre1.setString(2, service.getStrServiceCategory());
 			pre1.setInt(3, service.getIntServiceStatus());
 			pre1.setString(4, service.getStrServiceDesc());
+			
 			pre1.setBinaryStream(5, (InputStream)fis, (int)file.length());
+			
 			
 			ResultSet set = pre1.executeQuery();
 			while(set.next()){
@@ -262,6 +265,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				String strServiceCate = set.getString(3);
 				int intServiceStatus = set.getInt(4);
 				String strServiceDesc = set.getString(5);
+				int intType = set.getInt(6);
 				byte[] actualPhoto = null;
 				String strPhotoPath = ":8080/SalonManagement/getImage?ImageID="+ intServiceID + "&type=service";
 				
@@ -272,7 +276,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				
 				while(set2.next()){
 					double price = set2.getDouble(1);
-					service = new Service(intServiceID, strServiceName, strServiceCate, intServiceStatus, strServiceDesc, price, actualPhoto, strPhotoPath);
+					service = new Service(intServiceID, strServiceName, strServiceCate, intServiceStatus, strServiceDesc, price, actualPhoto, strPhotoPath, intType);
 					serviceList.add(service);
 					
 				}
@@ -317,6 +321,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				String strServiceCate = set.getString(3);
 				int intServiceStatus = set.getInt(4);
 				String strServiceDesc = set.getString(5);
+				int intType = set.getInt(6);
 				byte[] actualPhoto = null;
 				String strPhotoPath = ":8080/SalonManagement/getImage?ImageID="+ intServiceID + "&type=service";
 				
@@ -327,7 +332,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				
 				while(set2.next()){
 					double price = set2.getDouble(1);
-					service = new Service(intServiceID, strServiceName, strServiceCate, intServiceStatus, strServiceDesc, price, actualPhoto, strPhotoPath);
+					service = new Service(intServiceID, strServiceName, strServiceCate, intServiceStatus, strServiceDesc, price, actualPhoto, strPhotoPath, intType);
 					serviceList.add(service);
 					
 				}
