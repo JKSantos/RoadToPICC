@@ -7,7 +7,14 @@ public class CreateRequirement {
 	private String strRequirementName;
 	
 	public String execute(){
-		return RequirementDao.createRequirement(strRequirementName);
+		int id = RequirementDao.createRequirement(strRequirementName);
+		
+		if(id != 0)
+			return "success";
+		else if(id == -1)
+			return "failed";
+		else
+			return "existing";
 	}
 
 	public void setStrRequirementName(String strRequirementName) {

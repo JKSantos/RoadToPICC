@@ -26,6 +26,7 @@ import com.gss.service.ExtraChargeService;
 import com.gss.service.ExtraChargeServiceImpl;
 import com.gss.service.ProductService;
 import com.gss.service.ProductServiceImpl;
+import com.gss.utilities.TimeHelper;
 
 
 public class ProductSalesJDBCRepository implements ProductSalesRepository{
@@ -607,17 +608,18 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 		}
 	}
 	
-	public static boolean assignEmployee(int empid, int orderid) throws SQLException{
+	public static boolean assignEmployee(int empid, int orderid, String time) throws SQLException{
 		
 
 		Connection con = new JDBCConnection().getConnection();
-		String deactivateSales = "CALL assignEmployeeDelivery(?, ?);";
+		String deactivateSales = "CALL assignEmployeeDelivery(?, ?, ?);";
 		
 		try{
 			con.setAutoCommit(false);
 			PreparedStatement deactivate = con.prepareStatement(deactivateSales);
 			deactivate.setInt(1, orderid);
 			deactivate.setInt(2, empid);
+			deactivate.setTime(3, TimeHelper.parseTime(time));
 			deactivate.execute();
 			deactivate.close();
 			

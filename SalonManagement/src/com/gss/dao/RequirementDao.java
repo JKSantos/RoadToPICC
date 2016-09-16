@@ -13,12 +13,13 @@ public class RequirementDao {
 	
 	private static JDBCConnection jdbc = new JDBCConnection();
 	
-	public static String createRequirement(String requirementName){
+	public static int createRequirement(String requirementName){
 		
 		Connection con = jdbc.getConnection();
 		
 		String query = "CALL createRequirement(?);";
 		String result = "";
+		int id = 0;
 		
 		try{
 			
@@ -28,17 +29,18 @@ public class RequirementDao {
 			
 			while(set.next()){
 				result = set.getString(1);
+				id = set.getInt(2);
 			}
 			
 			statement.close();
 			set.close();
 			con.close();
 			
-			return result;
+			return id;
 			
 		}catch(Exception e){
 			e.printStackTrace();
-			return "failed";
+			return -1;
 		}
 		
 	}

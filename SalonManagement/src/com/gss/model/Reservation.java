@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.gss.dao.ReservationJDBCRepository;
 import com.gss.service.ReservationService;
 import com.gss.service.ReservationServiceImpl;
 
@@ -231,5 +232,11 @@ public class Reservation {
 		}
 		
 		return result;
+	}
+	
+	public static Reservation getReservationByID(int reservationID){
+		ReservationJDBCRepository jdbc = new ReservationJDBCRepository();
+		
+		return jdbc.getReservationByID(reservationID);
 	}
 }
