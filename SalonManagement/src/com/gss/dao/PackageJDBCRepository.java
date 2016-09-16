@@ -487,14 +487,14 @@ public class PackageJDBCRepository implements PackageRepository{
 	public List<Package> getPackageByType(String type){
 		
 		Connection con = jdbc.getConnection();
-		String query 						= "SELECT * FROM tblPackage WHERE intPackageStatus = 1";
+		String query 						= "SELECT * FROM tblPackage WHERE";
 		
 		if(type.equalsIgnoreCase("event"))
-			query += " AND intPackageType = 1 OR intPackageStatus = 1 AND intPackageType = 4  OR intPackageStatus = 1 AND intPackageType = 5 OR intPackageStatus = 1 AND intPackageType = 7";
+			query += " intPackageType = 1 OR intPackageType = 4  OR intPackageType = 5 OR intPackageType = 7 AND intPackageStatus = 1";
 		if(type.equalsIgnoreCase("home service"))
-			query += " AND intPackageType = 2  OR intPackageStatus = 1 AND intPackageType = 4  OR intPackageStatus = 1 AND intPackageType = 6  OR intPackageStatus = 1 AND intPackageType = 7";
+			query += " intPackageType = 2 OR intPackageType = 4  OR intPackageType = 6 OR intPackageType = 7 AND intPackageStatus = 1";
 		if(type.equalsIgnoreCase("walkin"))
-			query += " AND intPackageType = 3  OR intPackageStatus = 1 AND intPackageType = 5  OR intPackageStatus = 1 AND intPackageType = 6 OR intPackageStatus = 1 AND intPackageType = 7";
+			query += " intPackageType = 3 OR intPackageType = 5  OR intPackageType = 6 OR intPackageType = 7 AND intPackageStatus = 1";
 		
 		List<Package> packageList = new ArrayList<Package>();
 		

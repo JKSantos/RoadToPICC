@@ -228,7 +228,6 @@ public class DiscountJDBCRepository implements DiscountRepository{
 				requirements.close();
 				
 			}catch(NullPointerException ne){
-			
 			}
 			
 			prePromo.executeBatch();

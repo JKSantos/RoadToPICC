@@ -40,6 +40,8 @@ public class CreateDiscountAction {
 		DiscountServiceImpl service = new DiscountServiceImpl();
 		Discount discount;
 		
+		System.out.print(strDiscountGuidelines + " ccccccc");
+		
 		List<Product> productList = new ArrayList<Product>();
 		List<Service> serviceList = new ArrayList<Service>();
 		List<Package> packageList = new ArrayList<Package>();

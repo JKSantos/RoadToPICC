@@ -504,10 +504,12 @@ public class ServiceJDBCRepository implements ServiceRepository{
 		
 	}
 	
-	public List<Service> getServiceByID() {
+	public static List<Service> getServiceByType(String type) {
 		JDBCConnection jdbc = new JDBCConnection();
 		Connection con = jdbc.getConnection();
-		String strQuery1 = "CALL fetchServices()";
+		
+		String strQuery1 						= "CALL fetchServicesByType(?);";
+		
 		String strQuery2 = "CALL fetchPrice(?)";
 		List<Service> serviceList = new ArrayList<Service>();
 		
@@ -515,6 +517,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 		try{
 			
 			PreparedStatement pre = con.prepareStatement(strQuery1);
+			pre.setString(1, type);
 			ResultSet set = pre.executeQuery();
 			ResultSet set2;
 						
