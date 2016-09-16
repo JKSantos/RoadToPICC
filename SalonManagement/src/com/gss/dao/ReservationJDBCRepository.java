@@ -116,6 +116,50 @@ public class ReservationJDBCRepository implements ReservationRepository{
 		}
 	}
 	
+	public Reservation getReservationByID(int reservationID){
+		
+		Connection con 						= jdbc.getConnection();
+		String getReservations 				= "SELECT * FROM tblReservation WHERE intReservationID = ?;";
+		Reservation reservation = null;
+		
+		List<Reservation> reservationList = new ArrayList<Reservation>();
+		try{
+			
+			PreparedStatement preReservaton = con.prepareStatement(getReservations);
+			preReservaton.setInt(1, reservationID);
+			ResultSet reservationResult = preReservaton.executeQuery();
+			
+			while(reservationResult.next()){
+				
+				this.intReservationID 		= reservationResult.getInt(1);
+				this.intReservationType 	= reservationResult.getInt(2);
+				this.dateCreated 			= reservationResult.getDate(3);
+				this.datFrom 				= reservationResult.getDate(4);
+				this.datTo 					= reservationResult.getDate(5);
+				this.timFrom				= reservationResult.getTime(6);
+				this.timTo					= reservationResult.getTime(7);
+				this.customer 				= new Customer(this.intReservationID, reservationResult.getString(9), reservationResult.getString(10), reservationResult.getString(8), reservationResult.getString(11), reservationResult.getString(12), reservationResult.getString(13));
+				this.headCount				= reservationResult.getInt(14);
+				this.invoice				= getInvoice(reservationResult.getInt(15));
+				this.strStatus				= reservationResult.getString(16);
+				this.employeeAssigned		= getAllAssignedEmployee(this.intReservationID);
+				this.strVenue				= reservationResult.getString(17);
+				this.intLocationID			= reservationResult.getInt(18);
+				this.strContract			= reservationResult.getString(19);
+				
+				this.includedItems = new ReservationInclusion(getAllProductOrder(this.intReservationID), getAllReservedService(this.intReservationID), getAllReservedPackage(this.intReservationID), getAllReservedPromo(this.intReservationID));
+				
+				reservation = new Reservation(this.intReservationID, this.customer, this.includedItems, this.intReservationType, this.dateCreated, this.datFrom, this.datTo, this.timFrom, this.timTo, this.strVenue, this.intLocationID, this.headCount, this.employeeAssigned, this.invoice, this.strStatus, this.strContract);	
+			}
+			
+			return reservation;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	@Override
 	public List<Reservation> getAllReservation() {
 		 
