@@ -12,6 +12,8 @@ $('#createDiscountSubmitForm2').hide();
 
 $('#addDiscountBtn').on('click', function() {
     $('#createDiscountSubmitForm2').hide();
+    $('#createDiscountForm').trigger("reset");
+    $('#createRequirementForm').trigger("reset");
 });
 
 $('input[name=strApplicability]').on('click', function() {

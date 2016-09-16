@@ -2130,3 +2130,80 @@ $(function () {
     });
 });
 //INVENTORY
+
+
+
+//requirement
+$(function () {
+
+    $('#createRequirementForm').validate({
+        
+        ignore: ":hidden",
+        errorClass: 'invalid',
+        validClass: 'valid',
+        errorElement: 'div',
+        errorLabelContainer: '.errorCreateRequirement',
+        errorPlacement: function (error, element) {
+            // Append error within linked label
+            $(element)
+                .closest("form")
+                .find("label[for='" + element.attr("id") + "']");
+        },
+        rules: {
+            addCrRequirementName: {
+                required: true,
+                regx: "^[A-Za-z0-9\- :'`\s]+$",
+                noSpace: true,
+                minlength: 5
+            }
+        },
+        messages: {
+            addCrRequirementName: {
+                required: "<span class='white-text'><b>Requirement Name</b>: Required</span><br/>",
+                regx: "<span class='white-text'><b>Requirement Name</b>: Invalid name</span><br/>",
+                noSpace: "<span class='white-text'><b>Requirement Name</b>: Empty</span><br/>",
+                minlength: "<span class='white-text'><b>Requirement Name</b>: At least 5 characters</span><br/>"
+            }
+        }
+    });
+
+    $('form').on('submit', function (e) {
+        $(".error_note").remove();
+        var select = $(this).find('select').filter("[required=required]");
+        $.each(select, function (index, elm) {
+            val = $(this).val();
+            target = $(this).closest('.input-field');
+            if (typeof target !== "undefined") {
+                input_target = target.find('input.select-dropdown');
+                if (typeof input_target !== "undefined") {
+                    if (val == '' || val == false || val == 0 || val == null) {
+
+                        input_target.css({'border-color': '#EA454B', 'box-shadow': '0 1px 0 0 #EA454B'});
+
+                        $('html,body').animate({scrollTop: $("body").offset().top}, 'slow');
+                        e.preventDefault();
+
+                    } else {
+                        input_target.css({'border-color': '#9e9e9e'});
+                    }
+
+                }
+            }
+        });
+    });
+    $.validator.addMethod("checkboxes", function (value, element) {
+        return $('.packcheckbox:checked').length > 0; });
+    $.validator.addMethod("regx", function(value, element, regexp){
+        var re = new RegExp(regexp);
+        return this.optional(element) || re.test(value);
+    });
+    $.validator.addMethod("noSpace", function (value, element) {
+        return value.indexOf(" ") != "";
+    });
+    $.validator.addMethod("valueNotEquals", function(value, element, arg){
+        return arg != value;
+    });
+    $.validator.addMethod("valueNotEquals2", function(value, element, arg){
+        return arg != value;
+    });
+});

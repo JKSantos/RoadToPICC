@@ -68,6 +68,7 @@ function crAddNewRequirement() {
                 $('select').material_select('destroy');
                 $('#crRequirement').append('<option value="' + id + '" selected>' + reqname.toUpperCase() + '</option>');
                 $('#addCrRequirementSelect').append('<option value="' + id + '" selected>' + reqname.toUpperCase() + '</option>');
+                $('#upRequirement').append('<option value="' + id + '" selected>' + reqname.toUpperCase() + '</option>');
                 $('#crAddNewReq').closeModal();
                 $('select').material_select();
             },
@@ -97,6 +98,14 @@ function crRemoveNewRequirement() {
             });
             
             $('#crRequirement option').each(function () {
+                if($(this).val() == reqname) {
+                    $('select').material_select('destroy');
+                    $(this).remove();
+                    $('select').material_select();
+                }
+            });
+            upRequirement
+            $('#upRequirement option').each(function () {
                 if($(this).val() == reqname) {
                     $('select').material_select('destroy');
                     $(this).remove();

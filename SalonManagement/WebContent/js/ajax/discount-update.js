@@ -749,9 +749,16 @@ function updateDiscount() {
         discountPackSelect = discountPackSelect.join(',');
         discountPromoSelect = discountPromoSelect.join(',');
 
-        var req = $('#upRequirement').val();
 
-        UPrequirement = req.join(',');
+
+        if($('#upRequirement option:selected').length > 0) {
+            var req = $('#upRequirement').val();
+
+            UPrequirement = req.join(',');
+            console.log(req);
+        } else {
+            UPrequirement = '';
+        }
 
 
         var discountname = $('#upDiscountName').val();
@@ -789,6 +796,7 @@ function updateDiscount() {
                         dataType: 'json',
                         async: true,
                         success: function (data) {
+                            console.log(data);
                             swal("Successfully created!", ".", "success");
                             updateDiscountTable();
                             $('#updateDiscountModal').closeModal();
