@@ -38,7 +38,7 @@ public class UpdateDiscountAction {
 
 		DiscountServiceImpl service = new DiscountServiceImpl();
 		Discount discount;
-		
+		System.out.print(this.intDiscountID);
 		List<Product> productList = new ArrayList<Product>();
 		List<Service> serviceList = new ArrayList<Service>();
 		List<Package> packageList = new ArrayList<Package>();
@@ -61,13 +61,15 @@ public class UpdateDiscountAction {
 		try{
 			discount = new Discount(this.intDiscountID, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), PriceFormatHelper.convertToDouble(strDiscountPriceFixed, "Php "), productList, serviceList, packageList, promoList, 1);
 			discount.setRequirements(requirementList);
-			this.result = service.createDiscount(discount);
+			this.result = service.updateDiscount(discount);
+			System.out.print(result);
 			return this.result;
 		}
 		catch(Exception e){	
 			discount = new Discount(this.intDiscountID, strApplicability, strDiscountName, strDiscountDetails, strDiscountGuidelines, Integer.parseInt(strDiscountType), strDiscountPricePercent, productList, serviceList, packageList, promoList, 1);
 			discount.setRequirements(requirementList);
-			this.result = service.createDiscount(discount);
+			this.result = service.updateDiscount(discount);
+			System.out.print(result);
 			return this.result;
 		}
 	}
