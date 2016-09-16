@@ -223,6 +223,17 @@
                                     <label for="crServiceCategory"><b>Category</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
+                                <div class="input-field col s8">
+                                    <select id="crServiceType" name="strServiceType" class="required"
+                                            required style="margin-bottom: -15px !important;" multiple>
+                                        <option value="default" disabled selected>Choose...</option>
+                                        <option value="1">Walk In</option>
+                                        <option value="2">Home Service</option>
+                                        <option value="3">Event</option>
+                                    </select>
+                                    <label for="crServiceType"><b>Type</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
+                                </div>
                                 <div class="input-field col s4">
                                     <a href="#crServAddCateModal"
                                        class="waves-effect waves-light btn-flat modal-category purple white-text"><i

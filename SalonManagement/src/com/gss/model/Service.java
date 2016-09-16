@@ -12,13 +12,14 @@ public class Service {
 	private int intServiceID;
 	private String strServiceName;
 	private String strServiceCategory;
+	private int serviceType;
 	private int intServiceStatus;
 	private String strServiceDesc;
 	private byte[] productPhoto;
 	private double dblServicePrice;
 	private String strPhotoPath;
 	
-	public Service(int intServiceID, String strServiceName, String strServiceCategory, int strServiceStatus, String strServiceDesc, double dblServicePrice, byte[] productPhoto, String strPhotoPath){
+	public Service(int intServiceID, String strServiceName, String strServiceCategory, int strServiceStatus, String strServiceDesc, double dblServicePrice, byte[] productPhoto, String strPhotoPath, int serviceType){
 		
 		this.intServiceID = intServiceID;
 		this.strServiceName = strServiceName;
@@ -28,6 +29,7 @@ public class Service {
 		this.setProductPhoto(productPhoto);
 		this.strPhotoPath = strPhotoPath;
 		this.dblServicePrice = dblServicePrice;
+		this.serviceType = serviceType;
 	}
 
 	public int getIntServiceID() {
@@ -103,7 +105,7 @@ public class Service {
 	
 	public static Service createNullService(int intServiceID){
 		
-		return new Service(intServiceID, "", "", intServiceID, "", 0, null, "");
+		return new Service(intServiceID, "", "", intServiceID, "", 0, null, "", 1);
 	}
 
 	public static List<Service> queryAllService() {
@@ -111,6 +113,14 @@ public class Service {
 		ServiceService service = new ServiceServiceImpl();
 		
 		return service.queryAllService();
+	}
+
+	public int getServiceType() {
+		return serviceType;
+	}
+
+	public void setServiceType(int serviceType) {
+		this.serviceType = serviceType;
 	}
 
 }

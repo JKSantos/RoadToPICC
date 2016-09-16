@@ -15,6 +15,7 @@ public class OrderResultAction {
 	private int intOrderID;
 	private int intEmpID;
 	private Date datDeliveryDate = new Date();
+	private String time;
 	private String result = "success";
 	
 	public String acceptOrder() throws Exception{
@@ -29,7 +30,7 @@ public class OrderResultAction {
 			NotifyCustomerViaSMS test = new NotifyCustomerViaSMS();
 			test.sendSMS(getMessage(), sales.getStrContactNo());
 			
-			ProductSalesJDBCRepository.assignEmployee(intEmpID, intOrderID);
+			ProductSalesJDBCRepository.assignEmployee(intEmpID, intOrderID, time);
 		}
 		return result;
 		
@@ -64,6 +65,10 @@ public class OrderResultAction {
 
 	public void setIntEmpID(int intEmpID) {
 		this.intEmpID = intEmpID;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 	
 }

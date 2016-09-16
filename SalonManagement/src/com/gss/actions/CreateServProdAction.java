@@ -1,6 +1,7 @@
 package com.gss.actions;
 
 import java.io.File;
+import java.util.List;
 
 import com.gss.model.Product;
 import com.gss.model.Service;
@@ -8,6 +9,7 @@ import com.gss.service.ProductService;
 import com.gss.service.ProductServiceImpl;
 import com.gss.service.ServiceService;
 import com.gss.service.ServiceServiceImpl;
+import com.gss.utilities.PackageHelper;
 import com.gss.utilities.PriceFormatHelper;
 
 public class CreateServProdAction {
@@ -21,6 +23,7 @@ public class CreateServProdAction {
 	private String strItemCategory;
 	private String price;
 	private String imageName;
+	private List<Integer> intServiceType;
 	
 	public String execute() throws Exception{
 
@@ -44,7 +47,7 @@ public class CreateServProdAction {
 		}
 		else{
 			
-			Service service = new Service(1, strItemName.trim().toUpperCase(), strItemCategory, 1, strItemDetails.trim().toUpperCase(), dblItemPrice, null, path);
+			Service service = new Service(1, strItemName.trim().toUpperCase(), strItemCategory, 1, strItemDetails.trim().toUpperCase(), dblItemPrice, null, path, PackageHelper.convertToSingleInt(this.intServiceType));
 		
 			ServiceService servService = new ServiceServiceImpl();
 		
@@ -130,6 +133,7 @@ public class CreateServProdAction {
 		this.imageName = imageName;
 	}
 
-	
-
+	public void setIntServiceType(List<Integer> intServiceType) {
+		this.intServiceType = intServiceType;
+	}
 }
