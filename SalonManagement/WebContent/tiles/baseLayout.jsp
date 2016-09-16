@@ -251,6 +251,7 @@
 <script type="text/javascript" src="js/ajax/discount.js"></script>
 <script type="text/javascript" src="js/ajax/discount-create.js"></script>
 <script type="text/javascript" src="js/ajax/discount-update.js"></script>
+<script type="text/javascript" src="js/ajax/discount-requirement.js"></script>
 <script type="text/javascript" src="js/ajax/discount-deactivate.js"></script>
 <script type="text/javascript" src="js/ajax/package.js"></script>
 <script type="text/javascript" src="js/ajax/package-view.js"></script>

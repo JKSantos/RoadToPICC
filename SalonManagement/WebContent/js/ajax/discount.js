@@ -9,14 +9,6 @@ $('#btnCrDiscountExit').click(function () {
     $('#discnextbtn').prop('disabled', true).css('opacity', '0.3');
 });
 
-
-$('#addDiscountBtn').click(function () {
-    $('#createDiscountGuidelinesDiv').hide();
-    $('#crDiscountAmtTypeDiv').css('margin-top', '-50px');
-    $('#percent').css('margin-top', '-50px');
-    $('#fixed').css('margin-top', '-50px').show();
-});
-
 window.onload = updateDiscountTable();
 
 function updateDiscountTable() {

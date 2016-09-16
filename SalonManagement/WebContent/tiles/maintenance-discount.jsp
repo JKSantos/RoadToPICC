@@ -114,12 +114,18 @@
                                        value="SELECTED ITEMS" id="crDiscountRadio2"/>
                                 <label for="crDiscountRadio2">Selected Items</label>
                             </div>
-                            <div class="input-field col s6" style="margin-top: 15px;" id="createDiscountGuidelinesDiv">
-                            <textarea type="text" class="materialize-textarea" id="crDiscountGuidelines"
-                                      name="strDiscountGuidelines" placeholder="Discount"
-                                      style="margin-top: -10px !important;"></textarea>
-                                <label for="crDiscountGuidelines" class="active"><b>Guidelines</b><i
-                                        class="material-icons red-text tiny">error_outline</i></label>
+                            <div class="input-field col s4">
+                                <select name="crRequirement" id="crRequirement" multiple="multiple">
+                                    <option value="default" disabled selected>Choose...</option>
+                                </select>
+                                <label for="crRequirement">
+                                    <b>Requirement</b>
+                                </label>
+                            </div>
+                            <div class="input-field col s2">
+                                <button data-target="crAddNewReq"
+                                        class="waves-effect waves-light btn-flat modal-option purple darken-3 white-text">
+                                    <i class="material-icons">add</i></button>
                             </div>
                             <div class="input-field col s3 offset-s6" id="crDiscountAmtTypeDiv">
                                 <select id="crDiscountAmtType" name="strDiscountType">
@@ -317,6 +323,51 @@
                         style="margin-left: 3px; margin-right:3px; opacity: 0.3;">NEXT
                 </button>
 
+            </div>
+        </form>
+    </div>
+
+    <div id="crAddNewReq" class="modal" style="margin-top: 30px; width: 500px !important;">
+        <form id="createRequirementForm">
+            <div class="modal-content">
+                <h4>Create Requirement</h4>
+                <div class="row">
+                    <div class="errorCreateRequirement center input-field col s12 card red white-text z-depth-barts">
+                    </div>
+                    <div id="addCreateoption" class="center input-field col s12 card red white-text z-depth-barts">
+                    </div>
+                    <div class="col s12">
+                        <div class="input-field col s8 offset-s2">
+                            <select id="addCrRequirementSelect" class="browser-default" size="10"
+                                    style="height: 150px !important;">
+                            </select>
+                        </div>
+                        <div class="input-field col s6 offset-s2" style="margin-top: 20px;">
+                            <input type="text"
+                                   placeholder="Ex: Manager" id="addCrRequirementName" name="addCrRequirementName" required>
+                            <label for="addCrRequirementName" class="active"><b>Requirement</b></label>
+                        </div>
+                        <div class="input-field col s2">
+                            <a id="crDeletePosition" onclick="crRemoveNewRequirement();"
+                               class="modal-action waves-effect waves-light red darken-3 btn-flat white-text">
+                                <i class="material-icons">delete</i>
+                            </a>
+                        </div>
+                        <div class="input-field center col s12" id="requirementExistingDiv">
+                            <span class="red-text">Requirement is already existing!</span>
+                        </div>
+                        <div class="input-field col s8 offset-s2 center">
+                            <a id="createAddNewRequirement" onclick="crAddNewRequirement();"
+                               style="opacity: 0.3" disabled
+                               class="modal-action waves-effect waves-light purple darken-3 btn-flat white-text">
+                                SAVE
+                            </a>
+                            <button type="reset" value="Reset" id="crAddOptCancel"
+                                    class="modal-close waves-effect waves-purple transparent btn-flat white">CANCEL
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </form>
     </div>
