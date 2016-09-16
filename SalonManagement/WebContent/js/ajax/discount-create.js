@@ -27,11 +27,11 @@ function createDiscount() {
     discountPackSelect = discountPackSelect.join(',');
     discountPromoSelect = discountPromoSelect.join(',');
 
-    $('#crRequirement').on('change', function() {
-        var req = $(this).val();
+        var req = $('#crRequirement').val();
 
         requirement = req.join(',');
-    });
+
+    console.log(requirement);
 
     var discountname = $('#crDiscountName').val();
     var discountData = {
@@ -50,6 +50,7 @@ function createDiscount() {
 
     if($('input[name=strApplicability]:checked').val() == 'TOTAL SALES') {
         if($('#createDiscountForm').valid()) {
+            console.log(discountData);
             swal({
                     title: "Are you sure you want to create " + discountname + "?",
                     text: "",

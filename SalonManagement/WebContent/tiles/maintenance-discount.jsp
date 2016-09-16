@@ -444,7 +444,7 @@
                                     </label>
                                 </div>
                                 <div class="input-field col s2">
-                                    <button data-target="upAddNewReq"
+                                    <button data-target="crAddNewReq"
                                             class="waves-effect waves-light btn-flat modal-option purple darken-3 white-text">
                                         <i class="material-icons">add</i></button>
                                 </div>
@@ -646,51 +646,51 @@
         </form>
     </div>
 
-    <div id="upAddNewReq" class="modal" style="margin-top: 30px; width: 500px !important;">
-        <form id="updateRequirementForm">
-            <div class="modal-content">
-                <h4 class="center">Create Requirement</h4>
-                <div class="row">
-                    <div class="errorUpdateRequirement center input-field col s12 card red white-text z-depth-barts">
-                    </div>
-                    <div id="addUpdateoption" class="center input-field col s12 card red white-text z-depth-barts">
-                    </div>
-                    <div class="col s12">
-                        <div class="input-field col s8 offset-s2">
-                            <select id="addUpRequirementSelect" class="browser-default" size="10"
-                                    style="height: 150px !important;">
-                            </select>
-                        </div>
-                        <div class="input-field col s6 offset-s2" style="margin-top: 20px;">
-                            <input type="text"
-                                   placeholder="Ex: Manager" id="addUpRequirementName" name="addCrRequirementName"
-                                   required>
-                            <label for="addCrRequirementName" class="active"><b>Requirement</b></label>
-                        </div>
-                        <div class="input-field col s2">
-                            <a id="upDeletePosition" onclick="crRemoveNewRequirement();"
-                               class="modal-action waves-effect waves-light red darken-3 btn-flat white-text">
-                                <i class="material-icons">delete</i>
-                            </a>
-                        </div>
-                        <div class="input-field center col s12" id="UpRequirementExistingDiv">
-                            <span class="red-text">Requirement is already existing!</span>
-                        </div>
-                        <div class="input-field col s8 offset-s2 center">
-                            <a id="updateAddNewRequirement" onclick="crAddNewRequirement();"
-                               style="opacity: 0.3" disabled
-                               class="modal-action waves-effect waves-light purple darken-3 btn-flat white-text">
-                                SAVE
-                            </a>
-                            <button type="reset" value="Reset" id="upAddOptCancel"
-                                    class="modal-close waves-effect waves-purple transparent btn-flat white">CANCEL
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
+    <!--<div id="upAddNewReq" class="modal" style="margin-top: 30px; width: 500px !important;">-->
+        <!--<form id="updateRequirementForm">-->
+            <!--<div class="modal-content">-->
+                <!--<h4 class="center">Create Requirement</h4>-->
+                <!--<div class="row">-->
+                    <!--<div class="errorUpdateRequirement center input-field col s12 card red white-text z-depth-barts">-->
+                    <!--</div>-->
+                    <!--<div id="addUpdateoption" class="center input-field col s12 card red white-text z-depth-barts">-->
+                    <!--</div>-->
+                    <!--<div class="col s12">-->
+                        <!--<div class="input-field col s8 offset-s2">-->
+                            <!--<select id="addUpRequirementSelect" class="browser-default" size="10"-->
+                                    <!--style="height: 150px !important;">-->
+                            <!--</select>-->
+                        <!--</div>-->
+                        <!--<div class="input-field col s6 offset-s2" style="margin-top: 20px;">-->
+                            <!--<input type="text"-->
+                                   <!--placeholder="Ex: Manager" id="addUpRequirementName" name="addCrRequirementName"-->
+                                   <!--required>-->
+                            <!--<label for="addCrRequirementName" class="active"><b>Requirement</b></label>-->
+                        <!--</div>-->
+                        <!--<div class="input-field col s2">-->
+                            <!--<a id="upDeletePosition" onclick="crRemoveNewRequirement();"-->
+                               <!--class="modal-action waves-effect waves-light red darken-3 btn-flat white-text">-->
+                                <!--<i class="material-icons">delete</i>-->
+                            <!--</a>-->
+                        <!--</div>-->
+                        <!--<div class="input-field center col s12" id="UpRequirementExistingDiv">-->
+                            <!--<span class="red-text">Requirement is already existing!</span>-->
+                        <!--</div>-->
+                        <!--<div class="input-field col s8 offset-s2 center">-->
+                            <!--<a id="updateAddNewRequirement" onclick="crAddNewRequirement();"-->
+                               <!--style="opacity: 0.3" disabled-->
+                               <!--class="modal-action waves-effect waves-light purple darken-3 btn-flat white-text">-->
+                                <!--SAVE-->
+                            <!--</a>-->
+                            <!--<button type="reset" value="Reset" id="upAddOptCancel"-->
+                                    <!--class="modal-close waves-effect waves-purple transparent btn-flat white">CANCEL-->
+                            <!--</button>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</form>-->
+    <!--</div>-->
 
 
 </div>
