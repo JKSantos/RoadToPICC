@@ -96,8 +96,8 @@ public class ServiceJDBCRepository implements ServiceRepository{
 			pre1.setString(2, service.getStrServiceCategory());
 			pre1.setInt(3, service.getIntServiceStatus());
 			pre1.setString(4, service.getStrServiceDesc());
-			
-			pre1.setBinaryStream(5, (InputStream)fis, (int)file.length());
+			pre1.setInt(5, service.getServiceType());
+			pre1.setBinaryStream(6, (InputStream)fis, (int)file.length());
 			
 			
 			ResultSet set = pre1.executeQuery();
@@ -131,7 +131,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 	@Override
 	public boolean updateService(Service service) {
 		
-		String strQuery1 = "CALL updateService(?, ?, ?, ?, ?, ?)";
+		String strQuery1 = "CALL updateService(?, ?, ?, ?, ?, ?, ?)";
 		String strQuery2 = "CALL updatePrice(?, ?)";
 		JDBCConnection jdbc = new JDBCConnection();
 		Connection con = jdbc.getConnection();
@@ -150,7 +150,8 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				pre1.setString(3, service.getStrServiceCategory());
 				pre1.setInt(4, service.getIntServiceStatus());
 				pre1.setString(5, service.getStrServiceDesc());
-				pre1.setBinaryStream(6, (InputStream)fis, (int)file.length());
+				pre1.setInt(6, service.getServiceType());
+				pre1.setBinaryStream(7, (InputStream)fis, (int)file.length());
 			}
 			else{
 				pre1.setInt(1, service.getIntServiceID());
@@ -158,7 +159,8 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				pre1.setString(3, service.getStrServiceCategory());
 				pre1.setInt(4, service.getIntServiceStatus());
 				pre1.setString(5, service.getStrServiceDesc());
-				pre1.setInt(6, 101);
+				pre1.setInt(6, service.getServiceType());
+				pre1.setInt(7, 101);
 			}
 			
 			ResultSet set = pre1.executeQuery();
@@ -497,6 +499,62 @@ public class ServiceJDBCRepository implements ServiceRepository{
 			
 		}catch(Exception e){
 			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	public List<Service> getServiceByID() {
+		JDBCConnection jdbc = new JDBCConnection();
+		Connection con = jdbc.getConnection();
+		String strQuery1 = "CALL fetchServices()";
+		String strQuery2 = "CALL fetchPrice(?)";
+		List<Service> serviceList = new ArrayList<Service>();
+		
+		
+		try{
+			
+			PreparedStatement pre = con.prepareStatement(strQuery1);
+			ResultSet set = pre.executeQuery();
+			ResultSet set2;
+						
+			while(set.next()){
+				
+				Service service;
+				int intServiceID = set.getInt(1);
+				String strServiceName = set.getString(2);
+				String strServiceCate = set.getString(3);
+				int intServiceStatus = set.getInt(4);
+				String strServiceDesc = set.getString(5);
+				int intType = set.getInt(6);
+				byte[] actualPhoto = null;
+				String strPhotoPath = ":8080/SalonManagement/getImage?ImageID="+ intServiceID + "&type=service";
+				
+				PreparedStatement pre2 = con.prepareStatement(strQuery2);
+				pre2.setInt(1, intServiceID);
+				
+				set2 = pre2.executeQuery();
+				
+				while(set2.next()){
+					double price = set2.getDouble(1);
+					service = new Service(intServiceID, strServiceName, strServiceCate, intServiceStatus, strServiceDesc, price, actualPhoto, strPhotoPath, intType);
+					serviceList.add(service);
+					
+				}
+				
+				pre2.close();
+				set2.close();
+			}
+			
+			set.close();
+			pre.close();
+			con.close();
+			
+			return serviceList;
+		}
+		catch(Exception e){
+			
+			System.out.println(e.fillInStackTrace());
 			return null;
 		}
 	}

@@ -215,16 +215,8 @@
                                         <b>Details</b>
                                     </label>
                                 </div>
-                                <div class="input-field col s8">
-                                    <select id="crServiceCategory" name="strItemCategory" class="required"
-                                            required style="margin-bottom: -15px !important;">
-                                        <option value="default" disabled selected>Choose...</option>
-                                    </select>
-                                    <label for="crServiceCategory"><b>Category</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
-                                </div>
-                                <div class="input-field col s8">
-                                    <select id="crServiceType" name="strServiceType" class="required"
+                                <div class="input-field col s12">
+                                    <select id="crServiceType" name="intServiceType" class="required"
                                             required style="margin-bottom: -15px !important;" multiple>
                                         <option value="default" disabled selected>Choose...</option>
                                         <option value="1">Walk In</option>
@@ -232,6 +224,14 @@
                                         <option value="3">Event</option>
                                     </select>
                                     <label for="crServiceType"><b>Type</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
+                                </div>
+                                <div class="input-field col s8">
+                                    <select id="crServiceCategory" name="strItemCategory" class="required"
+                                            required style="margin-bottom: -15px !important;">
+                                        <option value="default" disabled selected>Choose...</option>
+                                    </select>
+                                    <label for="crServiceCategory"><b>Category</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s4">
@@ -393,6 +393,49 @@
                                             <b>Details</b>
                                         </label>
                                     </div>
+                                    <div class="input-field col s12">
+                                    <select id="crServiceType" name="intServiceType" class="required"
+                                            required style="margin-bottom: -15px !important;" multiple>
+										
+										<c:set var="walkin" scope="session" value=""/>
+										<c:set var="home" scope="session" value=""/>
+										<c:set var="event" scope="session" value=""/>
+										
+										<c:if test="${service.serviceType == 1}">
+											<c:set var="walkin" scope="session" value="selected"/>
+										</c:if>
+										<c:if test="${service.serviceType == 2}">
+											<c:set var="home" scope="session" value="selected"/>
+										</c:if>
+										<c:if test="${service.serviceType == 3}">
+											<c:set var="event" scope="session" value="selected"/>
+										</c:if>
+										<c:if test="${service.serviceType == 4}">
+											<c:set var="walkin" scope="session" value="selected"/>
+											<c:set var="home" scope="session" value="selected"/>
+										</c:if>
+										<c:if test="${service.serviceType == 5}">
+											<c:set var="walkin" scope="session" value="selected"/>
+											<c:set var="event" scope="session" value="selected"/>
+										</c:if>
+										<c:if test="${service.serviceType == 6}">
+											<c:set var="home" scope="session" value="selected"/>
+											<c:set var="event" scope="session" value="selected"/>
+										</c:if>
+										<c:if test="${service.serviceType == 7}">
+											<c:set var="walkin" scope="session" value="selected"/>
+											<c:set var="home" scope="session" value="selected"/>
+											<c:set var="event" scope="session" value="selected"/>
+										</c:if>
+										  
+                                        <option value="default" disabled selected>Choose...</option>
+                                        <option value="1" <c:out value="${walkin}"/>>Walk In</option>
+                                        <option value="2" <c:out value="${home}"/>>Home Service</option>
+                                        <option value="3" <c:out value="${event}"/>>Event</option>
+                                    </select>
+                                    <label for="crServiceType"><b>Type</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
+                              	 	</div>
                                     <div class="input-field col s8">
                                         <select id="updateServCategory" name="strItemCategory"
                                                 class="required updateServCategory"
@@ -505,6 +548,7 @@
             viewServiceID = String.valueOf(servID.getIntServiceID());
             String serviceCate = servID.getStrServiceCategory();
             double price = servID.getDblServicePrice();
+            String selectedService = "";
             %>
             <c:set var="price" scope="session" value="${(service.dblServicePrice * 0) + service.dblServicePrice}"/>
             <div id="view${service.intServiceID}"
@@ -543,24 +587,46 @@
                                         <label for="viewServName" class="active purple-text text-lighten-2"><b>Name</b></label>
                                     </div>
                                     <div class="input-field col s8">
-                                        <select id="viewServCategory" name="strItemCategory"
-                                                disabled style="margin-bottom: -15px !important;">
-                                            <option value="default" disabled>Choose...</option>
-                                            <c:forEach items="${serviceCategory}" var="service">
-                                                <%
-                                                String cate3 = (String)pageContext.getAttribute("service");
-                                                String selectedService = null;
-                                                if(serviceCate.equals(cate3)){
-                                                selectedService = "selected";
-                                                }
-                                                else {
-                                                selectedService = "";
-                                                }
-                                                %>
-                                                <option value="${service}"
-                                                <%out.println(selectedService);%>>${service}</option>
-                                            </c:forEach>
-                                        </select>
+                                           <c:if test="${service.serviceType == 1}">
+                                           		<c:set var="type" scope="session" value="Walk In"/>
+                                           </c:if>
+                                           <c:if test="${service.serviceType == 1}">
+                                           		<c:set var="type" scope="session" value="Home Service"/>
+                                           </c:if>
+                                           <c:if test="${service.serviceType == 2}">
+                                           		<c:set var="type" scope="session" value="Event"/>
+                                           </c:if>
+                                           <c:if test="${service.serviceType == 3}">
+                                           		<c:set var="type" scope="session" value="Walk In, Home Service"/>
+                                           </c:if>
+                                           <c:if test="${service.serviceType == 4}">
+                                           		<c:set var="type" scope="session" value="Walk In, Event"/>
+                                           </c:if>
+                                           <c:if test="${service.serviceType == 5}">
+                                           		<c:set var="type" scope="session" value="Home Service, Event"/>
+                                           </c:if>
+                                           <c:if test="${service.serviceType == 6}">
+                                           		<c:set var="type" scope="session" value="Walk In, Home Service, Event"/>
+                                           </c:if>
+                                        <input value="${type}" type="text" name="strItemName"
+                                               id="viewServCategory" disabled
+                                               class="white-text"/>
+                                        <label for="viewServCategory" class="purple-text text-lighten-2"><b>Type</b></label>
+                                    </div>
+                                    <div class="input-field col s8">
+                                        <c:forEach items="${serviceCategory}" var="service">
+                                            <%
+                                            String cate3 = (String)pageContext.getAttribute("service");
+                                           
+                                            if(serviceCate.equals(cate3)){
+                                            	
+                                            	selectedService+= cate3;
+                                            }
+                                            %>
+                                        </c:forEach>
+                                        <input value="<%=selectedService%>" type="text" name="strItemName"
+                                               id="viewServCategory" disabled
+                                               class="white-text"/>
                                         <label for="viewServCategory" class="purple-text text-lighten-2"><b>Category</b></label>
                                     </div>
                                     <div class="input-field col s6" style="margin-bottom: -15px !important;">

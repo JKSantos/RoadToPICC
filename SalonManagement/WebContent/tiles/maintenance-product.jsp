@@ -482,7 +482,9 @@
 
     <!--view-->
     <c:forEach items="${productList}" var="product">
-        <%! String viewStrProdID = null; %>
+        <%! String viewStrProdID = null;
+        	String selectedProduct = "";
+        %>
         <% Product prodID = (Product)pageContext.getAttribute("product");
         viewStrProdID = String.valueOf(prodID.getIntProductID());
         String productCate = prodID.getStrProductCategory();
@@ -525,24 +527,17 @@
                                     <label for="viewItemName" class="active purple-text text-lighten-2"><b>Name</b></label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <select id="viewItemCategory" name="strItemCategory" disabled
-                                            class="upItemCategory white-text" style="margin-bottom: -15px !important;">
-                                        <option value="default" disabled selected>Choose...</option>
                                         <c:forEach items="${productCategory}" var="cate">
                                             <%
                                             String cate = (String)pageContext.getAttribute("cate");
-                                            String selectedProduct = null;
                                             if(productCate.equals(cate)){
-                                            selectedProduct = "selected";
-                                            }
-                                            else {
-                                            selectedProduct = "";
+                                            selectedProduct = cate;
                                             }
                                             %>
-                                            <option value="${cate}"
-                                            <%out.println(selectedProduct);%>>${cate}</option>
                                         </c:forEach>
-                                    </select>
+                                        <input value="<%=selectedProduct%>" type="text" name="strItemName"
+                                           id="viewItemCategory" class="white-text" disabled
+                                           placeholder="Product Name"/>
                                     <label for="viewItemCategory" class="purple-text text-lighten-2"><b>Category</b></label>
                                 </div>
                                 <div class="input-field col s6" style="margin-bottom: -15px !important;">

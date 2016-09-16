@@ -556,6 +556,8 @@ public class DiscountJDBCRepository implements DiscountRepository{
 				while(requirementSet.next()){
 					Requirement requirement = new Requirement(requirementSet.getInt(1), requirementSet.getString(2), 1);
 					requirements.add(requirement);
+					
+					System.out.println("1");
 				}
 				
 				Discount discount = new Discount(this.intID, this.applicability, this.strName, this.strDesc, this.strGuide, this.intType, this.dblAmount, productList, serviceList, packageList, promoList, this.status);

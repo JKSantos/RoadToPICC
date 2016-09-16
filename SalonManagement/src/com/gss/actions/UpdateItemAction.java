@@ -1,6 +1,7 @@
 package com.gss.actions;
 
 import java.io.File;
+import java.util.List;
 
 import com.gss.model.Product;
 import com.gss.model.Service;
@@ -8,6 +9,7 @@ import com.gss.service.ProductService;
 import com.gss.service.ProductServiceImpl;
 import com.gss.service.ServiceService;
 import com.gss.service.ServiceServiceImpl;
+import com.gss.utilities.PackageHelper;
 import com.gss.utilities.PriceFormatHelper;
 
 
@@ -24,6 +26,7 @@ public class UpdateItemAction {
 	private String price;
 	private String imageName;
 	private int intItemQuantity;
+	private List<Integer> intServiceType;
 	
 	public String execute() throws Exception{
 	
@@ -38,12 +41,14 @@ public class UpdateItemAction {
 		
 		if(strItemCate.equalsIgnoreCase("service")){
 			
+			System.out.println(imageName);
+			
 			if(imageName.equalsIgnoreCase("image")){
-				update = new Service(intItemID, strItemName, strItemCategory, 1, strItemDetails, dblItemPrice, null, imageName);
+				update = new Service(intItemID, strItemName, strItemCategory, 1, strItemDetails, dblItemPrice, null, imageName, PackageHelper.convertToSingleInt(this.intServiceType));
 				isUpdated = service.updateService(update);
 			}
 			else{
-				update = new Service(intItemID, strItemName, strItemCategory, 1, strItemDetails, dblItemPrice, null, file.getAbsolutePath());
+				update = new Service(intItemID, strItemName, strItemCategory, 1, strItemDetails, dblItemPrice, null, file.getAbsolutePath(), PackageHelper.convertToSingleInt(this.intServiceType));
 				isUpdated = service.updateService(update);
 			}
 			
@@ -55,8 +60,7 @@ public class UpdateItemAction {
 		else{
 
 			if(imageName.equalsIgnoreCase("image")){
-				
-				System.out.println(price);
+			
 				prod = new Product(intItemID, strItemName, strItemCategory, strItemDetails, 0, null, dblItemPrice, imageName, 1);
 				isUpdated = prodServ.updateProduct(prod);
 			}
@@ -147,7 +151,8 @@ public class UpdateItemAction {
 	public void setUploadFilename(String filename) {
 		this.filename = filename;
 	}
-	
-	
 
+	public void setIntServiceType(List<Integer> intServiceType) {
+		this.intServiceType = intServiceType;
+	}
 }
