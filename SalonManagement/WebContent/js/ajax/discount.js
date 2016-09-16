@@ -9,68 +9,12 @@ $('#btnCrDiscountExit').click(function () {
     $('#discnextbtn').prop('disabled', true).css('opacity', '0.3');
 });
 
-$('input[name=strApplicability]').click(function () {
-    if ($(this).val() == 'DEPENDING ON THE GUIDELINES' && $('#crDiscountAmtType').val() == 1) {
-        $('#crDiscountGuidelines, #crDiscountAmountPercent').on('input', function () {
-            if ($('#crDiscountGuidelines').val() == '' || $('#crDiscountAmountPercent').val() == '') {
-                $('#discnextbtn').prop('disabled', true)
-                    .css('opacity', '0.3');
-            } else {
-                $('#discnextbtn').prop('disabled', false)
-                    .css('opacity', '1');
-            }
-        });
-    } else if ($(this).val() == 'DEPENDING ON THE GUIDELINES' && $('#crDiscountAmtType').val() == 2){
-        $('#crDiscountAmountFixed, #crDiscountGuidelines').on('input', function () {
-            if ($('#crDiscountGuidelines').val() == '' || $('#crDiscountAmountFixed').val() == '' || $('#crDiscountAmountFixed').val() == 'Php 0.00') {
-                $('#discnextbtn').prop('disabled', true)
-                    .css('opacity', '0.3');
-            } else {
-                $('#discnextbtn').prop('disabled', false)
-                    .css('opacity', '1');
-            }
-        });
-    } else if ($(this).val() == 'ALL CUSTOMER' && $('#crDiscountAmtType').val() == 1) {
-        $('#crDiscountAmountPercent').on('input', function () {
-            if ($('#crDiscountAmountPercent').val() == '') {
-                $('#discnextbtn').prop('disabled', true)
-                    .css('opacity', '0.3');
-            } else {
-                $('#discnextbtn').prop('disabled', false)
-                    .css('opacity', '1');
-            }
-        });
-    } else if ($(this).val() == 'ALL CUSTOMER' && $('#crDiscountAmtType').val() == 2) {
-        $('#crDiscountAmountFixed').on('input', function () {
-            if ($('#crDiscountAmountFixed').val() == '' || $('#crDiscountAmountFixed').val() == 'Php 0.00') {
-                $('#discnextbtn').prop('disabled', true)
-                    .css('opacity', '0.3');
-            } else {
-                $('#discnextbtn').prop('disabled', false)
-                    .css('opacity', '1');
-            }
-        });
-    }
-});
 
 $('#addDiscountBtn').click(function () {
     $('#createDiscountGuidelinesDiv').hide();
     $('#crDiscountAmtTypeDiv').css('margin-top', '-50px');
     $('#percent').css('margin-top', '-50px');
     $('#fixed').css('margin-top', '-50px').show();
-});
-$('input[name=strApplicability]').click(function () {
-    if ($(this).val() == 'DEPENDING ON THE GUIDELINES') {
-        $('#createDiscountGuidelinesDiv').show();
-        $('#crDiscountAmtTypeDiv').css('margin-top', '10px');
-        $('#percent').css('margin-top', '10px');
-        $('#fixed').css('margin-top', '10px');
-    } else if ($(this).val() == 'ALL CUSTOMER') {
-        $('#createDiscountGuidelinesDiv').hide();
-        $('#crDiscountAmtTypeDiv').css('margin-top', '-50px');
-        $('#percent').css('margin-top', '-50px');
-        $('#fixed').css('margin-top', '-50px');
-    }
 });
 
 window.onload = updateDiscountTable();

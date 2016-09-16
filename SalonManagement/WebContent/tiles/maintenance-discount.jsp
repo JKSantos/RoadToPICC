@@ -107,12 +107,12 @@
                             <div class="input-field col s6">
                                 <label style="margin-top: -25px !important;"><b>Applicability</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>
-                                <input name="strApplicability" class="radiobtn" type="radio" value="ALL CUSTOMER"
+                                <input name="strApplicability" class="radiobtn" type="radio" value="TOTAL SALES"
                                        id="crDiscountRadio1"/>
-                                <label for="crDiscountRadio1">All Customers</label>
+                                <label for="crDiscountRadio1">Total Sales</label>
                                 <input name="strApplicability" class="radiobtn" type="radio"
-                                       value="DEPENDING ON THE GUIDELINES" id="crDiscountRadio2"/>
-                                <label for="crDiscountRadio2">Depending on the guidelines</label>
+                                       value="SELECTED ITEMS" id="crDiscountRadio2"/>
+                                <label for="crDiscountRadio2">Selected Items</label>
                             </div>
                             <div class="input-field col s6" style="margin-top: 15px;" id="createDiscountGuidelinesDiv">
                             <textarea type="text" class="materialize-textarea" id="crDiscountGuidelines"
