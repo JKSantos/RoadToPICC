@@ -255,9 +255,9 @@ $(document).ready(function () {
     //     "rowHeight": '10px'
     // });
 
-    $("#discountSearch").bind('keyup search input paste cut', function () {
-        discounttbl.search(this.value).draw();
-    });
+    // $("#discountSearch").bind('keyup search input paste cut', function () {
+    //     discounttbl.search(this.value).draw();
+    // });
 
     $('.crDiscBtn').click(function () {
         $('#fixed').hide();

@@ -43,7 +43,7 @@
                 <tr>
                     <th class="dt-head-left">Name</th>
                     <th class="dt-head-left no-sort">Description</th>
-                    <th class="dt-head-left no-sort">Guidelines</th>
+                    <th class="dt-head-left no-sort">Requirement</th>
                     <th class="dt-head-left">Applicability</th>
                     <th class="dt-head-left">Type</th>
                     <th class="dt-head-right">Amount</th>
@@ -54,7 +54,7 @@
                 <tr>
                     <th class="dt-head-left">Name</th>
                     <th class="dt-head-left no-sort">Description</th>
-                    <th class="dt-head-left no-sort">Guidelines</th>
+                    <th class="dt-head-left no-sort">Requirement</th>
                     <th class="dt-head-left">Applicability</th>
                     <th class="dt-head-left">Type</th>
                     <th class="dt-head-right">Amount</th>

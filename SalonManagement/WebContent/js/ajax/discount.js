@@ -8,6 +8,11 @@ $('#btnCrDiscountExit').click(function () {
     $('.discounterrorcontainer').hide();
 });
 
+$('#crAddOptCancel').on('click', function() {
+   $(".errorCreateRequirement").hide();
+    $('#addCrRequirementName').trigger("reset");
+});
+
 $('#createDiscountSubmitForm2').hide();
 
 $('#addDiscountBtn').on('click', function() {
@@ -56,7 +61,7 @@ function updateDiscountTable() {
                     {className: "dt-body-left", "targets": [0, 1, 2, 3, 4]},
                     {className: "dt-body-right", "targets": [5]},
                     {className: "dt-head-center", "targets": [6]},
-                    {"targets": [1, 2], render: $.fn.dataTable.render.ellipsis(25)}
+                    {"targets": [1], render: $.fn.dataTable.render.ellipsis(25)}
                 ],
                 "rowHeight": '10px'
             });
@@ -68,8 +73,9 @@ function updateDiscountTable() {
             if (discountList != null) {
                 tablediscount.clear().draw();
                 $.each(discountList, function (i, discount) {
+                    console.log(discount);
                     var price,
-                        guidelines,
+                        req = '',
                         description,
                         type;
                     var addbtn = "<button class=' waves-effect waves-purple btn-flat transparent black-text'" +
@@ -90,10 +96,12 @@ function updateDiscountTable() {
                         type = 'Fixed Amount'
                     }
 
-                    if (discount.strDiscountGuidelines == null || discount.strDiscountGuidelines == '') {
-                        guidelines = 'None';
+                    if(discount.requirements.length > 0) {
+                        $.each(discount.requirements, function (i, re) {
+                            req += '<span>' + re.strRequirementName + '</span><br>';
+                        });
                     } else {
-                        guidelines = discount.strDiscountGuidelines;
+                        req = 'NONE'
                     }
 
                     if (discount.strDiscountDesc == null || discount.strDiscountDesc == '') {
@@ -105,7 +113,7 @@ function updateDiscountTable() {
                     tablediscount.row.add([
                         discount.strDiscountName,
                         description,
-                        guidelines,
+                        req,
                         discount.applicability,
                         type,
                         price,
