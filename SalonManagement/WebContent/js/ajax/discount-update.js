@@ -2,6 +2,15 @@
  * Created by Castillo on 9/9/2016.
  */
 
+$('input[name=strUpdateApplicability]').on('click', function() {
+   if($(this).val() == 'TOTAL SALES') {
+       $('#updateBDiscount').css('pointer-events', 'none');
+   } else {
+       $('#updateBDiscount').css('pointer-events', 'auto');
+   }
+    console.log($(this).val());
+});
+
 
 $('#discountUpdateFilter').change(function () {
     var sel = $(this).val();
@@ -70,6 +79,13 @@ function openUpdateDiscount(id) {
         async: true,
         success: function (data) {
             var discount = data.discount;
+
+
+            $('select').material_select('destroy');
+            $("#upRequirement option:selected").removeAttr("selected");
+            $('select').material_select();
+
+
             $('.updateDiscountChip').remove();
             $('.updateDiscountCheckbox').prop('checked', false);
             console.log(discount);
@@ -111,32 +127,57 @@ function openUpdateDiscount(id) {
                 $('#upDiscountAmountFixed').val('Php ' + parseFloat(discount.dblDiscountAmount).toFixed(2));
             }
 
+            // var reqNames = [];
+            // $('#upRequirement > option').each(function() {
+            //    reqNames.push(this.value);
+            // });
+
+            var r = [];
+            $.each(discount.requirements, function (i, req) {
+                console.log(req.intRequirementID);
+                r.push(req.intRequirementID);
+                // for(var d = 0; d < reqNames.length; d++) {
+                //     if(reqNames[d] == req.intRequirementID) {
+                //         console.log(reqNames[d] + ' /// ' + req.intRequirementID);
+                //         $('#upRequirement option[value=' + reqNames[d] +']').attr('selected', true);
+                //     }
+                // }
+
+
+                // if($('#upRequirement option').val() == req.intRequirementID) {
+                //     console.log(req.intRequirementID);
+                // }
+            });
+            $('select').material_select('destroy');
+            $('#upRequirement').val(r);
+            $('select').material_select();
+
             $.each(discount.productList, function (i, product) {
                 var upProdCheck = $('#discUpProdCheck' + product.intProductID),
                     discnt, typeamt;
-               if(product.intProductID == upProdCheck.val()){
-                   chkupdate = chkupdate + 1;
-                   upProdCheck.prop('checked', true);
-                   if (discount.intDiscountType == 1) { //percentage
-                       discnt = parseFloat(product.dblProductPrice - ( (product.dblProductPrice * discount.dblDiscountAmount) / 100)).toFixed(2);
-                       typeamt = discount.dblDiscountAmount + '%';
-                   } else if (discount.intDiscountType == 2) {
-                       discnt = parseFloat(product.dblProductPrice - discount.dblDiscountAmount).toFixed(2);
-                       typeamt = 'P' + parseFloat(discount.dblDiscountAmount).toFixed(2);
-                   }
+                if (product.intProductID == upProdCheck.val()) {
+                    chkupdate = chkupdate + 1;
+                    upProdCheck.prop('checked', true);
+                    if (discount.intDiscountType == 1) { //percentage
+                        discnt = parseFloat(product.dblProductPrice - ( (product.dblProductPrice * discount.dblDiscountAmount) / 100)).toFixed(2);
+                        typeamt = discount.dblDiscountAmount + '%';
+                    } else if (discount.intDiscountType == 2) {
+                        discnt = parseFloat(product.dblProductPrice - discount.dblDiscountAmount).toFixed(2);
+                        typeamt = 'P' + parseFloat(discount.dblDiscountAmount).toFixed(2);
+                    }
 
-                   $('#discountUpdateList').append('<div style="margin: 3px;" class="chip updateDiscountChip z-depth-1 grey lighten-3 grey-text text-darken-4"' +
-                       ' id="discUpProdItem' + product.intProductID + '"><b>' + product.strProductName + '</b>' +
-                       ' P' + parseFloat(product.dblProductPrice).toFixed(2) + ' - (Discount: ' + typeamt + ') = (Total: P' + discnt + ')' +
-                       '<i id="discUpProdChip' + product.intProductID + '" class="material-icons" style="margin-right: 5px' +
-                       '!important">close</i></div>').show();
-               }
+                    $('#discountUpdateList').append('<div style="margin: 3px;" class="chip updateDiscountChip z-depth-1 grey lighten-3 grey-text text-darken-4"' +
+                        ' id="discUpProdItem' + product.intProductID + '"><b>' + product.strProductName + '</b>' +
+                        ' P' + parseFloat(product.dblProductPrice).toFixed(2) + ' - (Discount: ' + typeamt + ') = (Total: P' + discnt + ')' +
+                        '<i id="discUpProdChip' + product.intProductID + '" class="material-icons" style="margin-right: 5px' +
+                        '!important">close</i></div>').show();
+                }
             });
 
             $.each(discount.serviceList, function (i, service) {
                 var upServCheck = $('#discUpServCheck' + service.intServiceID),
                     discntService, typeamtService;
-                if(service.intServiceID == upServCheck.val()){
+                if (service.intServiceID == upServCheck.val()) {
                     chkupdate = chkupdate + 1;
                     upServCheck.prop('checked', true);
                     if (discount.intDiscountType == 1) { //percentage
@@ -158,7 +199,7 @@ function openUpdateDiscount(id) {
             $.each(discount.packageList, function (i, package) {
                 var upPackCheck = $('#discUpPackCheck' + package.intPackageID),
                     discntPackage, typeamtPackage;
-                if(package.intPackageID == upPackCheck.val()){
+                if (package.intPackageID == upPackCheck.val()) {
                     upPackCheck.prop('checked', true);
                     chkupdate = chkupdate + 1;
                     if (discount.intDiscountType == 1) { //percentage
@@ -180,7 +221,7 @@ function openUpdateDiscount(id) {
             $.each(discount.promoList, function (i, promo) {
                 var upPromoCheck = $('#discUpPromoCheck' + promo.intPromoID),
                     discntPromo, typeamtPromo;
-                if(promo.intPromoID == upPromoCheck.val()){
+                if (promo.intPromoID == upPromoCheck.val()) {
                     upPromoCheck.prop('checked', true);
                     chkupdate = chkupdate + 1;
                     if (discount.intDiscountType == 1) { //percentage
@@ -470,7 +511,7 @@ function updateProductDiscount(id) {
     });
 }
 
-function updateServiceDiscount (id) {
+function updateServiceDiscount(id) {
     var serviceID = $('#discUpServCheck' + id);
     if (serviceID.is(':checked')) {
         var $servTR = serviceID.closest('tr'), // PRODUCT TR
@@ -540,7 +581,7 @@ function updateServiceDiscount (id) {
     });
 }
 
-function updatePackageDiscount (id) {
+function updatePackageDiscount(id) {
     var packageID = $('#discUpPackCheck' + id);
     if (packageID.is(':checked')) {
         var $packTR = packageID.closest('tr'), // PRODUCT TR
@@ -610,7 +651,7 @@ function updatePackageDiscount (id) {
     });
 }
 
-function updatePromoDiscount (id) {
+function updatePromoDiscount(id) {
     var promoID = $('#discUpPromoCheck' + id);
     if (promoID.is(':checked')) {
         var $promoTR = promoID.closest('tr'), // PRODUCT TR
@@ -682,12 +723,13 @@ function updatePromoDiscount (id) {
 
 
 function updateDiscount() {
-    if($('#updateDiscountForm').valid()){
+    if ($('#updateDiscountForm').valid()) {
         var discountProdSelect = [],
             discountServSelect = [],
             discountPackSelect = [],
             discountPromoSelect = [],
-            applicability = '';
+            applicability = '',
+            UPrequirement;
 
         $.each($("input[name=updateDiscountProduct]:checked"), function () {
             discountProdSelect.push($(this).val());
@@ -707,6 +749,10 @@ function updateDiscount() {
         discountPackSelect = discountPackSelect.join(',');
         discountPromoSelect = discountPromoSelect.join(',');
 
+        var req = $('#upRequirement').val();
+
+        UPrequirement = req.join(',');
+
 
         var discountname = $('#upDiscountName').val();
         var discountData = {
@@ -714,14 +760,14 @@ function updateDiscount() {
             "strApplicability": $('input[name=strUpdateApplicability]:checked').val(),
             "strDiscountName": discountname,
             "strDiscountDetails": $('#upDiscountDetails').val(),
-            "strDiscountGuidelines": $("#upDiscountGuidelines").val(),
             "strDiscountType": $('#upDiscountAmtType').val(),
             "strDiscountPriceFixed": $('#upDiscountAmountFixed').val().replace(/[^\d.]/g, ''),
             "strDiscountPricePercent": parseInt($('#upDiscountAmountPercent').val()),
             "checkedServices": discountServSelect,
             "checkedProducts": discountProdSelect,
             "checkedPackages": discountPackSelect,
-            "checkedPromos": discountPromoSelect
+            "checkedPromos": discountPromoSelect,
+            "requirements": UPrequirement
         };
 
         console.log(discountData);
