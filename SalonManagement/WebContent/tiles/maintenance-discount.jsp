@@ -101,7 +101,7 @@
                                       name="strDiscountDetails" placeholder="Discount"
                                       style="margin-top: -10px !important;"></textarea>
                                 <label for="crDiscountDetails" class="active">
-                                    <b>Details</b>
+                                    <b>Description</b>
                                 </label>
                             </div>
                             <div class="input-field col s6">
@@ -342,10 +342,10 @@
                             <ul class="tabs tab-demo-active" style="width: 100%; background-color: #fafafa;">
                                 <li class="tab col s6"><a
                                         class="purple-text text-darken-2 waves-effect waves-light"
-                                        href="#updateA"><b>INFO 1</b></a></li>
+                                        href="#updateA"><b>Details</b></a></li>
                                 <li class="tab col s6"><a
                                         class="purple-text text-darken-2 waves-effect waves-light"
-                                        href="#updateB"><b>INFO 2</b></a></li>
+                                        href="#updateB"><b>Included Items</b></a></li>
                             </ul>
                         </div>
                         <div id="updateA" class="ftab col s12" style="margin-top: 20px !important;">
@@ -364,7 +364,7 @@
                                       name="strDiscountDetails" placeholder="Discount"
                                       style="margin-top: -10px !important;"></textarea>
                                     <label for="upDiscountDetails" class="active">
-                                        <b>Details</b>
+                                        <b>Description</b>
                                     </label>
                                 </div>
                                 <div class="input-field col s6">

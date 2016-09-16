@@ -4,7 +4,7 @@
 <div class="wrapper" ng-controller="extraQueryController as vm">
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
-            <h3 class="grey-text center text-darken-1">Query - Other Charge</h3>
+            <h3 class="grey-text center text-darken-1">Query - Fee</h3>
             <div class="row" style="margin-bottom: -100px !important; margin-top: 50px !important;">
                 <div class="col s12">
                     <div class="input-field col s3">

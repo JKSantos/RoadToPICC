@@ -822,6 +822,7 @@ $('.btnServUpExit').click(function () {
     $('.upServAddCatForm').trigger("reset");
     $('.upserverrorcontainer').hide();
     $('select').material_select();
+    $('.upServSubmitBtn').prop('disabled', false).css('opacity', '1');
 });
 
 $('#crProdCancel').click(function () {
@@ -843,6 +844,7 @@ $('.upServCancel').click(function () {
     $('.upServAddCatForm').trigger("reset");
     $('.upserverrorcontainer').hide();
     $('select').material_select();
+    $('.upServSubmitBtn').prop('disabled', false).css('opacity', '1');
 });
 
 $('.upServAddProdCatCancel').click(function () {

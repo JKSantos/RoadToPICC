@@ -111,7 +111,7 @@
                             <li><a href="serviceMaintenance">Service</a></li>
                             <li><a href="packageMaintenance">Package</a></li>
                             <li><a href="locationMaintenance">Transportation Charge</a></li>
-                            <li><a href="extraChargeMaintenance">Other Charge</a></li>
+                            <li><a href="extraChargeMaintenance">Fee</a></li>
                             <li><a href="promoMaintenance">Promo</a></li>
                             <li><a href="discountMaintenance">Discount</a></li>
                         </ul>
@@ -148,7 +148,7 @@
                             <li><a href="serviceQueries">Service</a></li>
                             <li><a href="packageQueries">Package</a></li>
                             <li><a href="deliveryQueries">Transportation Charge</a></li>
-                            <li><a href="extraQueries">Other Charge</a></li>
+                            <li><a href="extraQueries">Fee</a></li>
                             <li><a href="promoQueries">Promo</a></li>
                             <li><a href="discountQueries">Discount</a></li>
                         </ul>
@@ -242,6 +242,8 @@
 <!-- jQuery Ajax -->
 <script type="text/javascript" src="js/employee-account.js"></script>
 <script type="text/javascript" src="js/ajax/employee-position.js"></script>
+<script type="text/javascript" src="js/ajax/product-name.js"></script>
+<script type="text/javascript" src="js/ajax/service-name.js"></script>
 <script type="text/javascript" src="js/ajax/product-category.js"></script>
 <script type="text/javascript" src="js/ajax/service-category.js"></script>
 <script type="text/javascript" src="js/ajax/delivery.js"></script>

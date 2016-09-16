@@ -44,7 +44,7 @@
                 <tbody>
                 <c:forEach items="${productList}" var="product">
                     <c:set var="price" scope="session"
-                           value="${(product.dblProductPrice * 0) + product.dblProductPrice}"></c:set>
+                           value="${(product.dblProductPrice * 0.00) + product.dblProductPrice}"></c:set>
                     <%! String string = null; %>
                     <% Product prod = (Product)pageContext.getAttribute("product");
                     string = String.valueOf(prod.getIntProductID());
@@ -63,7 +63,7 @@
                                 <i class="material-icons">visibility</i>
                             </a>
                             <a class="waves-effect waves-purple modal-trigger btn-flat transparent black-text"
-                               href="#prod<%=string%>" style="padding-left: 10px;padding-right:10px; margin: 5px;">
+                               href="#prod<%=string%>" onclick="checkNameAvailability(${product.intProductID})" style="padding-left: 10px;padding-right:10px; margin: 5px;">
                                 <i class="material-icons">edit</i>
                             </a>
                             <button class="proddeacbtn waves-effect waves-purple btn-flat transparent red-text text-accent-4"
@@ -195,13 +195,15 @@
                     </div>
                     <div class="aside aside2 z-depth-0">
                         <div class="row">
-                            <div class="input-field col s12" style="margin-top: 25px !important;">
+                            <div class="input-field col s12" style="margin-top: 25px !important;" id="crItemField">
                                 <input type="hidden" name="strItemCate"
                                        value="Product"/>
                                 <input type="text" name="strItemName" id="crItemName" required
                                        placeholder="Product Name"/>
-                                <label for="crItemName" class="active"><b>Name</b><i
-                                        class="material-icons red-text tiny">error_outline</i></label>
+                                <label for="crItemName" class="active"><b>Name</b>
+                                    <i class="material-icons red-text tiny">error_outline</i>
+                                    <span id="crItemNameError" class="red-text">Already existing!</span>
+                                </label>
                             </div>
                             <div class="input-field col s12">
                                     <textarea id="crItemDetails" name="strItemDetails"
@@ -246,6 +248,9 @@
                         class=" modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL
                 </button>
                 <button class="waves-effect waves-light purple darken-3 white-text btn-flat" type="submit" onclick="pricesample()"
+                        id="btnCreateProduct"
+                        disabled
+                        style="opacity: 0.3"
                         value="Submit">CREATE
                 </button>
             </div>
@@ -357,10 +362,12 @@
                                     <input type="hidden" name="intItemID" value="<%=strProdID%>">
                                     <input type="hidden" name="strItemCate" value="Product">
                                     <input value="${product.strProductName}" type="text" name="strItemName"
-                                           id="upItemName" required
+                                           id="upItemName<%=strProdID%>" required
                                            placeholder="Product Name"/>
-                                    <label for="upItemName" class="active"><b>Name</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                    <label for="upItemName<%=strProdID%>" class="active"><b>Name</b>
+                                        <i class="material-icons red-text tiny">error_outline</i>
+                                        <span id="upItemNameError<%=strProdID%>" class="red-text" style="display: none;">Already existing!</span>
+                                    </label>
                                 </div>
                                 <div class="input-field col s12">
                                     <textarea id="upItemDetails" name="strItemDetails"
@@ -422,6 +429,7 @@
                         CANCEL
                     </button>
                     <button class="waves-effect waves-light purple darken-3 white-text btn-flat upProdSubmitBtn"
+                            id="btnUpdateID<%=strProdID%>"
                             type="submit"
                             value="Submit">UPDATE
                     </button>
