@@ -84,6 +84,10 @@
 			<result name="success" type="json"></result>
 			<result name="incorrect" type="json"></result>
 		</action>
+		
+		<action name="getAvailableEmployee" class="com.gss.actions.Employee.GetAvailableEmployee" method="execute">
+			<result name="success" type="json"></result>
+		</action>
 	
 	</package>	
 </struts>

@@ -45,6 +45,10 @@
 		<action name="getAllPromoNoDetails" class="com.gss.actions.Promo.GetAllPromoNoDetails">
 			<result name="success" type="json"/>
 		</action>
+		
+		<action name="getPromoByType" class="com.gss.actions.Promo.GetPromoByType">
+			<result name="success" type="json"/>
+		</action>
 	
 	</package>	
 		
