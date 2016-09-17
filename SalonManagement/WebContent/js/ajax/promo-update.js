@@ -197,21 +197,40 @@ function openUpdatePromo(id) {
         success: function (data) {
             if (data.result == "success") {
                 console.log(data.promo);
+                var pty = [],
+                    preq = [];
                 if(data.promo.promoType == 1) {
-                    $('#upPromoType option[value=walkin]').prop('selected', true);
+                    pty.push('walkin');
                 } else if(data.promo.promoType == 2) {
-
+                    pty.push('homeservice');
                 } else if(data.promo.promoType == 3) {
-
+                    pty.push('event');
                 } else if(data.promo.promoType == 4) {
-
+                    pty.push('walkin');
+                    pty.push('homeservice');
                 } else if(data.promo.promoType == 5) {
-
+                    pty.push('walkin');
+                    pty.push('event');
                 } else if(data.promo.promoType == 6) {
-
+                    pty.push('homeservice');
+                    pty.push('event');
                 } else if(data.promo.promoType == 7) {
-
+                    pty.push('walkin');
+                    pty.push('homeservice');
+                    pty.push('event');
                 }
+
+                $('select').material_select('destroy');
+                $('#upPromoType').val(pty);
+                $('select').material_select();
+
+                $.each(data.promo.requirements, function(i, req) {
+                   preq.push(req.intRequirementID);
+                });
+
+                $('select').material_select('destroy');
+                $('#upPromoRequirement').val(preq);
+                $('select').material_select();
 
                 if (data.promo.dblPrice == "0.0") {
                     $('input[name=upFree]').prop('checked', false);

@@ -394,7 +394,7 @@
                     </div>
                     <div class="row">
                         <div class="col s12">
-                            <ul class="tabs tab-demo-active" style="width: 100%; background-color: #fafafa; margin-top: -35px !important;">
+                            <ul class="tabs tab-demo-active" style="width: 100%; background-color: #fafafa; margin-top: -10px !important;">
                                 <li class="tab col s6"><a
                                         class="purple-text text-darken-2 waves-effect waves-light"
                                         href="#promoUpdateA"><b>Details</b></a></li>
