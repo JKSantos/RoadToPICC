@@ -65,6 +65,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				while(set2.next()){
 					double price = set2.getDouble(1);
 					service = new Service(intServiceID, strServiceName, strServiceCate, intServiceStatus, strServiceDesc, price, actualPhoto, strPhotoPath, intType);
+					service.setStringPrice(String.format("%.2f", price));
 					serviceList.add(service);
 					
 				}
@@ -300,6 +301,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				while(set2.next()){
 					double price = set2.getDouble(1);
 					service = new Service(intServiceID, strServiceName, strServiceCate, intServiceStatus, strServiceDesc, price, actualPhoto, strPhotoPath, intType);
+					service.setStringPrice(String.format("%.2f", price));
 					serviceList.add(service);
 					
 				}
@@ -356,6 +358,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				while(set2.next()){
 					double price = set2.getDouble(1);
 					service = new Service(intServiceID, strServiceName, strServiceCate, intServiceStatus, strServiceDesc, price, actualPhoto, strPhotoPath, intType);
+					service.setStringPrice(String.format("%.2f", price));
 					serviceList.add(service);
 					
 				}
@@ -562,6 +565,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				while(set2.next()){
 					double price = set2.getDouble(1);
 					service = new Service(intServiceID, strServiceName, strServiceCate, intServiceStatus, strServiceDesc, price, actualPhoto, strPhotoPath, intType);
+					service.setStringPrice(String.format("%.2f", price));
 					serviceList.add(service);
 					
 				}

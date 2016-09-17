@@ -16,6 +16,7 @@ public class Product {
 	private double dblProductPrice;
 	private String strPhotoPath;
 	private int intProductStatus;
+	private String stringPrice;
 	
 	public Product(int intProductID, String strProductName, String strProductCategory, String strProductDesc, int intProductQuantity, byte[] productPhoto, double dblProductPrice, String strPhotoPath, int intProductStatus){
 		
@@ -116,5 +117,13 @@ public class Product {
 		ProductService service = new ProductServiceImpl();
 		
 		return service.queryAllProduct();
+	}
+
+	public String getStringPrice() {
+		return stringPrice;
+	}
+
+	public void setStringPrice(String stringPrice) {
+		this.stringPrice = stringPrice;
 	}
 }

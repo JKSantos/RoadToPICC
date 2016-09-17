@@ -235,6 +235,7 @@ public class PackageJDBCRepository implements PackageRepository{
 				
 				
 				Package packagee = new Package(intID, strName, strDesc, intType, max, strAvailability, price, servPack, prodPack, intStatus);
+				packagee.setStringPrice(String.format("%.2f", price));
 				packageList.add(packagee);
 				pre2.close();
 			}
@@ -414,6 +415,7 @@ public class PackageJDBCRepository implements PackageRepository{
 				}
 				
 				Package packagee = new Package(intID, strName, strDesc, intType, max, strAvailability, price, servPack, prodPack, intStatus);
+				packagee.setStringPrice(String.format("%.2f", price));
 				packageList.add(packagee);
 				pre2.close();
 			}
@@ -469,6 +471,7 @@ public class PackageJDBCRepository implements PackageRepository{
 				}
 				
 				Package packagee = new Package(intID, strName, strDesc, intType, max, strAvailability, price, servPack, prodPack, intStatus);
+				packagee.setStringPrice(String.format("%.2f", price));
 				packageList.add(packagee);
 				pre2.close();
 			}
@@ -575,6 +578,7 @@ public class PackageJDBCRepository implements PackageRepository{
 				
 				
 				Package packagee = new Package(intID, strName, strDesc, intType, max, strAvailability, price, servPack, prodPack, intStatus);
+				packagee.setStringPrice(String.format("%.2f", price));
 				packageList.add(packagee);
 				pre2.close();
 			}

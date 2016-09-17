@@ -20,6 +20,7 @@ public class Discount {
 	private List<Promo> promoList;
 	private int intDiscountStatus;
 	private List<Requirement> requirements;
+	private String stringPrice;
 	
 	public Discount(int intDiscountID, String applicability, String strDiscountName, String strDiscountDesc, String strDiscountGuidelines, int intDiscountType, double dblDiscountAmount, List<Product> productList, List<Service> serviceList, List<Package> packageList, List<Promo> promoList, int intDiscountStatus){
 		this.setIntDiscountID(intDiscountID);
@@ -180,5 +181,13 @@ public class Discount {
 
 	public void setRequirements(List<Requirement> requirements) {
 		this.requirements = requirements;
+	}
+
+	public String getStringPrice() {
+		return stringPrice;
+	}
+
+	public void setStringPrice(String stringPrice) {
+		this.stringPrice = stringPrice;
 	}
 }

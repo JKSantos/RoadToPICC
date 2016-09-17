@@ -104,6 +104,7 @@ public class LocationJDBCRepository implements LocationRepository{
 				int status = result.getInt(5);
 				
 				Location location = new Location(intID, strBrgy, strCity, price, status);
+				location.setStringPrice(String.format("%.2f", price));
 				locationList.add(location);
 			}
 			
@@ -140,6 +141,7 @@ public class LocationJDBCRepository implements LocationRepository{
 				int status = result.getInt(5);
 				
 				Location location = new Location(intID, strBrgy, strCity, price, status);
+				location.setStringPrice(String.format("%.2f", price));
 				locationList.add(location);
 			}
 			
@@ -240,6 +242,7 @@ public class LocationJDBCRepository implements LocationRepository{
 				int status = result.getInt(5);
 				
 				location = new Location(intID, strBrgy, strCity, price, status);
+				location.setStringPrice(String.format("%.2f", price));
 			}
 			
 			pre.close();

@@ -12,6 +12,7 @@ public class Location {
 	private String strCity;
 	private double dblLocationPrice;
 	private int intLocationStatus;
+	private String stringPrice;
 	
 	public Location(int intLocationID, String strBarangay, String strCity, double dblLocationPrice, int intLocationStatus){
 		
@@ -66,6 +67,14 @@ public class Location {
 		LocationService service = new LocationServiceImpl();
 		
 		return service.queryAllLocation();
+	}
+
+	public String getStringPrice() {
+		return stringPrice;
+	}
+
+	public void setStringPrice(String stringPrice) {
+		this.stringPrice = stringPrice;
 	}
 	
 }

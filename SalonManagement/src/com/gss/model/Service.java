@@ -18,6 +18,7 @@ public class Service {
 	private byte[] productPhoto;
 	private double dblServicePrice;
 	private String strPhotoPath;
+	private String stringPrice;
 	
 	public Service(int intServiceID, String strServiceName, String strServiceCategory, int strServiceStatus, String strServiceDesc, double dblServicePrice, byte[] productPhoto, String strPhotoPath, int serviceType){
 		
@@ -121,6 +122,14 @@ public class Service {
 
 	public void setServiceType(int serviceType) {
 		this.serviceType = serviceType;
+	}
+
+	public String getStringPrice() {
+		return stringPrice;
+	}
+
+	public void setStringPrice(String stringPrice) {
+		this.stringPrice = stringPrice;
 	}
 
 }

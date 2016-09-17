@@ -12,6 +12,7 @@ public class ExtraCharge {
 	private String strECDetails;
 	private double dblECPrice;
 	private int intECStatus;
+	private String stringPrice;
 	
 	public ExtraCharge(int intECID, String strECName, String strECDetails, double dblECPrice, int intECStatus){
 		this.intECID = intECID;
@@ -85,6 +86,14 @@ public class ExtraCharge {
 		ExtraChargeService service = new ExtraChargeServiceImpl();
 		
 		return service.queryAllOtherCharge();
+	}
+
+	public String getStringPrice() {
+		return stringPrice;
+	}
+
+	public void setStringPrice(String stringPrice) {
+		this.stringPrice = stringPrice;
 	}
 
 }

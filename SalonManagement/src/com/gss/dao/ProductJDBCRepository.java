@@ -176,7 +176,7 @@ public class ProductJDBCRepository implements ProductRepository{
 				while(set2.next()){
 					double price = set2.getDouble(1);
 					product = new Product(intProductID, strProductName, strProductCate, strProductDesc, intProductQuan, actualPhoto, price, strPhotoPath, intStatus);
-				
+					product.setStringPrice(String.format("%.2f", price));
 					productList.add(product);
 				}
 				pre2.close();
@@ -302,7 +302,7 @@ public class ProductJDBCRepository implements ProductRepository{
 				while(set2.next()){
 					double price = set2.getDouble(1);
 					product = new Product(intProductID, strProductName, strProductCate, strProductDesc, intProductQuan, actualPhoto, price, strPhotoPath, intStatus);
-				
+					product.setStringPrice(String.format("%.2f", price));
 					productList.add(product);
 				}
 				pre2.close();
