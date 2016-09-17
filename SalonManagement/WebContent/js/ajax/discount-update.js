@@ -127,26 +127,10 @@ function openUpdateDiscount(id) {
                 $('#upDiscountAmountFixed').val('Php ' + parseFloat(discount.dblDiscountAmount).toFixed(2));
             }
 
-            // var reqNames = [];
-            // $('#upRequirement > option').each(function() {
-            //    reqNames.push(this.value);
-            // });
-
             var r = [];
             $.each(discount.requirements, function (i, req) {
                 console.log(req.intRequirementID);
                 r.push(req.intRequirementID);
-                // for(var d = 0; d < reqNames.length; d++) {
-                //     if(reqNames[d] == req.intRequirementID) {
-                //         console.log(reqNames[d] + ' /// ' + req.intRequirementID);
-                //         $('#upRequirement option[value=' + reqNames[d] +']').attr('selected', true);
-                //     }
-                // }
-
-
-                // if($('#upRequirement option').val() == req.intRequirementID) {
-                //     console.log(req.intRequirementID);
-                // }
             });
             $('select').material_select('destroy');
             $('#upRequirement').val(r);
@@ -172,7 +156,24 @@ function openUpdateDiscount(id) {
                         '<i id="discUpProdChip' + product.intProductID + '" class="material-icons" style="margin-right: 5px' +
                         '!important">close</i></div>').show();
                 }
+
+
+                $('#discUpProdChip' + product.intProductID).click(function () {
+                    chkupdate = chkupdate - 1;
+                    console.log(chkupdate);
+                    
+                    if (chkupdate < 1) {
+                        $('#updateDiscountSubmitBtn').attr('disabled', true).css('opacity', '0.3');
+                    } else if (chkupdate > 0) {
+                        $('#updateDiscountSubmitBtn').attr('disabled', false).css('opacity', '1');
+                    }
+
+                    $('#discUpProdItem' + product.intProductID).remove();
+                    $('#discUpProdCheck' + product.intProductID).attr('checked', false);
+
+                });
             });
+
 
             $.each(discount.serviceList, function (i, service) {
                 var upServCheck = $('#discUpServCheck' + service.intServiceID),
@@ -506,7 +507,7 @@ function updateProductDiscount(id) {
         }
 
         $('#discUpProdItem' + id).remove();
-        $('#discUpProdCheck' + id).prop('checked', false);
+        $('#discUpProdCheck' + id).attr('checked', false);
 
     });
 }

@@ -73,11 +73,11 @@ function updateDiscountTable() {
             if (discountList != null) {
                 tablediscount.clear().draw();
                 $.each(discountList, function (i, discount) {
-                    console.log(discount);
                     var price,
                         req = '',
                         description,
                         type;
+
                     var addbtn = "<button class=' waves-effect waves-purple btn-flat transparent black-text'" +
                         " style='padding-left: 10px;padding-right:10px; margin: 5px;' value='" + discount.intDiscountID + "'" +
                         " onclick='openUpdateDiscount(this.value)'>" +
