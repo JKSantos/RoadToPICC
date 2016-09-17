@@ -40,7 +40,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				Service service;
 				int intServiceID = set.getInt(1);
 				String strServiceName = set.getString(2);
-				String strServiceCate = set.getString(3);
+				String strServiceCate = "";
 				int intServiceStatus = set.getInt(4);
 				String strServiceDesc = set.getString(5);
 				int intType = set.getInt(6);
@@ -51,6 +51,16 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				pre2.setInt(1, intServiceID);
 				
 				set2 = pre2.executeQuery();
+				
+				PreparedStatement cate = con.prepareStatement("CALL fetchServiceCate(?);");
+				cate.setInt(1, intServiceID);
+				ResultSet cateSet = cate.executeQuery();
+				
+				while(cateSet.next()){
+					strServiceCate = cateSet.getString(1);
+				}
+				cate.close();
+				cateSet.close();
 				
 				while(set2.next()){
 					double price = set2.getDouble(1);
@@ -81,7 +91,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 
 		JDBCConnection jdbc = new JDBCConnection();
 		Connection con = jdbc.getConnection();
-		String strQuery1 = "CALL createService(?, ?, ?, ?, ?)";
+		String strQuery1 = "CALL createService(?, ?, ?, ?, ?, ?)";
 		String strQuery2 = "CALL createServicePrice(?, ?)";
 		int intServID = 0;
 		
@@ -188,7 +198,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 		}
 		catch(SQLException | FileNotFoundException e){
 			
-			System.out.println(e.getMessage() + " ...." + e.fillInStackTrace() );
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -198,7 +208,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 		
 		List<String> categoryList = new ArrayList<String>();
 		Connection con = new JDBCConnection().getConnection();
-		String query = "SELECT strServiceCategory FROM tblServiceCategory;";
+		String query = "SELECT strServiceCategory FROM tblServiceCategory WHERE intStatus = 1;";
 		
 		try{
 			PreparedStatement pre = con.prepareStatement(query);
@@ -264,7 +274,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				Service service;
 				int intServiceID = set.getInt(1);
 				String strServiceName = set.getString(2);
-				String strServiceCate = set.getString(3);
+				String strServiceCate = "";
 				int intServiceStatus = set.getInt(4);
 				String strServiceDesc = set.getString(5);
 				int intType = set.getInt(6);
@@ -275,6 +285,17 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				pre2.setInt(1, intServiceID);
 				
 				set2 = pre2.executeQuery();
+				
+				
+				PreparedStatement cate = con.prepareStatement("CALL fetchServiceCate(?);");
+				cate.setInt(1, intServiceID);
+				ResultSet cateSet = cate.executeQuery();
+				
+				while(cateSet.next()){
+					strServiceCate = cateSet.getString(1);
+				}
+				cate.close();
+				cateSet.close();
 				
 				while(set2.next()){
 					double price = set2.getDouble(1);

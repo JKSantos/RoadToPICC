@@ -147,7 +147,7 @@ public class ProductJDBCRepository implements ProductRepository{
 				
 				Product product;
 				int intProductID = set.getInt(1);
-				String strProductCate = set.getString(2);
+				String strProductCate = "";
 				String strProductName = set.getString(3);
 				String strProductDesc = set.getString(4);
 				int intProductQuan = set.getInt(5);
@@ -156,6 +156,17 @@ public class ProductJDBCRepository implements ProductRepository{
 				byte[] actualPhoto = blob.getBytes(1, blobLength);
 				int intStatus = set.getInt(7);
 				String strPhotoPath = ":8080/SalonManagement/getImage?ImageID=" + intProductID + "&type=product";
+				
+				PreparedStatement cate = con.prepareStatement("CALL fetchProductCate(?);");
+				cate.setInt(1, intProductID);
+				ResultSet cateSet = cate.executeQuery();
+				
+				while(cateSet.next()){
+					strProductCate = cateSet.getString(1);
+				}
+				
+				cate.close();
+				cateSet.close();
 				
 				PreparedStatement pre2 = con.prepareStatement(strQuery2);
 				pre2.setInt(1, intProductID);
@@ -193,7 +204,7 @@ public class ProductJDBCRepository implements ProductRepository{
 	
 		List<String> categoryList = new ArrayList<String>();
 		Connection con = new JDBCConnection().getConnection();
-		String query = "SELECT strProdCategory FROM tblProductCategory;";
+		String query = "SELECT strProdCategory FROM tblProductCategory WHERE intStatus = 1;";
 		
 		try{
 			
@@ -261,7 +272,7 @@ public class ProductJDBCRepository implements ProductRepository{
 				
 				Product product;
 				int intProductID = set.getInt(1);
-				String strProductCate = set.getString(2);
+				String strProductCate = "";
 				String strProductName = set.getString(3);
 				String strProductDesc = set.getString(4);
 				int intProductQuan = set.getInt(5);
@@ -270,6 +281,18 @@ public class ProductJDBCRepository implements ProductRepository{
 				byte[] actualPhoto = null;
 				int intStatus = set.getInt(7);
 				String strPhotoPath = ":8080/SalonManagement/getImage?ImageID=" + intProductID + "&type=product";
+				
+				PreparedStatement cate = con.prepareStatement("CALL fetchProductCate(?);");
+				cate.setInt(1, intProductID);
+				ResultSet cateSet = cate.executeQuery();
+				
+				while(cateSet.next()){
+					strProductCate = cateSet.getString(1);
+				}
+				
+				cate.close();
+				cateSet.close();
+				
 				
 				PreparedStatement pre2 = con.prepareStatement(strQuery2);
 				pre2.setInt(1, intProductID);
