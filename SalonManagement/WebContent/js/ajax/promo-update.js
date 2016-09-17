@@ -84,27 +84,72 @@ function updatePromoServTable() {
                 updatePromoServTbl.search(this.value).draw();
             });
 
-            if (serviceList != null) {
-                updatePromoServTbl.clear().draw();
-                $.each(serviceList, function (i, service) {
-                    var price = parseFloat(service.dblServicePrice).toFixed(2);
-                    price = addCommas(price);
-                    var checkbox = "<input type='checkbox' name='servUpPromoSelect' id='promoUpServCheck" + service.intServiceID + "'" +
-                            " class='packcheckbox x" + service.intServiceID + "' value='" + service.intServiceID + "' onclick='promoUpServCompute(this.value)'>" +
-                            "<label for='promoUpServCheck" + service.intServiceID + "'></label>",
-                        quantity = "<input type='number' class='right-align rowQty' name='servUpdatePromoQty'" +
-                            " id='promoUpServQty" + service.intServiceID + "' disabled style='width: 75px' min='1' max='99' value='1' maxlength='2'>";
-                    price = "<span class='price'>P " + price + "</span>";
+            console.log(serviceList);
 
-                    updatePromoServTbl.row.add([
-                        checkbox,
-                        service.strServiceName,
-                        service.strServiceCategory,
-                        price,
-                        quantity
-                    ]);
+            if (serviceList != null) {
+
+                var promoType = 0;
+
+                $('#upPromoType').on('change', function () {
+                    updatePromoServTbl.clear().draw();
+
+                    var type = $(this).val(),
+                        walk = 0,
+                        home = 0,
+                        event = 0;
+                    for (var i = 0; i < type.length; i++) {
+                        if (type[i] == 'walkin') {
+                            walk = 1;
+                            console.log('walkin');
+                        } else if (type[i] == 'homeservice') {
+                            home = 1;
+                            console.log('homeservice');
+                        } else if (type[i] == 'event') {
+                            event = 1;
+                            console.log('event');
+                        }
+                    }
+
+                    if (walk == 1 && home == 0 && event == 0) {
+                        promoType = 1;
+                    } else if (walk == 0 && home > 0 && event == 0) {
+                        promoType = 2;
+                    } else if (walk == 0 && home == 0 && event == 1) {
+                        promoType = 3;
+                    } else if (walk == 1 && home == 1 && event == 0) {
+                        promoType = 4;
+                    } else if (walk == 1 && home == 0 && event == 1) {
+                        promoType = 5;
+                    } else if (walk == 0 && home == 1 && event == 1) {
+                        promoType = 6;
+                    } else if (walk == 1 && home == 1 && event == 1) {
+                        promoType = 7;
+                    }
+
+                    $.each(serviceList, function (i, service) {
+                        if (promoType == service.serviceType) {
+                            var price = parseFloat(service.dblServicePrice).toFixed(2);
+                            price = addCommas(price);
+                            var checkbox = "<input type='checkbox' name='servUpPromoSelect' id='promoUpServCheck" + service.intServiceID + "'" +
+                                    " class='packcheckbox x" + service.intServiceID + "' value='" + service.intServiceID + "' onclick='promoUpServCompute(this.value)'>" +
+                                    "<label for='promoUpServCheck" + service.intServiceID + "'></label>",
+                                quantity = "<input type='number' class='right-align rowQty' name='servUpdatePromoQty'" +
+                                    " id='promoUpServQty" + service.intServiceID + "' disabled style='width: 75px' min='1' max='99' value='1' maxlength='2'>";
+                            price = "<span class='price'>P " + price + "</span>";
+
+                            updatePromoServTbl.row.add([
+                                checkbox,
+                                service.strServiceName,
+                                service.strServiceCategory,
+                                price,
+                                quantity
+                            ]);
+                        }
+                    });
+
+                    updatePromoServTbl.draw();
+
                 });
-                updatePromoServTbl.draw();
             }
         }
     });
@@ -137,27 +182,68 @@ function updatePromoPackageTable() {
             });
 
             if (packageList != null) {
-                updatePromoPackageTbl.clear().draw();
-                $.each(packageList, function (i, packagedata) {
-                    var cat = 'Package';
-                    var price = parseFloat(packagedata.dblPackagePrice).toFixed(2);
-                    price = addCommas(price);
-                    var checkbox = "<input type='checkbox' name='packUpPromoSelect' id='promoUpPackage" + packagedata.intPackageID + "'" +
-                            " class='packcheckbox x" + packagedata.intPackageID + "' value='" + packagedata.intPackageID + "' onclick='promoUpPackageCompute(this.value)'>" +
-                            "<label for='promoUpPackage" + packagedata.intPackageID + "'></label>",
-                        quantity = "<input type='number' class='right-align rowQty' name='packUpdatePromoQty'" +
-                            " id='promoUpPackageQty" + packagedata.intPackageID + "' disabled style='width: 75px' min='1' max='99' value='1' maxlength='2'>";
-                    price = "<td class='dt-body-right'>P " + price + "</td>";
 
-                    updatePromoPackageTbl.row.add([
-                        checkbox,
-                        packagedata.strPackageName,
-                        cat,
-                        price,
-                        quantity
-                    ]);
+                var promoType = 0;
+
+                $('#upPromoType').on('change', function () {
+                    updatePromoPackageTbl.clear().draw();
+
+                    var type = $(this).val(),
+                        walk = 0,
+                        home = 0,
+                        event = 0;
+                    for (var i = 0; i < type.length; i++) {
+                        if (type[i] == 'walkin') {
+                            walk = 1;
+                            console.log('walkin');
+                        } else if (type[i] == 'homeservice') {
+                            home = 1;
+                            console.log('homeservice');
+                        } else if (type[i] == 'event') {
+                            event = 1;
+                            console.log('event');
+                        }
+                    }
+
+                    if (walk == 1 && home == 0 && event == 0) {
+                        promoType = 1;
+                    } else if (walk == 0 && home > 0 && event == 0) {
+                        promoType = 2;
+                    } else if (walk == 0 && home == 0 && event == 1) {
+                        promoType = 3;
+                    } else if (walk == 1 && home == 1 && event == 0) {
+                        promoType = 4;
+                    } else if (walk == 1 && home == 0 && event == 1) {
+                        promoType = 5;
+                    } else if (walk == 0 && home == 1 && event == 1) {
+                        promoType = 6;
+                    } else if (walk == 1 && home == 1 && event == 1) {
+                        promoType = 7;
+                    }
+
+                    $.each(packageList, function (i, packagedata) {
+                        if (promoType == packagedata.intPackageType) {
+                            var cat = 'Package';
+                            var price = parseFloat(packagedata.dblPackagePrice).toFixed(2);
+                            price = addCommas(price);
+                            var checkbox = "<input type='checkbox' name='packUpPromoSelect' id='promoUpPackage" + packagedata.intPackageID + "'" +
+                                    " class='packcheckbox x" + packagedata.intPackageID + "' value='" + packagedata.intPackageID + "' onclick='promoUpPackageCompute(this.value)'>" +
+                                    "<label for='promoUpPackage" + packagedata.intPackageID + "'></label>",
+                                quantity = "<input type='number' class='right-align rowQty' name='packUpdatePromoQty'" +
+                                    " id='promoUpPackageQty" + packagedata.intPackageID + "' disabled style='width: 75px' min='1' max='99' value='1' maxlength='2'>";
+                            price = "<td class='dt-body-right'>P " + price + "</td>";
+
+                            updatePromoPackageTbl.row.add([
+                                checkbox,
+                                packagedata.strPackageName,
+                                cat,
+                                price,
+                                quantity
+                            ]);
+                        }
+                    });
+                    updatePromoPackageTbl.draw();
                 });
-                updatePromoPackageTbl.draw();
             }
         }
     });
@@ -199,22 +285,22 @@ function openUpdatePromo(id) {
                 console.log(data.promo);
                 var pty = [],
                     preq = [];
-                if(data.promo.promoType == 1) {
+                if (data.promo.promoType == 1) {
                     pty.push('walkin');
-                } else if(data.promo.promoType == 2) {
+                } else if (data.promo.promoType == 2) {
                     pty.push('homeservice');
-                } else if(data.promo.promoType == 3) {
+                } else if (data.promo.promoType == 3) {
                     pty.push('event');
-                } else if(data.promo.promoType == 4) {
+                } else if (data.promo.promoType == 4) {
                     pty.push('walkin');
                     pty.push('homeservice');
-                } else if(data.promo.promoType == 5) {
+                } else if (data.promo.promoType == 5) {
                     pty.push('walkin');
                     pty.push('event');
-                } else if(data.promo.promoType == 6) {
+                } else if (data.promo.promoType == 6) {
                     pty.push('homeservice');
                     pty.push('event');
-                } else if(data.promo.promoType == 7) {
+                } else if (data.promo.promoType == 7) {
                     pty.push('walkin');
                     pty.push('homeservice');
                     pty.push('event');
@@ -224,8 +310,8 @@ function openUpdatePromo(id) {
                 $('#upPromoType').val(pty);
                 $('select').material_select();
 
-                $.each(data.promo.requirements, function(i, req) {
-                   preq.push(req.intRequirementID);
+                $.each(data.promo.requirements, function (i, req) {
+                    preq.push(req.intRequirementID);
                 });
 
                 $('select').material_select('destroy');
@@ -245,29 +331,29 @@ function openUpdatePromo(id) {
                     upPromoExpDate = data.promo.strPromoAvailability;
                     var split = upPromoExpDate.split('-'),
                         m;
-                    if(split[1] == 1) {
+                    if (split[1] == 1) {
                         m = "January";
-                    } else if (split[1] == 2){
+                    } else if (split[1] == 2) {
                         m = "February";
-                    } else if (split[1] == 3){
+                    } else if (split[1] == 3) {
                         m = "March";
-                    } else if (split[1] == 4){
+                    } else if (split[1] == 4) {
                         m = "April";
-                    } else if (split[1] == 5){
+                    } else if (split[1] == 5) {
                         m = "May";
-                    } else if (split[1] == 6){
+                    } else if (split[1] == 6) {
                         m = "June";
-                    } else if (split[1] == 7){
+                    } else if (split[1] == 7) {
                         m = "July";
-                    } else if (split[1] == 8){
+                    } else if (split[1] == 8) {
                         m = "August";
-                    } else if (split[1] == 9){
+                    } else if (split[1] == 9) {
                         m = "September";
-                    } else if (split[1] == 10){
+                    } else if (split[1] == 10) {
                         m = "October";
-                    } else if (split[1] == 11){
+                    } else if (split[1] == 11) {
                         m = "November";
-                    } else if (split[1] == 12){
+                    } else if (split[1] == 12) {
                         m = "December";
                     }
                     upPromoExpDate = m + '/' + split[2] + '/' + split[0];
@@ -277,7 +363,7 @@ function openUpdatePromo(id) {
                 }
 
                 $('#upPromoNonExpiry').change(function () {
-                    if($(this).is(':checked')) {
+                    if ($(this).is(':checked')) {
                         $('#upPromoExpiration').prop('disabled', true).val('');
                     } else {
                         $('#upPromoExpiration').prop('disabled', false).val(upPromoExpDate);
@@ -717,7 +803,7 @@ function promoUpServCompute(upServID) {
         $('#updatePromoList').append('<div style="margin: 3px;" class="updatePromoChip chip z-depth-1 grey lighten-3 grey-text text-darken-4"' +
             ' id="upPromoServItem' + upServID + '"><b>' + upServName + '</b><span class="span"><span class="grey-text text-darken-3" id="upPromoServx' + upServID + '">' +
             ' (' + upServShowQty + ')</span></span><i id="upPromoServchip' + upServID + '" class="material-icons upPromoChipExit" style="margin-right: 5px' +
-            '!important" onclick="upPromoServChipExit(' + upServID +')">close</i></div>').show();
+            '!important" onclick="upPromoServChipExit(' + upServID + ')">close</i></div>').show();
 
     } else if (!(updateServID.is(':checked'))) {
         upPromoChk = upPromoChk - 1;
@@ -854,7 +940,7 @@ function promoUpPackageCompute(packageID) {
         $('#updatePromoList').append('<div style="margin: 3px;" class="updatePromoChip chip z-depth-1 grey lighten-3 grey-text text-darken-4"' +
             ' id="upPromoPackageItem' + packageID + '"><b>' + upPackageName + '</b><span class="span"><span class="grey-text text-darken-3" id="upPromoPackx' + packageID + '">' +
             ' (' + upPackageShowQty + ')</span></span><i id="upPromoPackagechip' + packageID + '" class="material-icons upPromoChipExit" style="margin-right: 5px' +
-            '!important" onclick="upPromoPackageChipExit(' + packageID +')">close</i></div>').show();
+            '!important" onclick="upPromoPackageChipExit(' + packageID + ')">close</i></div>').show();
 
     } else if (!(updatePackageID.is(':checked'))) {
         upPromoChk = upPromoChk - 1;
@@ -913,10 +999,12 @@ function upPromoPackageChipExit(packChipID) {
 
 function updatePromo() {
     // var job = document.querySelectorAll('select[name=intPackageType]:selected');
-    if($('#updatePromoForm').valid()) {
+    if ($('#updatePromoForm').valid()) {
         var promoUpdateProdSelect = [],
             promoUpdateServSelect = [],
-            promoUpdatePackageSelect = [];
+            promoUpdatePackageSelect = [],
+            selectedPromoType = [],
+            requirement = [];
 
         $.each($("input[name=prodUpPromoSelect]:checked"), function () {
             promoUpdateProdSelect.push($(this).val());
@@ -946,6 +1034,50 @@ function updatePromo() {
             packQty = promoUpdatePackQty.join(', ');
         var promoname = $('#upPromoName').val();
 
+        var req = $('#upPromoRequirement').val();
+        requirement = req.join(',');
+
+        selectedPromoType = $('#upPromoType').val();
+
+        var upWalk = 0,
+            upHome = 0,
+            upEvent = 0,
+            upPromoType = [];
+
+        for (var i = 0; i < selectedPromoType.length; i++) {
+            if (selectedPromoType[i] == 'walkin') {
+                upWalk = 1;
+            } else if (selectedPromoType[i] == 'homeservice') {
+                upHome = 1;
+            } else if (selectedPromoType[i] == 'event') {
+                upEvent = 1;
+            }
+        }
+
+        if (upWalk == 1 && upHome == 0 && upEvent == 0) {
+            upPromoType.push('1');
+        } else if (upWalk == 0 && upHome == 1 && upEvent == 0) {
+            upPromoType.push('2');
+        } else if (upWalk == 0 && upHome == 0 && upEvent == 1) {
+            upPromoType.push('3');
+        } else if (upWalk == 1 && upHome == 1 && upEvent == 0) {
+            upPromoType.push('1');
+            upPromoType.push('2');
+        } else if (upWalk == 1 && upHome == 0 && upEvent == 1) {
+            upPromoType.push('1');
+            upPromoType.push('3');
+        } else if (upWalk == 0 && upHome == 1 && upEvent == 1) {
+            upPromoType.push('2');
+            upPromoType.push('3');
+        } else if (upWalk == 1 && upHome == 1 && upEvent == 1) {
+            upPromoType.push('1');
+            upPromoType.push('2');
+            upPromoType.push('3');
+        }
+
+
+        upPromoType = upPromoType.join(',');
+
 
         swal({
                 title: "Are you sure you want to update " + promoname + "?",
@@ -974,7 +1106,9 @@ function updatePromo() {
                             "productPromoQty": prodQty,
                             "packagePromoQty": packQty,
                             "strFree": $("input[name=upFree]:checked").val(),
-                            "dblPromoPrice": $('#upPromoPrice').val().replace(/[^\d.]/g, '')
+                            "dblPromoPrice": $('#upPromoPrice').val().replace(/[^\d.]/g, ''),
+                            "requirement": requirement,
+                            "type": upPromoType
                         },
                         dataType: 'json',
                         async: true,
