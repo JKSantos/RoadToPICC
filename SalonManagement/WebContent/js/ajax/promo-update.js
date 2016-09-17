@@ -196,8 +196,22 @@ function openUpdatePromo(id) {
         },
         success: function (data) {
             if (data.result == "success") {
+                console.log(data.promo);
+                if(data.promo.promoType == 1) {
+                    $('#upPromoType option[value=walkin]').prop('selected', true);
+                } else if(data.promo.promoType == 2) {
 
+                } else if(data.promo.promoType == 3) {
 
+                } else if(data.promo.promoType == 4) {
+
+                } else if(data.promo.promoType == 5) {
+
+                } else if(data.promo.promoType == 6) {
+
+                } else if(data.promo.promoType == 7) {
+
+                }
 
                 if (data.promo.dblPrice == "0.0") {
                     $('input[name=upFree]').prop('checked', false);

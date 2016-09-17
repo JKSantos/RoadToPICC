@@ -45,7 +45,8 @@
                 <thead>
                 <tr>
                     <th class="dt-head-left">Promo Name</th>
-                    <th class="dt-head-left">Guidelines</th>
+                    <th class="dt-head-left">Type</th>
+                    <th class="dt-head-left">Requirement</th>
                     <th class="dt-head-right">Price</th>
                     <th class="dt-head-right">Expiration</th>
                     <th align="dt-head-center" class="no-sort">Action</th>
@@ -54,7 +55,8 @@
                 <tfoot style="border: 1px solid #bdbdbd;">
                 <tr>
                     <th class="dt-head-left">Promo Name</th>
-                    <th class="dt-head-left">Guidelines</th>
+                    <th class="dt-head-left">Type</th>
+                    <th class="dt-head-left">Requirement</th>
                     <th class="dt-head-right">Price</th>
                     <th class="dt-head-right">Expiration</th>
                     <th align="dt-head-center" class="no-sort">Action</th>
@@ -131,7 +133,7 @@
                                             <i class="material-icons">add</i></button>
                                     </div>
                                     <div class="input-field col s8">
-                                        <select name="crPromoType" id="crPromoType" multiple="multiple">
+                                        <select name="crPromoType" id="crPromoType" multiple="multiple" required>
                                             <option value="default" disabled selected>Choose...</option>
                                             <option value="walkin">WALK-IN</option>
                                             <option value="homeservice">HOME SERVICE</option>
@@ -403,18 +405,18 @@
                         </div>
                         <div id="promoUpdateA" class="ftab col s12" style="margin-top: 20px !important;">
                             <div class="container">
-                                <div class="input-field col s2">
+                                <div class="input-field col s4">
                                     <label><b>Availability</b>
                                         <i class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
-                                <div class="input-field col s5">
+                                <div class="input-field col s4">
                                     <p class="center">
                                         <input type="checkbox" class="filled-in" id="upPromoNonExpiry"
                                                name="upNonExp" value="on">
                                         <label for="upPromoNonExpiry"><b>Non-Expiry</b></label>
                                     </p>
                                 </div>
-                                <div class="input-field col s5">
+                                <div class="input-field col s4">
                                     <input name="upExp" type="date" class="datepicker-promoUpdate"
                                            id="upPromoExpiration" placeholder="Expiration" required/>
                                     <label for="upPromoExpiration" class="active"><b>Expiration</b></label>
@@ -445,6 +447,17 @@
                                     <button data-target="crAddPromoNewReq"
                                             class="waves-effect waves-light btn-flat modal-option purple darken-3 white-text">
                                         <i class="material-icons">add</i></button>
+                                </div>
+                                <div class="input-field col s8">
+                                    <select name="upPromoType" id="upPromoType" multiple="multiple" required>
+                                        <option value="default" disabled selected>Choose...</option>
+                                        <option value="walkin">WALK-IN</option>
+                                        <option value="homeservice">HOME SERVICE</option>
+                                        <option value="event">EVENT</option>
+                                    </select>
+                                    <label for="upPromoType">
+                                        <b>Type</b><i class="material-icons red-text tiny">error_outline</i>
+                                    </label>
                                 </div>
 
                             </div>

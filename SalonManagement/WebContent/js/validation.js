@@ -1654,9 +1654,9 @@ $(function () {
                 noSpace: true,
                 minlength: 5
             },
-            crPromoGuide: {
-                noSpace: true,
-                minlength: 5
+            crPromoType: {
+                required: true,
+                valueNotEquals: "default"
             },
             crPromoPrice: {
                 valueNotEquals: "Php 0.00",
@@ -1677,9 +1677,9 @@ $(function () {
                 minlength: "<span class='white-text'><b>Description</b>: Minimum of 5 characters</span><br/>",
                 noSpace: "<span class='white-text'><b>Description</b>: Empty Field</span><br/>"
             },
-            crPromoGuide: {
-                minlength: "<span class='white-text'><b>Guidelines</b>: Minimum of 5 characters</span><br/>",
-                noSpace: "<span class='white-text'><b>Guidelines</b>: Empty Field</span><br/>"
+            crPromoType: {
+                required: "<span class='white-text'><b>Promo Type</b>: Required</span><br/>",
+                valueNotEquals: "<span class='white-text'><b>Promo Type</b>: Required</span><br/>"
             },
             crPromoPrice: {
                 valueNotEquals: "<span class='white-text'><b>Price</b>: Invalid value</span><br/>",

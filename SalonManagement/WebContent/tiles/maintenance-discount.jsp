@@ -364,7 +364,6 @@
                         </div>
                         <div class="input-field col s8 offset-s2 center">
                             <a id="createAddNewRequirementBtn" onclick="crAddNewRequirement();"
-                               style="opacity: 0.3" disabled
                                class="modal-action waves-effect waves-light purple darken-3 btn-flat white-text">
                                 SAVE
                             </a>
