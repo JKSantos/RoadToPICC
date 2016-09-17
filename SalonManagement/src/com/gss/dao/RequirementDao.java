@@ -49,7 +49,7 @@ public class RequirementDao {
 		
 		Connection con = jdbc.getConnection();
 		
-		String query = "UPDATE tblRequirement SET intStatus = 0 WHERE intRequirementID = ?;";
+		String query = "CALL removeRequirement(?);";
 		String result = "success";
 		
 		try{
