@@ -44,12 +44,17 @@ public class UpdatePromoAction {
 	private String packagePromoQty = "";
 	private String requirement = "";
 	private String result;
-	private List<Integer> type;
+	private String type;
 	
 	public String execute(){
 		
-		this.type = new ArrayList<Integer>();
-		type.add(1);
+		List<Integer> type = new ArrayList<Integer>();
+		String[] types = this.type.split(",");
+		
+		
+		for(int index = 0; index < types.length; index++){
+			type.add(Integer.parseInt(types[index]));
+		}
 		
 		ServiceService serviceService = new ServiceServiceImpl();
 		ProductService productService = new ProductServiceImpl();
@@ -124,13 +129,13 @@ public class UpdatePromoAction {
 			
 			if(strFree.equals("on")){
 				
-				Promo promo = new Promo(intPromoID, strPromoName, strPromoDesc, strPromoGuidelines, 0, 1, serviceList, productList, packageList, expDate, 1, PackageHelper.convertToSingleInt(this.type));
+				Promo promo = new Promo(intPromoID, strPromoName, strPromoDesc, strPromoGuidelines, 0, 1, serviceList, productList, packageList, expDate, 1, PackageHelper.convertToSingleInt(type));
 				promo.setRequirements(requirements);
 				this.result = promoService.updatePromo(promo);
 			}
 			else{
 				
-				Promo promo = new Promo(intPromoID, strPromoName, strPromoDesc, strPromoGuidelines, dblPromoPrice, 1, serviceList, productList, packageList, expDate, 1, PackageHelper.convertToSingleInt(this.type));
+				Promo promo = new Promo(intPromoID, strPromoName, strPromoDesc, strPromoGuidelines, dblPromoPrice, 1, serviceList, productList, packageList, expDate, 1, PackageHelper.convertToSingleInt(type));
 				promo.setRequirements(requirements);
 				this.result = promoService.updatePromo(promo);
 			}
@@ -139,13 +144,13 @@ public class UpdatePromoAction {
 			
 			if(strFree.equals("on")){
 				
-				Promo promo = new Promo(intPromoID, strPromoName, strPromoDesc, strPromoGuidelines, 0, 1, serviceList, productList, packageList, "NON-EXPIRY", 1, PackageHelper.convertToSingleInt(this.type));
+				Promo promo = new Promo(intPromoID, strPromoName, strPromoDesc, strPromoGuidelines, 0, 1, serviceList, productList, packageList, "NON-EXPIRY", 1, PackageHelper.convertToSingleInt(type));
 				promo.setRequirements(requirements);
 				this.result = promoService.updatePromo(promo);
 			}
 			else{
 				
-				Promo promo = new Promo(intPromoID, strPromoName, strPromoDesc, strPromoGuidelines, dblPromoPrice, 1, serviceList, productList, packageList, "NON-EXPIRY", 1, PackageHelper.convertToSingleInt(this.type));
+				Promo promo = new Promo(intPromoID, strPromoName, strPromoDesc, strPromoGuidelines, dblPromoPrice, 1, serviceList, productList, packageList, "NON-EXPIRY", 1, PackageHelper.convertToSingleInt(type));
 				promo.setRequirements(requirements);
 				this.result = promoService.updatePromo(promo);
 			}
@@ -235,7 +240,7 @@ public class UpdatePromoAction {
 	}
 
 
-	public void setType(List<Integer> type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 	
