@@ -185,26 +185,72 @@ function updatePromoCreateServTable() {
             });
 
             if (serviceList != null) {
-                createPromoServTbl.clear().draw();
-                $.each(serviceList, function (i, service) {
-                    var price = parseFloat(service.dblServicePrice).toFixed(2);
-                    price = addCommas(price);
-                    var checkbox = "<input type='checkbox' name='servCrPromoSelect' id='crPromoServ" + service.intServiceID + "'" +
-                            " class='packcheckbox x" + service.intServiceID + "' value='" + service.intServiceID + "' onclick='promoServCompute(this.value)'>" +
-                            "<label for='crPromoServ" + service.intServiceID + "'></label>",
-                        quantity = "<input type='number' class='right-align rowQty' name='crServPromoQty'" +
-                            " id='promoServQty" + service.intServiceID + "' disabled style='width: 75px' min='1' max='99' value='1' maxlength='2'>";
-                    price = "<span class='price'>P " + price + "</span>";
 
-                    createPromoServTbl.row.add([
-                        checkbox,
-                        service.strServiceName,
-                        service.strServiceCategory,
-                        price,
-                        quantity
-                    ]);
+
+                var promoType = 0;
+
+                $('#crPromoType').on('change', function() {
+                    createPromoServTbl.clear().draw();
+
+                   var type = $(this).val(),
+                       walk = 0,
+                       home = 0,
+                       event = 0;
+                    for(var i = 0; i < type.length; i++) {
+                        if(type[i] == 'walkin') {
+                            walk = 1;
+                            console.log('walkin');
+                        } else if (type[i] == 'homeservice') {
+                            home = 1;
+                            console.log('homeservice');
+                        } else if (type[i] == 'event') {
+                            event = 1;
+                            console.log('event');
+                        }
+                    }
+
+
+                    if(walk == 1 && home == 0 && event == 0) {
+                        promoType = 1;
+                    } else if (walk == 0 && home > 0 && event == 0) {
+                        promoType = 2;
+                    } else if (walk == 0 && home == 0 && event == 1) {
+                        promoType = 3;
+                    } else if (walk == 1 && home == 1 && event == 0) {
+                        promoType = 4;
+                    } else if (walk == 1 && home == 0 && event == 1) {
+                        promoType = 5;
+                    } else if (walk == 0 && home == 1 && event == 1) {
+                        promoType = 6;
+                    } else if (walk == 1 && home == 1 && event == 1) {
+                        promoType = 7;
+                    }
+                    $.each(serviceList, function (i, service) {
+
+                        if(promoType == service.serviceType) {
+                            console.log(service);
+                            var price = parseFloat(service.dblServicePrice).toFixed(2);
+                            price = addCommas(price);
+                            var checkbox = "<input type='checkbox' name='servCrPromoSelect' id='crPromoServ" + service.intServiceID + "'" +
+                                    " class='packcheckbox x" + service.intServiceID + "' value='" + service.intServiceID + "' onclick='promoServCompute(this.value)'>" +
+                                    "<label for='crPromoServ" + service.intServiceID + "'></label>",
+                                quantity = "<input type='number' class='right-align rowQty' name='crServPromoQty'" +
+                                    " id='promoServQty" + service.intServiceID + "' disabled style='width: 75px' min='1' max='99' value='1' maxlength='2'>";
+                            price = "<span class='price'>P " + price + "</span>";
+
+                            createPromoServTbl.row.add([
+                                checkbox,
+                                service.strServiceName,
+                                service.strServiceCategory,
+                                price,
+                                quantity
+                            ]);
+                        }
+                    });
+                    createPromoServTbl.draw();
                 });
-                createPromoServTbl.draw();
+                console.log(serviceList);
+
             }
         }
     });
@@ -614,7 +660,9 @@ function createPromo() {
        // var job = document.querySelectorAll('select[name=intPackageType]:selected');
        var promoProdSelect = [],
            promoServSelect = [],
-           promoPackageSelect = [];
+           promoPackageSelect = [],
+           selectedPromoType = [],
+           requirement = [];
 
        $.each($("input[name=prodCrPromoSelect]:checked"), function () {
            promoProdSelect.push($(this).val());
@@ -635,6 +683,43 @@ function createPromo() {
        var promoPackQty = $('input[name=crPackPromoQty]:enabled').map(function () {
            return this.value;
        }).get();
+
+       var req = $('#crPromoRequirement').val();
+       requirement = req.join(',');
+
+       selectedPromoType = $('#crPromoType').val();
+
+       var crWalk = 0,
+           crHome = 0,
+           crEvent = 0,
+           crPromoType = 0;
+
+       for(var i = 0; i < selectedPromoType.length; i++) {
+           if(selectedPromoType[i] == 'walkin') {
+               crWalk = 1;
+           } else if (selectedPromoType[i] == 'homeservice') {
+               crHome = 1;
+           } else if (selectedPromoType[i] == 'event') {
+               crEvent = 1;
+           }
+       }
+
+
+       if(crWalk == 1 && home == 0 && event == 0) {
+           crPromoType = 1;
+       } else if (crWalk == 0 && crHome > 0 && crEvent == 0) {
+           crPromoType = 2;
+       } else if (crWalk == 0 && crHome == 0 && crEvent == 1) {
+           crPromoType = 3;
+       } else if (crWalk == 1 && crHome == 1 && crEvent == 0) {
+           crPromoType = 4;
+       } else if (crWalk == 1 && crHome == 0 && crEvent == 1) {
+           crPromoType = 5;
+       } else if (crWalk == 0 && crHome == 1 && crEvent == 1) {
+           crPromoType = 6;
+       } else if (crWalk == 1 && crHome == 1 && crEvent == 1) {
+           crPromoType = 7;
+       }
 
        promoProdSelect = promoProdSelect.join(', ');
        promoServSelect = promoServSelect.join(', ');
@@ -657,7 +742,8 @@ function createPromo() {
            "productPromoQty": promoProductQty,
            "packagePromoQty": promoPackQty,
            "strFree": $("input[name=crFree]:checked").val(),
-           "dblPromoPrice": $('#crPromoPrice').val().replace(/[^\d.]/g, '')
+           "dblPromoPrice": $('#crPromoPrice').val().replace(/[^\d.]/g, ''),
+           "requirement": requirement
        };
 
        swal({

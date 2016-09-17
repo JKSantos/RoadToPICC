@@ -359,6 +359,9 @@
                         <div class="input-field center col s12" id="requirementExistingDiv">
                             <span class="red-text">Requirement is already existing!</span>
                         </div>
+                        <div class="input-field center col s12" id="requirementFailedDiv">
+                            <span class="red-text">Failed!</span>
+                        </div>
                         <div class="input-field col s8 offset-s2 center">
                             <a id="createAddNewRequirementBtn" onclick="crAddNewRequirement();"
                                style="opacity: 0.3" disabled

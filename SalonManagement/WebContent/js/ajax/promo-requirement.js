@@ -5,7 +5,7 @@
 var requirementName = [];
 
 $.ajax({
-   type: 'get',
+    type: 'get',
     url: 'getRequirements',
     dataType: 'json',
     async: true,
@@ -14,29 +14,29 @@ $.ajax({
 
         $.each(requirements, function(i, req) {
             requirementName.push(req.strRequirementName);
-            $('#crRequirement').append('<option value="' + req.intRequirementID + '">' + req.strRequirementName + '</option>');
-            $('#addCrRequirementSelect').append('<option value="' + req.intRequirementID + '">' + req.strRequirementName + '</option>');
-            $('#upRequirement').append('<option value="' + req.intRequirementID + '">' + req.strRequirementName + '</option>');
-            $('#addUpRequirementSelect').append('<option value="' + req.intRequirementID + '">' + req.strRequirementName + '</option>');
+            $('#crPromoRequirement').append('<option value="' + req.intRequirementID + '">' + req.strRequirementName + '</option>');
+            $('#addCrPromoRequirementSelect').append('<option value="' + req.intRequirementID + '">' + req.strRequirementName + '</option>');
+            $('#upPromoRequirement').append('<option value="' + req.intRequirementID + '">' + req.strRequirementName + '</option>');
+            //$('#addUpRequirementSelect').append('<option value="' + req.intRequirementID + '">' + req.strRequirementName + '</option>');
         });
         console.log(requirementName);
     },
     error: function (data) {
-        
+
     }
 });
 
-$('#requirementExistingDiv').hide();
-$('#requirementFailedDiv').hide();
-$('.errorCreateRequirement').hide();
-$('#addCreateoption').hide();
+$('#requirementPromoExistingDiv').hide();
+$('#requirementPromoFailedDiv').hide();
+$('.errorCreatePromoRequirement').hide();
+$('#addCreatePromoOption').hide();
 
-function crAddNewRequirement() {
-    if($('#createRequirementForm').valid()) {
-        var reqname = $('#addCrRequirementName').val();
+function crAddNewPromoRequirement() {
+    if($('#createPromoRequirementForm').valid()) {
+        var reqname = $('#addCrPromoRequirementName').val();
 
         $.ajax({
-           type: 'post',
+            type: 'post',
             url: 'createRequirement',
             data: {
                 'strRequirementName': reqname
@@ -50,20 +50,20 @@ function crAddNewRequirement() {
                     requirementName.push(reqname);
                     console.log(requirementName);
                     $('select').material_select('destroy');
-                    $('#crRequirement').append('<option value="' + id + '" selected>' + reqname.toUpperCase() + '</option>');
-                    $('#addCrRequirementSelect').append('<option value="' + id + '" selected>' + reqname.toUpperCase() + '</option>');
-                    $('#upRequirement').append('<option value="' + id + '" selected>' + reqname.toUpperCase() + '</option>');
+                    $('#crPromoRequirement').append('<option value="' + id + '" selected>' + reqname.toUpperCase() + '</option>');
+                    $('#addCrPromoRequirementSelect').append('<option value="' + id + '" selected>' + reqname.toUpperCase() + '</option>');
+                    $('#upPromoRequirement').append('<option value="' + id + '" selected>' + reqname.toUpperCase() + '</option>');
                     $('select').material_select();
-                    $('#crAddNewReq').closeModal();
-                    $('#createRequirementForm').trigger('reset');
-                    $('#requirementExistingDiv').hide();
-                    $('#requirementFailedDiv').hide();
-                    $('.errorCreateRequirement').hide();
-                    $('#addCreateoption').hide();
+                    $('#crAddPromoNewReq').closeModal();
+                    $('#createPromoRequirementForm').trigger('reset');
+                    $('#requirementPromoExistingDiv').hide();
+                    $('#requirementPromoFailedDiv').hide();
+                    $('.errorCreatePromoRequirement').hide();
+                    $('#addCreatePromoOption').hide();
                 } else if (id == -1) {
-                    $('#requirementExistingDiv').show();
+                    $('#requirementPromoExistingDiv').show();
                 } else {
-                    $('#requirementFailedDiv').show();
+                    $('#requirementPromoFailedDiv').show();
                 }
             },
             error: function(data) {
@@ -74,12 +74,12 @@ function crAddNewRequirement() {
 }
 
 
-function crRemoveNewRequirement() {
-    var reqname = $('#addCrRequirementSelect').val(),
-        req = $('#addCrRequirementSelect option[value=' + reqname +']').text();
+function crRemoveNewPromoRequirement() {
+    var reqname = $('#addCrPromoRequirementSelect').val(),
+        req = $('#addCrPromoRequirementSelect option[value=' + reqname +']').text();
 
     $.ajax({
-       type: 'post',
+        type: 'post',
         url: 'removeRequirement',
         data: {
             'intRequirementID': reqname
@@ -99,13 +99,13 @@ function crRemoveNewRequirement() {
                 }
             }
 
-            $('#addCrRequirementSelect option').each(function () {
-               if($(this).val() == reqname) {
-                   $(this).remove();
-               }
+            $('#addCrPromoRequirementSelect option').each(function () {
+                if($(this).val() == reqname) {
+                    $(this).remove();
+                }
             });
-            
-            $('#crRequirement option').each(function () {
+
+            $('#crPromoRequirement option').each(function () {
                 if($(this).val() == reqname) {
                     $('select').material_select('destroy');
                     $(this).remove();
@@ -113,7 +113,7 @@ function crRemoveNewRequirement() {
                 }
             });
 
-            $('#upRequirement option').each(function () {
+            $('#upPromoRequirement option').each(function () {
                 if($(this).val() == reqname) {
                     $('select').material_select('destroy');
                     $(this).remove();
@@ -122,7 +122,7 @@ function crRemoveNewRequirement() {
             });
         },
         error: function(data) {
-            
+
         }
     });
 }

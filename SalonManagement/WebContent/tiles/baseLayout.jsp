@@ -260,6 +260,7 @@
 <script type="text/javascript" src="js/ajax/promo.js"></script>
 <script type="text/javascript" src="js/ajax/promo-update.js"></script>
 <script type="text/javascript" src="js/ajax/promo-update-func.js"></script>
+<script type="text/javascript" src="js/ajax/promo-requirement.js"></script>
 <script type="text/javascript" src="js/perfect-scrollbar.jquery.min.js"></script>
 <script type="text/javascript" src="js/baselayout.js"></script>
 <script type="text/javascript" src="js/angular-resource.min.js"></script>

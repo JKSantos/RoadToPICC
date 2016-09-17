@@ -881,11 +881,13 @@ $('.upProdCancel').click(function () {
 $('#crAddOptCancel').click(function () {
     $('#createOption').trigger("reset");
     $('.errorCreateoption').hide();
+    $('#addCreateoption').hide();
 });
 
 $('.upAddOptCancel').click(function () {
     $('.upProdAddCateForm').trigger("reset");
     $('.errorUpdateoption').hide();
+    $('.addUpdateoption').hide();
 });
 
 
