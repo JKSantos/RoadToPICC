@@ -40,13 +40,13 @@ $('#addCrRequirementName').on('input', function() {
 
         if(count > 0) {
             $('#requirementExistingDiv').show();
-            $('#createAddNewRequirement').css('opacity', '0.3').prop('disabled', true);
+            $('#createAddNewRequirementBtn').css('opacity', '0.3').prop('disabled', true);
         } else {
             $('#requirementExistingDiv').hide();
-            $('#createAddNewRequirement').css('opacity', '1').prop('disabled', false);
+            $('#createAddNewRequirementBtn').css('opacity', '1').prop('disabled', false);
         }
     } else {
-
+        $('#createAddNewRequirementBtn').css('opacity', '1').prop('disabled', false);
     }
 });
 
@@ -63,14 +63,17 @@ function crAddNewRequirement() {
             dataType: 'json',
             async: true,
             success: function(data) {
-                var id = data.id
-
+                var id = data.id;
+                console.log(data);
+                requirementName.push(reqname);
+                console.log(requirementName);
                 $('select').material_select('destroy');
                 $('#crRequirement').append('<option value="' + id + '" selected>' + reqname.toUpperCase() + '</option>');
                 $('#addCrRequirementSelect').append('<option value="' + id + '" selected>' + reqname.toUpperCase() + '</option>');
                 $('#upRequirement').append('<option value="' + id + '" selected>' + reqname.toUpperCase() + '</option>');
-                $('#crAddNewReq').closeModal();
                 $('select').material_select();
+                $('#crAddNewReq').closeModal();
+                $('#createRequirementForm').trigger('reset');
             },
             error: function(data) {
 
@@ -79,8 +82,10 @@ function crAddNewRequirement() {
     }
 }
 
+
 function crRemoveNewRequirement() {
-    var reqname = $('#addCrRequirementSelect').val();
+    var reqname = $('#addCrRequirementSelect').val(),
+        req = $('#addCrRequirementSelect option[value=' + reqname +']').text();
 
     $.ajax({
        type: 'post',
@@ -91,6 +96,18 @@ function crRemoveNewRequirement() {
         dataType: 'json',
         async: true,
         success: function(data) {
+            //updateDiscountTable();
+            for(var i=0; i<requirementName.length; i++) {
+                console.log(requirementName);
+                if(req.toLowerCase() == requirementName[i].toLowerCase()) {
+                    var index = requirementName.indexOf(requirementName[i]);
+                    console.log(index);
+                    if(index > -1) {
+                        requirementName.splice(index, 1);
+                    }
+                }
+            }
+
             $('#addCrRequirementSelect option').each(function () {
                if($(this).val() == reqname) {
                    $(this).remove();
@@ -104,7 +121,7 @@ function crRemoveNewRequirement() {
                     $('select').material_select();
                 }
             });
-            upRequirement
+
             $('#upRequirement option').each(function () {
                 if($(this).val() == reqname) {
                     $('select').material_select('destroy');
