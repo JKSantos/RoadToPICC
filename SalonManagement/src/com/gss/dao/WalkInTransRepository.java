@@ -121,7 +121,7 @@ public class WalkInTransRepository {
 				
 				int id = packageSet.getInt(1);
 				Package pack = Package.createNullPackage(packageSet.getInt(3));
-				int assigmentID = packageSet.getShort(4);
+				int assigmentID = packageSet.getInt(4);
 				
 				PreparedStatement servPackStmt = con.prepareStatement(packageServiceQuery);
 				servPackStmt.setInt(1, assigmentID);

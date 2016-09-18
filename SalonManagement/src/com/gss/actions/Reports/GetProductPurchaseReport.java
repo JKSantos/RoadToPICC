@@ -6,7 +6,7 @@ import com.gss.utilities.ReportsHelper;
 
 public class GetProductPurchaseReport {
 	
-	private ProductPurchase purchase;
+	private ProductPurchase purchase_statistical;
 	
 	private String type;
 	
@@ -17,19 +17,22 @@ public class GetProductPurchaseReport {
 	public String execute(){
 		
 		if(type.equalsIgnoreCase("monthly")){
-			this.purchase = ProductPurchasesRepository.getProductPurchases(ReportsHelper.monthlyReport(), type);
+			this.purchase_statistical = ProductPurchasesRepository.getProductPurchases(ReportsHelper.monthlyReport(), type);
 		}else if(type.equalsIgnoreCase("annual")){
-			this.purchase = ProductPurchasesRepository.getProductPurchases(ReportsHelper.annualReport(yearFrom, yearTo), type);
+			this.purchase_statistical = ProductPurchasesRepository.getProductPurchases(ReportsHelper.annualReport(yearFrom, yearTo), type);
 		}else{
-			this.purchase = ProductPurchasesRepository.getProductPurchases(ReportsHelper.quarterlyReport(), type);
+			this.purchase_statistical = ProductPurchasesRepository.getProductPurchases(ReportsHelper.quarterlyReport(), type);
 		}
 		
 		return "success";
 	}
 	
-	public ProductPurchase getPurchase() {
-		return purchase;
+	
+	public ProductPurchase getPurchase_statistical() {
+		return purchase_statistical;
 	}
+
+
 	public void setType(String type) {
 		this.type = type;
 	}
