@@ -10,6 +10,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
+import org.apache.struts2.StrutsStatics;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
@@ -41,6 +44,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.opensymphony.xwork2.ActionContext;
 
 public class ProductTagChartReport {
 
@@ -61,7 +65,7 @@ public class ProductTagChartReport {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
 		
-		String title = report.getStrType().toLowerCase() + " PRODUCT TAG REPORT OF YEAR " + cal.get(Calendar.YEAR);
+		String title = report.getStrType().toLowerCase() + " PRODUCT TAG REPORT AS OF YEAR " + cal.get(Calendar.YEAR);
 		
 		if(report.getStrType().equalsIgnoreCase("annual") || report.getStrType().equalsIgnoreCase("annuall")){
 			title = report.getStrType().toLowerCase() + " PRODUCT TAG REPORT FROM " + report.getDetails().get(0).getClassification()
@@ -222,7 +226,8 @@ public class ProductTagChartReport {
 
 	public Paragraph getHeader() throws BadElementException, MalformedURLException, IOException{
 		
-		Image COMPANY_LOGO = Image.getInstance("resource/Company/Company_Logo.jpg");
+		Image COMPANY_LOGO = Image.getInstance(((ServletContext) ActionContext.getContext().get(StrutsStatics.SERVLET_CONTEXT)) 
+                .getRealPath("WEB-INF/Company/Company_Logo.jpg"));
 		COMPANY_LOGO.scaleAbsolute(80f, 80f);
 		
 		Paragraph paragraph = new Paragraph();

@@ -1,10 +1,15 @@
 package com.gss.utilities;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
+
+import javax.servlet.ServletContext;
+
+import org.apache.struts2.StrutsStatics;
 
 import com.gss.model.Contract;
 import com.gss.model.ProductOrder;
@@ -30,6 +35,7 @@ import com.itextpdf.text.pdf.GrayColor;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.opensymphony.xwork2.ActionContext;
 import com.sun.prism.paint.Color;
 
 public class ContractGenerator {
@@ -168,10 +174,11 @@ public class ContractGenerator {
 	}
 	
 	public Paragraph getHeader() throws BadElementException, MalformedURLException, IOException{
-//		
-//		Image COMPANY_LOGO = CreateFile.getImage();
-//		COMPANY_LOGO.scaleAbsolute(80f, 80f);
-//		
+		
+		Image COMPANY_LOGO = Image.getInstance(((ServletContext) ActionContext.getContext().get(StrutsStatics.SERVLET_CONTEXT)) 
+                .getRealPath("WEB-INF/Company/Company_Logo.jpg"));
+		COMPANY_LOGO.scaleAbsolute(80f, 80f);
+		
 		Paragraph paragraph = new Paragraph();
 		Paragraph headerParagraph = new Paragraph();
 		
