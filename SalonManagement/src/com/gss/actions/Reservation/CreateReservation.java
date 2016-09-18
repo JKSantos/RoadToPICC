@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.gss.dao.CustomerTransactionHelper;
 import com.gss.model.Contract;
 import com.gss.model.Customer;
 import com.gss.model.Discount;
@@ -67,7 +68,7 @@ public class CreateReservation {
 	private String selectedExtraCharges = "";	//important
 	private String selectedDiscounts = "";		//important
 	private String paymentType = "FULL PAYMENT";			// kung full or twice
-	
+	private int intCustID;
 	private int intCreatedID;
 	
 	public String execute() throws Exception{
@@ -209,6 +210,9 @@ public class CreateReservation {
 				
 		if(result != 1){
 			this.intCreatedID = result;
+			if(this.intReservationType == 1)
+				CustomerTransactionHelper.insertCustomerAppointment(intCreatedID, intCustID, 2);
+			
 			return "success";	
 		}
 		else
@@ -308,5 +312,9 @@ public class CreateReservation {
 
 	public int getIntCreatedID() {
 		return intCreatedID;
+	}
+
+	public void setIntCustID(int intCustID) {
+		this.intCustID = intCustID;
 	}
 }

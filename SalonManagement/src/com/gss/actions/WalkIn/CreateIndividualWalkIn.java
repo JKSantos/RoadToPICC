@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.gss.dao.CustomerTransactionHelper;
 import com.gss.model.Discount;
 import com.gss.model.Employee;
 import com.gss.model.ExtraCharge;
@@ -39,6 +40,7 @@ public class CreateIndividualWalkIn {
 	private String customerType = "WALKIN";
 	private String appointmentDate = "";
 	private String appointmentTime = "";
+	private int intCustID;
 	
 	private int intCreatedID;
 	
@@ -176,6 +178,9 @@ public class CreateIndividualWalkIn {
 		}
 		else{
 			this.intCreatedID = result;
+			if(this.customerType.equals("APPOINTMENT"))
+				CustomerTransactionHelper.insertCustomerAppointment(intCreatedID, intCustID, 1);
+
 			return "success";
 		}
 	
@@ -239,5 +244,8 @@ public class CreateIndividualWalkIn {
 
 	public void setCustomerType(String customerType) {
 		this.customerType = customerType;
+	}
+	public void setIntCustID(int intCustID) {
+		this.intCustID = intCustID;
 	}
 }

@@ -46,18 +46,18 @@ public class CreateWalkIn {
 		List<ServiceDetails> serviceDetails1 = new ArrayList<ServiceDetails>();
 		List<ServiceDetails> serviceDetails2 = new ArrayList<ServiceDetails>();
 		
-		serviceDetails1.add(new ServiceDetails(61, 1, 79, "ONGOING"));
-		serviceDetails1.add(new ServiceDetails(63, 1, 68, "PENDING"));
+		serviceDetails1.add(new ServiceDetails(63, 1, 79, "ONGOING"));
 		serviceDetails1.add(new ServiceDetails(64, 1, 68, "PENDING"));
+		serviceDetails1.add(new ServiceDetails(65, 1, 68, "PENDING"));
 		
 		
 		PackageDetails pack = new PackageDetails(63, serviceDetails1);
 		
 		this.packageList.add(pack);
 		
-		serviceDetails2.add(new ServiceDetails(61, 1, 79, "ONGOING"));
+		serviceDetails2.add(new ServiceDetails(63, 1, 79, "ONGOING"));
 		
-		PromoDetails promo = new PromoDetails(34, serviceDetails2, new ArrayList<PackageDetails>());
+		PromoDetails promo = new PromoDetails(34, serviceDetails2, packageList);
 		
 		this.promoList.add(promo);
 		

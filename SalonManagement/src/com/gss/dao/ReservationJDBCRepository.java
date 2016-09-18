@@ -330,6 +330,10 @@ public class ReservationJDBCRepository implements ReservationRepository{
 				preEmployee.addBatch();
 			}
 			
+			if(reservation.getIntReservationType() == 2){
+				ReservationUpdateStock.updateStock(ReservationUpdateStock.getProducts(reservation));
+			}
+			
 			preProduct.executeBatch();
 			preService.executeBatch();
 			prePackage.executeBatch();
@@ -516,6 +520,11 @@ public class ReservationJDBCRepository implements ReservationRepository{
 				preEmployee.addBatch();
 			}
 			
+			if(reservation.getIntReservationType() == 2){
+				ReservationUpdateStock.updateStock_increment(ReservationUpdateStock.getProducts(reservation));
+				ReservationUpdateStock.updateStock(ReservationUpdateStock.getProducts(reservation));
+			}
+			
 			preProduct.executeBatch();
 			preService.executeBatch();
 			prePackage.executeBatch();
@@ -554,9 +563,22 @@ public class ReservationJDBCRepository implements ReservationRepository{
 	}
 
 	@Override
-	public boolean cancelReservation(Reservation reservation) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean cancelReservation(int id) throws SQLException {
+		
+		Connection con = new JDBCConnection().getConnection();
+		
+		String query = "UPDATE tblReservation SET strStatus = 'CANCELLED' WHERE intReservationID = ?;";
+		
+		try{
+			Reservation reservation = getReservationByID(id);
+			
+			ReservationUpdateStock.updateStock_increment(ReservationUpdateStock.getProducts(reservation));
+			
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
