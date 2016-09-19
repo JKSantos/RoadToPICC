@@ -5,8 +5,8 @@ import java.net.MalformedURLException;
 
 import com.gss.dao.Reports.ProductPurchasesRepository;
 import com.gss.model.Reports.ProductPurchase;
-import com.gss.pdf.Reports.ProductPurchaseChartReport;
-import com.gss.pdf.Reports.ProductPurchasesStackedChart;
+import com.gss.pdf.Reports.ProductPurchase.ProductPurchaseChartReport;
+import com.gss.pdf.Reports.ProductPurchase.ProductPurchasesStackedChart;
 import com.gss.utilities.ReportsHelper;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.DocumentException;

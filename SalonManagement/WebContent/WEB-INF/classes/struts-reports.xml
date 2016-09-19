@@ -15,68 +15,78 @@
 			<result-type name="tiles"
 						 class="org.apache.struts2.views.tiles.TilesResult" />
 		</result-types>
-
-		<action name="salesReport" class="com.gss.actions.ReportsAction" method="Sales">
-			<result name="success" type="tiles">SalesReport</result>
+		
+		<action name="reservationPage" class="com.gss.actions.Reports.Sales.SalesReport" method="reservation">
+			<result name="success" type="tiles">reservationReport</result>
 		</action>
 		
+		<action name="orderPage" class="com.gss.actions.Reports.Sales.SalesReport" method="order">
+			<result name="success" type="tiles">orderReport</result>
+		</action>
+		
+		<action name="walkinPage" class="com.gss.actions.Reports.Sales.SalesReport" method="walkin">
+			<result name="success" type="tiles">walkinReport</result>
+		</action>
+		
+		<!-- TAG CHART START-->
 		<action name="productTags" class="com.gss.actions.Reports.Reports" method="productTags">
 			<result name="success" type="tiles">ProductTags</result>
 		</action>
 		
-		<action name="reservationSales" class="com.gss.actions.Reports.GetReservationSalesReport" method="execute">
+		<action name="tagChart" class="com.gss.actions.Reports.ProductTag.GetProductTagChart" method="execute">
 			<result name="success" type="json"></result>
 		</action>
 		
-		<action name="walkinSales" class="com.gss.actions.Reports.GetWalkinSalesReport" method="execute">
+		<action name="printStatisticalTagChart" class="com.gss.actions.Reports.ProductTag.PrintProductTagChart" method="execute">
 			<result name="success" type="json"></result>
 		</action>
 		
-		<action name="productOrderSales" class="com.gss.actions.Reports.GetOrderSalesReport" method="execute">
+		<action name="getProductTags" class="com.gss.actions.Reports.ProductTag.GetProductTagAction" method="execute">
 			<result name="success" type="json"></result>
 		</action>
-	
-		<action name="getPoductTags" class="com.gss.actions.Reports.GetProductTagAction" method="execute">
-			<result name="success" type="json"></result>
-		</action>
+		<!-- TAG CHART END-->
 		
-		<action name="getProductPurchases" class="com.gss.actions.Reports.GetProductPurchases" method="execute">
-			<result name="success" type="json"></result>
-		</action>
-		
-		<action name="reservationPage" class="com.gss.actions.Reports.SalesReport" method="reservation">
-			<result name="success" type="tiles">reservationReport</result>
-		</action>
-		
-		<action name="orderPage" class="com.gss.actions.Reports.SalesReport" method="order">
-			<result name="success" type="tiles">orderReport</result>
-		</action>
-		
-		<action name="walkinPage" class="com.gss.actions.Reports.SalesReport" method="walkin">
-			<result name="success" type="tiles">walkinReport</result>
-		</action>
-		
-		<action name="tagChart" class="com.gss.actions.Reports.GetProductTagChart" method="execute">
+		<!-- SALES CHART START-->
+		<action name="salesChart" class="com.gss.actions.Reports.Sales.GetSalesChart" method="execute">
 			<result name="success" type="json"></result>
 		</action>
 		
-		<action name="printTagChart" class="com.gss.actions.Reports.PrintProductTagChart" method="execute">
+		<action name="printStatisticalSalesChart" class="com.gss.actions.Reports.Sales.PrintSalesChart">
 			<result name="success" type="json"></result>
 		</action>
 		
-		<action name="salesChart" class="com.gss.actions.Reports.GetSalesChart" method="execute">
+		<action name="salesReport" class="com.gss.actions.ReportsAction" method="Sales">
+			<result name="success" type="tiles">SalesReport</result>
+		</action>
+		
+		<action name="reservationSales" class="com.gss.actions.Reports.Sales.GetReservationSalesReport" method="execute">
 			<result name="success" type="json"></result>
 		</action>
 		
-		<action name="printSalesChart" class="com.gss.actions.Reports.PrintSalesChart">
+		<action name="walkinSales" class="com.gss.actions.Reports.Sales.GetWalkinSalesReport" method="execute">
 			<result name="success" type="json"></result>
 		</action>
 		
-		<action name="getProductPurchases" class="com.gss.actions.Reports.GetProductPurchaseReport">
+		<action name="productOrderSales" class="com.gss.actions.Reports.ProductPurchase.GetOrderSalesReport" method="execute">
+			<result name="success" type="json"></result>
+		</action>
+		<!-- SALES CHART END-->
+		
+		<!-- PRODUCT PURCHASE CHART START-->
+		<action name="getProductPurchases" class="com.gss.actions.Reports.ProductPurchase.GetProductPurchaseReport">
 			<result name="success" type="json"></result>
 		</action>
 		
-		<action name="download" class="com.gss.utilities.DownloadAction">
+		<action name="printStatisticalProductPurchasesReports" class="com.gss.actions.Reports.ProductPurchase.PrintProductPurchaseChart">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="getProductPurchases" class="com.gss.actions.Reports.ProductPurchase.GetProductPurchases" method="execute">
+			<result name="success" type="json"></result>
+		</action>
+		<!-- PRODUCT PURCHASE CHART END-->
+		
+		<action name="downloadReports" class="com.gss.actions.Reports.ProductTag.ChartDownload">
 		    <result name="success" type="stream">
 		        <param name="contentType">application/pdf</param>
 		        <param name="inputName">fileStream</param>

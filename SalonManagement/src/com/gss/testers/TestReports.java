@@ -8,9 +8,9 @@ import java.util.List;
 import org.jfree.chart.JFreeChart;
 import org.jfree.ui.RefineryUtilities;
 
-import com.gss.actions.Reports.ProductTagReportFactory;
 import com.gss.model.ProductTagReport;
 import com.gss.model.TagSum;
+import com.gss.pdf.Reports.ProductTags.ProductTagReportFactory;
 import com.gss.utilities.BarChart;
 import com.gss.utilities.PieGraph;
 import com.gss.utilities.Receipt;

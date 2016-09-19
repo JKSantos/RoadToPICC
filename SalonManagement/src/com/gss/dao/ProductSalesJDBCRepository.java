@@ -635,4 +635,25 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 		}
 		
 	}
+	
+	public static String confirmOrder(int orderID){
+		
+		Connection con = new JDBCConnection().getConnection();
+		String query = "UPDATE tblOrder SET strOrderStatus = 'RECEIVED' WHERE intOrderID = ?;";
+		
+		try{
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setInt(1, orderID);
+			statement.executeQuery();
+			
+			statement.close();
+			con.close();
+			
+			return "success";
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return "failed";
+		}
+	}
 }

@@ -120,7 +120,8 @@
                          </div>
                          <div class="collapsible-body" id="listcollapsible"
                               style="margin:0px 0px 0px 0px !important; padding: 0px 0px 0px 0px !important;">
-                             <a href="download.action?fineName=/Reports/ProductTag_Sample_155719233892016.pdf" >Click Me</a>
+                             <a href="download.action?fineName=/Reports/ProductTag_Sample_155719233892016.pdf" >Click Me</a><br>
+                             <a href="MyFirstHighCharts.jsp" >High Charts</a>
                          </div>
                      </li>
              

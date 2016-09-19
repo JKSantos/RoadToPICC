@@ -3,7 +3,7 @@ package com.gss.testers;
 import java.io.IOException;
 
 import com.gss.dao.Reports.SalesReportRepository;
-import com.gss.pdf.Reports.SalesChartReport;
+import com.gss.pdf.Reports.Sales.SalesChartReport;
 import com.gss.utilities.ReportsHelper;
 import com.itextpdf.text.DocumentException;
 
