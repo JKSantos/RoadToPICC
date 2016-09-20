@@ -63,6 +63,7 @@
             vm.walkinProdSelected = [];
 
             vm.count = 0;
+            vm.discountApplicability = '';
 
             function dtInstanceCallback(dtInstance) {
                 var datatableObj = dtInstance.DataTable;
@@ -163,8 +164,6 @@
                 vm.requirement = _.uniq(require);
 
                 vm.discountDetail = discount;
-                console.log(discount.strDiscountDesc.length);
-                console.log(vm.discountDetail);
 
                 var discountByIDData = $.param({
                     'intDiscountID': discount.intDiscountID
@@ -179,9 +178,52 @@
                     }
                 }).then(function successCallback(data) {
                     var discount = data.data.discount;
+                    console.log(discount);
                     if(discount.applicability == "TOTAL SALES") {
+                        vm.sumWithDiscount = vm.sum;
+                        var p = 0,
+                            s = 0,
+                            pck = 0,
+                            pr = 0;
                         vm.discountApplicability = 'ALL ITEMS ARE INCLUDED';
-                    } else if (discount.applicability == "SELECTED ITEMS") {
+                        angular.forEach(vm.productOrder, function(prod) {
+                           if(discount.intDiscountType == 1) {
+                               p = prod.productTotal * (discount.stringPrice/100);
+                               vm.sumWithDiscount -= p;
+                           } else if(discount.intDiscountType == 2) {
+                               if(prod.productTotal > discount.stringPrice) {
+                                   vm.sumWithDiscount -= discount.stringPrice;
+                               } else if(prod.productTotal < discount.stringPrice) {
+                                   vm.sumWithDiscount -= prod.productTotal;
+                               }
+                           }
+                        });
+                        angular.forEach(vm.serviceOrder, function(serv) {
+                           if(discount.intDiscountType == 1) {
+                               s = serv.serviceTotal * (discount.stringPrice/100);
+                               vm.sumWithDiscount -= s;
+                           } else if(discount.intDiscountType == 2) {
+                               if(serv.serviceTotal > discount.stringPrice) {
+                                   vm.sumWithDiscount -= discount.stringPrice;
+                               } else if(serv.serviceTotal < discount.stringPrice) {
+                                   vm.sumWithDiscount -= serv.serviceTotal;
+                               }
+                           }
+                        });
+                        angular.forEach(vm.packageOrder, function(pack) {
+                            if(discount.intDiscountType == 1) {
+                                pck = pack.packageTotal * (discount.stringPrice/100);
+                                vm.sumWithDiscount -= pck;
+                            } else if(discount.intDiscountType == 2) {
+                                if(pack.packageTotal > discount.stringPrice) {
+                                    vm.sumWithDiscount -= discount.stringPrice;
+                                } else if(pack.packageTotal < discount.stringPrice) {
+                                    vm.sumWithDiscount -= pack.packageTotal;
+                                }
+                            }
+                        });
+                    } else if (discount.applicability == "SELECTED ITEM") {
+                        vm.sumWithDiscount = vm.sum;
                         vm.discountApplicability = '';
                         var product = [],
                             service = [],
@@ -203,6 +245,62 @@
                         vm.servInDiscount = service;
                         vm.packInDiscount = packageItem;
                         vm.promoInDiscount = promoItem;
+
+                        var p = 0,
+                            s = 0,
+                            pck = 0;
+
+                        angular.forEach(product, function(prod) {
+                           angular.forEach(vm.productOrder, function(po) {
+                              if(prod.intProductID == po.productID) {
+                                  if(discount.intDiscountType == 1) {
+                                      p = po.productTotal * (discount.stringPrice/100);
+                                      vm.sumWithDiscount -= p;
+                                  } else if (discount.intDiscountType == 2) {
+                                      if(po.productTotal > discount.stringPrice) {
+                                          vm.sumWithDiscount -= discount.stringPrice;
+                                      } else if (po.productTotal < discount.stringPrice) {
+                                          vm.sumWithDiscount -= po.productTotal;
+                                      }
+                                  }
+                              }
+                           });
+                        });
+
+                        angular.forEach(service, function(serv) {
+                            angular.forEach(vm.serviceOrder, function(se) {
+                                if(serv.intServiceID == se.serviceID) {
+                                    if(discount.intDiscountType == 1) {
+                                        s = se.serviceTotal * (discount.stringPrice/100);
+                                        vm.sumWithDiscount -= p;
+                                    } else if (discount.intDiscountType == 2) {
+                                        if(se.serviceTotal > discount.stringPrice) {
+                                            vm.sumWithDiscount -= discount.stringPrice;
+                                        } else if (se.serviceTotal < discount.stringPrice) {
+                                            vm.sumWithDiscount -= se.serviceTotal;
+                                        }
+                                    }
+                                }
+                            });
+                        });
+
+                        angular.forEach(packageItem, function(pack) {
+                            angular.forEach(vm.packageOrder, function(pa) {
+                                if(pack.intPackageID == pa.packageID) {
+                                    if(discount.intDiscountType == 1) {
+                                        pck = pa.packageTotal * (discount.stringPrice/100);
+                                        vm.sumWithDiscount -= p;
+                                    } else if (discount.intDiscountType == 2) {
+                                        if(pa.packageTotal > discount.stringPrice) {
+                                            vm.sumWithDiscount -= discount.stringPrice;
+                                        } else if (pa.packageTotal < discount.stringPrice) {
+                                            vm.sumWithDiscount -= pa.packageTotal;
+                                        }
+                                    }
+                                }
+                            });
+                        });
+
                         product = [];
                         service = [];
                         packageItem = [];

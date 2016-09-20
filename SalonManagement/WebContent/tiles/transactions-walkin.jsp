@@ -274,12 +274,17 @@
                                             </span>
                                             <span ng-if="vm.discountDetail.strDiscountDesc.length < 1"
                                                   class="col s12">
-                                                <b>-</b>There's no details for <i>"{{vm.discountDetail.strDiscountName}}"</i>
+                                                <b>-</b>There's no description for <i>"{{vm.discountDetail.strDiscountName}}"</i>
                                             </span>
                                         <br>
                                         <b>Discount Value:</b>
                                         <span ng-if="vm.discountDetail.intDiscountType == 1">{{vm.discountDetail.stringPrice | number:0}}%</span>
                                         <span ng-if="vm.discountDetail.intDiscountType == 2">{{vm.discountDetail.stringPrice | currency: "Php "}}</span>
+                                        <br>
+                                        <b class="grey-text text-darken-1">Total (w/o discount):</b>
+                                        <span class="grey-text text-darken-1">{{vm.sum | currency: "Php "}}</span> <br>
+                                        <b class="grey-text text-darken-1">Total (w/ discount):</b>
+                                        <span class="grey-text text-darken-1">{{vm.sumWithDiscount | currency: "Php "}}</span>
                                         <br>
                                         <b>Requirement/s:</b> <br>
                                     <div class="chip" ng-repeat="req in vm.requirement" style="margin: 2px;">
