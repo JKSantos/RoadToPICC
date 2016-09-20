@@ -123,13 +123,14 @@
 
         $http({
             method: 'get',
-            url: 'http://localhost:8080/SalonManagement/getServiceByType',
+            url: 'getServiceByType',
             data: serviceTypeData,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         }).then(function successCallback(data) {
-            console.log(data);
+            console.log(data.data.serviceList);
+            console.log(serviceTypeData);
         }, function errorCallback(response) {
             console.log(response);
         });
