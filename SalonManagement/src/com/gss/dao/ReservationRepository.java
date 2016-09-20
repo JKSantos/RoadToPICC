@@ -19,7 +19,7 @@ public interface ReservationRepository {
 	
 	public boolean updateReservation(Reservation reservation) throws SQLException;
 	
-	public boolean cancelReservation(Reservation reservation) throws SQLException;
+	public boolean cancelReservation(int id) throws SQLException;
 	
 	public List<EmployeeAssigned> getAllAssignedEmployee(int ReservationID);
 	

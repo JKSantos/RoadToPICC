@@ -120,7 +120,7 @@ public class DiscountJDBCRepository implements DiscountRepository{
 				
 				
 				Discount discount = new Discount(this.intID, this.applicability, this.strName, this.strDesc, this.strGuide, this.intType, this.dblAmount, productList, serviceList, packageList, promoList, this.status);
-			
+				discount.setStringPrice(String.format("%.2f", dblAmount));
 				discountList.add(discount);
 			}
 			
@@ -443,6 +443,7 @@ public class DiscountJDBCRepository implements DiscountRepository{
 				
 				Discount discount = new Discount(this.intID, this.applicability, this.strName, this.strDesc, this.strGuide, this.intType, this.dblAmount, productList, serviceList, packageList, promoList, this.status);
 				discount.setRequirements(requirements);
+				discount.setStringPrice(String.format("%.2f", dblAmount));
 				discountList.add(discount);
 			}
 	
@@ -561,6 +562,7 @@ public class DiscountJDBCRepository implements DiscountRepository{
 				
 				Discount discount = new Discount(this.intID, this.applicability, this.strName, this.strDesc, this.strGuide, this.intType, this.dblAmount, productList, serviceList, packageList, promoList, this.status);
 				discount.setRequirements(requirements);
+				discount.setStringPrice(String.format("%.2f", dblAmount));
 				discountList.add(discount);
 			}
 			
@@ -632,6 +634,7 @@ public class DiscountJDBCRepository implements DiscountRepository{
 				
 				Discount discount = new Discount(this.intID, this.applicability, this.strName, this.strDesc, this.strGuide, this.intType, this.dblAmount, productList, serviceList, packageList, promoList, this.status);
 				discount.setRequirements(requirements);
+				discount.setStringPrice(String.format("%.2f", dblAmount));
 				discountList.add(discount);
 			}
 	

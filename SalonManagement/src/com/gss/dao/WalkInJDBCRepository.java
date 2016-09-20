@@ -133,6 +133,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 				
 				for(int intCtrInner = 0; intCtrInner < intPackageServiceSize; intCtrInner++){
 					insertDetail.setInt(1, intEmpAssignmentID);
+					System.out.println( "EmpID: " + packagee.getServiceAssignment().get(intCtrInner).getEmployeeAssigned().getIntEmpID());
 					insertDetail.setInt(2, packagee.getServiceAssignment().get(intCtrInner).getEmployeeAssigned().getIntEmpID());
 					insertDetail.setInt(3, packagee.getServiceAssignment().get(intCtrInner).getService().getIntServiceID());
 					insertDetail.setString(4, packagee.getServiceAssignment().get(intCtrInner).getStrServiceStatus());
@@ -145,9 +146,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 			
 			insertDetail.executeBatch();
 			insertDetail.clearBatch();
-			
-			
-			System.out.println(walkin.getPromo().size());
+		
 			
 			//Batch insert for promo included
 			for(int intCtr = 0; intCtr < walkin.getPromo().size(); intCtr++){
@@ -162,11 +161,11 @@ public class WalkInJDBCRepository implements WalkInRepository{
 				while(walkInID.next()){
 					walkID = walkInID.getInt(1);
 				}
+				System.out.println(walkID);
 				
 				int intPromoPackageSize = walkin.getPromo().get(intCtr).getPackages().size();
-				
 
-				for(int intCtrInner = 0; intCtrInner < intPromoPackageSize; intCtr++){
+				for(int intCtrInner = 0; intCtrInner < intPromoPackageSize; intCtrInner++){
 					
 					PackageWalkIn packagee = promo.getPackages().get(intCtrInner);
 					
@@ -179,21 +178,24 @@ public class WalkInJDBCRepository implements WalkInRepository{
 					
 					insertPromoPackage.setInt(1, walkID);
 					insertPromoPackage.setInt(2, intEmpAssignmentID);
-					insertPromoPackage.setInt(3, packagee.getPackages().getIntPackageID());
+					insertPromoPackage.setInt(3, promo.getPromo().getIntPromoID());
 					insertPromoPackage.addBatch();
+					
+					System.out.println("Inserting package promo....");
 					
 					for(int innerMostCtr = 0; innerMostCtr < promo.getPackages().size(); innerMostCtr++){
 						
 						//size of services inside the current package in the loop
 						int servicesIncludedSize = packagee.getServiceAssignment().size();
+						System.out.println("Inserting package services....");
 						
 						for(int packageServiceCtr = 0; packageServiceCtr < servicesIncludedSize; packageServiceCtr++){
 							
 							ServiceWalkIn service = packagee.getServiceAssignment().get(packageServiceCtr);
 							
 							insertDetail.setInt(1, intEmpAssignmentID);
-							insertDetail.setInt(2, service.getService().getIntServiceID());
-							insertDetail.setInt(3, service.getEmployeeAssigned().getIntEmpID());
+							insertDetail.setInt(3, service.getService().getIntServiceID());
+							insertDetail.setInt(2, service.getEmployeeAssigned().getIntEmpID());
 							insertDetail.setString(4, service.getStrServiceStatus());
 							insertDetail.addBatch();
 						}
@@ -204,7 +206,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 				insertDetail.executeBatch();
 				insertPromoPackage.clearBatch();
 				insertDetail.clearBatch();
-				
+				System.out.println("Inserting service promo....");
 				for(int intCtr2 = 0; intCtr2 < promo.getServices().size(); intCtr2++){
 					
 					//current service in the loop
@@ -223,6 +225,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 			}
 			
 			insertPromo.close();
+			System.out.println(walkin.getPromo().size());
 			
 			if(walkin.getPromo().size() > 0)
 				walkInID.close();
@@ -238,6 +241,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 			
 			con.commit();
 			con.close();
+			System.out.println("Walk In successfully saved...");
 			return intWalkInID;
 		}
 		catch(Exception e){
@@ -781,7 +785,4 @@ public class WalkInJDBCRepository implements WalkInRepository{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
-
 }

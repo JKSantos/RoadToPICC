@@ -1,4 +1,4 @@
-package com.gss.actions.Reports;
+package com.gss.actions.Reports.Sales;
 
 import com.gss.dao.Reports.SalesReportRepository;
 import com.gss.utilities.ReportsHelper;

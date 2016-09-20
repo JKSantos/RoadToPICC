@@ -1,8 +1,12 @@
-package com.gss.pdf.Reports;
+package com.gss.pdf.Reports.ProductTags;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GradientPaint;
+import java.util.List;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
@@ -15,20 +19,18 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
 
-import com.gss.model.Reports.SalesReport;
-import com.gss.model.Reports.SalesReportDetail;
+import com.gss.model.TagSum;
 import com.gss.model.Reports.TagReport;
 import com.gss.model.Reports.TagReportDetail;
 
-public class SalesChartModel extends ApplicationFrame{
+public class ProductTagChartModel extends ApplicationFrame{
 	
-	private static final long serialVersionUID = 1L;
 	private JFreeChart chart;
-	private SalesReport report;
+	private TagReport report;
 	private String title;
 
 	
-    public SalesChartModel(final String title, SalesReport report) {
+    public ProductTagChartModel(final String title, TagReport report) {
     	
     	super(title);
         this.title = title;
@@ -49,7 +51,7 @@ public class SalesChartModel extends ApplicationFrame{
     private CategoryDataset createDataset() {
         
         // row keys...
-        final String series[] = {"Home Service", "Event", "Walk In", "Delivery", "Pick Up"};
+        final String series[] = {"Defective", "Lost", "Expired", "Consumed"};
 
         // column keys...
         final String[] classification = new String[this.report.getDetails().size()];
@@ -59,18 +61,17 @@ public class SalesChartModel extends ApplicationFrame{
 
         
         for(int i = 0; i < report.getDetails().size(); i++){
-        	SalesReportDetail detail = report.getDetails().get(i);
+        	TagReportDetail detail = report.getDetails().get(i);
         	classification[i] = detail.getClassification();
         }
         
         
         for(int i = 0; i < report.getDetails().size(); i++){
-        	SalesReportDetail detail = report.getDetails().get(i);
-        	dataset.addValue(detail.getHomeService(), series[0], classification[i]);
-        	dataset.addValue(detail.getEventService(), series[1], classification[i]);
-        	dataset.addValue(detail.getWalkin(), series[2], classification[i]);
-        	dataset.addValue(detail.getDelivery(), series[3], classification[i]);
-        	dataset.addValue(detail.getPickup(), series[4], classification[i]);
+        	TagReportDetail detail = report.getDetails().get(i);
+        	dataset.addValue(detail.getTotalDefective(), series[0], classification[i]);
+        	dataset.addValue(detail.getTotalLost(), series[1], classification[i]);
+        	dataset.addValue(detail.getTotalExpired(), series[2], classification[i]);
+        	dataset.addValue(detail.getTotalConsumed(), series[3], classification[i]);
         }
  
         return dataset;
@@ -126,6 +127,19 @@ public class SalesChartModel extends ApplicationFrame{
         final BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setDrawBarOutline(false);
         
+        // set up gradient paints for series...
+//        final GradientPaint gp0 = new GradientPaint(
+//            0.0f, 0.0f, Color.blue, 
+//            0.0f, 0.0f, Color.lightGray
+//        );
+//        final GradientPaint gp1 = new GradientPaint(
+//            0.0f, 0.0f, Color.green, 
+//            0.0f, 0.0f, Color.lightGray
+//        );
+//        final GradientPaint gp2 = new GradientPaint(
+//            0.0f, 0.0f, Color.red, 
+//            0.0f, 0.0f, Color.lightGray
+//        );
         renderer.setSeriesPaint(0, blue);
         renderer.setSeriesPaint(1, black);
         renderer.setSeriesPaint(2, green);

@@ -17,6 +17,7 @@ public class Package {
 	private List<ServicePackage> serviceList;
 	private List<ProductPackage> productList;
 	private int intPackageStatus;
+	private String stringPrice;
 					//int			string					string					int					int					string							double					list							list
 	public Package(int intPackageID, String strPackageName, String strPackageDesc, int intPackageType, int intMaxHeadCount, String strPackageAvailability, double dblPackagePrice, List<ServicePackage> serviceList, List<ProductPackage> productList, int intPackageStatus){
 		
@@ -150,6 +151,14 @@ public class Package {
 		PackageService service = new PackageServiceImpl();
 		
 		return service.getPackageByType(type);
+	}
+
+	public String getStringPrice() {
+		return stringPrice;
+	}
+
+	public void setStringPrice(String stringPrice) {
+		this.stringPrice = stringPrice;
 	}
 	
 }

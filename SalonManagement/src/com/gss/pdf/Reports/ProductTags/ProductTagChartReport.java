@@ -1,13 +1,19 @@
-package com.gss.actions.Reports;
+package com.gss.pdf.Reports.ProductTags;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
+import org.apache.struts2.StrutsStatics;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
@@ -18,6 +24,7 @@ import com.gss.model.ProductOrder;
 import com.gss.model.ProductTagReport;
 import com.gss.model.TagSum;
 import com.gss.model.Reports.ProductTagSum;
+import com.gss.model.Reports.TagReport;
 import com.gss.utilities.DateHelper;
 import com.gss.utilities.NumberGenerator;
 import com.itextpdf.awt.DefaultFontMapper;
@@ -38,44 +45,60 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.opensymphony.xwork2.ActionContext;
 
-public class ProductTagReportFactory {
+public class ProductTagChartReport {
+
 	
-	private String destination = "resource/Reports/Product_Tag/ProductTag_" + NumberGenerator.localDateTime() + ".pdf";
+	private String destination = "/ProductTag_Sample_" + NumberGenerator.localDateTime() + ".pdf";
 	private List<ProductTagReport> report;
 	private String dateFrom;
 	private String dateTo;
+	private final int WIDTH	 = 650;
+	private final int HEIGHT = 350;
+	private final int X = 65;
+	private final int Y = -50;
 	
 	private PdfWriter writer;
 	
-	public String generateReport(String dateFrom, String dateTo, List<ProductTagReport> report, List<TagSum> tag, JFreeChart chart) throws BadElementException, MalformedURLException, DocumentException, IOException{
+	public String generateReport(TagReport report) throws BadElementException, MalformedURLException, DocumentException, IOException{
+
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
 		
-		this.report = report;
-		this.dateFrom = dateFrom;
-		this.dateTo = dateTo;
+		String title = report.getStrType().toLowerCase() + " PRODUCT TAG REPORT AS OF YEAR " + cal.get(Calendar.YEAR);
+		
+		if(report.getStrType().equalsIgnoreCase("annual") || report.getStrType().equalsIgnoreCase("annuall")){
+			title = report.getStrType().toLowerCase() + " PRODUCT TAG REPORT FROM " + report.getDetails().get(0).getClassification()
+			+ "-" + report.getDetails().get(report.getDetails().size() - 1).getClassification();
+		}
+		
+		JFreeChart chart = new ProductTagChartModel(title, report).getChart();
 		
 		Document document = createDocument();
 		
 		document.open();
 		
 		document.add(getHeader());
-		document.add(getTitle());
-		document.add(getTagTable());
-		document.add(getTotal());
+//		document.add(getTitle());
+//		document.add(getTagTable());
+//		document.add(getTotal());
 		
-//		PdfContentByte contentByte = writer.getDirectContent();
-//		PdfTemplate template = contentByte.createTemplate(500, 300);
-//		
-//		@SuppressWarnings("deprecation")
-//		Graphics2D graphics2d = template.createGraphics(500, 300,
-//				new DefaultFontMapper());
-//		Rectangle2D rectangle2d = new Rectangle2D.Double(150, -50, 500,
-//				300);
-//
-//		chart.draw(graphics2d, rectangle2d);
-//		
-//		graphics2d.dispose();
-//		contentByte.addTemplate(template, 0, 0);
+		
+		
+		PdfContentByte contentByte = writer.getDirectContent();
+		PdfTemplate template = contentByte.createTemplate(WIDTH + 70, HEIGHT + 200);
+			
+		@SuppressWarnings("deprecation")
+		Graphics2D graphics2d = template.createGraphics(WIDTH + 70, HEIGHT + 100,
+				new DefaultFontMapper());
+		java.awt.geom.Rectangle2D rectangle2d = new Rectangle2D.Double(X, 0, WIDTH,
+				HEIGHT);
+
+		chart.draw(graphics2d, rectangle2d);
+		
+		graphics2d.dispose();
+		contentByte.addTemplate(template, 0, 0);
 		
 		document.close();
 		
@@ -180,8 +203,11 @@ public class ProductTagReportFactory {
 	public Document createDocument(){
 		Document document = new Document(PageSize.LETTER.rotate(), 30, 30, 30, 30);
         try {
-			this.writer = PdfWriter.getInstance(document, new FileOutputStream(this.destination));
-		} catch (FileNotFoundException | DocumentException e) {
+			this.writer = PdfWriter.getInstance(document, new FileOutputStream(((ServletContext) ActionContext.getContext().get(StrutsStatics.SERVLET_CONTEXT)) 
+	                .getRealPath("WEB-INF/Reports/ProductTag")
+	                +
+	                this.destination));
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -204,7 +230,8 @@ public class ProductTagReportFactory {
 
 	public Paragraph getHeader() throws BadElementException, MalformedURLException, IOException{
 		
-		Image COMPANY_LOGO = Image.getInstance("resource/Company/Company_Logo.jpg");
+		Image COMPANY_LOGO = Image.getInstance(((ServletContext) ActionContext.getContext().get(StrutsStatics.SERVLET_CONTEXT)) 
+                .getRealPath("WEB-INF/Company/Company_Logo.jpg"));
 		COMPANY_LOGO.scaleAbsolute(80f, 80f);
 		
 		Paragraph paragraph = new Paragraph();
@@ -244,5 +271,5 @@ public class ProductTagReportFactory {
 		
 		return paragraph;
 	}
-
+	
 }

@@ -1,11 +1,11 @@
-package com.gss.actions.Reports;
+package com.gss.actions.Reports.Sales;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 
 import com.gss.dao.Reports.SalesReportRepository;
 import com.gss.model.Reports.SalesReport;
-import com.gss.pdf.Reports.SalesChartReport;
+import com.gss.pdf.Reports.Sales.SalesChartReport;
 import com.gss.utilities.ReportsHelper;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.DocumentException;
@@ -26,6 +26,8 @@ public class PrintSalesChart {
 			this.pdfPath = new SalesChartReport().generateReport(SalesReportRepository.getSalesReport(ReportsHelper.annualReport(yearFrom, yearTo), "annual"));
 		else
 			this.pdfPath = new SalesChartReport().generateReport(SalesReportRepository.getSalesReport(ReportsHelper.quarterlyReport(), "quarterly"));
+		
+		this.pdfPath = "/Reports/Sales/" + this.pdfPath;
 		
 		return "success";
 	}

@@ -1,4 +1,4 @@
-package com.gss.actions.Reports;
+package com.gss.actions.Reports.Sales;
 
 import java.util.List;
 
@@ -9,12 +9,14 @@ import com.gss.model.Reports.ReservationSalesReport;
 import com.gss.model.Reports.ReservationTotalSales;
 import com.gss.model.Reports.WalkInSalesReport;
 import com.gss.model.Reports.WalkInTotalSales;
+import com.gss.utilities.ReportDate;
+import com.gss.utilities.ReportsHelper;
 
 public class GetReservationSalesReport {
 	
 	//Filters
-	private String dateFrom;
-	private String dateTo;
+	private String currentWhat;
+
 	//Get
 	private List<ReservationSalesReport> reservation;
 	private List<ReservationTotalSales> reservationTotal;
@@ -25,10 +27,15 @@ public class GetReservationSalesReport {
 	
 	public String execute(){
 		
-		this.dateFrom += " 00:00:00";
-		this.dateTo += " 23:59:59";
+		ReportDate date = null;
 		
-		System.out.println(dateFrom + " ..  " + dateTo);
+		if(currentWhat.equalsIgnoreCase("month"))
+			date = ReportsHelper.currentMonth();
+		else
+			date = ReportsHelper.currentWeek();
+		
+		String dateFrom = date.getDateFrom() + " 00:00:00";
+		String dateTo = date.getDateTo() + " 23:59:59";
 
 		this.reservation = ReportsRepository.getReservationSales(dateFrom, dateTo);	
 		this.reservationTotal = ReportsRepository.getReservationTotalSales(dateFrom, dateTo);
@@ -44,12 +51,8 @@ public class GetReservationSalesReport {
 		return reservation;
 	}
 
-	public void setDateFrom(String dateFrom) {
-		this.dateFrom = dateFrom;
-	}
-
-	public void setDateTo(String dateTo) {
-		this.dateTo = dateTo;
+	public void setCurrentWhat(String currentWhat) {
+		this.currentWhat = currentWhat;
 	}
 
 	public List<ReservationTotalSales> getReservationTotal() {

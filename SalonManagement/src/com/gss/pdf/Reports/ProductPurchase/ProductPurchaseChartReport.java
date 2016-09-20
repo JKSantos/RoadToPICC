@@ -1,4 +1,4 @@
-package com.gss.pdf.Reports;
+package com.gss.pdf.Reports.ProductPurchase;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
@@ -10,6 +10,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
+import org.apache.struts2.StrutsStatics;
 import org.jfree.chart.JFreeChart;
 
 import com.gss.dao.Reports.ProductPurchasesRepository;
@@ -38,12 +41,13 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.opensymphony.xwork2.ActionContext;
 
 public class ProductPurchaseChartReport {
 
 	
     
-    private String destination = "resource/Reports/Product_Purchases/Product_Purchase_" + NumberGenerator.localDateTime() + ".pdf";
+    private String destination = "/Product_Purchase_" + NumberGenerator.localDateTime() + ".pdf";
 	private List<ProductTagReport> report;
 	private String dateFrom;
 	private String dateTo;
@@ -59,7 +63,7 @@ public class ProductPurchaseChartReport {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
 		
-		String title = report.getType().toLowerCase() + " PRODUCT SALES OF YEAR " + cal.get(Calendar.YEAR);
+		String title = report.getType().toLowerCase() + " PRODUCT SALES AS OF YEAR " + cal.get(Calendar.YEAR);
 		
 		if(report.getType().equalsIgnoreCase("annual") || report.getType().equalsIgnoreCase("annuall")){
 			title = report.getType().toLowerCase() + " PRODUCT SALES FROM " + report.getDetails().get(0).getClassification()
@@ -198,7 +202,10 @@ public class ProductPurchaseChartReport {
 	public Document createDocument(){
 		Document document = new Document(PageSize.LETTER.rotate(), 30, 30, 30, 30);
         try {
-			this.writer = PdfWriter.getInstance(document, new FileOutputStream(this.destination));
+			this.writer = PdfWriter.getInstance(document, new FileOutputStream(((ServletContext) ActionContext.getContext().get(StrutsStatics.SERVLET_CONTEXT)) 
+	                .getRealPath("WEB-INF/Reports/ProductPurchases")
+	                +
+	                this.destination));
 		} catch (FileNotFoundException | DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -222,7 +229,8 @@ public class ProductPurchaseChartReport {
 
 	public Paragraph getHeader() throws BadElementException, MalformedURLException, IOException{
 		
-		Image COMPANY_LOGO = Image.getInstance("resource/Company/Company_Logo.jpg");
+		Image COMPANY_LOGO = Image.getInstance(((ServletContext) ActionContext.getContext().get(StrutsStatics.SERVLET_CONTEXT)) 
+                .getRealPath("WEB-INF/Company/Company_Logo.jpg"));
 		COMPANY_LOGO.scaleAbsolute(80f, 80f);
 		
 		Paragraph paragraph = new Paragraph();

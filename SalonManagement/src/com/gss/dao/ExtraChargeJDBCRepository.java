@@ -56,6 +56,7 @@ public class ExtraChargeJDBCRepository implements ExtraChargeRepository{
 				int stat = set.getInt(5);
 				
 				ExtraCharge extra = new ExtraCharge(intID, name, desc, price, stat);
+				extra.setStringPrice(String.format("%.2f", price));
 				ecList.add(extra);
 			}
 			
@@ -141,6 +142,7 @@ public class ExtraChargeJDBCRepository implements ExtraChargeRepository{
 				int stat = set.getInt(5);
 				
 				ExtraCharge extra = new ExtraCharge(intID, name, desc, price, stat);
+				extra.setStringPrice(String.format("%.2f", price));
 				ecList.add(extra);
 			}
 			

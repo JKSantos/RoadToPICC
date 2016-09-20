@@ -1,4 +1,4 @@
-package com.gss.actions.Reports;
+package com.gss.actions.Reports.Sales;
 
 import java.util.List;
 
@@ -7,26 +7,25 @@ import com.gss.model.Reports.ProductOrderSalesReport;
 import com.gss.model.Reports.ReservationSalesReport;
 import com.gss.model.Reports.WalkInSalesReport;
 
-public class GetOrderSalesReport {
+public class GetWalkinSalesReport {
 	
 	//Filters
 	private String dateFrom;
 	private String dateTo;
 	//Get
-	private List<ProductOrderSalesReport> order;
+	private List<WalkInSalesReport> walkin;
 	
 	public String execute(){
 		
 		this.dateFrom += " 00:00:00";
 		this.dateTo += " 23:59:59";
-	
-		this.order = ReportsRepository.getProductOrderSales(dateFrom, dateTo);
+		
+		this.walkin = ReportsRepository.getWalkInSales(dateFrom, dateTo);
 		
 		return "success";
 	}
-	
-	public List<ProductOrderSalesReport> getOrder() {
-		return order;
+	public List<WalkInSalesReport> getWalkin() {
+		return walkin;
 	}
 
 	public void setDateFrom(String dateFrom) {

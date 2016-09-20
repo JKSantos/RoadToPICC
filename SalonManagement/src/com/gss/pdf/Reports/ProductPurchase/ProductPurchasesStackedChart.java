@@ -1,4 +1,4 @@
-package com.gss.pdf.Reports;
+package com.gss.pdf.Reports.ProductPurchase;
 
 import java.awt.Color;
 import java.util.ArrayList;

@@ -132,7 +132,8 @@ public class PromoJDBCRepository implements PromoRepository{
 		Connection con = jdbc.getConnection();
 		String query1 = "CALL updatePromo(?, ?, ?, ?, ?, ?, ?, ?)";
 		String delete = "CALL deleteOldDetail(?)";
-		String strQuery2 = "CALL newProd(?, ?, ?);";
+		String query = "CALL createProductPromo(?, ?, ?);";
+		String strQuery2 = "INSERT INTO tblProductPromo(intPromoID, intProductID, intProductQuantity, intPromoStatus) VALUES (?, ?, ?, 1);";
 		String strQuery3 = "CALL createServicePromo(?, ?, ?);";
 		String strQuery4 = "CALL createPackagePromo(?, ?, ?);";
 		int intID = promo.getIntPromoID();
@@ -150,10 +151,14 @@ public class PromoJDBCRepository implements PromoRepository{
 			pre.setInt(8, promo.getPromoType());
 			
 			pre.execute();
+			PreparedStatement deleteStatement = con.prepareStatement(delete);
+			deleteStatement.setInt(1, intID);
+			deleteStatement.execute();
+			deleteStatement.close();
 			
 			for(int intCtr = 0; intCtr < promo.getProductList().size(); intCtr++){
 				
-				PreparedStatement pre2 = con.prepareStatement(strQuery2);
+				PreparedStatement pre2 = con.prepareStatement(query);
 				ProductPackage product = promo.getProductList().get(intCtr);
 				pre2.setInt(1, intID);
 				pre2.setInt(2, product.getProduct().getIntProductID());
@@ -162,11 +167,6 @@ public class PromoJDBCRepository implements PromoRepository{
 				pre2.execute();
 				pre2.close();
 			}
-			
-			PreparedStatement deleteStatement = con.prepareStatement(delete);
-			deleteStatement.setInt(1, intID);
-			deleteStatement.execute();
-			deleteStatement.close();
 			
 			for(int intCtr = 0; intCtr < promo.getServiceList().size(); intCtr++){
 				
@@ -262,6 +262,7 @@ public class PromoJDBCRepository implements PromoRepository{
 				int status = set.getInt(8);
 				int type = set.getInt(9);
 				
+				
 				discounts.setInt(1, intID);
 				discountedPrice = discounts.executeQuery();
 				
@@ -345,8 +346,11 @@ public class PromoJDBCRepository implements PromoRepository{
 				statement.close();
 				requirementSet.close();
 				
+				System.out.print(type + "ssd");
+				
 				Promo promo = new Promo(intID, name, desc, guide, price, max, servPack, prodPack, packPack, avail, status, type);
 				promo.setRequirements(requirements);
+				promo.setStringPrice(String.format("%.2f", price));
 				promoList.add(promo);
 			}
 			discounts.close();
@@ -441,16 +445,21 @@ public class PromoJDBCRepository implements PromoRepository{
 				
 				Promo promo = new Promo(intID, name, desc, guide, price, max, servPack, prodPack, packPack, avail, status, type);
 				promo.setRequirements(requirements);
+				promo.setStringPrice(String.format("%.2f", price));
 				promoList.add(promo);
 			}
 			discounts.close();
-			discountedPrice.close();
+			try{
+				discountedPrice.close();
+			}catch(NullPointerException n){
+				
+			}
 			set.close();
 			pre.close();
 			
 			return promoList;
 		}
-		catch(Exception e){
+		catch(SQLException e){
 			e.printStackTrace();
 			return promoList;
 		}
@@ -583,6 +592,7 @@ public class PromoJDBCRepository implements PromoRepository{
 				requirementSet.close();
 				
 				Promo promo = new Promo(intID, name, desc, guide, price, max, servPack, prodPack, packPack, avail, status, type);
+				promo.setStringPrice(String.format("%.2f", price));
 				promo.setRequirements(requirements);
 				promoList.add(promo);
 			}
@@ -640,7 +650,7 @@ public class PromoJDBCRepository implements PromoRepository{
 				}
 				
 				Promo promo = new Promo(intID, name, desc, guide, price, max, servPack, prodPack, packPack, avail, status, type);
-				
+				promo.setStringPrice(String.format("%.2f", price));
 				promoList.add(promo);
 			}
 			discounts.close();
@@ -733,6 +743,7 @@ public class PromoJDBCRepository implements PromoRepository{
 				
 				Promo promo = new Promo(intID, name, desc, guide, price, max, servPack, prodPack, packPack, avail, status, type);
 				promo.setRequirements(requirements);
+				promo.setStringPrice(String.format("%.2f", price));
 				promoList.add(promo);
 			}
 			discounts.close();

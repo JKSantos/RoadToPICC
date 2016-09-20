@@ -3,6 +3,7 @@ package com.gss.actions.ProductSales;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gss.dao.CustomerTransactionHelper;
 import com.gss.model.Discount;
 import com.gss.model.ExtraCharge;
 import com.gss.model.Invoice;
@@ -29,9 +30,11 @@ public class CreateOrderAction{
 	private String productQuantity;
 	private String strTotalPrice;
 	private String status;
-	
+								
 	private int intEmployeeID;
 	private int intCreatedID;
+	
+	private int intCustID;
 	
 	public String execute() throws Exception{
 
@@ -64,6 +67,10 @@ public class CreateOrderAction{
 		int result = salesService.createProductSales(sales);
 		
 		if(result != 0){
+			
+			if(this.orderType.equalsIgnoreCase("delivery"))
+				CustomerTransactionHelper.insertCustomerAppointment(intCreatedID, intCustID, 3);
+			
 			this.status = "success";
 			this.intCreatedID = result; 
 			return this.status;
@@ -125,7 +132,9 @@ public class CreateOrderAction{
 	public void setIntEmployeeID(int intEmployeeID) {
 		this.intEmployeeID = intEmployeeID;
 	}
-	
-	
+
+	public void setIntCustID(int intCustID) {
+		this.intCustID = intCustID;
+	}
 	
 }

@@ -1,4 +1,4 @@
-package com.gss.actions.Reports;
+package com.gss.actions.Reports.ProductTag;
 
 public class PrintProductTagReport {
 	

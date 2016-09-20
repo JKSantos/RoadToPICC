@@ -39,9 +39,11 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 
 	@Override
-	public boolean cancelReservation(Reservation reservation) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean cancelReservation(int id) throws SQLException {
+		
+		ReservationRepository repo = new ReservationJDBCRepository();
+		
+		return repo.cancelReservation(id);
 	}
 
 	@Override

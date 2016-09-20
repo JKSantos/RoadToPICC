@@ -3,7 +3,7 @@ package com.gss.utilities;
 import java.io.IOException;
 
 import com.gss.dao.ProductTagJDBCRepository;
-import com.gss.pdf.Reports.ProductTagChartReport;
+import com.gss.pdf.Reports.ProductTags.ProductTagChartReport;
 import com.itextpdf.text.DocumentException;
 
 public class TestProductTagReport {

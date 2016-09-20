@@ -1,4 +1,4 @@
-package com.gss.actions.Reports;
+package com.gss.actions.Reports.ProductTag;
 
 import com.gss.dao.ProductTagJDBCRepository;
 import com.gss.model.Reports.TagReport;

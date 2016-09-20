@@ -23,6 +23,7 @@ public class Promo {
 	private int intStatus;
 	private List<Requirement> requirements;
 	private int promoType;
+	private String stringPrice;
 	
 	public Promo(int intPromoID, String strPromoName, String strPromoDescription, String strPromoGuidelines, double dblPromoPrice, int intMaxHeadCount, List<ServicePackage> serviceList, List<ProductPackage> productList, List<PackagePackage> packageList, String strPromoAvailability, int intStatus, int promoType){
 		
@@ -180,5 +181,13 @@ public class Promo {
 
 	public void setPromoType(int promoType) {
 		this.promoType = promoType;
+	}
+
+	public String getStringPrice() {
+		return stringPrice;
+	}
+
+	public void setStringPrice(String stringPrice) {
+		this.stringPrice = stringPrice;
 	}
 }
