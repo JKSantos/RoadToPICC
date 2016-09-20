@@ -17,6 +17,7 @@
         vm.dtInstanceCallbackAppointment = dtInstanceCallbackAppointment;
         vm.searchTable = searchTable;
         vm.completePendingFunc = completePendingFunc;
+        vm.selDiscountDetails = selDiscountDetails;
 
         vm.editWalkin = editWalkin;
 
@@ -112,25 +113,24 @@
         locationFactory.getProducts().then(function (data) {
             vm.productList = data.data.productList;
         });
-        locationFactory.getServices().then(function (data) {
-            vm.serviceList = data.data.serviceList;
-            console.log(vm.serviceList);
-        });
+        // locationFactory.getServices().then(function (data) {
+        //     vm.serviceList = data.data.serviceList;
+        //     console.log(vm.serviceList);
+        // });
 
         var serviceTypeData = $.param({
             'type': 'walkin'
         });
 
         $http({
-            method: 'get',
-            url: 'getServiceByType',
+            method: 'post',
+            url: 'http://localhost:8080/SalonManagement/getServiceByType',
             data: serviceTypeData,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         }).then(function successCallback(data) {
-            console.log(data.data.serviceList);
-            console.log(serviceTypeData);
+            vm.serviceList = data.data.serviceList;
         }, function errorCallback(response) {
             console.log(response);
         });
@@ -150,6 +150,23 @@
         locationFactory.getWalkin().then(function (data) {
             vm.walkinList = data.walkInList;
         });
+
+        function selDiscountDetails(discount) {
+            var require = [];
+            angular.forEach(discount, function(disc) {
+               angular.forEach(disc.requirements, function(req) {
+                   require.push(req.strRequirementName);
+               });
+            });
+            vm.requirement = _.uniq(require);
+
+            var detail = [];
+            angular.forEach(discount, function(disc) {
+               detail.push(disc);
+            });
+            vm.discountDetail = detail;
+            console.log(vm.discountDetail);
+        }
 
         function editWalkin(walkin) {
             // $.ajax({

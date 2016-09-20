@@ -103,7 +103,8 @@
                 <div ng-show="vm.selected == 'service'" style="margin-top: -50px !important;">
                     <div class="row ">
                         <div class="col s3"
-                             ng-repeat="service in vm.serviceList | toArray: false | filter: vm.walkinSearch">
+                             ng-repeat="service in vm.serviceList | toArray: false | filter: vm.walkinSearch"
+                             ng-if="service.intServiceStatus == 1">
                             <div class="card small">
                                 <div class="card-image waves-effect waves-block waves-light">
                                     <img class="activator" ng-src="{{service.strPhotoPath}}">
@@ -260,10 +261,29 @@
                                 <div class="input-field col s12">
                                     <select multiple
                                             ng-model="vm.selDiscounts" id="crRDiscount"
+                                            ng-change="vm.selDiscountDetails(vm.selDiscounts);"
                                             ng-options="discount.strDiscountName for discount in vm.discountList">
                                         <option id="discOpt" value="" selected disabled>Choose...</option>
                                     </select>
                                     <label for="crRDiscount"><b>Discounts</b></label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <p>
+                                        <b>Note:</b> <br>
+                                        <span ng-repeat="det in vm.discountDetail">
+                                            <span ng-if="det.strDiscountDesc" class="col s12">
+                                                <b>-</b><i>{{det.strDiscountName}}</i>: {{det.strDiscountDesc}}
+                                            </span>
+                                            <span ng-if="det.strDiscountDesc == null || det.strDiscountDesc == ''" class="col s12">
+                                                <b>-</b>There's no details for <i>{{det.strDiscountName}}</i>
+                                            </span>
+                                        </span>
+                                        <br>
+                                        <b>Requirement/s:</b> <br>
+                                    <div class="chip" ng-repeat="req in vm.requirement" style="margin: 2px;">
+                                        {{req}}
+                                    </div>
+                                    </p>
                                 </div>
                             </div>
                         </div>
