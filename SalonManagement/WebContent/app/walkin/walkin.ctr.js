@@ -491,8 +491,22 @@
                 'strTotalPrice': vm.sum,
                 'discounts': selectdiscount,
                 'strName': vm.details.name,
-                'strContactNo': vm.details.contact
+                'strContactNo': vm.details.contact,
+                'packageList': vm.selPackageDetails
             });
+            
+            var xxx = {
+                    'productString': selectprod,
+                    'productQuantity': quantprod,
+                    'serviceString': selectserv,
+                    'employeeAssigned': selectEmp,
+                    'promoList': vm.selPromoDetails,
+                    'strTotalPrice': vm.sum,
+                    'discounts': selectdiscount,
+                    'strName': vm.details.name,
+                    'strContactNo': vm.details.contact,
+                    'packageList': vm.selPackageDetails
+            }
 
             $http({
                 method: 'post',
@@ -500,8 +514,10 @@
                 data: walkinData,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
-                }
+                },
+                traditional : true
             }).then(function successCallback(data) {
+            	console.log(xxx);
                 SweetAlert.swal("Successfully created!", ".", "success");
                 $('#createWalkinModal').closeModal();
             }, function errorCallback(response) {

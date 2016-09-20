@@ -46,6 +46,9 @@ public class CreateIndividualWalkIn {
 	
 	public String execute() throws Exception{
 		
+		System.out.println("Package: " + this.packageList.size());
+		System.out.println("Promo: " + this.promoList.size());
+		
 		WalkInService service = new WalkInServiceImpl();
 		
 		List<ProductWalkIn> productList = new ArrayList<ProductWalkIn>();
