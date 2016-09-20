@@ -17,7 +17,6 @@ function updatePackageProductTable() {
             var updateProductList = data.productList,
                 updatePackageProdTable = $('#uppackageProdtbl').DataTable({
                     "bLengthChange": false,
-                    "sPaginationType": "full_numbers",
                     responsive: true,
                     "order": [],
                     "columnDefs": [
@@ -61,17 +60,27 @@ function updatePackageProductTable() {
     });
 }
 
-function updatePackageServiceTable() {
+var updatePackageServTable;
+var serviceDataData = [];
+
+var upQ = 0, // temporary quantity
+    $upQty = 0, //main quantity
+    upTotal = 0, //total
+    upI = 0, // packagetype == service type na naka check
+    upChk = 0,
+    serviceTotalPriceChecked = 0; //price total ng naka check na service
+
+function updatePackageServiceTable(packType) {
     $.ajax({
         type: 'get',
         url: 'api/v1/getAllService',
         dataType: 'json',
         async: true,
         success: function (data) {
-            var updateServiceList = data.serviceList,
+            var updateServiceList = data.serviceList;
+            if (typeof packType === 'undefined') {
                 updatePackageServTable = $('#uppackageServtbl').DataTable({
                     "bLengthChange": false,
-                    "sPaginationType": "full_numbers",
                     responsive: true,
                     "order": [],
                     "columnDefs": [
@@ -82,18 +91,24 @@ function updatePackageServiceTable() {
                     ],
                     "rowHeight": '10px'
                 });
+            }
             $(".uppackageSearch").bind('keyup search input paste cut', function () {
                 updatePackageServTable.search(this.value).draw();
             });
 
             if (updateServiceList != null) {
+
                 updatePackageServTable.clear().draw();
+
                 $.each(updateServiceList, function (i, service) {
+                    serviceDataData.push(service);
+
                     var price = parseFloat(service.dblServicePrice).toFixed(2);
                     price = addCommas(price);
 
                     var checkbox = "<input type='checkbox' name='updatePackServType' id='updateServCheckBox" + service.intServiceID + "'" +
-                            " value='" + service.intServiceID + "' onclick='updateComputeService(this.value)' class='chkbox'>" +
+                            " value='" + service.intServiceID + "' onclick='updateComputeService(this.value)'" +
+                            " class='chkbox updateServCheckBox" + service.intServiceID + "'>" +
                             "<label for='updateServCheckBox" + service.intServiceID + "'></label>",
                         quantity = "<input type='number' class='right-align rowQty' name='updatePackServQty'" +
                             " id='upServQty" + service.intServiceID + "' style='width: 75px' disabled value='1' min='1' maxlength='2'>";
@@ -108,16 +123,91 @@ function updatePackageServiceTable() {
                     ]);
                 });
                 updatePackageServTable.draw();
+
+                var promoType = 0;
+
+                $('#upPackageType').on('change', function () {
+                    upTotal = upTotal - serviceTotalPriceChecked;
+                    $('#upPackTotal').val('Php ' + parseFloat(upTotal).toFixed(2));
+                    $('#upPackPrice').val('Php ' + parseFloat(upTotal).toFixed(2));
+                    serviceTotalPriceChecked = 0;
+
+
+                    updatePackageServTable.clear().draw();
+
+                    var type = $(this).val(),
+                        walk = 0,
+                        home = 0,
+                        event = 0;
+                    if (type != null) {
+                        for (var i = 0; i < type.length; i++) {
+                            if (type[i] == 1) {
+                                walk = 1;
+                            } else if (type[i] == 2) {
+                                home = 1;
+                            } else if (type[i] == 3) {
+                                event = 1;
+                            }
+                        }
+                    }
+
+                    if (walk == 1 && home == 0 && event == 0) {
+                        promoType = 1;
+                    } else if (walk == 0 && home == 1 && event == 0) {
+                        promoType = 2;
+                    } else if (walk == 0 && home == 0 && event == 1) {
+                        promoType = 3;
+                    } else if (walk == 1 && home == 1 && event == 0) {
+                        promoType = 4;
+                    } else if (walk == 1 && home == 0 && event == 1) {
+                        promoType = 5;
+                    } else if (walk == 0 && home == 1 && event == 1) {
+                        promoType = 6;
+                    } else if (walk == 1 && home == 1 && event == 1) {
+                        promoType = 7;
+                    } else {
+                        promoType = 0;
+                    }
+
+                    $.each(updateServiceList, function (i, service) {
+
+                        $('#upServItem' + service.intServiceID).remove();
+                        if (promoType == service.serviceType) {
+                            var price = parseFloat(service.dblServicePrice).toFixed(2);
+                            price = addCommas(price);
+
+                            var checkbox = "<input type='checkbox' name='updatePackServType' id='updateServCheckBox" + service.intServiceID + "'" +
+                                    " value='" + service.intServiceID + "' onclick='updateComputeService(this.value)' class='chkbox'>" +
+                                    "<label for='updateServCheckBox" + service.intServiceID + "'></label>",
+                                quantity = "<input type='number' class='right-align rowQty' name='updatePackServQty'" +
+                                    " id='upServQty" + service.intServiceID + "' style='width: 75px' disabled value='1' min='1' maxlength='2'>";
+                            price = "<span class='price'>P " + price + "</span>";
+
+                            updatePackageServTable.row.add([
+                                checkbox,
+                                service.strServiceName,
+                                service.strServiceCategory,
+                                price,
+                                quantity
+                            ]);
+                        }
+                    });
+                    updatePackageServTable.draw();
+                });
             }
         }
     });
 }
 
-var upQ = 0, // temporary quantity
-    $upQty = 0, //main quantity
-    upTotal = 0, //total
-    upI = 0,
-    upChk = 0;
+$('#btnUpdatePackageExit').on('click', function () {
+    $('#updatePackageForm').trigger('reset');
+    $('#updatepackageerror').hide();
+});
+
+$('#btnUpCancelPackage').on('click', function () {
+    $('#updatePackageForm').trigger('reset');
+    $('#updatepackageerror').hide();
+});
 
 function openUpdatePackage(id) {
     $('#updatePackageModal').openModal({
@@ -128,6 +218,7 @@ function openUpdatePackage(id) {
     });
     $('ul.tabs').tabs('select_tab', 'updateA');
     $('#upPsList .updatePackChip').remove();
+
     $.ajax({
         type: 'get',
         url: 'api/v1/getAllPackage',
@@ -137,6 +228,7 @@ function openUpdatePackage(id) {
             $('#packageloadingupdate').show();
         },
         success: function (data) {
+            var packageType = 0;
 
             for (var i = 0; i < data.packageList.length; i++) {
                 var packageid = data.packageList[i].intPackageID,
@@ -158,6 +250,7 @@ function openUpdatePackage(id) {
                                     console.log($(this).text());
                                     $(this).prop('selected', true);
                                     select.material_select();
+                                    packageType = 1;
                                 } else if ($(this).val() != 1) {
                                     select.material_select('destroy');
                                     $(this).removeAttr('selected');
@@ -172,6 +265,7 @@ function openUpdatePackage(id) {
                                     console.log($(this).text());
                                     $(this).prop('selected', true);
                                     select.material_select();
+                                    packageType = 2;
                                 } else if ($(this).val() != 2) {
                                     select.material_select('destroy');
                                     $(this).removeAttr('selected');
@@ -186,6 +280,7 @@ function openUpdatePackage(id) {
                                     console.log($(this).text());
                                     $(this).prop('selected', true);
                                     select.material_select();
+                                    packageType = 3;
                                 } else if ($(this).val() != 3) {
                                     select.material_select('destroy');
                                     $(this).removeAttr('selected');
@@ -200,6 +295,7 @@ function openUpdatePackage(id) {
                                     console.log($(this).text());
                                     $(this).prop('selected', true);
                                     select.material_select();
+                                    packageType = 4;
                                 } else if ($(this).val() != 1 || $(this).val() != 2) {
                                     select.material_select('destroy');
                                     $(this).removeAttr('selected');
@@ -214,6 +310,7 @@ function openUpdatePackage(id) {
                                     console.log($(this).text());
                                     $(this).prop('selected', true);
                                     select.material_select();
+                                    packageType = 5;
                                 } else if ($(this).val() != 1 || $(this).val() != 3) {
                                     select.material_select('destroy');
                                     $(this).removeAttr('selected');
@@ -228,6 +325,7 @@ function openUpdatePackage(id) {
                                     console.log($(this).text());
                                     $(this).prop('selected', true);
                                     select.material_select();
+                                    packageType = 6;
                                 } else if ($(this).val() != 2 || $(this).val() != 3) {
                                     select.material_select('destroy');
                                     $(this).removeAttr('selected');
@@ -242,6 +340,7 @@ function openUpdatePackage(id) {
                                     console.log($(this).text());
                                     $(this).prop('selected', true);
                                     select.material_select();
+                                    packageType = 7;
                                 }
                             });
                             break;
@@ -328,70 +427,90 @@ function openUpdatePackage(id) {
                     $('#upPsList .updateServChip').remove();
 
                     for (var x = 0; x < data.packageList[i].serviceList.length; x++) {
+
                         var serviceList = data.packageList[i].serviceList[x];
                         var servIDAjax = 'updateServCheckBox' + serviceList.service.intServiceID;
 
+                        //packageType = 1,2,3,4,5,6,7
                         updatePackServID.each(function () {
                             var updateServID = $(this).attr('id');
+                            $.each(serviceDataData, function(i, serv) {
+                               if(serv.serviceType != packageType) {
+                                   var serviceRowHide = $('#updateServCheckBox' + serv.intServiceID).closest('tr');
+                                   serviceRowHide.hide();
+                               } else if (serv.serviceType == packageType) {
+                                   upI += 1;
+                               }
+                            });
+
                             if (servIDAjax == updateServID) {
-                                var ajaxServiceID = serviceList.service.intServiceID;
-                                upChk = upChk + 1; //para malaman kung ilan or meron bang nakacheck
-                                if (upChk < 1) {
-                                    $('#updatePackSubmitBtn').attr('disabled', true).css('opacity', '0.3');
-                                } else if (upChk > 0) {
-                                    $('#updatePackSubmitBtn').attr('disabled', false).css('opacity', '1');
-                                }
+                                console.log(serviceList);
+                            }
 
-                                $('#' + servIDAjax).prop('checked', true);
-                                $('#upServQty' + ajaxServiceID).attr('disabled', false)
-                                    .val(serviceList.intQuantity);
+                            if (serviceList.service.serviceType == packageType) {
+                                if (servIDAjax == updateServID) {
 
-                                $('#upPsList').append('<div style="margin: 3px;" class="updateServChip chip z-depth-1 grey lighten-3 grey-text text-darken-4"' +
-                                    ' id="upServItem' + ajaxServiceID + '"><b>' + serviceList.service.strServiceName +
-                                    '</b><span class="span"><span class="grey-text text-darken-3" id="upServx' + id + '">' +
-                                    '(' + serviceList.intQuantity + ')</span></span>' +
-                                    '<i id="upServchip' + ajaxServiceID + '" class="material-icons upPackChipExit"' +
-                                    ' onclick="upPackServChipExit(' + ajaxServiceID + ')" style="margin-right: 5px !important">' +
-                                    'close</i></span></div>').show();
-
-
-                                var $upAjaxServTr = $(this).closest('tr'),
-                                    upAjaxServPrice = $upAjaxServTr.find('td:eq(3)').text(),
-                                    $upAjaxServQtyField = $upAjaxServTr.find('td #upServQty' + ajaxServiceID),
-                                    $upAjaxServPrice = parseFloat(upAjaxServPrice.replace(/[^\d.]/g, '')).toFixed(2),
-                                    $upAjaxServQty = parseFloat(serviceList.intQuantity).toFixed(2);
-
-                                $upAjaxServQtyField.focus(function () {
-                                    upQ = parseFloat($upAjaxServTr.find('td #upServQty' + ajaxServiceID).val()).toFixed(2);
-                                    $upQty = parseFloat($upAjaxServTr.find('td #upServQty' + ajaxServiceID).val()).toFixed(2);
-                                });
-
-                                $upQty = $upAjaxServQty; //main quantity
-                                upQ = $upAjaxServQty; //temporary quantity
-
-                                upTotal += $upQty * $upAjaxServPrice;
-                                $('#upPackTotal').val('Php ' + parseFloat(upTotal).toFixed(2));
-                                $('#upPackPrice').val('Php ' + parseFloat(data.packageList[i].dblPackagePrice).toFixed(2));
-
-                                $upAjaxServQtyField.on('input', function () {
-                                    $upQty = $upAjaxServQtyField.val();
-                                    if ($upQty > upQ) {
-                                        upTotal += ($upQty - upQ) * $upAjaxServPrice;
-                                        $('#upPackTotal').val('Php ' + parseFloat(upTotal).toFixed(2));
-                                        $('#upPackPrice').val('Php ' + parseFloat(upTotal).toFixed(2));
-                                    } else if ($upQty < upQ) {
-                                        upTotal -= (upQ - $upQty) * $upAjaxServPrice;
-                                        $('#upPackTotal').val('Php ' + parseFloat(upTotal).toFixed(2));
-                                        $('#upPackPrice').val('Php ' + parseFloat(upTotal).toFixed(2));
+                                    var ajaxServiceID = serviceList.service.intServiceID;
+                                    upChk = upChk + 1; //para malaman kung ilan or meron bang nakacheck
+                                    if (upChk < 1) {
+                                        $('#updatePackSubmitBtn').attr('disabled', true).css('opacity', '0.3');
+                                    } else if (upChk > 0) {
+                                        $('#updatePackSubmitBtn').attr('disabled', false).css('opacity', '1');
                                     }
-                                    upQ = $upQty;
-                                });
+                                    $('#updateServCheckBox' + ajaxServiceID).prop('checked', true);
+                                    $('#upServQty' + ajaxServiceID).attr('disabled', false)
+                                        .val(serviceList.intQuantity);
+
+                                    $('#upPsList').append('<div style="margin: 3px;" class="updateServChip chip z-depth-1 grey lighten-3 grey-text text-darken-4"' +
+                                        ' id="upServItem' + ajaxServiceID + '"><b>' + serviceList.service.strServiceName +
+                                        '</b><span class="span"><span class="grey-text text-darken-3" id="upServx' + id + '">' +
+                                        '(' + serviceList.intQuantity + ')</span></span>' +
+                                        '<i id="upServchip' + ajaxServiceID + '" class="material-icons upPackChipExit"' +
+                                        ' onclick="upPackServChipExit(' + ajaxServiceID + ')" style="margin-right: 5px !important">' +
+                                        'close</i></span></div>').show();
+
+
+                                    var $upAjaxServTr = $(this).closest('tr'),
+                                        upAjaxServPrice = $upAjaxServTr.find('td:eq(3)').text(),
+                                        $upAjaxServQtyField = $upAjaxServTr.find('td #upServQty' + ajaxServiceID),
+                                        $upAjaxServPrice = parseFloat(upAjaxServPrice.replace(/[^\d.]/g, '')).toFixed(2),
+                                        $upAjaxServQty = parseFloat(serviceList.intQuantity).toFixed(2);
+
+                                    $upAjaxServQtyField.focus(function () {
+                                        upQ = parseFloat($upAjaxServTr.find('td #upServQty' + ajaxServiceID).val()).toFixed(2);
+                                        $upQty = parseFloat($upAjaxServTr.find('td #upServQty' + ajaxServiceID).val()).toFixed(2);
+                                    });
+
+                                    $upQty = $upAjaxServQty; //main quantity
+                                    upQ = $upAjaxServQty; //temporary quantity
+
+                                    upTotal += $upQty * $upAjaxServPrice;
+                                    serviceTotalPriceChecked += $upQty * $upAjaxServPrice;
+                                    $('#upPackTotal').val('Php ' + parseFloat(upTotal).toFixed(2));
+                                    $('#upPackPrice').val('Php ' + parseFloat(data.packageList[i].dblPackagePrice).toFixed(2));
+
+                                    $upAjaxServQtyField.on('input', function () {
+                                        $upQty = $upAjaxServQtyField.val();
+                                        if ($upQty > upQ) {
+                                            upTotal += ($upQty - upQ) * $upAjaxServPrice;
+                                            $('#upPackTotal').val('Php ' + parseFloat(upTotal).toFixed(2));
+                                            $('#upPackPrice').val('Php ' + parseFloat(upTotal).toFixed(2));
+                                        } else if ($upQty < upQ) {
+                                            upTotal -= (upQ - $upQty) * $upAjaxServPrice;
+                                            $('#upPackTotal').val('Php ' + parseFloat(upTotal).toFixed(2));
+                                            $('#upPackPrice').val('Php ' + parseFloat(upTotal).toFixed(2));
+                                        }
+                                        upQ = $upQty;
+                                    });
+                                }
                             }
 
                         });
                     }
                 }
+
             }
+
         },
         complete: function () {
             $('#packageloadingupdate').fadeOut(500);
@@ -567,6 +686,7 @@ function updateComputeService(upServID) {
 
         $upQty = upServiceQuantity;
         upTotal += $upQty * $upServicePrice;
+        serviceTotalPriceChecked += $upQty * $upServicePrice;
         $('#upPackTotal').val("Php " + parseFloat(upTotal).toFixed(2));
         $('#upPackPrice').val("Php " + parseFloat(upTotal).toFixed(2));
 
@@ -578,6 +698,7 @@ function updateComputeService(upServID) {
                 upTotal += ($upQty - upQ) * $upServicePrice;
                 upServShowQty = parseInt($upQty);
                 upTotal = Math.abs(upTotal);
+                serviceTotalPriceChecked += ($upQty - upQ) * $upServicePrice;
                 $('#upPackTotal').val("Php " + parseFloat(upTotal).toFixed(2));
                 $('#upPackPrice').val("Php " + parseFloat(upTotal).toFixed(2));
                 $('#upPsList #upServx' + upServID + '').remove();
@@ -586,6 +707,7 @@ function updateComputeService(upServID) {
                 upTotal -= (upQ - $upQty) * $upServicePrice;
                 upTotal = Math.abs(upTotal);
                 upServShowQty = parseInt($upQty);
+                serviceTotalPriceChecked -= (upQ - $upQty) * $upServicePrice;
                 $('#upPackTotal').val("Php " + parseFloat(upTotal).toFixed(2));
                 $('#upPackPrice').val("Php " + parseFloat(upTotal).toFixed(2));
                 $('#upPsList #upServx' + upServID + '').remove();
@@ -618,6 +740,7 @@ function updateComputeService(upServID) {
         $upQty = parseFloat($unServTR.find('td #upServQty' + upServID).val()).toFixed(2);
         upTotal = upTotal - ($upQty * $unPrice);
         upTotal = Math.abs(upTotal);
+        serviceTotalPriceChecked = serviceTotalPriceChecked - ($upQty * $unPrice);
         $('#upPackTotal').val("Php " + parseFloat(upTotal).toFixed(2));
         $('#upPackPrice').val("Php " + parseFloat(upTotal).toFixed(2));
 
@@ -643,6 +766,7 @@ function updateComputeService(upServID) {
         $upQty = parseFloat($upUntr.find('td #upServQty' + upServID).val()).toFixed(2);
         upTotal = upTotal - ($upQty * $upUnChipPrice);
         upTotal = Math.abs(upTotal);
+        serviceTotalPriceChecked = serviceTotalPriceChecked - ($upQty * $upUnChipPrice);
         $('#upPackTotal').val("Php " + parseFloat(upTotal).toFixed(2));
         $('#upPackPrice').val("Php " + parseFloat(upTotal).toFixed(2));
 
@@ -669,6 +793,7 @@ function upPackServChipExit(chipExitID) {
     $upQty = parseFloat($upUntr.find('td #upServQty' + chipExitID).val()).toFixed(2);
     upTotal = upTotal - ($upQty * $upUnChipPrice);
     upTotal = Math.abs(upTotal);
+    serviceTotalPriceChecked = serviceTotalPriceChecked - ($upQty * $upUnChipPrice);
     $('#upPackTotal').val("Php " + parseFloat(upTotal).toFixed(2));
     $('#upPackPrice').val("Php " + parseFloat(upTotal).toFixed(2));
 
@@ -681,13 +806,10 @@ function upPackServChipExit(chipExitID) {
 function updatePackage() {
     if ($('#updatePackageForm').valid()) {
         // var job = document.querySelectorAll('select[name=intPackageType]:selected');
-        var upType = [],
+        var selectedPromoType = [],
             upProdselect = [],
             upServselect = [],
             upPackagetype;
-        $.each($("#upPackageType option:selected"), function () {
-            upType.push($(this).val());
-        });
         $.each($("input[name=updatePackProdType]:checked"), function () {
             upProdselect.push($(this).val());
         });
@@ -702,34 +824,65 @@ function updatePackage() {
             return this.value;
         }).get(); //get all the quantity enabled in service
 
-        upType = upType.join(', ');
-        if (upType == '1, 2, 3') {
-            upPackagetype = '7';
-        } else if (upType == '2, 3' || upType == '3, 2') {
-            upPackagetype = '6';
-        } else if (upType == '1, 3' || upType == '3, 1') {
-            upPackagetype = '5';
-        } else if (upType == '1, 2' || upType == '2, 1') {
-            upPackagetype = '4';
-        } else {
-            upPackagetype = upType;
+        selectedPromoType = $('#upPackageType').val();
+
+        var upWalk = 0,
+            upHome = 0,
+            upEvent = 0,
+            upPackageType = [];
+
+        for (var i = 0; i < selectedPromoType.length; i++) {
+            if (selectedPromoType[i] == '1') {
+                upWalk = 1;
+            } else if (selectedPromoType[i] == '2') {
+                upHome = 1;
+            } else if (selectedPromoType[i] == '3') {
+                upEvent = 1;
+            }
         }
+
+
+        if (upWalk == 1 && upHome == 0 && upEvent == 0) {
+            upPackageType.push('1');
+        } else if (upWalk == 0 && upHome == 1 && upEvent == 0) {
+            upPackageType.push('2');
+        } else if (upWalk == 0 && upHome == 0 && upEvent == 1) {
+            upPackageType.push('3');
+        } else if (upWalk == 1 && upHome == 1 && upEvent == 0) {
+            upPackageType.push('1');
+            upPackageType.push('2');
+        } else if (upWalk == 1 && upHome == 0 && upEvent == 1) {
+            upPackageType.push('1');
+            upPackageType.push('3');
+        } else if (upWalk == 0 && upHome == 1 && upEvent == 1) {
+            upPackageType.push('2');
+            upPackageType.push('3');
+        } else if (upWalk == 1 && upHome == 1 && upEvent == 1) {
+            upPackageType.push('1');
+            upPackageType.push('2');
+            upPackageType.push('3');
+        }
+
+
+
         upProdselect = upProdselect.join(', ');
         upServselect = upServselect.join(', ');
         upProductqty = upProductqty.join(', ');
         upServiceqty = upServiceqty.join(', ');
+        upPackageType = upPackageType.join(',');
 
         var upPackageData = {
             "intUpdatePackageID": $('#upPackageID').val(),
             "strUpdatePackageName": $('#upPackageName').val(),
             "strUpdatePackageDesc": $('#upPackageDesc').val(),
-            "intUpdatePackageType": upPackagetype,
+            "intUpdatePackageType": upPackageType,
             "updatePackServType": upServselect,
             "updatePackProdType": upProdselect,
             "updatePackServQty": upServiceqty,
             "updatePackProdQty": upProductqty,
             "dblUpdatePackagePrice": $('#upPackPrice').val().replace(/[^\d.]/g, '')
         };
+        console.log(upPackageData);
 
         swal({
                 title: "Update this package?",
@@ -748,8 +901,9 @@ function updatePackage() {
                         dataType: 'json',
                         async: true,
                         success: function (data) {
-                            console.log(data);
                             if (data.result == "success") {
+                                $('#updatePackageForm').trigger('reset');
+                                $('#updatepackageerror').hide();
                                 swal("Successfully updated!", ".", "success");
                                 updatePackageTable();
                                 $('#updatePackageModal').closeModal();

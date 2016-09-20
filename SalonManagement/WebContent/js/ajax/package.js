@@ -50,7 +50,7 @@ function updatePackageTable() {
                         " style='padding-left: 10px;padding-right:10px; margin: 5px;' value='" + package.intPackageID + "'" +
                         " onclick='openViewPackage(this.value)'>" +
                         "<i class='material-icons'>visibility</i></button>" +
-                        "<button class='waves-effect waves-purple btn-flat transparent black-text'" +
+                        "<button class='packUpdatebtn waves-effect waves-purple btn-flat transparent black-text'" +
                         " style='padding-left: 10px;padding-right:10px; margin: 5px;' value='" + package.intPackageID + "'" +
                         " onclick='openUpdatePackage(this.value)'>" +
                         "<i class='material-icons'>edit</i></button>" +
@@ -170,26 +170,65 @@ function createPackageServiceTable() {
             });
 
             if (serviceList != null) {
-                createPackageServTable.clear().draw();
-                $.each(serviceList, function (i, service) {
-                    var price = parseFloat(service.dblServicePrice).toFixed(2);
-                    price = addCommas(price);
-                    var checkbox = "<input type='checkbox' name='createPackServType' id='myCheckBox" + service.intServiceID + "' required" +
-                            " class='packcheckbox x" + service.intServiceID + "' value='" + service.intServiceID + "' onclick='serviceCompute(this.value)'>" +
-                            "<label for='myCheckBox" + service.intServiceID + "'></label>",
-                        quantity = "<input type='number' class='right-align rowQty' name='createPackServQty'" +
-                            " id='svc" + service.intServiceID + "' disabled style='width: 75px' min='1' max='99' value='1' maxlength='2'>";
-                    price = "<span class='price'>P " + price + "</span>";
 
-                    createPackageServTable.row.add([
-                        checkbox,
-                        service.strServiceName,
-                        service.strServiceCategory,
-                        price,
-                        quantity
-                    ]);
+                var promoType = 0;
+
+                $('#crPackageType').on('change', function() {
+                    createPackageServTable.clear().draw();
+                    var type = $(this).val(),
+                        walk = 0,
+                        home = 0,
+                        event = 0;
+                    for (var i = 0; i < type.length; i++) {
+                        if (type[i] == 3) {
+                            walk = 1;
+                        } else if (type[i] == 2) {
+                            home = 1;
+                        } else if (type[i] == 1) {
+                            event = 1;
+                        }
+                    }
+
+                    if (walk == 1 && home == 0 && event == 0) {
+                        promoType = 1;
+                    } else if (walk == 0 && home > 0 && event == 0) {
+                        promoType = 2;
+                    } else if (walk == 0 && home == 0 && event == 1) {
+                        promoType = 3;
+                    } else if (walk == 1 && home == 1 && event == 0) {
+                        promoType = 4;
+                    } else if (walk == 1 && home == 0 && event == 1) {
+                        promoType = 5;
+                    } else if (walk == 0 && home == 1 && event == 1) {
+                        promoType = 6;
+                    } else if (walk == 1 && home == 1 && event == 1) {
+                        promoType = 7;
+                    }
+
+                    $.each(serviceList, function (i, service) {
+                        if(promoType == service.serviceType) {
+                            var price = parseFloat(service.dblServicePrice).toFixed(2);
+                            price = addCommas(price);
+                            var checkbox = "<input type='checkbox' name='createPackServType' id='myCheckBox" + service.intServiceID + "' required" +
+                                    " class='packcheckbox x" + service.intServiceID + "' value='" + service.intServiceID + "' onclick='serviceCompute(this.value)'>" +
+                                    "<label for='myCheckBox" + service.intServiceID + "'></label>",
+                                quantity = "<input type='number' class='right-align rowQty' name='createPackServQty'" +
+                                    " id='svc" + service.intServiceID + "' disabled style='width: 75px' min='1' max='99' value='1' maxlength='2'>";
+                            price = "<span class='price'>P " + price + "</span>";
+
+                            createPackageServTable.row.add([
+                                checkbox,
+                                service.strServiceName,
+                                service.strServiceCategory,
+                                price,
+                                quantity
+                            ]);
+                        }
+                    });
+                    createPackageServTable.draw();
                 });
-                createPackageServTable.draw();
+
+
             }
         }
     });

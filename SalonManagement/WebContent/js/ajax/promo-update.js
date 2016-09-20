@@ -58,6 +58,15 @@ function updatePromoProdTable() {
     });
 }
 
+var serviceDataData = [];
+var packageDataData = [];
+var upPromoQ = 0, // temporary quantity
+    $upPromoQty = 0, //main quantity
+    upPromoTotal = 0, //total
+    upPromoChk = 0;
+var serviceTotalPriceChecked = 0;
+var packageTotalPriceChecked = 0;
+
 function updatePromoServTable() {
     $.ajax({
         type: 'post',
@@ -88,9 +97,37 @@ function updatePromoServTable() {
 
             if (serviceList != null) {
 
+                updatePromoServTbl.clear().draw();
+
+                $.each(serviceList, function (i, service) {
+                    serviceDataData.push(service);
+                    var price = parseFloat(service.dblServicePrice).toFixed(2);
+                    price = addCommas(price);
+                    var checkbox = "<input type='checkbox' name='servUpPromoSelect' id='promoUpServCheck" + service.intServiceID + "'" +
+                            " class='packcheckbox x" + service.intServiceID + "' value='" + service.intServiceID + "' onclick='promoUpServCompute(this.value)'>" +
+                            "<label for='promoUpServCheck" + service.intServiceID + "'></label>",
+                        quantity = "<input type='number' class='right-align rowQty' name='servUpdatePromoQty'" +
+                            " id='promoUpServQty" + service.intServiceID + "' disabled style='width: 75px' min='1' max='99' value='1' maxlength='2'>";
+                    price = "<span class='price'>P " + price + "</span>";
+
+                    updatePromoServTbl.row.add([
+                        checkbox,
+                        service.strServiceName,
+                        service.strServiceCategory,
+                        price,
+                        quantity
+                    ]);
+                });
+
+                updatePromoServTbl.draw();
+
                 var promoType = 0;
 
                 $('#upPromoType').on('change', function () {
+                    upPromoTotal = upPromoTotal - serviceTotalPriceChecked;
+                    $('#upPromoTotal').val('Php ' + parseFloat(upTotal).toFixed(2));
+                    $('#upPromoPrice').val('Php ' + parseFloat(upTotal).toFixed(2));
+                    serviceTotalPriceChecked = 0;
                     updatePromoServTbl.clear().draw();
 
                     var type = $(this).val(),
@@ -127,6 +164,7 @@ function updatePromoServTable() {
                     }
 
                     $.each(serviceList, function (i, service) {
+                        $('#upPromoServItem' + service.intServiceID).remove();
                         if (promoType == service.serviceType) {
                             var price = parseFloat(service.dblServicePrice).toFixed(2);
                             price = addCommas(price);
@@ -183,9 +221,36 @@ function updatePromoPackageTable() {
 
             if (packageList != null) {
 
+                updatePromoPackageTbl.clear().draw();
+                $.each(packageList, function (i, packagedata) {
+                    packageDataData.push(packagedata);
+                        var cat = 'Package';
+                        var price = parseFloat(packagedata.dblPackagePrice).toFixed(2);
+                        price = addCommas(price);
+                        var checkbox = "<input type='checkbox' name='packUpPromoSelect' id='promoUpPackage" + packagedata.intPackageID + "'" +
+                                " class='packcheckbox x" + packagedata.intPackageID + "' value='" + packagedata.intPackageID + "' onclick='promoUpPackageCompute(this.value)'>" +
+                                "<label for='promoUpPackage" + packagedata.intPackageID + "'></label>",
+                            quantity = "<input type='number' class='right-align rowQty' name='packUpdatePromoQty'" +
+                                " id='promoUpPackageQty" + packagedata.intPackageID + "' disabled style='width: 75px' min='1' max='99' value='1' maxlength='2'>";
+                        price = "<td class='dt-body-right'>P " + price + "</td>";
+
+                        updatePromoPackageTbl.row.add([
+                            checkbox,
+                            packagedata.strPackageName,
+                            cat,
+                            price,
+                            quantity
+                        ]);
+                });
+                updatePromoPackageTbl.draw();
+
                 var promoType = 0;
 
                 $('#upPromoType').on('change', function () {
+                    upPromoTotal = upPromoTotal - packageTotalPriceChecked;
+                    $('#upPromoTotal').val('Php ' + parseFloat(upPromoTotal).toFixed(2));
+                    $('#upPromoPrice').val('Php ' + parseFloat(upPromoTotal).toFixed(2));
+                    packageTotalPriceChecked = 0;
                     updatePromoPackageTbl.clear().draw();
 
                     var type = $(this).val(),
@@ -222,6 +287,8 @@ function updatePromoPackageTable() {
                     }
 
                     $.each(packageList, function (i, packagedata) {
+
+                        $('#upPromoPackageItem' + packagedata.intPackageID).remove();
                         if (promoType == packagedata.intPackageType) {
                             var cat = 'Package';
                             var price = parseFloat(packagedata.dblPackagePrice).toFixed(2);
@@ -249,10 +316,6 @@ function updatePromoPackageTable() {
     });
 }
 
-var upPromoQ = 0, // temporary quantity
-    $upPromoQty = 0, //main quantity
-    upPromoTotal = 0, //total
-    upPromoChk = 0;
 
 function openUpdatePromo(id) {
     $('#upPromoModal').openModal({
@@ -281,29 +344,38 @@ function openUpdatePromo(id) {
             "intPromoID": id
         },
         success: function (data) {
+            var promoType = 0;
+
             if (data.result == "success") {
                 console.log(data.promo);
                 var pty = [],
                     preq = [];
                 if (data.promo.promoType == 1) {
                     pty.push('walkin');
+                    promoType = 1;
                 } else if (data.promo.promoType == 2) {
                     pty.push('homeservice');
+                    promoType = 2;
                 } else if (data.promo.promoType == 3) {
                     pty.push('event');
+                    promoType = 3;
                 } else if (data.promo.promoType == 4) {
                     pty.push('walkin');
                     pty.push('homeservice');
+                    promoType = 4;
                 } else if (data.promo.promoType == 5) {
                     pty.push('walkin');
                     pty.push('event');
+                    promoType = 5;
                 } else if (data.promo.promoType == 6) {
                     pty.push('homeservice');
                     pty.push('event');
+                    promoType = 6;
                 } else if (data.promo.promoType == 7) {
                     pty.push('walkin');
                     pty.push('homeservice');
                     pty.push('event');
+                    promoType = 7;
                 }
 
                 $('select').material_select('destroy');
@@ -382,10 +454,13 @@ function openUpdatePromo(id) {
                 $('.updatePromoChip').remove();
                 upPromoTotal = 0;
 
+                console.log(data.promo);
+
                 for (var ii = 0; ii < data.promo.productList.length; ii++) {
                     var prodIDAjax = 'promoUpProdCheck' + data.promo.productList[ii].product.intProductID;
 
                     upPromoProdName.each(function () {
+                        console.log(data.promo.productList[ii]);
                         var updatePromoProdID = $(this).attr('id');
                         if (prodIDAjax == updatePromoProdID) {
                             console.log(prodIDAjax + ' equal ' + updatePromoProdID);
@@ -398,8 +473,7 @@ function openUpdatePromo(id) {
                             }
 
                             $('#' + prodIDAjax).prop('checked', true);
-                            $('#promoUpProdQty' + ajaxProductID).attr('disabled', false)
-                                .val(data.promo.productList[ii].intProductQuantity);
+                            $('#promoUpProdQty' + ajaxProductID).attr('disabled', false).val(data.promo.productList[ii].intProductQuantity);
 
                             $('#updatePromoList').append('<div style="margin: 3px;" class="updatePromoChip chip z-depth-1 grey lighten-3 grey-text text-darken-4"' +
                                 ' id="upPromoProdItem' + ajaxProductID + '"><b>' + data.promo.productList[ii].product.strProductName +
@@ -455,69 +529,91 @@ function openUpdatePromo(id) {
                 upPromoServName.prop('checked', false);
                 $('input[name=upServPromoQty]').prop('disabled', true);
 
+                $.each(serviceDataData, function (i, serv) {
+                    if (serv.serviceType != promoType) {
+                        var serviceRowHide = $('#promoUpServCheck' + serv.intServiceID).closest('tr');
+                        serviceRowHide.hide();
+                    } else if (serv.serviceType == promoType) {
+                        upI += 1;
+                    }
+                });
+
                 //for (var i = 0; i < data.promo.productList.length; i++) {
                 for (var xx = 0; xx < data.promo.serviceList.length; xx++) {
+                    var serviceListPromo = data.promo.serviceList[xx];
                     var servIDAjax = 'promoUpServCheck' + data.promo.serviceList[xx].service.intServiceID;
 
                     upPromoServName.each(function () {
                         var updatePromoServID = $(this).attr('id');
-                        if (servIDAjax == updatePromoServID) {
-                            var ajaxServiceID = data.promo.serviceList[xx].service.intServiceID;
-                            upPromoChk = upPromoChk + 1; //para malaman kung ilan or meron bang nakacheck
-                            if (upPromoChk < 1) {
-                                $('#updatePromoSubmitBtn').attr('disabled', true).css('opacity', '0.3');
-                            } else if (upPromoChk > 0) {
-                                $('#updatePromoSubmitBtn').attr('disabled', false).css('opacity', '1');
+                        $.each(serviceDataData, function (i, serv) {
+                            if (serv.serviceType != promoType) {
+                                var serviceRowHide = $('#promoUpServCheck' + serv.intServiceID).closest('tr');
+                                serviceRowHide.hide();
+                            } else if (serv.serviceType == promoType) {
+                                upI += 1;
                             }
+                        });
 
-                            $('#' + servIDAjax).prop('checked', true);
-                            $('#promoUpServQty' + ajaxServiceID).attr('disabled', false)
-                                .val(data.promo.serviceList[xx].intQuantity);
-
-                            $('#updatePromoList').append('<div style="margin: 3px;" class="updatePromoChip chip z-depth-1 grey lighten-3 grey-text text-darken-4"' +
-                                ' id="upPromoServItem' + ajaxServiceID + '"><b>' + data.promo.serviceList[xx].service.strServiceName +
-                                '</b><span class="span"><span class="grey-text text-darken-3" id="upPromoServx' + ajaxServiceID + '">' +
-                                ' (' + data.promo.serviceList[xx].intQuantity + ')</span></span>' +
-                                '<i id="upPromoServchip' + ajaxServiceID + '" class="material-icons upPromoServChipExit"' +
-                                ' onclick="upPromoServChipExit(' + ajaxServiceID + ')" style="margin-right: 5px !important">' +
-                                'close</i></span></div>').show();
-
-
-                            var $upAjaxServTr = $(this).closest('tr'),
-                                upAjaxServPrice = $upAjaxServTr.find('td:eq(3)').text(),
-                                $upAjaxServQtyField = $upAjaxServTr.find('td #promoUpServQty' + ajaxServiceID),
-                                $upAjaxServPrice = parseFloat(upAjaxServPrice.replace(/[^\d.]/g, '')).toFixed(2),
-                                $upAjaxServQty = parseFloat(data.promo.serviceList[xx].intQuantity).toFixed(2);
-
-                            $upAjaxServQtyField.focus(function () {
-                                upPromoQ = parseFloat($upAjaxServTr.find('td #promoUpServQty' + ajaxServiceID).val()).toFixed(2);
-                                $upPromoQty = parseFloat($upAjaxServTr.find('td #promoUpServQty' + ajaxServiceID).val()).toFixed(2);
-                            });
-
-                            $upPromoQty = $upAjaxServQty; //main quantity
-                            upPromoQ = $upAjaxServQty; //temporary quantity
-
-                            upPromoTotal += $upPromoQty * $upAjaxServPrice;
-                            $('#upPromoTotal').val('Php ' + parseFloat(upPromoTotal).toFixed(2));
-                            $('#upPromoPrice').val('Php ' + parseFloat(data.promo.dblPromoPrice).toFixed(2));
-
-                            $upAjaxServQtyField.on('input', function () {
-                                $upPromoQty = $upAjaxServQtyField.val();
-                                if ($upPromoQty > upPromoQ) {
-                                    upPromoTotal += ($upPromoQty - upPromoQ) * $upAjaxServPrice;
-                                    $('#upPromoTotal').val('Php ' + parseFloat(upPromoTotal).toFixed(2));
-                                    $('#upPromoPrice').val('Php ' + parseFloat(upPromoTotal).toFixed(2));
-                                    $('#upPromoServx' + ajaxServiceID + '').remove();
-                                    $('#upPromoServItem' + ajaxServiceID + ' .span').append('<span class="grey-text text-darken-3" id="upPromoServx' + ajaxServiceID + '"> (' + $upPromoQty + ')</span>');
-                                } else if ($upPromoQty < upPromoQ) {
-                                    upPromoTotal -= (upPromoQ - $upPromoQty) * $upAjaxServPrice;
-                                    $('#upPromoTotal').val('Php ' + parseFloat(upPromoTotal).toFixed(2));
-                                    $('#upPromoPrice').val('Php ' + parseFloat(upPromoTotal).toFixed(2));
-                                    $('#upPromoServx' + ajaxServiceID + '').remove();
-                                    $('#upPromoServItem' + ajaxServiceID + ' .span').append('<span class="grey-text text-darken-3" id="upPromoServx' + ajaxServiceID + '"> (' + $upPromoQty + ')</span>');
+                        if(serviceListPromo.service.serviceType == promoType) {
+                            if (servIDAjax == updatePromoServID) {
+                                var ajaxServiceID = data.promo.serviceList[xx].service.intServiceID;
+                                upPromoChk = upPromoChk + 1; //para malaman kung ilan or meron bang nakacheck
+                                if (upPromoChk < 1) {
+                                    $('#updatePromoSubmitBtn').attr('disabled', true).css('opacity', '0.3');
+                                } else if (upPromoChk > 0) {
+                                    $('#updatePromoSubmitBtn').attr('disabled', false).css('opacity', '1');
                                 }
-                                upPromoQ = $upPromoQty;
-                            });
+
+                                $('#' + servIDAjax).prop('checked', true);
+                                $('#promoUpServQty' + ajaxServiceID).attr('disabled', false)
+                                    .val(data.promo.serviceList[xx].intQuantity);
+
+                                $('#updatePromoList').append('<div style="margin: 3px;" class="updatePromoChip chip z-depth-1 grey lighten-3 grey-text text-darken-4"' +
+                                    ' id="upPromoServItem' + ajaxServiceID + '"><b>' + data.promo.serviceList[xx].service.strServiceName +
+                                    '</b><span class="span"><span class="grey-text text-darken-3" id="upPromoServx' + ajaxServiceID + '">' +
+                                    ' (' + data.promo.serviceList[xx].intQuantity + ')</span></span>' +
+                                    '<i id="upPromoServchip' + ajaxServiceID + '" class="material-icons upPromoServChipExit"' +
+                                    ' onclick="upPromoServChipExit(' + ajaxServiceID + ')" style="margin-right: 5px !important">' +
+                                    'close</i></span></div>').show();
+
+
+                                var $upAjaxServTr = $(this).closest('tr'),
+                                    upAjaxServPrice = $upAjaxServTr.find('td:eq(3)').text(),
+                                    $upAjaxServQtyField = $upAjaxServTr.find('td #promoUpServQty' + ajaxServiceID),
+                                    $upAjaxServPrice = parseFloat(upAjaxServPrice.replace(/[^\d.]/g, '')).toFixed(2),
+                                    $upAjaxServQty = parseFloat(data.promo.serviceList[xx].intQuantity).toFixed(2);
+
+                                $upAjaxServQtyField.focus(function () {
+                                    upPromoQ = parseFloat($upAjaxServTr.find('td #promoUpServQty' + ajaxServiceID).val()).toFixed(2);
+                                    $upPromoQty = parseFloat($upAjaxServTr.find('td #promoUpServQty' + ajaxServiceID).val()).toFixed(2);
+                                });
+
+                                $upPromoQty = $upAjaxServQty; //main quantity
+                                upPromoQ = $upAjaxServQty; //temporary quantity
+
+                                upPromoTotal += $upPromoQty * $upAjaxServPrice;
+                                serviceTotalPriceChecked += $upPromoQty * $upAjaxServPrice;
+                                $('#upPromoTotal').val('Php ' + parseFloat(upPromoTotal).toFixed(2));
+                                $('#upPromoPrice').val('Php ' + parseFloat(data.promo.dblPromoPrice).toFixed(2));
+
+                                $upAjaxServQtyField.on('input', function () {
+                                    $upPromoQty = $upAjaxServQtyField.val();
+                                    if ($upPromoQty > upPromoQ) {
+                                        upPromoTotal += ($upPromoQty - upPromoQ) * $upAjaxServPrice;
+                                        $('#upPromoTotal').val('Php ' + parseFloat(upPromoTotal).toFixed(2));
+                                        $('#upPromoPrice').val('Php ' + parseFloat(upPromoTotal).toFixed(2));
+                                        $('#upPromoServx' + ajaxServiceID + '').remove();
+                                        $('#upPromoServItem' + ajaxServiceID + ' .span').append('<span class="grey-text text-darken-3" id="upPromoServx' + ajaxServiceID + '"> (' + $upPromoQty + ')</span>');
+                                    } else if ($upPromoQty < upPromoQ) {
+                                        upPromoTotal -= (upPromoQ - $upPromoQty) * $upAjaxServPrice;
+                                        $('#upPromoTotal').val('Php ' + parseFloat(upPromoTotal).toFixed(2));
+                                        $('#upPromoPrice').val('Php ' + parseFloat(upPromoTotal).toFixed(2));
+                                        $('#upPromoServx' + ajaxServiceID + '').remove();
+                                        $('#upPromoServItem' + ajaxServiceID + ' .span').append('<span class="grey-text text-darken-3" id="upPromoServx' + ajaxServiceID + '"> (' + $upPromoQty + ')</span>');
+                                    }
+                                    upPromoQ = $upPromoQty;
+                                });
+                            }
                         }
 
                     });
@@ -527,69 +623,92 @@ function openUpdatePromo(id) {
                 upPromoPackName.prop('checked', false);
                 $('input[name=promoUpPackageQty]').prop('disabled', true);
 
+                $.each(packageDataData, function(i, packe) {
+                    if(packe.intPackageType != promoType) {
+                        var packageRowHide = $('#promoUpPackage' + packe.intPackageID).closest('tr');
+                        packageRowHide.hide();
+                    } else if (packe.intPackageType != promoType) {
+                        //counter
+                    }
+                });
+
                 //for (var i = 0; i < data.promo.productList.length; i++) {
                 for (var a = 0; a < data.promo.packageList.length; a++) {
+                    var packageListPromo = data.promo.packageList[a].pack;
                     var packageIDAjax = 'promoUpPackage' + data.promo.packageList[a].pack.intPackageID;
 
                     upPromoPackName.each(function () {
                         var updatePromoPackageID = $(this).attr('id');
-                        if (packageIDAjax == updatePromoPackageID) {
-                            var ajaxPackageID = data.promo.packageList[a].pack.intPackageID;
-                            upPromoChk = upPromoChk + 1; //para malaman kung ilan or meron bang nakacheck
-                            if (upPromoChk < 1) {
-                                $('#updatePromoSubmitBtn').attr('disabled', true).css('opacity', '0.3');
-                            } else if (upPromoChk > 0) {
-                                $('#updatePromoSubmitBtn').attr('disabled', false).css('opacity', '1');
+
+                        $.each(packageDataData, function(i, packe) {
+                            if(packe.intPackageType != promoType) {
+                                var packageRowHide = $('#promoUpPackage' + packe.intPackageID).closest('tr');
+                                packageRowHide.hide();
+                            } else if (packe.intPackageType != promoType) {
+                                //counter
                             }
+                        });
 
-                            $('#' + packageIDAjax).prop('checked', true);
-                            $('#promoUpPackageQty' + ajaxPackageID).attr('disabled', false)
-                                .val(data.promo.packageList[a].intPackageQuantity);
-
-                            $('#updatePromoList').append('<div style="margin: 3px;" class="updatePromoChip chip z-depth-1 grey lighten-3 grey-text text-darken-4"' +
-                                ' id="upPromoPackageItem' + ajaxPackageID + '"><b>' + data.promo.packageList[a].pack.strPackageName +
-                                '</b><span class="span"><span class="grey-text text-darken-3" id="upPromoPackx' + ajaxPackageID + '">' +
-                                ' (' + data.promo.packageList[a].intPackageQuantity + ')</span></span>' +
-                                '<i id="upPromoPackagechip' + ajaxPackageID + '" class="material-icons upPromoPackageChipExit"' +
-                                ' onclick="upPromoPackageChipExit(' + ajaxPackageID + ')" style="margin-right: 5px !important">' +
-                                'close</i></span></div>').show();
-
-
-                            var $upAjaxPackageTr = $(this).closest('tr'),
-                                upAjaxPackagePrice = $upAjaxPackageTr.find('td:eq(3)').text(),
-                                $upAjaxPackageQtyField = $upAjaxPackageTr.find('td #promoUpPackageQty' + ajaxPackageID),
-                                $upAjaxPackagePrice = parseFloat(upAjaxPackagePrice.replace(/[^\d.]/g, '')).toFixed(2),
-                                $upAjaxPackageQty = parseFloat(data.promo.packageList[a].intPackageQuantity).toFixed(2);
-
-                            $upAjaxPackageQtyField.focus(function () {
-                                upPromoQ = parseFloat($upAjaxPackageTr.find('td #promoUpPackageQty' + ajaxPackageID).val()).toFixed(2);
-                                $upPromoQty = parseFloat($upAjaxPackageTr.find('td #promoUpPackageQty' + ajaxPackageID).val()).toFixed(2);
-                            });
-
-                            $upPromoQty = $upAjaxPackageQty; //main quantity
-                            upPromoQ = $upAjaxPackageQty; //temporary quantity
-
-                            upPromoTotal += $upPromoQty * $upAjaxPackagePrice;
-                            $('#upPromoTotal').val('Php ' + parseFloat(upPromoTotal).toFixed(2));
-                            $('#upPromoPrice').val('Php ' + parseFloat(data.promo.dblPromoPrice).toFixed(2));
-
-                            $upAjaxPackageQtyField.on('input', function () {
-                                $upPromoQty = $upAjaxPackageQtyField.val();
-                                if ($upPromoQty > upPromoQ) {
-                                    upPromoTotal += ($upPromoQty - upPromoQ) * $upAjaxPackagePrice;
-                                    $('#upPromoTotal').val('Php ' + parseFloat(upPromoTotal).toFixed(2));
-                                    $('#upPromoPrice').val('Php ' + parseFloat(upPromoTotal).toFixed(2));
-                                    $('#upPromoPackx' + ajaxPackageID + '').remove();
-                                    $('#upPromoPackageItem' + ajaxPackageID + ' .span').append('<span class="grey-text text-darken-3" id="upPromoPackx' + ajaxPackageID + '"> (' + $upPromoQty + ')</span>');
-                                } else if ($upPromoQty < upPromoQ) {
-                                    upPromoTotal -= (upPromoQ - $upPromoQty) * $upAjaxPackagePrice;
-                                    $('#upPromoTotal').val('Php ' + parseFloat(upPromoTotal).toFixed(2));
-                                    $('#upPromoPrice').val('Php ' + parseFloat(upPromoTotal).toFixed(2));
-                                    $('#upPromoPackx' + ajaxPackageID + '').remove();
-                                    $('#upPromoPackageItem' + ajaxPackageID + ' .span').append('<span class="grey-text text-darken-3" id="upPromoPackx' + ajaxPackageID + '"> (' + $upPromoQty + ')</span>');
+                        if(packageListPromo.intPackageType == promoType) {
+                            if (packageIDAjax == updatePromoPackageID) {
+                                var ajaxPackageID = data.promo.packageList[a].pack.intPackageID;
+                                upPromoChk = upPromoChk + 1; //para malaman kung ilan or meron bang nakacheck
+                                if (upPromoChk < 1) {
+                                    $('#updatePromoSubmitBtn').attr('disabled', true).css('opacity', '0.3');
+                                } else if (upPromoChk > 0) {
+                                    $('#updatePromoSubmitBtn').attr('disabled', false).css('opacity', '1');
                                 }
-                                upPromoQ = $upPromoQty;
-                            });
+
+                                $('#' + packageIDAjax).prop('checked', true);
+                                $('#promoUpPackageQty' + ajaxPackageID).attr('disabled', false)
+                                    .val(data.promo.packageList[a].intPackageQuantity);
+
+                                $('#updatePromoList').append('<div style="margin: 3px;" class="updatePromoChip chip z-depth-1 grey lighten-3 grey-text text-darken-4"' +
+                                    ' id="upPromoPackageItem' + ajaxPackageID + '"><b>' + data.promo.packageList[a].pack.strPackageName +
+                                    '</b><span class="span"><span class="grey-text text-darken-3" id="upPromoPackx' + ajaxPackageID + '">' +
+                                    ' (' + data.promo.packageList[a].intPackageQuantity + ')</span></span>' +
+                                    '<i id="upPromoPackagechip' + ajaxPackageID + '" class="material-icons upPromoPackageChipExit"' +
+                                    ' onclick="upPromoPackageChipExit(' + ajaxPackageID + ')" style="margin-right: 5px !important">' +
+                                    'close</i></span></div>').show();
+
+
+                                var $upAjaxPackageTr = $(this).closest('tr'),
+                                    upAjaxPackagePrice = $upAjaxPackageTr.find('td:eq(3)').text(),
+                                    $upAjaxPackageQtyField = $upAjaxPackageTr.find('td #promoUpPackageQty' + ajaxPackageID),
+                                    $upAjaxPackagePrice = parseFloat(upAjaxPackagePrice.replace(/[^\d.]/g, '')).toFixed(2),
+                                    $upAjaxPackageQty = parseFloat(data.promo.packageList[a].intPackageQuantity).toFixed(2);
+
+                                $upAjaxPackageQtyField.focus(function () {
+                                    upPromoQ = parseFloat($upAjaxPackageTr.find('td #promoUpPackageQty' + ajaxPackageID).val()).toFixed(2);
+                                    $upPromoQty = parseFloat($upAjaxPackageTr.find('td #promoUpPackageQty' + ajaxPackageID).val()).toFixed(2);
+                                });
+
+                                $upPromoQty = $upAjaxPackageQty; //main quantity
+                                upPromoQ = $upAjaxPackageQty; //temporary quantity
+
+                                upPromoTotal += $upPromoQty * $upAjaxPackagePrice;
+                                packageTotalPriceChecked += $upPromoQty * $upAjaxPackagePrice;
+                                $('#upPromoTotal').val('Php ' + parseFloat(upPromoTotal).toFixed(2));
+                                $('#upPromoPrice').val('Php ' + parseFloat(data.promo.dblPromoPrice).toFixed(2));
+
+                                $upAjaxPackageQtyField.on('input', function () {
+                                    $upPromoQty = $upAjaxPackageQtyField.val();
+                                    if ($upPromoQty > upPromoQ) {
+                                        upPromoTotal += ($upPromoQty - upPromoQ) * $upAjaxPackagePrice;
+                                        $('#upPromoTotal').val('Php ' + parseFloat(upPromoTotal).toFixed(2));
+                                        $('#upPromoPrice').val('Php ' + parseFloat(upPromoTotal).toFixed(2));
+                                        $('#upPromoPackx' + ajaxPackageID + '').remove();
+                                        $('#upPromoPackageItem' + ajaxPackageID + ' .span').append('<span class="grey-text text-darken-3" id="upPromoPackx' + ajaxPackageID + '"> (' + $upPromoQty + ')</span>');
+                                    } else if ($upPromoQty < upPromoQ) {
+                                        upPromoTotal -= (upPromoQ - $upPromoQty) * $upAjaxPackagePrice;
+                                        $('#upPromoTotal').val('Php ' + parseFloat(upPromoTotal).toFixed(2));
+                                        $('#upPromoPrice').val('Php ' + parseFloat(upPromoTotal).toFixed(2));
+                                        $('#upPromoPackx' + ajaxPackageID + '').remove();
+                                        $('#upPromoPackageItem' + ajaxPackageID + ' .span').append('<span class="grey-text text-darken-3" id="upPromoPackx' + ajaxPackageID + '"> (' + $upPromoQty + ')</span>');
+                                    }
+                                    upPromoQ = $upPromoQty;
+                                });
+                            }
                         }
 
                     });
@@ -769,6 +888,7 @@ function promoUpServCompute(upServID) {
 
         $upPromoQty = upServiceQuantity;
         upPromoTotal += $upPromoQty * $upServicePrice;
+        serviceTotalPriceChecked += $upPromoQty * $upServicePrice;
         $('#upPromoTotal').val("Php " + parseFloat(upPromoTotal).toFixed(2));
         $('#upPromoPrice').val("Php " + parseFloat(upPromoTotal).toFixed(2));
 
@@ -780,6 +900,7 @@ function promoUpServCompute(upServID) {
                 upPromoTotal += ($upPromoQty - upPromoQ) * $upServicePrice;
                 upServShowQty = parseInt($upPromoQty);
                 upPromoTotal = Math.abs(upPromoTotal);
+                serviceTotalPriceChecked -= (upPromoQ - $upPromoQty) * $upServicePrice;
                 $('#upPromoTotal').val("Php " + parseFloat(upPromoTotal).toFixed(2));
                 $('#upPromoPrice').val("Php " + parseFloat(upPromoTotal).toFixed(2));
                 $('#upPromoServx' + upServID + '').remove();
@@ -788,6 +909,7 @@ function promoUpServCompute(upServID) {
                 upPromoTotal -= (upPromoQ - $upPromoQty) * $upServicePrice;
                 upPromoTotal = Math.abs(upPromoTotal);
                 upServShowQty = parseInt($upPromoQty);
+                serviceTotalPriceChecked -= (upPromoQ - $upPromoQty) * $upServicePrice;
                 $('#upPromoTotal').val("Php " + parseFloat(upPromoTotal).toFixed(2));
                 $('#upPromoPrice').val("Php " + parseFloat(upPromoTotal).toFixed(2));
                 $('#upPromoServx' + upServID + '').remove();
@@ -820,6 +942,7 @@ function promoUpServCompute(upServID) {
         $upPromoQty = parseFloat($unServTR.find('td #promoUpServQty' + upServID).val()).toFixed(2);
         upPromoTotal = upPromoTotal - ($upPromoQty * $unPrice);
         upPromoTotal = Math.abs(upPromoTotal);
+        serviceTotalPriceChecked = serviceTotalPriceChecked - ($upPromoQty * $unPrice);
         $('#upPromoTotal').val("Php " + parseFloat(upPromoTotal).toFixed(2));
         $('#upPromoPrice').val("Php " + parseFloat(upPromoTotal).toFixed(2));
 
@@ -844,6 +967,7 @@ function promoUpServCompute(upServID) {
         $upPromoQty = parseFloat($upUntr.find('td #promoUpServQty' + upServID).val()).toFixed(2);
         upPromoTotal = upPromoTotal - ($upPromoQty * $upUnChipPrice);
         upPromoTotal = Math.abs(upPromoTotal);
+        serviceTotalPriceChecked = serviceTotalPriceChecked - ($upPromoQty * $upUnChipPrice);
         $('#upPromoTotal').val("Php " + parseFloat(upPromoTotal).toFixed(2));
         $('#upPromoPrice').val("Php " + parseFloat(upPromoTotal).toFixed(2));
 
@@ -870,6 +994,7 @@ function upPromoServChipExit(chipExitID) {
     $upPromoQty = parseFloat($upUntr.find('td #promoUpServQty' + chipExitID).val()).toFixed(2);
     upPromoTotal = upPromoTotal - ($upPromoQty * $upUnChipPrice);
     upPromoTotal = Math.abs(upPromoTotal);
+    serviceTotalPriceChecked = serviceTotalPriceChecked - ($upPromoQty * $upUnChipPrice);
     $('#upPromoTotal').val("Php " + parseFloat(upPromoTotal).toFixed(2));
     $('#upPromoPrice').val("Php " + parseFloat(upPromoTotal).toFixed(2));
 
@@ -906,6 +1031,7 @@ function promoUpPackageCompute(packageID) {
 
         $upPromoQty = upPackageQuantity;
         upPromoTotal += $upPromoQty * $upPackagePrice;
+        packageTotalPriceChecked += $upPromoQty * $upPackagePrice;
         $('#upPromoTotal').val("Php " + parseFloat(upPromoTotal).toFixed(2));
         $('#upPromoPrice').val("Php " + parseFloat(upPromoTotal).toFixed(2));
 
@@ -917,6 +1043,7 @@ function promoUpPackageCompute(packageID) {
                 upPromoTotal += ($upPromoQty - upPromoQ) * $upPackagePrice;
                 upPackageShowQty = parseInt($upPromoQty);
                 upPromoTotal = Math.abs(upPromoTotal);
+                packageTotalPriceChecked += ($upPromoQty - upPromoQ) * $upPackagePrice;
                 $('#upPromoTotal').val("Php " + parseFloat(upPromoTotal).toFixed(2));
                 $('#upPromoPrice').val("Php " + parseFloat(upPromoTotal).toFixed(2));
                 $('#upPromoPackx' + packageID + '').remove();
@@ -925,6 +1052,7 @@ function promoUpPackageCompute(packageID) {
                 upPromoTotal -= (upPromoQ - $upPromoQty) * $upPackagePrice;
                 upPromoTotal = Math.abs(upPromoTotal);
                 upPackageShowQty = parseInt($upPromoQty);
+                packageTotalPriceChecked -= (upPromoQ - $upPromoQty) * $upPackagePrice;
                 $('#upPromoTotal').val("Php " + parseFloat(upPromoTotal).toFixed(2));
                 $('#upPromoPrice').val("Php " + parseFloat(upPromoTotal).toFixed(2));
                 $('#upPromoPackx' + packageID + '').remove();
@@ -957,6 +1085,7 @@ function promoUpPackageCompute(packageID) {
         $upPromoQty = parseFloat($unPackTR.find('td #promoUpPackageQty' + packageID).val()).toFixed(2);
         upPromoTotal = upPromoTotal - ($upPromoQty * $unPackPrice);
         upPromoTotal = Math.abs(upPromoTotal);
+        packageTotalPriceChecked = packageTotalPriceChecked - ($upPromoQty * $unPackPrice);
         $('#upPromoTotal').val("Php " + parseFloat(upPromoTotal).toFixed(2));
         $('#upPromoPrice').val("Php " + parseFloat(upPromoTotal).toFixed(2));
 
@@ -984,8 +1113,7 @@ function upPromoPackageChipExit(packChipID) {
         $upUnPackChipPrice = parseFloat(upUnPackChipPrice.replace(/[^\d.]/g, '')).toFixed(2);
     $upPromoQty = parseFloat($upUnPackageTr.find('td #promoUpPackageQty' + packChipID).val()).toFixed(2);
     upPromoTotal = upPromoTotal - ($upPromoQty * $upUnPackChipPrice);
-    console.log($upPromoQty);
-    console.log($upUnPackChipPrice);
+    packageTotalPriceChecked = packageTotalPriceChecked - ($upPromoQty * $upUnPackChipPrice);
     upPromoTotal = Math.abs(upPromoTotal);
     $('#upPromoTotal').val("Php " + parseFloat(upPromoTotal).toFixed(2));
     $('#upPromoPrice').val("Php " + parseFloat(upPromoTotal).toFixed(2));
@@ -995,7 +1123,6 @@ function upPromoPackageChipExit(packChipID) {
     upPackageChipQty.attr('disabled', true);
     upPackageChipQty.val(1);
 }
-
 
 function updatePromo() {
     // var job = document.querySelectorAll('select[name=intPackageType]:selected');
@@ -1035,7 +1162,9 @@ function updatePromo() {
         var promoname = $('#upPromoName').val();
 
         var req = $('#upPromoRequirement').val();
-        requirement = req.join(',');
+        if(req != null) {
+            requirement = req.join(',');
+        }
 
         selectedPromoType = $('#upPromoType').val();
 
@@ -1079,6 +1208,8 @@ function updatePromo() {
         upPromoType = upPromoType.join(',');
 
 
+        console.log(promoUpdateProdSelect);
+
         swal({
                 title: "Are you sure you want to update " + promoname + "?",
                 text: "",
@@ -1113,6 +1244,7 @@ function updatePromo() {
                         dataType: 'json',
                         async: true,
                         success: function (data) {
+                            console.log(data);
                             swal("Successfully created!", ".", "success");
                             updatePromoTable();
                             $('#upPromoModal').closeModal();

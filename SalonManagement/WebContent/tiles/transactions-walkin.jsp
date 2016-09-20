@@ -103,7 +103,8 @@
                 <div ng-show="vm.selected == 'service'" style="margin-top: -50px !important;">
                     <div class="row ">
                         <div class="col s3"
-                             ng-repeat="service in vm.serviceList | toArray: false | filter: vm.walkinSearch">
+                             ng-repeat="service in vm.serviceList | toArray: false | filter: vm.walkinSearch"
+                             ng-if="service.intServiceStatus == 1">
                             <div class="card small">
                                 <div class="card-image waves-effect waves-block waves-light">
                                     <img class="activator" ng-src="{{service.strPhotoPath}}">
@@ -238,32 +239,78 @@
                             <div class="container">
                                 <div class="input-field col s12">
                                     <input type="text" class="validate" id="crWIName"
-                                           ng-model="vm.details.name" placeholder="Name"
-                                           style='font-size: 22px; line-height: 15px !important;'/>
-                                    <label for="crWIName" class="active"><b
-                                            style='font-size: 20px; line-height: 15px !important;'>Name</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                           ng-model="vm.details.name" placeholder="Name"/>
+                                    <label for="crWIName" class="active">
+                                        <b>Name</b>
+                                        <i class="material-icons red-text tiny">error_outline</i>
+                                    </label>
                                 </div>
                                 <div class="input-field col s12">
                                     <input type="text" id="crWIContact" ng-model="vm.details.contact"
-                                           placeholder="contact"
-                                           style='font-size: 22px; line-height: 15px !important;'/>
-                                    <label for="crWIContact" class="active"><b>Contact</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                           placeholder="contact"/>
+                                    <label for="crWIContact" class="active">
+                                        <b>Contact Number</b>
+                                    </label>
                                 </div>
                                 <div class="input-field col s12" style="margin-top: 15px;">
-                                    <input type="email" ng-model="vm.details.email" id="crWIEmail" placeholder="Email"
-                                           style='font-size: 22px; line-height: 15px !important;'/>
-                                    <label for="crWIEmail" class="active"><b>Email</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                    <input type="email" ng-model="vm.details.email" id="crWIEmail" placeholder="Email"/>
+                                    <label for="crWIEmail" class="active">
+                                        <b>Email</b>
+                                    </label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <select multiple
-                                            ng-model="vm.selDiscounts" id="crRDiscount"
+                                    <select ng-model="vm.selDiscounts" id="crRDiscount"
+                                            ng-change="vm.selDiscountDetails(vm.selDiscounts);"
                                             ng-options="discount.strDiscountName for discount in vm.discountList">
                                         <option id="discOpt" value="" selected disabled>Choose...</option>
                                     </select>
                                     <label for="crRDiscount"><b>Discounts</b></label>
+                                </div>
+                                <div class="input-field col s12" ng-if="vm.count > 0">
+                                    <p>
+                                        <b>Note:</b> <br>
+                                            <span ng-if="vm.discountDetail.strDiscountDesc.length > 0" class="col s12">
+                                                <b>-</b><i>{{vm.discountDetail.strDiscountName}}</i>: {{vm.discountDetail.strDiscountDesc}}
+                                            </span>
+                                            <span ng-if="vm.discountDetail.strDiscountDesc.length < 1"
+                                                  class="col s12">
+                                                <b>-</b>There's no details for <i>"{{vm.discountDetail.strDiscountName}}"</i>
+                                            </span>
+                                        <br>
+                                        <b>Discount Value:</b>
+                                        <span ng-if="vm.discountDetail.intDiscountType == 1">{{vm.discountDetail.stringPrice | number:0}}%</span>
+                                        <span ng-if="vm.discountDetail.intDiscountType == 2">{{vm.discountDetail.stringPrice | currency: "Php "}}</span>
+                                        <br>
+                                        <b>Requirement/s:</b> <br>
+                                    <div class="chip" ng-repeat="req in vm.requirement" style="margin: 2px;">
+                                        {{req}}
+                                    </div>
+                                    <br>
+                                    <b class="grey-text text-darken-1">Item/s included:</b> <br>
+                                    <div class="chip" style="margin: 2px;" ng-if="vm.discountApplicability.length > 0">
+                                        {{vm.discountApplicability}}
+                                    </div>
+                                    <div class="chip"
+                                         ng-if="vm.discountApplicability.length < 1"
+                                         ng-repeat="prod in vm.prodInDiscount" style="margin: 2px;">
+                                        {{prod.strProductName}}
+                                    </div>
+                                    <div class="chip"
+                                         ng-if="vm.discountApplicability.length < 1"
+                                         ng-repeat="serv in vm.servInDiscount" style="margin: 2px;">
+                                        {{serv.strServiceName}}
+                                    </div>
+                                    <div class="chip"
+                                         ng-if="vm.discountApplicability.length < 1"
+                                         ng-repeat="pack in vm.packInDiscount" style="margin: 2px;">
+                                        {{pack.strPackageName}}
+                                    </div>
+                                    <div class="chip"
+                                         ng-if="vm.discountApplicability.length < 1"
+                                         ng-repeat="promo in vm.promoInDiscount" style="margin: 2px;">
+                                        {{promo.strPromoName}}
+                                    </div>
+                                    </p>
                                 </div>
                             </div>
                         </div>

@@ -1768,8 +1768,10 @@ $(function () {
                 minlength: 5
             },
             upPromoPrice: {
-                valueNotEquals: "Php 0.00",
-                valueNotEquals2: "0.0"
+                required: function() {
+                    return $('[name=upFree]:checked').length === 0;
+                }
+
             }
         },
         messages: {
@@ -1791,8 +1793,7 @@ $(function () {
                 noSpace: "<span class='white-text'><b>Guidelines</b>: Empty Field</span><br/>"
             },
             upPromoPrice: {
-                valueNotEquals: "<span class='white-text'><b>Price</b>: Invalid value</span><br/>",
-                valueNotEquals2: "<span class='white-text'><b>Price</b>: Invalid value</span><br/>"
+                required: "<span class='white-text'><b>Price</b>: Required</span><br/>"
             }
         }
 
