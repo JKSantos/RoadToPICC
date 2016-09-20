@@ -114,6 +114,24 @@
         });
         locationFactory.getServices().then(function (data) {
             vm.serviceList = data.data.serviceList;
+            console.log(vm.serviceList);
+        });
+
+        var serviceTypeData = $.param({
+            'type': 'walkin'
+        });
+
+        $http({
+            method: 'get',
+            url: 'http://localhost:8080/SalonManagement/getServiceByType',
+            data: serviceTypeData,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function successCallback(data) {
+            console.log(data);
+        }, function errorCallback(response) {
+            console.log(response);
         });
 
         locationFactory.getPromosWithDetails().then(function (data) {
@@ -234,7 +252,7 @@
             });
             console.log(vm.selectedProductFromWalkin);
         };
-        
+
         $scope.addService = function (service) {
             $('#addServiceModal').openModal({
                 dismissible: true, // Modal can be dismissed by clicking outside of the modal
@@ -247,7 +265,7 @@
 
         $scope.addServiceInTable = function (service) {
             vm.selectedServiceFromWalkin.push({
-               'servID':  service.service.intServiceID,
+                'servID': service.service.intServiceID,
                 'servName': service.service.strServiceName,
                 'employeeAssigned': service.selEmployee
             });

@@ -9,22 +9,22 @@
 	<welcome-file-list>
 		<welcome-file>loginform.jsp</welcome-file>	
 	</welcome-file-list>
-	
-	
-	
+
+
+
 	<context-param>
-   	<param-name>
-		org.apache.tiles.impl.BasicTilesContainer.DEFINITIONS_CONFIG
-   	</param-name>
-   	<param-value>
-      	/WEB-INF/tiles.xml
-   	</param-value>
-   	</context-param>
-   	<listener>
-   <listener-class>
-      org.apache.struts2.tiles.StrutsTilesListener
-   </listener-class>
-   </listener>
+		<param-name>
+			org.apache.tiles.impl.BasicTilesContainer.DEFINITIONS_CONFIG
+		</param-name>
+		<param-value>
+			/WEB-INF/tiles.xml
+		</param-value>
+	</context-param>
+	<listener>
+		<listener-class>
+			org.apache.struts2.tiles.StrutsTilesListener
+		</listener-class>
+	</listener>
 
 	<filter>
 		<filter-name>Struts</filter-name>
