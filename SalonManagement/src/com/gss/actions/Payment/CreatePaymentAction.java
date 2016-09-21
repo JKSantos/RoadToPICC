@@ -25,11 +25,10 @@ public class CreatePaymentAction {
 
 		
 		String unconvertedDate = new DateHelper().convert(this.datDateOfPayment.split("/"));
-		System.out.println(strPaymentType);
-		System.out.println(paymentType);
+
 		Payment payment = new Payment(intPaymentID, intInvoiceID, paymentType, PriceFormatHelper.convertToDouble(dblPaymentAmount, "Php "),this.paymentType,DateHelper.parseDate(unconvertedDate));
 		
-		this.url = "C:/Java/Receipts/" + NumberGenerator.localDateTime() + ".pdf";
+		this.url = "WEB-INF/Receipts/" + NumberGenerator.localDateTime() + ".pdf";
 				
 		boolean recorded = Payment.createPayment(strPaymentType, payment, url);
 		

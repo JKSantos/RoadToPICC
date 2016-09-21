@@ -46,7 +46,7 @@ public class ContractGenerator {
 	public String createContract(Contract contract) throws BadElementException, MalformedURLException, DocumentException, IOException{
 	
 		this.contract = contract;
-		this.DESTINATION = "C:/Java/Contracts/"+contract.getReceiverName().replaceAll(" ", "_") + "_"+NumberGenerator.localDateTime() + ".pdf";
+		this.DESTINATION = contract.getReceiverName().replaceAll(" ", "_") + "_"+NumberGenerator.localDateTime() + ".pdf";
 		
 		Document document = createDocument();
 		document.open();
@@ -164,8 +164,11 @@ public class ContractGenerator {
 	public Document createDocument(){
 		
 		Document document = new Document(PageSize.LETTER, 70, 70, 30, 70);
+		
         try {
-			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(DESTINATION));
+        	FileOutputStream stream = new FileOutputStream(((ServletContext) ActionContext.getContext().get(StrutsStatics.SERVLET_CONTEXT)) 
+                    .getRealPath("WEB-INF/Contract/" + this.DESTINATION));
+			PdfWriter writer = PdfWriter.getInstance(document, stream);
 		} catch (FileNotFoundException | DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
