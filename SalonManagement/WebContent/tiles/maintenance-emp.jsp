@@ -121,7 +121,7 @@ String granAccess = null;
                             </a>
                             <a class="updatebtn waves-effect waves-purple modal-trigger btn-flat transparent black-text empUpdatebtn"
                                href="#emp<%=str%>" style="padding-left: 10px;padding-right:10px; margin: 5px;"
-                               onclick="setBirthDate('#upbday${employee.intEmpID}', '${employee.datEmpBirthdate}'); passEmpID(${employee.intEmpID});">
+                               onclick="setBirthDate('#upbday${employee.intEmpID}', '${employee.datEmpBirthdate}');">
                                 <i class="material-icons">edit</i>
                             </a>
                             <button class="empdeacbtn waves-effect waves-purple btn-flat transparent red-text text-accent-4"
