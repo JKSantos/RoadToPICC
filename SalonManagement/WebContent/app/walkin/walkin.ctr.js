@@ -6,6 +6,37 @@
             .controller('walkinCtrl', walkinCtrl);
 
         function walkinCtrl($scope, $http, $window, paymentFactory, locationFactory, walkinFactory, SweetAlert) {
+            materialSelect.$inject = ['$timeout'];
+
+            function materialSelect($timeout) {
+                var directive = {
+                    link: link,
+                    restrict: 'E',
+                    require: '?ngModel'
+                };
+
+                function link(scope, element, attrs, ngModel) {
+
+                    $timeout(create);
+                    if (ngModel) {
+                        ngModel.$render = create;
+                    }
+
+                    function create() {
+                        element.material_select();
+                    }
+
+                    //if using materialize v0.96.0 use this
+                    element.one('$destroy', function () {
+                        element.material_select('destroy');
+                    });
+
+
+                }
+
+                return directive;
+            }
+
             var vm = this;
 
             vm.openEditItem = openEditItem;
@@ -18,8 +49,12 @@
             vm.searchTable = searchTable;
             vm.completePendingFunc = completePendingFunc;
             vm.selDiscountDetails = selDiscountDetails;
+            vm.removeToCartProduct = removeToCartProduct;
+            vm.removeToCartService = removeToCartService;
+            vm.removeToCartPackage = removeToCartPackage;
 
             vm.editWalkin = editWalkin;
+            vm.editInCart = editInCart;
 
             vm.selected = 'product';
             vm.walkinTableFilter = 'walkin';
@@ -65,6 +100,11 @@
             vm.count = 0;
             vm.discountApplicability = '';
 
+            vm.sum = 0;
+            vm.qtyInvalid = 0;
+
+            vm.empSpecialization = [];
+
             function dtInstanceCallback(dtInstance) {
                 var datatableObj = dtInstance.DataTable;
                 vm.tableInstance = datatableObj;
@@ -99,12 +139,6 @@
                 }
             }
 
-
-            locationFactory.getEmployees().then(function (data) {
-                vm.employeeList = data.data.employeeList;
-                vm.selEmployeePerService = vm.employeeList[0];
-            });
-
             locationFactory.getExtraCharges().then(function (data) {
                 vm.extraChargeList = data.data.extraChargeList;
             });
@@ -137,6 +171,39 @@
             }, function errorCallback(response) {
                 console.log(response);
             });
+
+            var employeeTypeData = $.param({
+                'type': 'walkin'
+            });
+
+            $http({
+                method: 'post',
+                url: 'http://localhost:8080/SalonManagement/getAvailableEmployee',
+                data: employeeTypeData,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                vm.employeeList = data.data.empList;
+                console.log(vm.employeeList);
+
+            }, function errorCallback(response) {
+                console.log(response);
+            });
+
+            $scope.filterEmployee = function(index) {
+                console.log(index);
+                vm.serviceIntID = vm.serviceList[index].intServiceID;
+                console.log(vm.serviceIntID);
+                for(var i = 0; i < vm.employeeList[i].specialization.length; i ++) {
+                    for(var j = 0; j < vm.employeeList[i].specialization.length; j++) {
+                        console.log(vm.serviceIntID + '==' + vm.employeeList[i].specialization[j].id);
+                        if(vm.serviceIntID == vm.employeeList[i].specialization[j].id) {
+                            console.log(vm.employeeList[i].strEmpFirstName);
+                        }
+                    }
+                }
+            };
 
             locationFactory.getPromosWithDetails().then(function (data) {
                 vm.promoList = data.promoList;
@@ -418,12 +485,42 @@
                 vm.selectedProductFromWalkin.splice(index, 1);
             };
 
+            function editInCart(order) {
+                var order = order;
+                $('#editItem').closeModal();
+                if(order.type == 'product') {
+                    var po = vm.productOrder[order.index],
+                        p = ({
+                            product: order.product,
+                            productID: order.productID,
+                            productQuantity: order.productQuantity,
+                            productTotal: order.productPrice * order.productQuantity,
+                            productPrice: order.productPrice,
+                            strPhotoPath: order.strPhotoPath,
+                            type: 'product'
+                        });
+                    vm.productOrder[order.index] = p;
+                    vm.productTotal = order.productPrice * order.productQuantity;
+                    vm.productTotal -= po.productTotal;
+                    vm.productTotal += order.productPrice * order.productQuantity;
+                    vm.sum -= po.productTotal;
+                    vm.sum += order.productPrice * order.productQuantity;
+
+                    var quant = quantprod.split(',');
+                    quant[order.index] = order.productQuantity;
+                    quantprod = quant.join(',');
+                } else if (order.type == 'service') {
+                    console.log(order);
+                }
+
+            }
+
             function openEditItem(index, item) {
                 $('#editItem').openModal({
                     dismissible: true, // Modal can be dismissed by clicking outside of the modal
                     opacity: .7, // Opacity of modal background
                     in_duration: 200, // Transition in duration
-                    out_duration: 200, // Transition out duration
+                    out_duration: 200 // Transition out duration
                 });
                 if (item.type == 'product') {
                     vm.orderToBeEdit = {
@@ -449,6 +546,8 @@
                         type: item.type,
                         index: index
                     };
+
+                    console.log(item.selectedEmployee);
                 }
 
             }
@@ -463,12 +562,36 @@
                 }
             }
 
+            function removeToCartProduct (index, orders) {
+                console.log('index: ' + index);
+                vm.productOrder.splice(index, 1);
+
+                var ppp = selectprod.split(',');
+                ppp.splice(index, 1);
+                selectprod = ppp.join(',');
+
+                var qqq = quantprod.split(',');
+                qqq.splice(index, 1);
+                quantprod = qqq.join(',');
+
+                vm.sum -= orders.productTotal;
+            }
+
+            function removeToCartService (index, service) {
+                vm.serviceOrder.splice(index, 1);
+                vm.sum -= service.serviceTotal;
+            }
+
+            function removeToCartPackage (index, pack) {
+                vm.packageOrder.splice(index, 1);
+                vm.sum -= pack.packageTotal;
+            }
+
             vm.addToCart = function (index, selected) {
                 var selectedProducts = "";
                 var selectedProductQuantity = "";
                 var subTotalProducts = 0;
                 if (selected == 'product') {
-
                     vm.productOrder.push({
                         product: vm.productList[index].strProductName,
                         productID: vm.productList[index].intProductID,
@@ -504,9 +627,9 @@
                     });
 
                     vm.selServiceDetails.push({
-                        intServiceID: vm.serviceList[index].intServiceID.toString(),
+                        intServiceID: vm.serviceList[index].intServiceID,
                         intQuantity: '1',
-                        intEmployeeID: vm.selEmployee.intEmpID.toString(),
+                        intEmployeeID: vm.selEmployee.intEmpID,
                         strStatus: 'pending'
                     });
                     console.log(vm.selServiceDetails);
@@ -543,6 +666,7 @@
                     }
                     selectpack = selectedPackage;
                     vm.packageTotal = subTotalPackage;
+                    vm.sum += vm.packageTotal;
                     vm.quantity = '';
                 } else if (selected == 'promo') {
                     $('#promoListModal').closeModal();
@@ -627,7 +751,6 @@
             vm.sumTotal = function () {
                 var summed = vm.productTotal + vm.serviceTotal + vm.packageTotal + vm.promoTotal;
                 vm.sum = summed;
-                console.log(summed);
             };
 
             function toString() {
