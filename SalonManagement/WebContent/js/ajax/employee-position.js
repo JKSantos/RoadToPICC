@@ -28,6 +28,8 @@ function createJobPosition() {
         async: true,
         success: function (data) {
             var jobList = data.jobList;
+            console.log(data);
+            console.log(jobList);
             if (jobList != null) {
                 $.each(jobList, function (i, job) {
                     $('select').material_select('destroy');
