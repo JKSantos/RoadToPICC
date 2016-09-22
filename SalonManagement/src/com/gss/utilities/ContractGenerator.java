@@ -111,7 +111,12 @@ public class ContractGenerator {
 		document.add(getSignatureField());
 		document.close();
 		
-		return null;
+		String root = "/Contract/";
+		root += this.DESTINATION;
+		
+		return root;
+		
+		
 	}
 	
 	public Paragraph getIntro2(){
@@ -119,7 +124,7 @@ public class ContractGenerator {
 		Paragraph paragraph = new Paragraph();
 		
 		Phrase phrase = new Phrase("The Client hereby engages the Provider to provide services and products described herein under “Scope and Manner of Reservation”, and agrees to terms and agreements of the reservation stated herein under “Reservation Terms and Conditions”. The Provider hereby agrees to provide the Client with such services and products in exchange for consideration described herein under “Payment for Reservation”.", getFont());
-
+			
 		paragraph.add(phrase);
 		return paragraph;
 	}

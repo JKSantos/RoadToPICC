@@ -97,7 +97,7 @@ public class CreateServProdAction {
 	}
 
 	public void setStrItemName(String strItemName) {
-		this.strItemName = strItemName;
+		this.strItemName = strItemName.trim().toUpperCase();
 	}
 
 	public String getStrItemDetails() {
@@ -105,7 +105,7 @@ public class CreateServProdAction {
 	}
 
 	public void setStrItemDetails(String strItemDetails) {
-		this.strItemDetails = strItemDetails;
+		this.strItemDetails = strItemDetails.trim().toUpperCase();
 	}
 
 	public String getStrItemCategory() {

@@ -55,7 +55,7 @@
                         </td>
                         <td style="padding-left: 10px; margin: 0;" class="dt-body-left">${product.strProductDesc}</td>
                         <td style="padding-right: 10px; margin: 0;" class="dt-body-right prodPrice">
-                            <c:out value="${price}"/>
+                            ${product.stringPrice}
                         </td>
                         <td style="padding:0; margin: 0;" class="dt-body-center">
                             <a class="waves-effect waves-purple modal-viewall btn-flat transparent black-text"
@@ -409,7 +409,7 @@
                                     <input type="text"
                                            class="validate right-align upProdItemPrice"
                                            id="upItemPrice" name="price" required placeholder="P9.99"
-                                           value="<c:out value='${price}'/>"/>
+                                           value="<c:out value='${product.stringPrice}'/>"/>
                                     <label for="upItemPrice" class="active"><b>Price</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>

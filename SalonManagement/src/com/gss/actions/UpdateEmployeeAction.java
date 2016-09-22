@@ -40,7 +40,7 @@ public class UpdateEmployeeAction extends ActionSupport{
 	private List<String> upSpecialization = new ArrayList<String>();
 	
 	public String execute(){
-		
+		try{
 		EmployeeServiceImpl empService = new EmployeeServiceImpl();
 		Employee emp = null;
 
@@ -75,6 +75,9 @@ public class UpdateEmployeeAction extends ActionSupport{
 		else
 		{	
 			System.out.println("PROBLEM ENCOUNTERED WHILE CREATING EMPLOYEE");
+			return "failed";
+		}}catch(Exception e){
+			e.printStackTrace();
 			return "failed";
 		}
 	}

@@ -7,11 +7,11 @@ public class RandomStringGenerator {
 	
 private static SecureRandom random = new SecureRandom();
 
-	public static String generateRandomString() {
+	public static String generateRandomString(int size) {
 		String s =  new BigInteger(130, random).toString(32);
-		String string = s.substring(0, Math.min(s.length(), 6));
+		String string = s.substring(0, Math.min(s.length(), size));
 		
-		return string;
+		return string.toUpperCase();
 	}
 	
 }
