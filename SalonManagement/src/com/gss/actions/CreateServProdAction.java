@@ -10,7 +10,8 @@ import com.gss.service.ProductServiceImpl;
 import com.gss.service.ServiceService;
 import com.gss.service.ServiceServiceImpl;
 import com.gss.utilities.PackageHelper;
-import com.gss.utilities.PriceFormatHelper;
+import com.gss.utilities.PriceFormat;
+
 
 public class CreateServProdAction {
 	
@@ -29,7 +30,7 @@ public class CreateServProdAction {
 
 		boolean isRecorded = false;
 		String path = file.getAbsolutePath();
-		double dblItemPrice = PriceFormatHelper.convertToDouble((price + "0"), "Php ");
+		double dblItemPrice = PriceFormat.convertToDouble((price + "0"), "Php ");
 		
 		
 		if(strItemCate.equalsIgnoreCase("Product")){
