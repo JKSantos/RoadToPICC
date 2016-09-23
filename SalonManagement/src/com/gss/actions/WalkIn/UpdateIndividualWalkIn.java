@@ -174,14 +174,12 @@ public class UpdateIndividualWalkIn {
 			//do nothing
 		}
 		
-		int result = service.createWalkIn(walkin);
+		boolean result = service.updateWalkIn(walkin);
 		
-		if(result == 0){
-			this.intCreatedID = result;
+		if(result == true){
 			return "failed";
 		}
 		else{
-			this.intCreatedID = result;
 			if(this.customerType.equals("APPOINTMENT"))
 				CustomerTransactionHelper.insertCustomerAppointment(intCreatedID, intCustID, 1);
 
