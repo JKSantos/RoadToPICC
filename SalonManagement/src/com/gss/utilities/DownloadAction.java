@@ -24,11 +24,14 @@ public class DownloadAction extends ActionSupport{
     	fileStream = new FileInputStream(
             new File(
                 ((ServletContext) ActionContext.getContext().get(StrutsStatics.SERVLET_CONTEXT)) 
-                .getRealPath("WEB-INF/")
+                .getRealPath("WEB-INF/Reports/Employee_Default.jpg")
                 +
                 fineName
             )
         );
+    	
+    
+    	
         return SUCCESS;
     }
 

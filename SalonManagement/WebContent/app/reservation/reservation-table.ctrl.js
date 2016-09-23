@@ -5,7 +5,7 @@
         .module('app')
         .controller('reservationTable', reservationTable);
 
-    function reservationTable($scope, paymentFactory, locationFactory, reservationFactory, $filter, SweetAlert) {
+    function reservationTable($scope, $http, paymentFactory, locationFactory, reservationFactory, $filter, SweetAlert) {
         var vm = this;
         vm.customerDetails = [{}];
         vm.reservationDetails = [{}];
@@ -349,6 +349,24 @@
                             dataType: 'json',
                             async: true,
                             success: function (data) {
+
+                                var dd = $.param({
+                                	'fineName': data.path
+                                });
+                                console.log(data);
+
+                                $http({
+                                    method: 'post',
+                                    url: 'http://localhost:8080/SalonManagement/downloadReports',
+                                    data: dd,
+                                    headers: {
+                                        'Content-Type': 'application/x-www-form-urlencoded'
+                                    }
+                                }).then(function successCallback(data) {
+                                	alert("YES");
+                                }, function errorCallback(response) {
+                                	alert("NO");
+                                });
                                 SweetAlert.swal("Successfully created!", ".", "success");
                                 $('#createReservationModal').closeModal();
                                 if(reservationType == 1) {
@@ -380,6 +398,7 @@
                                         "strTotalPrice": total,
                                         "strStatus": 'REQUEST'
                                     });
+                                    
                                 } else {
                                     vm.customerList.push({
                                         "customer": {

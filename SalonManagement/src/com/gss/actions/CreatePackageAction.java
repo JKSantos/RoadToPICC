@@ -106,7 +106,7 @@ public class CreatePackageAction {
 	}
 
 	public void setStrPackageName(String strPackageName) {
-		this.strPackageName = strPackageName;
+		this.strPackageName = strPackageName.trim().toUpperCase();
 	}
 
 	public String getStrPackageDesc() {
@@ -114,7 +114,7 @@ public class CreatePackageAction {
 	}
 
 	public void setStrPackageDesc(String strPackageDesc) {
-		this.strPackageDesc = strPackageDesc;
+		this.strPackageDesc = strPackageDesc.trim().toUpperCase();
 	}
 
 	public List<Integer> getIntPackageType() {

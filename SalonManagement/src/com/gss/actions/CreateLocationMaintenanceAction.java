@@ -28,7 +28,7 @@ public class CreateLocationMaintenanceAction {
 	}
 
 	public void setStrBrgy(String strBrgy) {
-		this.strBrgy = strBrgy;
+		this.strBrgy = strBrgy.trim().toUpperCase();
 	}
 
 	public String getStrCity() {
@@ -36,7 +36,7 @@ public class CreateLocationMaintenanceAction {
 	}
 
 	public void setStrCity(String strCity) {
-		this.strCity = strCity;
+		this.strCity = strCity.trim().toUpperCase();
 	}
 
 	public void setPrice(String price) {

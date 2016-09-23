@@ -8,12 +8,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
+import org.apache.struts2.StrutsStatics;
+
 import com.gss.connection.JDBCConnection;
 import com.gss.model.Employee;
 import com.gss.model.EmployeeCategory;
 import com.gss.model.Job;
 import com.gss.model.Specialization;
 import com.gss.utilities.JobQualificationHelper;
+import com.opensymphony.xwork2.ActionContext;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -330,14 +335,26 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 		Connection con = jdbc.getConnection();
 		
 		int intEmpID = 0;
+		File imageFile = null;
+		FileInputStream fileInput = null;
+		try{
+			imageFile = new File(emp.getBlobEmpPhoto());
+			fileInput = new FileInputStream(imageFile);
+		}catch(Exception e){
+			imageFile = new File(emp.getBlobEmpPhoto());
+			try {
+				fileInput = new FileInputStream(((ServletContext) ActionContext.getContext().get(StrutsStatics.SERVLET_CONTEXT)) 
+				        .getRealPath("WEB-INF/Reports/Employee_Default.jpg"));
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
 		
 		try{
 			
 			java.sql.Date sqlDate = new java.sql.Date(emp.getDatEmpBirthdate().getTime());
-			
-			File imageFile = new File(emp.getBlobEmpPhoto());
-			FileInputStream fileInput = new FileInputStream(imageFile);
-			
 			PreparedStatement createJob = con.prepareStatement(strQuery2);
 			PreparedStatement pre = con.prepareStatement(strQuery1);
 			PreparedStatement spec = con.prepareStatement(strQuery3);
@@ -354,6 +371,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 			pre.setString(11, emp.getStrEmpPassword());
 			pre.setBinaryStream(12, (InputStream)fileInput, (int)imageFile.length());
 			pre.setBoolean(13, emp.isAccessGranted());
+
 			
 			ResultSet setEmpID = pre.executeQuery();
 			while(setEmpID.next()){
@@ -384,7 +402,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 			
 			return true;
 		}
-		catch(SQLException | FileNotFoundException e){
+		catch(SQLException e){
 			//Error
 			e.printStackTrace();
 			
@@ -481,7 +499,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 			return true;
 		}
 		catch(Exception e){
-			System.out.print(e.getMessage());
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -491,7 +509,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 		
 		JDBCConnection jdbc = new JDBCConnection();
 		Connection con = jdbc.getConnection();
-		String query = "SELECT * FROM tblJob;";
+		String query = "SELECT * FROM tblJob WHERE intStatus = 1;";
 		List<EmployeeCategory> empCategory = new ArrayList<EmployeeCategory>();
 		
 		try{
@@ -908,7 +926,7 @@ public class EmployeeJDBCRepository implements EmployeeRepository{
 		try{
 			PreparedStatement statement = con.prepareStatement(query);
 			ResultSet set = statement.executeQuery();
-			
+				
 			while(set.next()){
 				 usernames.add(set.getString(1));
 			}

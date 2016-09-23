@@ -46,7 +46,7 @@ public class ContractGenerator {
 	public String createContract(Contract contract) throws BadElementException, MalformedURLException, DocumentException, IOException{
 	
 		this.contract = contract;
-		this.DESTINATION = "C:/Java/Contracts/"+contract.getReceiverName().replaceAll(" ", "_") + "_"+NumberGenerator.localDateTime() + ".pdf";
+		this.DESTINATION = contract.getReceiverName().replaceAll(" ", "_") + "_"+NumberGenerator.localDateTime() + ".pdf";
 		
 		Document document = createDocument();
 		document.open();
@@ -111,7 +111,12 @@ public class ContractGenerator {
 		document.add(getSignatureField());
 		document.close();
 		
-		return null;
+		String root = "/Contract/";
+		root += this.DESTINATION;
+		
+		return root;
+		
+		
 	}
 	
 	public Paragraph getIntro2(){
@@ -119,7 +124,7 @@ public class ContractGenerator {
 		Paragraph paragraph = new Paragraph();
 		
 		Phrase phrase = new Phrase("The Client hereby engages the Provider to provide services and products described herein under “Scope and Manner of Reservation”, and agrees to terms and agreements of the reservation stated herein under “Reservation Terms and Conditions”. The Provider hereby agrees to provide the Client with such services and products in exchange for consideration described herein under “Payment for Reservation”.", getFont());
-
+			
 		paragraph.add(phrase);
 		return paragraph;
 	}
@@ -164,8 +169,11 @@ public class ContractGenerator {
 	public Document createDocument(){
 		
 		Document document = new Document(PageSize.LETTER, 70, 70, 30, 70);
+		
         try {
-			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(DESTINATION));
+        	FileOutputStream stream = new FileOutputStream(((ServletContext) ActionContext.getContext().get(StrutsStatics.SERVLET_CONTEXT)) 
+                    .getRealPath("WEB-INF/Contract/" + this.DESTINATION));
+			PdfWriter writer = PdfWriter.getInstance(document, stream);
 		} catch (FileNotFoundException | DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

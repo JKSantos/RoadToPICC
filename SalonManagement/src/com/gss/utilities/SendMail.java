@@ -24,7 +24,7 @@ public class SendMail implements Runnable{
 		 this.username = username;
 		 this.password = password;
 		 start();
-	 }
+	 }	
 	 
 	 private static Properties gmailConfiguration() {
 		    return new Properties() {
@@ -33,11 +33,12 @@ public class SendMail implements Runnable{
 					  put("mail.transport.protocol", "smtp");     
 					  put("mail.host", "smtp.gmail.com");  
 					  put("mail.smtp.auth", "true");  
-					  put("mail.smtp.port", "465");  
+					  put("mail.smtp.port", "587");  
 					  put("mail.debug", "true");  
-					  put("mail.smtp.socketFactory.port", "465");  
+					  put("mail.smtp.socketFactory.port", "587");
+					  put("mail.smtp.starttls.enable","true");
 					  put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");  
-					  put("mail.smtp.socketFactory.fallback", "false");
+					  put("mail.smtp.socketFactory.fallback", "false"); 
 		        }
 		    };
 		 }
@@ -49,9 +50,10 @@ public class SendMail implements Runnable{
 					  put("mail.transport.protocol", "smtp");     
 					  put("mail.host", "smtp.mail.yahoo.com");  
 					  put("mail.smtp.auth", "true");  
-					  put("mail.smtp.port", "465");  
+					  put("mail.smtp.port", "587");  
 					  put("mail.debug", "true");  
-					  put("mail.smtp.socketFactory.port", "465");  
+					  put("mail.smtp.socketFactory.port", "587");  
+					  put("mail.smtp.starttls.enable","true");
 					  put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");  
 					  put("mail.smtp.socketFactory.fallback", "false");
 		        }
@@ -100,7 +102,7 @@ public class SendMail implements Runnable{
 	                new InternetAddress(to));
 
 	            message.setSubject("From SalonManagementSystem");
-	            message.setText("Congratulations! You are now an employee of our Salon! Please download the job monitoring app at https://goog.gl/SH345GYS. You can also login on our admin page if you are granted the privilege to do so. \n\nYoure Username is " + username + " and your pasword is " + password + ".");
+	            message.setText("Good day! You're Username is " + username + " and your pasword is " + password + ". You can change it using Salon App or Salon Management System if you are granted the system access.");
 	           Transport.send(message);
 
 	           System.out.println("\nMESSAGE SUCCESSFULLY SENT");

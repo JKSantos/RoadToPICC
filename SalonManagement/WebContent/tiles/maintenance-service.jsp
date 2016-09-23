@@ -66,7 +66,7 @@
                         </td>
                         <td style="padding-left: 10px; margin: 0;" class="dt-body-left">${service.strServiceDesc}</td>
                         <td style="padding-right: 10px; margin: 0;" class="dt-body-right servPrice">
-                            <c:out value="${ price }"/>
+                            ${service.stringPrice}
                         </td>
                         <td style="padding:0; margin: 0;" class="dt-body-center">
                             <a class="waves-effect waves-purple modal-trigger btn-flat transparent black-text"
@@ -323,7 +323,7 @@
             String serviceCate = servID.getStrServiceCategory();
             double price = servID.getDblServicePrice();
             %>
-            <c:set var="price" scope="session" value="${(service.dblServicePrice * 0) + service.dblServicePrice}"/>
+            <c:set var="price" scope="session" value="${service.stringPrice}"/>
             <div id="serv${service.intServiceID}" class="servUpdateModal modal modal-fixed-footer">
                 <form class="col s12 updateservForm" method="post" id="updateservForm" action="updateItem"
                       enctype="multipart/form-data">
@@ -465,6 +465,7 @@
                                                 class="material-icons">add</i></a>
                                     </div>
                                     <div class="input-field col s6 offset-s6" style="margin-bottom: -15px !important;">
+                                    	<c:set var="price" scope="session" value="${price}"/>
                                         <input type="text" value="<c:out value='${price}'/>"
                                                class="validate right-align servPrice priceField"
                                                id="upServPrice${service.intServiceID}" name="price" required
