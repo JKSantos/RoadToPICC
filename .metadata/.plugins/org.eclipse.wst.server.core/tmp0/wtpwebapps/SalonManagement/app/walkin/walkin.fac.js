@@ -5,17 +5,19 @@
     .module('app')
     .factory('walkinFactory', walkinFactory)
 
-    function walkinFactory(){
-      var walkinDetails = [];
+    function walkinFactory(SweetAlert){
+      var walkinDetails = [],
+          walkinData = [];
       
       return{
     	  getCustomers: function(){
     		  return walkinDetails;
     	  },
-    	  insertCustomer: function(name, contact, email,
-					     selectprod, quantprod, packageDetails, promoDetails,
+    	  insertCustomer: function(name, contact, email, selectEmp,
+					   selectprod, quantprod, packageDetails, promoDetails,
 	  					 serviceDetails, selectdiscount, total){
     		console.log("I'm on insert!");
+    		console.log(total);
     		var topID = walkinDetails.length + 1;
         walkinDetails.push({
       		  id: topID,
@@ -30,20 +32,24 @@
   	        selectedDiscounts: selectdiscount,
   	        strTotalPrice: total  
     	  });
-        var walkindata = {
-            id: topID,
-            strName: name,
-            strContactNo: contact,
-            email: email,
-            selectedProducts: selectprod,
-            productQuantity: quantprod,
-            serviceDetails: serviceDetails,
-            packageList: packageDetails,
-            promoList: promoDetails,
-            selectedDiscounts: selectdiscount,
-            strTotalPrice: total 
-        }
-        swal({
+        walkinData.push({
+            "id": topID,
+            "strName": name,
+            "strContactNo": contact,
+            "productString": selectprod,
+            "productQuantity": quantprod,
+            "serviceDetails": serviceDetails,
+            "packageList": packageDetails,
+            "promoList": promoDetails,
+            "discounts": selectdiscount,
+            "strTotalPrice": total 
+        });
+       console.log(walkinData[0]);
+        	
+        },
+        moveToPayment: function(id){
+          var walkin = walkinData[0];
+         swal({
                 title:"",
                 text: "",
                 type: "",
@@ -55,48 +61,26 @@
                     $.ajax({
                         url: 'createWalkin',
                         type: 'post',
-                        data: psdata,
+                        data: walkin,
                         dataType: 'json',
                         async: true,
                         success: function (data) {
-                            if (data.status == "success") {
                                 SweetAlert.swal("Successfully created!", ".", "success");
-                                console.log($scope.customerDetails[1]);
-                                $scope.requestOrder.push({
-                                    strName: myData.strName,
-                                    intType: myData.orderType
-                                });
-                                console.log($scope.requestOrder);
-                                $('#crProductSales').closeModal();
-                                $scope.customerDetails = [{
-                                    orderType: '',
-                                    contactNumber: '',
-                                    name: '',
-                                    Street: '',
-                                    location: '',
-                                    orderDetails: '',
-                                    subtotal: 0
-                                }];
-                                $window.location.reload();
-                            } else {
-                                SweetAlert.swal("Oops", "Something went wrong!", "error");
-                            }
+                                $('#createWalkinModal').closeModal();
+                                   for (var i = walkinData.length - 1; i >= 0; i--) {
+                                         if (walkinData[i].id === id) {
+                                           walkinData.splice(i, 1);
+                                             break;
+                                         }
+                                     }
                         },
                         error: function () {
-                            SweetAlert.swal("Oops", "Something went wrong!", "error");
+                          console.log(walkin);
+                           SweetAlert.swal("Oops", "Something went wrong!", "error");
                         }
                     });
                 }, 1000);
             });
-        	
-        },
-        moveToPayment: function(id){
-        	 for (var i = walkinDetails.length - 1; i >= 0; i--) {
-                 if (walkinDetails[i].id === id) {
-                	 walkinDetails.splice(i, 1);
-                     break;
-                 }
-             }
         }
     }
   }

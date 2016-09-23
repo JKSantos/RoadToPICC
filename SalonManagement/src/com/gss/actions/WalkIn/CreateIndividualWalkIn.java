@@ -60,7 +60,8 @@ public class CreateIndividualWalkIn {
 		String[] productQuantity = this.productQuantity.split(",");
 		
 		String[] discounts = this.discounts.split(",");
-		String[] extraCharges = this.extraCharges.split(",");
+		String[] extraCharges = this.extraCharges.split(",");System.out.println("Customer ID: " + this.serviceString);
+		System.out.println("waLKiN ID: " + this.employeeAssigned);
 		
 		
 		if(!this.productString.equals("")){
@@ -162,7 +163,8 @@ public class CreateIndividualWalkIn {
 		Invoice invoice = Invoice.createNullInvoice(extraChargeList, discountList, PriceFormatHelper.convertToDouble(this.strTotalPrice, "Php "), "FULL");
 		
 		WalkIn walkin = new WalkIn(1, customerType, this.strName, this.strContactNo, new Date(), serviceList, productList, packageList, promoList, invoice, null, "PENDING", "UNPAID");
-		
+		System.out.println("App Date: " + java.sql.Date.valueOf(appointmentDate));
+		System.out.println("App Time: " + this.appointmentTime);
 		try{
 		walkin.setAppointmentDate(java.sql.Date.valueOf(appointmentDate));
 		walkin.setAppointmentTime(java.sql.Time.valueOf(appointmentTime));
@@ -179,6 +181,8 @@ public class CreateIndividualWalkIn {
 		else{
 			this.intCreatedID = result;
 			if(this.customerType.equals("APPOINTMENT"))
+				System.out.println("Customer ID: " + this.intCustID);
+			System.out.println("waLKiN ID: " + this.intCreatedID);
 				CustomerTransactionHelper.insertCustomerAppointment(intCreatedID, intCustID, 1);
 
 			return "success";

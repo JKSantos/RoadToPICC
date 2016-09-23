@@ -4,7 +4,7 @@
         .module('app')
         .controller('paymentCtrl', paymentCtrl);
 
-    function paymentCtrl($scope, $filter, SweetAlert, DTOptionsBuilder, DTColumnDefBuilder, DTDefaultOptions, paymentFactory) {
+    function paymentCtrl($scope, $resource, $filter, SweetAlert, DTOptionsBuilder, DTColumnBuilder, DTDefaultOptions, paymentFactory) {
         var vm = this;
         vm.dateFormat = ["MMMM/D/YYYY"];
         vm.type = [{
@@ -12,39 +12,39 @@
             option2: "walkin",
             option3: "reservation"
         }];
-        
+        vm.sortType = 'strName';
+        vm.sortReverse = false;
+        vm.paymentSearch = '';
+
         vm.paymentList = [];
         vm.createPOPayment = createPOPayment;
         vm.paymentSubmit = paymentSubmit;
-        // vm.dtOptions = DTOptionsBuilder.newOptions()
-        //     .withPaginationType('full_numbers')
-        //     .withDisplayLength(10)
-        //     .withLanguage({
-        //         "sLoadingRecords": "Loading..."
-        //     });
-        vm.dtColumnDefs = [
-            DTColumnDefBuilder.newColumnDef(0),
-            DTColumnDefBuilder.newColumnDef(1).notSortable(),
-            DTColumnDefBuilder.newColumnDef(2).notSortable(),
-            DTColumnDefBuilder.newColumnDef(3),
-            DTColumnDefBuilder.newColumnDef(4),
-            DTColumnDefBuilder.newColumnDef(5).notSortable()
-        ];
+        vm.dtInstanceCallback = dtInstanceCallback;
+        vm.searchTable = searchTable;
 
+        function dtInstanceCallback(dtInstance) {
+            var datatableObj = dtInstance.DataTable;
+            vm.tableInstance = datatableObj;
+        }
+
+        function searchTable() {
+            var query = vm.paymentSearch;
+            vm.tableInstance.search(query).draw();
+        }
 
         paymentFactory.getUnpaidPayments().then(function (data) {
-            // vm.paymentList = data.orderList;
-            for(var i = 0; i < data.orderList.length; i++) {
-                vm.paymentList.push(data.orderList[i]);
+            for (var x = 0; x < data.orderList.length; x++) {
+                vm.paymentList.push(data.orderList[x]);
             }
-            for(var i = 0; i < data.reservationList.length; i++) {
+            for (var i = 0; i < data.reservationList.length; i++) {
                 vm.paymentList.push(data.reservationList[i]);
             }
+            for (var j = 0; j < data.walkinList.length; j++) {
+                vm.paymentList.push(data.walkinList[j]);
+            }
+            console.log(vm.paymentList);
         });
-        // paymentFactory.getUnpaidPayments().then(function (data) {
-        //     // vm.payReservationList = data.reservationList;
-            
-        // });
+
 
         function createPOPayment(payment, index, type) {
             $('#paymentModal').openModal({
@@ -54,7 +54,7 @@
                 out_duration: 200, // Transition out duration
             });
             vm.paymentDetails = [];
-            if(type == 'order') {
+            if (type == 'order') {
                 vm.paymentDetails = {
                     datCreated: payment.datCreated,
                     deliveryDate: payment.deliveryDate,
@@ -92,8 +92,27 @@
                     index: index
                 };
                 console.log(vm.paymentDetails);
+            } else if (type == 'walkin') {
+                vm.paymentDetails = {
+                    datWalkIn: payment.datWalkIn,
+                    intWalkInID: payment.intWalkInID,
+                    invoice: payment.invoice,
+                    packages: payment.packages,
+                    payment: payment.payment,
+                    products: payment.products,
+                    promo: payment.promo,
+                    services: payment.services,
+                    strContactNo: payment.strContactNo,
+                    strName: payment.strName,
+                    strPaymentStatus: payment.strPaymentStatus,
+                    strWalkInStatus: payment.strWalkInStatus,
+                    strWalkInType: payment.strWalkInType,
+                    paymentCreated: new Date(),
+                    type: type,
+                    index: index
+                }
             }
-            if(type == 'order') {
+            if (type == 'order') {
                 vm.paymentType = [
                     {id: 1, value: 'FULL PAYMENT', name: 'FULL PAYMENT'}
                 ];
@@ -105,7 +124,17 @@
                 vm.paymentType = [
                     {id: 1, value: 'FULL PAYMENT', name: 'FULL PAYMENT'},
                     {id: 2, value: 'DOWN PAYMENT', name: 'DOWN PAYMENT'},
-                    {id: 3, value: 'COMPLIMENTARY PAYMENT', name: 'COMPLIMENTARY PAYMENT'}
+                    {id: 3, value: 'COMPLEMENTARY PAYMENT', name: 'COMPLEMENTARY PAYMENT'}
+                ];
+                vm.paymentDetails.paymentCreated = $filter('date')(vm.paymentDetails.paymentCreated, "MMMM/d/yyyy");
+                vm.paymentDetails.totalBalance = $filter('currency')(vm.paymentDetails.invoice.dblTotalPrice, "Php ");
+                vm.paymentDetails.remainingBalance = $filter('currency')(vm.paymentDetails.invoice.dblRemainingBalance, "Php ");
+                vm.paymentDetails.paymentAmount = $filter('currency')(vm.paymentDetails.paymentAmount, "Php ");
+            } else if (type == 'walkin') {
+                vm.paymentType = [
+                    {id: 1, value: 'FULL PAYMENT', name: 'FULL PAYMENT'},
+                    {id: 2, value: 'DOWN PAYMENT', name: 'DOWN PAYMENT'},
+                    {id: 3, value: 'COMPLEMENTARY PAYMENT', name: 'COMPLEMENTARY PAYMENT'}
                 ];
                 vm.paymentDetails.paymentCreated = $filter('date')(vm.paymentDetails.paymentCreated, "MMMM/d/yyyy");
                 vm.paymentDetails.totalBalance = $filter('currency')(vm.paymentDetails.invoice.dblTotalPrice, "Php ");
@@ -118,7 +147,7 @@
         function paymentSubmit(payment) {
             var name = "",
                 paymentData = {};
-            if(payment.type == 'order') {
+            if (payment.type == 'order') {
                 paymentData = {
                     "intPaymentID": payment.intSalesID,
                     "intInvoiceID": payment.invoice.intInvoiceID,
@@ -140,6 +169,17 @@
                 };
                 var index = payment.index;
                 name = payment.customer.strName
+            } else if (payment.type == 'walkin') {
+            	paymentData = {
+                        "intPaymentID": payment.intWalkInID,
+                        "intInvoiceID": payment.invoice.intInvoiceID,
+                        "strPaymentType": payment.type,
+                        "dblPaymentAmount": payment.paymentAmount,
+                        "datDateOfPayment": payment.paymentCreated,
+                        "paymentType": payment.paymentType.value
+                    };
+                    var index = payment.index;
+                    name = payment.strName
             }
             console.log(paymentData);
             swal({
@@ -163,6 +203,7 @@
                                     SweetAlert.swal("Successfully created!", ".", "success");
                                     vm.paymentList.splice(index, 1);
                                     $('#paymentModal').closeModal();
+
                                 } else {
                                     SweetAlert.swal("Oops", "Record Not Saved!", "error");
                                 }

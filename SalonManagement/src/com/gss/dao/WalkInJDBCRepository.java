@@ -65,6 +65,8 @@ public class WalkInJDBCRepository implements WalkInRepository{
 			insertWalkIn.setString(2, walkin.getStrContactNo());
 			insertWalkIn.setDouble(3, walkin.getInvoice().getDblTotalPrice());
 			insertWalkIn.setString(4, walkin.getStrWalkInType());
+			System.out.println(walkin.getAppointmentDate());
+			System.out.println(walkin.getAppointmentTime());
 			insertWalkIn.setDate(5, walkin.getAppointmentDate());
 			insertWalkIn.setTime(6, walkin.getAppointmentTime());
 			insertWalkInResult = insertWalkIn.executeQuery();

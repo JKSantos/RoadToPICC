@@ -15,6 +15,11 @@ String gender = null;
 String position = null;
 String granAccess = null;
 %>
+<style>
+    .dataTables_filter {
+        display: none;
+    }
+</style>
 
 
 <!-- <div class="container"> -->
@@ -116,7 +121,7 @@ String granAccess = null;
                             </a>
                             <a class="updatebtn waves-effect waves-purple modal-trigger btn-flat transparent black-text empUpdatebtn"
                                href="#emp<%=str%>" style="padding-left: 10px;padding-right:10px; margin: 5px;"
-                               onclick="setBirthDate('#upbday${employee.intEmpID}', '${employee.datEmpBirthdate}')">
+                               onclick="setBirthDate('#upbday${employee.intEmpID}', '${employee.datEmpBirthdate}');">
                                 <i class="material-icons">edit</i>
                             </a>
                             <button class="empdeacbtn waves-effect waves-purple btn-flat transparent red-text text-accent-4"
@@ -156,7 +161,7 @@ String granAccess = null;
                    class="hoverable z-depth-1 cell-border row-border display centered responsive-table highlight"
                    cellspacing="0"
                    width="100%"
-                   style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;" rowspan="10">
+                   style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;">
                 <thead>
                 <tr>
                     <th class="no-sort"></th>
@@ -180,26 +185,26 @@ String granAccess = null;
                 </tr>
                 </tfoot>
                 <tbody>
-                    <tr>
-                        <td style="padding:0; margin:0;" class="dt-body-center">
-                            <center><img name="empupdatedImg" id="empArchiveImg" class="circle"
-                                         style="width: 30px; height: 30px;"
-                                         src=""
-                                         alt=""/></center>
-                        </td>
-                        <td class="dt-body-left"></td>
-                        <td style="padding-left: 10px !important; margin-left: 0px;" class="dt-body-left"></td>
-                        <td style="padding-right: 10px !important; margin-right: 0px;" class="dt-body-right "></td>
-                        <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-left "></td>
-                        <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-left "></td>
-                        <td class="center" style="padding:0; margin:0;">
-                            <button class="waves-effect waves-light btn-flat green darken-3 white-text"
-                                    id="empArchiveBtn" style="padding-left: 10px;padding-right:10px; margin: 5px;"
-                                    title="Restore">
-                                <i class="material-icons">restore</i>
-                            </button>
-                        </td>
-                    </tr>
+                <tr>
+                    <td style="padding:0; margin:0;" class="dt-body-center">
+                        <center><img name="empupdatedImg" id="empArchiveImg" class="circle"
+                                     style="width: 30px; height: 30px;"
+                                     src=""
+                                     alt=""/></center>
+                    </td>
+                    <td class="dt-body-left"></td>
+                    <td style="padding-left: 10px !important; margin-left: 0px;" class="dt-body-left"></td>
+                    <td style="padding-right: 10px !important; margin-right: 0px;" class="dt-body-right "></td>
+                    <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-left "></td>
+                    <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-left "></td>
+                    <td class="center" style="padding:0; margin:0;">
+                        <button class="waves-effect waves-light btn-flat green darken-3 white-text"
+                                id="empArchiveBtn" style="padding-left: 10px;padding-right:10px; margin: 5px;"
+                                title="Restore">
+                            <i class="material-icons">restore</i>
+                        </button>
+                    </td>
+                </tr>
 
                 </tbody>
             </table>
@@ -333,23 +338,29 @@ String granAccess = null;
                                     <select name="selectedJob" id="crSelectedJob" multiple="multiple" required
                                             class="required">
                                         <option value="default" disabled selected>Choose...</option>
-                                        <c:forEach items="${empCategory}" var="name">
-                                            <option value="${name.strCategoryName}">${name.strCategoryName}</option>
-                                        </c:forEach>
                                     </select>
                                     <label for="crSelectedJob" class="active"
-                                           style="margin-top: 25px !important;"><b>Position</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                           style="margin-top: 25px !important;"><b>Position</b>
+                                        <i class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s4">
                                     <button data-target="createAddOption"
                                             class="waves-effect waves-light btn-flat modal-option purple darken-3 white-text">
                                         <i class="material-icons">add</i></button>
                                 </div>
+                                <div class="input-field col s8" style="margin-top: -15px !important;">
+                                    <select name="selectedSpecialization" id="crSpecialization" multiple="multiple">
+                                        <option value="default" disabled selected>Choose...</option>
+                                        <c:forEach items="${categoryList}" var="category">
+                                             <option value="${category.categoryID}">${category.categoryName}</option>
+                                       	</c:forEach>
+                                    </select>
+                                    <label for="crSpecialization"><b>Specialization</b></label>
+                                </div>
                                 <div class="input-field col s12" style="margin-top: -20px !important;">
                                     <input type="checkbox" name="chkGrantAccess" id="chkGrantAccess"
                                            class="filled-in" style="color: purple;"/>
-                                    <label for="chkGrantAccess"><b>Grant Access</b></label>
+                                    <label for="chkGrantAccess"><b>Grant System Access</b></label>
                                 </div>
                             </div>
                         </div>
@@ -384,24 +395,28 @@ String granAccess = null;
                 <h4>Create Position</h4>
                 <div class="row">
                     <div class="errorCreateoption center input-field col s12 card red white-text z-depth-barts">
-
+                    </div>
+                    <div id="addCreateoption" class="center input-field col s12 card red white-text z-depth-barts">
                     </div>
                     <div class="col s12">
                         <div class="input-field col s8 offset-s2">
                             <select id="addOptionSelect" class="browser-default" size="10"
                                     style="height: 150px !important;">
-                                <c:forEach items="${empCategory}" var="name">
-                                    <option value="${name.strCategoryName}">${name.strCategoryName }</option>
-                                </c:forEach>
                             </select>
                         </div>
-                        <div class="input-field col s8 offset-s2" style="margin-top: 20px;">
+                        <div class="input-field col s6 offset-s2" style="margin-top: 20px;">
                             <input type="text"
                                    placeholder="Ex: Manager" id="addOptionName" name="addOptionName" required>
                             <label for="addOptionName" class="active"><b>Position</b></label>
                         </div>
+                        <div class="input-field col s2">
+                            <a id="crDeletePosition" onclick="removePosition();"
+                               class="modal-action waves-effect waves-light red darken-3 btn-flat white-text">
+                                <i class="material-icons">delete</i>
+                            </a>
+                        </div>
                         <div class="input-field col s8 offset-s2 center">
-                            <a id="createAddPosition"
+                            <a id="createAddPosition" onclick="addPosition();"
                                class="modal-action waves-effect waves-light purple darken-3 btn-flat white-text">SAVE
                             </a>
                             <button type="reset" value="Reset" id="crAddOptCancel"
@@ -433,12 +448,16 @@ String granAccess = null;
                         <div class="row">
                             <div class="col s12">
                                 <ul class="tabs tab-demo-active" style="width: 100%; background-color: #fafafa;">
-                                    <li class="tab col s6"><a
-                                            class="firsttab purple-text text-darken-2 active waves-effect waves-light"
-                                            href="#emp${employee.intEmpID}A"><b>INFO 1</b></a></li>
-                                    <li class="tab col s6"><a
-                                            class="secondtab purple-text text-darken-2 waves-effect waves-light"
-                                            href="#emp${employee.intEmpID}B"><b>INFO 2</b></a></li>
+                                    <li class="tab col s6">
+                                        <a class="firsttab purple-text text-darken-2 active waves-effect waves-light"
+                                           href="#emp${employee.intEmpID}A"><b>INFO 1</b>
+                                        </a>
+                                    </li>
+                                    <li class="tab col s6">
+                                        <a class="secondtab purple-text text-darken-2 waves-effect waves-light"
+                                           href="#emp${employee.intEmpID}B"><b>INFO 2</b>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                             <div id="emp${employee.intEmpID}A" class="ftab col s12">
@@ -607,6 +626,24 @@ String granAccess = null;
                                                         class="waves-effect waves-light btn-flat modal-option purple darken-3 white-text">
                                                     <i class="material-icons">add</i></button>
                                             </div>
+                                            <div class="input-field col s8" style="margin-top: -15px !important;">
+                                                <select name="upSpecialization" id="upSpecialization" multiple="multiple"
+                                                        class="upSpecialization">
+                                                        <option value="default" disabled>Choose...</option>
+                                                  	<c:forEach items="${categoryList}" var="category">
+                                                  		<c:set var="isCheck" scope="session" value=""/>
+                                                  		<c:forEach items="${employee.specialization}" var="spec">
+                                                  			<c:choose>
+                                                  			<c:when test="${category.categoryID == spec.id}">
+                                                    			<c:set var="isCheck" scope="session" value="selected"/>
+                                                    		</c:when>
+                                                    		</c:choose>
+                                                    	</c:forEach>
+                                                    	<option value="${category.categoryID}" ${isCheck}>${category.categoryName}</option>
+                                                    </c:forEach>
+                                                </select>
+                                                <label for="upSpecialization"><b>Specialization</b></label>
+                                            </div>
                                             <div class="input-field col s12" style="margin-top: -15px !important;">
                                                 <c:choose>
                                                     <c:when test="${employee.accessGranted == true}">
@@ -620,8 +657,8 @@ String granAccess = null;
                                                                class="filled-in" style="color: purple;"/>
                                                     </c:otherwise>
                                                 </c:choose>
-                                                <label for="chkupGrantAccess${employee.intEmpID}"><b>Grant
-                                                    Access</b></label>
+                                                <label for="chkupGrantAccess${employee.intEmpID}">
+                                                    <b>Grant System Access</b></label>
                                             </div>
                                         </div>
                                     </div>
@@ -652,25 +689,30 @@ String granAccess = null;
                 <h4>Create Position</h4>
                 <div class="row">
                     <div class="errorUpdateoption center input-field col s12 card red white-text z-depth-barts">
-
+                    </div>
+                    <div id="addUpdateoption"
+                         class="addUpdateoption center input-field col s12 card red white-text z-depth-barts">
                     </div>
                     <div class="col s12">
                         <div class="input-field col s8 offset-s2">
-                            <select id="updateAddOptionSelect" class="browser-default" size="10"
+                            <select id="updateAddOptionSelect" class="browser-default updateAddOptionSelect" size="10"
                                     style="height: 150px !important;">
-                                <c:forEach items="${empCategory}" var="name">
-                                    <option value="${name.strCategoryName}">${name.strCategoryName }</option>
-                                </c:forEach>
                             </select>
                         </div>
-                        <div class="input-field col s8 offset-s2" style="margin-top: 20px;">
+                        <div class="input-field col s6 offset-s2" style="margin-top: 20px;">
                             <input type="text" class="updateAddOptionName"
                                    placeholder="Ex: Manager" id="updateAddOptionName" name="updateAddOptionName"
                                    required>
                             <label for="updateAddOptionName" class="active"><b>Position</b></label>
                         </div>
+                        <div class="input-field col s2">
+                            <a id="upDeletePosition" onclick="removeUpdatePosition();"
+                               class="modal-action waves-effect waves-light red darken-3 btn-flat white-text">
+                                <i class="material-icons">delete</i>
+                            </a>
+                        </div>
                         <div class="input-field col s8 offset-s2 center">
-                            <a id="updateAddPosition"
+                            <a id="updateAddPosition" onclick="addUpdatePosition();"
                                class="updateAddPosition modal-action waves-effect waves-light purple darken-3 btn-flat white-text">SAVE
                             </a>
                             <button type="reset" value="Reset"

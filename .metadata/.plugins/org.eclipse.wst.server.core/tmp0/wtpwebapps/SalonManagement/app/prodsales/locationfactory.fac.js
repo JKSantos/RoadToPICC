@@ -28,12 +28,12 @@
                 });
             },
             getPromos: function () {
-                return $http.get('http://localhost:8080/SalonManagement/getAllPromoNoDetails').then(function (data) {
+                return $http.get('getAllPromoNoDetails').then(function (data) {
                     return data;
                 });
             },
             getPromosWithDetails: function () {
-                return $http.get('http://localhost:8080/SalonManagement/api/v1/getAllPromo').then(function (data) {
+                return $resource('http://localhost:8080/SalonManagement/api/v1/getAllPromo').get().$promise.then(function (data) {
                     return data;
                 });
             },
@@ -57,6 +57,11 @@
                     return data;
                 });
             },
+            getWalkin: function () {
+              return $resource('GetAllWalkInNoDetails').get().$promise.then(function (data) {
+                    return data;  
+              });
+            },
             getRequest: function () {
                 return $resource('getAllProductRequest').get().$promise.then(function (data) {
                     return data;
@@ -65,6 +70,11 @@
             getOrders: function() {
                 return $resource('orders').get().$promise.then(function (data) {
                     return data;
+                });
+            },
+            getReservations: function() {
+                return $resource('getAllReservationNoDetails').get().$promise.then(function (data) {
+                   return data; 
                 });
             }
         }

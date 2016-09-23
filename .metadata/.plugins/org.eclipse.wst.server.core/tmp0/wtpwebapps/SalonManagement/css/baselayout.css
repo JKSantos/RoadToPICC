@@ -2,6 +2,40 @@
  * Created by Castillo on 8/2/2016.
  */
 
+.bubbles1 {
+    background-color: #4a148c;
+    width: 15px;
+    height: 15px;
+    margin: 2px;
+    border-radius: 100%;
+    -webkit-animation: bubbles 0.6s 0.07s infinite ease-in-out;
+    animation: bubbles 0.6s 0.07s infinite ease-in-out;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    display: inline-block;
+}
+@-webkit-keyframes bubbles {
+33%: {
+    -webkit-transform: translateY(10px);
+    transform: translateY(10px);
+} 66% {
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
+} 100%  {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+}  }
+@keyframes bubbles {
+33%:  { -webkit-transform: translateY(10px);
+    transform: translateY(10px);
+} 66% {
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
+} 100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+} }
+
 #archivePackageModal {
     width: 850px !important;
     height: 550px !important;
@@ -59,18 +93,25 @@
     margin-top: -30px !important;
 }
 
+#updateDiscountModal {
+    width: 600px !important;
+    height: 590px !important;
+    max-height: 100% !important;
+    margin-top: -30px !important;
+}
+
 #crPromoModal {
     width: 700px !important;
-    height: 590px !important;
+    height: 620px !important;
     max-height: 100% !important;
     margin-top: -30px !important;
 }
 
 #upPromoModal {
     width: 700px !important;
-    height: 590px !important;
+    height: 628px !important;
     max-height: 100% !important;
-    margin-top: -30px !important;
+    margin-top: -40px !important;
 }
 
 #createPackageModal {
@@ -202,6 +243,13 @@
     height: 400px !important;
 }
 
+#editWalkin {
+    width: 900px !important;
+    height: 635px !important;
+    max-height: 100% !important;
+    margin-top: -20px !important;
+}
+
 .paging_full_numbers a.paginate_active {
     color: #4a148c !important;
 }
@@ -231,6 +279,7 @@
 
 .collapsible-body .navul li a {
     margin-left: 40px !important;
+    color: #eeeeee !important;
 }
 
 .dataTables_filter {
@@ -346,9 +395,43 @@ nav .nav-wrapper form, nav .nav-wrapper form .input-field {
     padding-bottom: 0px !important;
 }
 
+#deliverytbl tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#discounttbl tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#walkinRecordTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#walkinAppointmentRecordTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
 #prodsalesTable tbody tr td {
     padding-top: 0px !important;
     padding-bottom: 0px !important;
+    height: 45px !important;
+}
+
+#walkinTable {
+    width: 80% !important;
+    height: 590px !important;
+    max-height: 100% !important;
+    margin-top: -30px !important;
+}
+
+#walkinTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: 45px !important;
 }
 
 #psTBL tbody tr td {
@@ -361,14 +444,57 @@ nav .nav-wrapper form, nav .nav-wrapper form .input-field {
     padding-bottom: 0px !important;
 }
 
+#reservationTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
 #employeeQueryTable tbody tr td {
     padding-top: 0px !important;
     padding-bottom: 0px !important;
+    height: 45px !important;
 }
 
 #productQueryTable tbody tr td {
     padding-top: 0px !important;
     padding-bottom: 0px !important;
+    height: 45px !important;
+}
+
+#serviceQueryTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: 45px !important;
+}
+
+#packageQueryTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: 45px !important;
+}
+
+#deliveryQueryTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: 45px !important;
+}
+
+#extraQueryTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: 45px !important;
+}
+
+#promoQueryTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: 45px !important;
+}
+
+#discountQueryTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: 45px !important;
 }
 
 .dataTables_wrapper .dataTables_length {
@@ -386,12 +512,12 @@ nav .nav-wrapper form, nav .nav-wrapper form .input-field {
     overflow-x: hidden;
 }
 
-.order.ng-enter, .classified.ng-move {
+.order.ng-enter, .order.ng-move {
     transition: 0.4s all;
     opacity: 0;
 }
 
-.order.ng-enter.ng-enter-active, .classified.ng-move.ng-move-active {
+.order.ng-enter.ng-enter-active, .order.ng-move.ng-move-active {
     opacity: 1;
 }
 
@@ -402,4 +528,39 @@ nav .nav-wrapper form, nav .nav-wrapper form .input-field {
 @keyframes fade_order {
     from { opacity: 1; }
     to { opacity: 0; }
+}
+
+.table-barts thead {
+    border-left: solid 1px #bdbdbd;
+    border-right: solid 1px #bdbdbd;
+    border-top: solid 1px #bdbdbd;
+}
+
+.table-barts tbody tr td {
+    border: solid 1px #bdbdbd;
+}
+
+.barts-valign {
+    text-align: center !important;
+    display: block;
+}
+
+.boldBarts {
+    font-weight: bold !important;
+}
+
+#ngDateFrom-error {
+    display: none !important;
+}
+
+#ngDateTo-error {
+    display: none !important;
+}
+
+.collapsibleHighlight li:hover {
+    background-color: #1a1a1a !important;
+}
+
+.collapsibleHighlight li.active {
+    background-color: #1a1a1a !important;
 }
