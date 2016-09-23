@@ -129,5 +129,35 @@ public class SalesReportRepository {
 		
 	}
 	
+	
+	public static List<Integer> getTotalClient(ReportDate date){
+		
+		List<Integer> clients = new ArrayList<Integer>();
+		Connection con = new JDBCConnection().getConnection();
+		try{
+			
+			PreparedStatement statement = con.prepareStatement("CALL getTotalClients(?, ?);");
+			statement.setString(1, date.getDateFrom());
+			statement.setString(2, date.getDateTo());
+			ResultSet set = statement.executeQuery();
+			
+			while(set.next()){
+				clients.add(set.getInt(1));
+				clients.add(set.getInt(2));
+				clients.add(set.getInt(3));
+			}
+			
+			
+			statement.close();
+			set.close();
+			con.close();
+			return clients;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 
 }
