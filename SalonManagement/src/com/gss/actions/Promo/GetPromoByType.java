@@ -1,5 +1,6 @@
 package com.gss.actions.Promo;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.gss.dao.PromoJDBCRepository;
@@ -11,7 +12,8 @@ public class GetPromoByType {
 	
 	private String type;
 	
-	public String execute(){
+	public String execute() throws SQLException{
+		Promo.checkExpiredPromo();
 		this.promoList = PromoJDBCRepository.getPromoByType(type);
 		
 		return "success";

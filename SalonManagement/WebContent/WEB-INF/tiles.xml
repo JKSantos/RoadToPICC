@@ -170,7 +170,7 @@
     
     <definition name="walkinReport" extends="baseLayout">
     	<put-attribute name="title"			value="Walk In Report"/>
-    	<put-attribute name="body"			value="/tiles/reports-sales-walkin.jsp"/>
+    	<put-attribute name="body"			value="/tiles/sales-report.jsp"/>
     </definition>
 
     <definition name="changeAccount" extends="baseLayout">

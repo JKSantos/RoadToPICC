@@ -23,6 +23,10 @@
     <link rel="stylesheet" type="text/css" href="css/perfect-scrollbar.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/angular-validation.css"/>
 
+    <link rel="stylesheet" type="text/css" href="css/nouislider.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/nouislider.pips.css"/>
+    <link rel="stylesheet" type="text/css" href="css/nouislider.tooltips.css"/>
+
 
     <!--<link rel="stylesheet" type="text/css" href="css/drag.css"/>-->
     <!--<link rel="stylesheet" type="text/css" href="css/animate.css"/>-->
@@ -163,9 +167,8 @@
                     </a>
                     <div class="collapsible-body" style="background-color: #333333 !important;">
                         <ul class="navul">
-                            <li><a href="reservationPage">Reservation Sales</a></li>
-                            <li><a href="orderPage">Product Order Sales</a></li>
-                            <li><a href="walkinPage">Walk In Sales</a></li>
+                            <li><a href="orderPage`">Product Purchases</a></li>
+                            <li><a href="reservationPage">Sales Reports</a></li>
                             <li><a href="productTags">Product Tags</a></li>
                         </ul>
                     </div>
@@ -238,6 +241,7 @@
 <script type="text/javascript" src="js/fullcalendar.js"></script>
 <script type="text/javascript" src="js/moment.min.js"></script>
 <script type="text/javascript" src="js/ajax.js"></script>
+<script type="text/javascript" src="js/nouislider.min.js"></script>
 
 <!-- <script type="text/javascript" src="js/ProductsSales/ajax.js"></script> -->
 <!-- jQuery Ajax -->
@@ -293,6 +297,7 @@
 <script type="text/javascript" src="app/report/reportsFactory.fac.js"></script>
 <script type="text/javascript" src="app/report/salesReportController.ctrl.js"></script>
 <script type="text/javascript" src="app/report/reservationReportController.ctrl.js"></script>
+<script type="text/javascript" src="app/report/productTagsReportController.ctrl.js"></script>
 
 
 </body>

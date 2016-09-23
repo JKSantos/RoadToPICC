@@ -1,327 +1,83 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<div class="wrapper" ng-controller="reservationReportController as vm">
+<div class="wrapper" ng-controller="salesReportController">
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
-            <h3 class="grey-text center text-darken-1">Reports</h3>
-              
+            <h3 class=" center light">Saleas Reports</h3>
             <!--<a class="btnshadow hoverable z-depth-1 waves-effect waves-light modal-trigger btn-flat purple darken-2 left white-text"-->
-        <div class="row">
-        	<div class="col s12"><a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
-               href="#reservationListModal" ng-click = "vm.getData()" style="margin-right: 10px"><i
-                    class="material-icons">card_travel</i></a>
-                    
-                    <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
-               href="#orderListModal" ng-click = "vm.getData()" style="margin-right: 10px"><i
-                    class="material-icons">shopping_cart</i></a>
-                    
-                    <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
-               href="#walkinListModal" ng-click = "vm.getData()"><i
-                    class="material-icons">exit_to_app</i></a></div>
-        	<div class="col s6">
-	          <div class="card darken-1">
-	            <div class="card-content black-text">
-	             <h2 class="thin purple-text text-darken-2">Sales Summary:</h2>
-	             <h4 class="light">Total Reservation sales: {{vm.reservationTotal}}</h4>
-	             <h4 class="light">Total Order Sales: {{vm.orderTotal}}</h4>
-	             <h4 class="light">Total Walkin Sales: <span class="thin">{{vm.walkinTotal}}</span></h4>
-	            </div>
-	           
-	          </div>
-	        </div>
-	        <div class="col s6">
-	        	<div class="col s12">
-	        		<div class="card darken-1">
-			            <div class="card-content black-text">
-			   				 <div class="input-field col s6">
-                                    <input input-date
-                                           type="text"
-                                           id="ngDateFrom"
-                                           placeholder="January/1/2016"
-                                           ng-model="vm.details.datFrom"
-                                           months-full="{{ vm.month }}"
-                                           disable="disable"
-                                           min=""
-                                           max=""
-                                           today="today"
-                                           clear="clear"
-                                           close="close"
-                                           select-years="15"
-                                           ng-change="vm.changeDatFrom(vm.details.datFrom)"/>
-                                    <label for="ngDateFrom" class="active"><b>Date From</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
-                                </div>
-                                <div class="input-field col s6">
-                                    <input input-date
-                                           type="text"
-                                           placeholder="January/1/2016"
-                                           id="ngDateTo"
-                                           ng-model="vm.details.datTo"
-                                           months-full="{{ vm.month }}"
-                                           months-short="{{ vm.monthShort }}"
-                                           weekdays-full="{{ vm.weekdaysFull }}"
-                                           weekdays-short="{{ vm.weekdaysShort }}"
-                                           weekdays-letter="{{ vm.weekdaysLetter }}"
-                                           disable="disable"
-                                           min=""
-                                           max=""
-                                           today="today"
-                                           clear="clear"
-                                           close="close"
-                                           select-years="15"
-                                           ng-change="vm.changeDatTo(vm.details.datTo)"/>
-                                    <label for="ngDateTo" class="active">
-                                        <b>Date To</b>
-                                        <i class="material-icons red-text tiny">
-                                            error_outline</i>
-                                    </label>
-                                </div>   
-                                
-                                <div class="col s12">
-                                	<a class="z-depth-1 hoverable waves-effect waves-light btn purple darken-2 white-text"
-				               ng-click="vm.sendFilters()" ><i
-				                    class="material-icons">search</i></a>
-                                </div> 
-                                
-                                
-		                     </div>
-		                     
-		                     <div class="card-action">
-				           
-				            </div>
-			          </div>
-	          </div>
-	      
-	        	
-	        	<div class="col s12">
-	        		<div class="card darken-1">
-			            <div class="card-content black-text">
-			   				<h5>asdasd</h5>
-			            </div>
-		            <div class="card-action">
-		              <a href="#">ACTIONS</a>
-		              <a href="#">PRINT</a>
-		            </div>
-		          </div>
-		       </div>
-	           </div>
-	        </div>
-        </div>
-            
-	      <div class="row">
-	        <div class="col s12">
-	          <div class="card darken-1">
-	            <div class="card-content white-text">
-	             <div id="containerReservation" style="min-width: 99%; height: 99%; max-width: 100%; margin: 0 auto"></div>
-	            </div>
-	            <div class="card-action">
-	              <a href="#">ACTIONS</a>
-	              <a href="#">PRINT</a>
-	            </div>
-	          </div>
-	        </div>
-	      </div>
-            
-            <div class="col s12">
-                
+    
+          <div class="row">
+
+            <div class="col s7">
+              <div class="card darken-1">
+                <div class="card-content white-text">
+                 <div id="containerMonthly" style="min-width: 100%; height: 100%; margin: 0 auto"></div>
+                </div>
+                <div class="card-action">
+                  <a class="waves-effect waves-light btn right green darken-2" ng-click = "downloadMonthly()"><i class="material-icons left">file_download</i>download</a>
+                </div>
+              </div>
             </div>
+
+          <div class="col s5">
+            <div class="card darken-1">
+              <div class="card-content white-text">
+               <div id="containerQuarterly" style="min-width: 100%; height: 100%; max-width: 100%; margin: 0 auto"></div>
+              </div>
+              <div class="card-action">
+               <a class="waves-effect waves-light btn right green darken-2"><i class="material-icons left">file_download</i>download</a>
+              </div>
+            </div>
+          </div>
+
+          </div>
+
+         <div class="row">
+          <div class="col s12">
+            <div class="card darken-1">
+              <div class="card-content">
+                <div class="row">
+                   <div class="input-field col s3">
+                       <select ng-model = "select.yearFrom">
+                         <option value="" disabled selected>Choose your option</option>
+                         <option value="2010">2010</option>
+                         <option value="2011">2011</option>
+                         <option value="2012">2012</option>
+                         <option value="2013">2013</option>
+                         <option value="2014">2014</option>
+                         <option value="2015">2015</option>
+                         <option value="2016">2016</option>
+                       </select>
+                       <label>Year From</label>
+                    </div>
+                    <div class="input-field col s3">
+                       <select ng-model = "select.yearTo">
+                         <option value="" disabled selected>Choose your option</option>
+                         <option value="2010">2010</option>
+                         <option value="2011">2011</option>
+                         <option value="2012">2012</option>
+                         <option value="2013">2013</option>
+                         <option value="2014">2014</option>
+                         <option value="2015">2015</option>
+                         <option value="2016">2016</option>
+                       </select>
+                       <label>Year To</label>
+                    </div>
+                    
+                    <div class = "col s2">
+                        <a class="waves-effect waves-light btn btn-large right" ng-click = "generate(select)"><i class="material-icons left">search</i>SHOW</a>
+                    </div>
+                </div>
+               <div id="containerAnnually" style="min-width: 99%; height: 99%; max-width: 100%; margin: 0 auto"></div>
+              </div>
+              <div class="card-action">
+                <a class="waves-effect waves-light btn right green darken-2"><i class="material-icons left">file_download</i>download</a>
+              </div>
+            </div>
+          </div>
+        </div>
             
-            <div id="reservationListModal" class="modal"style = "width: 70% !important; height: 80% !important; border-radius: 10px">
-        <div class="modal-content">
-         	<a href="#!" class=" modal-action modal-close waves-effect waves-purple btn-flat right"><i
-                    class="material-icons red-text" style="font-size: 30px ">highlight_off</i></a>
-            <h3 class="purple-text text-darken-3 thin">Reservation List</h3>
-            <table id=""
-                   class="hoverable z-depth-1 cell-border row-border display responsive-table highlight"
-                 
-                   style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;" rowspan="10">
-                <thead>
-                <tr>
-                    <th class="left-align">Customer Name</th>
-                    <th class="left-align">Customer Type</th>
-                    <th class="left-align">Date Created</th>
-                    <th align="center-align">Amount</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="customer in vm.reservationList">
-                    <td class="left-align">{{customer.strName}}</td>
-                    <td class="left-align">{{customer.intReservationType }}</td>
-                    <td class="right-align">{{customer.dtmDateTimeCreaetd | date: "MMMM/d/yyyy" }}</td>
-                    <td class="left-align">{{customer.dblInvoiceAmount}}</td>
-                    <td align="center-align">
-                        <button class="waves-effect waves-purple btn-flat transparent red-text text-accent-4"
-                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Cancel"
-                                ng-if="customer.intReservationType == 1"
-                                ng-click="cancelHomeService(customer, $index)">
-                            <i class='material-icons'>exit</i>
-                        </button>
-                        <button class="waves-effect waves-purple btn-flat transparent grey-text text-darken-4"
-                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Accept"
-                                ng-if="customer.intReservationType == 1"
-                                ng-click="acceptHomeService(customer, $index)">
-                            <i class='material-icons'>done</i>
-                        </button>
-                        <button class="btn-flat transparent red-text text-lighten-4"
-                                style="padding-left: 10px;padding-right:10px; margin: 5px;"
-                                ng-if="customer.intReservationType == 2"
-                                ng-disabled=true>
-                            <i class='material-icons'>exit</i>
-                        </button>
-                        <button class="btn-flat transparent grey-text text-lighten-3"
-                                style="padding-left: 10px;padding-right:10px; margin: 5px;"
-                                ng-if="customer.intReservationType == 2"
-                                ng-disabled=true>
-                            <i class='material-icons'>done</i>
-                        </button>
-                    </td>
-                </tr>
-                </tbody>
-                <tfoot style="border: 1px solid #bdbdbd;">
-                <tr>
-                    <th class="left-align">Customer Name</th>
-                    <th class="left-align">Customer Type</th>
-                    <th class="left-align">Date Created</th>
-                    <th align="center-align">Amount</th>
-                </tr>
-                </tfoot>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    
-    <div id="orderListModal" class="modal"style = "width: 70% !important; height: 80% !important; border-radius: 10px">
-        <div class="modal-content">
-         	<a href="#!" class=" modal-action modal-close waves-effect waves-purple btn-flat right"><i
-                    class="material-icons red-text" style="font-size: 30px ">highlight_off</i></a>
-            <h3 class="purple-text text-darken-3 thin">Order List</h3>
-            <table id=""
-                   class="hoverable z-depth-1 cell-border row-border display responsive-table highlight"
-                 
-                   style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;" rowspan="10">
-                <thead>
-                <tr>
-                    <th class="left-align">Customer Name</th>
-                    <th class="left-align">Customer ID</th>
-                    <th class="left-align">Date Created</th>
-                    <th align="center-align">Amount</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="customer in vm.productOrderList">
-                    <td class="left-align">{{customer.strName}}</td>
-                    <td class="left-align">{{customer.intOrderID }}</td>
-                    <td class="right-align">{{customer.date | date: "MMMM/d/yyyy" }}</td>
-                    <td class="left-align">{{customer.dblAmount}}</td>
-                    <td align="center-align">
-                        <button class="waves-effect waves-purple btn-flat transparent red-text text-accent-4"
-                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Cancel"
-                                ng-if="customer.intReservationType == 1"
-                                ng-click="cancelHomeService(customer, $index)">
-                            <i class='material-icons'>exit</i>
-                        </button>
-                        <button class="waves-effect waves-purple btn-flat transparent grey-text text-darken-4"
-                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Accept"
-                                ng-if="customer.intReservationType == 1"
-                                ng-click="acceptHomeService(customer, $index)">
-                            <i class='material-icons'>done</i>
-                        </button>
-                        <button class="btn-flat transparent red-text text-lighten-4"
-                                style="padding-left: 10px;padding-right:10px; margin: 5px;"
-                                ng-if="customer.intReservationType == 2"
-                                ng-disabled=true>
-                            <i class='material-icons'>exit</i>
-                        </button>
-                        <button class="btn-flat transparent grey-text text-lighten-3"
-                                style="padding-left: 10px;padding-right:10px; margin: 5px;"
-                                ng-if="customer.intReservationType == 2"
-                                ng-disabled=true>
-                            <i class='material-icons'>done</i>
-                        </button>
-                    </td>
-                </tr>
-                </tbody>
-                <tfoot style="border: 1px solid #bdbdbd;">
-                <tr>
-                    <th class="left-align">Customer Name</th>
-                    <th class="left-align">Customer Type</th>
-                    <th class="left-align">Date Created</th>
-                    <th align="center-align">Amount</th>
-                </tr>
-                </tfoot>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    
-    <div id="walkinListModal" class="modal"style = "width: 70% !important; height: 80% !important; border-radius: 10px">
-        <div class="modal-content">
-         	<a href="#!" class=" modal-action modal-close waves-effect waves-purple btn-flat right"><i
-                    class="material-icons red-text" style="font-size: 30px ">highlight_off</i></a>
-            <h3 class="purple-text text-darken-3 thin">Walk In List</h3>
-            <table id=""
-                   class="hoverable z-depth-1 cell-border row-border display responsive-table highlight"
-                 
-                   style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;" rowspan="10">
-                <thead>
-                <tr>
-                    <th class="left-align">Customer Name</th>
-                    <th class="left-align">Customer Type</th>
-                    <th class="left-align">Date Created</th>
-                    <th align="center-align">Amount</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="customer in vm.walkinList">
-                    <td class="left-align">{{customer.strName}}</td>
-                    <td class="left-align">{{customer.intReservationType }}</td>
-                    <td class="right-align">{{customer.dtmDateTimeCreaetd | date: "MMMM/d/yyyy" }}</td>
-                    <td class="left-align">{{customer.dblInvoiceAmount}}</td>
-                    <td align="center-align">
-                        <button class="waves-effect waves-purple btn-flat transparent red-text text-accent-4"
-                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Cancel"
-                                ng-if="customer.intReservationType == 1"
-                                ng-click="cancelHomeService(customer, $index)">
-                            <i class='material-icons'>exit</i>
-                        </button>
-                        <button class="waves-effect waves-purple btn-flat transparent grey-text text-darken-4"
-                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Accept"
-                                ng-if="customer.intReservationType == 1"
-                                ng-click="acceptHomeService(customer, $index)">
-                            <i class='material-icons'>done</i>
-                        </button>
-                        <button class="btn-flat transparent red-text text-lighten-4"
-                                style="padding-left: 10px;padding-right:10px; margin: 5px;"
-                                ng-if="customer.intReservationType == 2"
-                                ng-disabled=true>
-                            <i class='material-icons'>exit</i>
-                        </button>
-                        <button class="btn-flat transparent grey-text text-lighten-3"
-                                style="padding-left: 10px;padding-right:10px; margin: 5px;"
-                                ng-if="customer.intReservationType == 2"
-                                ng-disabled=true>
-                            <i class='material-icons'>done</i>
-                        </button>
-                    </td>
-                </tr>
-                </tbody>
-                <tfoot style="border: 1px solid #bdbdbd;">
-                <tr>
-                    <th class="left-align">Customer Name</th>
-                    <th class="left-align">Customer Type</th>
-                    <th class="left-align">Date Created</th>
-                    <th align="center-align">Amount</th>
-                </tr>
-                </tfoot>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    
         </div>
     </div>
 

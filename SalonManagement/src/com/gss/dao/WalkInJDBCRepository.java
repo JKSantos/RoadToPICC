@@ -732,8 +732,26 @@ public class WalkInJDBCRepository implements WalkInRepository{
 	
 	@Override
 	public boolean cancelWalkIn(int intWalkInID) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		Connection con = jdbc.getConnection();
+		
+		String query = "UPDATE tblWalkIn SET strStatus = 'CANCELLED' WHERE intWalkInID = ?;";
+		
+		try{
+			
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setInt(1, intWalkInID);
+			statement.executeQuery();
+			
+			statement.close();
+			con.close();
+			
+			return true;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
@@ -804,5 +822,28 @@ public class WalkInJDBCRepository implements WalkInRepository{
 	public List<WalkIn> getAllWalkIn() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public static boolean updateWalkInStatus(int id, String status){
+		
+		Connection con = new JDBCConnection().getConnection();
+		String query = "UPDATE tblWalkIn SET strStatus = ? WHERE intWalkInID = ?;";
+		
+		try{
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setInt(1, id);
+			statement.setString(2, status);
+			statement.execute();
+			
+			statement.close();
+			
+			con.close();
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+				
+		
 	}
 }

@@ -195,7 +195,7 @@ public class CreateReservation {
 				
 				
 				if(this.intReservationType == 1)
-					reservation = new Reservation(1, customer, includedItems, intReservationType, new Date(), DateHelper.parseDate(dateFrom), DateHelper.parseDate(dateTo), TimeHelper.parseTime(timFrom), TimeHelper.parseTimeHomeService(timTo), strVenue, headCount, this.intLocationID, employeeAssigned, invoice, strStatus, contractPath);
+					reservation = new Reservation(1, customer, includedItems, intReservationType, new Date(), DateHelper.parseDate(dateFrom), DateHelper.parseDate(dateFrom), TimeHelper.parseTime(timFrom), TimeHelper.parseTimeHomeService(timFrom), strVenue, headCount, this.intLocationID, employeeAssigned, invoice, strStatus, contractPath);
 				else
 					reservation = new Reservation(1, customer, includedItems, intReservationType, new Date(), DateHelper.parseDate(dateFrom), DateHelper.parseDate(dateTo), TimeHelper.parseTime(timFrom), TimeHelper.parseTime(timTo), strVenue, headCount, this.intLocationID, employeeAssigned, invoice, strStatus, contractPath);
 				

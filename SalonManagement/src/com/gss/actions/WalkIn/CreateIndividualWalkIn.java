@@ -167,8 +167,7 @@ public class CreateIndividualWalkIn {
 		Invoice invoice = Invoice.createNullInvoice(extraChargeList, discountList, PriceFormatHelper.convertToDouble(this.strTotalPrice, "Php "), "FULL");
 		
 		WalkIn walkin = new WalkIn(1, customerType, this.strName, this.strContactNo, new Date(), serviceList, productList, packageList, promoList, invoice, null, "PENDING", "UNPAID");
-		System.out.println("App Date: " + java.sql.Date.valueOf(appointmentDate));
-		System.out.println("App Time: " + this.appointmentTime);
+		
 		try{
 			
 		String timee = appointmentTime.replaceAll("AM", "");	

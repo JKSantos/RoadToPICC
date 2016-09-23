@@ -3,6 +3,7 @@ package com.gss.dao.Reports;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,11 +42,11 @@ public class SalesReportRepository {
 				
 				while(set.next()){
 					
-					double homeService = set.getDouble(1);
-					double eventService = set.getDouble(2);
-					double walkin = set.getDouble(3);
-					double delivery = set.getDouble(4);
-					double pickup = set.getDouble(5);
+					double homeService = (double) Math.round(set.getDouble(1) * 100) / 100;
+					double eventService = (double) Math.round(set.getDouble(2) * 100) / 100;
+					double walkin = (double) Math.round(set.getDouble(3) * 100) / 100;
+					double delivery = (double) Math.round(set.getDouble(4) * 100) / 100;
+					double pickup = (double) Math.round(set.getDouble(5) * 100) / 100;
 					
 					if(type.equalsIgnoreCase("monthly")){
 						details.add(new SalesReportDetail(DateHelper.intMonthToString(index+1), homeService, eventService, walkin, delivery, pickup));
@@ -73,6 +74,90 @@ public class SalesReportRepository {
 			return null;
 		}
 		
-	} 
+	}
+	
+	public static SalesReport getSalesReport(ReportDate date, String type){
+		
+		Connection con = jdbc.getConnection();
+		
+		SalesReport report = null;
+		List<SalesReportDetail> details = new ArrayList<SalesReportDetail>();
+		
+		String query = "CALL getSalesTotal(?, ?);";
+		
+		try{
+			
+			PreparedStatement get = con.prepareStatement(query);
+			ResultSet set = null;
+			
+				
+				get.setString(1, date.getDateFrom());
+				get.setString(2, date.getDateTo());
+				
+				set = get.executeQuery();
+				
+				while(set.next()){
+					
+					double homeService = set.getDouble(1);
+					double eventService = set.getDouble(2);
+					double walkin = set.getDouble(3);
+					double delivery = set.getDouble(4);
+					double pickup = set.getDouble(5);
+					
+					LocalDateTime now = LocalDateTime.now();
+			    	int month = now.getMonthValue();
+					
+			    	if(type.equalsIgnoreCase("month"))
+			    		details.add(new SalesReportDetail(DateHelper.intMonthToString(month+1), homeService, eventService, walkin, delivery, pickup));
+			    	else
+			    		details.add(new SalesReportDetail("This Week", homeService, eventService, walkin, delivery, pickup));
+				}
+			
+			
+			report = new SalesReport(type, details);
+			
+			set.close();
+			get.close();
+			con.close();
+			
+			return report;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	
+	public static List<Integer> getTotalClient(ReportDate date){
+		
+		List<Integer> clients = new ArrayList<Integer>();
+		Connection con = new JDBCConnection().getConnection();
+		try{
+			
+			PreparedStatement statement = con.prepareStatement("CALL getTotalClients(?, ?);");
+			statement.setString(1, date.getDateFrom());
+			statement.setString(2, date.getDateTo());
+			ResultSet set = statement.executeQuery();
+			
+			while(set.next()){
+				clients.add(set.getInt(1));
+				clients.add(set.getInt(2));
+				clients.add(set.getInt(3));
+			}
+			
+			
+			statement.close();
+			set.close();
+			con.close();
+			return clients;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 
 }
