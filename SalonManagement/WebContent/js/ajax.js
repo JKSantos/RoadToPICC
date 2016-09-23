@@ -139,3 +139,39 @@ function openEmpUpdate(intEmpID) {
     });
 }
 
+
+function clickclick () {
+	var data = {
+			'students': [{
+				'intStudID': 1,
+				'strFName': 'John Angelo',
+				'strLName': 'Castillo',
+				'strMName': 'Castillo',
+				'strAddess': 'Meycauayan, Bulacan',
+				'strContactNo': '12313131'
+			}, {
+				'intStudID': 2,
+				'strFName': 'Jeff',
+				'strLName': 'Santos',
+				'strMName': 'Santos',
+				'strAddess': 'Pasig',
+				'strContactNo': '12313131'
+			}]
+	}
+
+	$.ajax({
+		url: 'createStudents',
+		method: 'post',
+		data: data,
+		dataType: 'json',
+		async: true,
+		success: function(data) {
+			console.log(data);
+		},
+		error: function(data) {
+			console.log(data);
+		}
+		
+	});
+}
+

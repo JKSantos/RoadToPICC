@@ -237,6 +237,7 @@
 <script type="text/javascript" src="js/exporting.js"></script>
 <script type="text/javascript" src="js/fullcalendar.js"></script>
 <script type="text/javascript" src="js/moment.min.js"></script>
+<script type="text/javascript" src="js/ajax.js"></script>
 
 <!-- <script type="text/javascript" src="js/ProductsSales/ajax.js"></script> -->
 <!-- jQuery Ajax -->

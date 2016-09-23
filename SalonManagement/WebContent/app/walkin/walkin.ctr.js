@@ -806,80 +806,40 @@
             selectdiscount = selectedDiscount;
         }
 
-
-        /*<<<<<<< HEAD
-         vm.saveWalkin = function (details) {
-         toString();
-         console.log(vm.selPackageDetails);
-         var walkinData = $.param({
-         'productString': selectprod,
-         'productQuantity': quantprod,
-         'serviceString': selectserv,
-         'employeeAssigned': selectEmp,
-         'promoList': vm.selPromoDetails,
-         'strTotalPrice': vm.sum,
-         'discounts': selectdiscount,
-         'strName': vm.details.name,
-         'strContactNo': vm.details.contact,
-         'packageList': vm.selPackageDetails
-         });
-
-         var xxx = {
-         =======*/
         vm.saveWalkin = function (details) {
             vm.loadingBubble = 0;
             toString();
-            var walkinData = $.param({
-//>>>>>>> 30c62257fea4ed824946cc58eefebc95484750e0
+            var walkinData = {
                 'productString': selectprod,
                 'productQuantity': quantprod,
                 'serviceString': selectserv,
                 'employeeAssigned': selectEmp,
+                'packageList': vm.selPackageDetails,
                 'promoList': vm.selPromoDetails,
-                'strTotalPrice': vm.sum,
+                'strTotalPrice': parseFloat(vm.sum).toFixed(2),
                 'discounts': selectdiscount,
                 'strName': vm.details.name,
-                /*<<<<<<< HEAD
-                 'strContactNo': vm.details.contact,
-                 'packageList': vm.selPackageDetails
-                 }
-
-                 $http({
-                 method: 'post',
-                 url: 'http://localhost:8080/SalonManagement/createWalkin',
-                 data: walkinData,
-                 headers: {
-                 'Content-Type': 'application/x-www-form-urlencoded'
-                 },
-                 traditional : true
-                 }).then(function successCallback(data) {
-                 console.log(xxx);
-                 SweetAlert.swal("Successfully created!", ".", "success");
-                 $('#createWalkinModal').closeModal();
-                 }, function errorCallback(response) {
-                 SweetAlert.swal("Oops", "Something went wrong!", "error");
-                 });
-                 =======*/
                 'strContactNo': vm.details.contact
-            });
+            };
+            
+            var data1 = JSON.stringify(walkinData);
 
             $timeout(function () {
                 $http({
                     method: 'post',
                     url: 'http://localhost:8080/SalonManagement/createWalkin',
-                    data: walkinData,
+                    data: data1,
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
+                        'Content-Type': 'application/json'
                     }
                 }).then(function successCallback(data) {
+                	console.log(data1);
                     $('#createWalkinModal').closeModal();
-                    $window.location.reload();
                 }, function errorCallback(response) {
                     SweetAlert.swal("Oops", "Something went wrong!", "error");
                     vm.loadingBubble = 1;
                 });
             }, 1000);
-//>>>>>>> 30c62257fea4ed824946cc58eefebc95484750e0
 
 
             var total = vm.sum;
