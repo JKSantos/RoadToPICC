@@ -821,23 +821,25 @@
                 'employeeAssigned': selectEmp,
                 'packageList': vm.selPackageDetails,
                 'promoList': vm.selPromoDetails,
-                'strTotalPrice': vm.sum,
+                'strTotalPrice': parseFloat(vm.sum).toFixed(2),
                 'discounts': selectdiscount,
                 'strName': vm.details.name,
                 'strContactNo': vm.details.contact
             });
+            
+            var data1 = JSON.stringify(walkinData);
 
             $timeout(function () {
                 $http({
                     method: 'post',
                     url: 'http://localhost:8080/SalonManagement/createWalkin',
-                    data: walkinData,
+                    data: data1,
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
+                        'Content-Type': 'application/json'
                     }
                 }).then(function successCallback(data) {
+                	console.log(data1);
                     $('#createWalkinModal').closeModal();
-                    $window.location.reload();
                 }, function errorCallback(response) {
                     SweetAlert.swal("Oops", "Something went wrong!", "error");
                     vm.loadingBubble = 1;

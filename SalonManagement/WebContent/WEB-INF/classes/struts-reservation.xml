@@ -33,6 +33,10 @@
 			<result name="success" type="json"></result>
 		</action>
 		
+		<action name="cancelReservation" class="com.gss.actions.Reservation.CancelReservation">
+			<result name="success" type="json"></result>
+		</action>
+		
 	</package>	
 		
 		

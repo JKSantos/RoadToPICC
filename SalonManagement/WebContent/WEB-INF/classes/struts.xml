@@ -37,6 +37,7 @@
 	<include file="struts-service.xml"></include>
 	<include file="struts-customer.xml"></include>
 	<include file="strus-requirement.xml"></include>
+	<include file="strus-student.xml"></include>
 
 	<package name="default" extends="struts-default, json-default" namespace="/">
 		<result-types>

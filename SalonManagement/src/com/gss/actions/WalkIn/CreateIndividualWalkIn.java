@@ -22,6 +22,7 @@ import com.gss.model.ServiceWalkIn;
 import com.gss.model.WalkIn;
 import com.gss.service.WalkInService;
 import com.gss.service.WalkInServiceImpl;
+import com.gss.utilities.JavaSqlDateTimeHelper;
 import com.gss.utilities.PriceFormatHelper;
 
 public class CreateIndividualWalkIn {
@@ -168,8 +169,12 @@ public class CreateIndividualWalkIn {
 		WalkIn walkin = new WalkIn(1, customerType, this.strName, this.strContactNo, new Date(), serviceList, productList, packageList, promoList, invoice, null, "PENDING", "UNPAID");
 		
 		try{
-		walkin.setAppointmentDate(java.sql.Date.valueOf(appointmentDate));
-		walkin.setAppointmentTime(java.sql.Time.valueOf(appointmentTime));
+			
+		String timee = appointmentTime.replaceAll("AM", "");	
+		timee = appointmentTime.replaceAll("PM", "");	
+			
+		walkin.setAppointmentDate(JavaSqlDateTimeHelper.stringToDate(appointmentTime));
+		walkin.setAppointmentTime(JavaSqlDateTimeHelper.stringToTime(timee));
 		}catch(Exception e){
 			//do nothing
 		}

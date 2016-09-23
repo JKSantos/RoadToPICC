@@ -1,5 +1,7 @@
 package com.gss.actions.Promo;
 
+import java.sql.SQLException;
+
 import com.gss.model.Promo;
 
 public class GetPromoByID {
@@ -8,8 +10,8 @@ public class GetPromoByID {
 	private int intPromoID;
 	private String result = "success";
 	
-	public String execute(){
-		
+	public String execute() throws SQLException{
+		Promo.checkExpiredPromo();
 		this.promo = Promo.getPromoByID(intPromoID);
 		
 		return result;

@@ -18,5 +18,4 @@ public interface WalkInRepository {
 	public List<WalkIn> getAllWalkIn();
 	
 	public List<WalkIn> getAllWalkInNoDetails();
-
 }
