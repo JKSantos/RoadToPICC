@@ -1,6 +1,10 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<style>
+
+</style>
+
 <div class="wrapper" ng-controller="walkinCtrl as vm" style="margin-top: 5px !important;">
     <div class="aside asideAside1 z-depth-barts z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12">
@@ -18,7 +22,13 @@
                     </div>
                     <div class="input-field col s4">
                         <a class="crWalkin z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
-                           href="#createWalkinModal" style="margin-left: 15px;">
+                           style="margin-left: 15px;" ng-click="vm.createWalkinOpen();"
+                           ng-if="vm.productOrder.length > 0 || vm.serviceOrder.length > 0 || vm.packageOrder.length > 0 || vm.promoOrder.length > 0">
+                            <i class="material-icons">add</i>
+                        </a>
+                        <a class="crWalkin z-depth-1 hoverable btn purple darken-2 left white-text"
+                           style="margin-left: 15px; opacity: 0.3; cursor: not-allowed !important;" ng-disabled="true"
+                           ng-if="vm.productOrder.length == 0 && vm.serviceOrder.length == 0">
                             <i class="material-icons">add</i>
                         </a>
                         <a class="z-depth-1 hoverable waves-effect waves-light btn purple darken-2 left white-text"
@@ -61,35 +71,45 @@
                              ng-repeat="product in vm.productList | toArray: false |filter: vm.walkinSearch">
                             <div class="card small">
                                 <div class="card-image waves-effect waves-block waves-light">
-                                    <img class="activator" ng-src="{{product.strPhotoPath}}">
+                                    <img class="activator" ng-src="{{product.strPhotoPath}}"
+                                         ng-click="vm.closeNotSelectedInProd($index);">
                                 </div>
                                 <div class="card-content">
                                     <a class="activator grey-text text-darken-4 light btn btn-small center"
+                                       ng-click="vm.closeNotSelectedInProd($index);"
                                        style="margin-top: -10px;"><i class="material-icons right white-text">add_shopping_cart</i></a>
                                     <h5 style='font-size: 12px; line-height: 10px !important;'><b>{{product.strProductName}}</b>
                                         <p>{{product.dblProductPrice | currency:"P"}}</p></h5>
                                 </div>
                                 <div class="card-reveal">
-
-                                                <span class="card-title grey-text text-darken-4"><i
-                                                        class="material-icons right"
-                                                        id="prodClose{{product.intProductID}}">close</i></span>
+                                    <span class="card-title grey-text text-darken-4 prodClose123">
+                                        <i class="material-icons right prodClose{{$index}}"
+                                           id="prodClose{{product.intProductID}}">close</i>
+                                    </span>
                                     <h4 style='font-size: 12px; line-height: 15px !important;'>
                                         <b>{{product.strProductName}}</b><br/>
                                         <span class="grey-text text-darken-4">{{product.dblProductPrice | currency:"Php "}}</span>
                                     </h4>
                                     <div class="input-field col s12">
                                         <input type="number" id="crPSQty{{product.intProductID}}"
-                                               ng-model="vm.quantity"/>
+                                               ng-model="vm.quantity" min="1"/>
                                         <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
                                     </div>
                                     <h6 class="grey-text text-darken-4">
                                         {{product.dblProductPrice * vm.quantity | currency: "Php "}}
                                     </h6>
                                     <a class="waves-effect waves-light btn"
+                                       ng-if="vm.quantity > 0"
                                        ng-click="vm.addToCart($index, vm.selected);
                                                  vm.sumTotal();
                                                  vm.closeCard(product.intProductID, vm.selected)">
+                                        <i class="material-icons left"
+                                           style="padding: 0px !important; margin: 0px !important;">
+                                            shopping_basket</i>BUY NOW!
+                                    </a>
+                                    <a class="btn"
+                                       ng-if="vm.quantity < 1 || vm.quantity == ''"
+                                       style=" opacity: 0.3; cursor: not-allowed !important;">
                                         <i class="material-icons left"
                                            style="padding: 0px !important; margin: 0px !important;">
                                             shopping_basket</i>BUY NOW!
@@ -107,35 +127,48 @@
                              ng-if="service.intServiceStatus == 1">
                             <div class="card small">
                                 <div class="card-image waves-effect waves-block waves-light">
-                                    <img class="activator" ng-src="{{service.strPhotoPath}}">
+                                    <img class="activator" ng-src="{{service.strPhotoPath}}"
+                                         ng-click="vm.filterEmployee($index);">
                                 </div>
                                 <div class="card-content">
                                     <a class="activator grey-text text-darken-4 light btn btn-small center"
-                                       style="margin-top: -10px;"><i class="material-icons right white-text">add_shopping_cart</i></a>
+                                       ng-click="vm.filterEmployee($index, service.intServiceID);"
+                                       style="margin-top: -10px;"><i class="material-icons right white-text">add_shopping_cart</i>
+                                    </a>
                                     <h5 style='font-size: 12px; line-height: 10px !important;'><b>{{service.strServiceName}}</b>
                                         <p>{{service.dblServicePrice | currency:"P"}}</p></h5>
                                 </div>
                                 <div class="card-reveal">
-                                    <span class="card-title grey-text text-darken-4">
-                                        <i class="material-icons right" id="servClose{{service.intServiceID}}">close</i>
+                                    <span class="card-title grey-text text-darken-4 servReveal">
+                                        <i class="material-icons right servClose{{$index}}"
+                                           id="servClose{{service.intServiceID}}">close</i>
                                     </span>
                                     <h4 style='font-size: 12px; line-height: 15px !important;'>
                                         <b>{{service.strServiceName}}</b><br/>
                                         <span class="grey-text text-darken-4">{{service.dblServicePrice | currency:"Php "}}</span>
                                     </h4>
-                                    <div class="input-field col s12" id="123123">
-                                        <select id="cREmp123"
-                                                ng-model="vm.selEmployee"
-                                                ng-options="employee.strEmpFirstName for employee in vm.employeeList">
+                                    <div input-field class="col s12 ddd">
+                                        <select id="crEmpServSelEmp"
+                                                ng-model="vm.selEmployee" material-select watch
+                                                ng-options="emp.strEmpFirstName for emp in vm.filteredEmpForService">
                                             <option value="" selected>Choose...</option>
                                         </select>
-                                        <label for="cREmp123"><b>Employee</b></label>
+                                        <label for="crEmpServSelEmp"><b>Employee</b></label>
                                     </div>
 
                                     <a class="waves-effect waves-light btn"
                                        ng-click="vm.addToCart($index, vm.selected);
                                                  vm.sumTotal();
-                                                 vm.closeCard(service.intServiceID, vm.selected)">
+                                                 vm.closeCard(service.intServiceID, vm.selected);"
+                                       ng-if="vm.selEmployee != null">
+                                        <i class="material-icons left"
+                                           style="padding: 0px !important; margin: 0px !important;">
+                                            shopping_basket</i>GET SERVICE!
+                                    </a>
+                                    <a class=" btn"
+                                       ng-disabled="true"
+                                       style="opacity: 0.3; cursor: not-allowed !important;"
+                                       ng-if="vm.selEmployee == null">
                                         <i class="material-icons left"
                                            style="padding: 0px !important; margin: 0px !important;">
                                             shopping_basket</i>GET SERVICE!
@@ -223,23 +256,38 @@
 
     <!-- Modal Structure -->
     <div id="createWalkinModal" class="modal modal-fixed-footer">
-        <form class="col s12" id="createWalkinForm" method="post" action="">
+        <form class="col s12 css-form" name="createWalkinForm" id="createWalkinForm" novalidate>
             <div class="modal-content">
 
                 <div class="wrapper">
-                    <h4 class="center grey-text text-darken-1">Create Walk-In<a id="btnCrExtraExit" type="reset"
-                                                                                value="Reset"
-                                                                                class="modal-action modal-close"><i
-                            class="small material-icons right grey-text text-darken-4">close</i></a></h4>
-                    <div class="walkinerrorcontainer card red center input-field col s12 white-text z-depth-barts">
+                    <h4 class="center grey-text text-darken-1">
+                        Create Walk-In
+                        <a id="btnCrExtraExit" type="reset" value="Reset" class="modal-action modal-close">
+                            <i class="small material-icons right grey-text text-darken-4">close</i>
+                        </a>
+                    </h4>
+                    <!--<div class="walkinerrorcontainer card red center input-field col s12 white-text z-depth-barts">-->
 
+                    <!--</div>-->
+                    <div class="card red center input-field col s12 white-text z-depth-barts">
+                        <span class="white-text"
+                              ng-show="createWalkinForm.crWIName.$error.pattern">
+                            Valid name is required <br>
+                        </span>
+                        <span class="white-text"
+                              ng-show="createWalkinForm.crWIName.$error.minlength">
+                            Name must be at least 5 characters <br>
+                        </span>
                     </div>
                     <div class="stepwalkin well" style="margin-top: -5px;">
                         <div class="row">
                             <div class="container">
                                 <div class="input-field col s12">
-                                    <input type="text" class="validate" id="crWIName"
-                                           ng-model="vm.details.name" placeholder="Name"/>
+                                    <input type="text" class="validate" id="crWIName" name="crWIName"
+                                           ng-model="vm.details.name"
+                                           ng-required="true"
+                                           ng-minlength="5"
+                                           ng-pattern="/^[A-Za-z \-'`]+$/" placeholder="Name"/>
                                     <label for="crWIName" class="active">
                                         <b>Name</b>
                                         <i class="material-icons red-text tiny">error_outline</i>
@@ -259,7 +307,7 @@
                                     </label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <select ng-model="vm.selDiscounts" id="crRDiscount"
+                                    <select ng-model="vm.selDiscounts" id="crRDiscount" material-select watch
                                             ng-change="vm.selDiscountDetails(vm.selDiscounts);"
                                             ng-options="discount.strDiscountName for discount in vm.discountList">
                                         <option id="discOpt" value="" selected disabled>Choose...</option>
@@ -330,9 +378,26 @@
                         class="material-icons">error_outline</i>&nbspRequired field
                 </button>
                 <a class="waves-effect waves-light white-text btn-flat purple"
+                   ng-if="createWalkinForm.$valid == true && vm.loadingBubble == 1"
                    ng-click="vm.saveWalkin(details)"
                    style="margin-left:3px; margin-right:3px;">CREATE
                 </a>
+                <a class="white-text btn-flat purple"
+                   ng-disabled="true"
+                   ng-if="createWalkinForm.$valid == false && vm.loadingBubble == 1"
+                   style="margin-left:3px; margin-right:3px; opacity: 0.5 !important; cursor: not-allowed !important;">CREATE
+                </a>
+                <a class="white btn-flat"
+                   ng-if="vm.loadingBubble == 0"
+                   ng-disabled="true"
+                   style="margin-left:3px; margin-right:3px;">
+                    <div style="margin-top: 9px !important;">
+                        <div class="bubbles1"></div>
+                        <div class="bubbles1"></div>
+                        <div class="bubbles1"></div>
+                    </div>
+                </a>
+
 
             </div>
         </form>
@@ -449,14 +514,14 @@
                             style="margin-left:0px !important; padding-left: 5px !important;"
                             ng-repeat="order in vm.productOrder">
                             <img ng-src="{{order.strPhotoPath}}" class="circle" height="30" width="30">
-                                <span style="padding-left: 5px !important;"
+                                <span style="padding-left: 5px !important; cursor: pointer !important;"
                                       title="{{order.product}} - {{order.productTotal | currency: 'Php '}}"
-                                      ng-click="vm.openEditItem($index, order)">
+                                      ng-click="vm.openEditItem($index, order);">
                                     {{order.product | truncate: 15}}
                                 </span>
-                            <button name="" title="Decline" class="secondary-content red-text transparent"
+                            <button name="" title="Remove" class="secondary-content red-text transparent"
                                     style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border:0px !important;"
-                                    ng-click="removeToCart($index, orders)">
+                                    ng-click="vm.removeToCartProduct($index, order)">
                                 <i class="material-icons" style="padding-top: 7px !important;">clear</i>
                             </button>
                         </li>
@@ -464,14 +529,14 @@
                             style="margin-left:0px !important; padding-left: 5px !important;"
                             ng-repeat="service in vm.serviceOrder">
                             <img ng-src="{{service.strPhotoPath}}" class="circle" height="30" width="30">
-                                <span style="padding-left: 5px !important;"
+                                <span style="padding-left: 5px !important; cursor: pointer !important;"
                                       title="{{service.service}} - {{service.serviceTotal | currency: 'Php '}}"
-                                      ng-click="vm.openEditItem($index, service)">
+                                      ng-click="vm.openEditItem($index, service); vm.filterEmployee(service.idx); vm.selEmpServ(service);">
                                     {{service.service | truncate: 15}}
                                 </span>
-                            <button name="" title="Decline" class="secondary-content red-text transparent"
+                            <button name="" title="Remove" class="secondary-content red-text transparent"
                                     style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border:0px !important;"
-                                    ng-click="removeToCart($index, service)">
+                                    ng-click="vm.removeToCartService($index, service)">
                                 <i class="material-icons" style="padding-top: 7px !important;">clear</i>
                             </button>
                         </li>
@@ -479,14 +544,14 @@
                             style="margin-left:0px !important; padding-left: 5px !important;"
                             ng-repeat="package in vm.packageOrder">
                             <img ng-src="img/package.png" class="circle" height="30" width="30">
-                                <span style="padding-left: 5px !important;"
+                                <span style="padding-left: 5px !important; cursor: pointer !important;"
                                       title="{{package.package}} - {{package.packageTotal | currency: 'Php '}}"
                                       ng-click="vm.openEditItem($index, package)">
                                     {{package.package | truncate: 11}}
                                 </span>
-                            <button name="" title="Decline" class="secondary-content red-text transparent"
+                            <button name="" title="Remove" class="secondary-content red-text transparent"
                                     style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border:0px !important;"
-                                    ng-click="removeToCart($index, package)">
+                                    ng-click="vm.removeToCartPackage($index, package)">
                                 <i class="material-icons" style="padding-top: 7px !important;">clear</i>
                             </button>
                         </li>
@@ -495,51 +560,6 @@
                 </div>
             </div>
         </div>
-        <!--<div class="aside white z-depth-barts">-->
-        <!--<div class="row">-->
-        <!--<div class="col s12 transparent">-->
-        <!--<h5>Request of</h5>-->
-        <!--<ul class="collection with-header reqList">-->
-        <!--<li class="collection-item left-align"-->
-        <!--style="margin-left:0px !important; padding-left: 10px !important;"-->
-        <!--ng-repeat="request in requestOrder.slice().reverse()">-->
-        <!--<i class="material-icons left"-->
-        <!--style="margin-right:10px !important; margin-top: -3px !important;"-->
-        <!--ng-if="request.intType==1 || request.intType=='delivery'">-->
-        <!--local_shipping-->
-        <!--</i>-->
-        <!--<i class="material-icons left"-->
-        <!--style="margin-right:10px !important; margin-top: -3px !important;"-->
-        <!--ng-if="request.intType==2 || request.intType=='pickup'">-->
-        <!--shopping_basket-->
-        <!--</i>-->
-        <!--<span title="{{ request.strName }}">{{ request.strName | truncate: 13 }}</span>-->
-        <!--<button name="" title="Decline" class="secondary-content red-text transparent"-->
-        <!--style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border:0px !important;"-->
-        <!--ng-click="declineOrder(request)">-->
-        <!--<i class="material-icons" style="padding-top: 7px !important;">clear</i>-->
-        <!--</button>-->
-        <!--<button name="" title="Accept" class="secondary-content black-text transparent"-->
-        <!--style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border: 0px !important;"-->
-        <!--ng-if="request.intType==1 || request.intType=='delivery'"-->
-        <!--ng-click="acceptDeliveryOrder(request)">-->
-        <!--<i class="material-icons" style="padding-top: 7px !important;">done</i>-->
-        <!--</button>-->
-        <!--<button name="" title="Accept" class="secondary-content black-text transparent"-->
-        <!--style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border: 0px !important;"-->
-        <!--ng-if="request.intType==2 || request.intType=='pickup'"-->
-        <!--ng-click="acceptPickupOrder(request)">-->
-        <!--<i class="material-icons" style="padding-top: 7px !important;">done</i>-->
-        <!--</button>-->
-        <!--</li>-->
-        <!--</ul>-->
-        <!--<p>-->
-        <!--<i class="material-icons">local_shipping</i> - Delivery-->
-        <!--<i class="material-icons">shopping_basket</i> - Pick-up-->
-        <!--</p>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
     </div>
 
     <div id="editItem" class="modal modal-fixed-footer">
@@ -548,15 +568,20 @@
                 <img class="circle" ng-src="{{vm.orderToBeEdit.strPhotoPath}}" height="150" width="150"></h4>
             <h6 class="center">Price: {{vm.orderToBeEdit.productPrice | currency: "Php "}}</h6>
             <div class="container">
-                <div class="row">
-                    <div class="input-field col s4 offset-s4" style="margin-top: -20px !important;">
-                        <input type="number" class="center-align" ng-model="vm.orderToBeEdit.productQuantity">
+                <form name="changeQtyProd">
+                    <div class="row">
+                        <div class="input-field col s4 offset-s4" style="margin-top: -20px !important;">
+                            <input type="text" class="center-align" min="1"
+                                   numbers-only
+                                   name="prodQtyName"
+                                   ng-model="vm.orderToBeEdit.productQuantity">
+                        </div>
+                        <div class="input-field col s12" style="margin-top: -10px !important;">
+                            <h5 class="center">Total: {{ (vm.orderToBeEdit.productPrice *
+                                vm.orderToBeEdit.productQuantity) | currency: "Php "}}</h5>
+                        </div>
                     </div>
-                    <div class="input-field col s12" style="margin-top: -10px !important;">
-                        <h5 class="center">Total: {{ (vm.orderToBeEdit.productPrice * vm.orderToBeEdit.productQuantity)
-                            | currency: "Php "}}</h5>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
         <div class="modal-content" ng-if="vm.orderToBeEdit.type == 'service'">
@@ -566,8 +591,10 @@
             <div class="container">
                 <div class="row">
                     <div class="input-field col s8 offset-s2" style="margin-top: -10px !important;">
-                        <select ng-model="vm.selEmployee" id="cREmp2"
-                                ng-options="employee.strEmpFirstName for employee in vm.employeeList"></select>
+                        <select ng-model="vm.selEmployeeEdit" id="cREmp2" material-select watch
+                                ng-options="employee.strEmpFirstName for employee in vm.filteredEmpForService">
+                            <option value="">Choose...</option>
+                        </select>
                         <label for="cREmp2"><b>Employee</b></label>
                     </div>
                     <div class="input-field col s12" style="margin-top: -10px !important;">
@@ -578,9 +605,16 @@
         </div>
         <div class="modal-footer">
             <button class="waves-effect waves-light btn-flat purple white-text"
-                    ng-click="editInCart(orderToBeEdit)">
+                    ng-if="vm.orderToBeEdit.productQuantity > 0 || vm.selEmployeeEdit != ''"
+                    ng-click="vm.editInCart(vm.orderToBeEdit)">
                 SAVE
             </button>
+            <a class="btn-flat purple white-text"
+               ng-if="vm.orderToBeEdit.productQuantity < 0"
+               ng-disabled="true"
+               style="opacity: 0.3 !important; cursor: not-allowed !important;">
+                SAVE
+            </a>
         </div>
     </div>
 

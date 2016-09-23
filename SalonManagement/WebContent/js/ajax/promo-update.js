@@ -1124,8 +1124,22 @@ function upPromoPackageChipExit(packChipID) {
     upPackageChipQty.val(1);
 }
 
+$('#errorPriceFree').hide();
+
 function updatePromo() {
-    // var job = document.querySelectorAll('select[name=intPackageType]:selected');
+    var p = $('#upPromoPrice').val().replace(/[^\d.]/g, '');
+    if(p == '0.00' && !$('#upPromoFree').is(':checked')) {
+        $('#errorPriceFree').show();
+    } else if(p > '0.00' && !$('#upPromoFree').is(':checked')) {
+        $('#errorPriceFree').hide();
+        updateActionPromo();
+    } else if($('#upPromoFree').is(':checked')) {
+        $('#errorPriceFree').hide();
+        updateActionPromo();
+    }
+}
+
+function updateActionPromo() {
     if ($('#updatePromoForm').valid()) {
         var promoUpdateProdSelect = [],
             promoUpdateServSelect = [],

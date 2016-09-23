@@ -1736,7 +1736,7 @@ $(function () {
 $(function () {
 
     $('#updatePromoForm').validate({
-
+        ignore: "",
         errorClass: 'invalid',
         validClass: 'valid',
         errorElement: 'div',

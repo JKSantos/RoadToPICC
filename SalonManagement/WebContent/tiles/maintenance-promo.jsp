@@ -382,6 +382,8 @@
         <form id="updatePromoForm" name="updatePromoForm" class="col s12">
             <div class="modal-content">
                 <div class="wrapper">
+
+                    <div class="row">
                     <h4 class="center grey-text text-darken-1">
                         Update Promo
                         <a id="btnUpPromoExit" class="modal-action modal-close">
@@ -390,17 +392,20 @@
                     </h4>
                     <div style="margin-bottom: 40px !important;"
                          class="uppromoerrorcontainer card red center input-field col s12 white-text z-depth-barts">
-
+                         
                     </div>
-                    <div class="row">
                         <div class="col s12">
-                            <ul class="tabs tab-demo-active" style="width: 100%; background-color: #fafafa; margin-top: -10px !important;">
-                                <li class="tab col s6"><a
-                                        class="purple-text text-darken-2 waves-effect waves-light"
-                                        href="#promoUpdateA"><b>Details</b></a></li>
-                                <li class="tab col s6"><a
-                                        class="purple-text text-darken-2 waves-effect waves-light"
-                                        href="#promoUpdateB"><b>Included Items</b></a></li>
+                            <ul class="tabs tab-demo-active" style="width: 100%; background-color: #fafafa; margin-top: -20px !important;">
+                                <li class="tab col s6">
+                                <a class="purple-text text-darken-2 waves-effect waves-light"
+                                        href="#promoUpdateA"><b>Details</b>
+                                        </a>
+                                        </li>
+                                <li class="tab col s6">
+                                <a class="purple-text text-darken-2 waves-effect waves-light"
+                                        href="#promoUpdateB">
+                                        <b>Included Items</b></a>
+                                        </li>
                             </ul>
                         </div>
                         <div id="promoUpdateA" class="ftab col s12" style="margin-top: 20px !important;">
@@ -606,6 +611,9 @@
                                     <input name="upFree" type="checkbox" class="filled-in"
                                            id="upPromoFree" value="on"/>
                                     <label for="upPromoFree"><b>Free</b></label>
+                                </div>
+                                <div class="input-field col s12" id="errorPriceFree">
+                                    <span class="red-text">Invalid Price</span>
                                 </div>
                             </div>
                             <!--<div class="col s12 z-depth-barts white prodservlist" style="margin-top: 5px;"-->
