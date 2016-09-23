@@ -45,6 +45,14 @@
 		<action name="updateWalkIn" class="com.gss.actions.WalkIn.UpdateIndividualWalkIn">
 			<result name="success" type="tiles"></result>
 		</action>
+		
+		<action name="cancelAppointment" class="com.gss.actions.WalkIn.CancelAppointment">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="updateWalkInStatus" class="com.gss.actions.WalkIn.AppointmentResult">
+			<result name="success" type="json"></result>
+		</action>
 	</package>
 
 </struts>
