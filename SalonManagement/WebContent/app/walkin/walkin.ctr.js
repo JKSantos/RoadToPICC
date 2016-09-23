@@ -194,14 +194,14 @@
         }, function errorCallback(response) {
             console.log(response);
         });
-        
+
         function filterEmployeeInUpdate(index, newService) {
             var f = [];
             console.log(newService);
             vm.upServiceStrName = newService.service.strServiceCategory;
-            for(var i = 0; i < vm.employeeList.length; i ++) {
-                for(var j = 0; j < vm.employeeList[i].specialization.length; j++) {
-                    if(vm.upServiceStrName.toLowerCase() == vm.employeeList[i].specialization[j].name.toLowerCase()) {
+            for (var i = 0; i < vm.employeeList.length; i++) {
+                for (var j = 0; j < vm.employeeList[i].specialization.length; j++) {
+                    if (vm.upServiceStrName.toLowerCase() == vm.employeeList[i].specialization[j].name.toLowerCase()) {
                         console.log(vm.upServiceStrName + '///' + vm.employeeList[i].specialization[j].name);
                         f.push(vm.employeeList[i]);
                     }
@@ -448,7 +448,8 @@
                         p.push({
                             'prodID': vm.productList[i].intProductID,
                             'prodName': vm.productList[i].strProductName,
-                            'prodqty': prod.intQuantity
+                            'prodqty': prod.intQuantity,
+                            'prodprice': vm.productList[i].stringPrice
                         });
                     }
                 }
@@ -481,8 +482,10 @@
             vm.selectedProductFromWalkin.push({
                 'prodID': product.product.intProductID,
                 'prodName': product.product.strProductName,
-                'prodqty': product.qty
+                'prodqty': product.qty,
+                'prodprice': product.product.stringPrice
             });
+            console.log(product);
             console.log(vm.selectedProductFromWalkin);
         };
 
@@ -500,8 +503,10 @@
             vm.selectedServiceFromWalkin.push({
                 'servID': service.service.intServiceID,
                 'servName': service.service.strServiceName,
-                'employeeAssigned': service.selEmployee
+                'employeeAssigned': service.selEmployee,
+                'servPrice': service.service.stringPrice
             });
+            console.log(service);
             $('#addServiceModal').closeModal();
         };
 
@@ -806,31 +811,10 @@
             selectdiscount = selectedDiscount;
         }
 
-
-        /*<<<<<<< HEAD
-         vm.saveWalkin = function (details) {
-         toString();
-         console.log(vm.selPackageDetails);
-         var walkinData = $.param({
-         'productString': selectprod,
-         'productQuantity': quantprod,
-         'serviceString': selectserv,
-         'employeeAssigned': selectEmp,
-         'promoList': vm.selPromoDetails,
-         'strTotalPrice': vm.sum,
-         'discounts': selectdiscount,
-         'strName': vm.details.name,
-         'strContactNo': vm.details.contact,
-         'packageList': vm.selPackageDetails
-         });
-
-         var xxx = {
-         =======*/
         vm.saveWalkin = function (details) {
             vm.loadingBubble = 0;
             toString();
             var walkinData = $.param({
-//>>>>>>> 30c62257fea4ed824946cc58eefebc95484750e0
                 'productString': selectprod,
                 'productQuantity': quantprod,
                 'serviceString': selectserv,
@@ -839,27 +823,6 @@
                 'strTotalPrice': vm.sum,
                 'discounts': selectdiscount,
                 'strName': vm.details.name,
-                /*<<<<<<< HEAD
-                 'strContactNo': vm.details.contact,
-                 'packageList': vm.selPackageDetails
-                 }
-
-                 $http({
-                 method: 'post',
-                 url: 'http://localhost:8080/SalonManagement/createWalkin',
-                 data: walkinData,
-                 headers: {
-                 'Content-Type': 'application/x-www-form-urlencoded'
-                 },
-                 traditional : true
-                 }).then(function successCallback(data) {
-                 console.log(xxx);
-                 SweetAlert.swal("Successfully created!", ".", "success");
-                 $('#createWalkinModal').closeModal();
-                 }, function errorCallback(response) {
-                 SweetAlert.swal("Oops", "Something went wrong!", "error");
-                 });
-                 =======*/
                 'strContactNo': vm.details.contact
             });
 
@@ -879,40 +842,45 @@
                     vm.loadingBubble = 1;
                 });
             }, 1000);
-//>>>>>>> 30c62257fea4ed824946cc58eefebc95484750e0
-
-
-            var total = vm.sum;
-            var name = vm.details.name;
-            var contact = vm.details.contact;
-            var email = vm.details.email;
-            var packageDetails = vm.selPackageDetails;
-            var promoDetails = vm.selPromoDetails;
-            var serviceDetails = vm.selServiceDetails;
-            // AINAN WALA YUNG PRODUCT NA PINAPASA. YUNG SELECTPROD. SAN KINUKUHA YON
-
-
-            // walkinFactory.insertCustomer(name, contact, email, selectEmp,
-            //     selectprod, quantprod, packageDetails, promoDetails,
-            //     serviceDetails, selectdiscount, total);
         };
 
-        function saveUpdateWalkin () {
+        vm.upTotal = 0;
+
+        function saveUpdateWalkin() {
             var selServ = [],
-                selServEmp = [];
+                selServEmp = [],
+                selProd = [],
+                prodQty = [],
+                totalprod = 0,
+                totalserv = 0
 
-
-            for(var i = 0; i < vm.selectedServiceFromWalkin.length; i ++) {
-                selServ += vm.selectedServiceFromWalkin[i].servID + ',';
-                selServEmp += vm.selectedServiceFromWalkin[i].employeeAssigned.intEmpID + ',';
+            for (var p = 0; p < vm.selectedProductFromWalkin.length; p++) {
+                console.log(vm.selectedProductFromWalkin[p]);
+                selProd += vm.selectedProductFromWalkin[p].prodID + ',';
+                prodQty += vm.selectedProductFromWalkin[p].prodqty + ',';
+                totalprod += parseFloat(vm.selectedProductFromWalkin[p].prodqty) * parseFloat(vm.selectedProductFromWalkin[p].prodprice);
             }
 
-            console.log(selServEmp);
-        }
+            for (var i = 0; i < vm.selectedServiceFromWalkin.length; i++) {
+                selServ += vm.selectedServiceFromWalkin[i].servID + ',';
+                selServEmp += vm.selectedServiceFromWalkin[i].employeeAssigned.intEmpID + ',';
+                totalserv += parseFloat(vm.selectedServiceFromWalkin[i].servPrice);
+            }
+            
+            vm.upTotal = totalprod + totalserv;
 
-        vm.moveToPay = function (id) {
-            walkinFactory.moveToPayment(id);
-
+            var dta = {
+                'intWalkInID': vm.infoUpdateWalkin.intWalkInID,
+                'strName': vm.infoUpdateWalkin.strName,
+                'strContactNo': vm.infoUpdateWalkin.strContactNo,
+                'productString': selProd,
+                'productQuantity': prodQty,
+                'serviceString': selServ,
+                'employeeAssigned': selServEmp,
+                'strTotalPrice': vm.upTotal
+            };
+            
+            console.log(dta);
         }
     }
 })();

@@ -174,6 +174,7 @@
                     <div class="row">
                         <div class="col s12">
                             <div class="input-field col s12">
+                                <input type="hidden" ng-model="vm.infoUpdateWalkin.intWalkInID">
                                 <input type="text" id="upWalkinName" ng-model="vm.infoUpdateWalkin.strName">
                                 <label for="upWalkinName"><b>Name</b>
                                     <i class="material-icons red-text tiny">error_outline</i>
@@ -201,7 +202,7 @@
                             <div class="input-field col s6">
                                 <select ng-model="newProduct.product" id="selProductEdit"
                                         ng-options="product.strProductName for product in vm.productList">
-                                    <option value="" disabled selected>Product</option>
+                                    <option value="" selected>Product</option>
                                 </select>
                                 <label for="selProductEdit"><b>Product</b></label>
                             </div>
