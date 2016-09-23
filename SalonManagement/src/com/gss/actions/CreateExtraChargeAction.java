@@ -46,7 +46,7 @@ public class CreateExtraChargeAction {
 	}
 
 	public void setStrECName(String strECName) {
-		this.strECName = strECName;
+		this.strECName = strECName.trim().toUpperCase();
 	}
 
 	public String getStrECDetails() {
@@ -54,7 +54,7 @@ public class CreateExtraChargeAction {
 	}
 
 	public void setStrECDetails(String strECDetails) {
-		this.strECDetails = strECDetails;
+		this.strECDetails = strECDetails.trim().toUpperCase();
 	}
 
 	public void setPrice(String price) {

@@ -181,12 +181,12 @@ public class CreatePromoAction {
 
 
 	public void setStrPromoName(String strPromoName) {
-		this.strPromoName = strPromoName;
+		this.strPromoName = strPromoName.trim().toUpperCase();
 	}
 
 
 	public void setStrPromoDesc(String strPromoDesc) {
-		this.strPromoDesc = strPromoDesc;
+		this.strPromoDesc = strPromoDesc.trim().toUpperCase();
 	}
 
 

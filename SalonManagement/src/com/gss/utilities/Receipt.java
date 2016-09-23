@@ -42,7 +42,6 @@ public class Receipt {
 	private String cashier;
 	private ProductSales sales;
 	private WalkIn walkin;
-	private Reservation reservation;
 	private Payment payment;
 	private String orNum;
 	private String destination;

@@ -25,7 +25,7 @@ public class CustomerRegistration {
 		String query = "CALL createCustomerAccount(?, ?, ?, ?, ?, ?);";
 		int accountID = 0;
 		int codeID = 0;
-		String code = RandomStringGenerator.generateRandomString();
+		String code = RandomStringGenerator.generateRandomString(6);
 		String message = "Good Day! Your verification code for Salon App is " + code;
 		
 		try{

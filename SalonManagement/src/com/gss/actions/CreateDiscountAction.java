@@ -40,8 +40,6 @@ public class CreateDiscountAction {
 		DiscountServiceImpl service = new DiscountServiceImpl();
 		Discount discount;
 		
-		System.out.print(strDiscountGuidelines + " ccccccc");
-		
 		List<Product> productList = new ArrayList<Product>();
 		List<Service> serviceList = new ArrayList<Service>();
 		List<Package> packageList = new ArrayList<Package>();
@@ -81,11 +79,11 @@ public class CreateDiscountAction {
 	}
 
 	public void setStrDiscountName(String strDiscountName) {
-		this.strDiscountName = strDiscountName;
+		this.strDiscountName = strDiscountName.trim().toUpperCase();
 	}
 
 	public void setStrDiscountDetails(String strDiscountDetails) {
-		this.strDiscountDetails = strDiscountDetails;
+		this.strDiscountDetails = strDiscountDetails.trim().toUpperCase();
 	}
 
 	public void setStrDiscountType(String strDiscountType) {
@@ -93,7 +91,7 @@ public class CreateDiscountAction {
 	}
 
 	public void setStrDiscountGuidelines(String strDiscountGuidelines) {
-		this.strDiscountGuidelines = strDiscountGuidelines;
+		this.strDiscountGuidelines = strDiscountGuidelines.trim().toUpperCase();
 	}
 
 	public void setCheckedServices(String checkedServices) {

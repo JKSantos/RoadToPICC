@@ -70,6 +70,7 @@ public class CreateReservation {
 	private String paymentType = "FULL PAYMENT";			// kung full or twice
 	private int intCustID;
 	private int intCreatedID;
+	private String path;
 	
 	public String execute() throws Exception{
 		
@@ -199,10 +200,13 @@ public class CreateReservation {
 					reservation = new Reservation(1, customer, includedItems, intReservationType, new Date(), DateHelper.parseDate(dateFrom), DateHelper.parseDate(dateTo), TimeHelper.parseTime(timFrom), TimeHelper.parseTime(timTo), strVenue, headCount, this.intLocationID, employeeAssigned, invoice, strStatus, contractPath);
 				
 				if(this.intReservationType == 2){
+					System.out.println("Type :" + intReservationType);
 					ContractGenerator generator = new ContractGenerator();
 					Contract contract = new Contract(DateHelper.stringDate(), "JEFFREY SANTOS", "SALON MANGEMENT SYSTEM", "189-DR. SIXTO ANTONIO AVENUE, ROSARIO PASIG CITY", this.strName.toUpperCase(), this.strAddress.toUpperCase(), reservation);
 					contractPath = generator.createContract(contract);
+					System.out.println("Path :" + contractPath);
 					reservation.setStrContract(contractPath);
+					this.path = contractPath;
 				}
 				
 			
@@ -316,5 +320,9 @@ public class CreateReservation {
 
 	public void setIntCustID(int intCustID) {
 		this.intCustID = intCustID;
+	}
+
+	public String getPath() {
+		return path;
 	}
 }

@@ -1,19 +1,27 @@
 package com.gss.actions;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.ServletContext;
+
+import org.apache.struts2.StrutsStatics;
 
 import com.gss.model.Employee;
 import com.gss.model.Job;
 import com.gss.model.Specialization;
 import com.gss.service.EmployeeServiceImpl;
+import com.gss.testers.EmployeeCredentialsSender;
 import com.gss.utilities.DateHelper;
 import com.gss.utilities.DefaultImage;
 import com.gss.utilities.JobQualificationHelper;
 import com.gss.utilities.NotifyCustomerViaSMS;
+import com.gss.utilities.RandomStringGenerator;
 import com.gss.utilities.SendMail;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class CreateEmployeeAction {
@@ -46,76 +54,67 @@ public class CreateEmployeeAction {
 	public String execute(){
 		
 		boolean access = false;
-		SendMail mail = new SendMail();
 		EmployeeServiceImpl empService;
 		Employee emp;
-
+		this.strEmpContactNo = this.strEmpContactNo.replaceAll("-", "");
+		System.out.println(this.strEmpContactNo);
 		List<Job> selectedJob = new JobQualificationHelper().convertToJob(this.selectedJob);
 		NotifyCustomerViaSMS sms = new NotifyCustomerViaSMS();
 		
 		String path = "";
 		
-		String concatenatedName = "";
 		String[] unConvertedDate = strBirthdate.split("/");
-		String[] name = this.strEmpFirstName.split(" ");
-		
-		for(int i = 0; i < name.length; i++){
-			concatenatedName += name[i];
-		}
 		
 		if(chkGrantAccess.equalsIgnoreCase("on"))
 			access = true;
 		
-		String strUser = concatenatedName;
-		concatenatedName = "";
-		name = this.strEmpLastName.split(" ");
+		String strUser = RandomStringGenerator.generateRandomString(8);
 		
-		for(int i = 0; i < name.length; i++){
-			concatenatedName += name[i];
-		}
-		
-		String strPass = concatenatedName;
+		String strPass = RandomStringGenerator.generateRandomString(8);
 		
 		this.strBirthdate = new DateHelper().convert(unConvertedDate);
 		this.datEmpBirthdate = DateHelper.parseDate(strBirthdate);
 		this.username = strUser;
 		this.password = strPass;
 		this.datEmpBirthdate = DateHelper.parseDate(strBirthdate);
-		
+		this.strEmpContactNo.replaceAll("-", "");
+		String path1 = "";
 		List<Specialization> specialization = Specialization.convertToObject(this.selectedSpecialization);
 		
 		try{
 			emp = new Employee(1, strEmpLastName.trim().toUpperCase(), strEmpFirstName.trim().toUpperCase(), strEmpMiddleName.trim().toUpperCase(), datEmpBirthdate, strEmpGender, strEmpAddress.trim().toUpperCase(), strEmpContactNo, strEmpEmail, "A", strUser, strPass, file.getAbsolutePath(), null, selectedJob, access, "Not Available", specialization);
 			empService = new EmployeeServiceImpl();
+			path1 = "/Employee_Default.jpg";
+
 		}catch(NullPointerException e){
-			emp = new Employee(1, strEmpLastName.trim().toUpperCase(), strEmpFirstName.trim().toUpperCase(), strEmpMiddleName.trim().toUpperCase(), datEmpBirthdate, strEmpGender, strEmpAddress.trim().toUpperCase(), strEmpContactNo, strEmpEmail, "A", strUser, strPass, "images/fb.jpg", null, selectedJob, access, "Not Available", specialization);
+			emp = new Employee(1, strEmpLastName.trim().toUpperCase(), strEmpFirstName.trim().toUpperCase(), strEmpMiddleName.trim().toUpperCase(), datEmpBirthdate, strEmpGender, strEmpAddress.trim().toUpperCase(), strEmpContactNo, strEmpEmail, "A", strUser, strPass, path1, null, selectedJob, access, "Not Available", specialization);
 			empService = new EmployeeServiceImpl();
 		}
 		
 		if(empService.create(emp) == true)
 		{	
-			mail.sendEmail(this.strEmpEmail, strUser, strPass);
+			EmployeeCredentialsSender.sendEmail(emp);
 			sms.sendSMS(getMessage(), this.strEmpContactNo);
-			return "success";
 		}
 		else
 		{	
 			return "failed";
-		}
+		}	return "success";
+
 	}
 
 
 	public void setStrEmpLastName(String strEmpLastName) {
-		this.strEmpLastName = strEmpLastName;
+		this.strEmpLastName = strEmpLastName.trim().toUpperCase();
 	}
 
 
 	public void setStrEmpFirstName(String strEmpFirstName) {
-		this.strEmpFirstName = strEmpFirstName;
+		this.strEmpFirstName = strEmpFirstName.trim().toUpperCase();
 	}
 
 	public void setStrEmpMiddleName(String strEmpMiddleName) {
-		this.strEmpMiddleName = strEmpMiddleName;
+		this.strEmpMiddleName = strEmpMiddleName.trim().toUpperCase();
 	}
 
 
@@ -125,7 +124,7 @@ public class CreateEmployeeAction {
 
 
 	public void setStrEmpAddress(String strEmpAddress) {
-		this.strEmpAddress = strEmpAddress;
+		this.strEmpAddress = strEmpAddress.trim().toUpperCase();
 	}
 
 
@@ -170,7 +169,7 @@ public class CreateEmployeeAction {
 	
 	public String getMessage(){
 		
-		 String message = ("Congratulations! You are now an employee of our Salon! Please download the job monitoring app at https://goog.gl/SH345GYS. You can also login on our admin page if you are granted the privilege to do so. \n\nYoure Username is " + username + " and your pasword is " + password + ".");
+		 String message = ("Good day Mr./Ms. " + this.strEmpLastName.toUpperCase() + ", your username is "+this.username+" and your password is " + this.password + ". You can change it using Salon App or Salon Management System if you are granted the system access.");
 		
 		return message;
 	}

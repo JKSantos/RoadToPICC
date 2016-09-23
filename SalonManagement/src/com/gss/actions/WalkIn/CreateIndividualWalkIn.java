@@ -22,6 +22,7 @@ import com.gss.model.ServiceWalkIn;
 import com.gss.model.WalkIn;
 import com.gss.service.WalkInService;
 import com.gss.service.WalkInServiceImpl;
+import com.gss.utilities.JavaSqlDateTimeHelper;
 import com.gss.utilities.PriceFormatHelper;
 
 public class CreateIndividualWalkIn {
@@ -45,6 +46,9 @@ public class CreateIndividualWalkIn {
 	private int intCreatedID;
 	
 	public String execute() throws Exception{
+		
+		System.out.println("Package: " + this.packageList.size());
+		System.out.println("Promo: " + this.promoList.size());
 		
 		WalkInService service = new WalkInServiceImpl();
 		
@@ -166,8 +170,12 @@ public class CreateIndividualWalkIn {
 		System.out.println("App Date: " + java.sql.Date.valueOf(appointmentDate));
 		System.out.println("App Time: " + this.appointmentTime);
 		try{
-		walkin.setAppointmentDate(java.sql.Date.valueOf(appointmentDate));
-		walkin.setAppointmentTime(java.sql.Time.valueOf(appointmentTime));
+			
+		String timee = appointmentTime.replaceAll("AM", "");	
+		timee = appointmentTime.replaceAll("PM", "");	
+			
+		walkin.setAppointmentDate(JavaSqlDateTimeHelper.stringToDate(appointmentTime));
+		walkin.setAppointmentTime(JavaSqlDateTimeHelper.stringToTime(timee));
 		}catch(Exception e){
 			//do nothing
 		}

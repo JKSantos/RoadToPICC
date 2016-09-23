@@ -41,6 +41,10 @@
 			<result name="success" type="tiles">transWalkinTable</result>
 			<result name="input">page-login-first.jsp</result>
 		</action>
+		
+		<action name="updateWalkIn" class="com.gss.actions.WalkIn.UpdateIndividualWalkIn">
+			<result name="success" type="tiles"></result>
+		</action>
 	</package>
 
 </struts>

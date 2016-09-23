@@ -173,12 +173,37 @@
                 <div class="aside asideAside1 transparent" style="width: 5px !important;">
                     <div class="row">
                         <div class="col s12">
+                            <div class="input-field col s12">
+                                <input type="text" id="upWalkinName" ng-model="vm.infoUpdateWalkin.strName">
+                                <label for="upWalkinName"><b>Name</b>
+                                    <i class="material-icons red-text tiny">error_outline</i>
+                                </label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input type="text" id="upWalkinContact" ng-model="vm.infoUpdateWalkin.strContactNo">
+                                <label for="upWalkinContact">
+                                    <b>Contact Number</b>
+                                </label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input type="email" id="upWalkinEmail">
+                                <label for="upWalkinEmail"><b>Email</b>
+                                </label>
+                            </div>
+                            <div class="input-field col s12">
+                                <select ng-model="vm.upSelDiscounts" id="upDiscount" material-select watch
+                                        ng-change="vm.selDiscountDetails(vm.selDiscounts);"
+                                        ng-options="discount.strDiscountName for discount in vm.discountList">
+                                    <option id="discOpt" value="" selected disabled>Choose...</option>
+                                </select>
+                                <label for="upDiscount"><b>Discounts</b></label>
+                            </div>
                             <div class="input-field col s6">
                                 <select ng-model="newProduct.product" id="selProductEdit"
                                         ng-options="product.strProductName for product in vm.productList">
                                     <option value="" disabled selected>Product</option>
                                 </select>
-                                <label for="selProductEdit">Product</label>
+                                <label for="selProductEdit"><b>Product</b></label>
                             </div>
                             <div class="input-field col s3">
                                 <input type="number" class="right-align" id="selPrductQty" ng-model="newProduct.qty">
@@ -193,15 +218,21 @@
                         </div>
                         <div class="col s12">
                             <div class="input-field col s9">
-                                <select ng-model="newService.service" id="selServiceEdit"
+                                <select ng-model="newService.service" id="selServiceEdit" material-select watch
                                         ng-options="service.strServiceName for service in vm.serviceList">
-                                    <option value="" disabled selected>Service</option>
+                                    <option value="" selected>Choose...</option>
                                 </select>
-                                <label for="selServiceEdit">Product</label>
+                                <label for="selServiceEdit"><b>Service</b></label>
                             </div>
                             <div class="input-field col s3">
                                 <button class="waves-effect waves-light btn-flat purple white-text" title="Add"
-                                        ng-click="addService(newService)">
+                                        ng-if="newService.service != null"
+                                        ng-click="addService(newService); vm.filterEmployeeInUpdate($index, newService);">
+                                    <i class='material-icons'>add</i>
+                                </button>
+                                <button class="btn-flat purple white-text" title="Add"
+                                        ng-if="newService.service == null"
+                                        style="opacity: 0.3; cursor: not-allowed !important;">
                                     <i class='material-icons'>add</i>
                                 </button>
                             </div>
@@ -236,6 +267,8 @@
                                             <br>
                                             <span style="font-size: 13px !important;">Employee: {{selectedService.employeeAssigned.strEmpFirstName}}
                                             {{selectedService.employeeAssigned.strEmpLastName[0]}}.</span>
+                                            <span class="red-text" style="cursor: pointer;"
+                                                  ng-click="removeFromServiceList($index)">Remove</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -247,7 +280,7 @@
         </div>
         <div class="modal-footer">
             <button class="waves-effect waves-light btn-flat purple white-text"
-                    ng-click="editInCart(orderToBeEdit)">
+                    ng-click="vm.saveUpdateWalkin();">
                 SAVE
             </button>
         </div>
@@ -261,9 +294,9 @@
                 <h5 class="center">Assign Employee for <br>{{serviceInsideModal.service.strServiceName | uppercase}}</h5>
 
                 <div class="input-field col s12" style="margin-top: 50px !important;">
-                    <select ng-model="serviceInsideModal.selEmployee" id="addEmpinService"
-                            ng-options="employee.strEmpFirstName for employee in vm.employeeList">
-                        <option value="" disabled selected>Choose...</option>
+                    <select ng-model="serviceInsideModal.selEmployee" id="addEmpinService" material-select watch
+                            ng-options="employee.strEmpFirstName for employee in vm.upFilteredEmpForService">
+                        <option value="" selected>Choose...</option>
                     </select>
                     <label for="addEmpinService"><b>Employee</b>
                         <i class="material-icons tiny red-text">error_outline</i>
@@ -273,7 +306,14 @@
         </div>
         <div class="modal-footer">
             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat"
+               ng-if="serviceInsideModal.selEmployee != null"
                ng-click="addServiceInTable(serviceInsideModal)">
+                Proceed
+            </a>
+            <a href="#!" class="btn-flat"
+               style="opacity: 0.3; cursor: not-allowed !important;"
+               ng-if="serviceInsideModal.selEmployee == null"
+               ng-disabled="true">
                 Proceed
             </a>
         </div>

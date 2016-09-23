@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.gss.dao.CustomerTransactionHelper;
 import com.gss.model.Discount;
 import com.gss.model.Employee;
 import com.gss.model.ExtraCharge;
@@ -30,15 +31,24 @@ public class UpdateIndividualWalkIn {
 	private String strContactNo;
 	private String productString = "";
 	private String productQuantity = "";
-	private List<ServiceDetails> serviceDetails = new ArrayList<ServiceDetails>();
+	private String serviceString = "";		// ID ng service
+	private String employeeAssigned = "";
 	private List<PackageDetails> packageList = new ArrayList<PackageDetails>();
 	private List<PromoDetails> promoList = new ArrayList<PromoDetails>();
 	private String strTotalPrice;
 	private String discounts = "";
 	private String extraCharges = "";
-
+	private String customerType = "WALKIN";
+	private String appointmentDate = "";
+	private String appointmentTime = "";
+	private int intCustID;
+	
+	private int intCreatedID;
 	
 	public String execute() throws Exception{
+		
+		System.out.println("Package: " + this.packageList.size());
+		System.out.println("Promo: " + this.promoList.size());
 		
 		WalkInService service = new WalkInServiceImpl();
 		
@@ -47,54 +57,38 @@ public class UpdateIndividualWalkIn {
 		List<PackageWalkIn> packageList = new ArrayList<PackageWalkIn>();
 		List<PromoWalkIn> promoList = new ArrayList<PromoWalkIn>();
 		
+		String[] serviceID = this.serviceString.split(",");
+		String[] employeeID = this.employeeAssigned.split(",");
+		
 		String[] products = this.productString.split(",");
 		String[] productQuantity = this.productQuantity.split(",");
 		
 		String[] discounts = this.discounts.split(",");
 		String[] extraCharges = this.extraCharges.split(",");
 		
-		for(int i = 0; i < products.length; i++){
-			
-			ProductWalkIn  product = new ProductWalkIn(1, Product.createNullProduct(Integer.parseInt(products[i])), (Integer.parseInt(productQuantity[i])));
-			
-			productList.add(product);
-		}
 		
-		for(int i = 0; i < this.serviceDetails.size(); i++){
+		if(!this.productString.equals("")){
+			for(int i = 0; i < products.length; i++){
 			
-			ServiceDetails detail = this.serviceDetails.get(i);
+				ProductWalkIn  product = new ProductWalkIn(1, Product.createNullProduct(Integer.parseInt(products[i])), (Integer.parseInt(productQuantity[i])));
 			
-			ServiceWalkIn  serv = new ServiceWalkIn(1, Service.createNullService(detail.getIntServiceID()), Employee.createNullEmployee(detail.getIntEmployeeID()),detail.getStrStatus());
-			
-			serviceList.add(serv);
-		}
-		
-		for(int i = 0; i < this.packageList.size(); i++){
-			
-			List<ServiceDetails> details = this.packageList.get(i).getServiceList();
-			List<ServiceWalkIn> serv = new ArrayList<ServiceWalkIn>();
-			
-			for(int j = 0; j < details.size(); j++){
-				ServiceDetails serviceDetail = details.get(j);
-				ServiceWalkIn walkin = new ServiceWalkIn(1, Service.createNullService(serviceDetail.getIntServiceID()), Employee.createNullEmployee(serviceDetail.getIntEmployeeID()), serviceDetail.getStrStatus());
-				serv.add(walkin);
+				productList.add(product);
 			}
-			
-			PackageWalkIn packageWalkIn = new PackageWalkIn(1, Package.createNullPackage(this.packageList.get(i).getIntPackageID()), serv);
-			packageList.add(packageWalkIn);
 		}
 		
-		
-		for(int index = 0; index < this.promoList.size(); index++){
-			
-			List<PackageWalkIn> packageWalkInList = new ArrayList<PackageWalkIn>();
-			List<PackageDetails> packageDetails = this.promoList.get(index).getPackageList();
-			List<ServiceDetails> promoServiceDetails = this.promoList.get(index).getServiceList();
-			List<ServiceWalkIn> promoServiceList = new ArrayList<ServiceWalkIn>();
-			
-			for(int i = 0; i < packageDetails.size(); i++){
+		if(!serviceString.equals("")){
+			for(int i = 0; i < serviceID.length; i++){
 				
-				List<ServiceDetails> details = packageDetails.get(i).getServiceList();
+				ServiceWalkIn  serv = new ServiceWalkIn(1, Service.createNullService(Integer.parseInt(serviceID[i])), Employee.createNullEmployee(Integer.parseInt(employeeID[i])), "PENDING");
+				
+				serviceList.add(serv);
+			}
+		}
+		
+		try{
+			for(int i = 0; i < this.packageList.size(); i++){
+				
+				List<ServiceDetails> details = this.packageList.get(i).getServiceList();
 				List<ServiceWalkIn> serv = new ArrayList<ServiceWalkIn>();
 				
 				for(int j = 0; j < details.size(); j++){
@@ -103,19 +97,48 @@ public class UpdateIndividualWalkIn {
 					serv.add(walkin);
 				}
 				
-				PackageWalkIn packageWalkIn = new PackageWalkIn(1, Package.createNullPackage(packageDetails.get(i).getIntPackageID()), serv);
-				packageWalkInList.add(packageWalkIn);
+				PackageWalkIn packageWalkIn = new PackageWalkIn(1, Package.createNullPackage(this.packageList.get(i).getIntPackageID()), serv);
+				packageList.add(packageWalkIn);
 			}
-			
-			for(int i = 0; i < promoServiceDetails.size(); i++){
+		}catch(NullPointerException e){
+			//do nothing
+		}
+		
+		try{
+			for(int index = 0; index < this.promoList.size(); index++){
 				
-				ServiceDetails detail = promoServiceDetails.get(i);
+				List<PackageWalkIn> packageWalkInList = new ArrayList<PackageWalkIn>();
+				List<PackageDetails> packageDetails = this.promoList.get(index).getPackageList();
+				List<ServiceDetails> promoServiceDetails = this.promoList.get(index).getServiceList();
+				List<ServiceWalkIn> promoServiceList = new ArrayList<ServiceWalkIn>();
 				
-				ServiceWalkIn  serv = new ServiceWalkIn(1, Service.createNullService(detail.getIntServiceID()), Employee.createNullEmployee(detail.getIntEmployeeID()), detail.getStrStatus());
+				for(int i = 0; i < packageDetails.size(); i++){
+					
+					List<ServiceDetails> details = packageDetails.get(i).getServiceList();
+					List<ServiceWalkIn> serv = new ArrayList<ServiceWalkIn>();
+					
+					for(int j = 0; j < details.size(); j++){
+						ServiceDetails serviceDetail = details.get(j);
+						ServiceWalkIn walkin = new ServiceWalkIn(1, Service.createNullService(serviceDetail.getIntServiceID()), Employee.createNullEmployee(serviceDetail.getIntEmployeeID()), serviceDetail.getStrStatus());
+						serv.add(walkin);
+					}
+					
+					PackageWalkIn packageWalkIn = new PackageWalkIn(1, Package.createNullPackage(packageDetails.get(i).getIntPackageID()), serv);
+					packageWalkInList.add(packageWalkIn);
+				}
 				
-				promoServiceList.add(serv);
+				for(int i = 0; i < promoServiceDetails.size(); i++){
+					
+					ServiceDetails detail = promoServiceDetails.get(i);
+					
+					ServiceWalkIn  serv = new ServiceWalkIn(1, Service.createNullService(detail.getIntServiceID()), Employee.createNullEmployee(detail.getIntEmployeeID()), detail.getStrStatus());
+					
+					promoServiceList.add(serv);
+				}
+				
 			}
-			
+		}catch(NullPointerException e){
+			//do nothing
 		}
 		
 		List<Discount> discountList = new ArrayList<Discount>();
@@ -142,22 +165,29 @@ public class UpdateIndividualWalkIn {
 
 		Invoice invoice = Invoice.createNullInvoice(extraChargeList, discountList, PriceFormatHelper.convertToDouble(this.strTotalPrice, "Php "), "FULL");
 		
-		WalkIn walkin = new WalkIn(intWalkInID, "INDIVIDUAL", this.strName, this.strContactNo, new Date(), serviceList, productList, packageList, promoList, invoice, null, "PENDING", "UNPAID");
-	
+		WalkIn walkin = new WalkIn(this.intWalkInID, customerType, this.strName, this.strContactNo, new Date(), serviceList, productList, packageList, promoList, invoice, null, "PENDING", "UNPAID");
 		
-		if(service.updateWalkIn(walkin) == false){
+		try{
+		walkin.setAppointmentDate(java.sql.Date.valueOf(appointmentDate));
+		walkin.setAppointmentTime(java.sql.Time.valueOf(appointmentTime));
+		}catch(Exception e){
+			//do nothing
+		}
+		
+		boolean result = service.updateWalkIn(walkin);
+		
+		if(result == true){
 			return "failed";
 		}
 		else{
+			if(this.customerType.equals("APPOINTMENT"))
+				CustomerTransactionHelper.insertCustomerAppointment(intCreatedID, intCustID, 1);
+
 			return "success";
 		}
 	
 	}
-
-	public void setIntWalkInID(int intWalkInID) {
-		this.intWalkInID = intWalkInID;
-	}
-
+	
 	public void setStrName(String strName) {
 		this.strName = strName;
 	}
@@ -172,10 +202,6 @@ public class UpdateIndividualWalkIn {
 
 	public void setProductQuantity(String productQuantity) {
 		this.productQuantity = productQuantity;
-	}
-
-	public void setServiceDetails(List<ServiceDetails> serviceDetails) {
-		this.serviceDetails = serviceDetails;
 	}
 
 	public void setPackageList(List<PackageDetails> packageList) {
@@ -196,5 +222,36 @@ public class UpdateIndividualWalkIn {
 
 	public void setExtraCharges(String extraCharges) {
 		this.extraCharges = extraCharges;
+	}
+
+	public int getIntCreatedID() {
+		return intCreatedID;
+	}
+
+	public void setServiceString(String serviceString) {
+		this.serviceString = serviceString;
+	}
+
+	public void setEmployeeAssigned(String employeeAssigned) {
+		this.employeeAssigned = employeeAssigned;
+	}
+
+	public void setAppointmentDate(String appointmentDate) {
+		this.appointmentDate = appointmentDate;
+	}
+
+	public void setAppointmentTime(String appointmentTime) {
+		this.appointmentTime = appointmentTime;
+	}
+
+	public void setCustomerType(String customerType) {
+		this.customerType = customerType;
+	}
+	public void setIntCustID(int intCustID) {
+		this.intCustID = intCustID;
+	}
+
+	public void setIntWalkInID(int intWalkInID) {
+		this.intWalkInID = intWalkInID;
 	}
 }

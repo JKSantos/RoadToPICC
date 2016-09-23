@@ -213,6 +213,7 @@
 <script type="text/javascript" src="js/angular.min.js"></script>
 <script type="text/javascript" src="js/angular-animate.min.js"></script>
 <script type="text/javascript" src="js/angular-datatables.min.js"></script>
+<script type="text/javascript" src="js/angular-materialize.min.js"></script>
 <script type="text/javascript" src="js/bartstable.js"></script>
 <!--<script type="text/javascript" src="js/picker.date.js"></script>-->
 <script type="text/javascript" src="js/jquery.validate.js"></script>
@@ -230,13 +231,13 @@
 <script type="text/javascript" src="js/jquery.formatCurrency-1.4.0.js"></script>
 <script type="text/javascript" src="js/moment-with-locale.js"></script>
 <script type="text/javascript" src="js/jquery.ellipsis.min.js"></script>
-<script type="text/javascript" src="js/angular-materialize.min.js"></script>
 <script type="text/javascript" src="js/materialize.clockpicker.js"></script>
 <script type="text/javascript" src="js/lodash.min.js"></script>
 <script type="text/javascript" src="js/highcharts.js"></script>
 <script type="text/javascript" src="js/exporting.js"></script>
 <script type="text/javascript" src="js/fullcalendar.js"></script>
 <script type="text/javascript" src="js/moment.min.js"></script>
+<script type="text/javascript" src="js/ajax.js"></script>
 
 <!-- <script type="text/javascript" src="js/ProductsSales/ajax.js"></script> -->
 <!-- jQuery Ajax -->
