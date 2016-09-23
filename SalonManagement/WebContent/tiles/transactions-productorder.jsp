@@ -71,10 +71,18 @@
                                 "Php "}}</h6>
 
                             <button class="waves-effect waves-light btn"
+                                    ng-if="details.quantity > 0 && details.quantity <= product.intProductQuantity"
                                     ng-click="addToCart($index); calculateTotal(); vm.closeCard(product.intProductID)">
                                 <i class="material-icons left" style="padding: 0px !important; margin: 0px !important;">
                                     shopping_basket</i>BUY NOW!
                             </button>
+                            <button class="btn"
+                                    ng-if="details.quantity < 1 && details.quantity <= product.intProductQuantity"
+                                    ng-disabled="true" style="opacity: 0.3; cursor: not-allowed !important;">
+                                <i class="material-icons left" style="padding: 0px !important; margin: 0px !important;">
+                                    shopping_basket</i>BUY NOW!
+                            </button>
+                            <span class="red-text" ng-if="details.quantity > product.intProductQuantity">INSUFFICIENT STOCK</span>
                         </div>
                     </div>
                 </div>
@@ -118,7 +126,7 @@
                                 <img ng-src="{{orders.strPhotoPath}}" class="circle" height="30" width="30">
                                 <span style="padding-left: 5px !important;" title="{{orders.product}} - {{orders.total | currency: 'Php '}}"
                                       ng-click="openEditItem($index, orders)">
-                                    {{orders.product | truncate: 17}}
+                                    {{orders.product | truncate: 15}}
                                 </span>
                                 <button name="" title="Decline" class="secondary-content red-text transparent"
                                         style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border:0px !important;"
@@ -151,7 +159,7 @@
                                    ng-if="request.intType==2 || request.intType=='pickup'">
                                     shopping_basket
                                 </i>
-                                <span title="{{ request.strName }}">{{ request.strName | truncate: 12 }}</span>
+                                <span title="{{ request.strName }}">{{ request.strName | truncate: 10 }}</span>
                                 <button name="" title="Decline" class="secondary-content red-text transparent"
                                         style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border:0px !important;"
                                         ng-click="declineOrder(request)">
@@ -184,7 +192,7 @@
 
     <div id="crProductSales" class="modal modal-fixed-footer"
          style="width: 50% !important; height: 70% !important; max-height: 100% !important; margin-top: -40px;">
-        <form class="col s12 css-form" id="createPSForm" name="createPSForm" method="post" novalidate>
+        <form class="col s12 css-form" id="createPSForm" name="createPSForm" novalidate>
             <div class="modal-content">
                 <div class="wrapper">
                     <h4 class="center grey-text text-darken-1">Create Order

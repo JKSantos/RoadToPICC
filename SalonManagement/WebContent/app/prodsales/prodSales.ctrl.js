@@ -169,33 +169,39 @@
 
         $scope.editInCart = function (order) {
             $('#editItem').closeModal();
+            $scope.totalAmount -= order.total;
+            $scope.orderList[order.index].quantity = order.quantity;
+            $scope.orderList[order.index].total = order.quantity * order.price;
+            $scope.totalAmount += $scope.orderList[order.index].total;
 
-            var beforeTotal = order.total,
-                finalTotal = order.price * order.quantity,
-                t = 0;
-            if (finalTotal > beforeTotal) {
-                t = finalTotal - beforeTotal;
-                console.log(t + 't');
-                $scope.totalAmount = $scope.totalAmount + t;
-                console.log($scope.totalAmount + 'totalAmt');
-                paymentFactory.addTotal(t, order)
-            } else {
-                console.log('asdasd');
-                console.log(beforeTotal + '//' + finalTotal);
-                t = beforeTotal - finalTotal;
-                console.log(t + 't');
-                $scope.totalAmount = $scope.totalAmount - t;
-                console.log($scope.totalAmount + 'totalAmt');
-                paymentFactory.minusTotal(t, order);
-            }
-            $scope.orderList.splice(order.index, 1);
-            $scope.orderList.unshift({
-                product: order.product,
-                total: $scope.totalAmount,
-                strPhotoPath: order.strPhotoPath,
-                quantity: order.quantity,
-                price: order.price
-            });
+            console.log($scope.orderList[order.index]);
+
+            // var beforeTotal = order.total,
+            //     finalTotal = order.price * order.quantity,
+            //     t = 0;
+            // if (finalTotal > beforeTotal) {
+            //     t = finalTotal - beforeTotal;
+            //     console.log(t + 't');
+            //     $scope.totalAmount = $scope.totalAmount + t;
+            //     console.log($scope.totalAmount + 'totalAmt');
+            //     paymentFactory.addTotal(t, order)
+            // } else {
+            //     console.log('asdasd');
+            //     console.log(beforeTotal + '//' + finalTotal);
+            //     t = beforeTotal - finalTotal;
+            //     console.log(t + 't');
+            //     $scope.totalAmount = $scope.totalAmount - t;
+            //     console.log($scope.totalAmount + 'totalAmt');
+            //     paymentFactory.minusTotal(t, order);
+            // }
+            // $scope.orderList.splice(order.index, 1);
+            // $scope.orderList.unshift({
+            //     product: order.product,
+            //     total: $scope.totalAmount,
+            //     strPhotoPath: order.strPhotoPath,
+            //     quantity: order.quantity,
+            //     price: order.price
+            // });
 
         };
 

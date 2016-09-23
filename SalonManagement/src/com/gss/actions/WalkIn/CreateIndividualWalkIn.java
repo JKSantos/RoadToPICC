@@ -40,6 +40,7 @@ public class CreateIndividualWalkIn {
 	private String customerType = "WALKIN";
 	private String appointmentDate = "";
 	private String appointmentTime = "";
+	private String packageString = "";
 	private int intCustID;
 	
 	private int intCreatedID;
@@ -250,5 +251,13 @@ public class CreateIndividualWalkIn {
 	}
 	public void setIntCustID(int intCustID) {
 		this.intCustID = intCustID;
+	}
+
+	public String getPackageString() {
+		return packageString;
+	}
+
+	public void setPackageString(String packageString) {
+		this.packageString = packageString;
 	}
 }

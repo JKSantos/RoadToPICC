@@ -819,6 +819,7 @@
                 'productQuantity': quantprod,
                 'serviceString': selectserv,
                 'employeeAssigned': selectEmp,
+                'packageList': vm.selPackageDetails,
                 'promoList': vm.selPromoDetails,
                 'strTotalPrice': vm.sum,
                 'discounts': selectdiscount,
