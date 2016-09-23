@@ -24,9 +24,11 @@
         vm.filterEmployee = filterEmployee;
         vm.closeNotSelectedInProd = closeNotSelectedInProd;
         vm.selEmpServ = selEmpServ;
+        vm.filterEmployeeInUpdate = filterEmployeeInUpdate;
 
         vm.editWalkin = editWalkin;
         vm.editInCart = editInCart;
+        vm.saveUpdateWalkin = saveUpdateWalkin;
 
         vm.createWalkinOpen = createWalkinOpen;
 
@@ -142,6 +144,7 @@
 
         locationFactory.getWalkin().then(function (data) {
             vm.walkinList = data.walkInList;
+            console.log(vm.walkinList);
         });
 
         function createWalkinOpen() {
@@ -191,6 +194,22 @@
         }, function errorCallback(response) {
             console.log(response);
         });
+        
+        function filterEmployeeInUpdate(index, newService) {
+            var f = [];
+            console.log(newService);
+            vm.upServiceStrName = newService.service.strServiceCategory;
+            for(var i = 0; i < vm.employeeList.length; i ++) {
+                for(var j = 0; j < vm.employeeList[i].specialization.length; j++) {
+                    if(vm.upServiceStrName.toLowerCase() == vm.employeeList[i].specialization[j].name.toLowerCase()) {
+                        console.log(vm.upServiceStrName + '///' + vm.employeeList[i].specialization[j].name);
+                        f.push(vm.employeeList[i]);
+                    }
+                }
+            }
+            vm.upFilteredEmpForService = f;
+
+        }
 
         function filterEmployee(index, id) {
             var f = [];
@@ -395,11 +414,14 @@
                 }
             }).then(function successCallback(data) {
                 var walkin = data.data.walkin;
-                console.log('walkin: ' + walkin);
+                vm.infoUpdateWalkin = (walkin);
+                console.log(walkin);
                 vm.walkinProdSelected = walkin.products;
                 vm.walkinServSelected = walkin.services;
                 vm.selectedProductFromWalkin = pushProduct(vm.walkinProdSelected);
+                console.log(vm.selectedProductFromWalkin);
                 vm.selectedServiceFromWalkin = pushService(vm.walkinServSelected);
+                console.log(vm.selectedServiceFromWalkin);
             }, function errorCallback(response) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
@@ -480,11 +502,15 @@
                 'servName': service.service.strServiceName,
                 'employeeAssigned': service.selEmployee
             });
-            console.log(service);
+            $('#addServiceModal').closeModal();
         };
 
         $scope.removeFromProductList = function (index) {
             vm.selectedProductFromWalkin.splice(index, 1);
+        };
+
+        $scope.removeFromServiceList = function (index) {
+            vm.selectedServiceFromWalkin.splice(index, 1);
         };
 
         function editInCart(order) {
@@ -870,6 +896,19 @@
             //     selectprod, quantprod, packageDetails, promoDetails,
             //     serviceDetails, selectdiscount, total);
         };
+
+        function saveUpdateWalkin () {
+            var selServ = [],
+                selServEmp = [];
+
+
+            for(var i = 0; i < vm.selectedServiceFromWalkin.length; i ++) {
+                selServ += vm.selectedServiceFromWalkin[i].servID + ',';
+                selServEmp += vm.selectedServiceFromWalkin[i].employeeAssigned.intEmpID + ',';
+            }
+
+            console.log(selServEmp);
+        }
 
         vm.moveToPay = function (id) {
             walkinFactory.moveToPayment(id);

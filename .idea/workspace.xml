@@ -50,20 +50,32 @@
       <file leaf-file-name="transactions-walkin-table.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-walkin-table.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1691">
-              <caret line="104" column="60" selection-start-line="104" selection-start-column="60" selection-end-line="104" selection-end-column="60" />
+            <state relative-caret-position="416">
+              <caret line="185" column="32" selection-start-line="185" selection-start-column="32" selection-end-line="185" selection-end-column="32" />
               <folding>
                 <element signature="n#style#0;n#table#0;n#div#3;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#button#1;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#a#1;n#div#1;n#div#2;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="transactions-walkin.jsp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="walkin.ctr.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/walkin/walkin.ctr.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="443">
+              <caret line="417" column="36" selection-start-line="417" selection-start-column="36" selection-end-line="417" selection-end-column="36" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="transactions-walkin.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-walkin.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="154" column="30" selection-start-line="154" selection-start-column="30" selection-end-line="154" selection-end-column="30" />
+            <state relative-caret-position="158">
+              <caret line="308" column="32" selection-start-line="308" selection-start-column="32" selection-end-line="315" selection-end-column="38" />
               <folding>
                 <element signature="n#style#0;n#a#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#a#1;n#div#2;n#div#0;n#div#0;n#div#0;n#div#1;n#div#2;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -87,21 +99,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="walkin.ctr.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/walkin/walkin.ctr.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1263">
-              <caret line="77" column="26" selection-start-line="77" selection-start-column="26" selection-end-line="77" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="payment.ctr.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/payment/payment.ctr.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3111">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="102">
+              <caret line="6" column="26" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -144,7 +146,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-reservation.jsp" />
-        <option value="$PROJECT_DIR$/SalonManagement/WebContent/app/payment/payment.ctr.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-payment.jsp" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/employee-position.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/product-category.js" />
@@ -160,7 +161,6 @@
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/WEB-INF/tiles.xml" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/extracharge.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-productorder.jsp" />
-        <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-walkin-table.jsp" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/baselayout.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/delivery.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/queries-extra.jsp" />
@@ -192,8 +192,10 @@
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/app/prodsales/locationfactory.fac.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/baseLayout.jsp" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/app/prodsales/prodSales.ctrl.js" />
-        <option value="$PROJECT_DIR$/SalonManagement/WebContent/app/walkin/walkin.ctr.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-walkin.jsp" />
+        <option value="$PROJECT_DIR$/SalonManagement/WebContent/app/payment/payment.ctr.js" />
+        <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-walkin-table.jsp" />
+        <option value="$PROJECT_DIR$/SalonManagement/WebContent/app/walkin/walkin.ctr.js" />
       </list>
     </option>
   </component>
@@ -683,7 +685,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1119411000" />
+    <option name="totallyTimeSpent" value="1123793000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="886" extended-state="6" />
@@ -1023,24 +1025,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-walkin-table.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1691">
-          <caret line="104" column="60" selection-start-line="104" selection-start-column="60" selection-end-line="104" selection-end-column="60" />
-          <folding>
-            <element signature="n#style#0;n#table#0;n#div#3;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/payment/payment.ctr.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3111">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/prodsales/prodSales.ctrl.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="498">
@@ -1057,14 +1041,6 @@
             <element signature="n#style#0;n#button#2;n#div#1;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#button#3;n#div#1;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/walkin/walkin.ctr.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1263">
-          <caret line="77" column="26" selection-start-line="77" selection-start-column="26" selection-end-line="77" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1100,10 +1076,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/payment/payment.ctr.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="26" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-walkin.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="154" column="30" selection-start-line="154" selection-start-column="30" selection-end-line="154" selection-end-column="30" />
+        <state relative-caret-position="158">
+          <caret line="308" column="32" selection-start-line="308" selection-start-column="32" selection-end-line="315" selection-end-column="38" />
           <folding>
             <element signature="n#style#0;n#a#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#a#1;n#div#2;n#div#0;n#div#0;n#div#0;n#div#1;n#div#2;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -1123,6 +1107,26 @@
             <element signature="n#style#0;n#span#0;n#li#2;n#ul#0;n#div#0;n#div#0;n#div#0;n#div#4;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#a#0;n#div#2;n#div#5;n#div#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-walkin-table.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="185" column="32" selection-start-line="185" selection-start-column="32" selection-end-line="185" selection-end-column="32" />
+          <folding>
+            <element signature="n#style#0;n#table#0;n#div#3;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#1;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#1;n#div#1;n#div#2;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/walkin/walkin.ctr.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="443">
+          <caret line="417" column="36" selection-start-line="417" selection-start-column="36" selection-end-line="417" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>
