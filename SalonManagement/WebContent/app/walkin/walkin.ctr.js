@@ -869,7 +869,7 @@
             
             vm.upTotal = totalprod + totalserv;
 
-            var dta = {
+            var dta = $.param({
                 'intWalkInID': vm.infoUpdateWalkin.intWalkInID,
                 'strName': vm.infoUpdateWalkin.strName,
                 'strContactNo': vm.infoUpdateWalkin.strContactNo,
@@ -878,9 +878,21 @@
                 'serviceString': selServ,
                 'employeeAssigned': selServEmp,
                 'strTotalPrice': vm.upTotal
-            };
+            });
             
-            console.log(dta);
+            $http({
+               method: 'post',
+                url: 'updateWalkIn',
+                data: dta,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                console.log(data);
+                console.log('success');
+            }, function errorCallback(response) {
+                SweetAlert.swal("Oops", "Something went wrong!", "error");
+            });
         }
     }
 })();
