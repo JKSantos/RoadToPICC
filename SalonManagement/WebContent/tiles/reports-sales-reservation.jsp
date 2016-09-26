@@ -2,9 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <div class="wrapper" ng-controller="salesReportController">
-    <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
+    	<div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
-            <h3 class=" center light">Saleas Reports</h3>
+            <h3 class=" center light">Sales Reports</h3>
             <!--<a class="btnshadow hoverable z-depth-1 waves-effect waves-light modal-trigger btn-flat purple darken-2 left white-text"-->
     
           <div class="row">

@@ -70,7 +70,7 @@
           		      success: function (data) {
           		        console.log("Success Employee");
           		        console.log(data);
-          		        handle(data.report.details);
+          		        handle(data.sales.details);
           		      },
           		      error: function () {
           		          console.log("Error in posting");
