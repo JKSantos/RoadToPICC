@@ -293,4 +293,34 @@ public class WalkInTransRepository {
 		}
 		
 	}
+	
+	public static int getWalkInID(int invoiceID){
+		
+		Connection con = jdbc.getConnection();
+		
+		String query = "SELECT intWalkInID FROM tblWalkIn WHERE intInvoiceID = ?;";
+		
+		int id = 0;
+		
+		try{
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setInt(1, invoiceID);
+			ResultSet set = statement.executeQuery();
+			
+			while(set.next()){
+				id = set.getInt(1);
+			}
+			
+			statement.close();
+			set.close();
+			con.close();
+			
+			return id;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return 0;
+		}
+		
+	}
 }

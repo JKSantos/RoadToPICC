@@ -829,8 +829,8 @@ public class WalkInJDBCRepository implements WalkInRepository{
 		
 		try{
 			PreparedStatement statement = con.prepareStatement(query);
-			statement.setInt(1, id);
-			statement.setString(2, status);
+			statement.setInt(2, id);
+			statement.setString(1, status);
 			statement.execute();
 			
 			statement.close();

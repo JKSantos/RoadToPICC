@@ -170,11 +170,13 @@ public class CreateIndividualWalkIn {
 		
 		try{
 			
-		String timee = appointmentTime.replaceAll("AM", "");	
-		timee = appointmentTime.replaceAll("PM", "");	
+		String time = appointmentDate.replaceAll("AM", "");	
+		time = appointmentDate.replaceAll("PM", "");	
 			
-		walkin.setAppointmentDate(JavaSqlDateTimeHelper.stringToDate(appointmentTime));
-		walkin.setAppointmentTime(JavaSqlDateTimeHelper.stringToTime(timee));
+		if(this.customerType.equalsIgnoreCase("APPOINTMENT")){
+			walkin.setAppointmentDate(JavaSqlDateTimeHelper.stringToDate(this.appointmentTime));
+			walkin.setAppointmentTime(JavaSqlDateTimeHelper.stringToTime(time));
+		}
 		}catch(Exception e){
 			//do nothing
 		}

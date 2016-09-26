@@ -211,6 +211,7 @@
                                 ng-options="pay.name for pay in vm.paymentType track by pay.id">
                         </select>
                         <select id="paymentDetails.type"
+                                material-select watch
                                 ng-model="vm.paymentDetails.paymentType"
                                 ng-if="vm.paymentDetails.type == 'walkin'"
                                 ng-options="pay.name for pay in vm.paymentType track by pay.id">

@@ -562,6 +562,8 @@
         </div>
     </div>
 
+    
+
     <div id="editItem" class="modal modal-fixed-footer">
         <div class="modal-content" ng-if="vm.orderToBeEdit.type == 'product'">
             <h4 class="center">{{vm.orderToBeEdit.product}}<br/>

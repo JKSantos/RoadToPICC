@@ -3,6 +3,8 @@ package com.gss.actions.Payment;
 import org.apache.commons.lang3.time.StopWatch;
 
 import com.gss.Receipts.WalkInReceipt;
+import com.gss.dao.WalkInJDBCRepository;
+import com.gss.dao.WalkInTransRepository;
 import com.gss.model.Payment;
 import com.gss.utilities.DateHelper;
 import com.gss.utilities.NumberGenerator;
@@ -37,8 +39,8 @@ public class CreatePaymentAction {
 			thread.createProductSalesReceipt(this.intInvoiceID, "JEFFREY SANTOS", this.datDateOfPayment, payment, url);
 		}else if(strPaymentType.equals("walkin")){
 			WalkInReceipt walkin = new WalkInReceipt();
-			
-			//walkin.createProductSalesReceipt(this.intInvoiceID, "JEFFREY SANTOS", this.datDateOfPayment, payment, url);
+			int walkinID = WalkInTransRepository.getWalkInID(this.intInvoiceID);
+			walkin.createProductSalesReceipt(WalkInTransRepository.getWalkInByID(walkinID), "JEFFREY SANTOS", this.datDateOfPayment, payment, url);
 		}
 		
 		if(recorded == true){

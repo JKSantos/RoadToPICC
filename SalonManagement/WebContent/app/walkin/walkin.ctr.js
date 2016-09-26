@@ -756,13 +756,14 @@
             }
         };
 
-        function assignEmployeePackage(index, id) {
+        function assignEmployeePackage(index) {
             vm.selPackageDetails.push({
-                intServiceID: vm.packageContainService[index].service.intServiceID,
-                intQuantity: 1,
-                intEmployeeID: vm.selEmployeePerService.intEmpID,
-                strStatus: 'PENDING'
+                'intServiceID': vm.packageContainService[index].service.intServiceID,
+                'intQuantity': 1,
+                'intEmployeeID': vm.selEmployeePerService.intEmpID,
+                'strStatus': 'PENDING'
             });
+
         }
 
         function openPromoModal(index, promo) {
@@ -814,18 +815,34 @@
         vm.saveWalkin = function (details) {
             vm.loadingBubble = 0;
             toString();
+            var packageObj = vm.selPackageDetails;
             var walkinData = $.param({
                 'productString': selectprod,
                 'productQuantity': quantprod,
                 'serviceString': selectserv,
                 'employeeAssigned': selectEmp,
-                'packageList': vm.selPackageDetails,
+                'packageList': packageObj,
                 'promoList': vm.selPromoDetails,
                 'strTotalPrice': parseFloat(vm.sum).toFixed(2),
                 'discounts': selectdiscount,
                 'strName': vm.details.name,
                 'strContactNo': vm.details.contact
             });
+
+            var ppp = {
+                'productString': selectprod,
+                'productQuantity': quantprod,
+                'serviceString': selectserv,
+                'employeeAssigned': selectEmp,
+                'packageList': packageObj,
+                'promoList': vm.selPromoDetails,
+                'strTotalPrice': parseFloat(vm.sum).toFixed(2),
+                'discounts': selectdiscount,
+                'strName': vm.details.name,
+                'strContactNo': vm.details.contact
+            }
+
+            console.log(ppp);
             
             var data1 = JSON.stringify(walkinData);
 
@@ -835,17 +852,59 @@
                     url: 'http://localhost:8080/SalonManagement/createWalkin',
                     data: data1,
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).then(function successCallback(data) {
                 	console.log(data1);
                     $('#createWalkinModal').closeModal();
+                    //$window.location.reload();
                 }, function errorCallback(response) {
                     SweetAlert.swal("Oops", "Something went wrong!", "error");
                     vm.loadingBubble = 1;
                 });
             }, 1000);
         };
+
+        $scope.acceptAppointment = function(index, walkin) {
+            console.log(walkin);
+            var dataWalkinStatus = $.param({
+                'intAppointmentID': walkin.intWalkInID,
+                'status': 'PENDING'
+            });
+
+            $http({
+                method: 'post',
+                url: 'updateWalkInStatus',
+                data: dataWalkinStatus,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                vm.walkinList[index].strWalkInStatus = 'PENDING';
+            }, function errorCallback(data) {
+
+            });
+        };
+
+        $scope.declineAppointment = function(index, walkin) {
+            var dataWalkinStatus = $.param({
+                'intAppointmentID': walkin.intWalkInID,
+                'status': 'REJECTED'
+            });
+
+             $http({
+                method: 'post',
+                url: 'updateWalkInStatus',
+                data: dataWalkinStatus,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                vm.walkinList.splice(index, 1);
+            }, function errorCallback(data) {
+
+            });
+        }
 
         vm.upTotal = 0;
 
@@ -897,6 +956,7 @@
                 SweetAlert.swal("Oops", "Something went wrong!", "error");
             });
         }
+
     }
 })();
 
