@@ -176,7 +176,7 @@ public class UpdateIndividualWalkIn {
 		
 		boolean result = service.updateWalkIn(walkin);
 		
-		if(result == true){
+		if(result == false){
 			return "failed";
 		}
 		else{

@@ -7,9 +7,9 @@
             <a class="crReservation z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
                href="#createReservationModal" style="margin-top: 30px; margin-left: 15px;"><i
                     class="material-icons">add</i></a>
-            <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
-               href="#reservationModal" style="margin-top: 30px; margin-left: 15px;"><i
-                    class="material-icons">archive</i></a>
+            <!--<a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"-->
+               <!--href="#reservationModal" style="margin-top: 30px; margin-left: 15px;"><i-->
+                    <!--class="material-icons">archive</i></a>-->
              <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
                href="#reservationListModal" style="margin-top: 30px; margin-left: 15px;"><i
                     class="material-icons">list</i></a>
@@ -37,15 +37,15 @@
     </div>
 
     <!-- Modal Structure -->
-    <div id="reservationListModal" class="modal"style = "width: 70% !important; height: 80% !important; border-radius: 10px">
+    <div id="reservationListModal" class="modal" style = "width: 70% !important; height: 80% !important; margin-top: -10px !important; border-radius: 10px;">
         <div class="modal-content">
          	<a href="#!" class=" modal-action modal-close waves-effect waves-purple btn-flat right"><i
                     class="material-icons red-text" style="font-size: 30px ">highlight_off</i></a>
             <h3 class="purple-text text-darken-3 thin">Reservation List</h3>
             <table id="reservationTable"
-                   class="hoverable z-depth-1 cell-border row-border display responsive-table highlight"
                    datatable="ng"
-                   style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;" rowspan="10">
+                   class="hoverable z-depth-1 cell-border row-border display responsive-table highlight" width="100%"
+                   style="border: 1px solid #bdbdbd; margin-top: -30px !important;" rowspan="10">
                 <thead>
                 <tr>
                     <th class="left-align">Customer Name</th>
@@ -58,39 +58,40 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="customer in ::vm.customerList.slice().reverse() | filter: reservationSearch"
+                <tr ng-repeat="customer in vm.customerList.slice().reverse()"
                     ng-if="customer.strStatus == 'PENDING' || customer.strStatus == 'REQUEST'">
-                    <td class="left-align">{{customer.customer.strName}}</td>
-                    <td class="left-align">{{customer.intReservationType }}</td>
+                    <td class="left-align" style="padding: 0px !important; margin-left: 5px !important;">{{customer.customer.strName}}</td>
+                    <td class="left-align" ng-if="customer.intReservationType == 1">INDIVIDUAL</td>
+                    <td class="left-align" ng-if="customer.intReservationType == 2">{{customer.customer.strCustomerType | uppercase}}</td>
                     <td class="left-align" ng-if="customer.intReservationType == 1">HOME SERVICE</td>
                     <td class="left-align" ng-if="customer.intReservationType == 2">EVENT</td>
                     <td class="left-align">{{customer.strVenue}}</td>
                     <td class="right-align">{{customer.datFrom | date: "MMMM/d/yyyy" }}</td>
                     <td class="left-align">{{customer.strStatus}}</td>
                     <td align="center-align">
-                        <button class="waves-effect waves-purple btn-flat transparent red-text text-accent-4"
-                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Cancel"
-                                ng-if="customer.intReservationType == 1"
-                                ng-click="cancelHomeService(customer, $index)">
-                            <i class='material-icons'>exit</i>
-                        </button>
                         <button class="waves-effect waves-purple btn-flat transparent grey-text text-darken-4"
                                 style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Accept"
-                                ng-if="customer.intReservationType == 1"
+                                ng-if="customer.intReservationType == 1 && customer.strStatus=='REQUEST'"
                                 ng-click="acceptHomeService(customer, $index)">
                             <i class='material-icons'>done</i>
                         </button>
-                        <button class="btn-flat transparent red-text text-lighten-4"
-                                style="padding-left: 10px;padding-right:10px; margin: 5px;"
-                                ng-if="customer.intReservationType == 2"
-                                ng-disabled=true>
-                            <i class='material-icons'>exit</i>
+                        <button class="middle-align waves-effect waves-purple btn-flat transparent red-text text-darken-4"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Cancel"
+                                ng-if="customer.intReservationType == 1"
+                                ng-click="cancelHomeService(customer, $index);">
+                            <i class='material-icons'>clear</i>
                         </button>
-                        <button class="btn-flat transparent grey-text text-lighten-3"
-                                style="padding-left: 10px;padding-right:10px; margin: 5px;"
-                                ng-if="customer.intReservationType == 2"
-                                ng-disabled=true>
+                        <button class="waves-effect waves-purple btn-flat transparent grey-text text-darken-4"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Accept"
+                                ng-if="customer.intReservationType == 2 && customer.strStatus=='REQUEST'"
+                                ng-click="acceptEvent(customer, $index)">
                             <i class='material-icons'>done</i>
+                        </button>
+                        <button class="middle-align waves-effect waves-purple btn-flat transparent red-text text-darken-4"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Cancel"
+                                ng-if="customer.intReservationType == 2"
+                                ng-click="cancelEvent(customer, $index);">
+                            <i class='material-icons'>clear</i>
                         </button>
                     </td>
                 </tr>
@@ -115,20 +116,78 @@
     <!-- Modal Structure -->
     <div id="createReservationModal" class="modal modal-fixed-footer"
          style="width: 70% !important; height: 90% !important; max-height: 100% !important; margin-top: -40px;">
-        <form class="col s12" id="createReservationForm" method="post" ng-submit="vm.saveReservation()">
+        <form class="col s12 css-form" name="createReservationForm" id="createReservationForm" novalidate>
             <div class="modal-content">
                 <!-- <div class="container"> -->
                 <div class="wrapper">
-                    <h4 class="center grey-text text-darken-1">Create Reservation<a id="btnCrExtraExit" type="reset"
-                                                                                    value="Reset"
-                                                                                    class="modal-action modal-close"><i
-                            class="small material-icons right grey-text text-darken-4">close</i></a></h4>
+                    <h4 class="center grey-text text-darken-1">Create Reservation
+                        <a id="btnCrExtraExit" type="reset" value="Reset" class="modal-action modal-close">
+                            <i class="small material-icons right grey-text text-darken-4">close</i>
+                        </a>
+                    </h4>
                     <div class="progress">
                         <div class="determinate center active purple darken-4 white-text" role="progressbar"
                              aria-valuemin="0"
-                             aria-valuemax="100" style="color: white;"></div>
+                             aria-valuemax="100" style="color: white;">
+                        </div>
                     </div>
                     <div class="reservationerrorcontainer card red center input-field col s12 white-text z-depth-barts">
+                        <span class="white-text"
+                              ng-show="createReservationForm.crRCustName.$error.minlength">
+                            Customer name must be at least 5 characters <br>
+                        </span>
+                        <span class="white-text"
+                              ng-show="createReservationForm.crRCustName.$error.pattern">
+                            Customer name is invalid<br>
+                        </span>
+                        <span class="white-text"
+                              ng-show="createReservationForm.crRCustName.$touched && createReservationForm.crRCustName.$invalid">
+                            Customer name is required<br>
+                        </span>
+                        <span class="white-text"
+                              ng-show="createReservationForm.crRAddress.$error.minlength">
+                            Address must be at least 8 characters <br>
+                        </span>
+                        <span class="white-text"
+                              ng-show="createReservationForm.crRContact.$error.minlength">
+                            11 digits is required for contact number<br>
+                        </span>
+                        <span class="white-text"
+                              ng-show="createReservationForm.crRContact.$error.pattern">
+                            Invalid contact number<br>
+                        </span>
+                        <span class="white-text"
+                              ng-show="createReservationForm.crRContact.$touched && createReservationForm.crRContact.$invalid">
+                            Contact number is required<br>
+                        </span>
+                        <span class="white-text"
+                              ng-show="createReservationForm.crRCompanyName.$touched && createReservationForm.crRCompanyName.$invalid">
+                            Company is required<br>
+                        </span>
+                        <span class="white-text"
+                              ng-show="createReservationForm.crRAddress.$touched && createReservationForm.crRAddress.$invalid">
+                            Address is required<br>
+                        </span>
+                        <span class="white-text"
+                              ng-show="createReservationForm.crRAddress.$error.pattern">
+                            Invalid address<br>
+                        </span>
+                        <span class="white-text"
+                              ng-show="createReservationForm.crRAddress.$error.minlength">
+                            Address ust be at least 8 characters<br>
+                        </span>
+                        <span class="white-text"
+                              ng-show="createReservationForm.crREventVenue.$error.minlength">
+                            Event Venue be at least 8 characters<br>
+                        </span>
+                        <span class="white-text"
+                              ng-show="createReservationForm.crREventVenue.$error.pattern">
+                            Invalid event venue<br>
+                        </span>
+                        <span class="white-text"
+                              ng-show="createReservationForm.crREventVenue.$touched && createReservationForm.crREventVenue.$invalid">
+                            Event venue is required<br>
+                        </span>
 
                     </div>
                     <div class="stepreservation well" style="margin-top: -5px;">
@@ -138,6 +197,7 @@
                                 <div class="input-field col s6">
                                     <select id="rType"
                                             ng-model="vm.details.reservationType"
+                                            ng-change="changeService();"
                                             ng-options="type as type.type for type in vm.reservationType">
                                     </select>
                                     <label for="rType">
@@ -147,47 +207,67 @@
                                 </div>
                                 <div class="input-field col s6"
                                      ng-if="vm.details.reservationType.id == 2">
-                                    <label style="margin-top: -25px;"><b>Customer Type</b></label>
+                                    <label style="margin-top: -25px;"><b>Customer Type</b>
+                                        <i class="material-icons red-text tiny">error_outline</i>
+                                    </label>
                                     <input type="radio" name="ctype" id="crRCustType1" ng-model="vm.individual"
-                                           value="Individual">
+                                           value="Individual" ng-required="!vm.individual">
                                     <label for="crRCustType1">Individual</label>
                                     <input type="radio" name="ctype" id="crRCustType2" ng-model="vm.individual"
-                                           value="Company">
+                                           value="Company" ng-required="!vm.individual">
                                     <label for="crRCustType2">Company</label>
                                 </div>
                                 <div class="input-field col s12">
                                     <div class="input-field col s6">
-                                        <input type="text" class="validate" id="crRCustName"
+                                        <input type="text" id="crRCustName" name="crRCustName"
+                                               ng-pattern="/^[A-Za-z \-'`]+$/"
+                                               ng-minlength="5"
+                                               required
                                                ng-model="vm.details.name" placeholder="Customer Name"/>
                                         <label for="crRCustName" class="active"><b>Customer Name</b>
                                             <i class="material-icons red-text tiny">error_outline</i>
                                         </label>
                                     </div>
                                     <div class="input-field col s6"
-                                         ng-if="vm.details.reservationType.id == 2">
-                                        <input type="text" class="validate"
+                                         ng-if="vm.details.reservationType.id == 2 && vm.individual == 'Company'">
+                                        <input type="text" name="crRCompanyName"
                                                id="crRCompanyName" ng-model="vm.details.company"
+                                               ng-minlength="5"
+                                               ng-required="true"
+                                               ng-pattern="/^[A-Za-z \-'`]+$/"
                                                placeholder="Company Name"
                                                ng-disabled="vm.individual == 'Individual'">
-                                        <label for="crRCompanyName" class="active"><b>Company Name</b></label>
+                                        <label for="crRCompanyName" class="active"><b>Company Name</b>
+                                            <i class="material-icons red-text tiny">error_outline</i>
+                                        </label>
                                     </div>
                                 </div>
                                 <div class="input-field col s12" style="margin-top: 15px;">
                                     <input type="text" id="crRAddress" ng-model="vm.details.address"
+                                           name="crRAddress"
+                                           ng-minlength="8"
+                                           ng-required="true"
+                                           ng-pattern="/^[A-Za-z0-9. #,\-'`]+$/"
                                            placeholder="Address"/>
-                                    <label for="crRAddress" class="active"><b>Address</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                    <label for="crRAddress" class="active"><b>Address</b>
+                                        <i class="material-icons red-text tiny">error_outline</i>
+                                    </label>
                                 </div>
                                 <div class="input-field col s6">
-                                    <input type="text" id="crRContact" ng-model="vm.details.contact"
-                                           placeholder="contact"/>
-                                    <label for="crRContact" class="active"><b>Contact</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                    <input type="number" id="crRContact" ng-model="vm.details.contact"
+                                           name="crRContact"
+                                           ng-required="true"
+                                           ng-minlength="11"
+                                           ng-pattern="/^\d{11}$/"
+                                           placeholder="Contact Number"/>
+                                    <label for="crRContact" class="active"><b>Contact Number</b>
+                                        <i class="material-icons red-text tiny">error_outline</i>
+                                    </label>
                                 </div>
                                 <div class="input-field col s6" style="margin-top: 15px;">
                                     <input type="email" ng-model="vm.details.email" id="crREmail" placeholder="Email"/>
-                                    <label for="crREmail" class="active"><b>Email</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                    <label for="crREmail" class="active"><b>Email</b>
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -196,12 +276,23 @@
                         <div class="container">
                             <div class="row">
                                 <h5><b>Reservation Details</b></h5>
-                                <div class="input-field col s12"
+                                <div class="input-field col s6"
                                      ng-if="vm.details.reservationType.id == 2">
-                                    <input type="text" class="validate" id="crREventVenue"
+                                    <input type="text" class="validate" id="crREventVenue" name="crREventVenue"
                                            ng-model="vm.details.venue" placeholder="Event Venue"/>
-                                    <label for="crREventVenue" class="active"><b>Event Venue</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                    <label for="crREventVenue" class="active"><b>Event Venue</b>
+                                        <i class="material-icons red-text tiny">error_outline</i>
+                                    </label>
+                                </div>
+                                <div class="input-field col s6"
+                                     ng-if="vm.details.reservationType.id == 2">
+                                    <select name="crREventLocation" id="crREventLocation" ng-model="vm.details.location">
+                                        <option value="" disabled selected>Choose...</option>
+                                        <option ng-repeat="loc in vm.locationList" value="{{loc.intLocationID}}">{{loc.strBarangay}}, {{loc.strCity}}</option>
+                                    </select>
+                                    <label for="crREventVenue"><b>Location</b>
+                                        <i class="material-icons red-text tiny">error_outline</i>
+                                    </label>
                                 </div>
                                 <div class="input-field col s6">
                                     <input input-date
@@ -221,31 +312,31 @@
                                     <label for="ngDateFrom" class="active"><b>Date From</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
-                                <div class="input-field col s6" ng-show="vm.details.reservationType.id == 2">
-                                    <input input-date
-                                           type="text"
-                                           placeholder="January/1/2016"
-                                           id="ngDateTo"
-                                           ng-model="vm.details.datTo"
-                                           months-full="{{ vm.month }}"
-                                           months-short="{{ vm.monthShort }}"
-                                           weekdays-full="{{ vm.weekdaysFull }}"
-                                           weekdays-short="{{ vm.weekdaysShort }}"
-                                           weekdays-letter="{{ vm.weekdaysLetter }}"
-                                           disable="disable"
-                                           min="{{vm.details.datFrom}}"
-                                           max="{{ vm.maxDate }}"
-                                           today="today"
-                                           clear="clear"
-                                           close="close"
-                                           select-years="15"
-                                           ng-change="vm.changeDatTo(vm.details.datTo)"/>
-                                    <label for="ngDateTo" class="active">
-                                        <b>Date To</b>
-                                        <i class="material-icons red-text tiny">
-                                            error_outline</i>
-                                    </label>
-                                </div>
+                                <!--<div class="input-field col s6" ng-show="vm.details.reservationType.id == 2">-->
+                                    <!--<input input-date-->
+                                           <!--type="text"-->
+                                           <!--placeholder="January/1/2016"-->
+                                           <!--id="ngDateTo"-->
+                                           <!--ng-model="vm.details.datTo"-->
+                                           <!--months-full="{{ vm.month }}"-->
+                                           <!--months-short="{{ vm.monthShort }}"-->
+                                           <!--weekdays-full="{{ vm.weekdaysFull }}"-->
+                                           <!--weekdays-short="{{ vm.weekdaysShort }}"-->
+                                           <!--weekdays-letter="{{ vm.weekdaysLetter }}"-->
+                                           <!--disable="disable"-->
+                                           <!--min="{{vm.details.datFrom}}"-->
+                                           <!--max="{{ vm.maxDate }}"-->
+                                           <!--today="today"-->
+                                           <!--clear="clear"-->
+                                           <!--close="close"-->
+                                           <!--select-years="15"-->
+                                           <!--ng-change="vm.changeDatTo(vm.details.datTo)"/>-->
+                                    <!--<label for="ngDateTo" class="active">-->
+                                        <!--<b>Date To</b>-->
+                                        <!--<i class="material-icons red-text tiny">-->
+                                            <!--error_outline</i>-->
+                                    <!--</label>-->
+                                <!--</div>-->
                                 <div class="input-field col s6">
                                     <input id="reserveTimeFrom"
                                            class="timepicker"
@@ -259,6 +350,12 @@
                                         </i>
                                     </label>
                                 </div>
+                                <div class="input-field col s6">
+                                    <input type="text" ng-model="vm.details.headCount" id="crRHeadCount"
+                                           placeholder="Headcount"/>
+                                    <label for="crRHeadCount"><b>Head Count</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
+                                </div>
                                 <div class="input-field col s6" ng-show="vm.details.reservationType.id == 2">
                                     <input id="reserveTimeTo"
                                            class="timepicker"
@@ -271,12 +368,6 @@
                                             error_outline
                                         </i>
                                     </label>
-                                </div>
-                                <div class="input-field col s6">
-                                    <input type="text" ng-model="vm.details.headCount" id="crRHeadCount"
-                                           placeholder="Headcount"/>
-                                    <label for="crRHeadCount"><b>Head Count</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                             </div>
                         </div>
@@ -338,16 +429,21 @@
                                                            ng-model="vm.quantity"/>
                                                     <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
                                                 </div>
-                                                <h6 class="grey-text text-darken-4">{{product.dblProductPrice *
-                                                    vm.quantity | currency:
-                                                    "Php "}}</h6>
+                                                <h6 class="grey-text text-darken-4">{{product.dblProductPrice * vm.quantity | currency: "Php "}}</h6>
 
                                                 <a class="waves-effect waves-light btn"
+                                                   ng-if="vm.quantity <= product.intProductQuantity"
                                                    ng-click="vm.addToCart($index, vm.selected); vm.sumTotal(); vm.closeCard(product.intProductID);">
                                                     <i class="material-icons left"
                                                        style="padding: 0px !important; margin: 0px !important;">
                                                         shopping_basket
                                                     </i>BUY NOW!
+                                                </a>
+                                                <a class="btn transparent z-depth-0"
+                                                   ng-if="vm.quantity > product.intProductQuantity"
+                                                   ng-disabled="true"
+                                                   style="opacity: 1; cursor: not-allowed !important;">
+                                                    <span class="red-text center">Not enough stock</span>
                                                 </a>
                                             </div>
                                         </div>
@@ -383,9 +479,7 @@
                                                            ng-model="vm.quantity"/>
                                                     <label for="crPSQty{{service.intServiceID}}"><b>Quantity</b></label>
                                                 </div>
-                                                <h6 class="grey-text text-darken-4">{{service.dblServicePrice *
-                                                    vm.quantity | currency:
-                                                    "Php "}}</h6>
+                                                <h6 class="grey-text text-darken-4">{{service.dblServicePrice * vm.quantity | currency: "Php "}}</h6>
 
                                                 <a class="waves-effect waves-light btn"
                                                    ng-click="vm.addToCart($index, vm.selected); vm.sumTotal(); vm.closeService(service.intServiceID);">
@@ -468,9 +562,7 @@
                                                            ng-model="vm.quantity"/>
                                                     <label for="crPSQty{{promo.intPromoID}}"><b>Quantity</b></label>
                                                 </div>
-                                                <h6 class="grey-text text-darken-4">{{promo.dblPromoPrice * vm.quantity
-                                                    | currency:
-                                                    "Php "}}</h6>
+                                                <h6 class="grey-text text-darken-4">{{promo.dblPromoPrice * vm.quantity | currency: "Php "}}</h6>
 
                                                 <a class="waves-effect waves-light btn"
                                                    ng-click="vm.addToCart($index, vm.selected); vm.sumTotal(); vm.closePromo(promo.intPromoID);">
@@ -489,37 +581,48 @@
                                 <div class="col s12" id="pslist"
                                      style="margin-top: -13px !important; margin-bottom: 5px !important;">
                                     <div class="chip" ng-repeat="product in vm.productOrder" style="margin: 2px;"
-                                                      ng-if="product.productTotal > 0">
+                                                      ng-if="product.productTotal > 0" ng-click="vm.editQtyProd($index, product);">
                                         <img ng-src="{{product.photo}}" alt="img">
                                         {{product.product | uppercase }} ({{product.productQuantity}} - {{product.productTotal | currency: "Php "}})
+                                        <i class="material-icons" ng-click="vm.removeSelProd($index, product);">clear</i>
                                     </div>
                                     <div class="chip" ng-repeat="service in vm.serviceOrder" style="margin: 2px;"
-                                         ng-if="service.serviceTotal > 0">
+                                         ng-if="service.serviceTotal > 0"
+                                         ng-click="vm.editQtyServ($index, service);">
                                         <img ng-src="{{service.photo}}" alt="img">
                                         {{service.service | uppercase }} ({{service.serviceQuantity}} - {{service.serviceTotal | currency: "Php "}})
+                                        <i class="material-icons" ng-click="vm.removeSelServ($index, service);">clear</i>
                                     </div>
                                     <div class="chip" ng-repeat="package in vm.packageOrder" style="margin: 2px;"
-                                         ng-if="package.packageTotal > 0">
+                                         ng-if="package.packageTotal > 0"
+                                         ng-click="vm.editQtyPackage($index, package);">
                                         {{package.package | uppercase }} ({{package.packageQuantity}} - {{package.packageTotal | currency: "Php "}})
+                                        <i class="material-icons" ng-click="vm.removeSelPackage($index, package);">clear</i>
                                     </div>
                                     <div class="chip" ng-repeat="promo in vm.promoOrder" style="margin: 2px;"
-                                         ng-if="promo.promoQuantity > 0">
+                                         ng-if="promo.promoQuantity > 0"
+                                         ng-click="vm.editQtyPromo($index, promo);">
                                         {{promo.promo | uppercase }} ({{promo.promoQuantity}} - {{promo.promoTotal | currency: "Php "}})
+                                        <i class="material-icons" ng-click="vm.removeSelPromo($index, promo);">clear</i>
                                     </div>
                                 </div>
                             </div>
+                            {{vm.extraCharge | json}}
                             <div class="col s4" style="margin-top: 10px;">
                                 <div class="input-field col s12">
                                     <select multiple ng-model="vm.extraCharge" id="crROtherCharge"
-                                            ng-options="charge.strECName for charge in vm.extraChargeList"></select>
-
+                                            ng-options="charge.strECName for charge in vm.extraChargeList">
+                                        <option value="" disabled selected>Choose...</option>
+                                    </select>
                                     <label for="crROtherCharge"><b>Other Charges</b></label>
                                 </div>
                             </div>
                             <div class="col s4" style="margin-top: 10px;">
                                 <div class="input-field col s12">
-                                    <select multiple ng-model="vm.selDiscounts" id="crRDiscount"
-                                            ng-options="discount.strDiscountName for discount in vm.discountList"></select>
+                                    <select ng-model="vm.selDiscounts" id="crRDiscount"
+                                            ng-options="discount.strDiscountName for discount in vm.discountList">
+                                        <option value="" disabled selected>Choose...</option>
+                                    </select>
                                     <label for="crRDiscount"><b>Discounts</b></label>
                                 </div>
                             </div>
@@ -535,6 +638,7 @@
                                 <div class="input-field col s12">
                                     <select multiple ng-model="vm.selEmployees" id="cREmp"
                                             ng-options="employee.strEmpFirstName for employee in vm.employeeList">
+                                        <option value="" disabled selected>Choose...</option>
                                     </select>
                                     <label for="cREmp"><b>Employee</b></label>
                                     <pre>{{vm.selEmployees.intEmpID | json}}</pre>
@@ -682,7 +786,7 @@
                         style="margin:0px !important; padding:0px !important;"><i
                         class="material-icons">error_outline</i>&nbspRequired field
                 </button>
-                <button type="button" id="nextbtn"
+                <button type="button" id="nextbtn" ng-disabled="createReservationForm.$invalid"
                         class="actionreserve nextformreserve waves-effect waves-light white-text btn-flat purple"
                         style="margin-left: 3px; margin-right:3px;">NEXT
                 </button>
@@ -700,5 +804,29 @@
         </form>
 
 
+    </div>
+
+    <div id="editItem" class="modal modal-fixed-footer" style="width: 400px !important; height: 500px !important;">
+        <div class="modal-content">
+            <h4 class="center">{{vm.itemToBeEdit.itemName}}<br/>
+                <img class="circle z-depth-1" ng-src="{{vm.itemToBeEdit.itemPhoto}}" height="150" width="150"></h4>
+            <h6 class="center">Price: {{vm.itemToBeEdit.itemPrice | currency: "Php "}}</h6>
+            <div class="container">
+                <div class="row">
+                    <div class="input-field col s4 offset-s4" style="margin-top: -20px !important;">
+                        <input type="number" class="center-align" ng-model="vm.itemToBeEdit.itemQuantity">
+                    </div>
+                    <div class="input-field col s12" style="margin-top: -10px !important;">
+                        <h5 class="center">Total: {{ (vm.itemToBeEdit.itemPrice * vm.itemToBeEdit.itemQuantity) | currency: "Php "}}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="waves-effect waves-light btn-flat purple white-text"
+                    ng-click="vm.editSelectedItem(vm.itemToBeEdit);">
+                SAVE
+            </button>
+        </div>
     </div>
 </div>

@@ -352,14 +352,12 @@ $(document).ready(function(){
     // Next button click action
     reservebtnnext.click(function(){
 
-        if($('#createReservationForm').valid()){
             if(currentReserve < reservewidget.length){
                 reservewidget.show();
                 reservewidget.not(':eq('+(currentReserve++)+')').hide();
                 setProgressReserve(currentReserve);
             }
             hideButtonsReserve(currentReserve);
-        }
     });
     // Back button click action
     reservebtnback.click(function(){

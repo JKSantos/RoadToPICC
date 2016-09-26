@@ -75,6 +75,17 @@
         vm.closeService = closeService;
         vm.closePackage = closePackage;
         vm.closePromo = closePromo;
+        vm.removeSelProd = removeSelProd;
+        vm.removeSelServ = removeSelServ;
+        vm.removeSelPackage = removeSelPackage;
+        vm.removeSelPromo = removeSelPromo;
+
+        vm.editQtyProd = editQtyProd;
+        vm.editQtyServ = editQtyServ;
+        vm.editQtyPackage = editQtyPackage;
+        vm.editQtyPromo = editQtyPromo;
+
+        vm.editSelectedItem = editSelectedItem;
 
         function changeDatFrom(date) {
             var datFrom = new Date(date);
@@ -88,10 +99,11 @@
 
             vm.details.datTo = $filter('date')(datTo, "MMMM/d/yyyy");
         }
-        
+
         vm.data = [];
         locationFactory.getReservations().then(function (data) {
             vm.customerList = data.reservationList;
+            console.log(vm.customerList);
             for (var i = 0; i < vm.customerList.length; i++) {
                 vm.data.push({
                     title: vm.customerList[i].customer.strName,
@@ -120,9 +132,47 @@
         locationFactory.getProducts().then(function (data) {
             vm.productList = data.data.productList;
         });
-        locationFactory.getServices().then(function (data) {
-            vm.serviceList = data.data.serviceList;
+        // locationFactory.getServices().then(function (data) {
+        //     vm.serviceList = data.data.serviceList;
+        // });
+
+        var serviceTypeData = $.param({
+            'type': vm.details.reservationType.type
         });
+
+        $http({
+            method: 'post',
+            url: 'http://localhost:8080/SalonManagement/getServiceByType',
+            data: serviceTypeData,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function successCallback(data) {
+            vm.serviceList = data.data.serviceList;
+            console.log(vm.serviceList);
+        }, function errorCallback(response) {
+            console.log(response);
+        });
+
+        $scope.changeService = function() {
+            var serviceTypeData = $.param({
+                'type': vm.details.reservationType.type
+            });
+
+            $http({
+                method: 'post',
+                url: 'http://localhost:8080/SalonManagement/getServiceByType',
+                data: serviceTypeData,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                vm.serviceList = data.data.serviceList;
+                console.log(vm.serviceList);
+            }, function errorCallback(response) {
+                console.log(response);
+            });
+        }
 
         locationFactory.getPromos().then(function (data) {
             vm.promoList = data.data.promoList;
@@ -136,33 +186,38 @@
             vm.discountList = data.data.discountList;
         });
 
-        function calendarInit(data){
+        locationFactory.getLocation().then(function (data) {
+            vm.locationList = data.locationList;
+            console.log(vm.locationList);
+        });
+
+        function calendarInit(data) {
             console.log(data);
-                $('#reservationCalendar').fullCalendar({
-                    // put your options and callbacks here
-                    events: data,
-                    color: 'yellow',   // an option!
-                    textColor: 'black', // an option!
+            $('#reservationCalendar').fullCalendar({
+                // put your options and callbacks here
+                events: data,
+                color: 'yellow',   // an option!
+                textColor: 'black', // an option!
 
-                    eventClick: function(calEvent, jsEvent, view) {
+                eventClick: function (calEvent, jsEvent, view) {
 
-                        alert('Event: ' + calEvent.venue);
-                        alert('Event: ' + calEvent.headcount);
-                        // change the border color just for fun
-                        $(this).css('border-color', 'red');
-                    },
-                    eventMouseover: function( calEvent, event, jsEvent, view){
-                        //alert('Event: ' + calEvent.title);
-                    }
+                    alert('Event: ' + calEvent.venue);
+                    alert('Event: ' + calEvent.headcount);
+                    // change the border color just for fun
+                    $(this).css('border-color', 'red');
+                },
+                eventMouseover: function (calEvent, event, jsEvent, view) {
+                    //alert('Event: ' + calEvent.title);
+                }
 
-                })
+            })
         }
 
         function closeCard(id) {
-                var prodClose = 'prodClose' + id;
-                $('#' + prodClose).click();
+            var prodClose = 'prodClose' + id;
+            $('#' + prodClose).click();
         }
-        
+
         function closeService(id) {
             var servClose = 'servClose' + id;
             $('#' + servClose).click();
@@ -177,6 +232,139 @@
             var promoClose = 'promoClose' + id;
             $('#' + promoClose).click();
         }
+
+        function removeSelProd(index, prod) {
+            vm.productOrder.splice(index, 1);
+            vm.sum -= prod.productTotal;
+        }
+
+        function removeSelServ(index, serv) {
+            vm.serviceOrder.splice(index, 1);
+            vm.sum -= serv.serviceTotal;
+        }
+
+        function removeSelPackage(index, pack) {
+            vm.packageOrder.splice(index, 1);
+            vm.sum -= pack.packageTotal;
+        }
+
+        function removeSelPromo(index, promo) {
+            vm.promoOrder.splice(index, 1);
+            vm.sum -= promo.promoTotal;
+        }
+
+        function editQtyProd(index, prod) {
+            $('#editItem').openModal({
+                dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                opacity: .5, // Opacity of modal background
+                in_duration: 200, // Transition in duration
+                out_duration: 200, // Transition out duration
+            });
+            vm.itemToBeEdit = ({
+                'itemPhoto': prod.photo,
+                'itemName': prod.product,
+                'itemID': prod.productID,
+                'itemQuantity': prod.productQuantity,
+                'itemTotal': prod.productTotal,
+                'itemPrice': prod.productTotal/prod.productQuantity,
+                'type': 'product',
+                'index': index
+            });
+        }
+
+        function editQtyServ(index, serv) {
+            $('#editItem').openModal({
+                dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                opacity: .5, // Opacity of modal background
+                in_duration: 200, // Transition in duration
+                out_duration: 200, // Transition out duration
+            });
+            vm.itemToBeEdit = ({
+                'itemPhoto': serv.photo,
+                'itemName': serv.service,
+                'itemID': serv.serviceID,
+                'itemQuantity': serv.serviceQuantity,
+                'itemTotal': serv.serviceTotal,
+                'itemPrice': serv.serviceTotal/serv.serviceQuantity,
+                'type': 'service',
+                'index': index
+            });
+        }
+
+        function editQtyPackage(index, pack) {
+            $('#editItem').openModal({
+                dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                opacity: .5, // Opacity of modal background
+                in_duration: 200, // Transition in duration
+                out_duration: 200, // Transition out duration
+            });
+            vm.itemToBeEdit = ({
+                'itemPhoto': './img/packIcon.png',
+                'itemName': pack.package,
+                'itemID': pack.packageID,
+                'itemQuantity': pack.packageQuantity,
+                'itemTotal': pack.packageTotal,
+                'itemPrice': pack.packageTotal/pack.packageQuantity,
+                'type': 'package',
+                'index': index
+            });
+        }
+
+        function editQtyPromo(index, promo) {
+            $('#editItem').openModal({
+                dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                opacity: .5, // Opacity of modal background
+                in_duration: 200, // Transition in duration
+                out_duration: 200, // Transition out duration
+            });
+            vm.itemToBeEdit = ({
+                'itemPhoto': './img/packIcon.png',
+                'itemName': promo.promo,
+                'itemID': promo.promoID,
+                'itemQuantity': promo.promoQuantity,
+                'itemTotal': promo.promoTotal,
+                'itemPrice': promo.promoTotal/promo.promoQuantity,
+                'type': 'promo',
+                'index': index
+            });
+        }
+
+        function editSelectedItem(item) {
+            if(item.type == 'product') {
+                vm.productTotal -= item.itemTotal;
+                vm.sum -= item.itemTotal;
+                vm.productOrder[item.index].productQuantity = item.itemQuantity;
+                vm.productOrder[item.index].productTotal = item.itemQuantity * item.itemPrice;
+                vm.productTotal += item.itemQuantity * item.itemPrice;
+                vm.sum += item.itemQuantity * item.itemPrice;
+                $('#editItem').closeModal();
+            } else if (item.type == 'service') {
+                vm.serviceTotal -= item.itemTotal;
+                vm.sum -= item.itemTotal;
+                vm.serviceOrder[item.index].serviceQuantity = item.itemQuantity;
+                vm.serviceOrder[item.index].serviceTotal = item.itemQuantity * item.itemPrice;
+                vm.serviceTotal += item.itemQuantity * item.itemPrice;
+                vm.sum += item.itemQuantity * item.itemPrice;
+                $('#editItem').closeModal();
+            } else if (item.type == 'package') {
+                vm.packageTotal -= item.itemTotal;
+                vm.sum -= item.itemTotal;
+                vm.packageOrder[item.index].packageQuantity = item.itemQuantity;
+                vm.packageOrder[item.index].packageTotal = item.itemQuantity * item.itemPrice;
+                vm.packageTotal += item.itemQuantity * item.itemPrice;
+                vm.sum += item.itemQuantity * item.itemPrice;
+                $('#editItem').closeModal();
+            } else if (item.type == 'promo') {
+                vm.promoTotal -= item.itemTotal;
+                vm.sum -= item.itemTotal;
+                vm.promoOrder[item.index].promoQuantity = item.itemQuantity;
+                vm.promoOrder[item.index].promoTotal = item.itemQuantity * item.itemPrice;
+                vm.promoTotal += item.itemQuantity * item.itemPrice;
+                vm.sum += item.itemQuantity * item.itemPrice;
+                $('#editItem').closeModal();
+            }
+        }
+
 
         vm.addToCart = function (index, selected) {
             if (selected == 'product') {
@@ -351,7 +539,7 @@
                             success: function (data) {
 
                                 var dd = $.param({
-                                	'fineName': data.path
+                                    'fineName': data.path
                                 });
                                 console.log(data);
 
@@ -363,13 +551,13 @@
                                         'Content-Type': 'application/x-www-form-urlencoded'
                                     }
                                 }).then(function successCallback(data) {
-                                	alert("YES");
+                                    alert("YES");
                                 }, function errorCallback(response) {
-                                	alert("NO");
+                                    alert("NO");
                                 });
                                 SweetAlert.swal("Successfully created!", ".", "success");
                                 $('#createReservationModal').closeModal();
-                                if(reservationType == 1) {
+                                if (reservationType == 1) {
                                     vm.customerList.push({
                                         "customer": {
                                             "strName": vm.details.name,
@@ -379,7 +567,6 @@
                                         },
                                         "intReservationType": reservationType,
                                         "datFrom": datFrom,
-                                        "datTo": datTo,
                                         "timFrom": timFrom,
                                         "timTo": timTo,
                                         "strVenue": venue,
@@ -398,14 +585,15 @@
                                         "strTotalPrice": total,
                                         "strStatus": 'REQUEST'
                                     });
-                                    
+
                                 } else {
                                     vm.customerList.push({
                                         "customer": {
                                             "strName": vm.details.name,
                                             "strAddress": vm.details.address,
                                             "strContactNo": vm.details.contact,
-                                            "strEmail": vm.details.email
+                                            "strEmail": vm.details.email,
+                                            "strCustomerType": vm.individual
                                         },
                                         "intReservationType": reservationType,
                                         "datFrom": datFrom,
@@ -429,7 +617,7 @@
                                         "strStatus": 'PENDING'
                                     });
                                 }
-                                
+
                             },
                             error: function () {
                                 SweetAlert.swal("Oops", "Something went wrong!", "error");

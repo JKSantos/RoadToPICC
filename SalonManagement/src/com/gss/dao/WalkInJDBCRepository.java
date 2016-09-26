@@ -268,7 +268,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 		String createPackagePromo			= "CALL createPackagePromoWalkIn(?, ?)";
 		String createPromoService			= "CALL createPackagePromoServiceWalkIn(?, ?, ?)";
 		String createDiscount					= "CALL createInvoiceDiscount(?, ?);";
-		String deleteAll					= "CALL deleteWalkInComponent(?);";
+		String deleteAll					= "CALL deleteWalkInComponent(?, ?);";
 		
 		try{
 			con.setAutoCommit(false);
@@ -831,8 +831,8 @@ public class WalkInJDBCRepository implements WalkInRepository{
 		
 		try{
 			PreparedStatement statement = con.prepareStatement(query);
-			statement.setInt(1, id);
-			statement.setString(2, status);
+			statement.setInt(2, id);
+			statement.setString(1, status);
 			statement.execute();
 			
 			statement.close();

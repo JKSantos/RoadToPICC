@@ -9,6 +9,9 @@ public class AppointmentResult {
 	
 	public String execute(){
 		
+		System.out.println("ID: " + intAppointmentID);
+		System.out.println("Statsus: " + status);
+		
 		boolean result = WalkInJDBCRepository.updateWalkInStatus(intAppointmentID, status);
 		
 		if(result == true)

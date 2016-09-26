@@ -15,8 +15,8 @@
             <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
                href="#createExtraChargeModal" style="margin-top: 30px; margin-left: 15px;"><i
                     class="material-icons">add</i></a>
-            <a class="z-depth-1 hoverable waves-effect waves-light modal-viewall btn purple darken-2 left white-text"
-               href="#otherchargeArchive" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">archive</i></a>
+            <!--<a class="z-depth-1 hoverable waves-effect waves-light modal-viewall btn purple darken-2 left white-text"-->
+               <!--href="#otherchargeArchive" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">archive</i></a>-->
             <nav class="right white hoverable  z-depth-1" style="width: 300px; margin-right: 20px;">
                 <div class="nav-wrapper col s4">
                     <form>

@@ -41,6 +41,9 @@ public class TimeHelper {
 	
 	public static Time parseTimeHomeService(String strTime){
 		
+		strTime = strTime.replace("AM", "");
+		strTime = strTime.replace("PM", "");
+		
 		Time time = new Time(0);
 		String[] array = strTime.split(":");
 		

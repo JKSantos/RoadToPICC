@@ -21,7 +21,7 @@ public class UpdateExtraChargeAction {
 		ExtraChargeService service = new ExtraChargeServiceImpl();
 		ExtraCharge extra = new ExtraCharge(intECID, strECName.trim().toUpperCase(), strECDetails.trim().toUpperCase(), dblECPrice, 1);
 		
-		if(ExtraChargeJDBCRepository.checkExtraChargeName(strECName.trim().toUpperCase()).equalsIgnoreCase("valid")){
+		if(ExtraChargeJDBCRepository.checkExtraChargeName(strECName.trim().toUpperCase(), intECID).equalsIgnoreCase("valid")){
 			if(service.updateExtraCharge(extra) == true){
 				result = "success";
 				return result;
@@ -29,7 +29,7 @@ public class UpdateExtraChargeAction {
 			else{
 				result = "failed";
 				return result;
-		}
+			}
 		}else{
 			result = "existing";
 			return result;

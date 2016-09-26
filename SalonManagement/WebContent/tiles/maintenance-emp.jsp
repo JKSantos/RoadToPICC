@@ -21,22 +21,15 @@ String granAccess = null;
     }
 </style>
 
-
-<!-- <div class="container"> -->
 <div class="wrapper">
-    <!--                     <div class="aside aside1 z-depth-barts">
-
-                        </div> -->
-
-
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
             <h3 class="grey-text text-darken-1">Employee Maintenance</h3>
             <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
                href="#createEmployeeModal" style="margin-top: 30px; margin-left: 15px;"><i
                     class="material-icons">add</i></a>
-            <a class="z-depth-1 hoverable waves-effect waves-light modal-viewall btn purple darken-2 left white-text"
-               href="#empArchive" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">archive</i></a>
+            <!--<a class="z-depth-1 hoverable waves-effect waves-light modal-viewall btn purple darken-2 left white-text"-->
+               <!--href="#empArchive" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">archive</i></a>-->
             <nav class="right white hoverable  z-depth-1" style="width: 300px; margin-right: 20px;">
                 <div class="nav-wrapper col s4">
                     <form>

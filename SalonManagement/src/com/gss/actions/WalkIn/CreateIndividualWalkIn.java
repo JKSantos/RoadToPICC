@@ -41,6 +41,7 @@ public class CreateIndividualWalkIn {
 	private String customerType = "WALKIN";
 	private String appointmentDate = "";
 	private String appointmentTime = "";
+	private String packageString = "";
 	private int intCustID;
 	
 	private int intCreatedID;
@@ -170,11 +171,13 @@ public class CreateIndividualWalkIn {
 		
 		try{
 			
-		String timee = appointmentTime.replaceAll("AM", "");	
-		timee = appointmentTime.replaceAll("PM", "");	
+		String time = appointmentDate.replaceAll("AM", "");	
+		time = appointmentDate.replaceAll("PM", "");	
 			
-		walkin.setAppointmentDate(JavaSqlDateTimeHelper.stringToDate(appointmentTime));
-		walkin.setAppointmentTime(JavaSqlDateTimeHelper.stringToTime(timee));
+		if(this.customerType.equalsIgnoreCase("APPOINTMENT")){
+			walkin.setAppointmentDate(JavaSqlDateTimeHelper.stringToDate(this.appointmentTime));
+			walkin.setAppointmentTime(JavaSqlDateTimeHelper.stringToTime(time));
+		}
 		}catch(Exception e){
 			//do nothing
 		}
@@ -258,5 +261,13 @@ public class CreateIndividualWalkIn {
 	}
 	public void setIntCustID(int intCustID) {
 		this.intCustID = intCustID;
+	}
+
+	public String getPackageString() {
+		return packageString;
+	}
+
+	public void setPackageString(String packageString) {
+		this.packageString = packageString;
 	}
 }

@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="css/fullcalendar.css"/>
     <!--<link rel="stylesheet" type="text/css" href="css/angular-datatables.css"/>-->
 
+    <link rel="stylesheet" type="text/css" href="css/xcharts.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/baselayout.css"/>
     <link rel="stylesheet" type="text/css" href="css/perfect-scrollbar.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/angular-validation.css"/>
@@ -56,20 +57,13 @@
                     <div class="col col s8 m8 l8">
                         <ul id="profile-dropdown" class="dropdown-content"
                             style="margin-top: 55px !important; overflow-y: hidden !important; margin-left: -15px !important;">
-                            <li><a href="#" style="padding-top: 12px !important;"><i
-                                    class="mdi-action-face-unlock"></i>
-                                Profile</a></li>
                             <li>
                                 <a href="employeeSettings" style="padding-top: 12px !important;">
                                     <i class="mdi-action-settings"></i>
                                     Settings
                                 </a>
                             </li>
-                            <li><a href="#" style="padding-top: 12px !important;"><i
-                                    class="mdi-communication-live-help"></i> Help</a></li>
                             <li class="divider"></li>
-                            <li><a href="#" style="padding-top: 12px !important;"><i
-                                    class="mdi-action-lock-outline"></i> Lock</a></li>
                             <li><a href="logout" style="padding-top: 12px !important;"><i
                                     class="mdi-hardware-keyboard-tab"></i> Logout</a></li>
                         </ul>
@@ -245,6 +239,7 @@
 
 <!-- <script type="text/javascript" src="js/ProductsSales/ajax.js"></script> -->
 <!-- jQuery Ajax -->
+
 <script type="text/javascript" src="js/employee-account.js"></script>
 <script type="text/javascript" src="js/ajax/employee-position.js"></script>
 <script type="text/javascript" src="js/ajax/product-name.js"></script>
@@ -275,6 +270,8 @@
 
 <!-- Angular imports -->
 <script type="text/javascript" src="app/main.js"></script>
+<script type="text/javascript" src="app/dashboard/dashboard.fac.js"></script>
+<script type="text/javascript" src="app/dashboard/dashboard.ctrl.js"></script>
 <script type="text/javascript" src="app/employee/employee-factory.js"></script>
 <script type="text/javascript" src="app/employee/employee-controller.js"></script>
 <script type="text/javascript" src="app/payment/payment.ctr.js"></script>
@@ -297,9 +294,12 @@
 <script type="text/javascript" src="app/report/reportsFactory.fac.js"></script>
 <script type="text/javascript" src="app/report/salesReportController.ctrl.js"></script>
 <script type="text/javascript" src="app/report/reservationReportController.ctrl.js"></script>
+<<<<<<< HEAD
 <script type="text/javascript" src="app/report/productTagsReportController.ctrl.js"></script>
 
 
+=======
+>>>>>>> c752d6ad7eec28d34ae97cee8dc8dc71f0df716f
 </body>
 
 </html>
