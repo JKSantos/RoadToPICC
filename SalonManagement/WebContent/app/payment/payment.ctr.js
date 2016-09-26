@@ -4,7 +4,7 @@
         .module('app')
         .controller('paymentCtrl', paymentCtrl);
 
-    function paymentCtrl($scope, $resource, $filter, SweetAlert, DTOptionsBuilder, DTColumnBuilder, DTDefaultOptions, paymentFactory) {
+    function paymentCtrl($scope, $resource, $window, $filter, SweetAlert, DTOptionsBuilder, DTColumnBuilder, DTDefaultOptions, paymentFactory) {
         var vm = this;
         vm.dateFormat = ["MMMM/D/YYYY"];
         vm.type = [{
@@ -145,6 +145,7 @@
         }
 
         function paymentSubmit(payment) {
+            console.log(payment);
             var name = "",
                 paymentData = {};
             if (payment.type == 'order') {
@@ -203,6 +204,7 @@
                                     SweetAlert.swal("Successfully created!", ".", "success");
                                     vm.paymentList.splice(index, 1);
                                     $('#paymentModal').closeModal();
+                                    $window.location.reload();
 
                                 } else {
                                     SweetAlert.swal("Oops", "Record Not Saved!", "error");

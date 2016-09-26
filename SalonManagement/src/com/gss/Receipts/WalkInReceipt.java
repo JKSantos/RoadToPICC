@@ -1,10 +1,15 @@
 package com.gss.Receipts;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Calendar;
+
+import javax.servlet.ServletContext;
+
+import org.apache.struts2.StrutsStatics;
 
 import com.gss.model.PackageWalkIn;
 import com.gss.model.Payment;
@@ -29,6 +34,7 @@ import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.opensymphony.xwork2.ActionContext;
 
 public class WalkInReceipt {
 
@@ -75,6 +81,7 @@ public class WalkInReceipt {
         document.add(paragraph);
         document.close();
         
+        System.out.print(this.destination);
 		return this.destination;
 	}
 	
@@ -88,7 +95,14 @@ public class WalkInReceipt {
     public Document createDocument(){
     	Document document = new Document(new Rectangle(350, 550), 10, 10, 10 ,10);
         try {
-			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(this.destination));
+			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(new File(
+	                ((ServletContext) ActionContext.getContext().get(StrutsStatics.SERVLET_CONTEXT)) 
+	                .getRealPath(this.destination)
+	            )));
+			
+			this.destination = ((ServletContext) ActionContext.getContext().get(StrutsStatics.SERVLET_CONTEXT)) 
+            .getRealPath(this.destination);
+        
 		} catch (FileNotFoundException | DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
