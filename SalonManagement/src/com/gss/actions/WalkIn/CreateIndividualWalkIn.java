@@ -28,7 +28,7 @@ import com.gss.utilities.PriceFormatHelper;
 public class CreateIndividualWalkIn {
 	
 	private String strName;
-	private String strContactNo;
+	private String strContactNo = "";
 	private String productString = "";
 	private String productQuantity = "";
 	private String serviceString = "";		// ID ng service
@@ -50,6 +50,9 @@ public class CreateIndividualWalkIn {
 		
 		System.out.println("Package: " + this.packageList.size());
 		System.out.println("Promo: " + this.promoList.size());
+		System.out.println("Discount: " + this.discounts);
+		
+		this.strContactNo = this.strContactNo.replaceAll("\"", "");
 		
 		WalkInService service = new WalkInServiceImpl();
 		
