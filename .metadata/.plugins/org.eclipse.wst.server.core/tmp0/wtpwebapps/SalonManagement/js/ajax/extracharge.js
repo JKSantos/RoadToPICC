@@ -13,7 +13,30 @@ function updateExtraTable() {
         success: function (data) {
             var extraCharge = data.extraChargeList;
             var servPrice = "servPrice";
-            var extraTable = $('#extratbl').DataTable();
+            var extraTable;
+
+            $('#extratbl').DataTable().destroy();
+
+            extraTable = $('#extratbl').DataTable({
+                destroy: true,
+                "bLengthChange": false,
+                "sPaginationType": "full_numbers",
+                responsive: true,
+                "order": [],
+                "columnDefs": [
+                    {"targets": 'no-sort', "orderable": false},
+                    {className: "dt-body-left", "targets": [0, 1]},
+                    {className: "dt-body-right", "targets": [2]},
+                    {className: "dt-head-center", "targets": [3]},
+                    {"targets": [3], "width": "200px"},
+                    {"targets": [2], "type": "formatted-num"}
+                ],
+                "rowHeight": '10px'
+            });
+
+            $("#extraSearch").bind('keyup search input paste cut', function () {
+                extratbl.search(this.value).draw();
+            });
 
             if (extraCharge != null) {
                 extraTable.clear().draw();
@@ -29,9 +52,14 @@ function updateExtraTable() {
                         "style='padding-left: 10px;padding-right:10px; margin: 5px;' value='" + extra.intECID + "'" +
                         "title='Deactivate' onclick='extraDeactivate(this.value)'><i class='material-icons'>delete</i></button>";
                     var chargename = "<td>" + extra.strECName + "</td>",
-                        details = "<td>" + extra.strECDetails + "</td>",
+                        details,
                         price = "<td><span class='price'>Php " + price + "</span></td>",
                         btn = "<td>" + addbtn + "</td>";
+                    if (extra.strECDetails.length > 0) {
+                        details = "<td>" + extra.strECDetails + "</td>"
+                    } else {
+                        details = "<td>None</td>"
+                    }
 
                     extraTable.row.add([
                         chargename,
@@ -61,7 +89,7 @@ function addCommas(nStr) {
 }
 
 function createExtra() {
-
+    $('#createExtraForm').trigger("reset");
     console.log($('#crECPrice').val());
     var extraName = $('#crECName').val(),
         extraDetails = $('#crECDetails').val(),
@@ -90,10 +118,15 @@ function createExtra() {
                     dataType: 'json',
                     async: true,
                     success: function (data) {
-                        console.log(data);
-                        swal("Successfully updated!", ".", "success");
-                        updateExtraTable();
-                        $('#createExtraChargeModal').closeModal();
+                        if (data.result == "success") {
+                            swal("Successfully updated!", ".", "success");
+                            updateExtraTable();
+                            $('#createExtraChargeModal').closeModal();
+                        } else if (data.result == "existing") {
+                            sweetAlert("Oops...", "This charge is already existing!", "error");
+                        } else if (data.result == "failed") {
+                            sweetAlert("Oops...", "Something went wrong!", "error");
+                        }
                     },
                     error: function () {
                         sweetAlert("Oops...", "Something went wrong!", "error");
@@ -135,39 +168,48 @@ function extraOpenUpdate(id) {
 }
 
 function extraUpdate() {
-    var extradata = {
-        'intECID': $('#upECID').val(),
-        'strECName': $('#upECName').val(),
-        'strECDetails': $('#upECDetails').val(),
-        'price': $('#upECPrice').val()
+    if($('#updateExtraForm').valid()) {
+        var extradata = {
+            'intECID': $('#upECID').val(),
+            'strECName': $('#upECName').val(),
+            'strECDetails': $('#upECDetails').val(),
+            'price': $('#upECPrice').val()
+        }
+        swal({
+                title: "Update this charge?",
+                text: "",
+                type: "info",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
+            },
+            function () {
+                setTimeout(function () {
+                    $.ajax({
+                        url: 'updateExtraCharge',
+                        type: 'post',
+                        data: extradata,
+                        dataType: 'json',
+                        async: true,
+                        success: function (data) {
+                            console.log(data);
+                            if(data.result == "success") {
+                                swal("Successfully updated!", ".", "success");
+                                updateExtraTable();
+                                $('#updateExtraModal').closeModal();
+                            } else if (data.result == "existing") {
+                                sweetAlert("Oops...", "This charge is already existing!", "error");
+                            } else if (data.result == "failed") {
+                                sweetAlert("Oops...", "This charge is already existing!", "error");
+                            }
+                        },
+                        error: function () {
+                            sweetAlert("Oops...", "This charge is already existing!", "error");
+                        }
+                    });
+                }, 1000);
+            });
     }
-    swal({
-            title: "Update this charge?",
-            text: "",
-            type: "info",
-            showCancelButton: true,
-            closeOnConfirm: false,
-            showLoaderOnConfirm: true
-        },
-        function () {
-            setTimeout(function () {
-                $.ajax({
-                    url: 'updateExtraCharge',
-                    type: 'post',
-                    data: extradata,
-                    dataType: 'json',
-                    async: true,
-                    success: function (data) {
-                        swal("Successfully updated!", ".", "success");
-                        updateExtraTable();
-                        $('#updateExtraModal').closeModal();
-                    },
-                    error: function () {
-                        sweetAlert("Oops...", "Something went wrong!", "error");
-                    }
-                });
-            }, 1000);
-        });
 }
 
 function extraDeactivate(id) {

@@ -34,7 +34,7 @@
     </definition>
     
     <definition name="location" extends="baseLayout">
-        <put-attribute name="title"			value="Location"/>
+        <put-attribute name="title"			value="Transportation"/>
         <put-attribute name="body"			value="/tiles/maintenance-delivery.jsp"/>
     </definition>
 	
@@ -98,6 +98,31 @@
         <put-attribute name="body"          value="/tiles/queries-service.jsp"/>
     </definition>
 
+    <definition name="queriesPackage" extends="baseLayout">
+        <put-attribute name="title"         value="Queries"/>
+        <put-attribute name="body"          value="/tiles/queries-package.jsp"/>
+    </definition>
+
+    <definition name="queriesDelivery" extends="baseLayout">
+        <put-attribute name="title"         value="Queries"/>
+        <put-attribute name="body"          value="/tiles/queries-delivery.jsp"/>
+    </definition>
+
+    <definition name="queriesExtra" extends="baseLayout">
+        <put-attribute name="title"         value="Queries"/>
+        <put-attribute name="body"          value="/tiles/queries-extra.jsp"/>
+    </definition>
+
+    <definition name="queriesPromo" extends="baseLayout">
+        <put-attribute name="title"         value="Queries"/>
+        <put-attribute name="body"          value="/tiles/queries-promo.jsp"/>
+    </definition>
+
+    <definition name="queriesDiscount" extends="baseLayout">
+        <put-attribute name="title"         value="Queries"/>
+        <put-attribute name="body"          value="/tiles/queries-discount.jsp"/>
+    </definition>
+
     <definition name="SalesReport" extends="baseLayout">
         <put-attribute name="title"         value="Report"/>
         <put-attribute name="body"          value="/tiles/sales-report.jsp"/>
@@ -111,6 +136,46 @@
     <definition name="payment" extends="baseLayout">
     	<put-attribute name="title"			value="Payment"/>
     	<put-attribute name="body"			value="/tiles/transactions-payment.jsp"/>
+    </definition>
+    
+    <definition name="ProductTags" extends="baseLayout">
+    	<put-attribute name="title"			value="Product Tags"/>
+    	<put-attribute name="body"			value="/tiles/reports-productTags.jsp"/>
+    </definition>
+    
+    <definition name="utilities" extends="baseLayout">
+    	<put-attribute name="title"			value="Utilities"/>
+    	<put-attribute name="body"			value="/tiles/utilities.jsp"/>
+    </definition>
+    
+    <definition name="createWalkin" extends="baseLayout">
+    	<put-attribute name="title"			value="Create Walk In"/>
+    	<put-attribute name="body"			value="/tiles/transactions-create-walkin.jsp"/>
+    </definition>
+
+    <definition name="transWalkinTable" extends="baseLayout">
+        <put-attribute name="title"			value="Walk In Tables"/>
+        <put-attribute name="body"			value="/tiles/transactions-walkin-table.jsp"/>
+    </definition>
+    
+    <definition name="reservationReport" extends="baseLayout">
+    	<put-attribute name="title"			value="Reservation Report"/>
+    	<put-attribute name="body"			value="/tiles/reports-sales-reservation.jsp"/>
+    </definition>
+    
+     <definition name="orderReport" extends="baseLayout">
+    	<put-attribute name="title"			value="Order Report"/>
+    	<put-attribute name="body"			value="/tiles/reports-sales-order.jsp"/>
+    </definition>
+    
+    <definition name="walkinReport" extends="baseLayout">
+    	<put-attribute name="title"			value="Walk In Report"/>
+    	<put-attribute name="body"			value="/tiles/reports-sales-walkin.jsp"/>
+    </definition>
+
+    <definition name="changeAccount" extends="baseLayout">
+        <put-attribute name="title"			value="Account"/>
+        <put-attribute name="body"			value="/tiles/change-account.jsp"/>
     </definition>
   
 </tiles-definitions>

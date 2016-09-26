@@ -7,6 +7,12 @@
 <%@ page import="com.gss.model.Product" %>
 <%@ page import="java.util.List" %>
 
+<style>
+    .dataTables_filter {
+        display: none;
+    }
+</style>
+
 
 
 <div class="wrapper">
@@ -39,17 +45,19 @@
                     <th class="dt-head-left">Package Name</th>
                     <th class="dt-head-left">Type</th>
                     <th class="dt-head-left">Description</th>
+                    <th class="dt-head-right">Price</th>
                     <th align="center" class="no-sort">Action</th>
                 </tr>
                 </thead>
-                <tfoot style="border: 1px solid #bdbdbd;">
-                <tr>
-                    <th class="dt-head-left">Package Name</th>
-                    <th class="dt-head-left">Type</th>
-                    <th class="dt-head-left">Description</th>
-                    <th align="center" class="no-sort">Action</th>
-                </tr>
-                </tfoot>
+                <!--<tfoot style="border: 1px solid #bdbdbd;">-->
+                <!--<tr>-->
+                    <!--<th class="dt-head-left">Package Name</th>-->
+                    <!--<th class="dt-head-left">Type</th>-->
+                    <!--<th class="dt-head-left">Description</th>-->
+                    <!--<th class="dt-head-right">Price</th>-->
+                    <!--<th align="center" class="no-sort"><center>Action</center></th>-->
+                <!--</tr>-->
+                <!--</tfoot>-->
 
                 <tbody>
                 </tbody>
@@ -83,17 +91,19 @@
                         <th class="dt-head-left">Package Name</th>
                         <th class="dt-head-left">Type</th>
                         <th class="dt-head-left">Description</th>
+                        <th class="dt-head-right">Price</th>
                         <th align="center" class="no-sort">Action</th>
                     </tr>
                     </thead>
-                    <tfoot style="border: 1px solid #bdbdbd;">
-                    <tr>
-                        <th class="dt-head-left">Package Name</th>
-                        <th class="dt-head-left">Type</th>
-                        <th class="dt-head-left">Description</th>
-                        <th align="center" class="no-sort">Action</th>
-                    </tr>
-                    </tfoot>
+                    <!--<tfoot style="border: 1px solid #bdbdbd;">-->
+                    <!--<tr>-->
+                        <!--<th class="dt-head-left">Package Name</th>-->
+                        <!--<th class="dt-head-left">Type</th>-->
+                        <!--<th class="dt-head-left">Description</th>-->
+                        <!--<th class="dt-head-right">Price</th>-->
+                        <!--<th align="center" class="no-sort">Action</th>-->
+                    <!--</tr>-->
+                    <!--</tfoot>-->
 
                     <tbody>
                     </tbody>
@@ -153,8 +163,8 @@
                                               class="materialize-textarea" length="80"
                                               placeholder="Description"
                                               style="margin-top: -10px !important;"></textarea>
-                                        <label for="crPackageDesc" class="active"><b>Description</b><i
-                                                class="material-icons red-text tiny">error_outline</i></label>
+                                        <label for="crPackageDesc" class="active">
+                                            <b>Description</b></label>
                                     </div>
                                     <div class="input-field col s12">
                                         <select name="intPackageType" id="crPackageType" multiple required>
@@ -215,15 +225,15 @@
                                                         <th align="dt-head-right" class="no-sort">Quantity</th>
                                                     </tr>
                                                     </thead>
-                                                    <tfoot style="border: 1px solid #bdbdbd;">
-                                                    <tr>
-                                                        <th class="dt-head-center no-sort">Select</th>
-                                                        <th class="dt-head-left">Name</th>
-                                                        <th class="dt-head-left">Category</th>
-                                                        <th class="dt-head-right">Price</th>
-                                                        <th align="dt-head-right" class="no-sort">Quantity</th>
-                                                    </tr>
-                                                    </tfoot>
+                                                    <!--<tfoot style="border: 1px solid #bdbdbd;">-->
+                                                    <!--<tr>-->
+                                                        <!--<th class="dt-head-center no-sort">Select</th>-->
+                                                        <!--<th class="dt-head-left">Name</th>-->
+                                                        <!--<th class="dt-head-left">Category</th>-->
+                                                        <!--<th class="dt-head-right">Price</th>-->
+                                                        <!--<th align="dt-head-right" class="no-sort">Quantity</th>-->
+                                                    <!--</tr>-->
+                                                    <!--</tfoot>-->
 
                                                     <tbody>
                                                     </tbody>
@@ -244,15 +254,15 @@
                                                         <th align="dt-head-right" class="no-sort">Quantity</th>
                                                     </tr>
                                                     </thead>
-                                                    <tfoot style="border: 1px solid #bdbdbd;">
-                                                    <tr>
-                                                        <th class="dt-head-center no-sort">Select</th>
-                                                        <th class="dt-head-left">Name</th>
-                                                        <th class="dt-head-left">Category</th>
-                                                        <th class="dt-head-right">Price</th>
-                                                        <th align="dt-head-right" class="no-sort">Quantity</th>
-                                                    </tr>
-                                                    </tfoot>
+                                                    <!--<tfoot style="border: 1px solid #bdbdbd;">-->
+                                                    <!--<tr>-->
+                                                        <!--<th class="dt-head-center no-sort">Select</th>-->
+                                                        <!--<th class="dt-head-left">Name</th>-->
+                                                        <!--<th class="dt-head-left">Category</th>-->
+                                                        <!--<th class="dt-head-right">Price</th>-->
+                                                        <!--<th align="dt-head-right" class="no-sort">Quantity</th>-->
+                                                    <!--</tr>-->
+                                                    <!--</tfoot>-->
 
                                                     <tbody>
                                                     </tbody>
@@ -275,8 +285,10 @@
                                 </div>
                                 <div class="input-field col s12" style="margin-top: 20px !important;">
                                     <input type="text" class="right-align prodPrice" name="createPackagePrice" id="crPackPrice"
-                                           placeholder="Price" required/>
-                                    <label for="crPackPrice" class="active"><b>Price</b><i
+                                           placeholder="Package Price" required/>
+                                    <label for="crPackPrice"
+                                           style="font-size: 13px !important;"
+                                           class="active"><b>Package Price</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                             </div>
@@ -339,10 +351,10 @@
                             <ul class="tabs tab-demo-active" style="width: 100%; background-color: #fafafa;">
                                 <li class="tab col s6"><a
                                         class="purple-text text-darken-2 waves-effect waves-light"
-                                        href="#updateA"><b>INFO 1</b></a></li>
+                                        href="#updateA"><b>Details</b></a></li>
                                 <li class="tab col s6"><a
                                         class="purple-text text-darken-2 waves-effect waves-light"
-                                        href="#updateB"><b>INFO 2</b></a></li>
+                                        href="#updateB"><b>Included Items</b></a></li>
                             </ul>
                         </div>
                         <div id="updateA" class="ftab col s12" style="margin-top: 20px !important;">
@@ -364,9 +376,9 @@
                                 <div class="input-field col s12">
                                     <select name="intUpdatePackageType" id="upPackageType" multiple required>
                                         <option value="default" disabled>Choose...</option>
-                                        <option value="1">Event</option>
+                                        <option value="3">Event</option>
                                         <option value="2">Home Service</option>
-                                        <option value="3">Walk-In</option>
+                                        <option value="1">Walk-In</option>
                                     </select>
                                     <label for="upPackageType"><b>Type</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
@@ -416,15 +428,15 @@
                                                         <th align="dt-head-right" class="no-sort">Quantity</th>
                                                     </tr>
                                                     </thead>
-                                                    <tfoot style="border: 1px solid #bdbdbd;">
-                                                    <tr>
-                                                        <th class="dt-head-center no-sort">ID</th>
-                                                        <th class="dt-head-left">Name</th>
-                                                        <th class="dt-head-left">Category</th>
-                                                        <th class="dt-head-right">Price</th>
-                                                        <th align="dt-head-right" class="no-sort">Quantity</th>
-                                                    </tr>
-                                                    </tfoot>
+                                                    <!--<tfoot style="border: 1px solid #bdbdbd;">-->
+                                                    <!--<tr>-->
+                                                        <!--<th class="dt-head-center no-sort">ID</th>-->
+                                                        <!--<th class="dt-head-left">Name</th>-->
+                                                        <!--<th class="dt-head-left">Category</th>-->
+                                                        <!--<th class="dt-head-right">Price</th>-->
+                                                        <!--<th align="dt-head-right" class="no-sort">Quantity</th>-->
+                                                    <!--</tr>-->
+                                                    <!--</tfoot>-->
 
                                                     <tbody>
 
@@ -446,15 +458,15 @@
                                                         <th align="dt-head-right" class="no-sort">Quantity</th>
                                                     </tr>
                                                     </thead>
-                                                    <tfoot style="border: 1px solid #bdbdbd;">
-                                                    <tr>
-                                                        <th class="dt-head-center no-sort">ID</th>
-                                                        <th class="dt-head-left">Name</th>
-                                                        <th class="dt-head-left">Category</th>
-                                                        <th class="dt-head-right">Price</th>
-                                                        <th align="dt-head-right" class="no-sort">Quantity</th>
-                                                    </tr>
-                                                    </tfoot>
+                                                    <!--<tfoot style="border: 1px solid #bdbdbd;">-->
+                                                    <!--<tr>-->
+                                                        <!--<th class="dt-head-center no-sort">ID</th>-->
+                                                        <!--<th class="dt-head-left">Name</th>-->
+                                                        <!--<th class="dt-head-left">Category</th>-->
+                                                        <!--<th class="dt-head-right">Price</th>-->
+                                                        <!--<th align="dt-head-right" class="no-sort">Quantity</th>-->
+                                                    <!--</tr>-->
+                                                    <!--</tfoot>-->
 
                                                     <tbody>
                                                     </tbody>
@@ -477,8 +489,10 @@
                                 </div>
                                 <div class="input-field col s12" style="margin-top: 20px !important;">
                                     <input type="text" class="right-align prodPrice" name="updatePackagePrice" id="upPackPrice"
-                                           placeholder="Price" required/>
-                                    <label for="upPackPrice" class="active"><b>Price</b><i
+                                           placeholder="Package Price" required/>
+                                    <label for="upPackPrice"
+                                           style="font-size: 13px !important;"
+                                           class="active"><b>Package Price</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                             </div>
@@ -491,7 +505,7 @@
                         style="margin:0px !important; padding:0px !important;"><i
                         class="material-icons">error_outline</i>&nbspRequired field
                 </button>
-                <a href="#!"
+                <a id="btnUpCancelPackage"
                    class=" modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL</a>
                 <button class="waves-effect waves-light purple darken-3 white-text btn-flat" type="submit" onclick="updatePackage()"
                         id="updatePackSubmitBtn">SAVE

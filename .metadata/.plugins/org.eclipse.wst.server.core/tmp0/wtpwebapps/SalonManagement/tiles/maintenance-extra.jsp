@@ -1,10 +1,17 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="com.gss.model.ExtraCharge"%>
+
+<style>
+    .dataTables_filter {
+        display: none;
+    }
+</style>
+
 <div class="wrapper">
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
-            <h3 class="grey-text text-darken-1">Other Charge Maintenance</h3>
+            <h3 class="grey-text text-darken-1">Fee Maintenance</h3>
             <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
                href="#createExtraChargeModal" style="margin-top: 30px; margin-left: 15px;"><i
                     class="material-icons">add</i></a>
@@ -14,7 +21,7 @@
                 <div class="nav-wrapper col s4">
                     <form>
                         <div class="input-field">
-                            <input id="extraSearch" placeholder="Search" class="grey-text text-darken-4" type="search" required>
+                            <input id="extraSearch" placeholder="Search" class="grey-text text-darken-4" type="search">
                             <label for="extraSearch"><i
                                     class="material-icons grey-text text-darken-4">search</i></label>
                         </div>
@@ -29,7 +36,7 @@
                    style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;" rowspan="10">
                 <thead>
                 <tr>
-                    <th class="dt-head-left">Charge Name</th>
+                    <th class="dt-head-left">Fee Name</th>
                     <th class="dt-head-left no-sort">Description</th>
                     <th class="dt-head-right">Price</th>
                     <th align="dt-head-center" class="no-sort">Action</th>
@@ -37,14 +44,13 @@
                 </thead>
                 <tfoot style="border: 1px solid #bdbdbd;">
                 <tr>
-                    <th class="dt-head-left">Charge Name</th>
+                    <th class="dt-head-left">Fee Name</th>
                     <th class="dt-head-left no-sort">Description</th>
                     <th class="dt-head-right">Price</th>
                     <th align="dt-head-center" class="no-sort">Action</th>
                 </tr>
                 </tfoot>
                 <tbody class="extratblbody">
-
                 </tbody>
             </table>
         </div>
@@ -72,7 +78,7 @@
                    style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;" rowspan="10">
                 <thead>
                 <tr>
-                    <th class="dt-head-left">Charge Name</th>
+                    <th class="dt-head-left">Fee Name</th>
                     <th class="dt-head-left no-sort">Description</th>
                     <th class="dt-head-right">Price</th>
                     <th align="dt-head-center" class="no-sort">Action</th>
@@ -80,7 +86,7 @@
                 </thead>
                 <tfoot style="border: 1px solid #bdbdbd;">
                 <tr>
-                    <th class="dt-head-left">Charge Name</th>
+                    <th class="dt-head-left">Fee Name</th>
                     <th class="dt-head-left no-sort">Description</th>
                     <th class="dt-head-right">Price</th>
                     <th align="dt-head-center" class="no-sort">Action</th>
@@ -115,7 +121,7 @@
             <div class="modal-content">
                 <!-- <div class="container"> -->
                 <div class="wrapper">
-                    <h4 class="center grey-text text-darken-1">Create Charge<a id="btnCrExtraExit" type="reset"
+                    <h4 class="center grey-text text-darken-1">Create Fee<a id="btnCrExtraExit" type="reset"
                                                                                  value="Reset"
                                                                                  class="modal-action modal-close"><i
                             class="small material-icons right grey-text text-darken-4">close</i></a></h4>
@@ -126,15 +132,14 @@
                         <div class="input-field col s12">
                             <input type="text" class="validate" id="crECName"
                                    name="strECName" required placeholder="Charge Name">
-                            <label for="crECName" class="active"><b>Charge Name</b><i
+                            <label for="crECName" class="active"><b>Fee Name</b><i
                                     class="material-icons red-text tiny">error_outline</i></label>
                         </div>
                         <div class="input-field col s12" style="margin-top: 25px;">
                             <input type="text" class="validate" id="crECDetails"
-                                   name="strECDetails" required
-                                   placeholder="City">
-                            <label for="crECDetails" class="active"><b>Details</b><i
-                                    class="material-icons red-text tiny">error_outline</i></label>
+                                   name="strECDetails"
+                                   placeholder="Details">
+                            <label for="crECDetails" class="active"><b>Details</b></label>
                         </div>
                         <div class="input-field col s6 right">
                             <input id="crECPrice" name="price"
@@ -164,7 +169,7 @@
                 <div class="modal-content">
                     <!-- <div class="container"> -->
                     <div class="wrapper">
-                        <h4 class="center grey-text text-darken-1">Update Charge<a id="btnUpExtraExit" type="reset"
+                        <h4 class="center grey-text text-darken-1">Update Fee<a id="btnUpExtraExit" type="reset"
                                                                                    value="Reset"
                                                                                    class="btnUpExtraExit modal-action modal-close"><i
                                 class="small material-icons right grey-text text-darken-4">close</i></a></h4>
@@ -176,14 +181,15 @@
                            	 	<input type="hidden" id="upECID" name="intECID">
                                 <input type="text" class="validate" id="upECName"
                                        name="strECName" required placeholder="Charge Name">
-                                <label for="upECName" class="active"><b>Charge Name</b><i
+                                <label for="upECName" class="active"><b>Fee Name</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>
                             </div>
                             <div class="input-field col s12" style="margin-top: 25px;">
                                 <input type="text" class="validate" id="upECDetails"
-                                       name="strECDetails" required placeholder="City">
-                                <label for="upECDetails" class="active"><b>Details</b><i
-                                        class="material-icons red-text tiny">error_outline</i></label>
+                                       name="strECDetails" placeholder="Details">
+                                <label for="upECDetails" class="active">
+                                    <b>Details</b>
+                                </label>
                             </div>
                             <div class="input-field col s6 right">
                                 <input id="upECPrice" name="price"

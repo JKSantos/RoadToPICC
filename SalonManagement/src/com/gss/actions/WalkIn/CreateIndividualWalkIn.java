@@ -68,7 +68,8 @@ public class CreateIndividualWalkIn {
 		String[] productQuantity = this.productQuantity.split(",");
 		
 		String[] discounts = this.discounts.split(",");
-		String[] extraCharges = this.extraCharges.split(",");
+		String[] extraCharges = this.extraCharges.split(",");System.out.println("Customer ID: " + this.serviceString);
+		System.out.println("waLKiN ID: " + this.employeeAssigned);
 		
 		
 		if(!this.productString.equals("")){
@@ -193,6 +194,8 @@ public class CreateIndividualWalkIn {
 		else{
 			this.intCreatedID = result;
 			if(this.customerType.equals("APPOINTMENT"))
+				System.out.println("Customer ID: " + this.intCustID);
+			System.out.println("waLKiN ID: " + this.intCreatedID);
 				CustomerTransactionHelper.insertCustomerAppointment(intCreatedID, intCustID, 1);
 
 			return "success";

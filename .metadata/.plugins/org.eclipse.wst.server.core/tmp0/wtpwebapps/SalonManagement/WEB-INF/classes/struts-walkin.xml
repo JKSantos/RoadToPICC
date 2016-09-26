@@ -29,7 +29,18 @@
 			<result name="success" type="json"></result>
 		</action>
 		
-	</package>	
+		<action name="createWalkInPage" class="com.gss.actions.WalkIn.CreateWalkInPage">
+			<result name="success" type="tiles">createWalkin</result>
+		</action>
 		
-		
+		<action name="getWalkInByID" class="com.gss.actions.WalkIn.GetWalkInByID">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="transWalkinTable" class="com.gss.actions.WalkIn.WalkInTransactionAction">
+			<result name="success" type="tiles">transWalkinTable</result>
+			<result name="input">page-login-first.jsp</result>
+		</action>
+	</package>
+
 </struts>

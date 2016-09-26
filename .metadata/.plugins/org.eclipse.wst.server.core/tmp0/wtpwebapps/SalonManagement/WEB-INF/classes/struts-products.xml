@@ -48,6 +48,29 @@
 			<result name="successService">redirect-maintenance-service.jsp</result>
 			<result name="failedService">maintenance-service.jsp</result>
 		</action>
+		
+		<action name="addCategory" class="com.gss.actions.Product.ProductCategory" method="add">
+			<result name="success" type="json"></result>
+			<result name="existing" type="json"></result>
+			<result name="failed" type="json"></result>
+		</action>
+		
+		<action name="removeCategory" class="com.gss.actions.Product.ProductCategory" method="remove">
+			<result name="success" type="json"></result>
+			<result name="failed" type="json"></result>
+		</action>
+		
+		<action name="getCategory" class="com.gss.actions.Product.GetProductCategory" method="execute">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="getProductNames" class="com.gss.actions.Product.GetProductNames" method="execute">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="getProductNamesWithID" class="com.gss.actions.Product.GetProductNamesWithID" method="execute">
+			<result name="success" type="json"></result>
+		</action>
 
 	</package>	
 		

@@ -241,23 +241,23 @@ $(document).ready(function () {
 
 
 $(document).ready(function () {
-    var discounttbl = $('#discounttbl').DataTable({
-        "bLengthChange": false,
-        responsive: true,
-        "order": [],
-        "columnDefs": [
-            {"targets": 'no-sort', "orderable": false},
-            {className: "dt-body-left", "targets": [0, 1, 2, 3]},
-            {className: "dt-body-right", "targets": [4]},
-            {className: "dt-head-center", "targets": [5]},
-            {"targets": [1, 2], render: $.fn.dataTable.render.ellipsis(25)}
-        ],
-        "rowHeight": '10px'
-    });
+    // var discounttbl = $('#discounttbl').DataTable({
+    //     "bLengthChange": false,
+    //     responsive: true,
+    //     "order": [],
+    //     "columnDefs": [
+    //         {"targets": 'no-sort', "orderable": false},
+    //         {className: "dt-body-left", "targets": [0, 1, 2, 3]},
+    //         {className: "dt-body-right", "targets": [4]},
+    //         {className: "dt-head-center", "targets": [5]},
+    //         {"targets": [1, 2], render: $.fn.dataTable.render.ellipsis(25)}
+    //     ],
+    //     "rowHeight": '10px'
+    // });
 
-    $("#discountSearch").bind('keyup search input paste cut', function () {
-        discounttbl.search(this.value).draw();
-    });
+    // $("#discountSearch").bind('keyup search input paste cut', function () {
+    //     discounttbl.search(this.value).draw();
+    // });
 
     $('.crDiscBtn').click(function () {
         $('#fixed').hide();
@@ -274,56 +274,56 @@ $(document).ready(function () {
         }
     });
 
-    var crdiscounttblProduct = $('#crdiscounttblProduct').DataTable({
-        "bLengthChange": false,
-        responsive: true,
-        "order": [],
-        "columnDefs": [
-            {"targets": 'no-sort', "orderable": false},
-            {className: "dt-body-left", "targets": [0, 1, 2]}
-        ],
-        "rowHeight": '10px'
-    });
+    // var crdiscounttblProduct = $('#crdiscounttblProduct').DataTable({
+    //     "bLengthChange": false,
+    //     responsive: true,
+    //     "order": [],
+    //     "columnDefs": [
+    //         {"targets": 'no-sort', "orderable": false},
+    //         {className: "dt-body-left", "targets": [0, 1, 2]}
+    //     ],
+    //     "rowHeight": '10px'
+    // });
 
-    var crdiscounttblService = $('#crdiscounttblService').DataTable({
-        "bLengthChange": false,
-        responsive: true,
-        "order": [],
-        "columnDefs": [
-            {"targets": 'no-sort', "orderable": false},
-            {className: "dt-body-left", "targets": [0, 1, 2]},
-        ],
-        "rowHeight": '10px'
-    });
+    // var crdiscounttblService = $('#crdiscounttblService').DataTable({
+    //     "bLengthChange": false,
+    //     responsive: true,
+    //     "order": [],
+    //     "columnDefs": [
+    //         {"targets": 'no-sort', "orderable": false},
+    //         {className: "dt-body-left", "targets": [0, 1, 2]},
+    //     ],
+    //     "rowHeight": '10px'
+    // });
 
-    var crdiscounttblPackage = $('#crdiscounttblPackage').DataTable({
-        "bLengthChange": false,
-        responsive: true,
-        "order": [],
-        "columnDefs": [
-            {"targets": 'no-sort', "orderable": false},
-            {className: "dt-body-left", "targets": [0, 1, 2]}
-        ],
-        "rowHeight": '10px'
-    });
+    // var crdiscounttblPackage = $('#crdiscounttblPackage').DataTable({
+    //     "bLengthChange": false,
+    //     responsive: true,
+    //     "order": [],
+    //     "columnDefs": [
+    //         {"targets": 'no-sort', "orderable": false},
+    //         {className: "dt-body-left", "targets": [0, 1, 2]}
+    //     ],
+    //     "rowHeight": '10px'
+    // });
 
-    var crdiscounttblPromo = $('#crdiscounttblPromo').DataTable({
-        "bLengthChange": false,
-        responsive: true,
-        "order": [],
-        "columnDefs": [
-            {"targets": 'no-sort', "orderable": false},
-            {className: "dt-body-left", "targets": [0, 1, 2]}
-        ],
-        "rowHeight": '10px'
-    });
+    // var crdiscounttblPromo = $('#crdiscounttblPromo').DataTable({
+    //     "bLengthChange": false,
+    //     responsive: true,
+    //     "order": [],
+    //     "columnDefs": [
+    //         {"targets": 'no-sort', "orderable": false},
+    //         {className: "dt-body-left", "targets": [0, 1, 2]}
+    //     ],
+    //     "rowHeight": '10px'
+    // });
 
-    $("#crDiscountSearch").bind('keyup search input paste cut', function () {
-        crdiscounttblProduct.search(this.value).draw();
-        crdiscounttblService.search(this.value).draw();
-        crdiscounttblPackage.search(this.value).draw();
-        crdiscounttblPromo.search(this.value).draw();
-    });
+    // $("#crDiscountSearch").bind('keyup search input paste cut', function () {
+    //     crdiscounttblProduct.search(this.value).draw();
+    //     crdiscounttblService.search(this.value).draw();
+    //     crdiscounttblPackage.search(this.value).draw();
+    //     crdiscounttblPromo.search(this.value).draw();
+    // });
 
     $('#discountFilter').change(function () {
         var $filter = $(this);
@@ -358,10 +358,7 @@ $(document).ready(function () {
         $('#crdiscounttblPromo').parents('div.tablewrapper').first().hide();
     });
 
-    $('#createDiscountSubmitForm').click(function () {
-        swal("Successfully created!", "", "success");
-        $('#createDiscountForm').submit();
-    });
+    // discounttbl
 
     $('.radiobtn').click(function () {
         $('#crDiscountGuidelines').attr('disabled', true);
@@ -373,27 +370,27 @@ $(document).ready(function () {
 
 });
 $(function () {
-    var packagetbl = $('#packagetbl').dataTable({
-        destroy: true,
-        "bLengthChange": false,
-        "sPaginationType": "full_numbers",
-        responsive: true,
-        "order": [],
-        "columnDefs": [
-            {"targets": 'no-sort', "orderable": false},
-            {className: "dt-body-left", "targets": [0, 1, 2]},
-            {className: "dt-head-center", "targets": [0, 3]},
-            {"targets": [0], "width": "230px"},
-            {"targets": [3], "width": "200px"},
-            {"targets": [2], "width": "250px"},
-            {"targets": [2], render: $.fn.dataTable.render.ellipsis(25)}
-        ],
-        "rowHeight": '10px'
-    });
-
-    $("#packageSearch").bind('keyup search input paste cut', function () {
-        packagetbl.search(this.value).draw();
-    });
+    // var packagetbl = $('#packagetbl').dataTable({
+    //     destroy: true,
+    //     "bLengthChange": false,
+    //     "sPaginationType": "full_numbers",
+    //     responsive: true,
+    //     "order": [],
+    //     "columnDefs": [
+    //         {"targets": 'no-sort', "orderable": false},
+    //         {className: "dt-body-left", "targets": [0, 1, 2]},
+    //         {className: "dt-head-center", "targets": [0, 3]},
+    //         {"targets": [0], "width": "230px"},
+    //         {"targets": [3], "width": "200px"},
+    //         {"targets": [2], "width": "250px"},
+    //         {"targets": [2], render: $.fn.dataTable.render.ellipsis(25)}
+    //     ],
+    //     "rowHeight": '10px'
+    // });
+    //
+    // $("#packageSearch").bind('keyup search input paste cut', function () {
+    //     packagetbl.search(this.value).draw();
+    // });
 
     var archivePackageTbl = $('#archivePackageTbl').dataTable({
         "bLengthChange": false,
@@ -537,22 +534,22 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    var deliverytbl = $('#deliverytbl').DataTable({
-        "bLengthChange": false,
-        "sPaginationType": "full_numbers",
-        responsive: true,
-        "order": [],
-        "columnDefs": [
-            {"targets": 'no-sort', "orderable": false},
-            {"targets": [3], "width": "200px"},
-            {"targets": [2], "type": "formatted-num"}
-        ],
-        "rowHeight": '10px'
-    });
-
-    $("#deliverySearch").bind('keyup search input paste cut', function () {
-        deliverytbl.search(this.value).draw();
-    });
+    // var deliverytbl = $('#deliverytbl').DataTable({
+    //     "bLengthChange": false,
+    //     "sPaginationType": "full_numbers",
+    //     responsive: true,
+    //     "order": [],
+    //     "columnDefs": [
+    //         {"targets": 'no-sort', "orderable": false},
+    //         {"targets": [3], "width": "200px"},
+    //         {"targets": [2], "type": "formatted-num"}
+    //     ],
+    //     "rowHeight": '10px'
+    // });
+    //
+    // $("#deliverySearch").bind('keyup search input paste cut', function () {
+    //     deliverytbl.search(this.value).draw();
+    // });
 
     var deliveryArchiveTbl = $('#deliveryArchiveTbl').DataTable({
         "bLengthChange": false,
@@ -574,25 +571,25 @@ $(document).ready(function () {
 
 $(document).ready(function () {
 
-    var extratbl = $('#extratbl').dataTable({
-        "bLengthChange": false,
-        "sPaginationType": "full_numbers",
-        responsive: true,
-        "order": [],
-        "columnDefs": [
-            {"targets": 'no-sort', "orderable": false},
-            {className: "dt-body-left", "targets": [0, 1]},
-            {className: "dt-body-right", "targets": [2]},
-            {className: "dt-head-center", "targets": [3]},
-            {"targets": [3], "width": "200px"},
-            {"targets": [2], "type": "formatted-num"}
-        ],
-        "rowHeight": '10px'
-    });
-
-    $("#extraSearch").bind('keyup search input paste cut', function () {
-        extratbl.search(this.value).draw();
-    });
+    // var extratbl = $('#extratbl').dataTable({
+    //     "bLengthChange": false,
+    //     "sPaginationType": "full_numbers",
+    //     responsive: true,
+    //     "order": [],
+    //     "columnDefs": [
+    //         {"targets": 'no-sort', "orderable": false},
+    //         {className: "dt-body-left", "targets": [0, 1]},
+    //         {className: "dt-body-right", "targets": [2]},
+    //         {className: "dt-head-center", "targets": [3]},
+    //         {"targets": [3], "width": "200px"},
+    //         {"targets": [2], "type": "formatted-num"}
+    //     ],
+    //     "rowHeight": '10px'
+    // });
+    //
+    // $("#extraSearch").bind('keyup search input paste cut', function () {
+    //     extratbl.search(this.value).draw();
+    // });
 
 
     var otherchargeArchiveTbl = $('#otherchargeArchiveTbl').DataTable({
@@ -614,28 +611,48 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    var promotbl = $('#promotbl').dataTable({
-        "bLengthChange": false,
-        "sPaginationType": "full_numbers",
-        responsive: true,
-        "order": [],
-        "columnDefs": [
-            {"targets": 'no-sort', "orderable": false},
-            {"targets": [0], "width": "150px"},
-            {"targets": [2], "width": "100px"},
-            {"targets": [1], "width": "200px"},
-            {"targets": [3], "width": "100"},
-            {"targets": [4], "width": "150"},
-            {className: "dt-body-center", "targets": [4]},
-            {className: "dt-body-left", "targets": [0, 1]},
-            {className: "dt-body-right", "targets": [2, 3]},
-        ],
-        "rowHeight": '10px'
-    });
+    // var promotbl = $('#promotbl').dataTable({
+    //     "bLengthChange": false,
+    //     "sPaginationType": "full_numbers",
+    //     responsive: true,
+    //     "order": [],
+    //     "columnDefs": [
+    //         {"targets": 'no-sort', "orderable": false},
+    //         {"targets": [0], "width": "150px"},
+    //         {"targets": [2], "width": "100px"},
+    //         {"targets": [1], "width": "200px"},
+    //         {"targets": [3], "width": "100"},
+    //         {"targets": [4], "width": "150"},
+    //         {className: "dt-body-center", "targets": [4]},
+    //         {className: "dt-body-left", "targets": [0, 1]},
+    //         {className: "dt-body-right", "targets": [2, 3]}
+    //     ],
+    //     "rowHeight": '10px'
+    // });
+    //
+    // $("#promoSearch").bind('keyup search input paste cut', function () {
+    //     promotbl.search(this.value).draw();
+    // });
+});
 
-    $("#promoSearch").bind('keyup search input paste cut', function () {
-        promotbl.search(this.value).draw();
-    });
+$(document).ready(function () {
+    // var discounttbl = $('#discounttbl').DataTable({
+    //     "bLengthChange": false,
+    //     responsive: true,
+    //     "order": [],
+    //     "columnDefs": [
+    //         {"targets": 'no-sort', "orderable": false},
+    //         {className: "dt-body-left", "targets": [0, 1, 2, 3, 4]},
+    //         {className: "dt-body-right", "targets": [5]},
+    //         {className: "dt-head-center", "targets": [6]},
+    //         {"targets": [1, 2], render: $.fn.dataTable.render.ellipsis(25)}
+    //     ],
+    //     "rowHeight": '10px'
+    // });
+    //
+    // $("#discountSearch").bind('keyup search input paste cut', function () {
+    //     discounttbl.search(this.value).draw();
+    // });
 });
 
 
@@ -723,6 +740,7 @@ $('#btnCreateExit').click(function () {
 $('#btnCrLocExit').click(function () {
     $('#createDeliveryForm').trigger("reset");
     $('.deliveryerrorcontainer').hide();
+    $('#crLocationBRate').prop('disabled', false);
 });
 
 $('#btnCrExtraExit').click(function () {
@@ -758,17 +776,20 @@ $('.upExtraCancel').click(function () {
 $('.btnUpLocExit').click(function () {
     $('.updateDeliveryForm').trigger("reset");
     $('.updeliveryerrorcontainer').hide();
+    $('#upLocationBRate').prop('disabled', false);
 });
 
 
 $('#crLocCancel').click(function () {
     $('#createDeliveryForm').trigger("reset");
     $('.deliveryerrorcontainer').hide();
+    $('#crLocationBRate').prop('disabled', false);
 });
 
 $('.upLocCancel').click(function () {
     $('.updateDeliveryForm').trigger("reset");
-    $('.deliveryerrorcontainer').hide();
+    $('.updeliveryerrorcontainer').hide();
+    $('#upLocationBRate').prop('disabled', false);
 });
 
 $('#btnProdCrExit').click(function () {
@@ -801,6 +822,7 @@ $('.btnServUpExit').click(function () {
     $('.upServAddCatForm').trigger("reset");
     $('.upserverrorcontainer').hide();
     $('select').material_select();
+    $('.upServSubmitBtn').prop('disabled', false).css('opacity', '1');
 });
 
 $('#crProdCancel').click(function () {
@@ -822,6 +844,7 @@ $('.upServCancel').click(function () {
     $('.upServAddCatForm').trigger("reset");
     $('.upserverrorcontainer').hide();
     $('select').material_select();
+    $('.upServSubmitBtn').prop('disabled', false).css('opacity', '1');
 });
 
 $('.upServAddProdCatCancel').click(function () {
@@ -858,11 +881,13 @@ $('.upProdCancel').click(function () {
 $('#crAddOptCancel').click(function () {
     $('#createOption').trigger("reset");
     $('.errorCreateoption').hide();
+    $('#addCreateoption').hide();
 });
 
 $('.upAddOptCancel').click(function () {
     $('.upProdAddCateForm').trigger("reset");
     $('.errorUpdateoption').hide();
+    $('.addUpdateoption').hide();
 });
 
 
@@ -883,81 +908,81 @@ $('.btnUpdateExit').click(function () {
 
 // $
 
-$('#createAddPosition').click(function () {
-    if ($('#createOption').valid()) {
+// $('#createAddPosition').click(function () {
+//     if ($('#createOption').valid()) {
+//
+//         $('select').material_select('destroy');
+//         var addopt = $('#addOptionName').val();
+//         $('#crSelectedJob').append('<option selected>' + addopt + '</option>').attr('value', addopt);
+//         $('select').material_select();
+//
+//         $('#createAddOption').closeModal();
+//     }
+// });
 
-        $('select').material_select('destroy');
-        var addopt = $('#addOptionName').val();
-        $('#crSelectedJob').append('<option selected>' + addopt + '</option>').attr('value', addopt);
-        $('select').material_select();
-
-        $('#createAddOption').closeModal();
-    }
-});
-
-$('.updateAddPosition').each(function () {
-    $(this).click(function () {
-        var upAddOpt = "upAddOpt";
-        if ($('#updateOptionForm').valid()) {
-            $('select').material_select('destroy');
-            var addoptupdate = $('.updateAddOptionName').val();
-            $('.upSelectedJob').append('<option selected class="' + upAddOpt + '">' + addoptupdate + '</option>').attr('value', addoptupdate);
-            $('select').material_select();
-
-            $('#updateOption').closeModal();
-        }
-    });
-});
-
-$('#createAddCatBtn').click(function () {
-    var crAddCatOpt = "crAddCatOpt";
-    if ($('#createAddCatForm').valid()) {
-        $('select').material_select('destroy');
-        var addprodcat = $('#crProdAddCatName').val();
-        $('#crItemCategory').append('<option selected class="' + crAddCatOpt + '">' + addprodcat + '</option>').attr('value', addprodcat);
-        $('select').material_select();
-
-        $('#crProdAddCate').closeModal();
-    }
-});
+// $('.updateAddPosition').each(function () {
+//     $(this).click(function () {
+//         var upAddOpt = "upAddOpt";
+//         if ($('#updateOptionForm').valid()) {
+//             $('select').material_select('destroy');
+//             var addoptupdate = $('.updateAddOptionName').val();
+//             $('.upSelectedJob').append('<option selected class="' + upAddOpt + '">' + addoptupdate + '</option>').attr('value', addoptupdate);
+//             $('select').material_select();
+//
+//             $('#updateOption').closeModal();
+//         }
+//     });
+// });
+//
+// $('#createAddCatBtn').click(function () {
+//     var crAddCatOpt = "crAddCatOpt";
+//     if ($('#createAddCatForm').valid()) {
+//         $('select').material_select('destroy');
+//         var addprodcat = $('#crProdAddCatName').val();
+//         $('#crItemCategory').append('<option selected class="' + crAddCatOpt + '">' + addprodcat + '</option>').attr('value', addprodcat);
+//         $('select').material_select();
+//
+//         $('#crProdAddCate').closeModal();
+//     }
+// });
 
 
-$('.updateProdAddCatBtn').click(function () {
-    var upProdAddCatOpt = "upProdAddCatOpt";
-    if ($('.upProdAddCatForm').valid()) {
-        $('select').material_select('destroy');
-        var upprodcat = $('.upProdAddCatName').val();
-        $('.upItemCategory').append('<option selected class="' + upProdAddCatOpt + '">' + upprodcat + '</option>').attr('value', upprodcat);
-        console.log(upprodcat);
-        $('select').material_select();
+// $('.updateProdAddCatBtn').click(function () {
+//     var upProdAddCatOpt = "upProdAddCatOpt";
+//     if ($('.upProdAddCatForm').valid()) {
+//         $('select').material_select('destroy');
+//         var upprodcat = $('.upProdAddCatName').val();
+//         $('.upItemCategory').append('<option selected class="' + upProdAddCatOpt + '">' + upprodcat + '</option>').attr('value', upprodcat);
+//         console.log(upprodcat);
+//         $('select').material_select();
+//
+//         $('.upProdAddCatModal').closeModal();
+//     }
+// });
 
-        $('.upProdAddCatModal').closeModal();
-    }
-});
-
-$('#createServAddCatBtn').click(function () {
-    var crServAddCatOpt = "crServAddCatOpt";
-    if ($('#createServAddCatForm').valid()) {
-        $('select').material_select('destroy');
-        var addservcat = $('#crServAddCatName').val();
-        $('#crServiceCategory').append('<option selected class="' + crServAddCatOpt + '">' + addservcat + '</option>').attr('value', addservcat);
-        $('select').material_select();
-
-        $('#crServAddCateModal').closeModal();
-    }
-});
-
-$('.updateServAddCatBtn').click(function () {
-    var upServAddCatOpt = "upServAddCatOpt";
-    if ($('.upServAddCatForm').valid()) {
-        $('select').material_select('destroy');
-        var upservcat = $('.upServAddCatName').val();
-        $('.updateServCategory').append('<option selected class="' + upServAddCatOpt + '">' + upservcat + '</option>').attr('value', upservcat);
-        $('select').material_select();
-
-        $('.upServAddCatModal').closeModal();
-    }
-});
+// $('#createServAddCatBtn').click(function () {
+//     var crServAddCatOpt = "crServAddCatOpt";
+//     if ($('#createServAddCatForm').valid()) {
+//         $('select').material_select('destroy');
+//         var addservcat = $('#crServAddCatName').val();
+//         $('#crServiceCategory').append('<option selected class="' + crServAddCatOpt + '">' + addservcat + '</option>').attr('value', addservcat);
+//         $('select').material_select();
+//
+//         $('#crServAddCateModal').closeModal();
+//     }
+// });
+//
+// $('.updateServAddCatBtn').click(function () {
+//     var upServAddCatOpt = "upServAddCatOpt";
+//     if ($('.upServAddCatForm').valid()) {
+//         $('select').material_select('destroy');
+//         var upservcat = $('.upServAddCatName').val();
+//         $('.updateServCategory').append('<option selected class="' + upServAddCatOpt + '">' + upservcat + '</option>').attr('value', upservcat);
+//         $('select').material_select();
+//
+//         $('.upServAddCatModal').closeModal();
+//     }
+// });
 
 
 // $('#defsubmitbtn').click(function () {
@@ -1534,40 +1559,6 @@ $('#inventorytbl').on('click', '.inventdeacbtn', function (e) {
         });
 });
 
-$('#discounttbl').on('click', '.discountdeacbtn', function (e) {
-    e.returnValue = false;
-    var discountdeacID = $(this).attr('id');
-    var deactivateDiscount = {
-        'intDiscountID': discountdeacID
-    }
-    var $tr = $(this).closest('tr'),
-        discountname = $tr.find('td:eq(0)').text();
-
-    swal({
-            title: "Are you sure you want to deactivate " + discountname + "?",
-            text: "",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, delete it!",
-            closeOnConfirm: false
-        },
-        function () {
-            swal("Deleted!", ".", "success");
-            $.ajax({
-                type: 'post',
-                url: 'deactivateDiscount',
-                data: deactivateDiscount,
-                success: function (response) {
-                    $tr.find('td').fadeOut(500, function () {
-                        $tr.remove();
-                    });
-                }
-            });
-        });
-});
-
-
 $(document).ready(function () {
     var reservationtbl = $('#reservationtbl').DataTable({
         "bLengthChange": false,
@@ -1668,4 +1659,8 @@ function addCommas(nStr) {
         x1 = x1.replace(rgx, '$1' + ',' + '$2');
     }
     return x1 + x2;
+}
+
+function pricesample() {
+    console.log($('#ItemPrice').val());
 }

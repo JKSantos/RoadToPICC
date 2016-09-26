@@ -22,7 +22,8 @@ public class CustomerTransactionHelper {
 			
 			statement.execute();
 			statement.close();
-			
+			con.commit();
+			con.close();
 			return true;
 			
 		}catch(SQLException e){

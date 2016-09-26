@@ -8,6 +8,13 @@
 <%@ page import="com.gss.model.ServicePackage"%>
 <%@ page import="com.gss.model.PackagePackage"%>
 <%@ page import="com.gss.model.Promo"%>
+
+<style>
+    .dataTables_filter {
+        display: none;
+    }
+</style>
+
 <div class="wrapper">
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
@@ -38,7 +45,8 @@
                 <thead>
                 <tr>
                     <th class="dt-head-left">Promo Name</th>
-                    <th class="dt-head-left">Guidelines</th>
+                    <th class="dt-head-left">Type</th>
+                    <th class="dt-head-left">Requirement</th>
                     <th class="dt-head-right">Price</th>
                     <th class="dt-head-right">Expiration</th>
                     <th align="dt-head-center" class="no-sort">Action</th>
@@ -47,7 +55,8 @@
                 <tfoot style="border: 1px solid #bdbdbd;">
                 <tr>
                     <th class="dt-head-left">Promo Name</th>
-                    <th class="dt-head-left">Guidelines</th>
+                    <th class="dt-head-left">Type</th>
+                    <th class="dt-head-left">Requirement</th>
                     <th class="dt-head-right">Price</th>
                     <th class="dt-head-right">Expiration</th>
                     <th align="dt-head-center" class="no-sort">Action</th>
@@ -110,11 +119,29 @@
                                               placeholder="Description"></textarea>
                                         <label for="crPromoDescription" class="active"><b>Description</b></label>
                                     </div>
-                                    <div class="input-field col s12">
-                                    <textarea name="crPromoGuide" id="crPromoGuidelines" placeholder="Guidelines"
-                                              class="materialize-textarea noSpace"
-                                              style="margin-top: -10px !important;"></textarea>
-                                        <label for="crPromoGuidelines" class="active"><b>Guidelines</b></label>
+                                    <div class="input-field col s8">
+                                        <select name="crPromoRequirement" id="crPromoRequirement" multiple="multiple">
+                                            <option value="default" disabled selected>Choose...</option>
+                                        </select>
+                                        <label for="crPromoRequirement">
+                                            <b>Requirement</b>
+                                        </label>
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <button data-target="crAddPromoNewReq"
+                                                class="waves-effect waves-light btn-flat modal-option purple darken-3 white-text">
+                                            <i class="material-icons">add</i></button>
+                                    </div>
+                                    <div class="input-field col s8">
+                                        <select name="crPromoType" id="crPromoType" multiple="multiple" required>
+                                            <option value="default" disabled selected>Choose...</option>
+                                            <option value="walkin">WALK-IN</option>
+                                            <option value="homeservice">HOME SERVICE</option>
+                                            <option value="event">EVENT</option>
+                                        </select>
+                                        <label for="crPromoType">
+                                            <b>Type</b><i class="material-icons red-text tiny">error_outline</i>
+                                        </label>
                                     </div>
 
                                 </div>
@@ -256,11 +283,11 @@
                                            class="active grey-text text-darken-3"><b>Total</b></label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <input type="text" class="right-align prodPrice" name="dblPromoPrice"
+                                    <input type="text" class="right-align prodPrice" name="crPromoPrice"
                                            id="crPromoPrice"
-                                           placeholder="Price" required/>
-                                    <label for="crPromoPrice" class="active"><b>Price</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                           placeholder="Promo Price" required/>
+                                    <label for="crPromoPrice" class="active"><b>Promo Price</b>
+                                        <i class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12" style="margin-top: -15px !important;">
                                     <input name="crFree" type="checkbox" class="filled-in"
@@ -303,39 +330,98 @@
         </form>
     </div>
 
+    <div id="crAddPromoNewReq" class="modal" style="margin-top: 30px; width: 500px !important;">
+        <form id="createPromoRequirementForm">
+            <div class="modal-content">
+                <h4 class="center">Create Requirement</h4>
+                <div class="row">
+                    <div class="errorCreatePromoRequirement center input-field col s12 card red white-text z-depth-barts">
+                    </div>
+                    <div id="addCreatePromoOption" class="center input-field col s12 card red white-text z-depth-barts">
+                    </div>
+                    <div class="col s12">
+                        <div class="input-field col s8 offset-s2">
+                            <select id="addCrPromoRequirementSelect" class="browser-default" size="10"
+                                    style="height: 150px !important;">
+                            </select>
+                        </div>
+                        <div class="input-field col s6 offset-s2" style="margin-top: 20px;">
+                            <input type="text"
+                                   placeholder="Ex: Manager" id="addCrPromoRequirementName" name="addCrPromoRequirementName"
+                                   required>
+                            <label for="addCrPromoRequirementName" class="active"><b>Requirement</b></label>
+                        </div>
+                        <div class="input-field col s2">
+                            <a id="crDeletePromoRequirement" onclick="crRemoveNewPromoRequirement();"
+                               class="modal-action waves-effect waves-light red darken-3 btn-flat white-text">
+                                <i class="material-icons">delete</i>
+                            </a>
+                        </div>
+                        <div class="input-field center col s12" id="requirementPromoExistingDiv">
+                            <span class="red-text">Requirement is already existing!</span>
+                        </div>
+                        <div class="input-field center col s12" id="requirementPromoFailedDiv">
+                            <span class="red-text">Failed!</span>
+                        </div>
+                        <div class="input-field col s8 offset-s2 center">
+                            <a id="createAddNewPromoRequirementBtn" onclick="crAddNewPromoRequirement();"
+                               class="modal-action waves-effect waves-light purple darken-3 btn-flat white-text">
+                                SAVE
+                            </a>
+                            <button type="reset" value="Reset" id="crAddOptPromoCancel"
+                                    class="modal-close waves-effect waves-purple transparent btn-flat white">CANCEL
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
     <div id="upPromoModal" class="modal modal-fixed-footer">
-        <form id="updatePromoForm" class="col s12">
+        <form id="updatePromoForm" name="updatePromoForm" class="col s12">
             <div class="modal-content">
                 <div class="wrapper">
-                    <h4 class="center grey-text text-darken-1">Update Promo<a id="btnUpPromoExit"
-                                                                              class="modal-action modal-close"><i
-                            class="small material-icons right grey-text text-darken-4">close</i></a></h4>
-                    <div class="uppromoerrorcontainer card red center input-field col s12 white-text z-depth-barts"></div>
+
                     <div class="row">
+                    <h4 class="center grey-text text-darken-1">
+                        Update Promo
+                        <a id="btnUpPromoExit" class="modal-action modal-close">
+                            <i class="small material-icons right grey-text text-darken-4">close</i>
+                        </a>
+                    </h4>
+                    <div style="margin-bottom: 40px !important;"
+                         class="uppromoerrorcontainer card red center input-field col s12 white-text z-depth-barts">
+                         
+                    </div>
                         <div class="col s12">
-                            <ul class="tabs tab-demo-active" style="width: 100%; background-color: #fafafa; margin-top: -35px !important;">
-                                <li class="tab col s6"><a
-                                        class="purple-text text-darken-2 waves-effect waves-light"
-                                        href="#promoUpdateA"><b>INFO 1</b></a></li>
-                                <li class="tab col s6"><a
-                                        class="purple-text text-darken-2 waves-effect waves-light"
-                                        href="#promoUpdateB"><b>INFO 2</b></a></li>
+                            <ul class="tabs tab-demo-active" style="width: 100%; background-color: #fafafa; margin-top: -20px !important;">
+                                <li class="tab col s6">
+                                <a class="purple-text text-darken-2 waves-effect waves-light"
+                                        href="#promoUpdateA"><b>Details</b>
+                                        </a>
+                                        </li>
+                                <li class="tab col s6">
+                                <a class="purple-text text-darken-2 waves-effect waves-light"
+                                        href="#promoUpdateB">
+                                        <b>Included Items</b></a>
+                                        </li>
                             </ul>
                         </div>
                         <div id="promoUpdateA" class="ftab col s12" style="margin-top: 20px !important;">
                             <div class="container">
-                                <div class="input-field col s2">
-                                    <label><b>Availability</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                <div class="input-field col s4">
+                                    <label><b>Availability</b>
+                                        <i class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
-                                <div class="input-field col s5">
+                                <div class="input-field col s4">
                                     <p class="center">
                                         <input type="checkbox" class="filled-in" id="upPromoNonExpiry"
                                                name="upNonExp" value="on">
                                         <label for="upPromoNonExpiry"><b>Non-Expiry</b></label>
                                     </p>
                                 </div>
-                                <div class="input-field col s5">
+                                <div class="input-field col s4">
                                     <input name="upExp" type="date" class="datepicker-promoUpdate"
                                            id="upPromoExpiration" placeholder="Expiration" required/>
                                     <label for="upPromoExpiration" class="active"><b>Expiration</b></label>
@@ -354,11 +440,29 @@
                                               placeholder="Description"></textarea>
                                     <label for="upPromoDescription" class="active"><b>Description</b></label>
                                 </div>
-                                <div class="input-field col s12">
-                                    <textarea name="upPromoGuide" id="upPromoGuidelines" placeholder="Guidelines"
-                                              class="materialize-textarea noSpace"
-                                              style="margin-top: -10px !important;"></textarea>
-                                    <label for="upPromoGuidelines" class="active"><b>Guidelines</b></label>
+                                <div class="input-field col s8">
+                                    <select name="upPromoRequirement" id="upPromoRequirement" multiple="multiple">
+                                        <option value="default" disabled selected>Choose...</option>
+                                    </select>
+                                    <label for="upPromoRequirement">
+                                        <b>Requirement</b>
+                                    </label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <button data-target="crAddPromoNewReq"
+                                            class="waves-effect waves-light btn-flat modal-option purple darken-3 white-text">
+                                        <i class="material-icons">add</i></button>
+                                </div>
+                                <div class="input-field col s8">
+                                    <select name="upPromoType" id="upPromoType" multiple="multiple" required>
+                                        <option value="default" disabled selected>Choose...</option>
+                                        <option value="walkin">WALK-IN</option>
+                                        <option value="homeservice">HOME SERVICE</option>
+                                        <option value="event">EVENT</option>
+                                    </select>
+                                    <label for="upPromoType">
+                                        <b>Type</b><i class="material-icons red-text tiny">error_outline</i>
+                                    </label>
                                 </div>
 
                             </div>
@@ -497,16 +601,19 @@
                                            class="active grey-text text-darken-3"><b>Total</b></label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <input type="text" class="right-align prodPrice" name="dblPromoPrice"
+                                    <input type="text" class="right-align prodPrice" name="upPromoPrice"
                                            id="upPromoPrice"
-                                           placeholder="Price"/>
-                                    <label for="upPromoPrice" class="active"><b>Price</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                           placeholder="Promo Price"/>
+                                    <label for="upPromoPrice" class="active"><b>Promo Price</b>
+                                        <i class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12" style="margin-top: -15px !important;">
                                     <input name="upFree" type="checkbox" class="filled-in"
                                            id="upPromoFree" value="on"/>
                                     <label for="upPromoFree"><b>Free</b></label>
+                                </div>
+                                <div class="input-field col s12" id="errorPriceFree">
+                                    <span class="red-text">Invalid Price</span>
                                 </div>
                             </div>
                             <!--<div class="col s12 z-depth-barts white prodservlist" style="margin-top: 5px;"-->
@@ -537,27 +644,4 @@
             </div>
         </form>
     </div>
-
-    <c:forEach items="${promoList}" var="promo">
-        <div id="delete${promo.intPromoID}" class="modal"
-             style="width: 30% !important; height: 40% !important">
-            <form method="post" action="deactivatePromo">
-                <div class="container">
-                    <div class="modal-content">
-                        <div class="row">
-                            <input type="hidden" name="intPromoID" value="${promo.intPromoID}">
-                            <h5 class="red-text">Warning!</h5>
-                            <p>Are you sure you want to deactivate</p>
-                            <p>${promo.strPromoName}</p>
-                        </div>
-                    </div>
-                    <div class="col s12 center" style="margin-bottom: 30px;">
-                        <button class="waves-effect waves-light purple btn-flat white-text">YES</button>
-                        <a href="#"
-                           class="modal-action modal-close waves-effect waves-light transparent btn-flat black-text">NO</a>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </c:forEach>
 </div>
