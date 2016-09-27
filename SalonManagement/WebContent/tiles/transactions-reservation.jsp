@@ -352,7 +352,7 @@
                                     </label>
                                 </div>
                                 <div class="input-field col s6">
-                                    <input type="text" ng-model="vm.details.headCount" id="crRHeadCount"
+                                    <input type="number" ng-model="vm.details.headCount" id="crRHeadCount"
                                            placeholder="Headcount"/>
                                     <label for="crRHeadCount"><b>Head Count</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
@@ -635,14 +635,27 @@
 
                                 </div>
                             </div>
-                            <div class="col s8" style="margin-top: 10px;">
+                            <div class="col s4" style="margin-top: 10px;">
                                 <div class="input-field col s12">
                                     <select multiple ng-model="vm.selEmployees" id="cREmp"
                                             ng-options="employee.strEmpFirstName for employee in vm.employeeList">
                                         <option value="" disabled selected>Choose...</option>
                                     </select>
-                                    <label for="cREmp"><b>Employee</b></label>
-                                    <pre>{{vm.selEmployees.intEmpID | json}}</pre>
+                                    <label for="cREmp"><b>Employee</b>
+                                        <i class="material-icons red-text tiny">error_outline</i>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col s4" style="margin-top: 10px;">
+                                <div class="input-field col s12">
+                                    <select ng-model="vm.resPaymentType" id="crPType" material-select watch>
+                                        <option value="" disabled selected>Choose...</option>
+                                        <option value="FULL PAYMENT">FULL PAYMENT</option>
+                                        <option value="HALF PAYMENT">HALF PAYMENT</option>
+                                    </select>
+                                    <label for="cREmp"><b>Payment Type</b>
+                                        <i class="material-icons red-text tiny">error_outline</i>
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -700,7 +713,7 @@
                                 </div>
 
                                 <div class="input-field col s6">
-                                    <input type="text" name="" id="crRSumHeadCount"/>
+                                    <input type="number" name="" id="crRSumHeadCount"/>
                                     <label for="crRSumHeadCount"><b>Head Count</b></label>
                                 </div>
                             </div>

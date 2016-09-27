@@ -4,7 +4,7 @@
         .module('app')
         .controller('paymentCtrl', paymentCtrl);
 
-    function paymentCtrl($scope, $resource, $window, $filter, SweetAlert, DTOptionsBuilder, DTColumnBuilder, DTDefaultOptions, paymentFactory) {
+    function paymentCtrl($scope, $resource, $window, $filter, SweetAlert, DTOptionsBuilder, DTColumnBuilder, DTDefaultOptions, paymentFactory, locationFactory) {
         var vm = this;
         vm.dateFormat = ["MMMM/D/YYYY"];
         vm.type = [{
@@ -15,6 +15,8 @@
         vm.sortType = 'strName';
         vm.sortReverse = false;
         vm.paymentSearch = '';
+        vm.downPaymentError = 0;
+        vm.fullPaymentError = 0;
 
         vm.paymentList = [];
         vm.createPOPayment = createPOPayment;
@@ -43,6 +45,17 @@
                 vm.paymentList.push(data.walkinList[j]);
             }
             console.log(vm.paymentList);
+        });
+
+        locationFactory.getDependencies().then(function (data) {
+            vm.dependencies = data.dependencies;
+
+            angular.forEach(vm.dependencies, function (i) {
+                if (i.strName == 'Down Payment' || i.strName == 'DOWN PAYMENT') {
+                    var val = i.strValue.replace('%', '');
+                    vm.downPayment = val;
+                }
+            });
         });
 
 
@@ -121,13 +134,18 @@
                 vm.paymentDetails.remainingBalance = $filter('currency')(vm.paymentDetails.invoice.dblRemainingBalance, "Php ");
                 vm.paymentDetails.paymentAmount = $filter('currency')(vm.paymentDetails.paymentAmount, "Php ");
             } else if (type == 'reservation') {
-                vm.paymentType = [
-                    {id: 1, value: 'FULL PAYMENT', name: 'FULL PAYMENT'},
-                    {id: 2, value: 'DOWN PAYMENT', name: 'DOWN PAYMENT'},
-                    {id: 3, value: 'COMPLEMENTARY PAYMENT', name: 'COMPLEMENTARY PAYMENT'}
-                ];
-                if(payment.invoice.paymentType == 'FULL PAYMENT') {
-                    vm.paymentDetails.paymentType = vm.paymentType[0];
+                console.log(vm.paymentDetails.invoice.dblTotalPrice);
+                console.log(vm.paymentDetails.invoice.dblRemainingBalance);
+                if (vm.paymentDetails.invoice.dblTotalPrice != vm.paymentDetails.invoice.dblRemainingBalance) {
+                    vm.paymentType = [
+                        {id: 1, value: 'FULL PAYMENT', name: 'FULL PAYMENT'},
+                        {id: 3, value: 'COMPLEMENTARY PAYMENT', name: 'COMPLEMENTARY PAYMENT'}
+                    ];
+                } else if (vm.paymentDetails.invoice.dblTotalPrice == vm.paymentDetails.invoice.dblRemainingBalance) {
+                    vm.paymentType = [
+                        {id: 1, value: 'FULL PAYMENT', name: 'FULL PAYMENT'},
+                        {id: 2, value: 'DOWN PAYMENT', name: 'DOWN PAYMENT'},
+                    ];
                 }
                 vm.paymentDetails.paymentCreated = $filter('date')(vm.paymentDetails.paymentCreated, "MMMM/d/yyyy");
                 vm.paymentDetails.totalBalance = $filter('currency')(vm.paymentDetails.invoice.dblTotalPrice, "Php ");
@@ -145,111 +163,129 @@
             }
             vm.paymentDetails.paymentType = vm.paymentType[0];
         }
-        
+
+
         function paymentSubmit(payment) {
-            console.log(payment);
+            var go = 0;
+            console.log(vm.paymentDetails.paymentAmount);
+            if(typeof vm.paymentDetails.paymentAmount !== 'undefined') {
+                if (vm.paymentDetails.paymentType.name == 'FULL PAYMENT') {
+                    var tb = vm.paymentDetails.totalBalance.replace(/[^\d.]/g, ''),
+                        amt = vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '');
+                    if (amt > tb) {
+                        vm.fullPaymentError = 0;
+                        go = 1;
+                    } else {
+                        vm.fullPaymentError = 1;
+                    }
+                } else if (vm.paymentDetails.paymentType.name == 'DOWN PAYMENT') {
+                    var dp = vm.paymentDetails.totalBalance.replace(/[^\d.]/g, '') * (vm.downPayment / 100); //down payment
+                    if (vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '') < dp) {
+                        vm.downPaymentError = 1;
+                    } else {
+                        vm.downPaymentError = 0;
+                        go = 1;
+                    }
+                } else {
+                    go = 1;
+                }
 
-            var name = "",
-                paymentData = {};
-            if (payment.type == 'order') {
-                paymentData = {
-                    "intPaymentID": payment.intSalesID,
-                    "intInvoiceID": payment.invoice.intInvoiceID,
-                    "strPaymentType": payment.type,
-                    "dblPaymentAmount": payment.paymentAmount,
-                    "datDateOfPayment": payment.paymentCreated,
-                    "paymentType": payment.paymentType.value
-                };
-                var index = payment.index;
-                name = payment.strName;
-            } else if (payment.type == 'reservation') {
-                paymentData = {
-                    "intPaymentID": payment.intReservationID,
-                    "intInvoiceID": payment.invoice.intInvoiceID,
-                    "strPaymentType": payment.type,
-                    "dblPaymentAmount": payment.paymentAmount,
-                    "datDateOfPayment": payment.paymentCreated,
-                    "paymentType": payment.paymentType.value
-                };
-                var index = payment.index;
-                name = payment.customer.strName
-            } else if (payment.type == 'walkin') {
-            	paymentData = {
-                        "intPaymentID": payment.intWalkInID,
-                        "intInvoiceID": payment.invoice.intInvoiceID,
-                        "strPaymentType": payment.type,
-                        "dblPaymentAmount": payment.paymentAmount,
-                        "datDateOfPayment": payment.paymentCreated,
-                        "paymentType": payment.paymentType.value
-                    };
-                    var index = payment.index;
-                    name = payment.strName
-            }
-            console.log(paymentData);
-            swal({
-                    title: "Create payment for " + name + "?",
-                    text: "",
-                    type: "",
-                    confirmButtonColor: "#81d4fa",
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true
-                },
-                function () {
-                    setTimeout(function () {
-                        $.ajax({
-                            url: 'createPayment',
-                            type: 'post',
-                            data: paymentData,
-                            dataType: 'json',
-                            async: true,
-                            success: function (data) {
-                                if (data.result == "success") {
-                                    SweetAlert.swal("Successful!", ".", "success");
-                                    if(vm.paymentDetails.paymentType.value == 'FULL PAYMENT') {
-                                        vm.paymentList.splice(payment.index, 1);
-                                        $('#paymentModal').closeModal();
-                                    } else if (vm.paymentDetails.paymentType.value == 'DOWN PAYMENT') {
-                                        if(vm.paymentList[payment.index].invoice.dblRemainingBalance > vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '')) {
-                                            $('#paymentModal').closeModal();
-                                            var am = vm.paymentList[payment.index].invoice.dblRemainingBalance - vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '');
-                                        } else if (vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '') > vm.paymentList[payment.index].invoice.dblRemainingBalance) {
-                                            $('#paymentModal').closeModal();
-                                            vm.paymentList.splice(payment.index, 1);
-                                            var am = vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '') - vm.paymentList[payment.index].invoice.dblRemainingBalance;
-                                        } else if (vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '') == vm.paymentList[payment.index].invoice.dblRemainingBalance) {
-                                            $('#paymentModal').closeModal();
-                                            vm.paymentList.splice(payment.index, 1);
-                                            var am = vm.paymentList[payment.index].invoice.dblRemainingBalance - vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '');
-                                        }
+                if (go > 0) {
+                    var name = "",
+                        paymentData = {};
+                    if (payment.type == 'order') {
+                        paymentData = {
+                            "intPaymentID": payment.intSalesID,
+                            "intInvoiceID": payment.invoice.intInvoiceID,
+                            "strPaymentType": payment.type,
+                            "dblPaymentAmount": payment.paymentAmount,
+                            "datDateOfPayment": payment.paymentCreated,
+                            "paymentType": payment.paymentType.value
+                        };
+                        var index = payment.index;
+                        name = payment.strName;
+                    } else if (payment.type == 'reservation') {
+                        paymentData = {
+                            "intPaymentID": payment.intReservationID,
+                            "intInvoiceID": payment.invoice.intInvoiceID,
+                            "strPaymentType": payment.type,
+                            "dblPaymentAmount": payment.paymentAmount,
+                            "datDateOfPayment": payment.paymentCreated,
+                            "paymentType": payment.paymentType.value
+                        };
+                        var index = payment.index;
+                        name = payment.customer.strName
+                    } else if (payment.type == 'walkin') {
+                        paymentData = {
+                            "intPaymentID": payment.intWalkInID,
+                            "intInvoiceID": payment.invoice.intInvoiceID,
+                            "strPaymentType": payment.type,
+                            "dblPaymentAmount": payment.paymentAmount,
+                            "datDateOfPayment": payment.paymentCreated,
+                            "paymentType": payment.paymentType.value
+                        };
+                        var index = payment.index;
+                        name = payment.strName
+                    }
+                    console.log(paymentData);
+                    swal({
+                            title: "Create payment for " + name + "?",
+                            text: "",
+                            type: "",
+                            confirmButtonColor: "#81d4fa",
+                            closeOnConfirm: false,
+                            showLoaderOnConfirm: true
+                        },
+                        function () {
+                            setTimeout(function () {
+                                $.ajax({
+                                    url: 'createPayment',
+                                    type: 'post',
+                                    data: paymentData,
+                                    dataType: 'json',
+                                    async: true,
+                                    success: function (data) {
+                                        if (data.result == "success") {
+                                            SweetAlert.swal("Successful!", ".", "success");
+                                            if (vm.paymentDetails.paymentType.value == 'FULL PAYMENT') {
+                                                vm.paymentList.splice(payment.index, 1);
+                                            } else if (vm.paymentDetails.paymentType.value == 'DOWN PAYMENT') {
+                                                var dp = vm.paymentDetails.totalBalance.replace(/[^\d.]/g, '') * (vm.downPayment / 100),
+                                                    am = vm.paymentList[payment.index].invoice.dblRemainingBalance - dp;
 
-                                        vm.paymentList[payment.index].invoice.dblRemainingBalance = am;
-                                        vm.paymentList[payment.index].invoice.paymentType = 'DOWN PAYMENT';
-                                    } else if (vm.paymentDetails.paymentType.value == 'COMPLEMENTARY PAYMENT') {
-                                        if(vm.paymentList[payment.index].invoice.dblRemainingBalance > vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '')) {
+                                                vm.paymentList[payment.index].invoice.dblRemainingBalance = am;
+                                                vm.paymentList[payment.index].invoice.paymentType = 'DOWN PAYMENT';
+                                            } else if (vm.paymentDetails.paymentType.value == 'COMPLEMENTARY PAYMENT') {
+                                                if (vm.paymentList[payment.index].invoice.dblRemainingBalance > vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '')) {
+                                                    $('#paymentModal').closeModal();
+                                                    var am = vm.paymentList[payment.index].invoice.dblRemainingBalance - vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '');
+                                                } else if (vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '') > vm.paymentList[payment.index].invoice.dblRemainingBalance) {
+                                                    $('#paymentModal').closeModal();
+                                                    vm.paymentList.splice(payment.index, 1);
+                                                    var am = vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '') - vm.paymentList[payment.index].invoice.dblRemainingBalance;
+                                                } else if (vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '') == vm.paymentList[payment.index].invoice.dblRemainingBalance) {
+                                                    $('#paymentModal').closeModal();
+                                                    vm.paymentList.splice(payment.index, 1);
+                                                    var am = vm.paymentList[payment.index].invoice.dblRemainingBalance - vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '');
+                                                }
+                                                vm.paymentList[payment.index].invoice.dblRemainingBalance = am;
+                                                vm.paymentList[payment.index].invoice.paymentType = 'COMPLEMENTARY PAYMENT';
+                                            }
                                             $('#paymentModal').closeModal();
-                                            var am = vm.paymentList[payment.index].invoice.dblRemainingBalance - vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '');
-                                        } else if (vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '') > vm.paymentList[payment.index].invoice.dblRemainingBalance) {
-                                            $('#paymentModal').closeModal();
-                                            vm.paymentList.splice(payment.index, 1);
-                                            var am = vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '') - vm.paymentList[payment.index].invoice.dblRemainingBalance;
-                                        } else if (vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '') == vm.paymentList[payment.index].invoice.dblRemainingBalance) {
-                                            $('#paymentModal').closeModal();
-                                            vm.paymentList.splice(payment.index, 1);
-                                            var am = vm.paymentList[payment.index].invoice.dblRemainingBalance - vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '');
+                                        } else {
+                                            SweetAlert.swal("Oops", "Record Not Saved!", "error");
                                         }
-                                        vm.paymentList[payment.index].invoice.paymentType = 'COMPLEMENTARY PAYMENT';
+                                    },
+                                    error: function () {
+                                        SweetAlert.swal("Oops", "Something went wrong!", "error");
                                     }
-
-                                } else {
-                                    SweetAlert.swal("Oops", "Record Not Saved!", "error");
-                                }
-                            },
-                            error: function () {
-                                SweetAlert.swal("Oops", "Something went wrong!", "error");
-                            }
+                                });
+                            }, 1000);
                         });
-                    }, 1000);
-                });
+                }
+            } else {
+
+            }
         }
 
 

@@ -2,11 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
-<script type="text/javascript">
-    (function() {
-        $('select').material_select('destroy');
-    })();
-</script>
+
 
 <div class="wrapper" ng-controller="paymentCtrl as vm">
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
@@ -236,6 +232,12 @@
                             <i class="material-icons tiny red-text">error_outline</i>
                         </label>
                     </div>
+                    <div class="input-field col s12" ng-if="vm.paymentDetails.paymentType.name == 'DOWN PAYMENT' && vm.downPaymentError == 1">
+                        <span class="red-text"><b>Down Payment Error</b>: You need to pay at least {{vm.downPayment}}% of your total balance</span>
+                    </div>
+                    <div class="input-field col s12" ng-if="vm.paymentDetails.paymentType.name == 'FULL PAYMENT' && vm.fullPaymentError == 1">
+                        <span class="red-text"><b>Full Payment Error</b>: You need to pay your total balance</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -253,3 +255,7 @@
     </div>
 
 </div>
+
+<script type="text/javascript">
+        $('select').material_select('destroy');
+</script>

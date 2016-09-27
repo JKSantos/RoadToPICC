@@ -67,7 +67,7 @@ public class CreateReservation {
 	private String selectedEmployees = "";		//important
 	private String selectedExtraCharges = "";	//important
 	private String selectedDiscounts = "";		//important
-	private String paymentType = "FULL PAYMENT";			// kung full or twice
+	private String paymentType = "";			// kung full or twice
 	private int intCustID;
 	private int intCreatedID;
 	private String path;

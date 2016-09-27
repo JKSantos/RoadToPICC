@@ -105,15 +105,15 @@
 	                         </form>   
                          </div>
                      </li>
-                     <li>
-                         <div class="collapsible-header" id="listheadcollapsible">Company Profile<i
-                                 class="material-icons">profile</i>
-                         </div>
-                         <div class="collapsible-body" id="listcollapsible"
-                              style="margin:0px 0px 0px 0px !important; padding: 0px 0px 0px 0px !important;">
-                             BODY
-                         </div>
-                     </li>
+                     <!--<li>-->
+                         <!--<div class="collapsible-header" id="listheadcollapsible">Company Profile<i-->
+                                 <!--class="material-icons">profile</i>-->
+                         <!--</div>-->
+                         <!--<div class="collapsible-body" id="listcollapsible"-->
+                              <!--style="margin:0px 0px 0px 0px !important; padding: 0px 0px 0px 0px !important;">-->
+                             <!--BODY-->
+                         <!--</div>-->
+                     <!--</li>-->
                       <li>
                          <div class="collapsible-header" id="listheadcollapsible">Appearance<i
                                  class="material-icons">settings</i>

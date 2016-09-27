@@ -43,6 +43,8 @@
         vm.promoList = [];
         vm.packageList = [];
         vm.details = [{}];
+
+        vm.resPaymentType = '';
         // vm.customerList = reservationFactory.getCustomers();
 
 
@@ -554,7 +556,7 @@
                     selectedExtra += vm.extraChargeList[i].intECID + ",";
                 }
             }
-            
+
             if(typeof vm.selDiscounts !== 'undefined') {
                 for (var i = 0; i < vm.selDiscounts.length; i++) {
                     selectedDiscount += vm.selDiscounts[i].intDiscountID + ",";
@@ -608,7 +610,8 @@
                 "selectedEmployees": selectemployees,
                 "selectedExtraCharges": selectextra,
                 "selectedDiscounts": selectdiscount,
-                "strTotalPrice": total
+                "strTotalPrice": total,
+                "paymentType": vm.resPaymentType
             });
             console.log(reservationData);
 
@@ -633,7 +636,6 @@
                                 var dd = $.param({
                                     'fineName': data.path
                                 });
-                                console.log(data);
 
                                 $http({
                                     method: 'post',
@@ -643,9 +645,9 @@
                                         'Content-Type': 'application/x-www-form-urlencoded'
                                     }
                                 }).then(function successCallback(data) {
-                                    alert("YES");
+                                    
                                 }, function errorCallback(response) {
-                                    alert("NO");
+
                                 });
                                 SweetAlert.swal("Successfully created!", ".", "success");
                                 $('#createReservationModal').closeModal();
