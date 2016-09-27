@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation"
+		value="true" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.custom.i18n.resources"
+		value="ApplicationResources"/>
+		
+	<package name="package" extends="struts-default, json-default" namespace="/">
+	
+		<result-types>
+         	<result-type name="tiles" 
+         	class="org.apache.struts2.views.tiles.TilesResult" />
+      	</result-types>
+	
+		<action name="packageMaintenance" class="com.gss.actions.PackageMaintenance" method="execute">
+			<result name="success" type="tiles">package</result>
+		</action>
+		
+		<action name="createPackage" class="com.gss.actions.CreatePackageAction">
+			<result name="success" type="json"/>
+			<result name="failed" type="json"/>
+			<result name="existing" type="json"/>
+		</action>
+		
+		<action name="deactivatePackage" class="com.gss.actions.DeactivatePackageAction" method="execute">
+			<result name="success" type="json"/>
+			<result name="failed" type="json"/>
+		</action>
+		
+		<action name="updatePackage" class="com.gss.actions.UpdatePackageAction" method="execute">
+			<result name="success" type="json"/>
+			<result name="failed" type="json"/>
+			<result name="existing" type="json"/>
+		</action>
+		
+		<action name="getPackageByID" class="com.gss.actions.Package.GetPackageByID" method="execute">
+			<result name="success" type="json"/>
+		</action>
+		
+		<action name="getPackageNoDetails" class="com.gss.actions.Package.GetAllPackageNoDetails" method="execute">
+			<result name="success" type="json"/>
+		</action>
+		
+		<action name="getPackageByType" class="com.gss.actions.Package.GetPackageByType" method="execute">
+			<result name="success" type="json"/>
+			<result name="existing" type="json"/>
+		</action>
+		
+	</package>	
+		
+		
+</struts>

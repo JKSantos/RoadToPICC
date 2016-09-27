@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation"
+		value="true" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.custom.i18n.resources"
+		value="ApplicationResources"/>
+		
+	<package name="services" extends="struts-default, json-default" namespace="/">
+	
+		<result-types>
+         	<result-type name="tiles" 
+         	class="org.apache.struts2.views.tiles.TilesResult" />
+      	</result-types>
+		
+		<action name="addServiceCategory" class="com.gss.actions.Service.ServiceCategory" method="add">
+			<result name="success" type="json"></result>
+			<result name="existing" type="json"></result>
+			<result name="failed" type="json"></result>
+		</action>
+		
+		<action name="removeServiceCategory" class="com.gss.actions.Service.ServiceCategory" method="remove">
+			<result name="success" type="json"></result>
+			<result name="failed" type="json"></result>
+		</action>
+		
+		<action name="getServiceCategory" class="com.gss.actions.Service.GetServiceCategory" method="execute">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="getServiceNames" class="com.gss.actions.Service.GetServiceNames" method="execute">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="getServiceNamesWithID" class="com.gss.actions.Service.GetServiceNamesWithID" method="execute">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="getServiceByType" class="com.gss.actions.Service.GetServiceByType" method="execute">
+			<result name="success" type="json"></result>
+		</action>
+
+	</package>	
+		
+		
+</struts>

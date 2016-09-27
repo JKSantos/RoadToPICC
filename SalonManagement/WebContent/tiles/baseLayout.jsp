@@ -296,6 +296,12 @@
 <script type="text/javascript" src="app/report/salesReportController.ctrl.js"></script>
 <script type="text/javascript" src="app/report/reservationReportController.ctrl.js"></script>
 <script type="text/javascript" src="app/report/productTagsReportController.ctrl.js"></script>
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 9e7a82fa2d8192e32eaaab7b0b644f87a249ed45
 </body>
 
 </html>

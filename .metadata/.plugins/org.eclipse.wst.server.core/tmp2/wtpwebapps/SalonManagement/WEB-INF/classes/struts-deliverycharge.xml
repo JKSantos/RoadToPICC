@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation"
+		value="true" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.custom.i18n.resources"
+		value="ApplicationResources"/>
+		
+	<package name="deliverycharge" extends="struts-default, json-default" namespace="/">
+	
+		<result-types>
+         	<result-type name="tiles" 
+         	class="org.apache.struts2.views.tiles.TilesResult" />
+      	</result-types>
+	
+		<action name="locationMaintenance" class="com.gss.actions.LocationMaintenanceAction">
+			<result name="success" type="tiles">location</result>
+		</action>
+	
+		<action name="createLocation" class="com.gss.actions.CreateLocationMaintenanceAction" method="execute">
+			<result name="success">redirect-maintenance-location.jsp</result>
+			<result name="failed" type="tiles">location</result>
+		</action>
+		
+		<action name="updateLocation" class="com.gss.actions.UpdateLocationAction">
+			<result name="success">redirect-maintenance-location.jsp</result>
+			<result name="failed">maintenance-delivery.jsp</result>
+		</action>  
+	 
+		<action name="deactivateLocation" class="com.gss.actions.DeactivateLocation">
+			<result name="success">redirect-maintenance-location.jsp</result>
+			<result name="failed">maintenance-delivery.jsp</result>
+		</action>
+		
+		<action name="createNewLocation" class="com.gss.actions.Location.CreateLocation">
+			<result name="success" type="json"></result>
+			<result name="existing" type="json"></result>
+			<result name="failed" type="json"></result>
+		</action>
+		
+		<action name="updateNewLocation" class="com.gss.actions.Location.UpdateLocation">
+			<result name="success" type="json"></result>
+			<result name="existing" type="json"></result>
+			<result name="failed" type="json"></result>
+		</action>
+		
+		<action name="deactivateNewLocation" class="com.gss.actions.Location.DeactivateLocation">
+			<result name="success" type="json"></result>
+			<result name="failed" type="json"></result>
+		</action>
+		
+		<action name="getLocationByID" class="com.gss.actions.Location.GetByID">
+			<result name="success" type="json"></result>
+			<result name="failed" type="json"></result>
+		</action>
+	
+	</package>	
+		
+		
+</struts>

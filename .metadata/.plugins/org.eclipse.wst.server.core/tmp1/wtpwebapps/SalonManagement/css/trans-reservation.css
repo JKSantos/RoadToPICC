@@ -1,0 +1,92 @@
+<style type="text/css">
+        ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+            color:    #9e9e9e;
+        }
+        :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+           color:    #9e9e9e;
+           opacity:  1;
+        }
+        ::-moz-placeholder { /* Mozilla Firefox 19+ */
+           color:    #9e9e9e;
+           opacity:  1;
+        }
+        :-ms-input-placeholder { /* Internet Explorer 10-11 */
+           color:    #9e9e9e;
+        }
+        :placeholder-shown { /* Standard (https://drafts.csswg.org/selectors-4/#placeholder) */
+          color:    #9e9e9e;
+        }
+
+        .mntc {
+            padding: 0px 0px;
+        }
+        
+
+        .headnav, main, footer, article {
+              padding-left: 240px;
+            }
+
+            @media only screen and (max-width : 992px) {
+              .headnav, main, footer, article {
+                padding-left: 0;
+              }
+            }
+
+        .wrapper > * {
+          flex: 1 100%;
+        }
+
+        .wrapper {
+          display: -webkit-box;
+          display: -moz-box;
+          display: -ms-flexbox;
+          display: -webkit-flex;
+          display: flex;
+          flex-direction: row;
+        
+          -webkit-flex-flow: row wrap;
+          flex-flow: row wrap;
+          -moz-flex-flow: row wrap;
+          -o-flex-flow: row wrap;
+        }
+
+      
+
+        .aside1 {
+          background: white;
+          border-radius: 3px;
+          margin: 10px;
+          text-align: center;
+          width: 305px;
+          height: 30%;
+        }
+
+        .aside2 {
+          background: white;
+          border-radius: 3px;
+          margin: 10px;
+          text-align: center;
+          width: 100px;
+          height: 30%
+        }
+
+
+        @media all and (min-width: 600px) {
+          .aside { flex: 1 auto; }
+
+          .input-field { flex: 1 100%;}
+        }
+
+        @media all and (min-width: 800px) {
+          /* We invert order of first sidebar and main
+           * And tell the main element to take twice as much width as the other two sidebars 
+           */
+          .main { flex: 2 0px; }
+          
+          .aside1 { order: 1; }
+          .main    { order: 2; }
+          .aside2 { order: 3; }
+          .footer  { order: 4; }
+        }
+
+    </style>

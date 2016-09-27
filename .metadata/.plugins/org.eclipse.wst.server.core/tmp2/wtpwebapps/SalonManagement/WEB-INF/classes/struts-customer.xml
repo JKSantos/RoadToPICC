@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation"
+		value="true" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.custom.i18n.resources"
+		value="ApplicationResources"/>
+		
+	<package name="customer" extends="struts-default, json-default" namespace="/">
+	
+		<result-types>
+         	<result-type name="tiles" 
+         	class="org.apache.struts2.views.tiles.TilesResult" />
+      	</result-types>
+		
+		<action name="verifyCustomer" class="com.gss.actions.CustomerAccount.VerifyAccount">
+			<result name="success" type="json"></result>
+			<result name="incorrect" type="json"></result>
+			<result name="failed" type="json"></result>
+		</action>
+		
+		<action name="registerCustomer" class="com.gss.actions.CustomerAccount.RegisterCustomer">
+			<result name="success" type="json"></result>
+			<result name="failed" type="json"></result>
+		</action>
+		
+		<action name="loginCustomer" class="com.gss.actions.CustomerAccount.LoginCustomer">
+			<result name="success" type="json"></result>
+			<result name="invalid" type="json"></result>
+			<result name="failed" type="json"></result>
+		</action>
+		
+		<action name="getUsernames" class="com.gss.actions.CustomerAccount.GetUsernames">
+			<result name="success" type="json"></result>
+			<result name="failed" type="json"></result>
+		</action>
+		
+		<action name="resendCode" class="com.gss.actions.CustomerAccount.ResendVerification">
+			<result name="success" type="json"></result>
+			<result name="failed" type="json"></result>
+		</action>
+		
+		<action name="getAppointments" class="com.gss.actions.CustomerAccount.GetCustomerTransaction" method="appointments">
+			<result name="success" type="json"></result>
+			<result name="failed" type="json"></result>
+		</action>
+		
+		<action name="getReservations" class="com.gss.actions.CustomerAccount.GetCustomerTransaction" method="reservations">
+			<result name="success" type="json"></result>
+			<result name="failed" type="json"></result>
+		</action>
+		
+		<action name="getOrders" class="com.gss.actions.CustomerAccount.GetCustomerTransaction" method="orders">
+			<result name="success" type="json"></result>
+			<result name="failed" type="json"></result>
+		</action>
+
+	</package>	
+		
+		
+</struts>
