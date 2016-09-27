@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation"
+		value="true" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.custom.i18n.resources"
+		value="ApplicationResources"/>
+		
+	<package name="promo" extends="struts-default, json-default" namespace="/">
+	
+		<result-types>
+         	<result-type name="tiles" 
+         	class="org.apache.struts2.views.tiles.TilesResult" />
+      	</result-types>
+	
+		<action name="createPromo" class="com.gss.actions.CreatePromoAction">
+			<result name="success" type="json"/>
+			<result name="failed" type="json"/>
+			<result name="existing" type="json"/>
+		</action>
+		
+		<action name="updatePromo" class="com.gss.actions.UpdatePromoAction">
+			<result name="success" type="json"/>
+			<result name="failed" type="json"/>
+			<result name="existing" type="json"/>
+		</action>
+		
+		<action name="promoMaintenance" class="com.gss.actions.PromoMaintenanceAction">
+			<result name="success" type="tiles">promo</result>
+		</action>
+		
+		<action name="deactivatePromo" class="com.gss.actions.DeactivatePromoAction">
+			<result name="failed" type="json"/>
+			<result name="success" type="json"/>
+		</action>
+		
+		<action name="getPromoByID" class="com.gss.actions.Promo.GetPromoByID">
+			<result name="success" type="json"/>
+		</action>
+		
+		<action name="getAllPromoNoDetails" class="com.gss.actions.Promo.GetAllPromoNoDetails">
+			<result name="success" type="json"/>
+		</action>
+		
+		<action name="getPromoByType" class="com.gss.actions.Promo.GetPromoByType">
+			<result name="success" type="json"/>
+		</action>
+	
+	</package>	
+		
+		
+</struts>

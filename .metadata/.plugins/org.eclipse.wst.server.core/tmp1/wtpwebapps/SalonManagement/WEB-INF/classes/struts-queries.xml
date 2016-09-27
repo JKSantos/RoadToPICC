@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation"
+		value="true" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.custom.i18n.resources"
+		value="ApplicationResources"/>
+		
+	<package name="queries" extends="struts-default, json-default" namespace="/">
+		<result-types>
+			<result-type name="tiles"
+						 class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+
+		<action name="employeeQueries" class="com.gss.actions.QueriesAction" method="getEmployee">
+			<result name="success" type="tiles">queriesEmployee</result>
+		</action>
+
+		<action name="productQueries" class="com.gss.actions.QueriesAction" method="getProducts">
+			<result name="success" type="tiles">queriesProduct</result>
+		</action>
+
+		<action name="serviceQueries" class="com.gss.actions.QueriesAction" method="getService">
+			<result name="success" type="tiles">queriesService</result>
+		</action>
+
+		<action name="packageQueries" class="com.gss.actions.QueriesAction" method="getPackage">
+			<result name="success" type="tiles">queriesPackage</result>
+		</action>
+
+		<action name="deliveryQueries" class="com.gss.actions.QueriesAction" method="getDelivery">
+			<result name="success" type="tiles">queriesDelivery</result>
+		</action>
+
+		<action name="extraQueries" class="com.gss.actions.QueriesAction" method="getExtra">
+			<result name="success" type="tiles">queriesExtra</result>
+		</action>
+
+		<action name="promoQueries" class="com.gss.actions.QueriesAction" method="getPromoQuery">
+			<result name="success" type="tiles">queriesPromo</result>
+		</action>
+
+		<action name="discountQueries" class="com.gss.actions.QueriesAction" method="getDiscount">
+			<result name="success" type="tiles">queriesDiscount</result>
+		</action>
+	
+		<action name="employeeQuery" class="com.gss.actions.Employee.QueryAllEmployee">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="productQuery" class="com.gss.actions.Product.QueryAllProduct">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="serviceQuery" class="com.gss.actions.Service.QueryAllService">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="package" class="com.gss.actions.Package.QueryAllPackage">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="deliveryCharge" class="com.gss.actions.Location.QueryAllLocation">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="otherCharge" class="com.gss.actions.OtherCharge.QueryAllOtherCharge">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="promo" class="com.gss.actions.Promo.QueryAllPromo">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="discount" class="com.gss.actions.Discount.QueryAllDiscount">
+			<result name="success" type="json"></result>
+		</action>
+	
+	</package>	
+		
+		
+</struts>

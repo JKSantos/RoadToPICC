@@ -33,7 +33,7 @@ public class PrintProductPurchaseChart extends ActionSupport{
 			else
 				this.pdfPath = report.generateReport(ProductPurchasesRepository.getProductPurchases(ReportsHelper.quarterlyReport(), type));
 			
-			this.pdfPath = "/Reports/ProductPurchases/" + this.pdfPath;
+			this.pdfPath = "/Reports/ProductPurchase/" + this.pdfPath;
 			
 		} catch (DocumentException | IOException e) {
 			// TODO Auto-generated catch block

@@ -26,6 +26,8 @@ public class CancelledReservationsDao {
 			
 			for(int i = 0; i < dateList.size(); i++){
 				ReportDate date = dateList.get(i);
+				System.out.println(date.getDateFrom());
+				
 				pre.setString(1, date.getDateFrom());
 				pre.setString(2, date.getDateTo());
 				
@@ -37,13 +39,14 @@ public class CancelledReservationsDao {
 					int home = set.getInt(2);
 					
 					if(type.equalsIgnoreCase("monthly")){
-						list.add(new CancelledReservation(event, home));
+						list.add(new CancelledReservation((DateHelper.intMonthToString(i+1)), event, home));
 					}
 					else if(type.equalsIgnoreCase("quarterly")){
-						list.add(new CancelledReservation(event, home));
+						list.add(new CancelledReservation("Quarter " + (i + 1), event, home));
 					}
 					else{
-						list.add(new CancelledReservation(event, home));
+						String[] dateString = date.getDateFrom().split("-");
+						list.add(new CancelledReservation(dateString[0], event, home));
 					}
 				}
 				

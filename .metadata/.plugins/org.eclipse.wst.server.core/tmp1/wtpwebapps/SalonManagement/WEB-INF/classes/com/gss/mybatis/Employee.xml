@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN'
+  'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+
+<mapper namespace='Employee'>
+
+  <select id='selectByUserPass' resultMap='EmployeeResult'>
+    select * from tblEmployee;
+  </select>
+  
+   <resultMap id='EmployeeResult' type='Employee'>
+    <result property='intEmpID' column='intEmpID'/>
+    <result property='strEmpLastName' column='strEmpLastName'/>
+    <result property='strEmpFirstName' column='strEmpFirstName'/>
+    <result property='strEmpMiddleName' column='strEmpMiddleName'/>
+    <result property='datEmpBirthdate' column='datEmpBirthdate'/>  
+    <result property='strEmpGender' column='strEmpGender'/> 
+    <result property='strEmpAddress' column='strEmpAddress'/> 
+    <result property='strEmpContactNo' column='strEmpContactNo'/> 
+    <result property='strEmpStatus' column='strEmpStatus'/> 
+    <result property='strEmpUsername' column='strEmpUsername'/> 
+    <result property='strEmpPassword' column='strEmpPassword'/> 
+    <result property='blobEmpPhoto' column='blobEmpPhoto'/>
+   </resultMap>
+
+  <select id='getAllEmployee' resultMap='EmployeeResult'>
+   SELECT * FROM tblEmployee;
+  </select>
+
+  <insert id='insertEmployee' parameterType='Employee'>
+   	INSERT INTO tblEmployee(
+   		strEmpLastName, 
+   		strEmpFirstName, 
+   		strEmpMiddleName, 
+  	 	datEmpBirthdate,
+   		strEmpGender,
+   		strEmpAddress,
+   		strEmpContactNo,
+   		strEmpStatus,
+   		strEmpUsername,
+   		strEmpPassword
+   		blobEmpPhoto)
+   VALUES(
+   		#{strEmpLastName}, 
+   		#{strEmpFirstName}, 
+   		#{strEmpMiddleName}, 
+   		#{datEmpBirthdate},
+   		#{strEmpGender},
+   		#{strEmpAddress},
+   		#{strEmpContactNo},
+   		#{strEmpStatus},
+   		#{strEmpUsername},
+   		#{strEmpPassword}
+   		#{blobEmpPhoto}
+    )
+  </insert>
+
+</mapper>
