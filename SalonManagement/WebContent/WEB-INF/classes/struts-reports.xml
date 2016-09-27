@@ -81,7 +81,7 @@
 		<!-- SALES CHART END-->
 		
 		<!-- PRODUCT PURCHASE CHART START-->
-		<action name="getProductPurchases" class="com.gss.actions.Reports.ProductPurchase.GetProductPurchaseReport">
+		<action name="getStatisticalProductPurchases" class="com.gss.actions.Reports.ProductPurchase.GetProductPurchaseReport">
 			<result name="success" type="json"></result>
 		</action>
 		

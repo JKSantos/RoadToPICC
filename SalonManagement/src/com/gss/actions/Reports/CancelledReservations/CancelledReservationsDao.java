@@ -26,6 +26,8 @@ public class CancelledReservationsDao {
 			
 			for(int i = 0; i < dateList.size(); i++){
 				ReportDate date = dateList.get(i);
+				System.out.println(date.getDateFrom());
+				
 				pre.setString(1, date.getDateFrom());
 				pre.setString(2, date.getDateTo());
 				
