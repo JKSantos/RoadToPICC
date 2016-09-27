@@ -86,8 +86,7 @@ public class UpdatePackageAction {
 		}
 		
 		int type = PackageHelper.convertToSingleInt(intUpdatePackageType);
-		System.out.println(this.intUpdatePackageType.get(0));
-		System.out.println(this.intUpdatePackageType.get(1));
+		
 		
 		Package packagee = new Package(Integer.parseInt(intUpdatePackageID), strUpdatePackageName.toUpperCase().trim(), strUpdatePackageDesc.toUpperCase().trim(), type, 1, "NON-EXPIRY", getDblUpdatePackagePrice(), serviceList, productList, 1);
 	

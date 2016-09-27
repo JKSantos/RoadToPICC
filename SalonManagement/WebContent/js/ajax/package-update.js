@@ -241,7 +241,6 @@ function openUpdatePackage(id) {
                     $('#upPackageID').val(data.packageList[i].intPackageID);
                     $('#upPackageDesc').val(data.packageList[i].strPackageDesc);
 
-                    console.log(packagetype);
                     switch (packagetype) {
                         case 1:
                             packageselecttype.each(function () {
@@ -290,13 +289,13 @@ function openUpdatePackage(id) {
                             break;
                         case 4:
                             packageselecttype.each(function () {
-                                if ($(this).val() == 1 || $(this).val() == 2) {
+                                if ($(this).val() == 4) {
                                     select.material_select('destroy');
                                     console.log($(this).text());
                                     $(this).prop('selected', true);
                                     select.material_select();
                                     packageType = 4;
-                                } else if ($(this).val() != 1 || $(this).val() != 2) {
+                                } else if ($(this).val() != 4) {
                                     select.material_select('destroy');
                                     $(this).removeAttr('selected');
                                     select.material_select();
@@ -305,13 +304,13 @@ function openUpdatePackage(id) {
                             break;
                         case 5:
                             packageselecttype.each(function () {
-                                if ($(this).val() == 1 || $(this).val() == 3) {
+                                if ($(this).val() == 5) {
                                     select.material_select('destroy');
                                     console.log($(this).text());
                                     $(this).prop('selected', true);
                                     select.material_select();
                                     packageType = 5;
-                                } else if ($(this).val() != 1 || $(this).val() != 3) {
+                                } else if ($(this).val() != 5) {
                                     select.material_select('destroy');
                                     $(this).removeAttr('selected');
                                     select.material_select();
@@ -320,13 +319,13 @@ function openUpdatePackage(id) {
                             break;
                         case 6:
                             packageselecttype.each(function () {
-                                if ($(this).val() == 2 || $(this).val() == 3) {
+                                if ($(this).val() == 6) {
                                     select.material_select('destroy');
                                     console.log($(this).text());
                                     $(this).prop('selected', true);
                                     select.material_select();
                                     packageType = 6;
-                                } else if ($(this).val() != 2 || $(this).val() != 3) {
+                                } else if ($(this).val() != 6) {
                                     select.material_select('destroy');
                                     $(this).removeAttr('selected');
                                     select.material_select();

@@ -294,12 +294,7 @@
 <script type="text/javascript" src="app/report/reportsFactory.fac.js"></script>
 <script type="text/javascript" src="app/report/salesReportController.ctrl.js"></script>
 <script type="text/javascript" src="app/report/reservationReportController.ctrl.js"></script>
-<<<<<<< HEAD
 <script type="text/javascript" src="app/report/productTagsReportController.ctrl.js"></script>
-
-
-=======
->>>>>>> c752d6ad7eec28d34ae97cee8dc8dc71f0df716f
 </body>
 
 </html>
