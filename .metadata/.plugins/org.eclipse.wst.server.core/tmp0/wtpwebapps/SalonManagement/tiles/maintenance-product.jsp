@@ -3,6 +3,12 @@
 <%@ page import="com.gss.model.Product" %>
 <%@ page import="com.gss.model.Service" %>
 
+<style>
+    .dataTables_filter {
+        display: none;
+    }
+</style>
+
 <div class="wrapper">
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
@@ -38,7 +44,7 @@
                 <tbody>
                 <c:forEach items="${productList}" var="product">
                     <c:set var="price" scope="session"
-                           value="${(product.dblProductPrice * 0) + product.dblProductPrice}"></c:set>
+                           value="${(product.dblProductPrice * 0.00) + product.dblProductPrice}"></c:set>
                     <%! String string = null; %>
                     <% Product prod = (Product)pageContext.getAttribute("product");
                     string = String.valueOf(prod.getIntProductID());
@@ -57,7 +63,7 @@
                                 <i class="material-icons">visibility</i>
                             </a>
                             <a class="waves-effect waves-purple modal-trigger btn-flat transparent black-text"
-                               href="#prod<%=string%>" style="padding-left: 10px;padding-right:10px; margin: 5px;">
+                               href="#prod<%=string%>" onclick="checkNameAvailability(${product.intProductID})" style="padding-left: 10px;padding-right:10px; margin: 5px;">
                                 <i class="material-icons">edit</i>
                             </a>
                             <button class="proddeacbtn waves-effect waves-purple btn-flat transparent red-text text-accent-4"
@@ -189,28 +195,28 @@
                     </div>
                     <div class="aside aside2 z-depth-0">
                         <div class="row">
-                            <div class="input-field col s12" style="margin-top: 25px !important;">
+                            <div class="input-field col s12" style="margin-top: 25px !important;" id="crItemField">
                                 <input type="hidden" name="strItemCate"
                                        value="Product"/>
                                 <input type="text" name="strItemName" id="crItemName" required
                                        placeholder="Product Name"/>
-                                <label for="crItemName" class="active"><b>Name</b><i
-                                        class="material-icons red-text tiny">error_outline</i></label>
+                                <label for="crItemName" class="active"><b>Name</b>
+                                    <i class="material-icons red-text tiny">error_outline</i>
+                                    <span id="crItemNameError" class="red-text">Already existing!</span>
+                                </label>
                             </div>
                             <div class="input-field col s12">
                                     <textarea id="crItemDetails" name="strItemDetails"
                                               class="materialize-textarea" placeholder="Details"
                                               maxlength="25" style="margin-top: -10px !important;"></textarea>
-                                <label for="crItemDetails" class="active"><b>Details</b><i
-                                        class="material-icons red-text tiny">error_outline</i></label>
+                                <label for="crItemDetails" class="active">
+                                    <b>Details</b>
+                                </label>
                             </div>
                             <div class="input-field col s8">
                                 <select id="crItemCategory" name="strItemCategory" class="required"
                                         required style="margin-bottom: -15px !important;">
                                     <option value="default" disabled selected>Choose...</option>
-                                    <c:forEach items="${productCategory}" var="product">
-                                        <option value="${product}">${product}</option>
-                                    </c:forEach>
                                 </select>
                                 <label for="crItemCategory"><b>Category</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>
@@ -222,7 +228,7 @@
                             </div>
                             <div class="input-field col s6 offset-s6" style="margin-bottom: -15px !important;">
                                 <input value="${product.dblProductPrice}" type="text"
-                                       class="validate right-align upProdItemPrice"
+                                       class="validate right-align"
                                        id="ItemPrice" name="price" required placeholder="P9.99"/>
                                 <label for="ItemPrice" class="active"><b>Price</b><i
                                         class="material-icons red-text tiny">error_outline</i></label>
@@ -241,7 +247,10 @@
                 <button type="reset" value="Reset" id="crProdCancel"
                         class=" modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL
                 </button>
-                <button class="waves-effect waves-light purple darken-3 white-text btn-flat" type="submit"
+                <button class="waves-effect waves-light purple darken-3 white-text btn-flat" type="submit" onclick="pricesample()"
+                        id="btnCreateProduct"
+                        disabled
+                        style="opacity: 0.3"
                         value="Submit">CREATE
                 </button>
             </div>
@@ -258,25 +267,28 @@
                 <div class="row">
                     <div class="col s12">
                         <div class="crprodcat center input-field col s12 card red white-text z-depth-barts">
-
+                        </div>
+                        <div id="addCreateCategory" class="center input-field col s12 card red white-text z-depth-barts">
                         </div>
                         <div class="input-field col s8 offset-s2">
-
                             <select id="createAddCategorySelect" class="browser-default" size="10"
                                     style="height: 120px !important; border-bottom: none !important;">
-                                <c:forEach items="${productCategory}" var="product">
-                                    <option value="${product}">${product}</option>
-                                </c:forEach>
                             </select>
                         </div>
-                        <div class="input-field col s8 offset-s2" style="margin-top: 20px;">
+                        <div class="input-field col s6 offset-s2" style="margin-top: 20px;">
                             <input type="text" class="validate"
                                    id="crProdAddCatName" name="crProdAddCatName"
                                    placeholder="New Category" required/>
                             <label for="crProdAddCatName" class="active"><b>Category</b></label>
                         </div>
+                        <div class="input-field col s2">
+                            <a id="crDeletePosition" onclick="removeCreateCategory();"
+                               class="modal-action waves-effect waves-light red darken-3 btn-flat white-text">
+                                <i class="material-icons">delete</i>
+                            </a>
+                        </div>
                         <div class="input-field col s12 center">
-                            <a id="createAddCatBtn"
+                            <a id="createAddCatBtn" onclick="addCategory();"
                                class="waves-effect waves-light purple darken-3 btn-flat white-text">SAVE
                             </a>
                             <button type="reset" value="Reset" id="crAddProdCatCancel"
@@ -350,17 +362,20 @@
                                     <input type="hidden" name="intItemID" value="<%=strProdID%>">
                                     <input type="hidden" name="strItemCate" value="Product">
                                     <input value="${product.strProductName}" type="text" name="strItemName"
-                                           id="upItemName" required
+                                           id="upItemName<%=strProdID%>" required
                                            placeholder="Product Name"/>
-                                    <label for="upItemName" class="active"><b>Name</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                    <label for="upItemName<%=strProdID%>" class="active"><b>Name</b>
+                                        <i class="material-icons red-text tiny">error_outline</i>
+                                        <span id="upItemNameError<%=strProdID%>" class="red-text" style="display: none;">Already existing!</span>
+                                    </label>
                                 </div>
                                 <div class="input-field col s12">
                                     <textarea id="upItemDetails" name="strItemDetails"
                                               class="materialize-textarea" placeholder="Details"
                                               style="margin-top: -10px !important;">${product.strProductDesc}</textarea>
-                                    <label for="upItemDetails" class="active"><b>Details</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                    <label for="upItemDetails" class="active">
+                                        <b>Details</b>
+                                    </label>
                                 </div>
                                 <div class="input-field col s8">
                                     <select id="upItemCategory" name="strItemCategory"
@@ -414,6 +429,7 @@
                         CANCEL
                     </button>
                     <button class="waves-effect waves-light purple darken-3 white-text btn-flat upProdSubmitBtn"
+                            id="btnUpdateID<%=strProdID%>"
                             type="submit"
                             value="Submit">UPDATE
                     </button>
@@ -429,27 +445,30 @@
                 <div class="row">
                     <div class="col s12">
                         <div class="upprodcat center input-field col s12 card red white-text z-depth-barts">
-
+                        </div>
+                        <div id="addUpdateCategory" class="addUpdateCategory center input-field col s12 card red white-text z-depth-barts">
                         </div>
                         <div class="input-field col s8 offset-s2">
-
-                            <select id="updateAddCategorySelect" class="browser-default" size="10"
+                            <select id="updateAddCategorySelect" class="browser-default updateAddCategorySelect" size="10"
                                     style="height: 120px !important; border-bottom: none !important;">
-                                <c:forEach items="${productCategory}" var="product">
-                                    <option value="${product}">${product}</option>
-                                </c:forEach>
                             </select>
                         </div>
-                        <div class="input-field col s8 offset-s2" style="margin-top: 20px;">
+                        <div class="input-field col s6 offset-s2" style="margin-top: 20px;">
                             <input type="text" class="validate upProdAddCatName"
                                    id="upProdAddCatName" name="upProdAddCatName"
                                    placeholder="New Category" required/>
                             <label for="upProdAddCatName" class="active"><b>Category</b></label>
                         </div>
-                        <div class="input-field col s12 center">
-                            <a id="updateProdAddCatBtn"
-                               class="updateProdAddCatBtn waves-effect waves-light purple darken-3 btn-flat white-text">SAVE
+                        <div class="input-field col s2">
+                            <a id="upDeletePosition" onclick="removeUpdateCategory();"
+                               class="modal-action waves-effect waves-light red darken-3 btn-flat white-text">
+                                <i class="material-icons">delete</i>
                             </a>
+                        </div>
+                        <div class="input-field col s12 center">
+                            <button id="updateProdAddCatBtn" onclick="addUpdateCategory();"
+                               class="updateProdAddCatBtn waves-effect waves-light purple darken-3 btn-flat white-text">SAVE
+                            </button>
                             <button type="reset" value="Reset" id="upAddProdCatCancel"
                                     class="upAddProdCatCancel modal-close waves-effect waves-purple transparent btn-flat white">
                                 CANCEL
@@ -463,7 +482,9 @@
 
     <!--view-->
     <c:forEach items="${productList}" var="product">
-        <%! String viewStrProdID = null; %>
+        <%! String viewStrProdID = null;
+        	String selectedProduct = "";
+        %>
         <% Product prodID = (Product)pageContext.getAttribute("product");
         viewStrProdID = String.valueOf(prodID.getIntProductID());
         String productCate = prodID.getStrProductCategory();
@@ -506,24 +527,17 @@
                                     <label for="viewItemName" class="active purple-text text-lighten-2"><b>Name</b></label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <select id="viewItemCategory" name="strItemCategory" disabled
-                                            class="upItemCategory white-text" style="margin-bottom: -15px !important;">
-                                        <option value="default" disabled selected>Choose...</option>
                                         <c:forEach items="${productCategory}" var="cate">
                                             <%
                                             String cate = (String)pageContext.getAttribute("cate");
-                                            String selectedProduct = null;
                                             if(productCate.equals(cate)){
-                                            selectedProduct = "selected";
-                                            }
-                                            else {
-                                            selectedProduct = "";
+                                            selectedProduct = cate;
                                             }
                                             %>
-                                            <option value="${cate}"
-                                            <%out.println(selectedProduct);%>>${cate}</option>
                                         </c:forEach>
-                                    </select>
+                                        <input value="<%=selectedProduct%>" type="text" name="strItemName"
+                                           id="viewItemCategory" class="white-text" disabled
+                                           placeholder="Product Name"/>
                                     <label for="viewItemCategory" class="purple-text text-lighten-2"><b>Category</b></label>
                                 </div>
                                 <div class="input-field col s6" style="margin-bottom: -15px !important;">

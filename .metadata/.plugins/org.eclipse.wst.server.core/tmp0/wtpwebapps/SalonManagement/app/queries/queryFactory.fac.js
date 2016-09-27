@@ -5,23 +5,49 @@
         .module('app')
         .factory('queryFactory', queryFactory);
 
-    function queryFactory($http) {
+    function queryFactory($http, $resource) {
         return {
             getEmployee: function () {
-                return $http.get('employeeQuery').then(function (data) {
+                return $resource('employeeQuery').get().$promise.then(function (data) {
                     return data;
                 });
             },
             getProduct: function () {
-                return $http.get('productQuery').then(function (data) {
+                return $resource('productQuery').get().$promise.then(function (data) {
                     return data;
                 });
             },
             getService: function () {
-                return $http.get('serviceQueries').then(function (data) {
+                return $resource('serviceQuery').get().$promise.then(function (data) {
+                    return data;
+                });
+            },
+            getPackage: function () {
+                return $resource('package').get().$promise.then(function (data) {
+                    return data;
+                });
+            },
+            getDelivery: function () {
+                return $resource('deliveryCharge').get().$promise.then(function (data) {
+                    return data;
+                });
+            },
+            getExtra: function () {
+                return $resource('otherCharge').get().$promise.then(function (data) {
+                    return data;
+                });
+            },
+            getPromo: function () {
+                return $resource('promo').get().$promise.then(function (data) {
+                    return data;
+                });
+            },
+            getDiscount: function () {
+                return $resource('discount').get().$promise.then(function (data) {
                     return data;
                 });
             }
+
 
         }
     }

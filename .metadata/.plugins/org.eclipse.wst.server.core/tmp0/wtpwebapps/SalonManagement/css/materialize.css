@@ -2962,7 +2962,7 @@ table.highlight > tbody > tr {
 }
 
 table.highlight > tbody > tr:hover {
-  background-color: #f3e5f5;
+  background-color: #f5f5f5;
 }
 
 table.centered thead tr th, table.centered tbody tr td {
@@ -11294,7 +11294,7 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   font-family: 'Material Icons';
   font-weight: normal;
   font-style: normal;
-  font-size: 24px;  /* Preferred icon size */
+  font-size: 24px; /* Preferred icon size */
   display: inline-block;
   width: 1em;
   height: 1em;
@@ -11315,3 +11315,4 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 
   /* Support for IE. */
   font-feature-settings: 'liga';
+}

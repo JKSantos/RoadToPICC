@@ -29,6 +29,10 @@
 			<result name="success" type="json"></result>
 		</action>
 		
+		<action name="getReservationByID" class="com.gss.actions.Reservation.GetReservationByID">
+			<result name="success" type="json"></result>
+		</action>
+		
 	</package>	
 		
 		

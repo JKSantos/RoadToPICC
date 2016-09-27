@@ -91,10 +91,7 @@ public class CustomerTransactions {
 					ProductWalkIn productW = new ProductWalkIn(id1, product, quantity);
 					productList.add(productW);
 				}
-				
-				productStmt.close();
 				productSet.close();
-				
 				serviceStmt.setInt(1, id);
 				ResultSet serviceSet = serviceStmt.executeQuery();
 				
@@ -114,10 +111,7 @@ public class CustomerTransactions {
 					
 					serviceList.add(service);
 				}
-				
-				serviceStmt.close();
 				serviceSet.close();
-				
 				packageStmt.setInt(1, id);
 				ResultSet packageSet = packageStmt.executeQuery();
 				
@@ -147,7 +141,6 @@ public class CustomerTransactions {
 						ServiceWalkIn servWalkin = new ServiceWalkIn(intId, service, emp, status1);
 						packageServices.add(servWalkin);
 					}
-					
 					servPackStmt.close();
 					servPackSet.close();
 					
@@ -158,6 +151,12 @@ public class CustomerTransactions {
 				walkins.add(walkin);
 			
 			}
+			
+			productStmt.close();
+			
+			
+			serviceStmt.close();
+			
 			
 			walkinStmt.close();
 			walkinRes.close();

@@ -2,10 +2,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="com.gss.model.Location"%>
 <!-- <div class="container"> -->
+
+<style>
+    .dataTables_filter {
+        display: none;
+    }
+</style>
+
 <div class="wrapper">
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
-            <h3 class="grey-text text-darken-1">Delivery Charge Maintenance</h3>
+            <h3 class="grey-text text-darken-1">Transportation Charge Maintenance</h3>
             <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
                href="#createDeliveryModal" style="margin-top: 30px; margin-left: 15px;"><i
                     class="material-icons">add</i></a>
@@ -29,7 +36,7 @@
                    style="border: 1px solid #bdbdbd; padding: 10px; margin-top: -30px !important;" rowspan="10">
                 <thead>
                 <tr>
-                    <th class="dt-head-left">Baranggay</th>
+                    <th class="dt-head-left">Barangay</th>
                     <th class="dt-head-left">City</th>
                     <th class="dt-head-right">Base Rate</th>
                     <th align="center" class="no-sort">Action</th>
@@ -37,36 +44,13 @@
                 </thead>
                 <tfoot style="border: 1px solid #bdbdbd;">
                 <tr>
-                    <th class="dt-head-left">Baranggay</th>
+                    <th class="dt-head-left">Barangay</th>
                     <th class="dt-head-left">City</th>
                     <th class="dt-head-right">Base Rate</th>
-                    <th align="dt-head-center" class="no-sort"><center>Action</center></th>
+                    <th align="center" class="no-sort">Action</th>
                 </tr>
                 </tfoot>
                 <tbody>
-                <c:forEach items="${locationList}" var="location">
-                <c:set var="price" scope="session" value="${(location.dblLocationPrice * 0) + location.dblLocationPrice}"/>
-                <tr>
-                    <td class="dt-body-left">${location.strBarangay}</td>
-                    <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-left ">
-                        ${location.strCity}
-                    </td>
-                    <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-right prodPrice">
-                        <c:out value="${price}"/>
-                    </td>
-                    <td class="center" style="padding:0; margin:0;">
-                        <a data-delay="30" data-position="bottom" data-tooltip="Update"
-                           class="waves-effect waves-purple modal-trigger btn-flat transparent black-text empUpdatebtn"
-                           href="#updateDeliveryModal${location.intLocationID}" style="padding-left: 10px;padding-right:10px; margin: 5px;">
-                            <i class="material-icons">edit</i>
-                        </a>
-                        <button class="deliverydeacbtn waves-effect waves-purple btn-flat transparent red-text text-accent-4"
-                                style="padding-left: 10px;padding-right:10px; margin: 5px;"
-                                id="${location.intLocationID}" title="Deactivate"><i class="material-icons">delete</i></button>
-                    </td>
-                </tr>
-                </c:forEach>
-
                 </tbody>
             </table>
         </div>
@@ -134,7 +118,7 @@
     <!-- ARCHIVE END -->
 
     <div id="createDeliveryModal" class="modal modal-fixed-footer">
-        <form class="col s12" id="createDeliveryForm" method="post" action="createLocation">
+        <form class="col s12" id="createDeliveryForm">
             <div class="modal-content">
                 <!-- <div class="container"> -->
                 <div class="wrapper">
@@ -159,6 +143,11 @@
                             <label for="crLocationCity" class="active"><b>City</b><i
                                     class="material-icons red-text tiny">error_outline</i></label>
                         </div>
+                        <div class="input-field col s6 left">
+                            <input name="upLocationFree" type="checkbox" class="filled-in"
+                                   id="upLocationCrFree" value="on"/>
+                            <label for="upLocationCrFree"><b>Free</b></label>
+                        </div>
                         <div class="input-field col s6 right">
                             <input id="crLocationBRate" name="price"
                                    class="validate upProdItemPrice right-align" required placeholder="Base Rate">
@@ -176,18 +165,17 @@
                 <button type="reset" value="Reset" id="crLocCancel"
                         class="modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL
                 </button>
-                <button class="waves-effect waves-light purple darken-3 white-text btn-flat" type="submit"
-                        value="Submit">CREATE
-                </button>
+                <a class="waves-effect waves-light purple darken-3 white-text btn-flat"
+                   id="createDeliveryBtn"
+                   onclick="createDelivery()">
+                    CREATE
+                </a>
             </div>
         </form>
     </div>
-
-    <c:forEach items="${locationList}" var="location">
-    <c:set var="price" scope="session" value="${(location.dblLocationPrice * 0) + location.dblLocationPrice}"/>
     
-    <div id="updateDeliveryModal${location.intLocationID}" class="updateDeliveryModal modal modal-fixed-footer">
-        <form class="col s12 updateDeliveryForm" id="updateDeliveryForm" method="post" action="updateLocation">
+    <div id="updateDeliveryModal" class="updateDeliveryModal modal modal-fixed-footer">
+        <form class="col s12 updateDeliveryForm" id="updateDeliveryForm">
             <div class="modal-content">
                 <!-- <div class="container"> -->
                 <div class="wrapper">
@@ -202,23 +190,28 @@
                         <div class="input-field col s12">
 
                             <input type="hidden"
-                                   name="intLocationID" value="${location.intLocationID}">
+                                   name="intLocationID" id="intLocationID">
 
                             <input type="text" class="validate" id="upLocationBrgy"
-                                   name="strBrgy" required placeholder="Baranggay" value="${location.strBarangay}">
+                                   name="strBrgy" required placeholder="Baranggay">
                             <label for="upLocationBrgy" class="active"><b>Barangay</b><i
                                     class="material-icons red-text tiny">error_outline</i></label>
                         </div>
                         <div class="input-field col s12" style="margin-top: 25px;">
                             <input type="text" class="validate" id="upLocationCity"
                                    name="strCity" required
-                                   placeholder="City" value="${location.strCity}">
+                                   placeholder="City">
                             <label for="upLocationCity" class="active"><b>City</b><i
                                     class="material-icons red-text tiny">error_outline</i></label>
                         </div>
+                        <div class="input-field col s6 left">
+                            <input name="upLocationFree" type="checkbox" class="filled-in"
+                                   id="upPromoFree" value="on"/>
+                            <label for="upPromoFree"><b>Free</b></label>
+                        </div>
                         <div class="input-field col s6 right">
                             <input id="upLocationBRate" name="price"
-                                   class="validate upProdItemPrice right-align" required placeholder="Base Rate" value="<c:out value='${price}'/>">
+                                   class="validate upProdItemPrice right-align" required placeholder="Base Rate">
                             <label for="upLocationBRate" class="active"><b>Base Rate</b><i
                                     class="material-icons red-text tiny">error_outline</i></label>
                         </div>
@@ -232,13 +225,11 @@
                 </button>
                 <a class="upLocCancel modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL
                 </a>
-                <button class="waves-effect waves-light purple darken-3 white-text btn-flat" type="submit"
-                        value="Submit">UPDATE
-                </button>
+                <a class="waves-effect waves-light purple darken-3 white-text btn-flat" onclick="updateDelivery()">UPDATE
+                </a>
             </div>
         </form>
     </div>
-    </c:forEach>
 
 
 

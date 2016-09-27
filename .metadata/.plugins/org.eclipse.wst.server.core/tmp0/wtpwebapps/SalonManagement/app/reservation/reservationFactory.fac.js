@@ -8,6 +8,7 @@
     function reservationFactory(){
       var reservationDetails = [];
       var customerDetails = [];
+      var reservationData;
       
       return{
         getCustomers: function(){
@@ -28,30 +29,30 @@
             strContactNo: contact,
             strEmail: email
           });
-          reservationDetails.push({
-            id: topID,
-            customer: customerDetails,
-            intReservationType: resrvationType,
-            datFrom: datFrom,
-            datTo: datTo,
-            timFrom: tmFrom,
-            timTo: tmTo,
-            strVenue: venue,
-            headCount: headCount,
-            selectedEmployees: selectemployees,
-            selectedProducts: selProducts,
-            selectedServices: selServices,
-            selectedPackages: selPackages,
-            selectedPromos: selPromos,
-            productQuantity: quantProdcut,
-            serviceQuantity: quantService,
-            packageQuantity: quantPackage,
-            promoQuantity: quantPromo,
-            selectedExtraCharges: selectextra,
-            selectedDiscounts: selectdiscount,
-            strTotalPrice: totalPrice
+          reservationData = {
+            "customer": customerDetails,
+            "intReservationType": resrvationType,
+            "datFrom": datFrom,
+            "datTo": datTo,
+            "timFrom": tmFrom,
+            "timTo": tmTo,
+            "strVenue": venue,
+            "headCount": headCount,
+            "selectedEmployees": selectemployees,
+            "selectedProducts": selProducts,
+            "selectedServices": selServices,
+            "selectedPackages": selPackages,
+            "selectedPromos": selPromos,
+            "productQuantity": quantProdcut,
+            "serviceQuantity": quantService,
+            "packageQuantity": quantPackage,
+            "promoQuantity": quantPromo,
+            "selectedExtraCharges": selectextra,
+            "selectedDiscounts": selectdiscount,
+            "strTotalPrice": totalPrice
           
-        });
+        };
+
         },
         moveToPayment: function(id){
           swal({
@@ -66,18 +67,18 @@
                     $.ajax({
                         url: 'createReservation',
                         type: 'post',
-                        data: reservationDetails,
+                        data: reservationData,
                         dataType: 'json',
                         async: true,
                         success: function (data) {
                             if (data.status == "success") {
                                 SweetAlert.swal("Successfully created!", ".", "success");
-                                for (var i = reservationDetails.length - 1; i >= 0; i--) {
-                                      if (reservationDetails[i].id === id) {
-                                        reservationDetails.splice(i, 1);
-                                          break;
-                                      }
-                                  }
+                                // for (var i = reservationDetails.length - 1; i >= 0; i--) {
+                                //       if (reservationDetails[i].id === id) {
+                                //         reservationDetails.splice(i, 1);
+                                //           break;
+                                //       }
+                                //   }
                                 $('#createReservationModal').closeModal();
                             } else {
                                 SweetAlert.swal("Oops", "Something went wrong!", "error");

@@ -3,6 +3,12 @@
 <%@ page import="com.gss.model.Product" %>
 <%@ page import="com.gss.model.Service" %>
 
+<style>
+    .dataTables_filter {
+        display: none;
+    }
+</style>
+
 <div class="wrapper">
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
@@ -68,8 +74,9 @@
                                style="padding-left: 10px;padding-right:10px; margin: 5px;">
                                 <i class="material-icons">visibility</i>
                             </a>
-                            <a class="waves-effect waves-purple modal-trigger btn-flat transparent black-text"
+                            <a class="waves-effect waves-purple modal-trigger btn-flat transparent black-text editbtn"
                                href="#serv${service.intServiceID}"
+                               onclick="showPhpFormat(${service.intServiceID}); checkServiceNameAvailability(${service.intServiceID});"
                                style="padding-left: 10px;padding-right:10px; margin: 5px;">
                                 <i class="material-icons">edit</i>
                             </a>
@@ -126,19 +133,19 @@
                     </tr>
                     </tfoot>
                     <tbody>
-                        <tr>
-                            <td style="padding-left: 10px; margin: 0;" class="dt-body-left"></td>
-                            <td style="padding-left: 10px; margin: 0;" class="dt-body-left"></td>
-                            <td style="padding-left: 10px; margin: 0;" class="dt-body-left"></td>
-                            <td style="padding-right: 10px; margin: 0;" class="dt-body-right servPrice"></td>
-                            <td style="padding:0; margin: 0;" class="dt-body-center">
-                                <button class="waves-effect waves-light btn-flat green darken-3 white-text"
-                                        id="deliveryArchiveBtn" style="padding-left: 10px;padding-right:10px; margin: 5px;"
-                                        title="Restore">
-                                    <i class="material-icons">restore</i>
-                                </button>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td style="padding-left: 10px; margin: 0;" class="dt-body-left"></td>
+                        <td style="padding-left: 10px; margin: 0;" class="dt-body-left"></td>
+                        <td style="padding-left: 10px; margin: 0;" class="dt-body-left"></td>
+                        <td style="padding-right: 10px; margin: 0;" class="dt-body-right servPrice"></td>
+                        <td style="padding:0; margin: 0;" class="dt-body-center">
+                            <button class="waves-effect waves-light btn-flat green darken-3 white-text"
+                                    id="deliveryArchiveBtn" style="padding-left: 10px;padding-right:10px; margin: 5px;"
+                                    title="Restore">
+                                <i class="material-icons">restore</i>
+                            </button>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -195,23 +202,34 @@
                                            value="Service"/>
                                     <input type="text" name="strItemName" id="crServiceName" required
                                            placeholder="Service Name"/>
-                                    <label for="crServiceName" class="active"><b>Name</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                    <label for="crServiceName" class="active"><b>Name</b>
+                                        <i class="material-icons red-text tiny">error_outline</i>
+                                        <span id="crServiceNameError" class="red-text">Already existing!</span>
+                                    </label>
                                 </div>
                                 <div class="input-field col s12">
                                     <textarea id="crServiceDetails" name="strItemDetails"
                                               class="materialize-textarea" placeholder="Details"
                                               maxlength="25" style="margin-top: -10px !important;"></textarea>
-                                    <label for="crServiceDetails" class="active"><b>Details</b><i
+                                    <label for="crServiceDetails" class="active">
+                                        <b>Details</b>
+                                    </label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <select id="crServiceType" name="intServiceType" class="required"
+                                            required style="margin-bottom: -15px !important;" multiple>
+                                        <option value="default" disabled selected>Choose...</option>
+                                        <option value="1">Walk In</option>
+                                        <option value="2">Home Service</option>
+                                        <option value="3">Event</option>
+                                    </select>
+                                    <label for="crServiceType"><b>Type</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s8">
                                     <select id="crServiceCategory" name="strItemCategory" class="required"
                                             required style="margin-bottom: -15px !important;">
                                         <option value="default" disabled selected>Choose...</option>
-                                        <c:forEach items="${serviceCategory}" var="service">
-                                            <option value="${service}">${service}</option>
-                                        </c:forEach>
                                     </select>
                                     <label for="crServiceCategory"><b>Category</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
@@ -242,6 +260,9 @@
                             class=" modal-action modal-close waves-effect waves-purple transparent btn-flat">CANCEL
                     </button>
                     <button class="waves-effect waves-light purple darken-3 white-text btn-flat" type="submit"
+                            style="opacity: 0.3"
+                            disabled
+                            id="crServiceBtn"
                             value="Submit">CREATE
                     </button>
                 </div>
@@ -249,7 +270,6 @@
         </div>
 
         <!-- Modal Structure -->
-        <
 
         <!-- add category BEGIN -->
         <div id="crServAddCateModal" class="modal" style="margin-top: 30px;">
@@ -259,25 +279,29 @@
                     <div class="row">
                         <div class="col s12">
                             <div class="crservcat center input-field col s12 card red white-text z-depth-barts">
-
+                            </div>
+                            <div id="addCreateServiceCategory"
+                                 class="center input-field col s12 card red white-text z-depth-barts">
                             </div>
                             <div class="input-field col s8 offset-s2">
-
                                 <select id="createServAddCategorySelect" class="browser-default" size="10"
                                         style="height: 120px !important; border-bottom: none !important;">
-                                    <c:forEach items="${serviceCategory}" var="service">
-                                        <option value="${service}">${service}</option>
-                                    </c:forEach>
                                 </select>
                             </div>
-                            <div class="input-field col s8 offset-s2" style="margin-top: 20px;">
+                            <div class="input-field col s6 offset-s2" style="margin-top: 20px;">
                                 <input type="text" class="validate"
                                        id="crServAddCatName" name="crServAddCatName"
                                        placeholder="New Category" required/>
                                 <label for="crServAddCatName" class="active"><b>Category</b></label>
                             </div>
+                            <div class="input-field col s2">
+                                <a id="crDeletePosition" onclick="removeCreateServiceCategory();"
+                                   class="modal-action waves-effect waves-light red darken-3 btn-flat white-text">
+                                    <i class="material-icons">delete</i>
+                                </a>
+                            </div>
                             <div class="input-field col s12 center">
-                                <a id="createServAddCatBtn"
+                                <a id="createServAddCatBtn" onclick="addServiceCategory();"
                                    class="waves-effect waves-light purple darken-3 btn-flat white-text">SAVE
                                 </a>
                                 <button type="reset" value="Reset" id="crServAddProdCatCancel"
@@ -299,7 +323,7 @@
             String serviceCate = servID.getStrServiceCategory();
             double price = servID.getDblServicePrice();
             %>
-            <c:set var="price" scope="session" value="${(service.dblServicePrice * 9) + service.dblServicePrice}"/>
+            <c:set var="price" scope="session" value="${(service.dblServicePrice * 0) + service.dblServicePrice}"/>
             <div id="serv${service.intServiceID}" class="servUpdateModal modal modal-fixed-footer">
                 <form class="col s12 updateservForm" method="post" id="updateservForm" action="updateItem"
                       enctype="multipart/form-data">
@@ -352,18 +376,66 @@
                                         <input type="hidden" name="intItemID" value="${service.intServiceID}">
                                         <input type="hidden" name="strItemCate" value="service">
                                         <input value="${service.strServiceName}" type="text" name="strItemName"
-                                               id="upServName" required
+                                               id="upServName${service.intServiceID}" required
                                                placeholder="Product Name"/>
-                                        <label for="upServName" class="active"><b>Name</b><i
-                                                class="material-icons red-text tiny">error_outline</i></label>
+                                        <label for="upServName${service.intServiceID}" class="active"><b>Name</b>
+                                            <i class="material-icons red-text tiny">error_outline</i>
+                                            <span id="upServiceNameError${service.intServiceID}"
+                                                  style="display: none;"
+                                                  class="red-text">Already existing!</span>
+                                        </label>
                                     </div>
                                     <div class="input-field col s12">
                                     <textarea id="upServDetails" name="strItemDetails"
                                               class="materialize-textarea" placeholder="Details"
                                               style="margin-top: -10px !important;">${service.strServiceDesc}</textarea>
-                                        <label for="upServDetails" class="active"><b>Details</b><i
-                                                class="material-icons red-text tiny">error_outline</i></label>
+                                        <label for="upServDetails" class="active">
+                                            <b>Details</b>
+                                        </label>
                                     </div>
+                                    <div class="input-field col s12">
+                                    <select id="crServiceType" name="intServiceType" class="required"
+                                            required style="margin-bottom: -15px !important;" multiple>
+										
+										<c:set var="walkin" scope="session" value=""/>
+										<c:set var="home" scope="session" value=""/>
+										<c:set var="event" scope="session" value=""/>
+										
+										<c:if test="${service.serviceType == 1}">
+											<c:set var="walkin" scope="session" value="selected"/>
+										</c:if>
+										<c:if test="${service.serviceType == 2}">
+											<c:set var="home" scope="session" value="selected"/>
+										</c:if>
+										<c:if test="${service.serviceType == 3}">
+											<c:set var="event" scope="session" value="selected"/>
+										</c:if>
+										<c:if test="${service.serviceType == 4}">
+											<c:set var="walkin" scope="session" value="selected"/>
+											<c:set var="home" scope="session" value="selected"/>
+										</c:if>
+										<c:if test="${service.serviceType == 5}">
+											<c:set var="walkin" scope="session" value="selected"/>
+											<c:set var="event" scope="session" value="selected"/>
+										</c:if>
+										<c:if test="${service.serviceType == 6}">
+											<c:set var="home" scope="session" value="selected"/>
+											<c:set var="event" scope="session" value="selected"/>
+										</c:if>
+										<c:if test="${service.serviceType == 7}">
+											<c:set var="walkin" scope="session" value="selected"/>
+											<c:set var="home" scope="session" value="selected"/>
+											<c:set var="event" scope="session" value="selected"/>
+										</c:if>
+										  
+                                        <option value="default" disabled selected>Choose...</option>
+                                        <option value="1" <c:out value="${walkin}"/>>Walk In</option>
+                                        <option value="2" <c:out value="${home}"/>>Home Service</option>
+                                        <option value="3" <c:out value="${event}"/>>Event</option>
+                                    </select>
+                                    <label for="crServiceType"><b>Type</b><i
+                                            class="material-icons red-text tiny">error_outline</i></label>
+                              	 	</div>
                                     <div class="input-field col s8">
                                         <select id="updateServCategory" name="strItemCategory"
                                                 class="required updateServCategory"
@@ -394,9 +466,10 @@
                                     </div>
                                     <div class="input-field col s6 offset-s6" style="margin-bottom: -15px !important;">
                                         <input type="text" value="<c:out value='${price}'/>"
-                                               class="validate right-align servPrice"
-                                               id="upServPrice" name="price" required placeholder="P9.99"/>
-                                        <label for="upServPrice" class="active"><b>Price</b><i
+                                               class="validate right-align servPrice priceField"
+                                               id="upServPrice${service.intServiceID}" name="price" required
+                                               placeholder="P9.99"/>
+                                        <label for="upServPrice${service.intServiceID}" class="active"><b>Price</b><i
                                                 class="material-icons red-text tiny">error_outline</i></label>
                                     </div>
                                 </div>
@@ -415,6 +488,7 @@
                             CANCEL
                         </button>
                         <button class="waves-effect waves-light purple darken-3 white-text btn-flat upServSubmitBtn"
+                                id="upServSubmitBtn${service.intServiceID}"
                                 type="submit"
                                 value="Submit">UPDATE
                         </button>
@@ -431,25 +505,30 @@
                     <div class="row">
                         <div class="col s12">
                             <div class="upservcat center input-field col s12 card red white-text z-depth-barts">
-
+                            </div>
+                            <div id="addUpdateServiceCategory"
+                                 class="addUpdateServiceCategory center input-field col s12 card red white-text z-depth-barts">
                             </div>
                             <div class="input-field col s8 offset-s2">
-
-                                <select id="upServAddCategorySelect" class="browser-default" size="10"
+                                <select id="upServAddCategorySelect" class="browser-default upServAddCategorySelect"
+                                        size="10"
                                         style="height: 120px !important; border-bottom: none !important;">
-                                    <c:forEach items="${serviceCategory}" var="service">
-                                        <option value="${service}">${service}</option>
-                                    </c:forEach>
                                 </select>
                             </div>
-                            <div class="input-field col s8 offset-s2" style="margin-top: 20px;">
+                            <div class="input-field col s6 offset-s2" style="margin-top: 20px;">
                                 <input type="text" class="validate upServAddCatName"
                                        id="upServAddCatName" name="upServAddCatName"
                                        placeholder="New Category" required/>
                                 <label for="upServAddCatName" class="active"><b>Category</b></label>
                             </div>
+                            <div class="input-field col s2">
+                                <a id="upDeletePosition" onclick="removeUpdateServiceCategory();"
+                                   class="modal-action waves-effect waves-light red darken-3 btn-flat white-text">
+                                    <i class="material-icons">delete</i>
+                                </a>
+                            </div>
                             <div class="input-field col s12 center">
-                                <a id="updateServAddCatBtn"
+                                <a id="updateServAddCatBtn" onclick="addUpdateServiceCategory();"
                                    class="updateServAddCatBtn waves-effect waves-light purple darken-3 btn-flat white-text">SAVE
                                 </a>
                                 <button type="reset" value="Reset" id="upServAddProdCatCancel"
@@ -469,9 +548,11 @@
             viewServiceID = String.valueOf(servID.getIntServiceID());
             String serviceCate = servID.getStrServiceCategory();
             double price = servID.getDblServicePrice();
+            String selectedService = "";
             %>
             <c:set var="price" scope="session" value="${(service.dblServicePrice * 0) + service.dblServicePrice}"/>
-            <div id="view${service.intServiceID}" class="transparent servUpdateModal z-depth-0 modal modal-fixed-footer">
+            <div id="view${service.intServiceID}"
+                 class="transparent servUpdateModal z-depth-0 modal modal-fixed-footer">
                 <form class="col s12" method="post" id="viewServForm"
                       enctype="multipart/form-data">
                     <div class="modal-content">
@@ -501,35 +582,59 @@
                                         <input type="hidden" name="intItemID" value="${service.intServiceID}">
                                         <input type="hidden" name="strItemCate" value="service">
                                         <input value="${service.strServiceName}" type="text" name="strItemName"
-                                               id="viewServName" placeholder="Product Name" disabled class="white-text"/>
+                                               id="viewServName" placeholder="Product Name" disabled
+                                               class="white-text"/>
                                         <label for="viewServName" class="active purple-text text-lighten-2"><b>Name</b></label>
                                     </div>
                                     <div class="input-field col s8">
-                                        <select id="viewServCategory" name="strItemCategory"
-                                                disabled style="margin-bottom: -15px !important;">
-                                            <option value="default" disabled>Choose...</option>
-                                            <c:forEach items="${serviceCategory}" var="service">
-                                                <%
-                                                String cate3 = (String)pageContext.getAttribute("service");
-                                                String selectedService = null;
-                                                if(serviceCate.equals(cate3)){
-                                                selectedService = "selected";
-                                                }
-                                                else {
-                                                selectedService = "";
-                                                }
-                                                %>
-                                                <option value="${service}"
-                                                <%out.println(selectedService);%>>${service}</option>
-                                            </c:forEach>
-                                        </select>
+                                           <c:if test="${service.serviceType == 1}">
+                                           		<c:set var="type" scope="session" value="Walk In"/>
+                                           </c:if>
+                                           <c:if test="${service.serviceType == 1}">
+                                           		<c:set var="type" scope="session" value="Home Service"/>
+                                           </c:if>
+                                           <c:if test="${service.serviceType == 2}">
+                                           		<c:set var="type" scope="session" value="Event"/>
+                                           </c:if>
+                                           <c:if test="${service.serviceType == 3}">
+                                           		<c:set var="type" scope="session" value="Walk In, Home Service"/>
+                                           </c:if>
+                                           <c:if test="${service.serviceType == 4}">
+                                           		<c:set var="type" scope="session" value="Walk In, Event"/>
+                                           </c:if>
+                                           <c:if test="${service.serviceType == 5}">
+                                           		<c:set var="type" scope="session" value="Home Service, Event"/>
+                                           </c:if>
+                                           <c:if test="${service.serviceType == 6}">
+                                           		<c:set var="type" scope="session" value="Walk In, Home Service, Event"/>
+                                           </c:if>
+                                        <input value="${type}" type="text" name="strItemName"
+                                               id="viewServCategory" disabled
+                                               class="white-text"/>
+                                        <label for="viewServCategory" class="purple-text text-lighten-2"><b>Type</b></label>
+                                    </div>
+                                    <div class="input-field col s8">
+                                        <c:forEach items="${serviceCategory}" var="service">
+                                            <%
+                                            String cate3 = (String)pageContext.getAttribute("service");
+                                           
+                                            if(serviceCate.equals(cate3)){
+                                            	
+                                            	selectedService+= cate3;
+                                            }
+                                            %>
+                                        </c:forEach>
+                                        <input value="<%=selectedService%>" type="text" name="strItemName"
+                                               id="viewServCategory" disabled
+                                               class="white-text"/>
                                         <label for="viewServCategory" class="purple-text text-lighten-2"><b>Category</b></label>
                                     </div>
                                     <div class="input-field col s6" style="margin-bottom: -15px !important;">
                                         <input type="text" value="<c:out value='${price}'/>"
                                                class="white-text servPrice" disabled
                                                id="viewServPrice" name="price" placeholder="P9.99"/>
-                                        <label for="viewServPrice" class="active purple-text text-lighten-2"><b>Price</b></label>
+                                        <label for="viewServPrice"
+                                               class="active purple-text text-lighten-2"><b>Price</b></label>
                                     </div>
                                     <div class="input-field col s12">
                                     <textarea id="viewServDetails" name="strItemDetails" disabled

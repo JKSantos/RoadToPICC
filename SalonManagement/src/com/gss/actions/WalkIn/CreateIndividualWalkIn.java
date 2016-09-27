@@ -28,7 +28,7 @@ import com.gss.utilities.PriceFormatHelper;
 public class CreateIndividualWalkIn {
 	
 	private String strName;
-	private String strContactNo;
+	private String strContactNo = "";
 	private String productString = "";
 	private String productQuantity = "";
 	private String serviceString = "";		// ID ng service
@@ -50,6 +50,9 @@ public class CreateIndividualWalkIn {
 		
 		System.out.println("Package: " + this.packageList.size());
 		System.out.println("Promo: " + this.promoList.size());
+		System.out.println("Discount: " + this.discounts);
+		
+		this.strContactNo = this.strContactNo.replaceAll("\"", "");
 		
 		WalkInService service = new WalkInServiceImpl();
 		
@@ -65,7 +68,8 @@ public class CreateIndividualWalkIn {
 		String[] productQuantity = this.productQuantity.split(",");
 		
 		String[] discounts = this.discounts.split(",");
-		String[] extraCharges = this.extraCharges.split(",");
+		String[] extraCharges = this.extraCharges.split(",");System.out.println("Customer ID: " + this.serviceString);
+		System.out.println("waLKiN ID: " + this.employeeAssigned);
 		
 		
 		if(!this.productString.equals("")){
@@ -190,6 +194,8 @@ public class CreateIndividualWalkIn {
 		else{
 			this.intCreatedID = result;
 			if(this.customerType.equals("APPOINTMENT"))
+				System.out.println("Customer ID: " + this.intCustID);
+			System.out.println("waLKiN ID: " + this.intCreatedID);
 				CustomerTransactionHelper.insertCustomerAppointment(intCreatedID, intCustID, 1);
 
 			return "success";

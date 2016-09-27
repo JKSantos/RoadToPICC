@@ -38,21 +38,15 @@
     }
 
     function prodSalesCtrl($scope, $window, paymentFactory, locationFactory, SweetAlert, DTOptionsBuilder, DTColumnDefBuilder) {
-        $scope.dtOptions = DTOptionsBuilder.newOptions()
-            .withPaginationType('full_numbers')
-            .withDisplayLength(10)
-            .withLanguage({
-                "sLoadingRecords": "Loading..."
-            });
-        $scope.dtColumnDefs = [
-            DTColumnDefBuilder.newColumnDef(0),
-            DTColumnDefBuilder.newColumnDef(1).notSortable(),
-            DTColumnDefBuilder.newColumnDef(2).notSortable(),
-            DTColumnDefBuilder.newColumnDef(3),
-            DTColumnDefBuilder.newColumnDef(4),
-            DTColumnDefBuilder.newColumnDef(5).notSortable()
-        ];
+        var vm = this;
+        vm.dtInstanceCallback = dtInstanceCallback;
+        vm.searchTable = searchTable;
+        vm.closeCard = closeCard;
+        vm.crProductSales = crProductSales;
+        vm.closePSModal = closePSModal
 
+        vm.loadingBubble = 1;
+        vm.searchInTable = '';
         $scope.details = {};
 
         $scope.orderDetails = [{}];
@@ -74,12 +68,25 @@
         ];
         $scope.details.order = {id: 1, value: 'pickup', name: 'Pick Up'};
 
+        function dtInstanceCallback(dtInstance) {
+            var datatableObj = dtInstance.DataTable;
+            vm.tableInstance = datatableObj;
+        }
+
+        function searchTable() {
+            var s = vm.searchInTable;
+            vm.tableInstance.search(s).draw();
+        }
 
         locationFactory.getLocation().then(function (data) {
             $scope.locationList = data.locationList;
             if ($scope.locationList && $scope.locationList.length > 0) {
                 $scope.details.location = $scope.locationList[0];
             }
+        });
+
+        locationFactory.getEmployees().then(function (data) {
+           $scope.employeeList = data.data.employeeList;
         });
 
         locationFactory.getProducts().then(function (data) {
@@ -92,11 +99,32 @@
 
         locationFactory.getOrders().then(function (data) {
             $scope.requestOrderList = data.orderList;
+            console.log($scope.requestOrderList);
         });
 
 
         var orderDetails = paymentFactory.getOrderDetails();
         var sum = paymentFactory.getSubTotal();
+
+        function closePSModal() {
+            $scope.details.contact = '';
+            $scope.details.name = '';
+            $scope.details.street = '';
+        }
+
+        function closeCard(id) {
+            var prodClose = 'prodClose' + id;
+            $('#' + prodClose).click();
+        }
+
+        function crProductSales() {
+            $('#crProductSales').openModal({
+                dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                opacity: .7, // Opacity of modal background
+                in_duration: 200, // Transition in duration
+                out_duration: 200, // Transition out duration
+            });
+        }
 
         $scope.addToCart = function (index) {
             $scope.itemTotal = $scope.productList[index].dblProductPrice * $scope.details.quantity;
@@ -108,9 +136,12 @@
                 price: $scope.productList[index].dblProductPrice
             });
 
+
             var productId = $scope.productList[index].intProductID;
             var quantity = $scope.details.quantity;
             paymentFactory.insertOrder(productId, quantity);
+
+            $scope.details.quantity = '';
         };
 
         $scope.removeToCart = function (index, orders) {
@@ -119,7 +150,7 @@
             paymentFactory.subtractTotal(orders.total, index);
         };
 
-        $scope.openEditItem = function(index, orders) {
+        $scope.openEditItem = function (index, orders) {
             $('#editItem').openModal({
                 dismissible: true, // Modal can be dismissed by clicking outside of the modal
                 opacity: .7, // Opacity of modal background
@@ -142,7 +173,7 @@
             var beforeTotal = order.total,
                 finalTotal = order.price * order.quantity,
                 t = 0;
-            if(finalTotal > beforeTotal) {
+            if (finalTotal > beforeTotal) {
                 t = finalTotal - beforeTotal;
                 console.log(t + 't');
                 $scope.totalAmount = $scope.totalAmount + t;
@@ -165,26 +196,27 @@
                 quantity: order.quantity,
                 price: order.price
             });
-            
-        }
+
+        };
 
         function commaProducts() {
-            var selectedProducts = "";
-            for (var i = 1; i < orderDetails.length; i++) {
-                var odrdah = orderDetails[i];
-                selectedProducts += orderDetails[i].productID + ",";
-            }
-            return selectedProducts;
+                var selectedProducts = "";
+                for (var i = 1; i < orderDetails.length; i++) {
+                    var odrdah = orderDetails[i];
+                    selectedProducts += orderDetails[i].productID + ",";
+                }
+                return selectedProducts;
         }
 
         function commaQuantity() {
-            var selectedQuantity = "";
-            for (var i = 1; i < orderDetails.length; i++) {
-                var odrdah = orderDetails[i];
-                selectedQuantity += orderDetails[i].productQuantity + ",";
-            }
+                var selectedQuantity = "";
+                for (var i = 1; i < orderDetails.length; i++) {
+                    var odrdah = orderDetails[i];
+                    selectedQuantity += orderDetails[i].productQuantity + ",";
+                }
 
-            return selectedQuantity;
+                return selectedQuantity;
+            console.log(selectedQuantity);
         }
 
         $scope.calculateTotal = function () {
@@ -199,22 +231,23 @@
         }; //end
 
         var st = paymentFactory.getSubTotal();
-        $scope.setProdSalesPayment = function (custDetails) {
-            $scope.customerDetails.push({
-                orderType: custDetails.order.value,
-                strContactNo: custDetails.contact,
-                strName: custDetails.name,
-                strStreet: custDetails.street,
-                intLocationID: custDetails.location.intLocationID,
-                selectedProducts: commaProducts(),
-                productQuantity: commaQuantity(),
-                strTotalPrice: paymentFactory.getSubTotal()
-            });
-            console.log($scope.customerDetails);
-            $scope.saveDetails($scope.customerDetails[1]);
+        $scope.setProdSalesPayment = function (custDetails, createPSForm) {
+                $scope.customerDetails.push({
+                    orderType: custDetails.order.value,
+                    strContactNo: custDetails.contact,
+                    strName: custDetails.name,
+                    strStreet: custDetails.street,
+                    intLocationID: custDetails.location.intLocationID,
+                    selectedProducts: commaProducts(),
+                    productQuantity: commaQuantity(),
+                    strTotalPrice: paymentFactory.getSubTotal()
+                });
+                console.log($scope.customerDetails);
+                $scope.saveDetails($scope.customerDetails[1]);
         }; //end
 
         $scope.saveDetails = function (myData) {
+            vm.loadingBubble = 0;
             var psdata = {
                 "intLocationID": myData.intLocationID,
                 "orderType": myData.orderType,
@@ -225,56 +258,70 @@
                 "strStreet": myData.strStreet,
                 "strTotalPrice": myData.strTotalPrice
             };
-            console.log(psdata);
-            swal({
-                    title: "Create the order of " + psdata.strName + "?",
-                    text: "",
-                    type: "",
-                    showCancelButton: true,
-                    confirmButtonColor: "#81d4fa",
-                    confirmButtonText: "Yes",
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true
-                },
-                function () {
-                    setTimeout(function () {
-                        $.ajax({
-                            url: 'createOrder',
-                            type: 'post',
-                            data: psdata,
-                            dataType: 'json',
-                            async: true,
-                            success: function (data) {
-                                if (data.status == "success") {
-                                    SweetAlert.swal("Successfully created!", ".", "success");
-                                    console.log($scope.customerDetails[1]);
-                                    $scope.requestOrder.push({
-                                        strName: myData.strName,
-                                        intType: myData.orderType
-                                    });
-                                    console.log($scope.requestOrder);
-                                    $('#crProductSales').closeModal();
-                                    $scope.customerDetails = [{
-                                        orderType: '',
-                                        contactNumber: '',
-                                        name: '',
-                                        Street: '',
-                                        location: '',
-                                        orderDetails: '',
-                                        subtotal: 0
-                                    }];
-                                    $window.location.reload();
-                                } else {
-                                    SweetAlert.swal("Oops", "Something went wrong!", "error");
-                                }
-                            },
-                            error: function () {
-                                SweetAlert.swal("Oops", "Something went wrong!", "error");
-                            }
-                        });
-                    }, 1000);
+            setTimeout(function () {
+                $.ajax({
+                    url: 'createOrder',
+                    type: 'post',
+                    data: psdata,
+                    dataType: 'json',
+                    async: true,
+                    success: function (data) {
+                        if (data.status == "success") {
+                            swal("Successfully created!", ".", "success");
+                            console.log($scope.customerDetails[1]);
+                            $scope.requestOrder.push({
+                                intSalesID: data.intCreatedID,
+                                strName: myData.strName,
+                                intType: myData.orderType
+                            });
+                            console.log($scope.requestOrder);
+                            $('#crProductSales').closeModal();
+                            $scope.customerDetails = [{
+                                orderType: '',
+                                contactNumber: '',
+                                name: '',
+                                Street: '',
+                                location: '',
+                                orderDetails: '',
+                                subtotal: 0
+                            }];
+                            console.log(data);
+                            $window.location.reload();
+                        } else {
+                            SweetAlert.swal("Oops", "Something went wrong!", "error");
+                        }
+                    },
+                    error: function () {
+                        vm.loadingBubble = 1;
+                        SweetAlert.swal("Oops", "Something went wrong!", "error");
+                    }
                 });
+            }, 1000);
         }; //end
+        
+        $scope.openPickUpOrder = function (request) {
+            var index = $scope.requestOrder.indexOf(request);
+            $('#AcceptPickupModal').openModal({
+                dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                opacity: .7, // Opacity of modal background
+                in_duration: 200, // Transition in duration
+                out_duration: 200, // Transition out duration
+            });
+            $scope.pickup = {
+                'strName': request.strName,
+                'strStatus': request.strStatus,
+                'strAddress': request.strAddress,
+                'intType': request.intType,
+                'productList': request.productList,
+                'strContactNo': request.strContactNo,
+                'intSalesID': request.intSalesID,
+                'intLocationID': request.intLocationID,
+                'deliveryDate': request.deliveryDate,
+                'datCreated': request.datCreated,
+                'index': index
+            }
+            console.log($scope.pickup);
+        };
 
         $scope.acceptPickupOrder = function (request) {
             var index = $scope.requestOrder.indexOf(request);
@@ -294,6 +341,7 @@
                             url: 'acceptOrder',
                             type: 'post',
                             data: {
+                                "intEmpID": request.selEmployee.intEmpID,
                                 "intOrderID": request.intSalesID
                             },
                             dataType: 'json',
@@ -309,6 +357,7 @@
                                         intType: request.intType,
                                         strStatus: 'PENDING'
                                     });
+                                    $('#AcceptPickupModal').closeModal();
                                 } else {
                                     SweetAlert.swal("Oops", "Something went wrong!", "error");
                                 }
@@ -359,6 +408,7 @@
                             url: 'acceptOrder',
                             type: 'post',
                             data: {
+                                "intEmployeeID": delivery.selEmployee.intEmpID,
                                 "intOrderID": delivery.intSalesID,
                                 "datDeliveryDate": delivery.deliveryDate
                             },

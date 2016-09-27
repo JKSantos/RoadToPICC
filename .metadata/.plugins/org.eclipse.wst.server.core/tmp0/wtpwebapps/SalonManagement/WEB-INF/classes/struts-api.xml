@@ -51,6 +51,11 @@
 			<result name="success" type="json"></result>
 		</action>
 		
+		<!-- BUSINESS DEPENDENCIES -->
+		<action name="getDependencies" class="com.gss.actions.BusinessDependencies.GetDependenciesAction">
+			<result name="success" type="json"></result>
+		</action>
+		
 	</package>	
 		
 		
