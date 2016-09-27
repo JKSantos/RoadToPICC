@@ -1,0 +1,566 @@
+/**
+ * Created by Castillo on 8/2/2016.
+ */
+
+.bubbles1 {
+    background-color: #4a148c;
+    width: 15px;
+    height: 15px;
+    margin: 2px;
+    border-radius: 100%;
+    -webkit-animation: bubbles 0.6s 0.07s infinite ease-in-out;
+    animation: bubbles 0.6s 0.07s infinite ease-in-out;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    display: inline-block;
+}
+@-webkit-keyframes bubbles {
+33%: {
+    -webkit-transform: translateY(10px);
+    transform: translateY(10px);
+} 66% {
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
+} 100%  {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+}  }
+@keyframes bubbles {
+33%:  { -webkit-transform: translateY(10px);
+    transform: translateY(10px);
+} 66% {
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
+} 100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+} }
+
+#archivePackageModal {
+    width: 850px !important;
+    height: 550px !important;
+    max-height: 100% !important;
+    margin-top: -20px !important;
+}
+
+
+#deflostexModal {
+    width: 450px !important;
+    height: 400px !important;
+    max-height: 100% !important;
+    margin-top: -10px !important;
+}
+
+#createEmployeeModal {
+    width: 600px !important;
+    height: 590px !important;
+    max-height: 100% !important;
+    margin-top: -30px !important;
+}
+
+#productArchive {
+    width: 80% !important;
+    height: 590px !important;
+    max-height: 100% !important;
+    margin-top: -30px !important;
+}
+
+#empArchive {
+    width: 80% !important;
+    height: 590px !important;
+    max-height: 100% !important;
+    margin-top: -30px !important;
+}
+
+#prodsalesTable {
+    width: 80% !important;
+    height: 590px !important;
+    max-height: 100% !important;
+    margin-top: -30px !important;
+}
+
+#serviceArchive {
+    width: 80% !important;
+    height: 590px !important;
+    max-height: 100% !important;
+    margin-top: -30px !important;
+}
+
+#createDiscountModal {
+    width: 600px !important;
+    height: 590px !important;
+    max-height: 100% !important;
+    margin-top: -30px !important;
+}
+
+#updateDiscountModal {
+    width: 600px !important;
+    height: 590px !important;
+    max-height: 100% !important;
+    margin-top: -30px !important;
+}
+
+#crPromoModal {
+    width: 700px !important;
+    height: 620px !important;
+    max-height: 100% !important;
+    margin-top: -30px !important;
+}
+
+#upPromoModal {
+    width: 700px !important;
+    height: 628px !important;
+    max-height: 100% !important;
+    margin-top: -40px !important;
+}
+
+#createPackageModal {
+    width: 600px !important;
+    height: 590px !important;
+    max-height: 100% !important;
+    margin-top: -30px !important;
+}
+
+#viewModalPackage {
+    width: 80% !important;
+    height: 590px !important;
+    max-height: 100% !important;
+    margin-top: -30px !important;
+
+}
+
+.updatePackageModal {
+    width: 600px !important;
+    height: 590px !important;
+    max-height: 100% !important;
+    margin-top: -30px !important;
+}
+
+#createProduct {
+    width: 600px !important;
+    height: 535px !important;
+    max-height: 100% !important;
+    margin-top: -20px !important;
+}
+
+#crProductSales {
+    width: 600px !important;
+    height: 635px !important;
+    max-height: 100% !important;
+    margin-top: -20px !important;
+}
+
+#createService {
+    width: 600px !important;
+    height: 535px !important;
+    max-height: 100% !important;
+    margin-top: -20px !important;
+}
+
+#createDeliveryModal {
+    width: 400px !important;
+    height: 435px !important;
+    max-height: 100% !important;
+    margin-top: -20px !important;
+}
+
+#createExtraChargeModal {
+    width: 400px !important;
+    height: 435px !important;
+    max-height: 100% !important;
+    margin-top: -20px !important;
+}
+
+.updateExtraModal {
+    width: 400px !important;
+    height: 435px !important;
+    max-height: 100% !important;
+    margin-top: -20px !important;
+}
+
+.updateDeliveryModal {
+    width: 400px !important;
+    height: 435px !important;
+    max-height: 100% !important;
+    margin-top: -20px !important;
+}
+
+.servUpdateModal {
+    width: 600px !important;
+    height: 535px !important;
+    max-height: 100% !important;
+    margin-top: -20px !important;
+}
+
+.prodUpdateModal {
+    width: 600px !important;
+    height: 535px !important;
+    max-height: 100% !important;
+    margin-top: -20px !important;
+}
+
+.empModalUpdate {
+    width: 600px !important;
+    height: 610px !important;
+    max-height: 100% !important;
+    margin-top: -40px !important;
+}
+
+.viewEmpModal {
+    width: 700px !important;
+    height: 620px !important;
+    max-height: 100% !important;
+    margin-top: -30px !important;
+}
+
+#createAddOption {
+    width: 500px !important;
+    height: 410px !important;
+}
+
+#updateOption {
+    width: 500px !important;
+    height: 410px !important;
+}
+
+#crProdAddCate {
+    width: 400px !important;
+    height: 400px !important;
+}
+
+#crServAddCateModal {
+    width: 400px !important;
+    height: 400px !important;
+}
+
+.upServAddCatModal {
+    width: 400px !important;
+    height: 400px !important;
+}
+
+#upProdAddCatModal {
+    width: 400px !important;
+    height: 400px !important;
+}
+
+#editWalkin {
+    width: 900px !important;
+    height: 635px !important;
+    max-height: 100% !important;
+    margin-top: -20px !important;
+}
+
+.paging_full_numbers a.paginate_active {
+    color: #4a148c !important;
+}
+
+.tabs .indicator {
+    display: none;
+}
+
+.tabs .tab a.active {
+    border-bottom: 2px solid #6a1b9a;
+}
+
+.profile-btn {
+    margin: 0;
+    text-transform: capitalize;
+    padding: 0;
+    text-shadow: 1px 1px 1px #444;
+    font-size: 15px
+}
+
+.user-roal {
+    color: #fff;
+    margin-top: -16px;
+    font-size: 13px;
+    text-shadow: 1px 1px 1px #444;
+}
+
+.collapsible-body .navul li a {
+    margin-left: 40px !important;
+    color: #eeeeee !important;
+}
+
+.dataTables_filter {
+    display: none;
+}
+
+nav .nav-wrapper form, nav .nav-wrapper form .input-field {
+    height: 100%;
+}
+
+.btnshadow {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
+}
+
+.viewEmpModal {
+    -webkit-animation-duration: 1.5s;
+    -webkit-animation-delay: 0s;
+    -o-animation-duration: 1.5s;
+    -o-animation-delay: 0s;
+    -moz-animation-duration: 1.5s;
+    -moz-animation-delay: 0s;
+}
+
+.input-field input[type=search] {
+    height: inherit;
+}
+
+.background {
+    background-color: green;
+}
+
+#createReservationModal {
+    width: 600px !important;
+    height: 590px !important;
+    max-height: 100% !important;
+    margin-top: -30px !important;
+}
+
+#createWalkinModal {
+    width: 600px !important;
+    height: 590px !important;
+    max-height: 100% !important;
+    margin-top: -30px !important;
+}
+
+#extratbl tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#emptbl tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#packagetbl tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#crpacktblProd tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#crpacktblServ tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#uppackageProdtbl tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#uppackageServtbl tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#promotbl tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#crpromotblprod tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#crpromotblserv tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#crpromotblpackage tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#upPromoTblProd tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#upPromoTblServ tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#upPromoTblPackage tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#deliverytbl tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#discounttbl tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#walkinRecordTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#walkinAppointmentRecordTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#prodsalesTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: 45px !important;
+}
+
+#walkinTable {
+    width: 80% !important;
+    height: 590px !important;
+    max-height: 100% !important;
+    margin-top: -30px !important;
+}
+
+#walkinTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: 45px !important;
+}
+
+#psTBL tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#paymentTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#reservationTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#employeeQueryTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: 45px !important;
+}
+
+#productQueryTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: 45px !important;
+}
+
+#serviceQueryTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: 45px !important;
+}
+
+#packageQueryTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: 45px !important;
+}
+
+#deliveryQueryTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: 45px !important;
+}
+
+#extraQueryTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: 45px !important;
+}
+
+#promoQueryTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: 45px !important;
+}
+
+#discountQueryTable tbody tr td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: 45px !important;
+}
+
+.dataTables_wrapper .dataTables_length {
+    display: none !important;
+}
+
+.reqList {
+    width: auto;
+    height: 15em;
+    line-height: 2em;
+    border: 1px solid #ccc;
+    padding: 0;
+    margin: 0;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.order.ng-enter, .order.ng-move {
+    transition: 0.4s all;
+    opacity: 0;
+}
+
+.order.ng-enter.ng-enter-active, .order.ng-move.ng-move-active {
+    opacity: 1;
+}
+
+.order.ng-leave {
+    animation: 0.4s fade_order;
+}
+
+@keyframes fade_order {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.table-barts thead {
+    border-left: solid 1px #bdbdbd;
+    border-right: solid 1px #bdbdbd;
+    border-top: solid 1px #bdbdbd;
+}
+
+.table-barts tbody tr td {
+    border: solid 1px #bdbdbd;
+}
+
+.barts-valign {
+    text-align: center !important;
+    display: block;
+}
+
+.boldBarts {
+    font-weight: bold !important;
+}
+
+#ngDateFrom-error {
+    display: none !important;
+}
+
+#ngDateTo-error {
+    display: none !important;
+}
+
+.collapsibleHighlight li:hover {
+    background-color: #1a1a1a !important;
+}
+
+.collapsibleHighlight li.active {
+    background-color: #1a1a1a !important;
+}
