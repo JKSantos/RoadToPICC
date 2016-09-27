@@ -17,6 +17,7 @@ import com.gss.model.PackageWalkIn;
 import com.gss.model.Payment;
 import com.gss.model.Product;
 import com.gss.model.ProductWalkIn;
+import com.gss.model.Promo;
 import com.gss.model.PromoWalkIn;
 import com.gss.model.Service;
 import com.gss.model.ServiceWalkIn;
@@ -42,12 +43,17 @@ public class WalkInTransRepository {
 		String serviceQuery = "SELECT * FROM tblServiceWalkIn WHERE intWalkInID = ?;";
 		String packageQuery = "SELECT * FROM tblPackageWalkIn WHERE intWalkInID = ?;";
 		String packageServiceQuery = "SELECT * FROM tblAssignmentDetail WHERE intAssignmentID = ?;";
+		String promoQuery = "SELECT * FROM tblPromoWalkIn WHERE intWalkInID = ?;";
+		String promoServiceQuery = "SELECT * FROM tblwalkinpromoservice WHERE intPromoWalkInID = ?;";
+		String promoPackageQuery = "SELECT * FROM tblpromopackagewalkin WHERE intPromoWalkInID = ?;";
+		String promoPackageServiceQuery = "SELECT * FROM tblAssignmentDetail WHERE intAssignmentID = ?;";
 		
 		try{
 			PreparedStatement walkinStmt = con.prepareStatement(walkinQuery);
 			PreparedStatement productStmt = con.prepareStatement(productQuery);
 			PreparedStatement serviceStmt = con.prepareStatement(serviceQuery);
 			PreparedStatement packageStmt = con.prepareStatement(packageQuery);
+			PreparedStatement promoStmt = con.prepareStatement(promoQuery);
 			
 			walkinStmt.setInt(1, walkinID);
 			
@@ -148,6 +154,92 @@ public class WalkInTransRepository {
 				PackageWalkIn packWalkIn = new PackageWalkIn(id, pack, packageServices);
 				packageList.add(packWalkIn);
 			}
+			
+			
+			packageStmt.close();
+			packageSet.close();
+			
+			promoStmt.setInt(1, walkinID);
+			ResultSet promoSet = promoStmt.executeQuery();
+			
+			while(promoSet.next()){
+				
+				int intPromoWalkInID = promoSet.getInt(1);
+				int intPromoID = promoSet.getInt(3);
+				
+				List<ServiceWalkIn> promoServices = new ArrayList<ServiceWalkIn>();
+				List<PackageWalkIn> packages = new ArrayList<PackageWalkIn>();
+				
+				PreparedStatement promoServiceStmt = con.prepareStatement(promoServiceQuery);
+				promoServiceStmt.setInt(1, intPromoWalkInID);
+				ResultSet promoServiceSet = promoServiceStmt.executeQuery();
+				
+				while(promoServiceSet.next()){
+					int intServiceWalkInID = promoServiceSet.getInt(1);
+					Service service = Service.createNullService(promoServiceSet.getInt(3));
+					String serviceName = getServiceName(service.getIntServiceID());
+					service.setStrServiceName(serviceName);
+					Employee employeeAssigned = Employee.createNullEmployee(promoServiceSet.getInt(4));
+					List<String> employeeName = getEmployeeName(employeeAssigned.getIntEmpID());
+					employeeAssigned.setStrEmpFirstName(employeeName.get(0));
+					employeeAssigned.setStrEmpLastName(employeeName.get(1));
+					String strServiceStatus = promoServiceSet.getString(5);
+					
+					ServiceWalkIn serviceWalkIn = new ServiceWalkIn(intServiceWalkInID, service, employeeAssigned, strServiceStatus);
+					promoServices.add(serviceWalkIn);
+				}
+				
+				promoServiceStmt.close();
+				promoServiceSet.close();
+				
+				PreparedStatement promoPackageStmt = con.prepareStatement(promoPackageQuery);
+				promoPackageStmt.setInt(1, intPromoWalkInID);
+				ResultSet promoPackageSet = promoPackageStmt.executeQuery();
+				
+				while(promoPackageSet.next()){
+					
+					List<ServiceWalkIn> packageServices = new ArrayList<ServiceWalkIn>();
+					
+					int id = promoPackageSet.getInt(1);
+					Package pack = Package.createNullPackage(promoPackageSet.getInt(6));
+					int assigmentID = promoPackageSet.getInt(4);
+					
+					PreparedStatement servPackStmt = con.prepareStatement(promoPackageServiceQuery);
+					servPackStmt.setInt(1, assigmentID);
+					ResultSet servPackSet = servPackStmt.executeQuery();
+					
+					while(servPackSet.next()){
+						int intId = servPackSet.getInt(1);
+						Service service = Service.createNullService(servPackSet.getInt(4));
+						String serviceName = getServiceName(servPackSet.getInt(4));
+						service.setStrServiceCategory(serviceName);
+						Employee emp = Employee.createNullEmployee(servPackSet.getInt(3));
+						List<String> empName = getEmployeeName(servPackSet.getInt(3));
+						emp.setStrEmpFirstName(empName.get(0));
+						emp.setStrEmpLastName(empName.get(1));
+						String status = servPackSet.getString(5);
+						
+						ServiceWalkIn servWalkin = new ServiceWalkIn(intId, service, emp, status);
+						packageServices.add(servWalkin);
+					}
+					
+					servPackStmt.close();
+					servPackSet.close();
+					
+					PackageWalkIn packWalkIn = new PackageWalkIn(id, pack, packageServices);
+					packages.add(packWalkIn);
+				}
+				
+				promoPackageStmt.close();
+				promoPackageSet.close();
+				
+				Promo promo = Promo.createNullPromo(intPromoID);
+				PromoWalkIn promoWalkin = new PromoWalkIn(intPromoWalkInID, promo, packages, promoServices);
+				promoList.add(promoWalkin);
+			}
+			
+			promoStmt.close();
+			promoSet.close();
 			
 			con.close();
 			return walkin;

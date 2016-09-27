@@ -50,7 +50,7 @@ public class UpdatePackageAction {
 		String[] serviceCount = this.updatePackServQty.split(", ");
 		String[] productCount = this.updatePackProdQty.split(", ");
 		
-		System.out.println(updatePackServType);
+		System.out.println(intUpdatePackageType.get(0));
 		
 		if(!updatePackServType.equals("")){
 			
@@ -84,9 +84,12 @@ public class UpdatePackageAction {
 				}
 			}
 		}
-
 		
-		Package packagee = new Package(Integer.parseInt(intUpdatePackageID), strUpdatePackageName.toUpperCase().trim(), strUpdatePackageDesc.toUpperCase().trim(), PackageHelper.convertToSingleInt(intUpdatePackageType), 1, "NON-EXPIRY", getDblUpdatePackagePrice(), serviceList, productList, 1);
+		int type = PackageHelper.convertToSingleInt(intUpdatePackageType);
+		System.out.println(this.intUpdatePackageType.get(0));
+		System.out.println(this.intUpdatePackageType.get(1));
+		
+		Package packagee = new Package(Integer.parseInt(intUpdatePackageID), strUpdatePackageName.toUpperCase().trim(), strUpdatePackageDesc.toUpperCase().trim(), type, 1, "NON-EXPIRY", getDblUpdatePackagePrice(), serviceList, productList, 1);
 	
 		if(PackageJDBCRepository.checkPackageName(this.strUpdatePackageName.trim(), Integer.parseInt(this.intUpdatePackageID)).equalsIgnoreCase("valid")){
 			if(packageService.updatePackage(packagee)){
