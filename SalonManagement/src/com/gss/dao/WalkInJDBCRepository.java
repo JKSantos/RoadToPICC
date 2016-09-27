@@ -33,7 +33,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 		String createEmpAssignment 			= "CALL insertAssignmentStatus();";
 		String createDetail					= "CALL createAssignmentDetail(?, ?, ?, ?)";
 		String createPromoWalkIn 			= "CALL createPromoWalkIn(?, ?)";
-		String createPackagePromo			= "CALL createPackagePromoWalkIn(?, ?, ?)";
+		String createPackagePromo			= "CALL createPackagePromoWalkIn(?, ?, ?, ?)";
 		String createPromoService			= "CALL createPackagePromoServiceWalkIn(?, ?, ?, ?)";
 		String createDiscount					= "CALL createInvoiceDiscount(?, ?);";
 		
@@ -181,6 +181,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 					insertPromoPackage.setInt(1, walkID);
 					insertPromoPackage.setInt(2, intEmpAssignmentID);
 					insertPromoPackage.setInt(3, promo.getPromo().getIntPromoID());
+					insertPromoPackage.setInt(4, promo.getPackages().get(intCtrInner).getPackages().getIntPackageID());
 					insertPromoPackage.addBatch();
 					
 					System.out.println("Inserting package promo....");
