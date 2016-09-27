@@ -94,6 +94,14 @@
 		</action>
 		<!-- PRODUCT PURCHASE CHART END-->
 		
+		<!-- CANCELLED RESERVATION CHART START-->
+		
+		<action name="getCancelledReservations" class="com.gss.actions.Reports.CancelledReservations.GetCancelledReservaiton">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<!-- CANCELLED RESERVATION CHART START-->
+		
 		<action name="downloadReports" class="com.gss.actions.Reports.ProductTag.ChartDownload">
 		    <result name="success" type="stream">
 		        <param name="contentType">application/pdf</param>
