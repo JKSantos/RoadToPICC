@@ -46,8 +46,8 @@ public class CreateWalkIn {
 		List<ServiceDetails> serviceDetails1 = new ArrayList<ServiceDetails>();
 		List<ServiceDetails> serviceDetails2 = new ArrayList<ServiceDetails>();
 		
-		serviceDetails1.add(new ServiceDetails(63, 1, 79, "ONGOING"));
-		serviceDetails1.add(new ServiceDetails(64, 1, 68, "PENDING"));
+		//serviceDetails1.add(new ServiceDetails(63, 1, 79, "ONGOING"));
+		//serviceDetails1.add(new ServiceDetails(64, 1, 68, "PENDING"));
 		serviceDetails1.add(new ServiceDetails(65, 1, 68, "PENDING"));
 		
 		
@@ -55,7 +55,7 @@ public class CreateWalkIn {
 		
 		this.packageList.add(pack);
 		
-		serviceDetails2.add(new ServiceDetails(63, 1, 79, "ONGOING"));
+		//serviceDetails2.add(new ServiceDetails(63, 1, 79, "ONGOING"));
 		
 		PromoDetails promo = new PromoDetails(34, serviceDetails2, packageList);
 		

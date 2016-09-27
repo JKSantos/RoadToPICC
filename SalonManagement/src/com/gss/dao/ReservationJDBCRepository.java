@@ -567,12 +567,12 @@ public class ReservationJDBCRepository implements ReservationRepository{
 		
 		Connection con = new JDBCConnection().getConnection();
 		
-		String query = "UPDATE tblReservation SET strStatus = 'CANCELLED' WHERE intReservationID = ?;";
-		
 		try{
 			Reservation reservation = getReservationByID(id);
 			
 			ReservationUpdateStock.updateStock_increment(ReservationUpdateStock.getProducts(reservation));
+			
+			updateReservationStatus(id, "CANCELLED");
 			
 			return true;
 		}catch(Exception e){
@@ -1121,6 +1121,26 @@ public class ReservationJDBCRepository implements ReservationRepository{
 		catch(Exception e){
 			e.printStackTrace();
 			return null;
+		}
+	}
+
+	public boolean updateReservationStatus(int intReservationID2, String status) {
+		
+
+		Connection con = new JDBCConnection().getConnection();
+		
+		String query = "UPDATE tblReservation SET strStatus = ? WHERE intReservationID = ?;";
+		
+		try{
+			PreparedStatement statemen = con.prepareStatement(query);
+			statemen.setString(1, status);
+			statemen.setInt(2, intReservationID2);
+			statemen.execute();
+			
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
 		}
 	}
 }
