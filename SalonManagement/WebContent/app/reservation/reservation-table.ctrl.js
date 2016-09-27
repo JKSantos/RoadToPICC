@@ -5,7 +5,7 @@
         .module('app')
         .controller('reservationTable', reservationTable);
 
-    function reservationTable($scope, $http, paymentFactory, locationFactory, reservationFactory, $filter, SweetAlert) {
+    function reservationTable($scope, $http, $timeout, paymentFactory, locationFactory, reservationFactory, $filter, SweetAlert) {
         var vm = this;
         vm.customerDetails = [{}];
         vm.reservationDetails = [{}];
@@ -46,10 +46,24 @@
 
         vm.resPaymentType = '';
         // vm.customerList = reservationFactory.getCustomers();
-
+        locationFactory.getDependencies().then(function (data) {
+            vm.dependencies = data.dependencies;
+            var d = 0;
+            angular.forEach(vm.dependencies, function (i) {
+                if (i.strName == 'reservationMargin') {
+                    d = i.strValue;
+                }
+            });
+            vm.reservationMargin = d;
+        });
 
         vm.details.reservationType = vm.reservationType[0];
-        vm.currentTime = new Date();
+        $timeout(function() {
+            var t = vm.reservationMargin*24*60*60*1000;
+            vm.currentTime = new Date(new Date().getTime()+t);
+            vm.minDate = $filter('date')(vm.currentTime, "MMMM/d/yyyy");
+        }, 1000);
+
         vm.month = ['Januar', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         vm.monthShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         vm.weekdaysFull = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -57,7 +71,6 @@
         vm.today = 'Today';
         vm.clear = 'Clear';
         vm.close = 'Close';
-        vm.minDate = $filter('date')(vm.currentTime, "MMMM/d/yyyy");
         vm.onStart = function () {
             console.log('onStart');
         };
@@ -91,7 +104,6 @@
 
         function changeDatFrom(date) {
             var datFrom = new Date(date);
-            console.log(date);
 
             vm.details.datFrom = $filter('date')(datFrom, "MMMM/d/yyyy");
         }
@@ -105,7 +117,6 @@
         vm.data = [];
         locationFactory.getReservations().then(function (data) {
             vm.customerList = data.reservationList;
-            console.log(vm.customerList);
             for (var i = 0; i < vm.customerList.length; i++) {
                 if(vm.customerList[i].strStatus == 'PENDING') {
                     vm.data.push({
@@ -153,7 +164,6 @@
             }
         }).then(function successCallback(data) {
             vm.serviceList = data.data.serviceList;
-            console.log(vm.serviceList);
         }, function errorCallback(response) {
             console.log(response);
         });
@@ -162,7 +172,6 @@
             var serviceTypeData = $.param({
                 'type': vm.details.reservationType.type
             });
-
             $http({
                 method: 'post',
                 url: 'http://localhost:8080/SalonManagement/getServiceByType',
@@ -172,7 +181,6 @@
                 }
             }).then(function successCallback(data) {
                 vm.serviceList = data.data.serviceList;
-                console.log(vm.serviceList);
             }, function errorCallback(response) {
                 
             });
@@ -209,7 +217,6 @@
                 }
             }).then(function successCallback(data) {
                 vm.packageList = data.data.packageList;
-                console.log(vm.packageList);
             }, function errorCallback(response) {
 
             });
@@ -248,7 +255,6 @@
                 }
             }).then(function successCallback(data) {
                 vm.promoList = data.data.promoList;
-                console.log(vm.promoList);
             }, function errorCallback(response) {
 
             });
@@ -262,7 +268,6 @@
 
         locationFactory.getLocation().then(function (data) {
             vm.locationList = data.locationList;
-            console.log(vm.locationList);
         });
 
         function calendarInit(data) {
