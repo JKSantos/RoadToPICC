@@ -9,6 +9,7 @@ import java.util.List;
 import com.gss.connection.JDBCConnection;
 import com.gss.model.CustomerAccount;
 import com.gss.model.Verification;
+import com.gss.utilities.MailSender;
 import com.gss.utilities.RandomStringGenerator;
 import com.gss.utilities.SMSSender;
 
@@ -52,6 +53,7 @@ public class CustomerRegistration {
 			
 			SMSSender sender = new SMSSender();
 			sender.sendSMS(message, customer.getStrContactNo());
+			MailSender.sendEmail(customer.getStrEmail(), message);
 			
 			return new Verification(codeID, code, accountID); 
 			

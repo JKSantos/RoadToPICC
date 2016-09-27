@@ -38,7 +38,7 @@ public class MailSender {
 			message.setFrom(new InternetAddress("salonmanagement2016@gmail.com"));
 			message.setRecipients(Message.RecipientType.TO,
 					InternetAddress.parse(email));
-			message.setSubject("Employee Username and Password");
+			message.setSubject("Salon App Verification Code");
 			message.setText(mes);
 
 			Transport.send(message);

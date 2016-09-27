@@ -140,8 +140,11 @@ public class CreateReservation {
 					String[] serviceQuantity = QuantityHelper.removeEmptyQuantity(this.serviceQuantity.split(","));
 				
 					for(int index = 0; index < selectedServices.length; index++){
+						System.out.println("Current Service Searching: " +(selectedServices[index]) );
 						Service service = new SearchService().search(Integer.parseInt(selectedServices[index]), serviceList);
-						ReservedService reservedService = new ReservedService(1, 1, service, Integer.parseInt(serviceQuantity[index]), 1);					services.add(reservedService);
+						ReservedService reservedService = new ReservedService(1, 1, service, Integer.parseInt(serviceQuantity[index]), 1);					
+						services.add(reservedService);
+						
 					}
 				}
 				//Package
