@@ -203,7 +203,7 @@ public class ProductPurchaseChartReport {
 		Document document = new Document(PageSize.LETTER.rotate(), 30, 30, 30, 30);
         try {
 			this.writer = PdfWriter.getInstance(document, new FileOutputStream(((ServletContext) ActionContext.getContext().get(StrutsStatics.SERVLET_CONTEXT)) 
-	                .getRealPath("WEB-INF/Reports/ProductPurchases")
+	                .getRealPath("WEB-INF/Reports/ProductPurchase")
 	                +
 	                this.destination));
 		} catch (FileNotFoundException | DocumentException e) {
