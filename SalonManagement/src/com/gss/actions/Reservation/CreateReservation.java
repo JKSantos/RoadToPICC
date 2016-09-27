@@ -326,4 +326,8 @@ public class CreateReservation {
 	public String getPath() {
 		return path;
 	}
+
+	public void setPaymentType(String paymentType) {
+		this.paymentType = paymentType;
+	}
 }
