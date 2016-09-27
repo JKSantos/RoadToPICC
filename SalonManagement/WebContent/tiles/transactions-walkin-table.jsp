@@ -81,18 +81,6 @@
                     <td class="left-align">{{walkin.strWalkInStatus | uppercase}}</td>
                     <td class="center-align">
                         <button class="waves-effect waves-purple btn-flat transparent black-text text-accent-4"
-                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="View"
-                                ng-if="walkin.strWalkInStatus=='PENDING'"
-                                ng-click="viewWalkin(walkin)">
-                            <i class='material-icons'>visibility</i>
-                        </button>
-                        <button class="waves-effect waves-purple btn-flat transparent black-text text-accent-4"
-                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="View"
-                                ng-if="walkin.strWalkInStatus=='COMPLETE'"
-                                ng-click="viewWalkin(walkin)">
-                            <i class='material-icons'>visibility</i>
-                        </button>
-                        <button class="waves-effect waves-purple btn-flat transparent black-text text-accent-4"
                                 style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Update"
                                 ng-if="walkin.strWalkInStatus=='PENDING'"
                                 ng-click="vm.editWalkin(walkin)">
@@ -165,9 +153,9 @@
                                 ng-click="noshowAppointment($index, walkin)">NO SHOW
                         </button>
                         <button class="waves-effect waves-purple btn-flat transparent red-text text-accent-4"
-                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Deactivate"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Cancel"
                                 ng-if="walkin.strWalkInStatus=='PENDING'"
-                                ng-click="deactivateOrder(walkin)">
+                                ng-click="cancelAppointment($index, walkin)">
                             <i class='material-icons'>delete</i>
                         </button>
                         <button class="btn-flat transparent red-text text-lighten-4"

@@ -249,7 +249,6 @@ function compute(id) {
             productquantity = parseFloat($productQtyField.val()).toFixed(2);
 
         chk = chk + 1;
-        console.log(chk);
         if(chk < 1) {
             $('#createSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if(chk > 0) {
@@ -303,7 +302,6 @@ function compute(id) {
 
     } else if (!(productID.is(':checked'))) {
         chk = chk - 1;
-        console.log(chk);
         if(chk < 1) {
             $('#createSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if(chk > 0) {
@@ -328,7 +326,6 @@ function compute(id) {
 
     $('#prodchip' + id).click(function () {
         chk = chk - 1;
-        console.log(chk);
         if(chk < 1) {
             $('#createSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if(chk > 0) {
@@ -361,7 +358,6 @@ function serviceCompute(id) {
         $('#svc' + id).attr('disabled', false);
         //
         chk = chk + 1;
-        console.log(chk);
         if(chk < 1) {
             $('#createSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if(chk > 0) {
@@ -418,7 +414,6 @@ function serviceCompute(id) {
 
     } else if (!(serviceID.is(':checked'))) {
         chk = chk - 1;
-        console.log(chk);
         if(chk < 1) {
             $('#createSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if(chk > 0) {
@@ -444,7 +439,6 @@ function serviceCompute(id) {
 
     $('#servchip' + id).click(function () {
         chk = chk - 1;
-        console.log(chk);
         if(chk < 1) {
             $('#createSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if(chk > 0) {
@@ -510,7 +504,6 @@ function createPackage() {
             servselect = servselect.join(', ');
             productqty = productqty.join(', ');
             serviceqty = serviceqty.join(', ');
-            console.log(type);
             var packagedata = {
                 "strPackageName": $('#crPackageName').val(),
                 "strPackageDesc": $('#crPackageDesc').val(),

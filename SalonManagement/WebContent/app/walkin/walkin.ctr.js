@@ -937,7 +937,7 @@
 
         $scope.noshowAppointment = function (index, walkin) {
             var dataNoShow = $.param({
-                'appointmentID': walkin.intWalkInID,
+                'appointmentID': walkin.intWalkInID
             });
 
             $http({

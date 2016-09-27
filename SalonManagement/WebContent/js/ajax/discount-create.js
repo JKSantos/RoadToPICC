@@ -31,8 +31,6 @@ function createDiscount() {
 
         requirement = req.join(',');
 
-    console.log(requirement);
-
     var discountname = $('#crDiscountName').val();
     var discountData = {
         "strApplicability": $('input[name=strApplicability]:checked').val(),
@@ -50,7 +48,6 @@ function createDiscount() {
 
     if($('input[name=strApplicability]:checked').val() == 'TOTAL SALES') {
         if($('#createDiscountForm').valid()) {
-            console.log(discountData);
             swal({
                     title: "Are you sure you want to create " + discountname + "?",
                     text: "",

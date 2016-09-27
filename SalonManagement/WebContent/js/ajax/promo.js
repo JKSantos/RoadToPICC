@@ -48,7 +48,6 @@ function updatePromoTable() {
             if (promoList != null) {
                 tablepromo.clear().draw();
                 $.each(promoList, function (i, promo) {
-                    console.log(promo);
                     var price,
                         type,
                         requirement = '';
@@ -103,14 +102,12 @@ function updatePromoTable() {
                         availabilityYear = sub[0],
                         availabilityMonth = sub[1],
                         availabilityDay = sub[2]
-                    console.log(availabilityYear);
                     if (promo.strPromoAvailability == 'NON-EXPIRY') {
                         crPromoDate = 'NON-EXPIRY';
                     } else {
                         crPromoDate = moment("'" + availabilityMonth + '/' + availabilityDay + '/' + availabilityYear + "'", 'MM/DD/YYYY')
                             .format('LL');
                     }
-                    console.log(availabilityYear + '+' + availabilityMonth + '+' + availabilityDay);
 
                     tablepromo.row.add([
                         promo.strPromoName,
@@ -226,15 +223,11 @@ function updatePromoCreateServTable() {
                     for (var i = 0; i < type.length; i++) {
                         if (type[i] == 'walkin') {
                             walk = 1;
-                            console.log('walkin');
                         } else if (type[i] == 'homeservice') {
                             home = 1;
-                            console.log('homeservice');
                         } else if (type[i] == 'event') {
                             event = 1;
-                            console.log('event');
                         } else {
-                            console.log(type);
                         }
                     }
 
@@ -257,7 +250,6 @@ function updatePromoCreateServTable() {
                     $.each(serviceList, function (i, service) {
 
                         if (promoType == service.serviceType) {
-                            console.log(service);
                             var price = parseFloat(service.dblServicePrice).toFixed(2);
                             price = addCommas(price);
                             var checkbox = "<input type='checkbox' name='servCrPromoSelect' id='crPromoServ" + service.intServiceID + "'" +
@@ -278,7 +270,6 @@ function updatePromoCreateServTable() {
                     });
                     createPromoServTbl.draw();
                 });
-                console.log(serviceList);
 
             }
         }
@@ -311,7 +302,6 @@ function updatePromoCreatePackageTable() {
                 createPromoPackageTbl.search(this.value).draw();
             });
 
-            console.log(packageList);
 
             if (packageList != null) {
                 var promoType = 0;
@@ -326,13 +316,10 @@ function updatePromoCreatePackageTable() {
                     for (var i = 0; i < type.length; i++) {
                         if (type[i] == 'walkin') {
                             walk = 1;
-                            console.log('walkin');
                         } else if (type[i] == 'homeservice') {
                             home = 1;
-                            console.log('homeservice');
                         } else if (type[i] == 'event') {
                             event = 1;
-                            console.log('event');
                         }
                     }
 
@@ -422,7 +409,6 @@ function promoProdCompute(id) {
             if ($promoQty > promoQ) {
                 promoTotal += ($promoQty - promoQ) * $promoProductPrice;
                 promoProdShowQty = parseInt($promoQty);
-                console.log(promoProdShowQty);
                 promoTotal = Math.abs(promoTotal);
                 $('#crPromoTotal').val("Php " + parseFloat(promoTotal).toFixed(2));
                 $('#crPromoPrice').val("Php " + parseFloat(promoTotal).toFixed(2));
@@ -451,7 +437,6 @@ function promoProdCompute(id) {
 
     } else if (!(promoProductID.is(':checked'))) {
         promoChk = promoChk - 1;
-        console.log(promoChk);
         if (promoChk < 1) {
             $('#createPromoSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if (promoChk > 0) {
@@ -476,7 +461,6 @@ function promoProdCompute(id) {
 
     $('#promoProdChip' + id).click(function () {
         promoChk = promoChk - 1;
-        console.log(promoChk);
         if (promoChk < 1) {
             $('#createPromoSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if (chk > 0) {
@@ -564,7 +548,6 @@ function promoServCompute(id) {
 
     } else if (!(promoServiceID.is(':checked'))) {
         promoChk = promoChk - 1;
-        console.log(promoChk);
         if (promoChk < 1) {
             $('#createPromoSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if (promoChk > 0) {
@@ -590,7 +573,6 @@ function promoServCompute(id) {
 
     $('#promoServChip' + id).click(function () {
         promoChk = promoChk - 1;
-        console.log(promoChk);
         if (promoChk < 1) {
             $('#createPromoSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if (promoChk > 0) {
@@ -679,7 +661,6 @@ function promoPackageCompute(id) {
 
     } else if (!(promoPackageID.is(':checked'))) {
         promoChk = promoChk - 1;
-        console.log(promoChk);
         if (promoChk < 1) {
             $('#createPromoSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if (promoChk > 0) {
@@ -705,7 +686,6 @@ function promoPackageCompute(id) {
 
     $('#promoPackChip' + id).click(function () {
         promoChk = promoChk - 1;
-        console.log(promoChk);
         if (promoChk < 1) {
             $('#createPromoSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if (promoChk > 0) {
@@ -808,7 +788,6 @@ function createPromo() {
         promoServiceQty = promoServiceQty.join(', ');
         promoPackQty = promoPackQty.join(', ');
         crPromoType = crPromoType.join(',');
-        console.log(crPromoType);
 
         var promoname = $('#crPromoName').val();
         var promodata = {
@@ -828,8 +807,6 @@ function createPromo() {
             "requirement": requirement,
             "type": crPromoType
         };
-
-        console.log(promodata);
 
         swal({
                 title: "Are you sure you want to create " + promoname + "?",

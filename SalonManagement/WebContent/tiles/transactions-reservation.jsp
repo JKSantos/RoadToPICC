@@ -197,7 +197,7 @@
                                 <div class="input-field col s6">
                                     <select id="rType"
                                             ng-model="vm.details.reservationType"
-                                            ng-change="changeService();"
+                                            ng-change="changeService(); changePackage();"
                                             ng-options="type as type.type for type in vm.reservationType">
                                     </select>
                                     <label for="rType">
@@ -495,7 +495,8 @@
 
                             <div ng-show="vm.selected == 'package'">
                                 <div class="row ">
-                                    <div class="col s2" ng-repeat="package in vm.packageList | filter: searchReservationItem">
+                                    <div class="col s2" ng-repeat="package in vm.packageList | filter: searchReservationItem"
+                                                        ng-if="package.intPackageStatus > 0">
                                         <div class="card small">
                                             <div class="card-image waves-effect waves-block waves-light">
                                                 <img class="activator" ng-src="{{service.strPhotoPath}}">

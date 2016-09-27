@@ -93,8 +93,6 @@ function updatePromoServTable() {
                 updatePromoServTbl.search(this.value).draw();
             });
 
-            console.log(serviceList);
-
             if (serviceList != null) {
 
                 updatePromoServTbl.clear().draw();
@@ -137,13 +135,10 @@ function updatePromoServTable() {
                     for (var i = 0; i < type.length; i++) {
                         if (type[i] == 'walkin') {
                             walk = 1;
-                            console.log('walkin');
                         } else if (type[i] == 'homeservice') {
                             home = 1;
-                            console.log('homeservice');
                         } else if (type[i] == 'event') {
                             event = 1;
-                            console.log('event');
                         }
                     }
 
@@ -260,13 +255,10 @@ function updatePromoPackageTable() {
                     for (var i = 0; i < type.length; i++) {
                         if (type[i] == 'walkin') {
                             walk = 1;
-                            console.log('walkin');
                         } else if (type[i] == 'homeservice') {
                             home = 1;
-                            console.log('homeservice');
                         } else if (type[i] == 'event') {
                             event = 1;
-                            console.log('event');
                         }
                     }
 
@@ -347,7 +339,6 @@ function openUpdatePromo(id) {
             var promoType = 0;
 
             if (data.result == "success") {
-                console.log(data.promo);
                 var pty = [],
                     preq = [];
                 if (data.promo.promoType == 1) {
@@ -454,16 +445,13 @@ function openUpdatePromo(id) {
                 $('.updatePromoChip').remove();
                 upPromoTotal = 0;
 
-                console.log(data.promo);
 
                 for (var ii = 0; ii < data.promo.productList.length; ii++) {
                     var prodIDAjax = 'promoUpProdCheck' + data.promo.productList[ii].product.intProductID;
 
                     upPromoProdName.each(function () {
-                        console.log(data.promo.productList[ii]);
                         var updatePromoProdID = $(this).attr('id');
                         if (prodIDAjax == updatePromoProdID) {
-                            console.log(prodIDAjax + ' equal ' + updatePromoProdID);
                             var ajaxProductID = data.promo.productList[ii].product.intProductID;
                             upPromoChk = upPromoChk + 1; //para malaman kung ilan or meron bang nakacheck
                             if (upPromoChk < 1) {
@@ -716,7 +704,6 @@ function openUpdatePromo(id) {
 
 
             } else {
-                console.log('error');
             }
         }
 
@@ -757,9 +744,6 @@ function promoUpProdCompute(upProdID) {
             $upPromoQty = parseFloat($upProdTR.find('td #promoUpProdQty' + upProdID).val()).toFixed(2);
             if ($upPromoQty > upPromoQ) {
                 upPromoTotal += ($upPromoQty - upPromoQ) * $upProductPrice;
-                console.log('qty ' + $upPromoQty);
-                console.log('subqty ' + upPromoQ);
-                console.log('price ' + $upProductPrice);
                 upProdShowQty = parseInt($upPromoQty);
                 upPromoTotal = Math.abs(upPromoTotal);
                 $('#upPromoTotal').val("Php " + parseFloat(upPromoTotal).toFixed(2));
@@ -813,7 +797,6 @@ function promoUpProdCompute(upProdID) {
 
     $('#upPromoProdchip' + upProdID).click(function () {
         upPromoChk = upPromoChk - 1;
-        console.log(upPromoChk);
         if (upPromoChk < 1) {
             $('#updatePromoSubmitBtn').attr('disabled', true).css('opacity', '0.3');
         } else if (upPromoChk > 0) {
@@ -1222,8 +1205,6 @@ function updateActionPromo() {
         upPromoType = upPromoType.join(',');
 
 
-        console.log(promoUpdateProdSelect);
-
         swal({
                 title: "Are you sure you want to update " + promoname + "?",
                 text: "",
@@ -1258,7 +1239,6 @@ function updateActionPromo() {
                         dataType: 'json',
                         async: true,
                         success: function (data) {
-                            console.log(data);
                             swal("Successfully created!", ".", "success");
                             updatePromoTable();
                             $('#upPromoModal').closeModal();

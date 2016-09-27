@@ -90,7 +90,6 @@ function addCommas(nStr) {
 
 function createExtra() {
     $('#createExtraForm').trigger("reset");
-    console.log($('#crECPrice').val());
     var extraName = $('#crECName').val(),
         extraDetails = $('#crECDetails').val(),
         extraPrice = $('#crECPrice').val().replace(/[^\d.]/g, '');
@@ -192,7 +191,6 @@ function extraUpdate() {
                         dataType: 'json',
                         async: true,
                         success: function (data) {
-                            console.log(data);
                             if(data.result == "success") {
                                 swal("Successfully updated!", ".", "success");
                                 updateExtraTable();

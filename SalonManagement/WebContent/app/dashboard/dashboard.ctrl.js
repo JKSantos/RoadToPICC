@@ -190,7 +190,7 @@
                     }]
                 },
                 tooltip: {
-                    valueSuffix: 'Php'
+                    valuePrefix: 'Php '
                 },
                 legend: {
                     layout: 'vertical',

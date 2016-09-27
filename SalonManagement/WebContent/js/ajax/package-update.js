@@ -236,17 +236,16 @@ function openUpdatePackage(id) {
                     packageselecttype = $('select[name=intUpdatePackageType] option'),
                     select = $('select');
                 if (parseInt(packageid) == parseInt(id)) {
-                    console.log(data.packageList[i].intPackageID);
                     $('#upPackageName').val(data.packageList[i].strPackageName);
                     $('#upPackageID').val(data.packageList[i].intPackageID);
                     $('#upPackageDesc').val(data.packageList[i].strPackageDesc);
+
 
                     switch (packagetype) {
                         case 1:
                             packageselecttype.each(function () {
                                 if ($(this).val() == 1) {
                                     select.material_select('destroy');
-                                    console.log($(this).text());
                                     $(this).prop('selected', true);
                                     select.material_select();
                                     packageType = 1;
@@ -261,7 +260,6 @@ function openUpdatePackage(id) {
                             packageselecttype.each(function () {
                                 if ($(this).val() == 2) {
                                     select.material_select('destroy');
-                                    console.log($(this).text());
                                     $(this).prop('selected', true);
                                     select.material_select();
                                     packageType = 2;
@@ -276,7 +274,6 @@ function openUpdatePackage(id) {
                             packageselecttype.each(function () {
                                 if ($(this).val() == 3) {
                                     select.material_select('destroy');
-                                    console.log($(this).text());
                                     $(this).prop('selected', true);
                                     select.material_select();
                                     packageType = 3;
@@ -289,9 +286,8 @@ function openUpdatePackage(id) {
                             break;
                         case 4:
                             packageselecttype.each(function () {
-                                if ($(this).val() == 4) {
+                                if ($(this).val() == 1 || $(this).val() == 2) {
                                     select.material_select('destroy');
-                                    console.log($(this).text());
                                     $(this).prop('selected', true);
                                     select.material_select();
                                     packageType = 4;
@@ -304,9 +300,8 @@ function openUpdatePackage(id) {
                             break;
                         case 5:
                             packageselecttype.each(function () {
-                                if ($(this).val() == 5) {
+                                if ($(this).val() == 1 || $(this).val() == 3) {
                                     select.material_select('destroy');
-                                    console.log($(this).text());
                                     $(this).prop('selected', true);
                                     select.material_select();
                                     packageType = 5;
@@ -319,9 +314,8 @@ function openUpdatePackage(id) {
                             break;
                         case 6:
                             packageselecttype.each(function () {
-                                if ($(this).val() == 6) {
+                                if ($(this).val() == 2 || $(this).val() == 3) {
                                     select.material_select('destroy');
-                                    console.log($(this).text());
                                     $(this).prop('selected', true);
                                     select.material_select();
                                     packageType = 6;
@@ -336,7 +330,6 @@ function openUpdatePackage(id) {
                             packageselecttype.each(function () {
                                 if ($(this).val() == 1 || $(this).val() == 2 || $(this).val() == 3) {
                                     select.material_select('destroy');
-                                    console.log($(this).text());
                                     $(this).prop('selected', true);
                                     select.material_select();
                                     packageType = 7;
@@ -443,7 +436,6 @@ function openUpdatePackage(id) {
                             });
 
                             if (servIDAjax == updateServID) {
-                                console.log(serviceList);
                             }
 
                             if (serviceList.service.serviceType == packageType) {
@@ -589,7 +581,6 @@ function updateComputeProd(upProdID) {
         } else if (upChk > 0) {
             $('#updatePackSubmitBtn').attr('disabled', false).css('opacity', '1');
         }
-        console.log(upChk);
         var upUnProdIDQty = $('#upProdQty' + upProdID),
             $unProdTR = updateProdID.closest('tr'),
             unPrice = $unProdTR.find('td:eq(3)').text(),
@@ -607,9 +598,7 @@ function updateComputeProd(upProdID) {
     }
 
     $('#upProdchip' + upProdID).click(function () {
-        console.log('update prod cip');
         upChk = upChk - 1;
-        console.log(upChk);
         if (upChk < 1) {
             $('#updatePackSubmitBtn').attr('disabled', true).css('opacity', '0.3');
         } else if (upChk > 0) {
@@ -750,7 +739,6 @@ function updateComputeService(upServID) {
     }
 
     $('#upServchip' + upServID).click(function () {
-        console.log('update prod cip');
         upChk = upChk - 1;
         if (upChk < 1) {
             $('#updatePackSubmitBtn').attr('disabled', true).css('opacity', '0.3');
@@ -881,7 +869,6 @@ function updatePackage() {
             "updatePackProdQty": upProductqty,
             "dblUpdatePackagePrice": $('#upPackPrice').val().replace(/[^\d.]/g, '')
         };
-        console.log(upPackageData);
 
         swal({
                 title: "Update this package?",

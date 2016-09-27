@@ -21,7 +21,10 @@ String granAccess = null;
     }
 </style>
 
+
+
 <div class="wrapper">
+
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
             <h3 class="grey-text text-darken-1">Employee Maintenance</h3>

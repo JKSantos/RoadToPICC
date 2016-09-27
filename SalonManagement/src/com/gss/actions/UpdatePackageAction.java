@@ -50,8 +50,14 @@ public class UpdatePackageAction {
 		String[] serviceCount = this.updatePackServQty.split(", ");
 		String[] productCount = this.updatePackProdQty.split(", ");
 		
-		System.out.println(intUpdatePackageType.get(0));
+		String strType = String.valueOf(this.intUpdatePackageType.get(0));
+		List<Integer> typeList = new ArrayList<Integer>();
 		
+		
+		for(int i = 0; i < strType.length(); i++){
+			typeList.add(Integer.parseInt(String.valueOf(strType.charAt(i))));
+		}
+	
 		if(!updatePackServType.equals("")){
 			
 			String[] serviceOrder = decode.serviceOrderByChecked(service, selectedServices);
@@ -85,7 +91,8 @@ public class UpdatePackageAction {
 			}
 		}
 		
-		int type = PackageHelper.convertToSingleInt(intUpdatePackageType);
+//		int type = PackageHelper.convertToSingleInt(intUpdatePackageType);
+		int type = PackageHelper.convertToSingleInt(typeList);
 		
 		
 		Package packagee = new Package(Integer.parseInt(intUpdatePackageID), strUpdatePackageName.toUpperCase().trim(), strUpdatePackageDesc.toUpperCase().trim(), type, 1, "NON-EXPIRY", getDblUpdatePackagePrice(), serviceList, productList, 1);

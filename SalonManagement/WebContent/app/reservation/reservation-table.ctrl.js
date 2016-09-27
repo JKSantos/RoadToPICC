@@ -170,16 +170,49 @@
                 vm.serviceList = data.data.serviceList;
                 console.log(vm.serviceList);
             }, function errorCallback(response) {
-                console.log(response);
+                
             });
-        }
+        };
+
+        var packageTypeData = $.param({
+            'type': vm.details.reservationType.type
+        });
+
+        $http({
+            method: 'post',
+            url: 'http://localhost:8080/SalonManagement/getPackageByType',
+            data: packageTypeData,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function successCallback(data) {
+            vm.packageList = data.data.packageList;
+        }, function errorCallback(response) {
+            
+        });
+
+        $scope.changePackage = function() {
+            var packageTypeData = $.param({
+                'type': vm.details.reservationType.type
+            });
+
+            $http({
+                method: 'post',
+                url: 'http://localhost:8080/SalonManagement/getPackageByType',
+                data: packageTypeData,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                vm.packageList = data.data.packageList;
+                console.log(vm.packageList);
+            }, function errorCallback(response) {
+
+            });
+        };
 
         locationFactory.getPromos().then(function (data) {
             vm.promoList = data.data.promoList;
-        });
-
-        locationFactory.getPackages().then(function (data) {
-            vm.packageList = data.data.packageList;
         });
 
         locationFactory.getDiscounts().then(function (data) {
@@ -192,7 +225,6 @@
         });
 
         function calendarInit(data) {
-            console.log(data);
             $('#reservationCalendar').fullCalendar({
                 // put your options and callbacks here
                 events: data,
@@ -212,6 +244,24 @@
 
             })
         }
+
+        $scope.cancelHomeService = function(cust, index) {
+            var resID = $.param({
+                'intReservationID': cust.intReservationID
+            });
+
+            $http({
+                method: 'post',
+                url: 'http://localhost:8080/SalonManagement/cancelReservation',
+                data: resID,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                vm.customerList.splice(index, 1);
+            }, function errorCallback(response) {
+            });
+        };
 
         function closeCard(id) {
             var prodClose = 'prodClose' + id;
