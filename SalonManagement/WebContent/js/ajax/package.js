@@ -61,17 +61,17 @@ function updatePackageTable() {
                     var price = 'Php ' + parseFloat(package.dblPackagePrice).toFixed(2);
                     price = addCommas(price);
                     if (package.intPackageType == 1) {
-                        type = 'Event';
+                        type = 'Walk-In';
                     } else if (package.intPackageType == 2) {
                         type = 'Home Service';
                     } else if (package.intPackageType == 3) {
-                        type = 'Walk-In';
+                        type = 'Event';
                     } else if (package.intPackageType == 4) {
-                        type = 'Event, Home Service';
+                        type = 'Walk-In, Home Service';
                     } else if (package.intPackageType == 5) {
                         type = 'Event, Walk In';
                     } else if (package.intPackageType == 6) {
-                        type = 'Walk In, Home Service';
+                        type = 'Event, Home Service';
                     } else {
                         type = 'Event, Home Service, Walk In';
                     }

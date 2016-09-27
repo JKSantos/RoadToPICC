@@ -166,6 +166,7 @@
 
         function hchart(del,es,hs,pu,wi) {
             $('#container').highcharts({
+                credits: false,
                 title: {
                     text: 'Monthly Sales',
                     x: -20 //center

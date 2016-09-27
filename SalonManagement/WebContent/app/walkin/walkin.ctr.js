@@ -130,14 +130,6 @@
             vm.productList = data.data.productList;
         });
 
-        locationFactory.getPromosWithDetails().then(function (data) {
-            vm.promoList = data.promoList;
-        });
-
-        locationFactory.getPackagesWithDetails().then(function (data) {
-            vm.packageList = data.data.packageList;
-        });
-
         locationFactory.getDiscounts().then(function (data) {
             vm.discountList = data.data.discountList;
         });
@@ -175,6 +167,43 @@
         }, function errorCallback(response) {
             console.log(response);
         });
+
+        var packageTypeData = $.param({
+            'type': 'walkin'
+        });
+
+        $http({
+            method: 'post',
+            url: 'http://localhost:8080/SalonManagement/getPackageByType',
+            data: packageTypeData,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function successCallback(data) {
+            vm.packageList = data.data.packageList;
+        }, function errorCallback(response) {
+            console.log(response);
+        });
+
+        var promoTypeData = $.param({
+            'type': 'walkin'
+        });
+
+        $http({
+            method: 'post',
+            url: 'http://localhost:8080/SalonManagement/getPromoByType',
+            data: promoTypeData,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function successCallback(data) {
+            vm.promoList = data.data.promoList;
+            console.log(vm.promoList);
+        }, function errorCallback(response) {
+            console.log(response);
+        });
+
+
 
         var employeeTypeData = $.param({
             'type': 'walkin'
@@ -806,10 +835,10 @@
 
         function toString() {
             var selectedDiscount = "";
-            for (var i = 0; i < vm.selDiscounts.length; i++) {
-                selectedDiscount += vm.selDiscounts[i].intDiscountID + ",";
-            }
+                selectedDiscount += vm.selDiscounts.intDiscountID + ",";
             selectdiscount = selectedDiscount;
+            console.log(vm.selDiscounts);
+            console.log(selectedDiscount);
         }
 
         vm.saveWalkin = function (details) {
@@ -840,7 +869,7 @@
                 'discounts': selectdiscount,
                 'strName': vm.details.name,
                 'strContactNo': vm.details.contact
-            }
+            };
 
             console.log(ppp);
             
@@ -904,7 +933,28 @@
             }, function errorCallback(data) {
 
             });
-        }
+        };
+
+        $scope.noshowAppointment = function (index, walkin) {
+            var dataNoShow = $.param({
+                'appointmentID': walkin.intWalkInID,
+            });
+
+            $http({
+                method: 'post',
+                url: 'cancelAppointment',
+                data: dataNoShow,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                vm.walkinList.splice(index, 1);
+                console.log(data);
+            }, function errorCallback(data) {
+
+            });
+        };
+
 
         vm.upTotal = 0;
 

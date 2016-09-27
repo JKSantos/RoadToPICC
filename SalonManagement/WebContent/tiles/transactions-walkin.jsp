@@ -184,7 +184,8 @@
                 <div ng-show="vm.selected == 'package'" style="margin-top: -50px !important;">
                     <div class="row ">
                         <div class="col s3"
-                             ng-repeat="package in vm.packageList | toArray: false | filter: vm.walkinSearch">
+                             ng-repeat="package in vm.packageList | toArray: false | filter: vm.walkinSearch"
+                             ng-if="package.intPackageStatus > 0">
                             <div class="card small">
                                 <div class="card-image waves-effect waves-block waves-light">
                                     <img class="activator" ng-src="{{service.strPhotoPath}}">
