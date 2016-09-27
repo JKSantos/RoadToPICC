@@ -1,9 +1,6 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<style>
-
-</style>
 
 <div class="wrapper" ng-controller="walkinCtrl as vm" style="margin-top: 5px !important;">
     <div class="aside asideAside1 z-depth-barts z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
@@ -688,3 +685,9 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    (function() {
+        $('select').material_select('destroy');
+    })();
+</script>
