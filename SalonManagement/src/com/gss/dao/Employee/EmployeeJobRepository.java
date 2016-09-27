@@ -341,7 +341,7 @@ public class EmployeeJobRepository {
 		else if(strTransType.equals("WALKIN") && strJobType.equals("PROMO PACKAGE"))
 			query = "UPDATE tblAssignmentDetail SET strAssignmentStatus = ? WHERE intAssignmentDetailID = ?;";
 		else if(strTransType.equals("HOME SERVICE") || strTransType.equals("EVENT")){
-			query = "UPDATE tblreservationassignedemployee SET intStatus = ? WHERE ntRAEID = ?;";
+			query = "UPDATE tblreservationassignedemployee SET intStatus = ? WHERE intRAEID = ?;";
 		}
 		else if(strTransType.equals("DELIVERY"))
 			query = "UPDATE tblDelivery SET strStatus = ? WHERE intDeliveryID = ?;";
