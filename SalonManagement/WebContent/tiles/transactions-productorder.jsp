@@ -98,7 +98,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="input-field col s4 offset-s4" style="margin-top: -20px !important;">
-                            <input type="number" class="center-align" ng-model="orderToBeEdit.quantity">
+                            <input type="text" class="center-align" ng-model="orderToBeEdit.quantity" min="1" numbers-only>
                         </div>
                         <div class="input-field col s12" style="margin-top: -10px !important;">
                             <h5 class="center">Total: {{ (orderToBeEdit.price * orderToBeEdit.quantity) | currency: "Php "}}</h5>
@@ -108,6 +108,7 @@
             </div>
             <div class="modal-footer">
                 <button class="waves-effect waves-light btn-flat purple white-text"
+                        ng-if="orderToBeEdit.quantity > 0"
                         ng-click="editInCart(orderToBeEdit)">
                     SAVE
                 </button>

@@ -197,7 +197,7 @@
                                 <div class="input-field col s6">
                                     <select id="rType"
                                             ng-model="vm.details.reservationType"
-                                            ng-change="changeService(); changePackage();"
+                                            ng-change="changeService(); changePackage(); changePromo();"
                                             ng-options="type as type.type for type in vm.reservationType">
                                     </select>
                                     <label for="rType">

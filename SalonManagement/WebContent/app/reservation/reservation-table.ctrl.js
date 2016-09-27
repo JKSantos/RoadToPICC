@@ -211,10 +211,47 @@
             });
         };
 
-        locationFactory.getPromos().then(function (data) {
-            vm.promoList = data.data.promoList;
+       ///// end package
+
+        var promoTypeData = $.param({
+            'type': vm.details.reservationType.type
         });
 
+        $http({
+            method: 'post',
+            url: 'http://localhost:8080/SalonManagement/getPromoByType',
+            data: promoTypeData,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function successCallback(data) {
+            vm.promoList = data.data.promoList;
+        }, function errorCallback(response) {
+
+        });
+
+        $scope.changePromo = function() {
+            var promoTypeData = $.param({
+                'type': vm.details.reservationType.type
+            });
+
+            $http({
+                method: 'post',
+                url: 'http://localhost:8080/SalonManagement/getPromoByType',
+                data: promoTypeData,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                vm.promoList = data.data.promoList;
+                console.log(vm.promoList);
+            }, function errorCallback(response) {
+
+            });
+        };
+        //end promo
+        
+        
         locationFactory.getDiscounts().then(function (data) {
             vm.discountList = data.data.discountList;
         });
