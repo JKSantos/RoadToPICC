@@ -146,15 +146,14 @@
                         {id: 1, value: 'FULL PAYMENT', name: 'FULL PAYMENT'},
                         {id: 2, value: 'DOWN PAYMENT', name: 'DOWN PAYMENT'},
                     ];
+                    console.log(vm.paymentDetails.invoice);
                 }
                 vm.paymentDetails.paymentCreated = $filter('date')(vm.paymentDetails.paymentCreated, "MMMM/d/yyyy");
                 vm.paymentDetails.totalBalance = $filter('currency')(vm.paymentDetails.invoice.dblTotalPrice, "Php ");
                 vm.paymentDetails.remainingBalance = $filter('currency')(vm.paymentDetails.invoice.dblRemainingBalance, "Php ");
             } else if (type == 'walkin') {
                 vm.paymentType = [
-                    {id: 1, value: 'FULL PAYMENT', name: 'FULL PAYMENT'},
-                    {id: 2, value: 'DOWN PAYMENT', name: 'DOWN PAYMENT'},
-                    {id: 3, value: 'COMPLEMENTARY PAYMENT', name: 'COMPLEMENTARY PAYMENT'}
+                    {id: 1, value: 'FULL PAYMENT', name: 'FULL PAYMENT'}
                 ];
                 vm.paymentDetails.paymentCreated = $filter('date')(vm.paymentDetails.paymentCreated, "MMMM/d/yyyy");
                 vm.paymentDetails.totalBalance = $filter('currency')(vm.paymentDetails.invoice.dblTotalPrice, "Php ");

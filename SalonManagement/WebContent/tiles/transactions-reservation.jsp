@@ -58,7 +58,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="customer in vm.customerList.slice().reverse()"
+                <tr ng-repeat="customer in vm.customerList"
                     ng-if="customer.strStatus == 'PENDING' || customer.strStatus == 'REQUEST'">
                     <td class="left-align" style="padding: 0px !important; margin-left: 5px !important;">{{customer.customer.strName}}</td>
                     <td class="left-align" ng-if="customer.intReservationType == 1">INDIVIDUAL</td>
@@ -69,28 +69,40 @@
                     <td class="right-align">{{customer.datFrom | date: "MMMM/d/yyyy" }}</td>
                     <td class="left-align">{{customer.strStatus}}</td>
                     <td align="center-align">
+                        <button class="waves-effect waves-purple btn-flat transparent red-text text-darken-4"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Cancel"
+                                ng-if="customer.intReservationType == 1 && customer.strStatus=='PENDING'"
+                                ng-click="cancelReservation(customer, $index)">
+                            <i class='material-icons'>clear</i>
+                        </button>
                         <button class="waves-effect waves-purple btn-flat transparent grey-text text-darken-4"
                                 style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Accept"
                                 ng-if="customer.intReservationType == 1 && customer.strStatus=='REQUEST'"
-                                ng-click="acceptHomeService(customer, $index)">
+                                ng-click="acceptReservation(customer, $index)">
                             <i class='material-icons'>done</i>
                         </button>
                         <button class="middle-align waves-effect waves-purple btn-flat transparent red-text text-darken-4"
-                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Cancel"
-                                ng-if="customer.intReservationType == 1"
-                                ng-click="cancelHomeService(customer, $index);">
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Reject"
+                                ng-if="customer.intReservationType == 1 && customer.strStatus=='REQUEST'"
+                                ng-click="rejectReservation(customer, $index);">
                             <i class='material-icons'>clear</i>
                         </button>
                         <button class="waves-effect waves-purple btn-flat transparent grey-text text-darken-4"
                                 style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Accept"
                                 ng-if="customer.intReservationType == 2 && customer.strStatus=='REQUEST'"
-                                ng-click="acceptEvent(customer, $index)">
+                                ng-click="acceptReservation(customer, $index)">
                             <i class='material-icons'>done</i>
                         </button>
                         <button class="middle-align waves-effect waves-purple btn-flat transparent red-text text-darken-4"
                                 style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Cancel"
-                                ng-if="customer.intReservationType == 2"
-                                ng-click="cancelEvent(customer, $index);">
+                                ng-if="customer.intReservationType == 2 && customer.strStatus=='PENDING'"
+                                ng-click="cancelReservation(customer, $index);">
+                            <i class='material-icons'>clear</i>
+                        </button>
+                        <button class="waves-effect waves-purple btn-flat transparent red-text text-darken-4"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Reject"
+                                ng-if="customer.intReservationType == 2 && customer.strStatus=='REQUEST'"
+                                ng-click="rejectReservation(customer, $index)">
                             <i class='material-icons'>clear</i>
                         </button>
                     </td>
@@ -646,7 +658,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="col s4" style="margin-top: 10px;">
+                            <div class="col s4" style="margin-top: 10px;" ng-if="vm.details.reservationType.type == 'Event'">
                                 <div class="input-field col s12">
                                     <select ng-model="vm.resPaymentType" id="crPType" material-select watch>
                                         <option value="" disabled selected>Choose...</option>

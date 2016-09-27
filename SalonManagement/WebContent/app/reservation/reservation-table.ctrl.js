@@ -107,14 +107,16 @@
             vm.customerList = data.reservationList;
             console.log(vm.customerList);
             for (var i = 0; i < vm.customerList.length; i++) {
-                vm.data.push({
-                    title: vm.customerList[i].customer.strName,
-                    start: vm.customerList[i].datFrom,
-                    end: vm.customerList[i].datTo,
-                    allDay: false,
-                    headcount: vm.customerList[i].headcount,
-                    venue: vm.customerList[i].strVenue
-                });
+                if(vm.customerList[i].strStatus == 'PENDING') {
+                    vm.data.push({
+                        title: vm.customerList[i].customer.strName,
+                        start: vm.customerList[i].datFrom,
+                        end: vm.customerList[i].datTo,
+                        allDay: false,
+                        headcount: vm.customerList[i].headcount,
+                        venue: vm.customerList[i].strVenue
+                    });
+                }
             }
             calendarInit(vm.data);
         });
@@ -570,6 +572,66 @@
             selectdiscount = selectedDiscount;
             selectemployees = selectedEmployeee;
         }
+        
+        $scope.acceptReservation = function (cust, index) {
+            var acc = $.param({
+                'intReservationID': cust.intReservationID,
+                'status': 'PENDING'
+            });
+
+            $http({
+                method: 'post',
+                url: 'http://localhost:8080/SalonManagement/updateReservationStatus',
+                data: acc,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                vm.customerList[index].strStatus = 'PENDING';
+            }, function errorCallback(response) {
+
+            });
+        };
+
+        $scope.cancelReservation = function (cust, index) {
+            var acc = $.param({
+                'intReservationID': cust.intReservationID,
+                'status': 'CANCELLED'
+            });
+
+            $http({
+                method: 'post',
+                url: 'http://localhost:8080/SalonManagement/updateReservationStatus',
+                data: acc,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                vm.customerList.splice(index, 1);
+            }, function errorCallback(response) {
+
+            });
+        };
+
+        $scope.rejectReservation = function (cust, index) {
+            var acc = $.param({
+                'intReservationID': cust.intReservationID,
+                'status': 'REJECTED'
+            });
+
+            $http({
+                method: 'post',
+                url: 'http://localhost:8080/SalonManagement/updateReservationStatus',
+                data: acc,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                vm.customerList.splice(index, 1);
+            }, function errorCallback(response) {
+
+            });
+        };
 
 
         vm.saveReservation = function (details) {
@@ -708,7 +770,7 @@
                                         "selectedExtraCharges": selectextra,
                                         "selectedDiscounts": selectdiscount,
                                         "strTotalPrice": total,
-                                        "strStatus": 'PENDING'
+                                        "strStatus": 'REQUEST'
                                     });
                                 }
 
