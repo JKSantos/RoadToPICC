@@ -196,6 +196,7 @@
                             <div class="row">
                                 <div class="input-field col s6">
                                     <select id="rType"
+                                            material-select watch
                                             ng-model="vm.details.reservationType"
                                             ng-change="changeService(); changePackage(); changePromo();"
                                             ng-options="type as type.type for type in vm.reservationType">
@@ -286,7 +287,7 @@
                                 </div>
                                 <div class="input-field col s6"
                                      ng-if="vm.details.reservationType.id == 2">
-                                    <select name="crREventLocation" id="crREventLocation" ng-model="vm.details.location">
+                                    <select ng-model="vm.details.location" material-select watch name="crREventLocation" id="crREventLocation">
                                         <option value="" disabled selected>Choose...</option>
                                         <option ng-repeat="loc in vm.locationList" value="{{loc.intLocationID}}">{{loc.strBarangay}}, {{loc.strCity}}</option>
                                     </select>
@@ -608,7 +609,6 @@
                                     </div>
                                 </div>
                             </div>
-                            {{vm.extraCharge | json}}
                             <div class="col s4" style="margin-top: 10px;">
                                 <div class="input-field col s12">
                                     <select multiple ng-model="vm.extraCharge" id="crROtherCharge"
@@ -831,3 +831,9 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    (function() {
+        $('select').material_select('destroy');
+    })();
+</script>

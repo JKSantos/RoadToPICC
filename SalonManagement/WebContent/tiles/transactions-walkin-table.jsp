@@ -148,7 +148,7 @@
                             <i class='material-icons'>close</i>
                         </button>
                         <button class="waves-effect waves-purple btn-flat transparent black-text text-accent-4"
-                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Deactivate"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="No Show"
                                 ng-if="walkin.strWalkInStatus=='PENDING'"
                                 ng-click="noshowAppointment($index, walkin)">NO SHOW
                         </button>

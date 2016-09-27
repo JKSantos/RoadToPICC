@@ -126,10 +126,12 @@
                     {id: 2, value: 'DOWN PAYMENT', name: 'DOWN PAYMENT'},
                     {id: 3, value: 'COMPLEMENTARY PAYMENT', name: 'COMPLEMENTARY PAYMENT'}
                 ];
+                if(payment.invoice.paymentType == 'FULL PAYMENT') {
+                    vm.paymentDetails.paymentType = vm.paymentType[0];
+                }
                 vm.paymentDetails.paymentCreated = $filter('date')(vm.paymentDetails.paymentCreated, "MMMM/d/yyyy");
                 vm.paymentDetails.totalBalance = $filter('currency')(vm.paymentDetails.invoice.dblTotalPrice, "Php ");
                 vm.paymentDetails.remainingBalance = $filter('currency')(vm.paymentDetails.invoice.dblRemainingBalance, "Php ");
-                vm.paymentDetails.paymentAmount = $filter('currency')(vm.paymentDetails.paymentAmount, "Php ");
             } else if (type == 'walkin') {
                 vm.paymentType = [
                     {id: 1, value: 'FULL PAYMENT', name: 'FULL PAYMENT'},
@@ -143,9 +145,10 @@
             }
             vm.paymentDetails.paymentType = vm.paymentType[0];
         }
-
+        
         function paymentSubmit(payment) {
             console.log(payment);
+
             var name = "",
                 paymentData = {};
             if (payment.type == 'order') {
@@ -201,10 +204,41 @@
                             async: true,
                             success: function (data) {
                                 if (data.result == "success") {
-                                    SweetAlert.swal("Successfully created!", ".", "success");
-                                    vm.paymentList.splice(index, 1);
-                                    $('#paymentModal').closeModal();
-                                    $window.location.reload();
+                                    SweetAlert.swal("Successful!", ".", "success");
+                                    if(vm.paymentDetails.paymentType.value == 'FULL PAYMENT') {
+                                        vm.paymentList.splice(payment.index, 1);
+                                        $('#paymentModal').closeModal();
+                                    } else if (vm.paymentDetails.paymentType.value == 'DOWN PAYMENT') {
+                                        if(vm.paymentList[payment.index].invoice.dblRemainingBalance > vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '')) {
+                                            $('#paymentModal').closeModal();
+                                            var am = vm.paymentList[payment.index].invoice.dblRemainingBalance - vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '');
+                                        } else if (vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '') > vm.paymentList[payment.index].invoice.dblRemainingBalance) {
+                                            $('#paymentModal').closeModal();
+                                            vm.paymentList.splice(payment.index, 1);
+                                            var am = vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '') - vm.paymentList[payment.index].invoice.dblRemainingBalance;
+                                        } else if (vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '') == vm.paymentList[payment.index].invoice.dblRemainingBalance) {
+                                            $('#paymentModal').closeModal();
+                                            vm.paymentList.splice(payment.index, 1);
+                                            var am = vm.paymentList[payment.index].invoice.dblRemainingBalance - vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '');
+                                        }
+
+                                        vm.paymentList[payment.index].invoice.dblRemainingBalance = am;
+                                        vm.paymentList[payment.index].invoice.paymentType = 'DOWN PAYMENT';
+                                    } else if (vm.paymentDetails.paymentType.value == 'COMPLEMENTARY PAYMENT') {
+                                        if(vm.paymentList[payment.index].invoice.dblRemainingBalance > vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '')) {
+                                            $('#paymentModal').closeModal();
+                                            var am = vm.paymentList[payment.index].invoice.dblRemainingBalance - vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '');
+                                        } else if (vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '') > vm.paymentList[payment.index].invoice.dblRemainingBalance) {
+                                            $('#paymentModal').closeModal();
+                                            vm.paymentList.splice(payment.index, 1);
+                                            var am = vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '') - vm.paymentList[payment.index].invoice.dblRemainingBalance;
+                                        } else if (vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '') == vm.paymentList[payment.index].invoice.dblRemainingBalance) {
+                                            $('#paymentModal').closeModal();
+                                            vm.paymentList.splice(payment.index, 1);
+                                            var am = vm.paymentList[payment.index].invoice.dblRemainingBalance - vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '');
+                                        }
+                                        vm.paymentList[payment.index].invoice.paymentType = 'COMPLEMENTARY PAYMENT';
+                                    }
 
                                 } else {
                                     SweetAlert.swal("Oops", "Record Not Saved!", "error");

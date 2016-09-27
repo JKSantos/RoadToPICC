@@ -549,11 +549,16 @@
             var selectedExtra = "";
             var selectedDiscount = "";
             var selectedEmployeee = "";
-            for (var i = 0; i < vm.extraChargeList.length; i++) {
-                selectedExtra += vm.extraChargeList[i].intECID + ",";
+            if(typeof vm.extraChargeList !== 'undefined') {
+                for (var i = 0; i < vm.extraChargeList.length; i++) {
+                    selectedExtra += vm.extraChargeList[i].intECID + ",";
+                }
             }
-            for (var i = 0; i < vm.selDiscounts.length; i++) {
-                selectedDiscount += vm.selDiscounts[i].intDiscountID + ",";
+            
+            if(typeof vm.selDiscounts !== 'undefined') {
+                for (var i = 0; i < vm.selDiscounts.length; i++) {
+                    selectedDiscount += vm.selDiscounts[i].intDiscountID + ",";
+                }
             }
             for (var i = 0; i < vm.selEmployees.length; i++) {
                 selectedEmployeee += vm.selEmployees[i].intEmpID + ",";

@@ -935,6 +935,26 @@
             });
         };
 
+        $scope.cancelAppointment = function(index, walkin) {
+            var dataWalkinStatus = $.param({
+                'intAppointmentID': walkin.intWalkInID,
+                'status': 'CANCELLED'
+            });
+
+            $http({
+                method: 'post',
+                url: 'updateWalkInStatus',
+                data: dataWalkinStatus,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                vm.walkinList.splice(index, 1);
+            }, function errorCallback(data) {
+
+            });
+        };
+
         $scope.noshowAppointment = function (index, walkin) {
             var dataNoShow = $.param({
                 'appointmentID': walkin.intWalkInID
