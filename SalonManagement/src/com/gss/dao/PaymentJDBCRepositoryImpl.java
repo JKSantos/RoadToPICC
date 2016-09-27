@@ -276,7 +276,7 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 		Connection con 							= jdbc.getConnection();
 		con.setAutoCommit(false);
 		
-		String insertPayment 					= "CALL createPayment(?, ?, ?)";
+		String insertPayment 					= "CALL createPayment(?, ?, ?, ?)";
 		String updateStock						= "CALL updateStock(?, ?);";
 				
 		ReservationJDBCRepository repo = new ReservationJDBCRepository();
