@@ -1,4 +1,5 @@
 $(function () {
+    $('#crPromoExpiration').attr('disabled', false);
     $('#crPromoNonExpiry').change(function () {
         if ($(this).is(':checked')) {
             $('#crPromoExpiration').attr('disabled', true);

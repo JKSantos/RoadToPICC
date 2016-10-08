@@ -24,43 +24,43 @@
       <file leaf-file-name="baseLayout.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/baseLayout.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="640">
+            <state relative-caret-position="5049">
               <caret line="297" column="93" selection-start-line="297" selection-start-column="93" selection-end-line="297" selection-end-column="93" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="extracharge.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="extracharge.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/extracharge.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1499">
-              <caret line="175" column="10" selection-start-line="175" selection-start-column="10" selection-end-line="175" selection-end-column="10" />
+            <state relative-caret-position="629">
+              <caret line="128" column="51" selection-start-line="128" selection-start-column="51" selection-end-line="128" selection-end-column="51" />
               <folding>
-                <marker date="1475907322904" expanded="true" signature="1804:1855" ph="..." />
-                <marker date="1475907322904" expanded="true" signature="2094:2145" ph="..." />
+                <marker date="1475914029229" expanded="true" signature="1804:1855" ph="..." />
+                <marker date="1475914029229" expanded="true" signature="2094:2145" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="promo.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="promo.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/promo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="842" column="41" selection-start-line="842" selection-start-column="41" selection-end-line="842" selection-end-column="41" />
+            <state relative-caret-position="204">
+              <caret line="852" column="55" selection-start-line="852" selection-start-column="55" selection-end-line="852" selection-end-column="55" />
               <folding>
-                <marker date="1475907995615" expanded="true" signature="2063:2114" ph="..." />
-                <marker date="1475907995615" expanded="true" signature="2481:2532" ph="..." />
-                <marker date="1475907995615" expanded="true" signature="7549:7560" ph="..." />
-                <marker date="1475907995615" expanded="true" signature="11552:11563" ph="..." />
-                <marker date="1475907995615" expanded="true" signature="15750:15761" ph="..." />
-                <marker date="1475907995615" expanded="true" signature="19655:19667" ph="..." />
-                <marker date="1475907995615" expanded="true" signature="20013:20057" ph="..." />
-                <marker date="1475907995615" expanded="true" signature="25504:25516" ph="..." />
-                <marker date="1475907995615" expanded="true" signature="25864:25908" ph="..." />
-                <marker date="1475907995615" expanded="true" signature="31409:31421" ph="..." />
-                <marker date="1475907995615" expanded="true" signature="31770:31814" ph="..." />
+                <marker date="1475913823271" expanded="true" signature="2063:2114" ph="..." />
+                <marker date="1475913823271" expanded="true" signature="2481:2532" ph="..." />
+                <marker date="1475913823271" expanded="true" signature="7549:7560" ph="..." />
+                <marker date="1475913823271" expanded="true" signature="11552:11563" ph="..." />
+                <marker date="1475913823271" expanded="true" signature="15750:15761" ph="..." />
+                <marker date="1475913823271" expanded="true" signature="19655:19667" ph="..." />
+                <marker date="1475913823271" expanded="true" signature="20013:20057" ph="..." />
+                <marker date="1475913823271" expanded="true" signature="25504:25516" ph="..." />
+                <marker date="1475913823271" expanded="true" signature="25864:25908" ph="..." />
+                <marker date="1475913823271" expanded="true" signature="31409:31421" ph="..." />
+                <marker date="1475913823271" expanded="true" signature="31770:31814" ph="..." />
               </folding>
             </state>
           </provider>
@@ -69,8 +69,8 @@
       <file leaf-file-name="maintenance-emp.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/maintenance-emp.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="193">
-              <caret line="435" column="30" selection-start-line="435" selection-start-column="30" selection-end-line="435" selection-end-column="30" />
+            <state relative-caret-position="-25512">
+              <caret line="1" column="52" selection-start-line="1" selection-start-column="52" selection-end-line="1" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -79,8 +79,8 @@
       <file leaf-file-name="maintenance-promo.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/maintenance-promo.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="77" column="96" selection-start-line="77" selection-start-column="82" selection-end-line="77" selection-end-column="96" />
+            <state relative-caret-position="417">
+              <caret line="105" column="68" selection-start-line="105" selection-start-column="51" selection-end-line="105" selection-end-column="68" />
               <folding />
             </state>
           </provider>
@@ -137,7 +137,6 @@
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/service-category.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/service-name.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/ajax.js" />
-        <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/maintenance-emp.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/app/dashboard/dashboard.ctrl.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-productorder.jsp" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/transactions-walkin.jsp" />
@@ -150,9 +149,10 @@
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/app/payment/payment.ctr.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/utilities.jsp" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/app/reservation/reservation-table.ctrl.js" />
-        <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/extracharge.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/maintenance-promo.jsp" />
+        <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/maintenance-emp.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/promo.js" />
+        <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/extracharge.js" />
       </list>
     </option>
   </component>
@@ -193,7 +193,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -364,6 +363,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -522,12 +522,13 @@
       <workItem from="1474927254821" duration="28000" />
       <workItem from="1474958178870" duration="9222000" />
       <workItem from="1474978589302" duration="20990000" />
-      <workItem from="1475905955878" duration="1295000" />
+      <workItem from="1475905955878" duration="1419000" />
+      <workItem from="1475913191559" duration="834000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1191172000" />
+    <option name="totallyTimeSpent" value="1192130000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="886" extended-state="6" />
@@ -669,13 +670,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="222">
           <caret line="89" column="76" selection-start-line="89" selection-start-column="76" selection-end-line="89" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/promo-update.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="140" column="38" selection-start-line="140" selection-start-column="38" selection-end-line="140" selection-end-column="38" />
         </state>
       </provider>
     </entry>
@@ -826,7 +820,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4913">
           <caret line="289" column="51" selection-start-line="289" selection-start-column="51" selection-end-line="290" selection-end-column="97" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -850,9 +843,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="595">
           <caret line="35" column="57" selection-start-line="35" selection-start-column="57" selection-end-line="35" selection-end-column="57" />
-          <folding>
-            <marker date="1475007776676" expanded="false" signature="7621:7692" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -860,7 +850,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="205" column="43" selection-start-line="205" selection-start-column="43" selection-end-line="205" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -868,7 +857,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
           <caret line="317" column="61" selection-start-line="317" selection-start-column="51" selection-end-line="317" selection-end-column="61" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -876,7 +864,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="51" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -884,7 +871,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="222">
           <caret line="49" column="8" selection-start-line="49" selection-start-column="8" selection-end-line="58" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -892,64 +878,86 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="688">
           <caret line="250" column="62" selection-start-line="250" selection-start-column="62" selection-end-line="250" selection-end-column="62" />
-          <folding>
-            <element signature="n#style#0;n#button#0;n#td#6;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#button#0;n#td#6;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/baseLayout.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="640">
+        <state relative-caret-position="5049">
           <caret line="297" column="93" selection-start-line="297" selection-start-column="93" selection-end-line="297" selection-end-column="93" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/extracharge.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1499">
-          <caret line="175" column="10" selection-start-line="175" selection-start-column="10" selection-end-line="175" selection-end-column="10" />
-          <folding>
-            <marker date="1475907322904" expanded="true" signature="1804:1855" ph="..." />
-            <marker date="1475907322904" expanded="true" signature="2094:2145" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/maintenance-promo.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="77" column="96" selection-start-line="77" selection-start-column="82" selection-end-line="77" selection-end-column="96" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/maintenance-emp.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="435" column="30" selection-start-line="435" selection-start-column="30" selection-end-line="435" selection-end-column="30" />
+        <state relative-caret-position="-25512">
+          <caret line="1" column="52" selection-start-line="1" selection-start-column="52" selection-end-line="1" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/promo-update.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-17966">
+          <caret line="140" column="38" selection-start-line="140" selection-start-column="38" selection-end-line="140" selection-end-column="38" />
+          <folding>
+            <marker date="1474973915721" expanded="true" signature="2150:2161" ph="..." />
+            <marker date="1474973915721" expanded="true" signature="4919:4930" ph="..." />
+            <marker date="1474973915721" expanded="true" signature="8159:8170" ph="..." />
+            <marker date="1474973915721" expanded="true" signature="10876:10887" ph="..." />
+            <marker date="1474973915721" expanded="true" signature="14245:14256" ph="..." />
+            <marker date="1474973915721" expanded="true" signature="21603:21615" ph="..." />
+            <marker date="1474973915721" expanded="true" signature="22287:22315" ph="..." />
+            <marker date="1474973915721" expanded="true" signature="27952:27964" ph="..." />
+            <marker date="1474973915721" expanded="true" signature="28657:28685" ph="..." />
+            <marker date="1474973915721" expanded="true" signature="34590:34602" ph="..." />
+            <marker date="1474973915721" expanded="true" signature="35309:35337" ph="..." />
+            <marker date="1474973915721" expanded="true" signature="42009:42021" ph="..." />
+            <marker date="1474973915721" expanded="true" signature="42410:42454" ph="..." />
+            <marker date="1474973915721" expanded="true" signature="49395:49407" ph="..." />
+            <marker date="1474973915721" expanded="true" signature="49798:49842" ph="..." />
+            <marker date="1474973915721" expanded="true" signature="57153:57165" ph="..." />
+            <marker date="1474973915721" expanded="true" signature="57571:57615" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/maintenance-promo.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="417">
+          <caret line="105" column="68" selection-start-line="105" selection-start-column="51" selection-end-line="105" selection-end-column="68" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/promo.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="842" column="41" selection-start-line="842" selection-start-column="41" selection-end-line="842" selection-end-column="41" />
+        <state relative-caret-position="204">
+          <caret line="852" column="55" selection-start-line="852" selection-start-column="55" selection-end-line="852" selection-end-column="55" />
           <folding>
-            <marker date="1475907995615" expanded="true" signature="2063:2114" ph="..." />
-            <marker date="1475907995615" expanded="true" signature="2481:2532" ph="..." />
-            <marker date="1475907995615" expanded="true" signature="7549:7560" ph="..." />
-            <marker date="1475907995615" expanded="true" signature="11552:11563" ph="..." />
-            <marker date="1475907995615" expanded="true" signature="15750:15761" ph="..." />
-            <marker date="1475907995615" expanded="true" signature="19655:19667" ph="..." />
-            <marker date="1475907995615" expanded="true" signature="20013:20057" ph="..." />
-            <marker date="1475907995615" expanded="true" signature="25504:25516" ph="..." />
-            <marker date="1475907995615" expanded="true" signature="25864:25908" ph="..." />
-            <marker date="1475907995615" expanded="true" signature="31409:31421" ph="..." />
-            <marker date="1475907995615" expanded="true" signature="31770:31814" ph="..." />
+            <marker date="1475913823271" expanded="true" signature="2063:2114" ph="..." />
+            <marker date="1475913823271" expanded="true" signature="2481:2532" ph="..." />
+            <marker date="1475913823271" expanded="true" signature="7549:7560" ph="..." />
+            <marker date="1475913823271" expanded="true" signature="11552:11563" ph="..." />
+            <marker date="1475913823271" expanded="true" signature="15750:15761" ph="..." />
+            <marker date="1475913823271" expanded="true" signature="19655:19667" ph="..." />
+            <marker date="1475913823271" expanded="true" signature="20013:20057" ph="..." />
+            <marker date="1475913823271" expanded="true" signature="25504:25516" ph="..." />
+            <marker date="1475913823271" expanded="true" signature="25864:25908" ph="..." />
+            <marker date="1475913823271" expanded="true" signature="31409:31421" ph="..." />
+            <marker date="1475913823271" expanded="true" signature="31770:31814" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/extracharge.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="128" column="51" selection-start-line="128" selection-start-column="51" selection-end-line="128" selection-end-column="51" />
+          <folding>
+            <marker date="1475914029229" expanded="true" signature="1804:1855" ph="..." />
+            <marker date="1475914029229" expanded="true" signature="2094:2145" ph="..." />
           </folding>
         </state>
       </provider>
