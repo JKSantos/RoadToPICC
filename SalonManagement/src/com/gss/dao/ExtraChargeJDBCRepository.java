@@ -170,6 +170,8 @@ public class ExtraChargeJDBCRepository implements ExtraChargeRepository{
 		
 		try{
 			
+			System.out.println("Name: " + name);
+			
 			PreparedStatement pre = con.prepareStatement(query);
 			pre.setString(1, name);
 			
@@ -183,6 +185,7 @@ public class ExtraChargeJDBCRepository implements ExtraChargeRepository{
 			set.close();
 			con.close();
 			
+			System.out.println("RESULT: " + result);
 			return result;
 			
 		}catch(Exception e){

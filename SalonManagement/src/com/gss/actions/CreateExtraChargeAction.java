@@ -24,12 +24,12 @@ public class CreateExtraChargeAction {
 		if(ExtraChargeJDBCRepository.checkExtraChargeName(strECName.trim().toUpperCase()).equalsIgnoreCase("valid")){
 			if(service.createExtraCharge(extra) == true){
 				result = "success";
-				return result;
+				return result;	
 			}
-			else{
+			else{	
 				result = "failed";
 				return result;
-		}
+			}
 		}else{
 			result = "existing";
 			return result;
