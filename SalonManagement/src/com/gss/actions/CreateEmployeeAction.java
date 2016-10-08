@@ -93,8 +93,16 @@ public class CreateEmployeeAction {
 		
 		if(empService.create(emp) == true)
 		{	
-			EmployeeCredentialsSender.sendEmail(emp);
-			sms.sendSMS(getMessage(), this.strEmpContactNo);
+			try{
+				EmployeeCredentialsSender.sendEmail(emp);
+			}catch(Exception e){
+				System.out.println("FAILED TO SEND EMAIL");
+			}
+			try{
+				sms.sendSMS(getMessage(), this.strEmpContactNo);
+			}catch(Exception e){
+				System.out.println("FAILED TO SEND SMS");
+			}
 		}
 		else
 		{	

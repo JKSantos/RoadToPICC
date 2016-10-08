@@ -140,13 +140,13 @@ public class CreatePromoAction {
 				
 				Promo promo = new Promo(1, strPromoName, strPromoDesc, strPromoGuidelines, 0, 1, serviceList, productList, packageList, expDate, 1, PackageHelper.convertToSingleInt(type));
 				promo.setRequirements(requirements);
-				result = promoService.createPromo(promo);
+				this.result = promoService.createPromo(promo);
 			}
 			else{
 				
 				Promo promo = new Promo(1, strPromoName, strPromoDesc, strPromoGuidelines, dblPromoPrice, 1, serviceList, productList, packageList, expDate, 1, PackageHelper.convertToSingleInt(type));
 				promo.setRequirements(requirements);
-				result = promoService.createPromo(promo);
+				this.result = promoService.createPromo(promo);
 			}
 		}
 		else{
@@ -165,6 +165,8 @@ public class CreatePromoAction {
 			}
 			
 		}
+		
+		System.out.println(this.result);
 		
 		return this.result;
 	}
