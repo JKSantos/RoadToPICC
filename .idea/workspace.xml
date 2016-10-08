@@ -47,20 +47,20 @@
       <file leaf-file-name="promo.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/promo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="859" column="14" selection-start-line="859" selection-start-column="14" selection-end-line="859" selection-end-column="14" />
+            <state relative-caret-position="544">
+              <caret line="835" column="47" selection-start-line="835" selection-start-column="47" selection-end-line="835" selection-end-column="47" />
               <folding>
-                <marker date="1475917920459" expanded="true" signature="2063:2114" ph="..." />
-                <marker date="1475917920459" expanded="true" signature="2481:2532" ph="..." />
-                <marker date="1475917920459" expanded="true" signature="7549:7560" ph="..." />
-                <marker date="1475917920459" expanded="true" signature="11552:11563" ph="..." />
-                <marker date="1475917920459" expanded="true" signature="15750:15761" ph="..." />
-                <marker date="1475917920459" expanded="true" signature="19655:19667" ph="..." />
-                <marker date="1475917920459" expanded="true" signature="20013:20057" ph="..." />
-                <marker date="1475917920459" expanded="true" signature="25504:25516" ph="..." />
-                <marker date="1475917920459" expanded="true" signature="25864:25908" ph="..." />
-                <marker date="1475917920459" expanded="true" signature="31409:31421" ph="..." />
-                <marker date="1475917920459" expanded="true" signature="31770:31814" ph="..." />
+                <marker date="1475918395648" expanded="true" signature="2063:2114" ph="..." />
+                <marker date="1475918395648" expanded="true" signature="2481:2532" ph="..." />
+                <marker date="1475918395648" expanded="true" signature="7549:7560" ph="..." />
+                <marker date="1475918395648" expanded="true" signature="11552:11563" ph="..." />
+                <marker date="1475918395648" expanded="true" signature="15750:15761" ph="..." />
+                <marker date="1475918395648" expanded="true" signature="19655:19667" ph="..." />
+                <marker date="1475918395648" expanded="true" signature="20013:20057" ph="..." />
+                <marker date="1475918395648" expanded="true" signature="25504:25516" ph="..." />
+                <marker date="1475918395648" expanded="true" signature="25864:25908" ph="..." />
+                <marker date="1475918395648" expanded="true" signature="31409:31421" ph="..." />
+                <marker date="1475918395648" expanded="true" signature="31770:31814" ph="..." />
               </folding>
             </state>
           </provider>
@@ -523,12 +523,12 @@
       <workItem from="1474958178870" duration="9222000" />
       <workItem from="1474978589302" duration="20990000" />
       <workItem from="1475905955878" duration="1419000" />
-      <workItem from="1475913191559" duration="4415000" />
+      <workItem from="1475913191559" duration="4889000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1195711000" />
+    <option name="totallyTimeSpent" value="1196185000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="886" extended-state="6" />
@@ -946,20 +946,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/js/ajax/promo.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="859" column="14" selection-start-line="859" selection-start-column="14" selection-end-line="859" selection-end-column="14" />
+        <state relative-caret-position="544">
+          <caret line="835" column="47" selection-start-line="835" selection-start-column="47" selection-end-line="835" selection-end-column="47" />
           <folding>
-            <marker date="1475917920459" expanded="true" signature="2063:2114" ph="..." />
-            <marker date="1475917920459" expanded="true" signature="2481:2532" ph="..." />
-            <marker date="1475917920459" expanded="true" signature="7549:7560" ph="..." />
-            <marker date="1475917920459" expanded="true" signature="11552:11563" ph="..." />
-            <marker date="1475917920459" expanded="true" signature="15750:15761" ph="..." />
-            <marker date="1475917920459" expanded="true" signature="19655:19667" ph="..." />
-            <marker date="1475917920459" expanded="true" signature="20013:20057" ph="..." />
-            <marker date="1475917920459" expanded="true" signature="25504:25516" ph="..." />
-            <marker date="1475917920459" expanded="true" signature="25864:25908" ph="..." />
-            <marker date="1475917920459" expanded="true" signature="31409:31421" ph="..." />
-            <marker date="1475917920459" expanded="true" signature="31770:31814" ph="..." />
+            <marker date="1475918395648" expanded="true" signature="2063:2114" ph="..." />
+            <marker date="1475918395648" expanded="true" signature="2481:2532" ph="..." />
+            <marker date="1475918395648" expanded="true" signature="7549:7560" ph="..." />
+            <marker date="1475918395648" expanded="true" signature="11552:11563" ph="..." />
+            <marker date="1475918395648" expanded="true" signature="15750:15761" ph="..." />
+            <marker date="1475918395648" expanded="true" signature="19655:19667" ph="..." />
+            <marker date="1475918395648" expanded="true" signature="20013:20057" ph="..." />
+            <marker date="1475918395648" expanded="true" signature="25504:25516" ph="..." />
+            <marker date="1475918395648" expanded="true" signature="25864:25908" ph="..." />
+            <marker date="1475918395648" expanded="true" signature="31409:31421" ph="..." />
+            <marker date="1475918395648" expanded="true" signature="31770:31814" ph="..." />
           </folding>
         </state>
       </provider>

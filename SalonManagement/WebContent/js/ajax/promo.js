@@ -833,7 +833,7 @@ function createPromo() {
         "strPromoDesc": $('#crPromoDescription').val(),
         "strPromoGuidelines": $('#crPromoGuidelines').val(),
         "strNonExp": $("#crPromoNonExpiry:checked").val(),
-        "strExp": nonexp,
+        "strExp": $('#crPromoExpiration').val(),
         "servicePromoSelect": promoServSelect,
         "productPromoSelect": promoProdSelect,
         "packagePromoSelect": promoPackageSelect,
