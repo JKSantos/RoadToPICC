@@ -789,6 +789,45 @@ function createPromo() {
     crPromoType = crPromoType.join(',');
 
     var promoname = $('#crPromoName').val();
+
+
+    var x = $('#crPromoExpiration').val(),
+        splitDate = x.split('/'),
+        mo = splitDate[0],
+        da = splitDate[1],
+        yr = splitDate[2],
+        m = '';
+
+    if(mo == 'January') {
+        m = '1';
+    } else if (mo == 'February') {
+        m = '2';
+    } else if (mo == 'March') {
+        m = '3';
+    } else if (mo == 'April') {
+        m = '4';
+    } else if (mo == 'May') {
+        m = '5';
+    } else if (mo == 'June') {
+        m = '6';
+    } else if (mo == 'July') {
+        m = '7';
+    } else if (mo == 'August') {
+        m = '8';
+    } else if (mo == 'September') {
+        m = '9';
+    } else if (mo == 'October') {
+        m = '10';
+    } else if (mo == 'November') {
+        m = '11';
+    } else if (mo == 'December') {
+        m = '12';
+    }
+
+    var nonexp = yr + '/' + m + '/' + da;
+
+    console.log(nonexp);
+
     var promodata = {
         "strPromoName": promoname,
         "strPromoDesc": $('#crPromoDescription').val(),
@@ -807,8 +846,18 @@ function createPromo() {
         "type": crPromoType
     };
 
+    var allow = 0;
     if($('#crPromoFree').is(':checked')) {
+        allow = 1;
         $('.crpromoerrorcontainer').hide();
+    } else {
+        if ($("#createPromoForm").valid()) {
+            allow = 2;
+        }
+    }
+
+    if(allow == 1 || allow == 2) {
+
         swal({
                 title: "Are you sure you want to create " + promoname + "?",
                 text: "",
@@ -842,56 +891,13 @@ function createPromo() {
                             promoTotal = 0; //total
                             promoChk = 0;
                         },
-                        error: function () {
+                        error: function (xhr) {
+                            console.log(xhr.responseText);
                             sweetAlert("Oops...", "Something went wrong!", "error");
                         }
                     });
                 }, 1000);
             });
-    } else {
-        if ($("#createPromoForm").valid()) {
-            console.log($('#crPromoExpiration').val());
-            swal({
-                    title: "Are you sure you want to create " + promoname + "?",
-                    text: "",
-                    type: "info",
-                    showCancelButton: true,
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true
-                },
-                function () {
-                    setTimeout(function () {
-                        $.ajax({
-                            url: 'createPromo',
-                            type: 'post',
-                            data: promodata,
-                            dataType: 'json',
-                            async: true,
-                            success: function (data) {
-                                swal("Successfully created!", ".", "success");
-                                updatePromoTable();
-                                $('#crPromoModal').closeModal();
-                                $("#createPromoForm")[0].reset();
-                                $('.crpromoerrorcontainer').hide();
-                                $('input[name=crProdPromoQty]').prop('disabled', 'disabled');
-                                $('input[name=crServPromoQty]').prop('disabled', 'disabled');
-                                $('input[name=crPackPromoQty]').prop('disabled', 'disabled');
-                                $('#createPromoSubmitForm').attr('disabled', true).css('opacity', '0.3');
-                                $('#crPromoBackBtn').click();
-                                $('#promoList .chip').remove();
-                                promoQ = 0; // temporary quantity
-                                $promoQty = 0; //main quantity
-                                promoTotal = 0; //total
-                                promoChk = 0;
-                            },
-                            error: function (xhr) {
-                                console.log(xhr.responseText);
-                                sweetAlert("Oops...", "Something went wrong!", "error");
-                            }
-                        });
-                    }, 1000);
-                });
-        }
     }
 }
 
