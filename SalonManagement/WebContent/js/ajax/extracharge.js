@@ -89,7 +89,6 @@ function addCommas(nStr) {
 }
 
 function createExtra() {
-    $('#createExtraForm').trigger("reset");
     var extraName = $('#crECName').val(),
         extraDetails = $('#crECDetails').val(),
         extraPrice = $('#crECPrice').val().replace(/[^\d.]/g, '');
@@ -121,9 +120,13 @@ function createExtra() {
                             swal("Successfully updated!", ".", "success");
                             updateExtraTable();
                             $('#createExtraChargeModal').closeModal();
+                            $('#createExtraForm').trigger("reset");
                         } else if (data.result == "existing") {
+                            console.log(extradata);
                             sweetAlert("Oops...", "This charge is already existing!", "error");
                         } else if (data.result == "failed") {
+                            console.log('failed');
+                            console.log(extradata);
                             sweetAlert("Oops...", "Something went wrong!", "error");
                         }
                     },

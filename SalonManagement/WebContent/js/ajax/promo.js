@@ -850,6 +850,7 @@ function createPromo() {
             });
     } else {
         if ($("#createPromoForm").valid()) {
+            console.log($('#crPromoExpiration').val());
             swal({
                     title: "Are you sure you want to create " + promoname + "?",
                     text: "",
@@ -883,7 +884,8 @@ function createPromo() {
                                 promoTotal = 0; //total
                                 promoChk = 0;
                             },
-                            error: function () {
+                            error: function (xhr) {
+                                console.log(xhr.responseText);
                                 sweetAlert("Oops...", "Something went wrong!", "error");
                             }
                         });
