@@ -833,7 +833,7 @@ function createPromo() {
         "strPromoDesc": $('#crPromoDescription').val(),
         "strPromoGuidelines": $('#crPromoGuidelines').val(),
         "strNonExp": $("#crPromoNonExpiry:checked").val(),
-        "strExp": $('#crPromoExpiration').val(),
+        "strExp": nonexp,
         "servicePromoSelect": promoServSelect,
         "productPromoSelect": promoProdSelect,
         "packagePromoSelect": promoPackageSelect,
@@ -852,12 +852,11 @@ function createPromo() {
         $('.crpromoerrorcontainer').hide();
     } else {
         if ($("#createPromoForm").valid()) {
-            allow = 2;
+            allow = 1;
         }
     }
 
-    if(allow == 1 || allow == 2) {
-
+    if(allow == 1) {
         swal({
                 title: "Are you sure you want to create " + promoname + "?",
                 text: "",
