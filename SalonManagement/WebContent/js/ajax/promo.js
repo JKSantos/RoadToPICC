@@ -85,8 +85,8 @@ function updatePromoTable() {
 
                     if (promo.requirements.length > 0) {
                         $.each(promo.requirements, function (i, req) {
-                            if(typeof req.strRequirementName != 'undefined') {
-                                if(promo.requirements.length > 1) {
+                            if (typeof req.strRequirementName != 'undefined') {
+                                if (promo.requirements.length > 1) {
                                     requirement += req.strRequirementName + ',<br>';
                                 } else if (promo.requirements.length < 2) {
                                     requirement += req.strRequirementName + '<br>';
@@ -306,7 +306,7 @@ function updatePromoCreatePackageTable() {
             if (packageList != null) {
                 var promoType = 0;
 
-                $('#crPromoType').on('change', function() {
+                $('#crPromoType').on('change', function () {
                     createPromoPackageTbl.clear().draw();
 
                     var type = $(this).val(),
@@ -340,7 +340,7 @@ function updatePromoCreatePackageTable() {
                     }
 
                     $.each(packageList, function (i, packagedata) {
-                        if(promoType == packagedata.intPackageType) {
+                        if (promoType == packagedata.intPackageType) {
                             var cat = 'Package';
                             var price = parseFloat(packagedata.dblPackagePrice).toFixed(2);
                             price = addCommas(price);
@@ -710,104 +710,105 @@ function promoPackageCompute(id) {
 }
 
 function createPromo() {
-    if ($('#updatePromoForm').valid()) {
-        // var job = document.querySelectorAll('select[name=intPackageType]:selected');
-        var promoProdSelect = [],
-            promoServSelect = [],
-            promoPackageSelect = [],
-            selectedPromoType = [],
-            requirement = [];
+    // var job = document.querySelectorAll('select[name=intPackageType]:selected');
+    var promoProdSelect = [],
+        promoServSelect = [],
+        promoPackageSelect = [],
+        selectedPromoType = [],
+        requirement = [];
 
-        $.each($("input[name=prodCrPromoSelect]:checked"), function () {
-            promoProdSelect.push($(this).val());
-        });
-        $.each($("input[name=servCrPromoSelect]:checked"), function () {
-            promoServSelect.push($(this).val());
-        });
-        $.each($("input[name=packCrPromoSelect]:checked"), function () {
-            promoPackageSelect.push($(this).val());
-        });
+    $.each($("input[name=prodCrPromoSelect]:checked"), function () {
+        promoProdSelect.push($(this).val());
+    });
+    $.each($("input[name=servCrPromoSelect]:checked"), function () {
+        promoServSelect.push($(this).val());
+    });
+    $.each($("input[name=packCrPromoSelect]:checked"), function () {
+        promoPackageSelect.push($(this).val());
+    });
 
-        var promoProductQty = $('input[name=crProdPromoQty]:enabled').map(function () {
-            return this.value;
-        }).get(); //get all the quantity enabled in product
-        var promoServiceQty = $('input[name=crServPromoQty]:enabled').map(function () {
-            return this.value;
-        }).get(); //get all the quantity enabled in service
-        var promoPackQty = $('input[name=crPackPromoQty]:enabled').map(function () {
-            return this.value;
-        }).get();
+    var promoProductQty = $('input[name=crProdPromoQty]:enabled').map(function () {
+        return this.value;
+    }).get(); //get all the quantity enabled in product
+    var promoServiceQty = $('input[name=crServPromoQty]:enabled').map(function () {
+        return this.value;
+    }).get(); //get all the quantity enabled in service
+    var promoPackQty = $('input[name=crPackPromoQty]:enabled').map(function () {
+        return this.value;
+    }).get();
 
-        var req = $('#crPromoRequirement').val();
-        requirement = req.join(',');
+    var req = $('#crPromoRequirement').val();
+    requirement = req.join(',');
 
-        selectedPromoType = $('#crPromoType').val();
+    selectedPromoType = $('#crPromoType').val();
 
-        var crWalk = 0,
-            crHome = 0,
-            crEvent = 0,
-            crPromoType = [];
+    var crWalk = 0,
+        crHome = 0,
+        crEvent = 0,
+        crPromoType = [];
 
-        for (var i = 0; i < selectedPromoType.length; i++) {
-            if (selectedPromoType[i] == 'walkin') {
-                crWalk = 1;
-            } else if (selectedPromoType[i] == 'homeservice') {
-                crHome = 1;
-            } else if (selectedPromoType[i] == 'event') {
-                crEvent = 1;
-            }
+    for (var i = 0; i < selectedPromoType.length; i++) {
+        if (selectedPromoType[i] == 'walkin') {
+            crWalk = 1;
+        } else if (selectedPromoType[i] == 'homeservice') {
+            crHome = 1;
+        } else if (selectedPromoType[i] == 'event') {
+            crEvent = 1;
         }
+    }
 
 
-        if (crWalk == 1 && crHome == 0 && crEvent == 0) {
-            crPromoType.push('1');
-        } else if (crWalk == 0 && crHome == 1 && crEvent == 0) {
-            crPromoType.push('2');
-        } else if (crWalk == 0 && crHome == 0 && crEvent == 1) {
-            crPromoType.push('3');
-        } else if (crWalk == 1 && crHome == 1 && crEvent == 0) {
-            crPromoType.push('1');
-            crPromoType.push('2');
-        } else if (crWalk == 1 && crHome == 0 && crEvent == 1) {
-            crPromoType.push('1');
-            crPromoType.push('3');
-        } else if (crWalk == 0 && crHome == 1 && crEvent == 1) {
-            crPromoType.push('2');
-            crPromoType.push('3');
-        } else if (crWalk == 1 && crHome == 1 && crEvent == 1) {
-            crPromoType.push('1');
-            crPromoType.push('2');
-            crPromoType.push('3');
-        }
+    if (crWalk == 1 && crHome == 0 && crEvent == 0) {
+        crPromoType.push('1');
+    } else if (crWalk == 0 && crHome == 1 && crEvent == 0) {
+        crPromoType.push('2');
+    } else if (crWalk == 0 && crHome == 0 && crEvent == 1) {
+        crPromoType.push('3');
+    } else if (crWalk == 1 && crHome == 1 && crEvent == 0) {
+        crPromoType.push('1');
+        crPromoType.push('2');
+    } else if (crWalk == 1 && crHome == 0 && crEvent == 1) {
+        crPromoType.push('1');
+        crPromoType.push('3');
+    } else if (crWalk == 0 && crHome == 1 && crEvent == 1) {
+        crPromoType.push('2');
+        crPromoType.push('3');
+    } else if (crWalk == 1 && crHome == 1 && crEvent == 1) {
+        crPromoType.push('1');
+        crPromoType.push('2');
+        crPromoType.push('3');
+    }
 
 
-        promoProdSelect = promoProdSelect.join(', ');
-        promoServSelect = promoServSelect.join(', ');
-        promoPackageSelect = promoPackageSelect.join(', ');
-        promoProductQty = promoProductQty.join(', ');
-        promoServiceQty = promoServiceQty.join(', ');
-        promoPackQty = promoPackQty.join(', ');
-        crPromoType = crPromoType.join(',');
+    promoProdSelect = promoProdSelect.join(', ');
+    promoServSelect = promoServSelect.join(', ');
+    promoPackageSelect = promoPackageSelect.join(', ');
+    promoProductQty = promoProductQty.join(', ');
+    promoServiceQty = promoServiceQty.join(', ');
+    promoPackQty = promoPackQty.join(', ');
+    crPromoType = crPromoType.join(',');
 
-        var promoname = $('#crPromoName').val();
-        var promodata = {
-            "strPromoName": promoname,
-            "strPromoDesc": $('#crPromoDescription').val(),
-            "strPromoGuidelines": $('#crPromoGuidelines').val(),
-            "strNonExp": $("#crPromoNonExpiry:checked").val(),
-            "strExp": $('#crPromoExpiration').val(),
-            "servicePromoSelect": promoServSelect,
-            "productPromoSelect": promoProdSelect,
-            "packagePromoSelect": promoPackageSelect,
-            "servicePromoQty": promoServiceQty,
-            "productPromoQty": promoProductQty,
-            "packagePromoQty": promoPackQty,
-            "strFree": $("input[name=crFree]:checked").val(),
-            "dblPromoPrice": $('#crPromoPrice').val().replace(/[^\d.]/g, ''),
-            "requirement": requirement,
-            "type": crPromoType
-        };
+    var promoname = $('#crPromoName').val();
+    var promodata = {
+        "strPromoName": promoname,
+        "strPromoDesc": $('#crPromoDescription').val(),
+        "strPromoGuidelines": $('#crPromoGuidelines').val(),
+        "strNonExp": $("#crPromoNonExpiry:checked").val(),
+        "strExp": $('#crPromoExpiration').val(),
+        "servicePromoSelect": promoServSelect,
+        "productPromoSelect": promoProdSelect,
+        "packagePromoSelect": promoPackageSelect,
+        "servicePromoQty": promoServiceQty,
+        "productPromoQty": promoProductQty,
+        "packagePromoQty": promoPackQty,
+        "strFree": $("input[name=crFree]:checked").val(),
+        "dblPromoPrice": $('#crPromoPrice').val().replace(/[^\d.]/g, ''),
+        "requirement": requirement,
+        "type": crPromoType
+    };
 
+    if($('#crPromoFree').is(':checked')) {
+        $('.crpromoerrorcontainer').hide();
         swal({
                 title: "Are you sure you want to create " + promoname + "?",
                 text: "",
@@ -828,6 +829,18 @@ function createPromo() {
                             swal("Successfully created!", ".", "success");
                             updatePromoTable();
                             $('#crPromoModal').closeModal();
+                            $("#createPromoForm")[0].reset();
+                            $('.crpromoerrorcontainer').hide();
+                            $('input[name=crProdPromoQty]').prop('disabled', 'disabled');
+                            $('input[name=crServPromoQty]').prop('disabled', 'disabled');
+                            $('input[name=crPackPromoQty]').prop('disabled', 'disabled');
+                            $('#createPromoSubmitForm').attr('disabled', true).css('opacity', '0.3');
+                            $('#crPromoBackBtn').click();
+                            $('#promoList .chip').remove();
+                            promoQ = 0; // temporary quantity
+                            $promoQty = 0; //main quantity
+                            promoTotal = 0; //total
+                            promoChk = 0;
                         },
                         error: function () {
                             sweetAlert("Oops...", "Something went wrong!", "error");
@@ -836,7 +849,47 @@ function createPromo() {
                 }, 1000);
             });
     } else {
-
+        if ($("#createPromoForm").valid()) {
+            swal({
+                    title: "Are you sure you want to create " + promoname + "?",
+                    text: "",
+                    type: "info",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true
+                },
+                function () {
+                    setTimeout(function () {
+                        $.ajax({
+                            url: 'createPromo',
+                            type: 'post',
+                            data: promodata,
+                            dataType: 'json',
+                            async: true,
+                            success: function (data) {
+                                swal("Successfully created!", ".", "success");
+                                updatePromoTable();
+                                $('#crPromoModal').closeModal();
+                                $("#createPromoForm")[0].reset();
+                                $('.crpromoerrorcontainer').hide();
+                                $('input[name=crProdPromoQty]').prop('disabled', 'disabled');
+                                $('input[name=crServPromoQty]').prop('disabled', 'disabled');
+                                $('input[name=crPackPromoQty]').prop('disabled', 'disabled');
+                                $('#createPromoSubmitForm').attr('disabled', true).css('opacity', '0.3');
+                                $('#crPromoBackBtn').click();
+                                $('#promoList .chip').remove();
+                                promoQ = 0; // temporary quantity
+                                $promoQty = 0; //main quantity
+                                promoTotal = 0; //total
+                                promoChk = 0;
+                            },
+                            error: function () {
+                                sweetAlert("Oops...", "Something went wrong!", "error");
+                            }
+                        });
+                    }, 1000);
+                });
+        }
     }
 }
 

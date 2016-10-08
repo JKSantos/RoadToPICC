@@ -173,7 +173,7 @@ function extraUpdate() {
             'strECName': $('#upECName').val(),
             'strECDetails': $('#upECDetails').val(),
             'price': $('#upECPrice').val()
-        }
+        };
         swal({
                 title: "Update this charge?",
                 text: "",
@@ -213,7 +213,7 @@ function extraUpdate() {
 function extraDeactivate(id) {
     var extradata = {
         'intECID': id
-    }
+    };
     swal({
             title: "Are you sure?",
             text: "",
