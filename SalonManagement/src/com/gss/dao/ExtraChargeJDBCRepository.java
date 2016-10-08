@@ -29,7 +29,7 @@ public class ExtraChargeJDBCRepository implements ExtraChargeRepository{
 			pre.close();
 			con.close();
 			
-			return isRecorded;
+			return true;
 		}
 		catch(Exception e){
 			System.out.println(e.fillInStackTrace());

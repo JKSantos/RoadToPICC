@@ -11,15 +11,18 @@ public class CreateExtraChargeAction {
 
 	private String strECName;
 	private String strECDetails;
-	private String price;
+	private double price;
 	
 	private String result;
 	
 	public String execute() throws Exception{
+	
+		System.out.println("Name: " + strECName);
+		System.out.println("Desc: " + strECDetails);
+		System.out.println("Price: " + price);
 		
-		double dblECPrice = PriceFormatHelper.convertToDouble((price + "0"), "Php ");
 		ExtraChargeService service = new ExtraChargeServiceImpl();
-		ExtraCharge extra = new ExtraCharge(1, strECName.trim().toUpperCase(), strECDetails.trim().toUpperCase(), dblECPrice, 1);
+		ExtraCharge extra = new ExtraCharge(1, strECName.trim().toUpperCase(), strECDetails.trim().toUpperCase(), price, 1);
 		
 		if(ExtraChargeJDBCRepository.checkExtraChargeName(strECName.trim().toUpperCase()).equalsIgnoreCase("valid")){
 			if(service.createExtraCharge(extra) == true){
@@ -40,24 +43,16 @@ public class CreateExtraChargeAction {
 	public String getResult() {
 		return result;
 	}
-
-	public String getStrECName() {
-		return strECName;
-	}
-
+	
 	public void setStrECName(String strECName) {
 		this.strECName = strECName.trim().toUpperCase();
-	}
-
-	public String getStrECDetails() {
-		return strECDetails;
 	}
 
 	public void setStrECDetails(String strECDetails) {
 		this.strECDetails = strECDetails.trim().toUpperCase();
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
