@@ -41,7 +41,7 @@
 			<result name="success" type="json"></result>
 		</action>
 		
-		<action name="getProductTags" class="com.gss.actions.Reports.ProductTag.GetProductTagAction" method="execute">
+		<action name="getProductTags" class="com.gss.actions.Reports.ProductTag.GetProductTagTabular" method="execute">
 			<result name="success" type="json"></result>
 		</action>
 		<!-- TAG CHART END-->
