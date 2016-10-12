@@ -212,6 +212,7 @@
 <script type="text/javascript" src="js/angular.min.js"></script>
 <script type="text/javascript" src="js/angular-animate.min.js"></script>
 <script type="text/javascript" src="js/angular-datatables.min.js"></script>
+<script type="text/javascript" src="js/angular-datatables.buttons.min.js"></script>
 <script type="text/javascript" src="js/angular-materialize.min.js"></script>
 <script type="text/javascript" src="js/bartstable.js"></script>
 <!--<script type="text/javascript" src="js/picker.date.js"></script>-->
