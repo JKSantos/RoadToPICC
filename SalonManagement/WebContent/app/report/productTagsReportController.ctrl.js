@@ -5,350 +5,55 @@
         .controller('productTagsReportController', productTagsReportController);
 
     function productTagsReportController($scope, $filter, reportsFactory) {
-    	$scope.select = {};
-    	var moconsumed = [];
-	    var moexpired = [];
-	    var molost = [];
-	    var modefective = [];
+		var vm = this;
 
-	    var quconsumed = [];
-	    var quexpired = [];
-	    var qulost = [];
-	    var qudefective = [];
+		vm.productTagsSearch = '';
+		vm.thisDate = new Date();
 
-	    var anconsumed = [];
-	    var anexpired = [];
-	    var anlost = [];
-	    var andefective = [];
+		vm.dtInstanceCallback = dtInstanceCallback;
+		vm.searchTable = searchTable;
+		vm.printPdf = printPdf;
 
-	    $scope.downloadMonthly = function(){
-	    	function dlMonthly(handle){
-    		$.ajax({
-	  		      url:'http://localhost:8080/SalonManagement/printStatisticalTagChart',
-	  		      type: 'post',
-	  		      data: {"type": "monthly"},
-	  		      dataType: 'json',
-	  		      async: true,
-	  		      success: function (data) {
-	  		        console.log("Success Employee");
-	  		        handle(data);
-	  		      },
-	  		      error: function () {
-	  		          console.log("Error in posting");
-	  		      }
-	  		  });
-	    	}
+		function dtInstanceCallback(dtInstance) {
+			var datatableObj = dtInstance.DataTable;
+			vm.tableInstance = datatableObj;
+		}
 
-	    	dlMonthly(function(output){
-	    			console.log(output);
-					$.ajax({
-			  		      url:'http://localhost:8080/SalonManagement/downloadReports',
-			  		      type: 'post',
-			  		      data: {"fileName": output},
-			  		      dataType: 'json',
-			  		      async: true,
-			  		      success: function (data) {
-			  		        console.log("Success Employee");
-			  		        console.log(data);
-			  		      },
-			  		      error: function () {
-			  		          console.log("Error in posting");
-			  		      }
-			  		  });
-			    
-	    	});
-	    };
-	    
-    	function getMonthly(handle){
-    		$.ajax({
-  		      url:'http://localhost:8080/SalonManagement/tagChart',
-  		      type: 'post',
-  		      data: {"type": "monthly"},
-  		      dataType: 'json',
-  		      async: true,
-  		      success: function (data) {
-  		        console.log("Success Employee");
-  		        handle(data.report.details);
-  		      },
-  		      error: function () {
-  		          console.log("Error in posting");
-  		      }
-  		  });
-    	}
-    	
-    	function getQuarterly(handle){
-    		$.ajax({
-  		      url:'http://localhost:8080/SalonManagement/tagChart',
-  		      type: 'post',
-  		      data: {"type": "quarterly"},
-  		      dataType: 'json',
-  		      async: true,
-  		      success: function (data) {
-  		        console.log("Success Employee");
-  		        handle(data.report.details);
-  		      },
-  		      error: function () {
-  		          console.log("Error in posting");
-  		      }
-  		  });
-    	}
-    	
-    	$scope.generate = function(details){
-    		var psdata = {
-    			"type": "annually",
-    			"yearFrom": details.yearFrom,
-    			"yearTo": details.yearTo
-    		}
+		function searchTable() {
+			var query = vm.productTagsSearch;
+			vm.tableInstance.search(query).draw();
+			console.log('search');
+		}
 
-    		function getAnnually(handle){
-    		console.log(psdata);
-    		$.ajax({
-	  		      url:'http://localhost:8080/SalonManagement/tagChart',
-	  		      type: 'post',
-	  		      data: psdata,
-	  		      dataType: 'json',
-	  		      async: true,
-	  		      success: function (data) {
-	  		        console.log("Success Employee");
-	  		        handle(data.report.details);
-	  		      },
-	  		      error: function () {
-	  		          console.log("Error in posting");
-	  		      }
-	  		  });
-	    	}
-    		
-    		getAnnually(function(output){
-	      		 $scope.annuallTags = output; 
-	      		 console.log($scope.annuallTags);
-	      		 for(i = 0; i < $scope.annuallTags.length; i ++){
-	      	        	anconsumed.push($scope.annuallTags[i].totalConsumed); 
-	      	        	anexpired.push($scope.annuallTags[i].totalExpired); 
-	      	        	anlost.push($scope.annuallTags[i].totalLost); 
-	      	        	andefective.push($scope.annuallTags[i].totalDefective); 
-	      	        }
-	      		initAnnually(anconsumed, anexpired, anlost, andefective, details);
-	       	});
-	    	
-    	};
-    	
-    	
-    	getMonthly(function(output){
-    		 $scope.monthTags = output; 
-    		 for(i = 0; i < $scope.monthTags.length; i ++){
-    	        	moconsumed.push($scope.monthTags[i].totalConsumed); 
-    	        	moexpired.push($scope.monthTags[i].totalExpired); 
-    	        	molost.push($scope.monthTags[i].totalLost); 
-    	        	modefective.push($scope.monthTags[i].totalDefective); 
-    	        }
-    		 initMonthly(moconsumed, moexpired, molost, modefective);
-	    });
-    	getQuarterly(function(output){
-   		 $scope.quarterTags = output; 
-   		 for(i = 0; i < $scope.quarterTags.length; i ++){
-   	        	quconsumed.push($scope.quarterTags[i].totalConsumed); 
-   	        	quexpired.push($scope.quarterTags[i].totalExpired); 
-   	        	qulost.push($scope.quarterTags[i].totalLost); 
-   	        	qudefective.push($scope.quarterTags[i].totalDefective); 
-   	        }
-   		initQuarterly(quconsumed, quexpired, qulost, qudefective);
-    	});
-    	
-    	
+		reportsFactory.getProductTags().then(function (data) {
+			vm.productTags = data.data.tagSum;
+			console.log(vm.productTags);
+		});
 
-        function initMonthly(consumed, expired, lost, defective){
-    		
-        	$(function () {
-        	    $('#containerMonthly').highcharts({
-        	        chart: {
-        	            type: 'column'
-        	        },
-        	        title: {
-        	            text: 'Monthly Product tags'
-        	        },
-        	        subtitle: {
-        	            text: 'Source: Database'
-        	        },
-        	        xAxis: {
-        	            categories: [
-        	                'Jan',
-        	                'Feb',
-        	                'Mar',
-        	                'Apr',
-        	                'May',
-        	                'Jun',
-        	                'Jul',
-        	                'Aug',
-        	                'Sep',
-        	                'Oct',
-        	                'Nov',
-        	                'Dec'
-        	            ],
-        	            crosshair: true
-        	        },
-        	        yAxis: {
-        	            min: 0,
-        	            title: {
-        	                text: 'Rainfall (mm)'
-        	            }
-        	        },
-        	        tooltip: {
-        	            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        	            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-        	                '<td style="padding:0"><b>{point.y:.1f} pcs.</b></td></tr>',
-        	            footerFormat: '</table>',
-        	            shared: true,
-        	            useHTML: true
-        	        },
-        	        plotOptions: {
-        	            column: {
-        	                pointPadding: 0.2,
-        	                borderWidth: 0
-        	            }
-        	        },
-        	        series: [{
-        	            name: 'Defective',
-        	            data: defective
+		function printPdf(thisDiv) {
+			var printContents = document.getElementById(thisDiv).innerHTML;
+			var popupWin = window.open('', '_blank', 'width=800,height=800,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no,top=50');
+			popupWin.window.focus();
+			popupWin.document.open();
+			popupWin.document.write('<html><head>' +
+				'<link type="text/css" rel="stylesheet" href="css/materialize.css"/>' +
+				'<link rel="stylesheet" type="text/css" href="css/bartstable.css"/>' +
+				'<link rel="stylesheet" type="text/css" href="css/material.min.css"/>' +
+				'<link rel="stylesheet" type="text/css" href="css/baselayout.css"/>' +
+				'</head><body onload="window.print()">' + printContents + '</body></html>');
+			popupWin.document.close();
 
-        	        }, {
-        	            name: 'Lost',
-        	            data: lost
+			// var printContents = document.getElementById(thisDiv).innerHTML;
+			// var popupWin = window.open('', '_blank', 'width=1000,height=800');
+			// popupWin.document.open();
+			// popupWin.document.write('<html><head>' +
+			// 	'<link type="text/css" rel="stylesheet" href="css/materialize.css"/>' +
+			// 	'<link rel="stylesheet" type="text/css" href="css/bartstable.css"/>' +
+			// 	'<link rel="stylesheet" type="text/css" href="css/material.min.css"/>' +
+			// 	'<link rel="stylesheet" type="text/css" href="css/baselayout.css"/>' +
+			// 	'</head><body onload="window.print()">' + printContents + '</body></html>');
+			// popupWin.document.close();
+		}
 
-        	        }, {
-        	            name: 'Expired',
-        	            data: expired
-
-        	        }, {
-        	            name: 'Consumed',
-        	            data: consumed
-
-        	        }]
-        	    });
-        	});
-        } // end monthly chart
-
-        
-        function initQuarterly(consumed, expired, lost, defective){
-        	$(function () {
-        	    $('#containerQuarterly').highcharts({
-        	        chart: {
-        	            type: 'column'
-        	        },
-        	        title: {
-        	            text: 'Quarterly Product tags'
-        	        },
-        	        subtitle: {
-        	            text: 'Source: Database'
-        	        },
-        	        xAxis: {
-        	            categories: [
-        	                '1st',
-        	                '2nd',
-        	                '3rd',
-        	                '4th'
-        	            ],
-        	            crosshair: true
-        	        },
-        	        yAxis: {
-        	            min: 0,
-        	            title: {
-        	                text: 'Rainfall (mm)'
-        	            }
-        	        },
-        	        tooltip: {
-        	            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        	            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-        	                '<td style="padding:0"><b>{point.y:.1f} pcs.</b></td></tr>',
-        	            footerFormat: '</table>',
-        	            shared: true,
-        	            useHTML: true
-        	        },
-        	        plotOptions: {
-        	            column: {
-        	                pointPadding: 0.2,
-        	                borderWidth: 0
-        	            }
-        	        },
-        	        series: [{
-        	            name: 'Defective',
-        	            data: defective
-
-        	        }, {
-        	            name: 'Lost',
-        	            data: lost
-
-        	        }, {
-        	            name: 'Expired',
-        	            data: expired
-
-        	        }, {
-        	            name: 'Consumed',
-        	            data: consumed
-
-        	        }]
-        	    });
-        	});
-        }// end quarterly
-
-        
-        function initAnnually(consumed, expired, lost, defective, details){
-        	$(function () {
-        	    $('#containerAnnually').highcharts({
-        	        chart: {
-        	            type: 'column'
-        	        },
-        	        title: {
-        	            text: 'Annuall Product tags'
-        	        },
-        	        subtitle: {
-        	            text: 'Source: Database'
-        	        },
-        	        xAxis: {
-        	            categories: [
-        	            	details.yearFrom,
-        	            	details.yearTo
-        	            ],
-        	            crosshair: true
-        	        },
-        	        yAxis: {
-        	            min: 0,
-        	            title: {
-        	                text: 'Rainfall (mm)'
-        	            }
-        	        },
-        	        tooltip: {
-        	            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        	            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-        	                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-        	            footerFormat: '</table>',
-        	            shared: true,
-        	            useHTML: true
-        	        },
-        	        plotOptions: {
-        	            column: {
-        	                pointPadding: 0.2,
-        	                borderWidth: 0
-        	            }
-        	        },
-        	        series: [{
-        	            name: 'Defective',
-        	            data: defective
-
-        	        }, {
-        	            name: 'Lost',
-        	            data: lost
-
-        	        }, {
-        	            name: 'Expired',
-        	            data: expired
-
-        	        }, {
-        	            name: 'Consumed',
-        	            data: consumed
-
-        	        }]
-        	    });
-        	});
-        }// end annually
       }
 })();
