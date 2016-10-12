@@ -9,9 +9,11 @@ import com.gss.utilities.ReportDate;
 
 public class GetProductTagTabular {
 	
+	//POST
 	private int intMonth;
 	private int intYear;
 	
+	//RETURNED
 	private List<ProductTagReport> report;
 	private List<TagSum> tagSum;
 	

@@ -19,8 +19,9 @@ public class Service {
 	private double dblServicePrice;
 	private String strPhotoPath;
 	private String stringPrice;
+	private int intDuration;
 	
-	public Service(int intServiceID, String strServiceName, String strServiceCategory, int strServiceStatus, String strServiceDesc, double dblServicePrice, byte[] productPhoto, String strPhotoPath, int serviceType){
+	public Service(int intServiceID, String strServiceName, String strServiceCategory, int strServiceStatus, String strServiceDesc, double dblServicePrice, byte[] productPhoto, String strPhotoPath, int serviceType, int intDuration){
 		
 		this.intServiceID = intServiceID;
 		this.strServiceName = strServiceName;
@@ -31,6 +32,7 @@ public class Service {
 		this.strPhotoPath = strPhotoPath;
 		this.dblServicePrice = dblServicePrice;
 		this.serviceType = serviceType;
+		this.intDuration = intDuration;
 	}
 
 	public int getIntServiceID() {
@@ -106,7 +108,7 @@ public class Service {
 	
 	public static Service createNullService(int intServiceID){
 		
-		return new Service(intServiceID, "", "", intServiceID, "", 0, null, "", 1);
+		return new Service(intServiceID, "", "", intServiceID, "", 0, null, "", 1, 0);
 	}
 
 	public static List<Service> queryAllService() {
@@ -131,5 +133,15 @@ public class Service {
 	public void setStringPrice(String stringPrice) {
 		this.stringPrice = stringPrice;
 	}
+
+	public int getIntDuration() {
+		return intDuration;
+	}
+
+	public void setIntDuration(int intDuration) {
+		this.intDuration = intDuration;
+	}
+	
+	
 
 }
