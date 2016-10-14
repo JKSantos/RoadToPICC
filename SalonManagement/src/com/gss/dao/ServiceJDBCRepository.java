@@ -46,6 +46,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				int intType = set.getInt(6);
 				byte[] actualPhoto = set.getBytes(7);
 				String strPhotoPath = "localhost:8080/SalonManagement/getImage?ImageID="+ intServiceID + "&type=service";
+				int duration = set.getInt(8);
 				
 				PreparedStatement pre2 = con.prepareStatement(strQuery2);
 				pre2.setInt(1, intServiceID);
@@ -64,10 +65,9 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				
 				while(set2.next()){
 					double price = set2.getDouble(1);
-					service = new Service(intServiceID, strServiceName, strServiceCate, intServiceStatus, strServiceDesc, price, actualPhoto, strPhotoPath, intType);
+					service = new Service(intServiceID, strServiceName, strServiceCate, intServiceStatus, strServiceDesc, price, actualPhoto, strPhotoPath, intType, duration);
 					service.setStringPrice(String.format("%.2f", price));
 					serviceList.add(service);
-					
 				}
 				
 				pre2.close();
@@ -82,7 +82,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 		}
 		catch(Exception e){
 			
-			System.out.println(e.fillInStackTrace());
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -92,7 +92,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 
 		JDBCConnection jdbc = new JDBCConnection();
 		Connection con = jdbc.getConnection();
-		String strQuery1 = "CALL createService(?, ?, ?, ?, ?, ?)";
+		String strQuery1 = "CALL createService(?, ?, ?, ?, ?, ?, ?)";
 		String strQuery2 = "CALL createServicePrice(?, ?)";
 		int intServID = 0;
 		
@@ -109,6 +109,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 			pre1.setString(4, service.getStrServiceDesc());
 			pre1.setInt(5, service.getServiceType());
 			pre1.setBinaryStream(6, (InputStream)fis, (int)file.length());
+			pre1.setInt(7, service.getIntDuration());
 			
 			
 			ResultSet set = pre1.executeQuery();
@@ -127,12 +128,13 @@ public class ServiceJDBCRepository implements ServiceRepository{
 			return true;
 		}
 		catch(SQLException e){
+			e.printStackTrace();
 			return false;
 		}
 		catch(NullPointerException a){
+			a.printStackTrace();
 			return false;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
@@ -142,7 +144,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 	@Override
 	public boolean updateService(Service service) {
 		
-		String strQuery1 = "CALL updateService(?, ?, ?, ?, ?, ?, ?)";
+		String strQuery1 = "CALL updateService(?, ?, ?, ?, ?, ?, ?, ?)";
 		String strQuery2 = "CALL updatePrice(?, ?)";
 		JDBCConnection jdbc = new JDBCConnection();
 		Connection con = jdbc.getConnection();
@@ -163,6 +165,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				pre1.setString(5, service.getStrServiceDesc());
 				pre1.setInt(6, service.getServiceType());
 				pre1.setBinaryStream(7, (InputStream)fis, (int)file.length());
+				pre1.setInt(8, service.getIntDuration());
 			}
 			else{
 				pre1.setInt(1, service.getIntServiceID());
@@ -172,6 +175,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				pre1.setString(5, service.getStrServiceDesc());
 				pre1.setInt(6, service.getServiceType());
 				pre1.setInt(7, 101);
+				pre1.setInt(8, service.getIntDuration());
 			}
 			
 			ResultSet set = pre1.executeQuery();
@@ -281,6 +285,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				int intType = set.getInt(6);
 				byte[] actualPhoto = null;
 				String strPhotoPath = ":8080/SalonManagement/getImage?ImageID="+ intServiceID + "&type=service";
+				int duration = set.getInt(8);
 				
 				PreparedStatement pre2 = con.prepareStatement(strQuery2);
 				pre2.setInt(1, intServiceID);
@@ -300,7 +305,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				
 				while(set2.next()){
 					double price = set2.getDouble(1);
-					service = new Service(intServiceID, strServiceName, strServiceCate, intServiceStatus, strServiceDesc, price, actualPhoto, strPhotoPath, intType);
+					service = new Service(intServiceID, strServiceName, strServiceCate, intServiceStatus, strServiceDesc, price, actualPhoto, strPhotoPath, intType, duration);
 					service.setStringPrice(String.format("%.2f", price));
 					serviceList.add(service);
 					
@@ -349,6 +354,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				int intType = set.getInt(6);
 				byte[] actualPhoto = null;
 				String strPhotoPath = ":8080/SalonManagement/getImage?ImageID="+ intServiceID + "&type=service";
+				int duration = set.getInt(8);
 				
 				PreparedStatement pre2 = con.prepareStatement(strQuery2);
 				pre2.setInt(1, intServiceID);
@@ -357,7 +363,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				
 				while(set2.next()){
 					double price = set2.getDouble(1);
-					service = new Service(intServiceID, strServiceName, strServiceCate, intServiceStatus, strServiceDesc, price, actualPhoto, strPhotoPath, intType);
+					service = new Service(intServiceID, strServiceName, strServiceCate, intServiceStatus, strServiceDesc, price, actualPhoto, strPhotoPath, intType, duration);
 					service.setStringPrice(String.format("%.2f", price));
 					serviceList.add(service);
 					
@@ -556,6 +562,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				int intType = set.getInt(6);
 				byte[] actualPhoto = null;
 				String strPhotoPath = ":8080/SalonManagement/getImage?ImageID="+ intServiceID + "&type=service";
+				int duration = set.getInt(8);
 				
 				PreparedStatement pre2 = con.prepareStatement(strQuery2);
 				pre2.setInt(1, intServiceID);
@@ -564,7 +571,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 				
 				while(set2.next()){
 					double price = set2.getDouble(1);
-					service = new Service(intServiceID, strServiceName, strServiceCate, intServiceStatus, strServiceDesc, price, actualPhoto, strPhotoPath, intType);
+					service = new Service(intServiceID, strServiceName, strServiceCate, intServiceStatus, strServiceDesc, price, actualPhoto, strPhotoPath, intType, duration);
 					service.setStringPrice(String.format("%.2f", price));
 					serviceList.add(service);
 					
@@ -582,7 +589,7 @@ public class ServiceJDBCRepository implements ServiceRepository{
 		}
 		catch(Exception e){
 			
-			System.out.println(e.fillInStackTrace());
+			e.printStackTrace();
 			return null;
 		}
 	}

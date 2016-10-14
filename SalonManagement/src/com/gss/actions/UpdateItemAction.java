@@ -27,9 +27,13 @@ public class UpdateItemAction {
 	private String imageName;
 	private int intItemQuantity;
 	private List<Integer> intServiceType;
+	private int hour;
+	private int minute;
 	
 	public String execute() throws Exception{
 	
+		int duration = (hour * 60) + minute;
+		
 		ServiceService service = new ServiceServiceImpl();
 		Service update;
 
@@ -44,11 +48,11 @@ public class UpdateItemAction {
 			System.out.println(imageName);
 			
 			if(imageName.equalsIgnoreCase("image")){
-				update = new Service(intItemID, strItemName, strItemCategory, 1, strItemDetails, dblItemPrice, null, imageName, PackageHelper.convertToSingleInt(this.intServiceType));
+				update = new Service(intItemID, strItemName, strItemCategory, 1, strItemDetails, dblItemPrice, null, imageName, PackageHelper.convertToSingleInt(this.intServiceType), duration);
 				isUpdated = service.updateService(update);
 			}
 			else{
-				update = new Service(intItemID, strItemName, strItemCategory, 1, strItemDetails, dblItemPrice, null, file.getAbsolutePath(), PackageHelper.convertToSingleInt(this.intServiceType));
+				update = new Service(intItemID, strItemName, strItemCategory, 1, strItemDetails, dblItemPrice, null, file.getAbsolutePath(), PackageHelper.convertToSingleInt(this.intServiceType), duration);
 				isUpdated = service.updateService(update);
 			}
 			
@@ -154,5 +158,13 @@ public class UpdateItemAction {
 
 	public void setIntServiceType(List<Integer> intServiceType) {
 		this.intServiceType = intServiceType;
+	}
+
+	public void setHour(int hour) {
+		this.hour = hour;
+	}
+
+	public void setMinute(int minute) {
+		this.minute = minute;
 	}
 }

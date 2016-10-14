@@ -1143,4 +1143,52 @@ public class ReservationJDBCRepository implements ReservationRepository{
 			return false;
 		}
 	}
+
+	public List<Reservation> getCancelledReservation(ReportDate date){
+		
+		Connection con 						= new JDBCConnection().getConnection();
+		String getReservations 				= "CALL getCancelledReservationTabular(?, ?);";
+		
+		List<Reservation> reservationList = new ArrayList<Reservation>();
+		try{
+			
+			PreparedStatement preReservaton = con.prepareStatement(getReservations);
+			preReservaton.setString(1, date.getDateFrom());
+			preReservaton.setString(2, date.getDateTo());
+			
+			ResultSet reservationResult = preReservaton.executeQuery();
+			
+			while(reservationResult.next()){
+				
+				this.intReservationID 		= reservationResult.getInt(1);
+				this.intReservationType 	= reservationResult.getInt(2);
+				this.dateCreated 			= reservationResult.getDate(3);
+				this.datFrom 				= reservationResult.getDate(4);
+				this.datTo 					= reservationResult.getDate(5);
+				this.timFrom				= reservationResult.getTime(6);
+				this.timTo					= reservationResult.getTime(7);
+				this.customer 				= new Customer(this.intReservationID, reservationResult.getString(9), reservationResult.getString(10), reservationResult.getString(8), reservationResult.getString(11), reservationResult.getString(12), reservationResult.getString(13));
+				this.headCount				= reservationResult.getInt(14);
+				this.invoice				= getInvoice(reservationResult.getInt(15));
+				this.strStatus				= reservationResult.getString(16);
+				this.employeeAssigned		= getAllAssignedEmployee(this.intReservationID);
+				this.strVenue				= reservationResult.getString(17);
+				this.intLocationID			= reservationResult.getInt(18);
+				this.strContract			= reservationResult.getString(19);
+				
+				this.includedItems = new ReservationInclusion(getAllProductOrder(this.intReservationID), getAllReservedService(this.intReservationID), getAllReservedPackage(this.intReservationID), getAllReservedPromo(this.intReservationID));
+				
+				Reservation reservation = new Reservation(this.intReservationID, this.customer, this.includedItems, this.intReservationType, this.dateCreated, this.datFrom, this.datTo, this.timFrom, this.timTo, this.strVenue, this.intLocationID, this.headCount, this.employeeAssigned, this.invoice, this.strStatus, this.strContract);	
+
+				reservationList.add(reservation);
+			}
+			
+			return reservationList;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }

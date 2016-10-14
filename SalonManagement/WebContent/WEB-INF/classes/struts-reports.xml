@@ -96,11 +96,11 @@
 		
 		<!-- CANCELLED RESERVATION CHART START-->
 		
-		<action name="getCancelledReservations" class="com.gss.actions.Reports.CancelledReservations.GetCancelledReservaiton">
-			<result name="success" type="json"></result>
-		</action>
+			<action name="getCancelledReservations" class="com.gss.actions.Reports.CancelledReservation.GetCancelledReservation">
+				<result name="success" type="json"></result>
+			</action>
 		
-		<!-- CANCELLED RESERVATION CHART START-->
+		<!-- CANCELLED RESERVATION CHART END-->
 		
 		<action name="downloadReports" class="com.gss.actions.Reports.ProductTag.ChartDownload">
 		    <result name="success" type="stream">

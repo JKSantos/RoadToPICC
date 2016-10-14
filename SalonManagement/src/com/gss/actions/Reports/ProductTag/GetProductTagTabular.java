@@ -9,18 +9,17 @@ import com.gss.utilities.ReportDate;
 
 public class GetProductTagTabular {
 	
-	private int intMonth;
-	private int intYear;
+	//POST
+	private String dateFrom;
+	private String dateTo;
 	
+	//RETURNED
 	private List<ProductTagReport> report;
 	private List<TagSum> tagSum;
 	
 	public String execute(){
 		
-		String datFrom = intYear + "-" + intMonth + "-" + 1;
-		String datTo = intYear + "-" + intMonth + "-" + 31;
-		
-		ReportDate date = new ReportDate(datFrom, datTo);;
+		ReportDate date = new ReportDate(dateFrom, dateTo);;
 		
 		try {
 			this.report = ProductTagReport.getProductTagReport(date.getDateFrom(), date.getDateTo());
@@ -40,14 +39,14 @@ public class GetProductTagTabular {
 		return tagSum;
 	}
 
-	public void setIntMonth(int intMonth) {
-		this.intMonth = intMonth;
+	public void setDateFrom(String dateFrom) {
+		this.dateFrom = dateFrom;
 	}
 
-	public void setIntYear(int intYear) {
-		this.intYear = intYear;
+	public void setDateTo(String dateTo) {
+		this.dateTo = dateTo;
 	}
-	
+
 	
 
 }

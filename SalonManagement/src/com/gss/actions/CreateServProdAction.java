@@ -25,8 +25,12 @@ public class CreateServProdAction {
 	private String price;
 	private String imageName;
 	private List<Integer> intServiceType;
+	private int hour;
+	private int minute;
 	
 	public String execute() throws Exception{
+		
+		int duration = (hour * 60) + minute;
 
 		boolean isRecorded = false;
 		String path = file.getAbsolutePath();
@@ -48,11 +52,15 @@ public class CreateServProdAction {
 		}
 		else{
 			
-			Service service = new Service(1, strItemName.trim().toUpperCase(), strItemCategory, 1, strItemDetails.trim().toUpperCase(), dblItemPrice, null, path, PackageHelper.convertToSingleInt(this.intServiceType));
+			System.out.println("Successfully Created");
+			
+			Service service = new Service(1, strItemName.trim().toUpperCase(), strItemCategory, 1, strItemDetails.trim().toUpperCase(), dblItemPrice, null, path, PackageHelper.convertToSingleInt(this.intServiceType), duration);
 		
 			ServiceService servService = new ServiceServiceImpl();
 		
 			isRecorded = servService.createService(service);
+			
+			System.out.print(isRecorded);
 			
 			if(isRecorded == true)
 				return "service"; 
@@ -60,74 +68,37 @@ public class CreateServProdAction {
 				return "serviceF";
 		}
 	}
-	
-	public File getUpload() {
-		return file;
-	}
 
 	public void setUpload(File file) {
 		this.file = file;
-	}
-
-	public String getUploadContentType() {
-		return contentType;
 	}
 
 	public void setUploadContentType(String contentType) {
 		this.contentType = contentType;
 	}
 
-	public String getUploadFilename() {
-		return filename;
-	}
-
 	public void setUploadFileName(String fileName) {
 		this.filename = fileName;
-	}
-
-	public String getStrItemCate() {
-		return strItemCate;
 	}
 
 	public void setStrItemCate(String strItemCate) {
 		this.strItemCate = strItemCate;
 	}
 
-	public String getStrItemName() {
-		return strItemName;
-	}
-
 	public void setStrItemName(String strItemName) {
 		this.strItemName = strItemName.trim().toUpperCase();
-	}
-
-	public String getStrItemDetails() {
-		return strItemDetails;
 	}
 
 	public void setStrItemDetails(String strItemDetails) {
 		this.strItemDetails = strItemDetails.trim().toUpperCase();
 	}
 
-	public String getStrItemCategory() {
-		return strItemCategory;
-	}
-
 	public void setStrItemCategory(String strItemCategory) {
 		this.strItemCategory = strItemCategory;
 	}
 
-
-	public String getPrice() {
-		return price;
-	}
-
 	public void setPrice(String price) {
 		this.price = price;
-	}
-
-	public String getImageName() {
-		return imageName;
 	}
 
 	public void setImageName(String imageName) {
@@ -137,4 +108,13 @@ public class CreateServProdAction {
 	public void setIntServiceType(List<Integer> intServiceType) {
 		this.intServiceType = intServiceType;
 	}
+
+	public void setHour(int hour) {
+		this.hour = hour;
+	}
+
+	public void setMinute(int minute) {
+		this.minute = minute;
+	}
+
 }

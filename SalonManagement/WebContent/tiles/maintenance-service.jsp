@@ -1,4 +1,5 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="com.gss.model.Product" %>
 <%@ page import="com.gss.model.Service" %>
@@ -38,6 +39,7 @@
                     <th class="dt-head-left">Name</th>
                     <th class="dt-head-left">Category</th>
                     <th class="dt-head-left no-sort">Detail</th>
+                    <th class="dt-head-left">Duration</th>
                     <th class="dt-head-right">Price</th>
                     <th class="dt-head-center no-sort">Actions</th>
                 </tr>
@@ -47,13 +49,29 @@
                     <th class="dt-head-left">Name</th>
                     <th class="dt-head-left">Category</th>
                     <th class="dt-head-left">Detail</th>
+                    <th class="dt-head-left">Duration</th>
                     <th class="dt-head-right">Price</th>
                     <th class="dt-head-center">Actions</th>
                 </tr>
                 </tfoot>
                 <tbody>
                 <c:forEach items="${serviceList}" var="service">
-
+                
+                	<c:set var="duration" scope="session" value=""/>
+                	<c:set var="hour" scope="session" value="${service.intDuration / 60}"/>
+                    <c:if test="${hour > 1}">
+                    	<c:set var="minute" scope="session" value="${service.intDuration % 60}"/>
+                    	<c:set var="hour1" scope="session" value="${fn:substringBefore(hour, '.') + 0}"/>
+                    	<c:if test="${minute >= 0}">
+                    		<c:set var="duration" scope="session" value="${hour1} hr ${minute} min"/>
+                    	</c:if>
+                    	<c:if test="${minute == 0}">
+                    		<c:set var="duration" scope="session" value="${hour1} hr"/>
+                    	</c:if>
+                    </c:if>
+                     <c:if test="${hour < 1}">
+                    	<c:set var="duration" scope="session" value="${service.intDuration} min"/>
+                    </c:if>
                     <c:set var="price" scope="session"
                            value="${(service.dblServicePrice * 0) + service.dblServicePrice}"/>
                     <%! String strService =null; %>
@@ -65,13 +83,14 @@
                         <td style="padding-left: 10px; margin: 0;" class="dt-body-left">${service.strServiceCategory}
                         </td>
                         <td style="padding-left: 10px; margin: 0;" class="dt-body-left">${service.strServiceDesc}</td>
-                        <td style="padding-right: 10px; margin: 0;" class="dt-body-right servPrice">
+                        <td style="padding-left: 10px; margin: 0;" class="dt-body-left">${duration}</td>
+                        <td style="padding-right: 10px; margin: 0;" class="dt-b	ody-right servPrice">
                             ${service.stringPrice}
                         </td>
                         <td style="padding:0; margin: 0;" class="dt-body-center">
                             <a class="waves-effect waves-purple modal-trigger btn-flat transparent black-text"
                                href="#view${service.intServiceID}"
-                               style="padding-left: 10px;padding-right:10px; margin: 5px;">
+                               style="padding-left: 10px; padding-right:10px; margin: 5px;">
                                 <i class="material-icons">visibility</i>
                             </a>
                             <a class="waves-effect waves-purple modal-trigger btn-flat transparent black-text editbtn"
@@ -232,12 +251,29 @@
                                         <option value="default" disabled selected>Choose...</option>
                                     </select>
                                     <label for="crServiceCategory"><b>Category</b><i
-                                            class="material-icons red-text tiny">error_outline</i></label>
+                                            class="material-icons red-text tiny">error_outline</i>
+                                    </label>
                                 </div>
                                 <div class="input-field col s4">
                                     <a href="#crServAddCateModal"
                                        class="waves-effect waves-light btn-flat modal-category purple white-text"><i
                                             class="material-icons">add</i></a>
+                                </div>
+                                <div class="input-field col s12 right-align">
+                                	<label class="active"><b>Duration</b></label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input type="text" name="hour" id="crServiceDurationHour"
+                                           />
+                                    <label for="crServiceDurationHour" class="active"><b>Hours</b>
+                                    </label>
+                                </div>
+                                 <div class="input-field col s6">
+                                    <input type="text" name="minute" class="required" required id="crServiceDurationMinutes"
+                                           />
+                                    <label for="crServiceDurationMinutes" class="active"><b>Minutes</b>
+                                    	<i class="material-icons red-text tiny">error_outline</i>
+                                   	</label>
                                 </div>
                                 <div class="input-field col s6 offset-s6" style="margin-bottom: -15px !important;">
                                     <input type="text" class="validate right-align"
@@ -317,6 +353,8 @@
 
 
         <c:forEach items="${serviceList}" var="service">
+        	<c:set var="hour" scope="session" value="${fn:substringBefore(service.intDuration div 60, '.')}"/>
+	        <c:set var="min" scope="session" value="${service.intDuration mod 60}"/>
             <%! String serviceID = null; %>
             <% Service servID = (Service)pageContext.getAttribute("service");
             serviceID = String.valueOf(servID.getIntServiceID());
@@ -464,6 +502,22 @@
                                            class="waves-effect waves-light btn-flat modal-category purple white-text"><i
                                                 class="material-icons">add</i></a>
                                     </div>
+                                    <div class="input-field col s12 right-align">
+                                		<label class="active"><b>Duration</b></label>
+	                                </div>
+	                                
+	                                <div class="input-field col s6">
+	                                    <input type="text" name="hour" id="crServiceDurationHour" value="${hour}"/>
+	                                    <label for="crServiceDurationHour" class="active"><b>Hours</b>
+	                                    </label>
+	                                </div>
+	                                 <div class="input-field col s6">
+	                                    <input type="text" name="minute" value="${min}" class="required" required id="crServiceDurationMinutes"
+	                                           />
+	                                    <label for="crServiceDurationMinutes" class="active"><b>Minutes</b>
+	                                    	<i class="material-icons red-text tiny">error_outline</i>
+	                                   	</label>
+	                                </div>
                                     <div class="input-field col s6 offset-s6" style="margin-bottom: -15px !important;">
                                     	<c:set var="price" scope="session" value="${price}"/>
                                         <input type="text" value="<c:out value='${price}'/>"
@@ -544,6 +598,22 @@
         </div>
 
         <c:forEach items="${serviceList}" var="service">
+        
+        	<c:set var="duration" scope="session" value=""/>
+           		<c:set var="hour" scope="session" value="${service.intDuration / 60}"/>
+               	<c:if test="${hour > 1}">
+	               	<c:set var="minute" scope="session" value="${service.intDuration % 60}"/>
+	               	<c:set var="hour1" scope="session" value="${fn:substringBefore(hour, '.') + 0}"/>
+	               	<c:if test="${minute >= 0}">
+	               		<c:set var="duration" scope="session" value="${hour1} hr ${minute} min"/>
+	               	</c:if>
+	               	<c:if test="${minute == 0}">
+	               		<c:set var="duration" scope="session" value="${hour1} hr"/>
+	               	</c:if>
+               </c:if>
+               <c:if test="${hour < 1}">
+               		<c:set var="duration" scope="session" value="${service.intDuration} min"/>
+               </c:if>
             <%! String viewServiceID = null; %>
             <% Service servID = (Service)pageContext.getAttribute("service");
             viewServiceID = String.valueOf(servID.getIntServiceID());
@@ -629,6 +699,12 @@
                                                id="viewServCategory" disabled
                                                class="white-text"/>
                                         <label for="viewServCategory" class="purple-text text-lighten-2"><b>Category</b></label>
+                                    </div>
+                                    <div class="input-field col s12" style="margin-top: 25px !important;">
+                                        <input value="${duration}" type="text" name="s"
+                                               id="viewDuration" placeholder="Product Name" disabled
+                                               class="white-text"/>
+                                        <label for="viewDuration" class="active purple-text text-lighten-2"><b>Duration</b></label>
                                     </div>
                                     <div class="input-field col s6" style="margin-bottom: -15px !important;">
                                         <input type="text" value="<c:out value='${price}'/>"
