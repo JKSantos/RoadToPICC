@@ -8,17 +8,14 @@ import com.gss.utilities.ReportDate;
 
 public class GetCancelledReservation {
 	
-	private List<Reservation> reservations;
+	private String dateFrom;
+	private String dateTo;
 	
-	private int intMonth;
-	private int intYear;
+	private List<Reservation> reservations;
 	
 	public String execute(){
 		
-		String datFrom = intYear + "-" + intMonth + "-" + 1 + " 00:00:00";
-		String datTo = intYear + "-" + intMonth + "-" + 31 + " 23:59:59";
-		
-		ReportDate date = new ReportDate(datFrom, datTo);;
+		ReportDate date = new ReportDate(dateFrom, dateTo);;
 		
 		this.reservations = new ReservationJDBCRepository().getCancelledReservation(date);
 		
@@ -29,11 +26,11 @@ public class GetCancelledReservation {
 		return reservations;
 	}
 
-	public void setIntMonth(int intMonth) {
-		this.intMonth = intMonth;
+	public void setDateFrom(String dateFrom) {
+		this.dateFrom = dateFrom;
 	}
 
-	public void setIntYear(int intYear) {
-		this.intYear = intYear;
+	public void setDateTo(String dateTo) {
+		this.dateTo = dateTo;
 	}
 }
