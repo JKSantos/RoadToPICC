@@ -42,17 +42,6 @@
 				'<link rel="stylesheet" type="text/css" href="css/baselayout.css"/>' +
 				'</head><body onload="window.print()">' + printContents + '</body></html>');
 			popupWin.document.close();
-
-			// var printContents = document.getElementById(thisDiv).innerHTML;
-			// var popupWin = window.open('', '_blank', 'width=1000,height=800');
-			// popupWin.document.open();
-			// popupWin.document.write('<html><head>' +
-			// 	'<link type="text/css" rel="stylesheet" href="css/materialize.css"/>' +
-			// 	'<link rel="stylesheet" type="text/css" href="css/bartstable.css"/>' +
-			// 	'<link rel="stylesheet" type="text/css" href="css/material.min.css"/>' +
-			// 	'<link rel="stylesheet" type="text/css" href="css/baselayout.css"/>' +
-			// 	'</head><body onload="window.print()">' + printContents + '</body></html>');
-			// popupWin.document.close();
 		}
 
       }
