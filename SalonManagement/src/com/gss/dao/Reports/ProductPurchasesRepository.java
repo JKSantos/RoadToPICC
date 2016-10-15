@@ -1,6 +1,7 @@
 package com.gss.dao.Reports;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import com.gss.connection.JDBCConnection;
 import com.gss.model.Reports.ProductDetail;
 import com.gss.model.Reports.ProductPurchase;
 import com.gss.model.Reports.ProductPurchaseDetail;
+import com.gss.model.Reports.ProductPurchases;
 import com.gss.utilities.DateHelper;
 import com.gss.utilities.ReportDate;
 
@@ -87,5 +89,51 @@ public class ProductPurchasesRepository {
 			return null;
 		}
 		return purchase;
+	}
+
+	public static List<ProductPurchases> getProductPurchases(ReportDate date){
+		
+		Connection con = jdbc.getConnection();
+		String query1 = "CALL getProductPurchases_tabular_walkin(?, ?);";
+		String query2 = "CALL getProductPurchases_tabular_reservation(?, ?);";
+		String query3 = "CALL getProductPurchases_tabular_order(?, ?);";
+		
+		String[] queries = {query1, query2, query3};
+		
+		List<ProductPurchases> purchases = new ArrayList<ProductPurchases>();
+		
+		try{
+			
+			for(int i = 0; i < queries.length; i++){
+				PreparedStatement get = con.prepareStatement(queries[i]);
+				get.setString(1, date.getDateFrom());
+				get.setString(2, date.getDateTo());
+				
+				ResultSet purchaseResult = get.executeQuery();
+				
+				while(purchaseResult.next()){
+					
+					int id = purchaseResult.getInt(1);
+					String type = purchaseResult.getString(2);
+					String name = purchaseResult.getString(3);
+					Date datee = purchaseResult.getDate(4);
+					String product = purchaseResult.getString(5);
+					int quantity = purchaseResult.getInt(6);
+					
+					ProductPurchases purchase = new ProductPurchases(id, type, datee, name, product, quantity);
+					purchases.add(purchase);
+				}
+				
+				get.close();
+				purchaseResult.close();
+			}
+			
+			con.close();
+			return purchases;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
 	}
 }
