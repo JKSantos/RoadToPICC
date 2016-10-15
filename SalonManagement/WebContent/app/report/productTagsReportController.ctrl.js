@@ -9,6 +9,7 @@
 
 		vm.productTagsSearch = '';
 		vm.thisDate = new Date();
+		vm.searchRep = 0;
 
 		vm.dtInstanceCallback = dtInstanceCallback;
 		vm.searchTable = searchTable;
@@ -50,8 +51,26 @@
 					'Content-Type': 'application/x-www-form-urlencoded'
 				}
 			}).then(function successCallback(data) {
+				vm.productTags = data.data.tagSum;
 				vm.productTag = data.data.report;
-				console.log(vm.productTag);
+				vm.searchRep = 1;
+				var totalQ = 0,
+					totalC = 0,
+					totalD = 0,
+					totalE = 0,
+					totalL = 0;
+				for(var i = 0; i < data.data.tagSum.length; i ++) {
+					totalQ += data.data.tagSum[i].intQuantity;
+					totalC += data.data.tagSum[i].intConsumed;
+					totalD += data.data.tagSum[i].intDefective;
+					totalE += data.data.tagSum[i].intExpired;
+					totalL += data.data.tagSum[i].intLost;
+				}
+				vm.totalq = totalQ;
+				vm.totalc = totalC;
+				vm.totald = totalD;
+				vm.totale = totalE;
+				vm.totall = totalL;
 			}, function errorCallback(data) {
 
 			});

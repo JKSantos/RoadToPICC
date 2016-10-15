@@ -65,7 +65,8 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col s12">
+                <div class="col s12"
+                     ng-if="vm.searchRep == 1">
                     <div class="col s12 right-align">
                         <button class="btn purple darken-2 white-text" title="DOWNLOAD PDF"
                                 ng-click="vm.printPdf('printProductTags', 'printProductTagsTotal');">PDF
@@ -103,51 +104,42 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="col s12" ng-if="vm.searchRep == 1">
+                    <h5>Total</h5>
+                    <table id="productTagsTableTotal" datatable="ng"
+                           style="margin-top: -40px !important;"
+                           class="table-barts hoverable z-depth-1 cell-border row-border display responsive-table highlight">
+                        <thead>
+                        <th class="left-align">Name</th>
+                        <th class="right-align">Quantity</th>
+                        <th class="right-align">Consumed</th>
+                        <th class="right-align">Defective</th>
+                        <th class="right-align">Expired</th>
+                        <th class="right-align">Lost</th>
+                        </thead>
+                        <tfoot>
+                        <tr style="border: 1px solid #bdbdbd;">
+                            <th class="left-align">Total</th>
+                            <th class="right-align">{{vm.totalq}}</th>
+                            <th class="right-align">{{vm.totalc}}</th>
+                            <th class="right-align">{{vm.totald}}</th>
+                            <th class="right-align">{{vm.totale}}</th>
+                            <th class="right-align">{{vm.totall}}</th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        <tr ng-repeat="tags in vm.productTags">
+                            <td>{{tags.strProductName}}</td>
+                            <td class="right-align">{{tags.intQuantity}}</td>
+                            <td class="right-align">{{tags.intConsumed}}</td>
+                            <td class="right-align">{{tags.intDefective}}</td>
+                            <td class="right-align">{{tags.intExpired}}</td>
+                            <td class="right-align">{{tags.intLost}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
-            <!--<div class="row">-->
-            <!--<div class="col s12">-->
-            <!--<div class="col s12 right-align">-->
-            <!--<button class="btn purple darken-2 white-text" title="DOWNLOAD PDF"-->
-            <!--ng-click="vm.printPdf('printProductTags');">PDF</button>-->
-            <!--</div>-->
-            <!--<table id="productTagsTable" datatable="ng" dt-instance="vm.dtInstanceCallback"-->
-            <!--style="margin-top: -40px !important;"-->
-            <!--class="table-barts hoverable z-depth-1 cell-border row-border display responsive-table highlight">-->
-            <!--<thead>-->
-            <!--<th class="left-align">Name</th>-->
-            <!--<th class="right-align">Date</th>-->
-            <!--<th class="right-align">Quantity</th>-->
-            <!--<th class="right-align">Consumed</th>-->
-            <!--<th class="right-align">Defective</th>-->
-            <!--<th class="right-align">Expired</th>-->
-            <!--<th class="right-align">Lost</th>-->
-            <!--</thead>-->
-            <!--<tfoot>-->
-            <!--<tr style="border: 1px solid #bdbdbd;">-->
-            <!--<th class="left-align">Name</th>-->
-            <!--<th class="right-align">Date</th>-->
-            <!--<th class="right-align">Quantity</th>-->
-            <!--<th class="right-align">Consumed</th>-->
-            <!--<th class="right-align">Defective</th>-->
-            <!--<th class="right-align">Expired</th>-->
-            <!--<th class="right-align">Lost</th>-->
-            <!--</tr>-->
-            <!--</tfoot>-->
-            <!--<tbody>-->
-            <!--<tr ng-repeat="tags in vm.productTags">-->
-            <!--<td>{{tags.strProductName}}</td>-->
-            <!--<td class="right-align">date</td>-->
-            <!--<td class="right-align">{{tags.intQuantity}}</td>-->
-            <!--<td class="right-align">{{tags.intConsumed}}</td>-->
-            <!--<td class="right-align">{{tags.intDefective}}</td>-->
-            <!--<td class="right-align">{{tags.intExpired}}</td>-->
-            <!--<td class="right-align">{{tags.intLost}}</td>-->
-            <!--</tr>-->
-            <!--</tbody>-->
-            <!--</table>-->
-            <!--</div>-->
-            <!--</div>-->
 
             <div class="row" id="printProductTags" style="display: none;">
                 <h5 class="center"><img src="img/logo.png" alt="sms" style="height: 50px;"> Salon Management System -

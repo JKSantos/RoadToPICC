@@ -34,8 +34,8 @@
       <file leaf-file-name="reports-productTags.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/reports-productTags.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="14" column="52" selection-start-line="14" selection-start-column="52" selection-end-line="14" selection-end-column="52" />
+            <state relative-caret-position="450">
+              <caret line="126" column="42" selection-start-line="126" selection-start-column="42" selection-end-line="126" selection-end-column="42" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -46,12 +46,12 @@
                 <element signature="n#style#0;n#th#2;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#3;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#4;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#table#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#h5#0;n#div#2;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#2;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#3;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#3;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <marker date="1476524464832" expanded="false" signature="7097:7123" ph="..." />
               </folding>
             </state>
           </provider>
@@ -60,8 +60,8 @@
       <file leaf-file-name="productTagsReportController.ctrl.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/report/productTagsReportController.ctrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="41" column="31" selection-start-line="41" selection-start-column="31" selection-end-line="41" selection-end-column="31" />
+            <state relative-caret-position="160">
+              <caret line="68" column="16" selection-start-line="68" selection-start-column="16" selection-end-line="68" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -161,9 +161,9 @@
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/app/payment/payment.ctr.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/baseLayout.jsp" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/app/main.js" />
-        <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/reports-productTags.jsp" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/js/angular-materialize.min.js" />
         <option value="$PROJECT_DIR$/SalonManagement/WebContent/app/report/productTagsReportController.ctrl.js" />
+        <option value="$PROJECT_DIR$/SalonManagement/WebContent/tiles/reports-productTags.jsp" />
       </list>
     </option>
   </component>
@@ -636,12 +636,12 @@
       <workItem from="1475905955878" duration="1419000" />
       <workItem from="1475913191559" duration="5486000" />
       <workItem from="1476232022789" duration="9434000" />
-      <workItem from="1476519043436" duration="5592000" />
+      <workItem from="1476519043436" duration="6946000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1211808000" />
+    <option name="totallyTimeSpent" value="1213162000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="886" extended-state="6" />
@@ -1035,8 +1035,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/tiles/reports-productTags.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="14" column="52" selection-start-line="14" selection-start-column="52" selection-end-line="14" selection-end-column="52" />
+        <state relative-caret-position="450">
+          <caret line="126" column="42" selection-start-line="126" selection-start-column="42" selection-end-line="126" selection-end-column="42" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -1047,20 +1047,20 @@
             <element signature="n#style#0;n#th#2;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#3;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#4;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#table#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#h5#0;n#div#2;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#2;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#3;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#3;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <marker date="1476524464832" expanded="false" signature="7097:7123" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SalonManagement/WebContent/app/report/productTagsReportController.ctrl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="41" column="31" selection-start-line="41" selection-start-column="31" selection-end-line="41" selection-end-column="31" />
+        <state relative-caret-position="160">
+          <caret line="68" column="16" selection-start-line="68" selection-start-column="16" selection-end-line="68" selection-end-column="25" />
           <folding />
         </state>
       </provider>
