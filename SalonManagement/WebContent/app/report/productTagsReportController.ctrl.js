@@ -4,7 +4,7 @@
         .module('app')
         .controller('productTagsReportController', productTagsReportController);
 
-    function productTagsReportController($scope, $filter, reportsFactory) {
+    function productTagsReportController($scope, $http, $filter, reportsFactory) {
 		var vm = this;
 
 		vm.productTagsSearch = '';
@@ -13,6 +13,7 @@
 		vm.dtInstanceCallback = dtInstanceCallback;
 		vm.searchTable = searchTable;
 		vm.printPdf = printPdf;
+		vm.searchReport = searchReport;
 
 		function dtInstanceCallback(dtInstance) {
 			var datatableObj = dtInstance.DataTable;
@@ -29,6 +30,33 @@
 			vm.productTags = data.data.tagSum;
 			console.log(vm.productTags);
 		});
+
+
+
+		function searchReport (datFrom, datTo) {
+			var datFrom = moment(datFrom).format("YYYY-MM-DD"),
+				datTo = moment(datTo).format("YYYY-MM-DD");
+
+			var dat = $.param({
+				'dateFrom': datFrom,
+				'dateTo': datTo
+			});
+
+			$http({
+				method: 'post',
+				url: 'getProductTags',
+				data: dat,
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				}
+			}).then(function successCallback(data) {
+				vm.productTag = data.data.report;
+				console.log(vm.productTag);
+			}, function errorCallback(data) {
+
+			});
+
+		}
 
 		function printPdf(thisDiv) {
 			var printContents = document.getElementById(thisDiv).innerHTML;
