@@ -5,60 +5,68 @@ import java.sql.Date;
 public class ProductPurchases {
 	
 	private int transactionID;
+	private String type;
 	private Date transactionDate;
-	private String transactionName;
-	private String transactionType;
+	private String customerName;
 	private String productName;
 	private int quantity;
 	
-	public ProductPurchases(int transactionID, Date transactionDate, String transactionName, String transactionType,
-			String productName, int quantity) {
+	public ProductPurchases(int transactionID, String type, Date transactionDate, String customerName, String productName,
+			int quantity) {
 		super();
 		this.transactionID = transactionID;
+		this.type = type;
 		this.transactionDate = transactionDate;
-		this.transactionName = transactionName;
-		this.transactionType = transactionType;
+		this.customerName = customerName;
 		this.productName = productName;
 		this.quantity = quantity;
 	}
+
 	public int getTransactionID() {
 		return transactionID;
 	}
+
 	public void setTransactionID(int transactionID) {
 		this.transactionID = transactionID;
 	}
+
 	public Date getTransactionDate() {
 		return transactionDate;
 	}
+
 	public void setTransactionDate(Date transactionDate) {
 		this.transactionDate = transactionDate;
 	}
-	public String getTransactionName() {
-		return transactionName;
+
+	public String getCustomerName() {
+		return customerName;
 	}
-	public void setTransactionName(String transactionName) {
-		this.transactionName = transactionName;
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
 	}
-	public String getTransactionType() {
-		return transactionType;
-	}
-	public void setTransactionType(String transactionType) {
-		this.transactionType = transactionType;
-	}
+
 	public String getProductName() {
 		return productName;
 	}
+
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
+
 	public int getQuantity() {
 		return quantity;
 	}
+
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	
-	
-	
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 }

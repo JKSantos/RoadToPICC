@@ -40,7 +40,7 @@ public class ProductSalesReportRepository {
 				String productName				= orderSet.getString(6);
 				int quantity					= orderSet.getInt(7);
 				
-				sales.add(new ProductPurchases(transactionID, transactionDate, transactionName, transactionType, productName, quantity));
+				sales.add(new ProductPurchases(transactionID, productName, transactionDate, transactionName, transactionType, quantity));
 			}
 			
 			oderSt.close();
@@ -78,7 +78,7 @@ public class ProductSalesReportRepository {
 				String productName				= reservationSet.getString(5);
 				int quantity					= reservationSet.getInt(6);
 				
-				sales.add(new ProductPurchases(transactionID, transactionDate, transactionName, transactionType, productName, quantity));
+				sales.add(new ProductPurchases(transactionID, productName, transactionDate, transactionName, transactionType, quantity));
 			}
 			
 			reservationSt.close();
@@ -117,7 +117,7 @@ public class ProductSalesReportRepository {
 				String productName				= walkinSet.getString(4);
 				int quantity					= walkinSet.getInt(5);
 				
-				sales.add(new ProductPurchases(transactionID, transactionDate, transactionName, transactionType, productName, quantity));
+				sales.add(new ProductPurchases(transactionID, productName, transactionDate, transactionName, transactionType, quantity));
 			}
 			
 			walkinSt.close();
