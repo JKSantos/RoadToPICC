@@ -168,6 +168,7 @@
                             <li><a href="orderPage`">Product Purchases</a></li>
                             <li><a href="reservationPage">Sales Reports</a></li>
                             <li><a href="productTags">Product Tags</a></li>
+                            <li><a href="cancelledReservations">Cancelled Reservations</a></li>
                         </ul>
                     </div>
                 </li>
@@ -297,6 +298,7 @@
 <script type="text/javascript" src="app/report/salesReportController.ctrl.js"></script>
 <script type="text/javascript" src="app/report/reservationReportController.ctrl.js"></script>
 <script type="text/javascript" src="app/report/productTagsReportController.ctrl.js"></script>
+<script type="text/javascript" src="app/report/cancelledReservationController.ctrl.js"></script>
 </body>
 
 </html>

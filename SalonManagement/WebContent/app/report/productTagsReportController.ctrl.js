@@ -71,6 +71,8 @@
 				vm.totald = totalD;
 				vm.totale = totalE;
 				vm.totall = totalL;
+				vm.datFrom = '';
+				vm.datTo = '';
 			}, function errorCallback(data) {
 
 			});
@@ -79,7 +81,7 @@
 
 		function printPdf(thisDiv) {
 			var printContents = document.getElementById(thisDiv).innerHTML;
-			var popupWin = window.open('', '_blank', 'width=800,height=800,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no,top=50');
+			var popupWin = window.open('', '_blank', 'width=800,height=800,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no,top=10');
 			popupWin.window.focus();
 			popupWin.document.open();
 			popupWin.document.write('<html><head>' +
@@ -87,7 +89,7 @@
 				'<link rel="stylesheet" type="text/css" href="css/bartstable.css"/>' +
 				'<link rel="stylesheet" type="text/css" href="css/material.min.css"/>' +
 				'<link rel="stylesheet" type="text/css" href="css/baselayout.css"/>' +
-				'</head><body onload="window.print()">' + printContents + '</body></html>');
+				'</head><body onload="window.print()">' + '<div class="col s12">' + printContents + '</div>' + '</body></html>');
 			popupWin.document.close();
 		}
 

@@ -69,18 +69,20 @@
                      ng-if="vm.searchRep == 1">
                     <div class="col s12 right-align">
                         <button class="btn purple darken-2 white-text" title="DOWNLOAD PDF"
-                                ng-click="vm.printPdf('printProductTags', 'printProductTagsTotal');">PDF
+                                ng-click="vm.printPdf('printProductTags');">PDF
                         </button>
                     </div>
                     <table id="productTagsTable" datatable="ng" dt-instance="vm.dtInstanceCallback"
                            style="margin-top: -40px !important;"
                            class="table-barts hoverable z-depth-1 cell-border row-border display responsive-table highlight">
                         <thead>
-                        <th class="left-align">Product Name</th>
-                        <th class="left-align">Type</th>
-                        <th class="left-align">Tagged By</th>
-                        <th class="right-align">Quantity</th>
-                        <th class="right-align">Tagged Date</th>
+                        <tr>
+                            <th class="left-align">Product Name</th>
+                            <th class="left-align">Type</th>
+                            <th class="left-align">Tagged By</th>
+                            <th class="right-align">Quantity</th>
+                            <th class="right-align">Tagged Date</th>
+                        </tr>
                         </thead>
                         <tfoot>
                         <tr style="border: 1px solid #bdbdbd;">
@@ -93,29 +95,30 @@
                         </tfoot>
                         <tbody>
                         <tr ng-repeat="tags in vm.productTag">
-                            <th style="font-weight: normal !important;" class="left-align">{{tags.strProductName}}</th>
-                            <th style="font-weight: normal !important;" class="left-align">{{tags.tagType}}</th>
-                            <th style="font-weight: normal !important;" class="left-align">{{tags.strEmployee}}</th>
-                            <th style="font-weight: normal !important;" class="right-align">{{tags.intQuantity}}</th>
-                            <th style="font-weight: normal !important;" class="right-align">{{tags.datDateTagged | date:
-                                "MMM d, y 'at' h:mma"}}
-                            </th>
+                            <td class="left-align">{{tags.strProductName}}</td>
+                            <td class="left-align">{{tags.tagType}}</td>
+                            <td class="left-align">{{tags.strEmployee}}</td>
+                            <td class="right-align">{{tags.intQuantity}}</td>
+                            <td class="right-align">{{tags.datDateTagged | date: "MMM d, y"}}
+                            </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="col s12" ng-if="vm.searchRep == 1">
+                <div class="col s12" ng-if="vm.searchRep == 1" id="prodtagstotal">
                     <h5>Total</h5>
                     <table id="productTagsTableTotal" datatable="ng"
                            style="margin-top: -40px !important;"
-                           class="table-barts hoverable z-depth-1 cell-border row-border display responsive-table highlight">
+                           class="table-barts z-depth-0 cell-border row-border display responsive-table highlight">
                         <thead>
-                        <th class="left-align">Name</th>
-                        <th class="right-align">Quantity</th>
-                        <th class="right-align">Consumed</th>
-                        <th class="right-align">Defective</th>
-                        <th class="right-align">Expired</th>
-                        <th class="right-align">Lost</th>
+                        <tr>
+                            <th class="left-align">Name</th>
+                            <th class="right-align">Quantity</th>
+                            <th class="right-align">Consumed</th>
+                            <th class="right-align">Defective</th>
+                            <th class="right-align">Expired</th>
+                            <th class="right-align">Lost</th>
+                        </tr>
                         </thead>
                         <tfoot>
                         <tr style="border: 1px solid #bdbdbd;">
@@ -147,40 +150,36 @@
                 <h3 class="center">Product Tags</h3>
                 <div class="col s12">
                     <table class="table-barts cell-border row-border display">
-                        <thead>
-                        <th class="left-align">Product Name</th>
-                        <th class="left-align">Type</th>
-                        <th class="left-align">Tagged By</th>
-                        <th class="right-align">Quantity</th>
-                        <th class="right-align">Tagged Date</th>
-                        </thead>
                         <tbody>
+                        <tr class="border: 1px black;">
+                            <td class="left-align"><b>Product Name</b></td>
+                            <td class="left-align"><b>Type</b></td>
+                            <td class="left-align"><b>Tagged By</b></td>
+                            <td class="right-align"><b>Quantity</b></td>
+                            <td class="right-align"><b>Tagged Date</b></td>
+                        </tr>
                         <tr ng-repeat="tags in vm.productTag" style="border: 1px black !important;">
                             <td class="left-align">{{tags.strProductName}}</td>
                             <td class="left-align">{{tags.tagType}}</td>
                             <td class="left-align">{{tags.strEmployee}}</td>
                             <td class="right-align">{{tags.intQuantity}}</td>
-                            <td class="right-align">{{tags.datDateTagged | date:"MMM d, y 'at' h:mma"}}</td>
+                            <td class="right-align">{{tags.datDateTagged | date:"MMM d, y"}}</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-            </div>
-
-
-            <div class="row" id="printProductTagsTotal" style="display: none;">
                 <div class="col s12">
                     <h4>Total</h4>
                     <table class="table-barts cell-border row-border display">
-                        <thead>
-                        <th class="left-align">Name</th>
-                        <th class="right-align">Quantity</th>
-                        <th class="right-align">Consumed</th>
-                        <th class="right-align">Defective</th>
-                        <th class="right-align">Expired</th>
-                        <th class="right-align">Lost</th>
-                        </thead>
                         <tbody>
+                        <tr style="border: 1px black;">
+                            <td class="left-align"><b>Name</b></td>
+                            <td class="right-align"><b>Quantity</b></td>
+                            <td class="right-align"><b>Consumed</b></td>
+                            <td class="right-align"><b>Defective</b></td>
+                            <td class="right-align"><b>Expired</b></td>
+                            <td class="right-align"><b>Lost</b></td>
+                        </tr>
                         <tr ng-repeat="tags in vm.productTags" style="border: 1px black;">
                             <td>{{tags.strProductName}}</td>
                             <td class="right-align">{{tags.intQuantity}}</td>
@@ -188,6 +187,14 @@
                             <td class="right-align">{{tags.intDefective}}</td>
                             <td class="right-align">{{tags.intExpired}}</td>
                             <td class="right-align">{{tags.intLost}}</td>
+                        </tr>
+                        <tr style="border: 1px black;">
+                            <td class="left-align">Total</td>
+                            <td class="right-align">{{vm.totalq}}</td>
+                            <td class="right-align">{{vm.totalc}}</td>
+                            <td class="right-align">{{vm.totald}}</td>
+                            <td class="right-align">{{vm.totale}}</td>
+                            <td class="right-align">{{vm.totall}}</td>
                         </tr>
                         </tbody>
                     </table>
