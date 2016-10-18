@@ -47,7 +47,8 @@
 					'Content-Type': 'application/x-www-form-urlencoded'
 				}
 			}).then(function successCallback(data) {
-				vm.pos = data.data.productOrderPurchase;
+				vm.pos = data.data.purchases;
+				console.log(vm.pos);
 				vm.searchRep = 1;
 				vm.datFrom = '';
 				vm.datTo = '';

@@ -78,7 +78,7 @@
                         <tr>
                             <th class="left-align">Product Name</th>
                             <th class="right-align">Quantity</th>
-                            <th class="left-align">Transaction Name</th>
+                            <th class="left-align">Customer Name</th>
                             <th class="left-align">Transaction Type</th>
                             <th class="right-align">Transaction Date</th>
                         </tr>
@@ -87,7 +87,7 @@
                         <tr style="border: 1px solid #bdbdbd;">
                             <th class="left-align">Product Name</th>
                             <th class="right-align">Quantity</th>
-                            <th class="left-align">Transaction Name</th>
+                            <th class="left-align">Customer Name</th>
                             <th class="left-align">Transaction Type</th>
                             <th class="right-align">Transaction Date</th>
                         </tr>
@@ -96,8 +96,8 @@
                         <tr ng-repeat="pos in vm.pos">
                             <td class="left-align">{{pos.productName}}</td>
                             <td class="right-align">{{pos.quantity}}</td>
-                            <td class="left-align">{{pos.transactionName}}</td>
-                            <td class="left-align">{{pos.transactionType}}</td>
+                            <td class="left-align">{{pos.customerName | uppercase}}</td>
+                            <td class="left-align">{{pos.type}}</td>
                             <td class="right-align">{{pos.transactionDate | date: 'MMMM d, yyyy'}}</td>
                         </tr>
                         </tbody>
@@ -115,24 +115,24 @@
                         <tr style="border: 1px black !important;">
                             <td class="left-align"><b>Product Name</b></td>
                             <td class="right-align"><b>Quantity</b></td>
-                            <td class="left-align"><b>Transaction Name</b></td>
+                            <td class="left-align"><b>Customer Name</b></td>
                             <td class="left-align"><b>Transaction Type</b></td>
                             <td class="right-align"><b>Transaction Date</b></td>
                         </tr>
                         <tr ng-repeat="pos in vm.pos" style="border: 1px black !important;">
-                            <td class="left-align">{{pos.productName}}</td>
+                            <td class="left-align">{{pos.productName | uppercase}}</td>
                             <td class="right-align">{{pos.quantity}}</td>
-                            <td class="left-align">{{pos.transactionName}}</td>
-                            <td class="left-align">{{pos.transactionType}}</td>
+                            <td class="left-align">{{pos.customerName}}</td>
+                            <td class="left-align">{{pos.type}}</td>
                             <td class="right-align">{{pos.transactionDate | date: 'MMMM d, yyyy'}}</td>
                         </tr>
-                        <tr style="border: 1px solid #bdbdbd;">
-                            <td class="left-align"><b>Product Name</b></td>
-                            <td class="right-align"><b>Quantity</b></td>
-                            <td class="left-align"><b>Transaction Name</b></td>
-                            <td class="left-align"><b>Transaction Type</b></td>
-                            <td class="right-align"><b>Transaction Date</b></td>
-                        </tr>
+                        <!--<tr style="border: 1px solid #bdbdbd;">-->
+                            <!--<td class="left-align"><b>Product Name</b></td>-->
+                            <!--<td class="right-align"><b>Quantity</b></td>-->
+                            <!--<td class="left-align"><b>Customer Name</b></td>-->
+                            <!--<td class="left-align"><b>Transaction Type</b></td>-->
+                            <!--<td class="right-align"><b>Transaction Date</b></td>-->
+                        <!--</tr>-->
                         </tbody>
                     </table>
                 </div>
