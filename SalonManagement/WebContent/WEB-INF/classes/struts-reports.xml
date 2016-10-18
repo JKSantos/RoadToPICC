@@ -51,6 +51,10 @@
 			<result name="success" type="json"></result>
 		</action>
 		
+		<action name="getSalesReport" class="com.gss.actions.Reports.Sales.GetSalesReportTabular" method="execute">
+			<result name="success" type="json"></result>
+		</action>
+		
 		<action name="printStatisticalSalesChart" class="com.gss.actions.Reports.Sales.PrintSalesChart">
 			<result name="success" type="json"></result>
 		</action>
@@ -81,7 +85,7 @@
 		
 		<action name="GetTotalClients" class="com.gss.actions.Reports.Sales.GetTotalClients" method="execute">
 			<result name="success" type="json"></result>
-		</action>=
+		</action>
 		<!-- SALES CHART END-->
 		
 		<!-- PRODUCT PURCHASE CHART START-->
@@ -98,6 +102,12 @@
 			</action>
 		<!-- PRODUCT PURCHASE CHART END-->
 		
+		<!-- PRODUCT PURCHASE CHART START-->
+			<action name="getServiceAvailed" class="com.gss.actions.Reports.ServiceAvailment.GetServiceAvailment">
+				<result name="success" type="json"></result>
+			</action>
+		<!-- PRODUCT PURCHASE CHART END-->
+		
 		<!-- CANCELLED RESERVATION CHART START-->
 		
 			<action name="getCancelledReservations" class="com.gss.actions.Reports.CancelledReservation.GetCancelledReservation">
@@ -106,23 +116,23 @@
 		
 		<!-- CANCELLED RESERVATION CHART END-->
 		
-		<action name="downloadReports" class="com.gss.actions.Reports.ProductTag.ChartDownload">
-		    <result name="success" type="stream">
-		        <param name="contentType">application/pdf</param>
-		        <param name="inputName">fileStream</param>
-		        <param name="contentDisposition">attachment;filename="document.pdf"</param>
-		        <param name="bufferSize">1024</param>
-		    </result>
-		</action>
-		<action name="download" class="com.gss.utilities.DownloadAction">
-		    <result name="success" type="stream">
-		        <param name="contentType">application/pdf</param>
-		        <param name="inputName">fileStream</param>
-		        <param name="contentDisposition">attachment;filename="document.pdf"</param>
-		        <param name="bufferSize">1024</param>
-		    </result>
-		</action>
-		</package>	
+			<action name="downloadReports" class="com.gss.actions.Reports.ProductTag.ChartDownload">
+			    <result name="success" type="stream">
+			        <param name="contentType">application/pdf</param>
+			        <param name="inputName">fileStream</param>
+			        <param name="contentDisposition">attachment;filename="document.pdf"</param>
+			        <param name="bufferSize">1024</param>
+			    </result>
+			</action>
+			<action name="download" class="com.gss.utilities.DownloadAction">
+			    <result name="success" type="stream">
+			        <param name="contentType">application/pdf</param>
+			        <param name="inputName">fileStream</param>
+			        <param name="contentDisposition">attachment;filename="document.pdf"</param>
+			        <param name="bufferSize">1024</param>
+			    </result>
+			</action>
+	</package>	
 		
 		
 </struts>
