@@ -66,6 +66,10 @@
 		<action name="cancelledReservations" class="com.gss.actions.ReportsAction" method="cancelledReservations">
 			<result name="success" type="tiles">cancelledReserv</result>
 		</action>
+
+		<action name="serviceAvailments" class="com.gss.actions.ReportsAction" method="serviceAvailments">
+			<result name="success" type="tiles">serviceAvailments</result>
+		</action>
 		
 		<action name="reservationSales" class="com.gss.actions.Reports.Sales.GetReservationSalesReport" method="execute">
 			<result name="success" type="json"></result>

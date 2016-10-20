@@ -165,10 +165,11 @@
                     </a>
                     <div class="collapsible-body" style="background-color: #333333 !important;">
                         <ul class="navul">
-                            <li><a href="orderPage`">Product Purchases</a></li>
-                            <li><a href="reservationPage">Sales Reports</a></li>
+                            <li><a href="orderPage">Product Purchases</a></li>
+                            <li><a href="salesReport">Sales Reports</a></li>
                             <li><a href="productTags">Product Tags</a></li>
                             <li><a href="cancelledReservations">Cancelled Reservations</a></li>
+                            <li><a href="serviceAvailments">Service Availments</a></li>
                         </ul>
                     </div>
                 </li>
@@ -299,6 +300,7 @@
 <script type="text/javascript" src="app/report/reservationReportController.ctrl.js"></script>
 <script type="text/javascript" src="app/report/productTagsReportController.ctrl.js"></script>
 <script type="text/javascript" src="app/report/cancelledReservationController.ctrl.js"></script>
+<script type="text/javascript" src="app/report/serviceAvailmentsController.ctrl.js"></script>
 </body>
 
 </html>

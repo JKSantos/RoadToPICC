@@ -147,6 +147,11 @@
         <put-attribute name="title"			value="Cancelled Reservation"/>
         <put-attribute name="body"			value="/tiles/reports-cancelledReservations.jsp"/>
     </definition>
+
+    <definition name="serviceAvailments" extends="baseLayout">
+        <put-attribute name="title"			value="Cancelled Reservation"/>
+        <put-attribute name="body"			value="/tiles/reports-serviceAvailments.jsp"/>
+    </definition>
     
     <definition name="utilities" extends="baseLayout">
     	<put-attribute name="title"			value="Utilities"/>

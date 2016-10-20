@@ -9,4 +9,8 @@ public class ReportsAction {
 	public String cancelledReservations(){
 		return "success";
 	}
+	
+	public String serviceAvailments(){
+		return "success";
+	}
 }
