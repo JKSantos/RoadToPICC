@@ -97,14 +97,14 @@
                         </thead>
                         <tfoot>
                         <tr style="border: 1px solid #bdbdbd;">
-                            <th class="left-align">Transaction Type</th>
-                            <th class="left-align">Customer Name</th>
-                            <th class="right-align">Transaction Date</th>
-                            <th class="right-align">Total Sales</th>
+                            <th class="left-align"></th>
+                            <th class="left-align"></th>
+                            <th class="right-align"><b>Total:</b></th>
+                            <th class="right-align"><b>{{vm.total | currency: 'Php '}}</b></th>
                         </tr>
                         </tfoot>
                         <tbody>
-                        <tr ng-repeat="sales in vm.sales">
+                        <tr ng-repeat="sales in vm.sales | orderBy: 'transactionDate': true">
                             <td class="left-align">{{sales.type}}</td>
                             <td class="left-align">{{sales.customerName | uppercase}}</td>
                             <td class="right-align">{{sales.transactionDate | date: 'MMMM d, yyyy'}}</td>
@@ -134,13 +134,12 @@
                             <td class="right-align">{{sales.transactionDate | date: 'MMMM d, yyyy'}}</td>
                             <td class="right-align">{{sales.totalPrice | currency: 'Php '}}</td>
                         </tr>
-                        <!--<tr style="border: 1px solid #bdbdbd;">-->
-                            <!--<td class="left-align"><b>Product Name</b></td>-->
-                            <!--<td class="right-align"><b>Quantity</b></td>-->
-                            <!--<td class="left-align"><b>Customer Name</b></td>-->
-                            <!--<td class="left-align"><b>Transaction Type</b></td>-->
-                            <!--<td class="right-align"><b>Transaction Date</b></td>-->
-                        <!--</tr>-->
+                        <tr style="border: 1px solid #bdbdbd;">
+                            <td class="left-align"></td>
+                            <td class="left-align"></td>
+                            <td class="right-align"><b>Total:</b></td>
+                            <td class="right-align"><b>{{vm.total | currency: 'Php '}}</b></td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

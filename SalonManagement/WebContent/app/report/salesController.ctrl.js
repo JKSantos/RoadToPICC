@@ -53,12 +53,24 @@
 				}
 			}).then(function successCallback(data) {
 				vm.sales = data.data.sales;
+				vm.totalTemp = to(data.data.sales);
+				vm.total = to(data.data.sales);
 				vm.salesTemp = data.data.sales;
 				vm.searchRep = 1;
 			}, function errorCallback(data) {
 
 			});
 
+		}
+
+		function to(sales) {
+			var t = 0;
+
+			angular.forEach(sales, function(item) {
+				t += item.totalPrice;
+			});
+
+			return t;
 		}
 
 		function res(sales) {
@@ -73,6 +85,18 @@
 			return s;
 		}
 
+		function resto(sales) {
+			var t = 0;
+
+			angular.forEach(sales, function(item) {
+				if(item.type == 'RESERVATION' || item.type == 'reservation') {
+					t += item.totalPrice;
+				}
+			});
+
+			return t;
+		}
+
 		function wi(sales) {
 			var w = [];
 
@@ -83,6 +107,18 @@
 			});
 
 			return w;
+		}
+
+		function wito(sales) {
+			var t = 0;
+
+			angular.forEach(sales, function(item) {
+				if(item.type == 'WALKIN' || item.type == 'walkin') {
+					t += item.totalPrice;
+				}
+			});
+
+			return t;
 		}
 
 		function or(sales) {
@@ -97,22 +133,35 @@
 			return o;
 		}
 
+		function orto(sales) {
+			var t = 0;
+
+			angular.forEach(sales, function(item) {
+				if(item.type == 'ORDER' || item.type == 'order') {
+					t += item.totalPrice;
+				}
+			});
+
+			return t;
+		}
+
 		function transType(type) {
 			if (type == 'all') {
 				vm.sales = vm.salesTemp;
+				vm.total = vm.totalTemp;
 				vm.titleSales = 'All';
 			} else if (type == 'reservation') {
 				vm.sales = res(vm.salesTemp);
+				vm.total = resto(vm.salesTemp);
 				vm.titleSales = 'Reservation'
-				console.log(vm.sales);
 			} else if (type == 'walkin') {
 				vm.titleSales = 'Walk In'
+				vm.total = wito(vm.salesTemp);
 				vm.sales = wi(vm.salesTemp);
-				console.log(vm.sales);
 			} else if (type == 'order') {
 				vm.titleSales = 'Order';
+				vm.total = orto(vm.salesTemp);
 				vm.sales = or(vm.salesTemp);
-				console.log(vm.sales);
 			}
 		}
 
