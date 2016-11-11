@@ -125,7 +125,7 @@
 
     <definition name="SalesReport" extends="baseLayout">
         <put-attribute name="title"         value="Report"/>
-        <put-attribute name="body"          value="/tiles/sales-report.jsp"/>
+        <put-attribute name="body"          value="/tiles/reports-sales-report.jsp"/>
     </definition>
 
     <definition name="home" extends="baseLayout">
