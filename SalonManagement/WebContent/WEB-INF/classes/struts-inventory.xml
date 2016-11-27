@@ -21,6 +21,10 @@
 			<result name="success" type="tiles">transInventory</result>
 		</action>
 		
+		<!-- <action name="getTags" class="com.gss.actions.GetProductTagsAction" method="execute">
+			<result name="success" type="json"></result>
+		</action> -->
+		
 		<action name="createTag" class="com.gss.actions.CreateTagAction">
 			<result name="success">redirect-transaction-inventory.jsp</result>
 			<result name="failed">transactions-inventory.jsp</result>
@@ -36,8 +40,7 @@
 			<!--<result name="success">redirect-transaction-inventory.jsp</result>-->
 			<result name="success">redirect-transaction-inventory.jsp</result>
 			<result name="failed">transactions-inventory.jsp</result>
-		</action> 
-		   
+		</action>
 	</package>
 </struts>
 		

@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.gss.dao.CustomerTransactionHelper;
 import com.gss.model.Discount;
 import com.gss.model.Employee;
@@ -24,9 +30,17 @@ import com.gss.service.WalkInService;
 import com.gss.service.WalkInServiceImpl;
 import com.gss.utilities.JavaSqlDateTimeHelper;
 import com.gss.utilities.PriceFormatHelper;
+import com.opensymphony.xwork2.ActionSupport;
 
-public class CreateIndividualWalkIn {
+
+public class CreateIndividualWalkIn extends ActionSupport{
 	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private String strName;
 	private String strContactNo = "";
 	private String productString = "";
@@ -35,6 +49,8 @@ public class CreateIndividualWalkIn {
 	private String employeeAssigned = "";
 	private List<PackageDetails> packageList = new ArrayList<PackageDetails>();
 	private List<PromoDetails> promoList = new ArrayList<PromoDetails>();
+	private String packageLists = "";
+	private String promoLists = "";
 	private String strTotalPrice;
 	private String discounts = "";
 	private String extraCharges = "";
@@ -48,9 +64,10 @@ public class CreateIndividualWalkIn {
 	
 	public String execute() throws Exception{
 		
-		System.out.println("Package: " + this.packageList.size());
-		System.out.println("Promo: " + this.promoList.size());
-		System.out.println("Discount: " + this.discounts);
+		if(this.customerType == null){
+			this.customerType = "WALKIN";
+		}
+		
 		
 		this.strContactNo = this.strContactNo.replaceAll("\"", "");
 		
@@ -68,9 +85,7 @@ public class CreateIndividualWalkIn {
 		String[] productQuantity = this.productQuantity.split(",");
 		
 		String[] discounts = this.discounts.split(",");
-		String[] extraCharges = this.extraCharges.split(",");System.out.println("Customer ID: " + this.serviceString);
-		System.out.println("waLKiN ID: " + this.employeeAssigned);
-		
+		String[] extraCharges = this.extraCharges.split(",");
 		
 		if(!this.productString.equals("")){
 			for(int i = 0; i < products.length; i++){
@@ -169,14 +184,14 @@ public class CreateIndividualWalkIn {
 		}
 
 		Invoice invoice = Invoice.createNullInvoice(extraChargeList, discountList, PriceFormatHelper.convertToDouble(this.strTotalPrice, "Php "), "FULL");
-		
+
 		WalkIn walkin = new WalkIn(1, customerType, this.strName, this.strContactNo, new Date(), serviceList, productList, packageList, promoList, invoice, null, "PENDING", "UNPAID");
 		
 		try{
 			
 		String time = appointmentDate.replaceAll("AM", "");	
 		time = appointmentDate.replaceAll("PM", "");	
-			
+
 		if(this.customerType.equalsIgnoreCase("APPOINTMENT")){
 			walkin.setAppointmentDate(JavaSqlDateTimeHelper.stringToDate(this.appointmentTime));
 			walkin.setAppointmentTime(JavaSqlDateTimeHelper.stringToTime(time));
@@ -189,18 +204,21 @@ public class CreateIndividualWalkIn {
 		
 		if(result == 0){
 			this.intCreatedID = result;
-			return "failed";
+
+			return "error";
+			
+			
 		}
 		else{
 			this.intCreatedID = result;
-			if(this.customerType.equals("APPOINTMENT"))
+			if(this.customerType.equals("APPOINTMENT")){
 				System.out.println("Customer ID: " + this.intCustID);
 			System.out.println("waLKiN ID: " + this.intCreatedID);
 				CustomerTransactionHelper.insertCustomerAppointment(intCreatedID, intCustID, 1);
-
+			}
 			return "success";
 		}
-	
+		
 	}
 	
 	public void setStrName(String strName) {
@@ -272,5 +290,13 @@ public class CreateIndividualWalkIn {
 
 	public void setPackageString(String packageString) {
 		this.packageString = packageString;
+	}
+
+	public void setPackageLists(String packageLists) {
+		this.packageLists = packageLists;
+	}
+
+	public void setPromoLists(String promoLists) {
+		this.promoLists = promoLists;
 	}
 }

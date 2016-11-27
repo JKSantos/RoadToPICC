@@ -1,6 +1,9 @@
 package com.gss.model;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.json.simple.JSONObject;
 
 public class PackageDetails {
 	
@@ -24,6 +27,13 @@ public class PackageDetails {
 	public void setServiceList(List<ServiceDetails> serviceList) {
 		this.serviceList = serviceList;
 	}
+	public static List<PackageDetails> fromJSON(JSONObject jsonList) {
+		List<PackageDetails> packageList = new ArrayList<PackageDetails>();
+		
+		System.out.println("-----------");		
+		return packageList;
+		
+	}	
 	
 	
 }

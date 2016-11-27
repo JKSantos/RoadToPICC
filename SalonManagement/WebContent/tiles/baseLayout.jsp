@@ -302,6 +302,8 @@
 <script type="text/javascript" src="app/report/productTagsReportController.ctrl.js"></script>
 <script type="text/javascript" src="app/report/cancelledReservationController.ctrl.js"></script>
 <script type="text/javascript" src="app/report/serviceAvailmentsController.ctrl.js"></script>
+<script type="text/javascript" src="app/invetory/inventory-directives.js"></script>
+<script type="text/javascript" src="app/invetory/inventory-controller.js"></script>
 </body>
 
 </html>

@@ -845,8 +845,27 @@
             vm.loadingBubble = 0;
             toString();
             var packageObj = vm.selPackageDetails;
+            
+            if(selectdiscount == "undefined,"){
+            	selectdiscount = "";
+            }
+            console.log(selectdiscount);
+            console.log(packageObj);
             var walkinData = $.param({
                 'productString': selectprod,
+                'productQuantity': quantprod,
+                'serviceString': selectserv,
+                'employeeAssigned': selectEmp,
+                'packageLists': JSON.stringify(packageObj),
+                'promoLists': JSON.stringify(vm.selPromoDetails),
+                'strTotalPrice': parseFloat(vm.sum).toFixed(2),
+                'discounts': selectdiscount,
+                'strName': vm.details.name,
+                'strContactNo': vm.details.contact
+            });
+            
+            var data = {
+            		'productString': selectprod,
                 'productQuantity': quantprod,
                 'serviceString': selectserv,
                 'employeeAssigned': selectEmp,
@@ -856,7 +875,7 @@
                 'discounts': selectdiscount,
                 'strName': vm.details.name,
                 'strContactNo': vm.details.contact
-            });
+            };
 
             var ppp = {
                 'productString': selectprod,
@@ -873,13 +892,13 @@
 
             console.log(ppp);
             
-            var data1 = JSON.stringify(walkinData);
-
+            var data1 = JSON.stringify(data);
+            
             $timeout(function () {
                 $http({
                     method: 'post',
                     url: 'http://localhost:8080/SalonManagement/createWalkin',
-                    data: data1,
+                    data:walkinData,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }

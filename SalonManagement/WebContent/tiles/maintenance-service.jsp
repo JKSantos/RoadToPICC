@@ -661,22 +661,22 @@
                                            <c:if test="${service.serviceType == 1}">
                                            		<c:set var="type" scope="session" value="Walk In"/>
                                            </c:if>
-                                           <c:if test="${service.serviceType == 1}">
+                                           <c:if test="${service.serviceType == 2}">
                                            		<c:set var="type" scope="session" value="Home Service"/>
                                            </c:if>
-                                           <c:if test="${service.serviceType == 2}">
+                                           <c:if test="${service.serviceType == 3}">
                                            		<c:set var="type" scope="session" value="Event"/>
                                            </c:if>
-                                           <c:if test="${service.serviceType == 3}">
+                                           <c:if test="${service.serviceType == 4}">
                                            		<c:set var="type" scope="session" value="Walk In, Home Service"/>
                                            </c:if>
-                                           <c:if test="${service.serviceType == 4}">
+                                           <c:if test="${service.serviceType == 5}">
                                            		<c:set var="type" scope="session" value="Walk In, Event"/>
                                            </c:if>
-                                           <c:if test="${service.serviceType == 5}">
+                                           <c:if test="${service.serviceType == 6}">
                                            		<c:set var="type" scope="session" value="Home Service, Event"/>
                                            </c:if>
-                                           <c:if test="${service.serviceType == 6}">
+                                           <c:if test="${service.serviceType == 7}">
                                            		<c:set var="type" scope="session" value="Walk In, Home Service, Event"/>
                                            </c:if>
                                         <input value="${type}" type="text" name="strItemName"
