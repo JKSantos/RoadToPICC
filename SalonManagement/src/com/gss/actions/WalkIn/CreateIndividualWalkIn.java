@@ -9,6 +9,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.gss.dao.CustomerTransactionHelper;
 import com.gss.model.Discount;
@@ -28,6 +32,7 @@ import com.gss.model.ServiceWalkIn;
 import com.gss.model.WalkIn;
 import com.gss.service.WalkInService;
 import com.gss.service.WalkInServiceImpl;
+import com.gss.testers.SampleJSON;
 import com.gss.utilities.JavaSqlDateTimeHelper;
 import com.gss.utilities.PriceFormatHelper;
 import com.opensymphony.xwork2.ActionSupport;
@@ -68,6 +73,27 @@ public class CreateIndividualWalkIn extends ActionSupport{
 			this.customerType = "WALKIN";
 		}
 		
+		if(!this.packageLists.equals("")) {
+			Gson gson = new Gson();
+			
+			JsonParser parser = new JsonParser();
+			JsonElement element = parser.parse(this.packageLists);
+			JsonArray arr = element.getAsJsonArray();
+			
+			for(int i = 0; i < arr.size(); i++){
+				JsonElement packageElement = arr.get(i);
+				JsonObject packageObject = packageElement.getAsJsonObject();
+				JsonElement serviceElement = packageObject.get("serviceList");
+				JsonElement idElement = packageObject.get("intPackageID");
+				int packageID = idElement.getAsInt();
+				System.out.println(packageID);
+				List<ServiceDetails> detail = gson.fromJson(serviceElement, new TypeToken<List<ServiceDetails>>(){}.getType());
+				this.packageList.add(new PackageDetails(packageID, detail));
+			}
+			
+			//this.packageList = gson.fromJson(packageLists, new TypeToken<List<PackageDetails>>(){}.getType());
+			//System.out.println(packageList.get(0).getIntPackageID());
+		}
 		
 		this.strContactNo = this.strContactNo.replaceAll("\"", "");
 		

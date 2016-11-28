@@ -62,6 +62,10 @@
 
         vm.customerList = walkinFactory.getCustomers();
         vm.packageList = {};
+
+        vm.packageID = '';
+        vm.packageObject = [];
+        
         vm.promoList = {};
 
         vm.selServiceDetails = [];
@@ -743,10 +747,15 @@
                     subTotalPackage += vm.packageOrder[i].packageTotal;
 
                 }
+
+                vm.packageObject.push({'intPackageID':vm.packageList[index].intPackageID,'serviceList':vm.selPackageDetails});
+
                 selectpack = selectedPackage;
                 vm.packageTotal = subTotalPackage;
                 vm.sum += vm.packageTotal;
                 vm.quantity = '';
+                vm.selPackageDetails = [];
+                console.log("PackageList: " + JSON.stringify(vm.packageObject));
             } else if (selected == 'promo') {
                 $('#promoListModal').closeModal();
 
@@ -816,13 +825,15 @@
             return p;
         }
 
-        function openPackageModal(index, contains) {
+        function openPackageModal(index, contains, packageID) {
             $('#packageListModal').openModal({
                 dismissible: true, // Modal can be dismissed by clicking outside of the modal
                 opacity: .7, // Opacity of modal background
                 in_duration: 200, // Transition in duration
                 out_duration: 200, // Transition out duration
             });
+            vm.packageID = '';
+            vm.packageID = packageID;
             vm.packageContainService = vm.packageList[index].serviceList;
             vm.packageContainProduct = vm.packageList[index].productList;
             vm.packageIndex = index;
@@ -844,7 +855,7 @@
         vm.saveWalkin = function (details) {
             vm.loadingBubble = 0;
             toString();
-            var packageObj = vm.selPackageDetails;
+            var packageObj = vm.packageObject;
             
             if(selectdiscount == "undefined,"){
             	selectdiscount = "";
