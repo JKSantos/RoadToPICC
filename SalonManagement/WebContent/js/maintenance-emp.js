@@ -496,10 +496,11 @@ $(document).ready(function () {
         "order": [],
         "columnDefs": [
             {"targets": 'no-sort', "orderable": false},
-            {"targets": [4], "width": "150px"},
+            {"targets": [5], "width": "250px"},
             {"targets": [0], "width": "200px"},
-            {"targets": [2], "width": "300px"},
-            {"targets": [3], "type": "formatted-num"},
+            {"targets": [1], "width": "200px"},
+            {"targets": [2], "width": "150px"},
+            {"targets": [4], "type": "formatted-num"},
             {"targets": [2], render: $.fn.dataTable.render.ellipsis(40)}
         ],
         "rowHeight": '10px'

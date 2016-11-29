@@ -180,11 +180,11 @@ function createPackageServiceTable() {
                         home = 0,
                         event = 0;
                     for (var i = 0; i < type.length; i++) {
-                        if (type[i] == 3) {
+                        if (type[i] == 1) {
                             walk = 1;
                         } else if (type[i] == 2) {
                             home = 1;
-                        } else if (type[i] == 1) {
+                        } else if (type[i] == 3) {
                             event = 1;
                         }
                     }
@@ -207,6 +207,7 @@ function createPackageServiceTable() {
 
                     $.each(serviceList, function (i, service) {
                         if(promoType == service.serviceType) {
+                            console.log(promoType + '//' + service.serviceType);
                             var price = parseFloat(service.dblServicePrice).toFixed(2);
                             price = addCommas(price);
                             var checkbox = "<input type='checkbox' name='createPackServType' id='myCheckBox" + service.intServiceID + "' required" +
@@ -215,7 +216,6 @@ function createPackageServiceTable() {
                                 quantity = "<input type='number' class='right-align rowQty' name='createPackServQty'" +
                                     " id='svc" + service.intServiceID + "' disabled style='width: 75px' min='1' max='99' value='1' maxlength='2'>";
                             price = "<span class='price'>P " + price + "</span>";
-
                             createPackageServTable.row.add([
                                 checkbox,
                                 service.strServiceName,

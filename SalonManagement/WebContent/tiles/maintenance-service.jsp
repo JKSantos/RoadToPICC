@@ -80,14 +80,13 @@
                     %>
                     <tr>
                         <td style="padding-left: 10px; margin: 0;" class="dt-body-left">${service.strServiceName}</td>
-                        <td style="padding-left: 10px; margin: 0;" class="dt-body-left">${service.strServiceCategory}
-                        </td>
-                        <td style="padding-left: 10px; margin: 0;" class="dt-body-left">${service.strServiceDesc}</td>
-                        <td style="padding-left: 10px; margin: 0;" class="dt-body-left">${duration}</td>
-                        <td style="padding-right: 10px; margin: 0;" class="dt-b	ody-right servPrice">
+                        <td style="padding-left: 10px; margin: 0;" class="dt-body-left">${service.strServiceCategory}</td>
+                        <td style="padding-left: 10px; margin: 0; width: 150px !important;" class="dt-body-left">${service.strServiceDesc}</td>
+                        <td style="padding-left: 10px; margin: 0; width: 100px !important;" class="dt-body-left">${duration}</td>
+                        <td style="padding-right: 10px; margin: 0; width: 50px !important;" class="right-align dt-body-right servPrice">
                             ${service.stringPrice}
                         </td>
-                        <td style="padding:0; margin: 0;" class="dt-body-center">
+                        <td style="padding:0; margin: 0; width: 200px !important;" class="dt-body-center">
                             <a class="waves-effect waves-purple modal-trigger btn-flat transparent black-text"
                                href="#view${service.intServiceID}"
                                style="padding-left: 10px; padding-right:10px; margin: 5px;">
@@ -263,14 +262,13 @@
                                 	<label class="active"><b>Duration</b></label>
                                 </div>
                                 <div class="input-field col s6">
-                                    <input type="text" name="hour" id="crServiceDurationHour"
-                                           />
+                                    <input type="number" name="hour" id="crServiceDurationHour"/>
                                     <label for="crServiceDurationHour" class="active"><b>Hours</b>
+                                    <i class="material-icons red-text tiny">error_outline</i>
                                     </label>
                                 </div>
                                  <div class="input-field col s6">
-                                    <input type="text" name="minute" class="required" required id="crServiceDurationMinutes"
-                                           />
+                                    <input type="number" name="minute" class="required" required id="crServiceDurationMinutes"/>
                                     <label for="crServiceDurationMinutes" class="active"><b>Minutes</b>
                                     	<i class="material-icons red-text tiny">error_outline</i>
                                    	</label>
@@ -507,12 +505,13 @@
 	                                </div>
 	                                
 	                                <div class="input-field col s6">
-	                                    <input type="text" name="hour" id="crServiceDurationHour" value="${hour}"/>
+	                                    <input type="number" name="hour" id="crServiceDurationHour" value="${hour}"/>
 	                                    <label for="crServiceDurationHour" class="active"><b>Hours</b>
+                                            <i class="material-icons red-text tiny">error_outline</i>
 	                                    </label>
 	                                </div>
 	                                 <div class="input-field col s6">
-	                                    <input type="text" name="minute" value="${min}" class="required" required id="crServiceDurationMinutes"
+	                                    <input type="number" name="minute" value="${min}" class="required" required id="crServiceDurationMinutes"
 	                                           />
 	                                    <label for="crServiceDurationMinutes" class="active"><b>Minutes</b>
 	                                    	<i class="material-icons red-text tiny">error_outline</i>

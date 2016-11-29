@@ -310,7 +310,7 @@
                                             ng-options="discount.strDiscountName for discount in vm.discountList">
                                         <option id="discOpt" value="" selected disabled>Choose...</option>
                                     </select>
-                                    <label for="crRDiscount"><b>Discounts</b></label>
+                                    <label for="crRDiscount"><b>Discount</b></label>
                                 </div>
                                 <div class="input-field col s12" ng-if="vm.count > 0">
                                     <p>

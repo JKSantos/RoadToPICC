@@ -10,7 +10,7 @@
                 <a class="pscrbtn z-depth-1 hoverable waves-effect waves-light modal-trigger btn left green darken-2 white-text"
                    style="margin-top: 30px; margin-left: 15px;"
                    ng-if="orderList.length > 1"
-                   ng-click="vm.crProductSales()">CHECK OUT
+                   ng-click="vm.crProductSales(); vm.checkOut();">CHECK OUT
                     <i class="material-icons right">shopping_cart</i>
                 </a>
                 <a class="btn left green darken-2 white-text"
@@ -125,13 +125,11 @@
                                 ng-repeat="orders in orderList"
                                 ng-if="orders.product!='' && orders.total!=0">
                                 <img ng-src="{{orders.strPhotoPath}}" class="circle" height="30" width="30">
-                                <span style="padding-left: 5px !important;" title="{{orders.product}} - {{orders.total | currency: 'Php '}}"
-                                      ng-click="openEditItem($index, orders)">
+                                <span style="padding-left: 5px !important;" title="{{orders.product}} - {{orders.total | currency: 'Php '}}" ng-click="openEditItem($index, orders)">
                                     {{orders.product | truncate: 15}}
                                 </span>
                                 <button name="" title="Decline" class="secondary-content red-text transparent"
-                                        style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border:0px !important;"
-                                        ng-click="removeToCart($index, orders)">
+                                        style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border:0px !important;" ng-click="removeToCart($index, orders)">
                                     <i class="material-icons" style="padding-top: 8px !important;">clear</i>
                                 </button>
                                 <!--<button name="" title="Accept" class="secondary-content black-text transparent"-->
@@ -160,7 +158,7 @@
                                    ng-if="request.intType==2 || request.intType=='pickup'">
                                     shopping_basket
                                 </i>
-                                <span title="{{ request.strName }}">{{ request.strName | truncate: 10 }}</span>
+                                <span title="{{ request.strName }}" ng-click="vm.reqName(request);">{{ request.strName | truncate: 10 }}</span>
                                 <button name="" title="Decline" class="secondary-content red-text transparent"
                                         style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border:0px !important;"
                                         ng-click="declineOrder(request)">
@@ -275,12 +273,72 @@
                                 </div>
                                 <div class="input-field col s6" id="crDivOrderLoc"
                                      ng-if="details.order.id == 2">
-                                    <select ng-options="location.strBarangay for location in locationList"
-                                            ng-model="details.location" id="crOrderLoc">
+                                    <select ng-options="location.strBarangay for location in locationList" material-select watch ng-model="details.location" id="crOrderLoc"
+                                    ng-change="locationPrice(details.location);">
                                     </select>
                                     <label for="crOrderLoc"><b>Location</b>
                                         <i class="material-icons red-text tiny">error_outline</i>
                                     </label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <select name="crDiscount" id="crDiscount" material-select watch
+                                            ng-model="details.discount"
+                                            ng-options="discount.strDiscountName for discount in vm.discountList"
+                                            ng-change="selectedDiscount(details.discount)">
+                                            <option value="" selected>Choose...</option>
+                                    </select>
+                                    <label for="crDiscount"><b>Discount</b></label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <p><b>Total Product Price</b>: {{totalAmount | currency: "Php "}} </p>
+                                    <div ng-if="details.order.value == 'delivery'">
+                                        <p>
+                                        <b>Location</b>: {{vm.loc.name}} <br>
+                                        <b>Location Price</b>: {{vm.loc.price | currency: "Php "}} <br>
+                                        </p>
+                                        <div ng-if="vm.seldic != ''">
+                                            <div ng-if="vm.seldic.intDiscountType == 1">
+                                                <p><b>Discount</b>: {{vm.seldic.strDiscountName}} ({{vm.seldic.dblDiscountAmount}}%) <br>
+                                                </p>
+                                            </div>
+                                            <div ng-if="vm.seldic.intDiscountType == 2">
+                                                <p><b>Discount</b>: {{vm.seldic.strDiscountName}} ({{vm.seldic.dblDiscountAmount | currency: "Php "}}) <br>
+                                                </p>
+                                            </div>
+                                        </div>
+                                            <div ng-if="vm.x == 0">
+                                                <p>
+                                                <b>Total</b>: {{totalAmount + vm.loc.price | currency: "Php "}}
+                                                </p>
+                                            </div>
+                                            <div ng-if="vm.x == 1">
+                                                <p>
+                                                    <b>Total</b>: {{vm.totalAmt | currency: "Php "}}
+                                                </p>
+                                            </div>
+                                    </div>
+                                    <div ng-if="details.order.value == 'pickup'">
+                                        <div ng-if="vm.seldic != ''">
+                                            <div ng-if="vm.seldic.intDiscountType == 1">
+                                                <p><b>Discount</b>: {{vm.seldic.strDiscountName}} ({{vm.seldic.dblDiscountAmount}}%) <br>
+                                                </p>
+                                            </div>
+                                            <div ng-if="vm.seldic.intDiscountType == 2">
+                                                <p><b>Discount</b>: {{vm.seldic.strDiscountName}} ({{vm.seldic.dblDiscountAmount | currency: "Php "}}) <br>
+                                                </p>
+                                            </div>
+                                        </div>
+                                            <div ng-if="vm.x == 0">
+                                                <p>
+                                                <b>Total</b>: {{totalAmount + vm.loc.price | currency: "Php "}}
+                                                </p>
+                                            </div>
+                                            <div ng-if="vm.x == 1">
+                                                <p>
+                                                    <b>Total</b>: {{vm.totalAmt | currency: "Php "}}
+                                                </p>
+                                            </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
