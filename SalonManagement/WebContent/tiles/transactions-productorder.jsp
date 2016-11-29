@@ -9,14 +9,14 @@
                 <h3 class="grey-text text-darken-1">Product Sales</h3>
                 <a class="pscrbtn z-depth-1 hoverable waves-effect waves-light modal-trigger btn left green darken-2 white-text"
                    style="margin-top: 30px; margin-left: 15px;"
-                   ng-if="orderList.length > 1"
+                   ng-if="orderList.length > 1 && totalAmount > vm.minAmt"
                    ng-click="vm.crProductSales(); vm.checkOut();">CHECK OUT
                     <i class="material-icons right">shopping_cart</i>
                 </a>
                 <a class="btn left green darken-2 white-text"
                    style="margin-top: 30px; margin-left: 15px; opacity: 0.5 !important; cursor: not-allowed !important;"
                    ng-disabled="true"
-                   ng-if="orderList.length < 2">CHECK OUT
+                   ng-if="orderList.length < 2 || totalAmount < vm.minAmt">CHECK OUT
                     <i class="material-icons right">shopping_cart</i>
                 </a>
                 <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
@@ -140,6 +140,9 @@
                             </li>
                         </ul>
                         <h5>Total: {{totalAmount | currency: "Php "}}</h5>
+                        <h6 class="red-text"  ng-if="totalAmount < vm.minAmt">
+                            Minimum Amount is {{vm.minAmt | currency: "Php "}}
+                        </h6>
                     </div>
                 </div>
             </div>

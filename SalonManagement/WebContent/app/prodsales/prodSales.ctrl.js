@@ -103,12 +103,28 @@
 
         locationFactory.getOrders().then(function (data) {
             $scope.requestOrderList = data.orderList;
-            console.log($scope.requestOrderList);
         });
 
         locationFactory.getDiscounts().then(function (data) {
             vm.discountList = data.data.discountList;
         });
+
+        locationFactory.getDependencies().then(function (data) {
+            vm.dependencies = data.dependencies;
+            vm.minAmt = getMinAmount(vm.dependencies);
+        });
+
+        function getMinAmount (min) {
+            let minAmt = 0;
+
+            angular.forEach(min, function(x, i) {
+                if(x.strName == 'Minimum Purchase Price For Delivery') {
+                    minAmt = x.strValue;
+                }
+            });
+
+            return parseFloat(minAmt).toFixed(2);
+        }
 
         var sd;
 
