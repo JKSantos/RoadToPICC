@@ -191,7 +191,7 @@ function createPackageServiceTable() {
 
                     if (walk == 1 && home == 0 && event == 0) {
                         promoType = 1;
-                    } else if (walk == 0 && home > 0 && event == 0) {
+                    } else if (walk == 0 && home > 1 && event == 0) {
                         promoType = 2;
                     } else if (walk == 0 && home == 0 && event == 1) {
                         promoType = 3;

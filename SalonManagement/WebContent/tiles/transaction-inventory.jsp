@@ -3,7 +3,7 @@
 
 <div class="wrapper">
 
-    <div class="main z-depth-barts">
+    <div class="main z-depth-barts" data-ng-controller="stock-controller">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
             <h3 class="grey-text text-darken-1">Inventory</h3>
             <a class="crinventybtn z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
@@ -46,18 +46,12 @@
                 </tfoot>
 
                 <tbody>
-                <c:forEach items="${productList}" var="product">
-                <c:set var="price" scope="session"
-                           value="${product.dblProductPrice}"></c:set>
-                    <tr>
-                        <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-left">
-                            ${product.strProductName}
+                    <tr data-ng-repeat="product in productList">
+                        <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-left" data-ng-bind="product.strProductName">
                         </td>
-                        <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-right prodPrice">
-                            ${price}
+                        <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-right prodPrice" data-ng-bind="product.dblProductPrice">
                         </td>
-                        <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-right">
-                            ${product.intProductQuantity}
+                        <td style="padding-left: 10px !important; margin-left: 5px;" class="dt-body-right" data-ng-bind="product.intProductQuantity">
                         </td>
                         <td class="center" style="padding:0; margin:0;">
                             <a id="update${product.intProductID}" href="#inventoryedit${product.intProductID}"
@@ -67,7 +61,6 @@
                             </a>
                         </td>
                     </tr>
-                </c:forEach>
                 </tbody>
             </table>
         </div>

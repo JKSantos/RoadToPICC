@@ -204,7 +204,7 @@
                                     </h4>
 
                                     <a class="waves-effect waves-light btn"
-                                       ng-click="vm.openPackageModal($index, package)">
+                                       ng-click="vm.openPackageModal($index, package, package.intPackageID)">
                                         <i class="material-icons left"
                                            style="padding: 0px !important; margin: 0px !important;">
                                             shopping_basket</i>BUY NOW!
