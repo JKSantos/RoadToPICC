@@ -231,7 +231,7 @@
                                     <label for="crRCustType2">Company</label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <div class="input-field col s6">
+                                    <div class="input-field col s12">
                                         <input type="text" id="crRCustName" name="crRCustName"
                                                ng-pattern="/^[A-Za-z \-'`]+$/"
                                                ng-minlength="5"

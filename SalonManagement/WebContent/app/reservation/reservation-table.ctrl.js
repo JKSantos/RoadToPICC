@@ -132,9 +132,48 @@
             calendarInit(vm.data);
         });
 
-        locationFactory.getEmployees().then(function (data) {
-            vm.employeeList = data.data.employeeList;
-        });
+        vm.getAvailableEmployeeHomeService = function(date, time){
+
+            var dateAndTime = $.param({
+                'date': date,
+                'time': time
+            });
+
+            $http({
+                method: 'post',
+                url: 'http://localhost:8080/SalonManagement/getAvailableEmployee',
+                data: dateAndTime,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                vm.employeeList = data.data.employeeList;
+            }, function errorCallback(response) {
+                console.log(response);
+            });
+        }
+
+        vm.getAvailableEmployeeEvent = function(date, timeFrom, timeTo){
+
+            var dateAndTime = $.param({
+                'date': date,
+                'time': timeFrom,
+                'timeTo': timeTo
+            });
+
+            $http({
+                method: 'post',
+                url: 'http://localhost:8080/SalonManagement/getAvailableEmployee',
+                data: dateAndTime,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                vm.employeeList = data.data.employeeList;
+            }, function errorCallback(response) {
+                console.log(response);
+            });
+        }
 
         locationFactory.getExtraCharges().then(function (data) {
             vm.extraChargeList = data.data.extraChargeList;

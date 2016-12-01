@@ -385,11 +385,11 @@ public class WalkInReceipt {
     	
     	PdfPCell cellHeader = new PdfPCell(new Phrase("-----------------------"+ count +" ITEMS---------------------", getFont()));
     	PdfPCell totalLabel = new PdfPCell(new Phrase("TOTAL", getBiggerFont(11)));
-    	PdfPCell totalValue = new PdfPCell(new Phrase(String.valueOf(totalAmount), getBiggerFont(11)));
+    	PdfPCell totalValue = new PdfPCell(new Phrase(String.format("%.2f", totalAmount), getBiggerFont(11)));
     	PdfPCell cashLabel = new PdfPCell(new Phrase("    Cash", getFont()));
-    	PdfPCell cashValue = new PdfPCell(new Phrase(String.valueOf(paymentAmount), getFont()));
+    	PdfPCell cashValue = new PdfPCell(new Phrase(String.format("%.2f", paymentAmount), getFont()));
     	PdfPCell changeLabel = new PdfPCell(new Phrase("CHANGE", getBiggerFont(14)));
-    	PdfPCell changeValue = new PdfPCell(new Phrase(String.valueOf(change), getBiggerFont(14)));
+    	PdfPCell changeValue = new PdfPCell(new Phrase(String.format("%.2f", change), getBiggerFont(14)));
     	PdfPCell cellfooter = new PdfPCell(new Phrase("---------------------------------------------------", getFont()));
          
     	cellHeader.setBorder(0);
@@ -436,11 +436,11 @@ public class WalkInReceipt {
     	details.getDefaultCell().setUseDescender(true);
     	
     	PdfPCell vatSaleLabel = new PdfPCell(new Phrase("VAT SALE", getFont()));
-    	PdfPCell vatSaleValue = new PdfPCell(new Phrase(String.valueOf(vatSale), getFont()));
+    	PdfPCell vatSaleValue = new PdfPCell(new Phrase(String.format("%.2f", vatSale), getFont()));
     	PdfPCell totalSaleLabel = new PdfPCell(new Phrase("TOTAL SALE", getFont()));
     	PdfPCell totalSaleValue = new PdfPCell(new Phrase(String.valueOf(paymentAmount), getFont()));
     	PdfPCell vatLabel = new PdfPCell(new Phrase("12% VAT", getFont()));
-    	PdfPCell vatValue = new PdfPCell(new Phrase(String.valueOf(vat), getFont()));
+    	PdfPCell vatValue = new PdfPCell(new Phrase(String.format("%.2f", vat), getFont()));
     	PdfPCell cellfooter = new PdfPCell(new Phrase("---------------------------------------------------", getFont()));
 
 		vatSaleLabel.setBorder(0);

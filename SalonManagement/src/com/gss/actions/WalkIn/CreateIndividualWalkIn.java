@@ -91,8 +91,6 @@ public class CreateIndividualWalkIn extends ActionSupport{
 				this.packageList.add(new PackageDetails(packageID, detail));
 			}
 			
-			//this.packageList = gson.fromJson(packageLists, new TypeToken<List<PackageDetails>>(){}.getType());
-			//System.out.println(packageList.get(0).getIntPackageID());
 		}
 		
 		this.strContactNo = this.strContactNo.replaceAll("\"", "");

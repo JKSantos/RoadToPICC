@@ -244,6 +244,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 			
 			con.commit();
 			con.close();
+			updateProductStock(intInvoiceID);
 			System.out.println("Walk In successfully saved...");
 			return intWalkInID;
 		}
@@ -253,6 +254,38 @@ public class WalkInJDBCRepository implements WalkInRepository{
 			con.close();
 			
 			return 0;
+		}
+	}
+	
+	public void updateProductStock(int intInvoiceID) throws SQLException {
+		
+		Connection con = new JDBCConnection().getConnection();
+		
+		try{
+			
+			String updateStock						= "CALL updateStock_decrement(?, ?);";
+			
+			List<ProductQuantity> quantities 		= WalkInJDBCRepository.getProducts(intInvoiceID);
+
+			PreparedStatement updateProducts	= con.prepareStatement(updateStock);
+			
+			for(int index = 0; index < quantities.size(); index++){
+				ProductQuantity quantity = quantities.get(index);
+				
+				updateProducts.setInt(1, quantity.getIntProductID());
+				updateProducts.setInt(2, quantity.getIntQuantity());
+				updateProducts.addBatch();
+			}
+			
+			updateProducts.executeBatch();
+			updateProducts.close();
+			
+			//con.commit();
+			con.close();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			con.close();
 		}
 	}
 
@@ -644,6 +677,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 					
 					ProductQuantity quantity = new ProductQuantity(id, intProductID, intQuantity);
 					quantities.add(quantity);
+					System.out.println(intProductID + "---" + intQuantity);
 				}
 				
 				packageProduct.close();
@@ -671,6 +705,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 					int intQuantity = promoProductSet.getInt(2);
 					
 					ProductQuantity quantity = new ProductQuantity(id, intProductID, intQuantity);
+					System.out.println(intProductID + "+++++" + intQuantity);
 					quantities.add(quantity);
 				}
 				
@@ -689,7 +724,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 				promoPackageSet.close();
 				
 				//Product Package Promo
-				promoPackageProduct.setInt(1, intPackageID);
+				promoPackageProduct.setInt(1, intPromoPackageID);
 				promoPackageProductSet = promoPackageProduct.executeQuery();
 				
 				while(promoPackageProductSet.next()){
@@ -698,6 +733,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 					int intQuantity = promoPackageProductSet.getInt(2);
 					
 					ProductQuantity quantity = new ProductQuantity(id, intProductID, intQuantity);
+					System.out.println(intProductID + ">>>>>>>" + intQuantity);
 					quantities.add(quantity);
 				}
 				
@@ -742,7 +778,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 			
 			PreparedStatement statement = con.prepareStatement(query);
 			statement.setInt(1, intWalkInID);
-			statement.executeQuery();
+			statement.execute();
 			
 			statement.close();
 			con.close();

@@ -324,7 +324,7 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 		con.setAutoCommit(false);
 		
 		String insertPayment 					= "CALL createPayment(?, ?, ?, ?)";
-		String updateStock						= "CALL updateStock_decrement(?, ?);";
+		//String updateStock						= "CALL updateStock_decrement(?, ?);";
 				
 		List<ProductQuantity> quantities 		= WalkInJDBCRepository.getProducts(payment.getIntInvoiceID());
 		
@@ -339,7 +339,7 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 			
 			createPayment.execute();
 			
-			PreparedStatement updateProducts	= con.prepareStatement(updateStock);
+			/*PreparedStatement updateProducts	= con.prepareStatement(updateStock);
 			
 			for(int index = 0; index < quantities.size(); index++){
 				ProductQuantity quantity = quantities.get(index);
@@ -350,7 +350,7 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 			}
 			
 			updateProducts.executeBatch();
-			updateProducts.close();
+			updateProducts.close();*/
 			con.commit();
 			con.close();
 			return true;

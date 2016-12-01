@@ -204,7 +204,7 @@
                                     </h4>
 
                                     <a class="waves-effect waves-light btn"
-                                       ng-click="vm.openPackageModal($index, package, package.intPackageID)">
+                                       ng-click="vm.openPackageModal($index, package)">
                                         <i class="material-icons left"
                                            style="padding: 0px !important; margin: 0px !important;">
                                             shopping_basket</i>BUY NOW!
@@ -310,7 +310,7 @@
                                             ng-options="discount.strDiscountName for discount in vm.discountList">
                                         <option id="discOpt" value="" selected disabled>Choose...</option>
                                     </select>
-                                    <label for="crRDiscount"><b>Discount</b></label>
+                                    <label for="crRDiscount"><b>Discounts</b></label>
                                 </div>
                                 <div class="input-field col s12" ng-if="vm.count > 0">
                                     <p>
