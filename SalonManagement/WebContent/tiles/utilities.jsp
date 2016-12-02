@@ -10,7 +10,7 @@
 			<div class="col s6">
                    <ul class="collapsible" data-collapsible="accordion">
                      <li>
-                         <div class="collapsible-header" id="listheadcollapsible">Configurations<i
+                         <div class="collapsible-header active" id="listheadcollapsible">Configurations<i
                                  class="material-icons">settings</i>
                          </div>
                          <div class="collapsible-body" id="listcollapsible"
@@ -21,21 +21,21 @@
 			                        <div class="input-field col s6"  style="margin-top: 25px;">
 			                        	<input type="hidden" name="strName" value="downPayment"/>
 			                            <input type="text" class="validate" id="downPayment"
-			                                   name="strValue" placeholder="50%">
+			                                   name="strValue" placeholder="" value="${ dependencies.get(0).getStrValue() }">
 			                            <label for="downPayment" class="active"><b>Down Payment(Percentage)</b><i
 			                                    class="material-icons red-text tiny">error_outline</i></label>
 			                        </div>
 			                        <div class="input-field col s6" style="margin-top: 25px;">
 			                        	<input type="hidden" name="strName" value="headCount"/>
 			                            <input type="text" class="validate" id="headCount"
-			                                   name="strValue" placeholder="3">
+			                                   name="strValue" placeholder="3" value="${ dependencies.get(1).getStrValue() }">
 			                            <label for="headCount" class="active"><b>Head Count per Employee</b><i
 			                                    class="material-icons red-text tiny">error_outline</i></label>
 			                        </div>
 			                        <div class="input-field col s6">
 			                        	<input type="hidden" name="strName" value="maxHeadCount"/>
 			                            <input id="maxHeadCount" name="strValue"
-			                                   class="validate" placeholder="5">
+			                                   class="validate" placeholder="5" value="${ dependencies.get(2).getStrValue() }">
 			                            <label for="maxHeadCount" class="active"><b>Maximum Head Count(Reservation)</b><i
 			                                    class="material-icons red-text tiny">error_outline</i></label>
 			                        </div>
@@ -43,7 +43,7 @@
 			                        <div class="input-field col s6">
 			                        	<input type="hidden" name="strName" value="reservationMargin"/>
 			                            <input id="reservationMargin" name="strValue"
-			                                   class="validate" placeholder="5">
+			                                   class="validate" placeholder="5" value="${ dependencies.get(3).getStrValue() }">
 			                            <label for="reservationMargin" class="active"><b>Reservation Margin(Days)</b><i
 			                                    class="material-icons red-text tiny">error_outline</i></label>
 			                        </div>
@@ -51,7 +51,7 @@
 			                        <div class="input-field col s6">
 			                        	<input type="hidden" name="strName" value="reservationAdjustment"/>
 			                            <input id="reservationAdjustment" name="strValue"
-			                                   class="validate" placeholder="5">
+			                                   class="validate" placeholder="5" value="${ dependencies.get(4).getStrValue() }">
 			                            <label for="reservationAdjustment" class="active"><b>Price Adjustment(Reservation)</b><i
 			                                    class="material-icons red-text tiny">error_outline</i></label>
 			                        </div>
@@ -59,14 +59,14 @@
 			                        <div class="input-field col s6">
 			                        	<input type="hidden" name="strName" value="homeAdjustment"/>
 			                            <input id="homeAdjustment" name="strValue"
-			                                   class="validate" placeholder="5">
+			                                   class="validate" placeholder="5" value="${ dependencies.get(5).getStrValue() }">
 			                            <label for="homeAdjustment" class="active"><b>Price Adjustment(Home Service)</b><i
 			                                    class="material-icons red-text tiny">error_outline</i></label>
 			                        </div>
 			                        <div class="input-field col s6">
 			                        	<input type="hidden" name="strName" value="appointmentGracePeriod"/>
 			                            <input id="appointmentGracePeriod" name="strValue"
-			                                   class="validate" placeholder="5">
+			                                   class="validate" placeholder="5" value="${ dependencies.get(6).getStrValue() }">
 			                            <label for="appointmentGracePeriod" class="active"><b>Appointment Grace Period(Minutes)</b><i
 			                                    class="material-icons red-text tiny">error_outline</i></label>
 			                        </div>
@@ -74,7 +74,7 @@
 			                        <div class="input-field col s6">
 			                        	<input type="hidden" name="strName" value="AppointmentMargin"/>
 			                            <input id="AppointmentMargin" name="strValue"
-			                                   class="validate" placeholder="5">
+			                                   class="validate" placeholder="5" value="${ dependencies.get(7).getStrValue() }">
 			                            <label for="AppointmentMargin" class="active"><b>Appointment Margin(Hours)</b><i
 			                                    class="material-icons red-text tiny">error_outline</i></label>
 			                        </div>
@@ -82,16 +82,24 @@
 			                        <div class="input-field col s6">
 			                        	<input type="hidden" name="strName" value="minimumPurchase"/>
 			                            <input id="minimumPurchase" name="strValue"
-			                                   class="validate" placeholder="5">
+			                                   class="validate" placeholder="5" value="${ dependencies.get(8).getStrValue() }">
 			                            <label for="minimumPurchase" class="active"><b>Minimum Purchase Price For Delivery</b><i
 			                                    class="material-icons red-text tiny">error_outline</i></label>
 			                        </div>
 			                        
 			                        <div class="input-field col s6">
-			                        	<input type="hidden" name="strName" value="refund"/>
+			                        	<input type="hidden" name="strName" value="service_fee"/>
 			                            <input id="refund" name="strValue"
-			                                   class="validate" placeholder="5">
-			                            <label for="refund" class="active"><b>Refund Pecentage</b><i
+			                                   class="validate" placeholder="5" value="${ dependencies.get(9).getStrValue() }">
+			                            <label for="refund" class="active"><b>Service Fee</b><i
+			                                    class="material-icons red-text tiny">error_outline</i></label>
+			                        </div>
+			                        
+			                        <div class="input-field col s6">
+			                        	<input type="hidden" name="strName" value="processing_fee"/>
+			                            <input id="refund" name="strValue"
+			                                   class="validate" placeholder="5" value="${ dependencies.get(10).getStrValue() }">
+			                            <label for="refund" class="active"><b>Processing Fee</b><i
 			                                    class="material-icons red-text tiny">error_outline</i></label>
 			                        </div>
 			                        

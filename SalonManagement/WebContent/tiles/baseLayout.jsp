@@ -176,7 +176,7 @@
             </ul>
             <ul class="collapsible collapsibleHighlight" data-collapsible="accordion">
                 <li>
-                    <a class="collapsible-header" href="getDependencies">
+                    <a class="collapsible-header" href="utilities">
                         <span class="grey-text text-lighten-3">
                             <i class="material-icons">settings</i>
                             <b>Utilities</b>

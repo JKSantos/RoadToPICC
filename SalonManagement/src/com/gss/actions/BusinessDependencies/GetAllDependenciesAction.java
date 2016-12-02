@@ -13,6 +13,11 @@ public class GetAllDependenciesAction {
 		
 		this.dependencies = Dependency.getAllDependencies();
 		
+		if(dependencies.size() == 9) {
+			
+			dependencies.add(new Dependency(1, "service_fee", "20"));
+			dependencies.add(new Dependency(1, "processing_fee", "5"));
+		}
 		return "success";
 	}
 
