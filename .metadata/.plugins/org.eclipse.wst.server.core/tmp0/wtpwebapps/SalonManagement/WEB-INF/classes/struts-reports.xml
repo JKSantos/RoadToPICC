@@ -29,25 +29,29 @@
 		</action>
 		
 		<!-- TAG CHART START-->
-		<action name="productTags" class="com.gss.actions.Reports.Reports" method="productTags">
-			<result name="success" type="tiles">ProductTags</result>
-		</action>
-		
-		<action name="tagChart" class="com.gss.actions.Reports.ProductTag.GetProductTagChart" method="execute">
-			<result name="success" type="json"></result>
-		</action>
-		
-		<action name="printStatisticalTagChart" class="com.gss.actions.Reports.ProductTag.PrintProductTagChart" method="execute">
-			<result name="success" type="json"></result>
-		</action>
-		
-		<action name="getProductTags" class="com.gss.actions.Reports.ProductTag.GetProductTagAction" method="execute">
-			<result name="success" type="json"></result>
-		</action>
+			<action name="productTags" class="com.gss.actions.Reports.Reports" method="productTags">
+				<result name="success" type="tiles">ProductTags</result>
+			</action>
+			
+			<action name="tagChart" class="com.gss.actions.Reports.ProductTag.GetProductTagChart" method="execute">
+				<result name="success" type="json"></result>
+			</action>
+			
+			<action name="printStatisticalTagChart" class="com.gss.actions.Reports.ProductTag.PrintProductTagChart" method="execute">
+				<result name="success" type="json"></result>
+			</action>
+			
+			<action name="getProductTags" class="com.gss.actions.Reports.ProductTag.GetProductTagTabular" method="execute">
+				<result name="success" type="json"></result>
+			</action>
 		<!-- TAG CHART END-->
 		
 		<!-- SALES CHART START-->
 		<action name="salesChart" class="com.gss.actions.Reports.Sales.GetSalesChart" method="execute">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="getSalesReport" class="com.gss.actions.Reports.Sales.GetSalesReportTabular" method="execute">
 			<result name="success" type="json"></result>
 		</action>
 		
@@ -57,6 +61,14 @@
 		
 		<action name="salesReport" class="com.gss.actions.ReportsAction" method="Sales">
 			<result name="success" type="tiles">SalesReport</result>
+		</action>
+
+		<action name="cancelledReservations" class="com.gss.actions.ReportsAction" method="cancelledReservations">
+			<result name="success" type="tiles">cancelledReserv</result>
+		</action>
+
+		<action name="serviceAvailments" class="com.gss.actions.ReportsAction" method="serviceAvailments">
+			<result name="success" type="tiles">serviceAvailments</result>
 		</action>
 		
 		<action name="reservationSales" class="com.gss.actions.Reports.Sales.GetReservationSalesReport" method="execute">
@@ -81,36 +93,50 @@
 		<!-- SALES CHART END-->
 		
 		<!-- PRODUCT PURCHASE CHART START-->
-		<action name="getProductPurchases" class="com.gss.actions.Reports.ProductPurchase.GetProductPurchaseReport">
-			<result name="success" type="json"></result>
-		</action>
-		
-		<action name="printStatisticalProductPurchasesReports" class="com.gss.actions.Reports.ProductPurchase.PrintProductPurchaseChart">
-			<result name="success" type="json"></result>
-		</action>
-		
-		<action name="getProductPurchases" class="com.gss.actions.Reports.ProductPurchase.GetProductPurchases" method="execute">
-			<result name="success" type="json"></result>
-		</action>
+			<action name="getStatisticalProductPurchases" class="com.gss.actions.Reports.ProductPurchase.GetProductPurchaseReport">
+				<result name="success" type="json"></result>
+			</action>
+			
+			<action name="printStatisticalProductPurchasesReports" class="com.gss.actions.Reports.ProductPurchase.PrintProductPurchaseChart">
+				<result name="success" type="json"></result>
+			</action>
+			
+			<action name="getProductPurchases" class="com.gss.actions.Reports.ProductPurchase.GetProductPurchasesTabular" method="execute">
+				<result name="success" type="json"></result>
+			</action>
 		<!-- PRODUCT PURCHASE CHART END-->
 		
-		<action name="downloadReports" class="com.gss.actions.Reports.ProductTag.ChartDownload">
-		    <result name="success" type="stream">
-		        <param name="contentType">application/pdf</param>
-		        <param name="inputName">fileStream</param>
-		        <param name="contentDisposition">attachment;filename="document.pdf"</param>
-		        <param name="bufferSize">1024</param>
-		    </result>
-		</action>
-		<action name="download" class="com.gss.utilities.DownloadAction">
-		    <result name="success" type="stream">
-		        <param name="contentType">application/pdf</param>
-		        <param name="inputName">fileStream</param>
-		        <param name="contentDisposition">attachment;filename="document.pdf"</param>
-		        <param name="bufferSize">1024</param>
-		    </result>
-		</action>
-		</package>	
+		<!-- PRODUCT PURCHASE CHART START-->
+			<action name="getServiceAvailed" class="com.gss.actions.Reports.ServiceAvailment.GetServiceAvailment">
+				<result name="success" type="json"></result>
+			</action>
+		<!-- PRODUCT PURCHASE CHART END-->
+		
+		<!-- CANCELLED RESERVATION CHART START-->
+		
+			<action name="getCancelledReservations" class="com.gss.actions.Reports.CancelledReservation.GetCancelledReservation">
+				<result name="success" type="json"></result>
+			</action>
+		
+		<!-- CANCELLED RESERVATION CHART END-->
+		
+			<action name="downloadReports" class="com.gss.actions.Reports.ProductTag.ChartDownload">
+			    <result name="success" type="stream">
+			        <param name="contentType">application/pdf</param>
+			        <param name="inputName">fileStream</param>
+			        <param name="contentDisposition">attachment;filename="document.pdf"</param>
+			        <param name="bufferSize">1024</param>
+			    </result>
+			</action>
+			<action name="open" class="com.gss.utilities.DownloadAction">
+			    <result name="success" type="stream">
+			        <param name="contentType">application/pdf</param>
+			        <param name="inputName">fileStream</param>
+			        <param name="contentDisposition">inline;filename="Receipt.pdf"</param>
+			        <param name="bufferSize">1024</param>
+			    </result>
+			</action>
+	</package>	
 		
 		
 </struts>

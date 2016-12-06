@@ -1,6 +1,9 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+
+
+
 <div class="wrapper" ng-controller="paymentCtrl as vm">
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
@@ -47,70 +50,67 @@
                 </tfoot>
                 <tbody>
                 <tr ng-repeat="payment in vm.paymentList"
-                    ng-if="payment.strStatus == 'PENDING'">
-                    <td ng-if="payment.intSalesID" class="left-align">{{ payment.strName }}</td>
-                    <td ng-if="payment.intSalesID" class="left-align">Product Order</td>
-                    <td ng-if="payment.intSalesID" class="right-align">{{ payment.datCreated | date: "MMMM/d/yyyy" }}</td>
-                    <td ng-if="payment.intSalesID" class="left-align">
+                    ng-if="payment.strStatus == 'PENDING' && payment.intSalesID > 0">
+                    <td ng-if="payment.intSalesID > 0" class="left-align">{{ payment.strName }}</td>
+                    <td ng-if="payment.intSalesID > 0" class="left-align">Product Order</td>
+                    <td ng-if="payment.intSalesID > 0" class="right-align">{{ payment.datCreated | date: "MMMM/d/yyyy" }}</td>
+                    <td ng-if="payment.intSalesID > 0" class="left-align">
                         <span ng-if="payment.intType==1">DELIVERY</span>
                         <span ng-if="payment.intType==2">PICK UP</span>
                     </td>
-                    <td ng-if="payment.intSalesID" class="right-align">
+                    <td ng-if="payment.intSalesID > 0" class="right-align">
                         {{ payment.invoice.dblTotalPrice | currency: "Php " }}
                     </td>
-                    <td ng-if="payment.intSalesID" class="right-align">
+                    <td ng-if="payment.intSalesID > 0" class="right-align">
                         {{ payment.invoice.dblRemainingBalance | currency: "Php " }}
                     </td>
-                    <td class="center-align">
+                    <td class="center-align" ng-if="payment.intSalesID > 0">
                         <button class="waves-effect waves-purple btn-flat transparent black-text"
                                 style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Payment"
-                                ng-click="vm.createPOPayment(payment, $index, vm.type[0].option1)"
-                                ng-if="payment.intSalesID">
+                                ng-click="vm.createPOPayment(payment, $index, vm.type[0].option1)">
                             <i class='material-icons medium'>payment</i>
                         </button>
                     </td>
                 </tr>
                 <tr ng-repeat="payment in vm.paymentList"
-                    ng-if="payment.strWalkInStatus == 'PENDING'">
-                    <td ng-if="payment.intWalkInID" class="left-align">{{ payment.strName }}</td>
-                    <td ng-if="payment.intWalkInID" class="left-align">Walk In</td>
-                    <td ng-if="payment.intWalkInID" class="right-align">{{ payment.datWalkIn | date: "MMMM/d/yyyy" }}</td>
-                    <td ng-if="payment.intWalkInID" class="left-align">WALK IN</td>
-                    <td ng-if="payment.intWalkInID" class="right-align">
+                    ng-if="payment.strWalkInStatus == 'PENDING' && payment.intWalkInID > 0">
+                    <td ng-if="payment.intWalkInID > 0" class="left-align">{{ payment.strName }}</td>
+                    <td ng-if="payment.intWalkInID > 0" class="left-align">Walk In</td>
+                    <td ng-if="payment.intWalkInID > 0" class="right-align">{{ payment.datWalkIn | date: "MMMM/d/yyyy" }}</td>
+                    <td ng-if="payment.intWalkInID > 0" class="left-align">WALK IN</td>
+                    <td ng-if="payment.intWalkInID > 0" class="right-align">
                         {{ payment.invoice.dblTotalPrice | currency: "Php " }}
                     </td>
-                    <td ng-if="payment.intWalkInID" class="right-align">
+                    <td ng-if="payment.intWalkInID > 0" class="right-align">
                         {{ payment.invoice.dblRemainingBalance | currency: "Php " }}
                     </td>
-                    <td class="center-align">
+                    <td class="center-align" ng-if="payment.intWalkInID > 0">
                         <button class="waves-effect waves-purple btn-flat transparent black-text"
                                 style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Payment"
-                                ng-click="vm.createPOPayment(payment, $index, vm.type[0].option2)"
-                                ng-if="payment.intWalkInID">
+                                ng-click="vm.createPOPayment(payment, $index, vm.type[0].option2)">
                             <i class='material-icons medium'>payment</i>
                         </button>
                     </td>
                 </tr>
                 <tr ng-repeat="payment in vm.paymentList"
-                    ng-if="payment.strStatus == 'PENDING'">
-                    <td ng-if="payment.customer" class="left-align">{{ payment.customer.strName }}</td>
-                    <td ng-if="payment.customer" class="left-align">Reservation</td>
-                    <td ng-if="payment.customer" class="right-align">{{ payment.dateCreated | date: "MMMM/d/yyyy" }}</td>
-                    <td ng-if="payment.customer" class="left-align">
-                        <span ng-if="reserve.intReservationType==1">HOME SERVICE</span>
-                        <span ng-if="reserve.intReservationType==2">EVENT</span>
+                    ng-if="payment.strStatus == 'PENDING' && payment.intReservationID > 0">
+                    <td ng-if="payment.intReservationID > 0" class="left-align">{{ payment.customer.strName }}</td>
+                    <td ng-if="payment.intReservationID > 0" class="left-align">Reservation</td>
+                    <td ng-if="payment.intReservationID > 0" class="right-align">{{ payment.dateCreated | date: "MMMM/d/yyyy" }}</td>
+                    <td ng-if="payment.intReservationID > 0" class="left-align">
+                        <span ng-if="payment.intReservationType==1">HOME SERVICE</span>
+                        <span ng-if="payment.intReservationType==2">EVENT</span>
                     </td>
-                    <td ng-if="payment.customer" class="right-align">
+                    <td ng-if="payment.intReservationID > 0" class="right-align">
                         {{ payment.invoice.dblTotalPrice | currency: "Php " }}
                     </td>
-                    <td ng-if="payment.customer" class="right-align">
+                    <td ng-if="payment.intReservationID > 0" class="right-align">
                         {{ payment.invoice.dblRemainingBalance | currency: "Php " }}
                     </td>
-                    <td class="center-align">
+                    <td class="center-align"  ng-if="payment.intReservationID > 0">
                         <button class="waves-effect waves-purple btn-flat transparent black-text"
                                 style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Payment"
-                                ng-click="vm.createPOPayment(payment, $index, vm.type[0].option3)"
-                                ng-if="payment.customer">
+                                ng-click="vm.createPOPayment(payment, $index, vm.type[0].option3)">
                             <i class='material-icons medium'>payment</i>
                         </button>
                     </td>
@@ -201,13 +201,16 @@
                     </div>
                     <div class="input-field col s6">
                         <select id="paymentDetails.type"
+                                material-select watch
                                 ng-model="vm.paymentDetails.paymentType"
                                 ng-if="vm.paymentDetails.type == 'order'"
                                 ng-options="pay.name for pay in vm.paymentType track by pay.id">
                         </select>
                         <select id="paymentDetails.type"
+                                material-select watch
                                 ng-model="vm.paymentDetails.paymentType"
                                 ng-if="vm.paymentDetails.type == 'reservation'"
+                                ng-change="paymentChange();"
                                 ng-options="pay.name for pay in vm.paymentType track by pay.id">
                         </select>
                         <select id="paymentDetails.type"
@@ -229,6 +232,12 @@
                             <i class="material-icons tiny red-text">error_outline</i>
                         </label>
                     </div>
+                    <div class="input-field col s12" ng-if="vm.paymentDetails.paymentType.name == 'DOWN PAYMENT' && vm.downPaymentError == 1">
+                        <span class="red-text"><b>Down Payment Error</b>: You need to pay at least {{vm.downPayment}}% of your total balance</span>
+                    </div>
+                    <div class="input-field col s12" ng-if="vm.paymentDetails.paymentType.name == 'FULL PAYMENT' && vm.fullPaymentError == 1">
+                        <span class="red-text"><b>Full Payment Error</b>: You need to pay your total balance</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -240,10 +249,13 @@
             <button type="submit" value="Submit" id="paymentDetails.submit"
                     class="waves-effect waves-light white-text btn-flat purple"
                     style="margin-left:3px; margin-right:3px;"
-                    ng-click="vm.paymentSubmit(vm.paymentDetails)">CREATE
+                    ng-click="vm.paymentSubmit(vm.paymentDetails)">SUBMIT
             </button>
         </div>
     </div>
 
-
 </div>
+
+<script type="text/javascript">
+        $('select').material_select('destroy');
+</script>

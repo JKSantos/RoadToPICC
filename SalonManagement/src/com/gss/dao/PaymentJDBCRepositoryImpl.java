@@ -294,7 +294,7 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 			
 			createPayment.execute();
 			
-			for(int index = 0; index < sales.getIncludedItems().getProductList().size(); index++){
+			/*for(int index = 0; index < sales.getIncludedItems().getProductList().size(); index++){
 				
 				ProductOrder product = sales.getIncludedItems().getProductList().get(index);
 				
@@ -304,15 +304,18 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 			}
 			
 			updateProducts.executeBatch();
-			updateProducts.close();
+			updateProducts.close();*/
 			
 			con.commit();
-			con.close();
+			con.close();	
+			System.out.println("yesss");;
 			return true;
+			
 		}
 		catch(Exception e){
 			e.printStackTrace();
 			con.rollback();
+			System.out.println("haysss");;
 			return false;
 		}
 	}

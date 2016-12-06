@@ -1194,5 +1194,36 @@ public class ReservationJDBCRepository implements ReservationRepository{
 			return null;
 		}
 	}
+	
+	public static int getReservationID(int intInvoiceID) {
+		
+		Connection con = new JDBCConnection().getConnection();
+		
+		String query = "SELECT intReservationID FROM tblReservation WHERE intInvoiceID = ?;";
+		
+		try {
+			
+			int reservationID = 0;
+			
+			PreparedStatement get = con.prepareStatement(query);
+			get.setInt(1, intInvoiceID);
+			
+			ResultSet set = get.executeQuery();
+			
+			while(set.next()) {
+				reservationID = set.getInt(1);
+			}
+			
+			get.close();
+			set.close();
+			con.close();
+			
+			return reservationID;
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+ 	}
 
 }

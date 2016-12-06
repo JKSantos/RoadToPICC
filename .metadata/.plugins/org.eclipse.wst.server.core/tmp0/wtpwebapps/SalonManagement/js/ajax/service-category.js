@@ -79,7 +79,6 @@ function addServiceCategory() {
                 } else if (data.result == "existing") {
                     $("#crexistingServCat").remove();
                     $("#crfailedServCat").remove();
-                    console.log(data);
                     $('#addCreateServiceCategory').show();
                     $('#addCreateServiceCategory').append('<span id="crexistingServCat" class="crexistingServCat white-text"><b>Category</b> is already existing</span>');
                     $('#addCreateServiceCategory .crfailedServCat').remove();
@@ -120,7 +119,6 @@ function addUpdateServiceCategory() {
                 } else if (data.result == "existing") {
                     $("#upexistingServCat").remove();
                     $("#upfailedServCat").remove();
-                    console.log(data);
                     $('.addUpdateServiceCategory').show();
                     $('.addUpdateServiceCategory').append('<span id="upexistingServCat" class="upexistingServCat white-text"><b>Category</b> is already existing</span>');
                     $('.addUpdateServiceCategory .upfailedServCat').remove();
@@ -174,9 +172,7 @@ function removeCreateServiceCategory() {
                 //         $('select').material_select();
                 //     }
                 // });
-                console.log(data.result);
             } else if (data.result == "failed") {
-                console.log('failed');
             }
         }
     });
@@ -215,15 +211,12 @@ function removeUpdateServiceCategory() {
                 });
                 $('.updateServCategory option').each(function () {
                     if ($(this).val() == pos) {
-                        console.log($(this).val());
                         $('select').material_select('destroy');
                         $(this).remove();
                         $('select').material_select();
                     }
                 });
-                console.log(data.result);
             } else if (data.result == "failed") {
-                console.log('failed');
             }
         }
     });

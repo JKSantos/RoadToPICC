@@ -164,13 +164,13 @@
                                 <span title="{{ request.strName }}" ng-click="vm.reqName(request);">{{ request.strName | truncate: 10 }}</span>
                                 <button name="" title="Decline" class="secondary-content red-text transparent"
                                         style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border:0px !important;"
-                                        ng-click="declineOrder(request)">
+                                        ng-click="declineWithReason(request)">
                                     <i class="material-icons" style="padding-top: 7px !important;">clear</i>
                                 </button>
                                 <button name="" title="Accept" class="secondary-content black-text transparent"
                                         style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border: 0px !important;"
                                         ng-if="request.intType==1 || request.intType=='delivery'"
-                                        ng-click="acceptDeliveryOrder(request)">
+                                        ng-click="acceptDeliveryOrder(request); getAvailableEmployee(request)">
                                     <i class="material-icons" style="padding-top: 7px !important;">done</i>
                                 </button>
                                 <button name="" title="Accept" class="secondary-content black-text transparent"
@@ -425,11 +425,35 @@
             <div class="container">
                 <div class="row">
                     <h4 class="center grey-text text-darken-3">Set delivery date for <br/>
-                        <span class="grey-text text-darken-4"><b>{{delivery.strName | uppercase}}</b></span></h4>
+                        <span class="grey-text text-darken-4"><b>{{delivery.strName | uppercase}}</b></span>
+                    </h4>
 
                     <input type="hidden" ng-model="delivery.intSalesID"/>
                     <input type="hidden" ng-model="delivery.index"/>
                     <div class="container">
+                        <div class="input-field col s12">
+                            <input type="date" name="delDate" class="datepicker-delivery"
+                                   id="deliveryDate" placeholder="August/01/2016" required
+                                   ng-model="delivery.deliveryDate" ng-change="changeDateGetEmp(delivery.deliveryDate);"/>
+                            <label for="deliveryDate" class="active"><b>Delivery Date</b>
+                                <i class="material-icons tiny red-text">error_outline</i></label>
+                        </div>
+                        <div class="input-field col s3">
+                            <label for=""><b>Time</b>
+                            <i class="material-icons tiny red-text" style="font-size: 12px !important;">error_outline</i></label>
+                        </div>
+                        <div class="input-field col s3">
+                            <input type="number" placeholder="hh" min="0" max="24">
+                        </div>
+                        <div class="input-field col s3">
+                            <input type="number" placeholder="mm" min="0">
+                        </div>
+                        <div class="input-field col s3">
+                            <select name="ampm" id="ampm" ng-model="ampm">
+                                <option value="am" selected>AM</option>
+                                <option value="pm">PM</option>
+                            </select>
+                        </div>
                         <div class="input-field col s12" style="margin-top: 50px !important;">
                             <select ng-model="delivery.selEmployee" id="acceptDelEmp"
                                     ng-options="employee.strEmpFirstName for employee in employeeList">
@@ -438,13 +462,6 @@
                             <label for="acceptDelEmp"><b>Employee</b>
                                 <i class="material-icons tiny red-text">error_outline</i>
                             </label>
-                        </div>
-                        <div class="input-field col s12" style="margin-top: 50px !important;">
-                            <input type="date" name="delDate" class="datepicker-delivery"
-                                   id="deliveryDate" placeholder="August/01/2016" required
-                                   ng-model="delivery.deliveryDate"/>
-                            <label for="deliveryDate" class="active"><b>Delivery Date</b>
-                                <i class="material-icons tiny red-text">error_outline</i></label>
                         </div>
                     </div>
                 </div>
@@ -540,15 +557,24 @@
     </div>
 
     <div id="productListRequest" class="modal bottom-sheet">
-    <div class="modal-content">
-      <h4><b>Request of {{vm.requestName}}</b></h4>
-      <div class="chip" ng-repeat="req in vm.reqProduct" style="margin: 5px !important;">
-          <b>{{req.product.strProductName}}</b>
-          <span ng-if="req.intQuantity > 1"><b>({{req.intQuantity}}pcs)</b></span>
-          <span ng-if="req.intQuantity == 1"><b>({{req.intQuantity}}pc)</b></span>
+        <div class="modal-content">
+          <h4><b>Request of {{vm.requestName}}</b></h4>
+          <div class="chip" ng-repeat="req in vm.reqProduct" style="margin: 5px !important;">
+              <b>{{req.product.strProductName}}</b>
+              <span ng-if="req.intQuantity > 1"><b>({{req.intQuantity}}pcs)</b></span>
+              <span ng-if="req.intQuantity == 1"><b>({{req.intQuantity}}pc)</b></span>
+            </div>
         </div>
-    </div>
-    <div class="modal-footer">
-    </div>
+        <div class="modal-footer">
+        </div>
   </div>
+    <div id="decReason" class="modal">
+        <div class="modal-content">
+          <h4>Reason for declining request</h4>
+          <textarea name="reason" id="reason" ng-model="reason" cols="30" rows="10" style="height: 100px !important;"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button ng-click="declineOrder(reason);" class="waves-effect purple waves-light btn white-text">Submit</button>
+        </div>
+      </div>
 </div>

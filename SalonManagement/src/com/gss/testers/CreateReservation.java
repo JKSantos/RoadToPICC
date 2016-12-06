@@ -41,7 +41,7 @@ public class CreateReservation {
 				List<ExtraCharge> extraCharges = new ArrayList<ExtraCharge>();
 				ExtraCharge extra = new ExtraCharge(26, "", "", headCount, headCount);
 				List<Discount> dicounts = new ArrayList<Discount>();
-				invoice = Invoice.createNullInvoice(extraCharges, dicounts, 1500.00, "FULL");
+				invoice = Invoice.createNullInvoice(extraCharges, dicounts, 740.00, "HALF PAYMENT");
 		
 		//for customer
 		String strName = "JOSELITO RULL SANTOS";

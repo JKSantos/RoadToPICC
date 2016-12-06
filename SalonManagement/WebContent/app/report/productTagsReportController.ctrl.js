@@ -53,6 +53,7 @@
 			}).then(function successCallback(data) {
 				vm.productTags = data.data.tagSum;
 				vm.productTag = data.data.report;
+				vm.totalProd = total(data.data.report);
 				vm.searchRep = 1;
 				var totalQ = 0,
 					totalC = 0,
@@ -77,6 +78,16 @@
 
 			});
 
+		}
+
+		function total(total) {
+			let t = 0;
+
+			angular.forEach(total, function(x, i) {
+				t += x.intQuantity;
+			});
+
+			return t;
 		}
 
 		function printPdf(thisDiv) {

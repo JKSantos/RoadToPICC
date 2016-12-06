@@ -61,17 +61,17 @@ function updatePackageTable() {
                     var price = 'Php ' + parseFloat(package.dblPackagePrice).toFixed(2);
                     price = addCommas(price);
                     if (package.intPackageType == 1) {
-                        type = 'Event';
+                        type = 'Walk-In';
                     } else if (package.intPackageType == 2) {
                         type = 'Home Service';
                     } else if (package.intPackageType == 3) {
-                        type = 'Walk-In';
+                        type = 'Event';
                     } else if (package.intPackageType == 4) {
-                        type = 'Event, Home Service';
+                        type = 'Walk-In, Home Service';
                     } else if (package.intPackageType == 5) {
                         type = 'Event, Walk In';
                     } else if (package.intPackageType == 6) {
-                        type = 'Walk In, Home Service';
+                        type = 'Event, Home Service';
                     } else {
                         type = 'Event, Home Service, Walk In';
                     }
@@ -180,18 +180,18 @@ function createPackageServiceTable() {
                         home = 0,
                         event = 0;
                     for (var i = 0; i < type.length; i++) {
-                        if (type[i] == 3) {
+                        if (type[i] == 1) {
                             walk = 1;
                         } else if (type[i] == 2) {
                             home = 1;
-                        } else if (type[i] == 1) {
+                        } else if (type[i] == 3) {
                             event = 1;
                         }
                     }
 
                     if (walk == 1 && home == 0 && event == 0) {
                         promoType = 1;
-                    } else if (walk == 0 && home > 0 && event == 0) {
+                    } else if (walk == 0 && home > 1 && event == 0) {
                         promoType = 2;
                     } else if (walk == 0 && home == 0 && event == 1) {
                         promoType = 3;
@@ -207,6 +207,7 @@ function createPackageServiceTable() {
 
                     $.each(serviceList, function (i, service) {
                         if(promoType == service.serviceType) {
+                            console.log(promoType + '//' + service.serviceType);
                             var price = parseFloat(service.dblServicePrice).toFixed(2);
                             price = addCommas(price);
                             var checkbox = "<input type='checkbox' name='createPackServType' id='myCheckBox" + service.intServiceID + "' required" +
@@ -215,7 +216,6 @@ function createPackageServiceTable() {
                                 quantity = "<input type='number' class='right-align rowQty' name='createPackServQty'" +
                                     " id='svc" + service.intServiceID + "' disabled style='width: 75px' min='1' max='99' value='1' maxlength='2'>";
                             price = "<span class='price'>P " + price + "</span>";
-
                             createPackageServTable.row.add([
                                 checkbox,
                                 service.strServiceName,
@@ -249,7 +249,6 @@ function compute(id) {
             productquantity = parseFloat($productQtyField.val()).toFixed(2);
 
         chk = chk + 1;
-        console.log(chk);
         if(chk < 1) {
             $('#createSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if(chk > 0) {
@@ -303,7 +302,6 @@ function compute(id) {
 
     } else if (!(productID.is(':checked'))) {
         chk = chk - 1;
-        console.log(chk);
         if(chk < 1) {
             $('#createSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if(chk > 0) {
@@ -328,7 +326,6 @@ function compute(id) {
 
     $('#prodchip' + id).click(function () {
         chk = chk - 1;
-        console.log(chk);
         if(chk < 1) {
             $('#createSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if(chk > 0) {
@@ -361,7 +358,6 @@ function serviceCompute(id) {
         $('#svc' + id).attr('disabled', false);
         //
         chk = chk + 1;
-        console.log(chk);
         if(chk < 1) {
             $('#createSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if(chk > 0) {
@@ -418,7 +414,6 @@ function serviceCompute(id) {
 
     } else if (!(serviceID.is(':checked'))) {
         chk = chk - 1;
-        console.log(chk);
         if(chk < 1) {
             $('#createSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if(chk > 0) {
@@ -444,7 +439,6 @@ function serviceCompute(id) {
 
     $('#servchip' + id).click(function () {
         chk = chk - 1;
-        console.log(chk);
         if(chk < 1) {
             $('#createSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if(chk > 0) {
@@ -510,7 +504,6 @@ function createPackage() {
             servselect = servselect.join(', ');
             productqty = productqty.join(', ');
             serviceqty = serviceqty.join(', ');
-            console.log(type);
             var packagedata = {
                 "strPackageName": $('#crPackageName').val(),
                 "strPackageDesc": $('#crPackageDesc').val(),

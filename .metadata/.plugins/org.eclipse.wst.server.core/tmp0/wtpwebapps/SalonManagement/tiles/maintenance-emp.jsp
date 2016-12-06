@@ -21,7 +21,10 @@ String granAccess = null;
     }
 </style>
 
+
+
 <div class="wrapper">
+
     <div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
             <h3 class="grey-text text-darken-1">Employee Maintenance</h3>
@@ -311,7 +314,7 @@ String granAccess = null;
                                 <div class="input-field col s12" style="margin-top: -10px;">
                                     <input type="text" name="strEmpContactNo" id="createContact"
                                            placeholder="Ex: 09123456789"/>
-                                    <label for="createContact"><b>Phone Number</b><i
+                                    <label for="createContact"><b>Cellphone Number</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <div class="input-field col s12">
@@ -566,7 +569,7 @@ String granAccess = null;
                                                        class="updateContact"
                                                        placeholder="Ex: 09123456789"
                                                        value="${employee.strEmpContactNo}"/>
-                                                <label for="updateContact"><b>Phone Number</b><i
+                                                <label for="updateContact"><b>Cellphone Number</b><i
                                                         class="material-icons red-text tiny">error_outline</i></label>
                                             </div>
                                             <div class="input-field col s12">

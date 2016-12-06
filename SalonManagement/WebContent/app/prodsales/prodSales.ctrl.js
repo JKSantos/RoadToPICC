@@ -89,9 +89,9 @@
             }
         });
 
-        locationFactory.getEmployees().then(function (data) {
-           $scope.employeeList = data.data.employeeList;
-        });
+        // locationFactory.getEmployees().then(function (data) {
+        //    $scope.employeeList = data.data.employeeList;
+        // });
 
         locationFactory.getProducts().then(function (data) {
             $scope.productList = data.data.productList;
@@ -114,6 +114,53 @@
             vm.minAmt = getMinAmount(vm.dependencies);
         });
 
+        var availableEmp = $.param({
+                date: '2016-12-06',
+                time: '01:00:00',
+                locationID: 2,
+                type: 'delivery'
+            });
+
+            $http({
+                method: 'post',
+                url: 'http://localhost:8080/SalonManagement/getAvailableEmployee',
+                data: availableEmp,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                $scope.employeeList = data.data.empList;
+            }, function errorCallback(response) {
+
+            });
+
+        $scope.changeDateGetEmp = function (date) {
+            let month, m, d;
+
+            month = date.split('/');
+            switch(month[0]) {
+                case 'December': m = 12; break;
+                case 'November': m = 11; break;
+                case 'October': m = 10; break;
+                case 'September': m = 9; break;
+                case 'August': m = 8; break;
+                case 'July': m = 7; break;
+                case 'June': m = 6; break;
+                case 'May': m = 5; break;
+                case 'April': m = 4; break;
+                case 'March': m = 3; break;
+                case 'February': m = 2; break;
+                case 'January': m = 1; break;
+            }
+
+            d = month[2] + '-' + m + '-' + month[1]; //d
+
+        }
+
+        function getAvailableEmployee (request) {
+            vm.intLocationID = request.intLocationID;
+        }
+
         function getMinAmount (min) {
             let minAmt = 0;
 
@@ -122,7 +169,6 @@
                     minAmt = x.strValue;
                 }
             });
-            console.log(minAmt);
             return parseFloat(minAmt).toFixed(2);
         }
 
@@ -358,48 +404,47 @@
                     "strTotalPrice": total
                 };
 
-            console.log(psdata);
-            // setTimeout(function () {
-            //     $.ajax({
-            //         url: 'createOrder',
-            //         type: 'post',
-            //         data: psdata,
-            //         dataType: 'json',
-            //         async: true,
-            //         success: function (data) {
-            //             if (data.status == "success") {
-            //                 swal("Successfully created!", ".", "success");
-            //                 console.log($scope.customerDetails[1]);
-            //                 if(myData.orderType == 'delivery') {
-            //                     $scope.requestOrder.push({
-            //                         intSalesID: data.intCreatedID,
-            //                         strName: myData.strName,
-            //                         intType: myData.orderType
-            //                     });
-            //                 }
-            //                 console.log($scope.requestOrder);
-            //                 $('#crProductSales').closeModal();
-            //                 $scope.customerDetails = [{
-            //                     orderType: '',
-            //                     contactNumber: '',
-            //                     name: '',
-            //                     Street: '',
-            //                     location: '',
-            //                     orderDetails: '',
-            //                     subtotal: 0
-            //                 }];
-            //                 console.log(data);
-            //                 $window.location.reload();
-            //             } else {
-            //                 SweetAlert.swal("Oops", "Something went wrong!", "error");
-            //             }
-            //         },
-            //         error: function () {
-            //             vm.loadingBubble = 1;
-            //             SweetAlert.swal("Oops", "Something went wrong!", "error");
-            //         }
-            //     });
-            // }, 1000);
+            setTimeout(function () {
+                $.ajax({
+                    url: 'createOrder',
+                    type: 'post',
+                    data: psdata,
+                    dataType: 'json',
+                    async: true,
+                    success: function (data) {
+                        if (data.status == "success") {
+                            swal("Successfully created!", ".", "success");
+                            console.log($scope.customerDetails[1]);
+                            if(myData.orderType == 'delivery') {
+                                $scope.requestOrder.push({
+                                    intSalesID: data.intCreatedID,
+                                    strName: myData.strName,
+                                    intType: myData.orderType
+                                });
+                            }
+                            console.log($scope.requestOrder);
+                            $('#crProductSales').closeModal();
+                            $scope.customerDetails = [{
+                                orderType: '',
+                                contactNumber: '',
+                                name: '',
+                                Street: '',
+                                location: '',
+                                orderDetails: '',
+                                subtotal: 0
+                            }];
+                            console.log(data);
+                            $window.location.reload();
+                        } else {
+                            SweetAlert.swal("Oops", "Something went wrong!", "error");
+                        }
+                    },
+                    error: function () {
+                        vm.loadingBubble = 1;
+                        SweetAlert.swal("Oops", "Something went wrong!", "error");
+                    }
+                });
+            }, 1000);
         }; //end
         
         $scope.openPickUpOrder = function (request) {
@@ -473,6 +518,7 @@
                 });
         }; //end
 
+
         $scope.acceptDeliveryOrder = function (request) {
             var index = $scope.requestOrder.indexOf(request);
             console.log(request);
@@ -542,10 +588,16 @@
                 });
         }; //end
 
-        $scope.declineOrder = function (request) {
+        $scope.declineWithReason = function (request) {
+            $('#decReason').openModal();
             var index = $scope.requestOrder.indexOf(request);
+            vm.reqDeclineWithReason = request;
+            vm.indexDeclineOrder = index;
+        }
+
+        $scope.declineOrder = function (reason) {
             swal({
-                    title: "Are you sure you want to decline the order of " + request.strName + "?",
+                    title: "Are you sure you want to decline the order of " + vm.reqDeclineWithReason.strName + "?",
                     text: "",
                     type: "warning",
                     showCancelButton: true,
@@ -560,14 +612,16 @@
                             url: 'declineOrder',
                             type: 'post',
                             data: {
-                                "intOrderID": request.intSalesID
+                                "intOrderID": vm.reqDeclineWithReason.intSalesID,
+                                "reason": reason
                             },
                             dataType: 'json',
                             async: true,
                             success: function (data) {
                                 if (data.result == "success") {
                                     SweetAlert.swal("The order request was declined!", ".", "success");
-                                    $scope.requestOrder.splice(index, 1);
+                                    $scope.requestOrder.splice(vm.indexDeclineOrder, 1);
+                                    $('#decReason').closeModal();
                                 } else {
                                     SweetAlert.swal("Oops", "Something went wrong!", "error");
                                 }

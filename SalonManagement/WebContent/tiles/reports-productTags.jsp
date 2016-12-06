@@ -86,11 +86,11 @@
                         </thead>
                         <tfoot>
                         <tr style="border: 1px solid #bdbdbd;">
-                            <th class="left-align">Product Name</th>
-                            <th class="left-align">Type</th>
-                            <th class="left-align">Tagged By</th>
-                            <th class="right-align">Quantity</th>
-                            <th class="right-align">Tagged Date</th>
+                            <th class="left-align"></th>
+                            <th class="left-align"></th>
+                            <th class="right-align">Total: </th>
+                            <th class="right-align">{{vm.totalProd}}</th>
+                            <th class="right-align"></th>
                         </tr>
                         </tfoot>
                         <tbody>
@@ -164,6 +164,13 @@
                             <td class="left-align">{{tags.strEmployee}}</td>
                             <td class="right-align">{{tags.intQuantity}}</td>
                             <td class="right-align">{{tags.datDateTagged | date:"MMM d, y"}}</td>
+                        </tr>
+                        <tr>
+                            <td class="left-align"></td>
+                            <td class="left-align"></td>
+                            <td class="right-align">Total: </td>
+                            <td class="right-align">{{vm.totalProd}}</td>
+                            <td class="right-align"></td>
                         </tr>
                         </tbody>
                     </table>

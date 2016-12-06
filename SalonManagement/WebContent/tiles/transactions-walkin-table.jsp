@@ -89,7 +89,7 @@
                         <button class="waves-effect waves-purple btn-flat transparent red-text text-accent-4"
                                 style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Deactivate"
                                 ng-if="walkin.strWalkInStatus=='PENDING'"
-                                ng-click="deactivateWalkin(walkin.intWalkInID, $index)">{{$index}}
+                                ng-click="deactivateWalkin(walkin.intWalkInID, $index)">
                             <i class='material-icons'>delete</i>
                         </button>
                     </td>

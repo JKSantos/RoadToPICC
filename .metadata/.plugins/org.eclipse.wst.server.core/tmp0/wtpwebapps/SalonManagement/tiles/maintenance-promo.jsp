@@ -321,7 +321,7 @@
                         class="actionpromo nextformpromo waves-effect waves-light white-text btn-flat purple"
                         style="margin-left: 3px; margin-right:3px;">NEXT
                 </button>
-                <button id="createPromoSubmitForm" onclick="createPromo()"
+                <button id="createPromoSubmitForm" onclick="createPromo();"
                         class="actionpromo submitformpromo waves-effect waves-light white-text btn-flat purple"
                         style="margin-left:3px; margin-right:3px; opacity: 0.3" disabled>CREATE
                 </button>

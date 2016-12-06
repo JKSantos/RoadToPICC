@@ -169,9 +169,9 @@
                                     <div class="input-field col s12">
                                         <select name="intPackageType" id="crPackageType" multiple required>
                                             <option disabled value="default">Choose your option</option>
-                                            <option value="1">Event</option>
+                                            <option value="1">Walk-In</option>
                                             <option value="2">Home Service</option>
-                                            <option value="3">Walk-In</option>
+                                            <option value="3">Event</option>
                                         </select>
                                         <label for="crPackageType"><b>Type</b><i
                                                 class="material-icons red-text tiny">error_outline</i></label>

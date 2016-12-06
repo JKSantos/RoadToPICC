@@ -37,6 +37,10 @@
 			<result name="success" type="json"></result>
 		</action>
 		
+		<action name="updateReservationStatus" class="com.gss.actions.Reservation.UpdateReservationStatus">
+			<result name="success" type="json"></result>
+		</action>
+		
 	</package>	
 		
 		

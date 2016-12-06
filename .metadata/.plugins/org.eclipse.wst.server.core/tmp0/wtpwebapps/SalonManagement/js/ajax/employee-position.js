@@ -28,15 +28,14 @@ function createJobPosition() {
         async: true,
         success: function (data) {
             var jobList = data.jobList;
-            console.log(data);
-            console.log(jobList);
             if (jobList != null) {
                 $.each(jobList, function (i, job) {
-                    $('select').material_select('destroy');
+                    //$('#crSelectedJob').material_select('destroy');
                     $('#crSelectedJob').append('<option value="' + job.strJobDesc + '">' + job.strJobDesc + "</option>");
                     $('#addOptionSelect').append('<option value="' + job.strJobDesc + '">' + job.strJobDesc + "</option>");
                     $('#updateAddOptionSelect').append('<option value="' + job.strJobDesc + '">' + job.strJobDesc + "</option>");
-                    $('select').material_select();
+
+                    //$('#crSelectedJob').material_select();
                 });
             }
         }
@@ -59,16 +58,17 @@ function addPosition() {
             success: function (data) {
                 if (data.result == "success") {
                     $('#addCreateoption').hide();
-                    $('select').material_select('destroy');
+                    $('#crSelectedJob').material_select('destroy');
+                    $('.upSelectedJob').material_select('destroy');
                     $('#crSelectedJob').append('<option selected>' + pos + '</option>').attr('value', pos);
                     $('#addOptionSelect').append('<option selected>' + pos + '</option>').attr('value', pos);
                     $('.upSelectedJob').append('<option>' + pos + '</option>').attr('value', pos);
                     $('.updateAddOptionSelect').append('<option>' + pos + '</option>').attr('value', pos);
-                    $('select').material_select();
+                    $('#crSelectedJob').material_select();
+                    $('.upSelectedJob').material_select();
                 } else if (data.result == "existing") {
                     $("#crexisting").remove();
                     $("#crfailed").remove();
-                    console.log(data);
                     $('#addCreateoption').show();
                     $('#addCreateoption').append('<span id="crexisting" class="existing white-text"><b>Position</b> is already existing</span>');
                     $('#addCreateOption .failed').remove();
@@ -109,7 +109,6 @@ function addUpdatePosition() {
                 } else if (data.result == "existing") {
                     $(".upexisting").remove();
                     $(".upfailed").remove();
-                    console.log(data);
                     $('#addUpdateoption').show();
                     $('#addUpdateoption').append('<span id="upexisting" class="upexisting white-text"><b>Position</b> is already existing</span>');
                     $('#addUpdateoption .upfailed').remove();
@@ -163,9 +162,7 @@ function removePosition() {
                         $('select').material_select();
                     }
                 });
-                console.log(data.result);
             } else if (data.result == "failed") {
-                console.log('failed');
             }
         }
     });
@@ -209,9 +206,7 @@ function removeUpdatePosition() {
                         $('select').material_select();
                     }
                 });
-                console.log(data.result);
             } else if (data.result == "failed") {
-                console.log('failed');
             }
         }
     });
