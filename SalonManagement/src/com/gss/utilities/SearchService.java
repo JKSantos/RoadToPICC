@@ -17,7 +17,6 @@ public class SearchService {
 			if(serviceID == serv.getIntServiceID())
 				return serv;
 		}
-		System.out.println("NO ID");
 		return null;
 		
 	}
@@ -64,4 +63,11 @@ public class SearchService {
 		
 		return selectedProducts;
 	}
+	
+	/*public List<Service> fromMockData(List<Service> mockServices) {
+		List<Service> serviceList = new ArrayList<Service>();
+		
+		
+		return serviceList;
+	}*/
 }

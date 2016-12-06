@@ -688,6 +688,8 @@
                     subTotalProducts += vm.productOrder[x].productTotal;
                 }
 
+                console.log("Product Quantity: " + vm.quantity);
+
                 selectprod = selectedProducts;
                 quantprod = selectedProductQuantity;
                 vm.productTotal = subTotalProducts;
@@ -862,6 +864,13 @@
             }
             console.log(selectdiscount);
             console.log(packageObj);
+
+            vm.total_price = vm.sum;
+//////////////////////////////////////////////////////////
+            if(vm.sumWithDiscount > 0) {
+                vm.total_price = vm.sumWithDiscount;
+            }
+/////////////////////////////////////////////////////////
             var walkinData = $.param({
                 'productString': selectprod,
                 'productQuantity': quantprod,
@@ -869,7 +878,7 @@
                 'employeeAssigned': selectEmp,
                 'packageLists': JSON.stringify(packageObj),
                 'promoLists': JSON.stringify(vm.selPromoDetails),
-                'strTotalPrice': parseFloat(vm.sum).toFixed(2),
+                'strTotalPrice': parseFloat(vm.total_price).toFixed(2),
                 'discounts': selectdiscount,
                 'strName': vm.details.name,
                 'strContactNo': vm.details.contact
@@ -901,10 +910,10 @@
                 'strContactNo': vm.details.contact
             };
 
-            console.log(ppp);
+            console.log(walkinData);
             
             var data1 = JSON.stringify(data);
-            
+        
             $timeout(function () {
                 $http({
                     method: 'post',
@@ -916,7 +925,7 @@
                 }).then(function successCallback(data) {
                 	console.log(data1);
                     $('#createWalkinModal').closeModal();
-                    //$window.location.reload();
+                    SweetAlert.swal("Oops", "Successfulyy Saved!", "success");
                 }, function errorCallback(response) {
                     SweetAlert.swal("Oops", "Something went wrong!", "error");
                     vm.loadingBubble = 1;
@@ -1054,6 +1063,28 @@
                 console.log('success');
             }, function errorCallback(response) {
                 SweetAlert.swal("Oops", "Something went wrong!", "error");
+            });
+        }
+
+        $scope.deactivateWalkin = function(id,index) {
+            console.log(index);
+            var dataID = $.param({
+                'appointmentID' : id
+           });
+
+
+            $http({ 
+               method: 'post',
+                url: 'cancelAppointment',
+                data: dataID,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                SweetAlert.swal("Success", "Walkin was cancelled Successfully", "success");
+                delete vm.walkInList[index];
+            }, function errorCallback(response) {
+                SweetAlert.swal("Oops", "Something went wrong!", "error"); 
             });
         }
 

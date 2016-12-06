@@ -9,39 +9,26 @@ import javax.servlet.ServletContext;
 import org.apache.struts2.StrutsStatics;
 
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
 
-public class DownloadAction extends ActionSupport{
-
-    /**
-	 * 
-	 */
+public class OpenPDF {
+	
 	private static final long serialVersionUID = 1L;
-	private InputStream fileStream;
-    private String path;
+	private static InputStream fileStream;
+    private static String fineName;
 
-    public String execute() throws Exception {
-    	
-    	System.out.println("file path: "+path);
+    public static InputStream execute(String path) throws Exception {
     	fileStream = new FileInputStream(
             new File(
                 ((ServletContext) ActionContext.getContext().get(StrutsStatics.SERVLET_CONTEXT)) 
                 .getRealPath(path)
+                +
+                fineName
             )
         );
     	
     
     	
-        return SUCCESS;
+        return fileStream;
     }
 
-	public InputStream getFileStream() {
-		return fileStream;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
-    
-    
 }

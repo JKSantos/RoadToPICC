@@ -153,6 +153,8 @@
                             <li><a href="extraQueries">Fee</a></li>
                             <li><a href="promoQueries">Promo</a></li>
                             <li><a href="discountQueries">Discount</a></li>
+                            <li><a href="cancelledReservations">Cancelled Reservations</a></li>
+                            <li><a href="serviceAvailments">Service Availments</a></li>
                         </ul>
                     </div>
                 </li>
@@ -168,8 +170,6 @@
                             <li><a href="orderPage">Product Purchases</a></li>
                             <li><a href="salesReport">Sales Reports</a></li>
                             <li><a href="productTags">Product Tags</a></li>
-                            <li><a href="cancelledReservations">Cancelled Reservations</a></li>
-                            <li><a href="serviceAvailments">Service Availments</a></li>
                         </ul>
                     </div>
                 </li>
@@ -302,8 +302,6 @@
 <script type="text/javascript" src="app/report/productTagsReportController.ctrl.js"></script>
 <script type="text/javascript" src="app/report/cancelledReservationController.ctrl.js"></script>
 <script type="text/javascript" src="app/report/serviceAvailmentsController.ctrl.js"></script>
-<script type="text/javascript" src="app/invetory/inventory-directives.js"></script>
-<script type="text/javascript" src="app/invetory/inventory-controller.js"></script>
 </body>
 
 </html>

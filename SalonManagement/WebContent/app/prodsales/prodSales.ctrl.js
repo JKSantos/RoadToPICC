@@ -122,7 +122,7 @@
                     minAmt = x.strValue;
                 }
             });
-
+            console.log(minAmt);
             return parseFloat(minAmt).toFixed(2);
         }
 

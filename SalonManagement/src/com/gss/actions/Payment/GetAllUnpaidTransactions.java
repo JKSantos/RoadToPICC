@@ -19,6 +19,7 @@ public class GetAllUnpaidTransactions {
 		this.orderList = Payment.getAllUnpaidOrder();
 		this.reservationList = Payment.getAllUnpaidReservation();
 		this.walkinList = Payment.getAllUnpaidWalkIn();
+		System.out.println(orderList.size()  +"..."+reservationList.size() +"..."+walkinList.size());
 		
 		return "success";
 	}

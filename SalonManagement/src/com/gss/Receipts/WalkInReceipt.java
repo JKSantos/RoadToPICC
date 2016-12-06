@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 
@@ -13,14 +14,22 @@ import org.apache.struts2.StrutsStatics;
 
 import com.gss.model.PackageWalkIn;
 import com.gss.model.Payment;
+import com.gss.model.Product;
 import com.gss.model.ProductOrder;
 import com.gss.model.ProductSales;
 import com.gss.model.ProductWalkIn;
+import com.gss.model.Promo;
 import com.gss.model.PromoWalkIn;
 import com.gss.model.Reservation;
+import com.gss.model.Service;
 import com.gss.model.ServiceWalkIn;
 import com.gss.model.WalkIn;
 import com.gss.utilities.NumberGenerator;
+import com.gss.utilities.SearchPackage;
+import com.gss.utilities.SearchProduct;
+import com.gss.utilities.SearchPromo;
+import com.gss.utilities.SearchService;
+import com.gss.model.Package;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -43,6 +52,7 @@ public class WalkInReceipt {
 	private Payment payment;
 	private String orNum;
 	private String destination;
+	private double discounted;
 	
 	public String createProductSalesReceipt(WalkIn walkin, String cashier, String date, Payment payment, String path) throws IOException, NullPointerException, DocumentException{
 		
@@ -205,14 +215,43 @@ public class WalkInReceipt {
         table.getDefaultCell().setUseAscender(true);
         table.getDefaultCell().setUseDescender(true);
         
-        for (int counter = 0; counter < walkin.getProducts().size(); counter++) {
+        String[] serviceID = new String[walkin.getServices().size()];
+        String[] productID = new String[walkin.getProducts().size()];
+        String[] packageID = new String[walkin.getPackages().size()];
+        String[] promoID = new String[walkin.getPromo().size()];
+        
+        for(int i = 0; i < walkin.getServices().size(); i++){
+        	serviceID[i] = String.valueOf(walkin.getServices().get(i).getService().getIntServiceID());
+        }
+        
+        for(int i = 0; i < walkin.getProducts().size(); i++){
+        	productID[i] = String.valueOf(walkin.getProducts().get(i).getProduct().getIntProductID());
+        }
+        
+        for(int i = 0; i < walkin.getPackages().size(); i++){
+        	packageID[i] = String.valueOf(walkin.getPackages().get(i).getPackages().getIntPackageID());
+        }
+        
+        for(int i = 0; i < walkin.getPromo().size(); i++) {
+        	promoID[i] = String.valueOf(walkin.getPromo().get(i).getPromo().getIntPromoID());
+        }
+        
+        List<Product> productList = new SearchProduct().searchList(productID, Product.getAllProduct());
+        List<Service> serviceList = new SearchService().searchList(serviceID, Service.getAllService());
+        List<Package> packageList = new SearchPackage().searchList(packageID, Package.getAllPackageNoDetails());
+        List<Promo> promoList = new SearchPromo().searchList(promoID, Promo.getAllPromoNoDetails());
+        
+        for (int counter = 0; counter < productList.size(); counter++) {
+        	Product product = productList.get(counter);
         	
         	ProductWalkIn order = walkin.getProducts().get(counter);
         	
         	int quantity = order.getIntQuantity();
-        	String productName = order.getProduct().getStrProductName();
-        	double unit = order.getProduct().getDblProductPrice();
+        	String productName = product.getStrProductName();
+        	double unit = product.getDblProductPrice();
         	double price = unit * quantity;
+        	
+        	discounted += price;
         	
             PdfPCell qtyCell = new PdfPCell(new Phrase(String.valueOf(quantity), getFont()));
             qtyCell.setBorder(0);
@@ -232,14 +271,19 @@ public class WalkInReceipt {
             table.addCell(amountCell);
         }
         
-        for (int counter = 0; counter < walkin.getServices().size(); counter++) {
+        
+        for (int counter = 0; counter < serviceList.size(); counter++) {
+        	Service service = serviceList.get(counter);
         	
         	ServiceWalkIn order = walkin.getServices().get(counter);
         	
         	int quantity = 1;
-        	String productName = order.getService().getStrServiceName();
-        	double unit = order.getService().getDblServicePrice();
+        	String productName = service.getStrServiceName();
+
+        	double unit = service.getDblServicePrice();
         	double price = unit * quantity;
+        	
+        	discounted += price;
         	
             PdfPCell qtyCell = new PdfPCell(new Phrase(String.valueOf(quantity), getFont()));
             qtyCell.setBorder(0);
@@ -259,14 +303,17 @@ public class WalkInReceipt {
             table.addCell(amountCell);
         }
         
-        for (int counter = 0; counter < walkin.getPackages().size(); counter++) {
+        for (int counter = 0; counter < packageList.size(); counter++) {
+        	Package packagee = packageList.get(counter);
         	
         	PackageWalkIn order = walkin.getPackages().get(counter);
         	
         	int quantity = 1;
-        	String productName = order.getPackages().getStrPackageName();
-        	double unit = order.getPackages().getDblPackagePrice();
+        	String productName = packagee.getStrPackageName();
+        	double unit = packagee.getDblPackagePrice();
         	double price = unit * quantity;
+        	
+        	discounted += price;
         	
             PdfPCell qtyCell = new PdfPCell(new Phrase(String.valueOf(quantity), getFont()));
             qtyCell.setBorder(0);
@@ -286,14 +333,17 @@ public class WalkInReceipt {
             table.addCell(amountCell);
         }	
         
-        for (int counter = 0; counter < walkin.getPromo().size(); counter++) {
+        for (int counter = 0; counter < promoList.size(); counter++) {
+        	Promo promo = promoList.get(counter);
         	
         	PromoWalkIn order = walkin.getPromo().get(counter);
         	
         	int quantity = 1;
-        	String productName = order.getPromo().getStrPromoName();
-        	double unit = order.getPromo().getDblPromoPrice();
+        	String productName = promo.getStrPromoName();
+        	double unit = promo.getDblPromoPrice();
         	double price = unit * quantity;
+        	
+        	discounted += price;
         	
             PdfPCell qtyCell = new PdfPCell(new Phrase(String.valueOf(quantity), getFont()));
             qtyCell.setBorder(0);
@@ -384,8 +434,21 @@ public class WalkInReceipt {
     	}
     	
     	PdfPCell cellHeader = new PdfPCell(new Phrase("-----------------------"+ count +" ITEMS---------------------", getFont()));
-    	PdfPCell totalLabel = new PdfPCell(new Phrase("TOTAL", getBiggerFont(11)));
-    	PdfPCell totalValue = new PdfPCell(new Phrase(String.format("%.2f", totalAmount), getBiggerFont(11)));
+    	PdfPCell totalLabel2 = null;
+    	PdfPCell totalLabel1 = null;
+    	PdfPCell totalValue1 = null;
+    	PdfPCell totalValue2 = null;
+    	
+    	/*if(walkin.getInvoice().getDiscountList().size() < 1){
+	    	totalLabel1 = new PdfPCell(new Phrase("TOTAL", getBiggerFont(11)));
+	    	totalValue1 = new PdfPCell(new Phrase(String.format("%.2f", totalAmount), getBiggerFont(11)));
+    	} else {*/
+    		totalLabel1 = new PdfPCell(new Phrase("TOTAL W/O DISCOUNT", getBiggerFont(11)));
+	    	totalValue1 = new PdfPCell(new Phrase(String.format("%.2f", discounted), getBiggerFont(11)));
+	    	totalLabel2 = new PdfPCell(new Phrase("TOTAL W/ DISCOUNT", getBiggerFont(11)));
+	    	totalValue2 = new PdfPCell(new Phrase(String.format("%.2f", totalAmount), getBiggerFont(11)));
+    	//}
+    	
     	PdfPCell cashLabel = new PdfPCell(new Phrase("    Cash", getFont()));
     	PdfPCell cashValue = new PdfPCell(new Phrase(String.format("%.2f", paymentAmount), getFont()));
     	PdfPCell changeLabel = new PdfPCell(new Phrase("CHANGE", getBiggerFont(14)));
@@ -393,23 +456,33 @@ public class WalkInReceipt {
     	PdfPCell cellfooter = new PdfPCell(new Phrase("---------------------------------------------------", getFont()));
          
     	cellHeader.setBorder(0);
-    	totalLabel.setBorder(0);
-    	totalValue.setBorder(0);
-    	totalValue.setHorizontalAlignment(Element.ALIGN_RIGHT);;
+    	totalLabel1.setBorder(0);
+    	totalValue1.setBorder(0);
+    	totalValue1.setHorizontalAlignment(Element.ALIGN_RIGHT);
+    	totalLabel2.setBorder(0);
+    	totalValue2.setBorder(0);
+    	totalValue2.setHorizontalAlignment(Element.ALIGN_RIGHT);
     	cashLabel.setBorder(0);
     	cashValue.setBorder(0);
-    	cashValue.setHorizontalAlignment(Element.ALIGN_RIGHT);;
+    	cashValue.setHorizontalAlignment(Element.ALIGN_RIGHT);
     	changeLabel.setBorder(0);
     	changeValue.setBorder(0);
-    	changeValue.setHorizontalAlignment(Element.ALIGN_RIGHT);;
+    	changeValue.setHorizontalAlignment(Element.ALIGN_RIGHT);
     	cellfooter.setBorder(0);
     	
     	cellHeader.setColspan(2);
     	cellfooter.setColspan(2);
     	
         details.addCell(cellHeader);
-        details.addCell(totalLabel);
-        details.addCell(totalValue);
+        /*if(walkin.getInvoice().getDiscountList().size() < 1) {
+        	details.addCell(totalLabel1);
+            details.addCell(totalValue1);
+        } else {*/
+        	details.addCell(totalLabel1);
+            details.addCell(totalValue1);
+            details.addCell(totalLabel2);
+            details.addCell(totalValue2);
+       // }
         details.addCell(cashLabel);
         details.addCell(cashValue);
         details.addCell(changeLabel);

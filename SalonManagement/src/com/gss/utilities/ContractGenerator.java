@@ -311,7 +311,7 @@ public class ContractGenerator {
 		
 		table.addCell(productName);
 		table.addCell(productQty);
-		System.out.println("Service size: " + order.size());
+
 		for(int index = 0; index < order.size(); index++){
 			PdfPCell productName1 = new PdfPCell(new Phrase(order.get(index).getService().getStrServiceName(), getFont()));
 			productName1.setHorizontalAlignment(Element.ALIGN_CENTER);

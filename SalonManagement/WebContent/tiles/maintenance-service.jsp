@@ -39,7 +39,7 @@
                     <th class="dt-head-left">Name</th>
                     <th class="dt-head-left">Category</th>
                     <th class="dt-head-left no-sort">Detail</th>
-                    <th class="dt-head-left">Duration</th>
+                    <th class="dt-head-left">Estimated Duration</th>
                     <th class="dt-head-right">Price</th>
                     <th class="dt-head-center no-sort">Actions</th>
                 </tr>
@@ -49,7 +49,7 @@
                     <th class="dt-head-left">Name</th>
                     <th class="dt-head-left">Category</th>
                     <th class="dt-head-left">Detail</th>
-                    <th class="dt-head-left">Duration</th>
+                    <th class="dt-head-left">Estimated Duration</th>
                     <th class="dt-head-right">Price</th>
                     <th class="dt-head-center">Actions</th>
                 </tr>
@@ -259,7 +259,7 @@
                                             class="material-icons">add</i></a>
                                 </div>
                                 <div class="input-field col s12 right-align">
-                                	<label class="active"><b>Duration</b></label>
+                                	<label class="active"><b>Estimated Duration</b></label>
                                 </div>
                                 <div class="input-field col s6">
                                     <input type="number" name="hour" id="crServiceDurationHour"/>
@@ -501,7 +501,7 @@
                                                 class="material-icons">add</i></a>
                                     </div>
                                     <div class="input-field col s12 right-align">
-                                		<label class="active"><b>Duration</b></label>
+                                		<label class="active"><b>Estimated Duration</b></label>
 	                                </div>
 	                                
 	                                <div class="input-field col s6">

@@ -23,7 +23,9 @@ public class GetAvailableEmployee {
 		
 		EmployeeDao dao = new EmployeeDao();
 		
-		switch(type){
+		System.out.println("tangina");
+		
+		switch(type.toLowerCase()){
 			case "walkin":
 				this.empList = dao.walkIn();
 				break;
@@ -37,9 +39,11 @@ public class GetAvailableEmployee {
 				this.empList = dao.event(date, time, timeTo);
 				break;
 			case "delivery":
-				this.empList = dao.delivery(date, time, Integer.parseInt(locationID));
+				this.empList = dao.delivery(date, "00:00:00", Integer.parseInt(locationID));
 				break;
 		}
+		
+		System.out.println(this.empList.size());
 		
 		return "success";
 	}

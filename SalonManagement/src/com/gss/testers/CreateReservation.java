@@ -1,12 +1,14 @@
 package com.gss.testers;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import com.gss.utilities.*;
-
+import com.itextpdf.text.DocumentException;
+import com.gss.Receipts.HomeServiceReceipt;
 import com.gss.model.*;
 import com.gss.service.ReservationService;
 import com.gss.service.ReservationServiceImpl;
@@ -56,12 +58,12 @@ public class CreateReservation {
 		includedItems = new ReservationInclusion(products, services, packages, promos);
 		
 			//ProductOrder
-			Product product = new Product(38, strEmailAddress, strEmailAddress, strEmailAddress, headCount, null, headCount, strEmailAddress, headCount);
-			ProductOrder productOrder = new ProductOrder(1, product, 4, 1);
+			Product product = new Product(35, strEmailAddress, strEmailAddress, strEmailAddress, headCount, null, headCount, strEmailAddress, headCount);
+			ProductOrder productOrder = new ProductOrder(35, product, 4, 1);
 			products.add(productOrder);
 			
 			//Service
-			Service service1 = Service.createNullService(61);
+			Service service1 = Service.createNullService(75);
 			ReservedService reserved = new ReservedService(1, 1, service1, 2, 1);
 			services.add(reserved);
 			
@@ -71,14 +73,16 @@ public class CreateReservation {
 		
 		
 		//for Employee Assigned
-		Employee emp = new Employee(79, strEmailAddress, strEmailAddress, strEmailAddress, datTo, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, null, null, false, "NOT AVAILABLE");
-		Employee emp2 = new Employee(68, strEmailAddress, strEmailAddress, strEmailAddress, datTo, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, null, null, false, "NOT AVAILABLE");
+		Employee emp = new Employee(79, strEmailAddress, strEmailAddress, strEmailAddress, datTo, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, null, null, false, "NOT AVAILABLE", null);
+		Employee emp2 = new Employee(68, strEmailAddress, strEmailAddress, strEmailAddress, datTo, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, strEmailAddress, null, null, false, "NOT AVAILABLE", null);
 		employeeAssigned.add(new EmployeeAssigned(1, 1, emp, headCount));
 		employeeAssigned.add(new EmployeeAssigned(1, 1, emp2, headCount));
 		
 		reservation = new Reservation(intReservationID, customer, includedItems, intReservationType, dateCreated, datFrom, datTo, timFrom, timTo, strVenue, 2, headCount, employeeAssigned, invoice, strStatus, "");
 		
 		System.out.println(service.createReservation(reservation));
+		
+		System.out.println("Reservation Successfully Saved");
 	}
 
 }

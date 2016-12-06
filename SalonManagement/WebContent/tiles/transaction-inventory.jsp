@@ -5,7 +5,7 @@
 
     <div class="main z-depth-barts" data-ng-controller="stock-controller">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
-            <h3 class="grey-text text-darken-1">Inventory</h3>
+            <h3 class="grey-text text-darken-1">Product Inventory</h3>
             <a class="crinventybtn z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"
                href="#deflostexModal" style="margin-top: 30px; margin-left: 15px;"><i class="material-icons">add</i></a>
             <a class="z-depth-1 hoverable waves-effect waves-light modal-trigger btn purple darken-2 left white-text"

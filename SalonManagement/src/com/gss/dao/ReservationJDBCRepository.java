@@ -150,6 +150,10 @@ public class ReservationJDBCRepository implements ReservationRepository{
 				this.includedItems = new ReservationInclusion(getAllProductOrder(this.intReservationID), getAllReservedService(this.intReservationID), getAllReservedPackage(this.intReservationID), getAllReservedPromo(this.intReservationID));
 				
 				reservation = new Reservation(this.intReservationID, this.customer, this.includedItems, this.intReservationType, this.dateCreated, this.datFrom, this.datTo, this.timFrom, this.timTo, this.strVenue, this.intLocationID, this.headCount, this.employeeAssigned, this.invoice, this.strStatus, this.strContract);	
+				List<ProductOrder> orders = getAllProductOrder(intReservationID);
+				List<ReservedService> services = getAllReservedService(intReservationID);
+				List<ReservedPackage> packages = getAllReservedPackage(intReservationID);
+				List<ReservedPromo> promos = getAllReservedPromo(intReservationID);
 			}
 			
 			return reservation;
@@ -550,7 +554,7 @@ public class ReservationJDBCRepository implements ReservationRepository{
 //				con.commit();
 //				con.close();
 //				return true;
-//			}
+//			}get
 
 			return true;
 		}
@@ -626,7 +630,7 @@ public class ReservationJDBCRepository implements ReservationRepository{
 		try{
 			
 			ProductService service 		= new ProductServiceImpl();
-			List<Product> productList 	= service.getAllProducts();
+			List<Product> productList 	= service.getAllProductsNoImage();
 			
 			List<ProductOrder> productOrder = new ArrayList<ProductOrder>();
 			
@@ -649,7 +653,7 @@ public class ReservationJDBCRepository implements ReservationRepository{
 				order.setDiscountType(discountType);
 				order.setDiscountAmount(discountAmount);
 				
-				this.productList.add((order));
+				productOrder.add((order));
 				
 			}
 
@@ -670,7 +674,7 @@ public class ReservationJDBCRepository implements ReservationRepository{
 		try{
 			
 			ServiceService service 		= new ServiceServiceImpl();
-			List<Service> serviceList 	= service.getAllService();
+			List<Service> serviceList 	= service.getAllServiceNoImage();
 			
 			List<ReservedService> reservedService = new ArrayList<ReservedService>();
 			
@@ -693,7 +697,7 @@ public class ReservationJDBCRepository implements ReservationRepository{
 				reserve.setDiscountType(discountType);
 				reserve.setDiscountAmount(discountAmount);
 				
-				this.serviceList.add((reserve));
+				reservedService.add((reserve));
 			}
 			
 			return reservedService;
@@ -713,7 +717,7 @@ public class ReservationJDBCRepository implements ReservationRepository{
 		try{
 			
 			PackageService service 		= new PackageServiceImpl();
-			List<Package> packageList 	= service.getAllPackage();
+			List<Package> packageList 	= service.getAllPackageNoDetails();
 			
 			List<ReservedPackage> reservedPackage = new ArrayList<ReservedPackage>();
 			
@@ -738,7 +742,7 @@ public class ReservationJDBCRepository implements ReservationRepository{
 				
 //				packagee = ItemDiscount.getPackageDiscount(packagee);
 	
-				this.packageList.add(packagee);
+				reservedPackage.add(packagee);
 			}
 			
 			this.packageList = reservedPackage;
@@ -759,7 +763,7 @@ public class ReservationJDBCRepository implements ReservationRepository{
 		try{
 			
 			PromoService service 		= new PromoServiceImpl();
-			List<Promo> promoList 	= service.getAllPromo();
+			List<Promo> promoList 	= service.getAllPromoNoDetails();
 			
 			List<ReservedPromo> reservedPromo = new ArrayList<ReservedPromo>();
 			
@@ -783,7 +787,7 @@ public class ReservationJDBCRepository implements ReservationRepository{
 				promo.setDiscountType(discountType);
 				promo.setDiscountAmount(discountAmount);
 				
-				this.promoList.add(promo);
+				reservedPromo.add(promo);
 			}
 			
 			this.promoList = reservedPromo;
