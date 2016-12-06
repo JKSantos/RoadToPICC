@@ -5,11 +5,14 @@ import javax.servlet.ServletContext;
 import org.apache.commons.lang3.time.StopWatch;
 import org.apache.struts2.StrutsStatics;
 
+import com.gss.Receipts.HomeServiceReceipt;
 import com.gss.Receipts.WalkInReceipt;
 import com.gss.dao.PaymentJDBCRepositoryImpl;
+import com.gss.dao.ReservationJDBCRepository;
 import com.gss.dao.WalkInJDBCRepository;
 import com.gss.dao.WalkInTransRepository;
 import com.gss.model.Payment;
+import com.gss.model.Reservation;
 import com.gss.utilities.DateHelper;
 import com.gss.utilities.NumberGenerator;
 import com.gss.utilities.PriceFormatHelper;
@@ -54,7 +57,15 @@ public class CreatePaymentAction extends ActionSupport{
 			int walkinID = WalkInTransRepository.getWalkInID(this.intInvoiceID);
 			walkin.createProductSalesReceipt(WalkInTransRepository.getWalkInByID(walkinID), "JEFFREY SANTOS", this.datDateOfPayment, payment, url);
 		}else if(strPaymentType.equalsIgnoreCase("reservation")) {
+			int reservationID = ReservationJDBCRepository.getReservationID(intInvoiceID);
 			
+			HomeServiceReceipt receipt = new HomeServiceReceipt();
+			Reservation reservation = Reservation.getReservationByID(reservationID);
+			
+			if(reservation.getIntReservationType() == 2) {
+				receipt.createProductSalesReceipt(reservation, "JEFFREY SANTOS", datDateOfPayment, payment, url);
+				System.out.println("Receipt was successfully created");
+			}
 		}
 		
 		if(recorded == true){

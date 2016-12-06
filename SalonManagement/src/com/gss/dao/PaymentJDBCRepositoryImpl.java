@@ -307,12 +307,15 @@ public class PaymentJDBCRepositoryImpl implements PaymentRepository{
 			updateProducts.close();
 			
 			con.commit();
-			con.close();
+			con.close();	
+			System.out.println("yesss");;
 			return true;
+			
 		}
 		catch(Exception e){
 			e.printStackTrace();
 			con.rollback();
+			System.out.println("haysss");;
 			return false;
 		}
 	}
