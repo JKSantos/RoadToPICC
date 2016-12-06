@@ -75,8 +75,8 @@
                                     <a class="activator grey-text text-darken-4 light btn btn-small center"
                                        ng-click="vm.closeNotSelectedInProd($index);"
                                        style="margin-top: -10px;"><i class="material-icons right white-text">add_shopping_cart</i></a>
-                                    <h5 style='font-size: 12px; line-height: 10px !important;'><b data-ng-bind="product.strProductName"></b>
-                                        <p data-ng-bind="product.dblProductPrice | currency:'Php'"></p></h5>
+                                    <h5 style='font-size: 12px; line-height: 10px !important;'><b>{{product.strProductName}}</b>
+                                        <p>{{product.dblProductPrice | currency:"P"}}</p></h5>
                                 </div>
                                 <div class="card-reveal">
                                     <span class="card-title grey-text text-darken-4 prodClose123">
@@ -84,16 +84,16 @@
                                            id="prodClose{{product.intProductID}}">close</i>
                                     </span>
                                     <h4 style='font-size: 12px; line-height: 15px !important;'>
-                                        <b data-ng-bind="product.strProductName"></b><br/>
-                                        <span class="grey-text text-darken-4" data-ng-bind="product.dblProductPrice | currency:'Php '"></span>
+                                        <b>{{product.strProductName}}</b><br/>
+                                        <span class="grey-text text-darken-4">{{product.dblProductPrice | currency:"Php "}}</span>
                                     </h4>
                                     <div class="input-field col s12">
                                         <input type="number" id="crPSQty{{product.intProductID}}"
                                                ng-model="vm.quantity" min="1"/>
                                         <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
                                     </div>
-                                    <h6 class="grey-text text-darken-4" data-ng-bind="product.dblProductPrice * vm.quantity | currency: 'Php '">
-                                        
+                                    <h6 class="grey-text text-darken-4">
+                                        {{product.dblProductPrice * vm.quantity | currency: "Php "}}
                                     </h6>
                                     <a class="waves-effect waves-light btn"
                                        ng-if="vm.quantity > 0"
@@ -132,8 +132,8 @@
                                        ng-click="vm.filterEmployee($index, service.intServiceID);"
                                        style="margin-top: -10px;"><i class="material-icons right white-text">add_shopping_cart</i>
                                     </a>
-                                    <h5 style='font-size: 12px; line-height: 10px !important;'><b data-ng-bind="service.strServiceName"></b>
-                                        <p data-ng-bind="service.dblServicePrice | currency:'Php '"></p></h5>
+                                    <h5 style='font-size: 12px; line-height: 10px !important;'><b>{{service.strServiceName}}</b>
+                                        <p>{{service.dblServicePrice | currency:"P"}}</p></h5>
                                 </div>
                                 <div class="card-reveal">
                                     <span class="card-title grey-text text-darken-4 servReveal">
@@ -141,8 +141,8 @@
                                            id="servClose{{service.intServiceID}}">close</i>
                                     </span>
                                     <h4 style='font-size: 12px; line-height: 15px !important;'>
-                                        <b data-ng-bind="service.strServiceName"></b><br/>
-                                        <span class="grey-text text-darken-4" data-ng-bind="service.dblServicePrice | currency:'Php '"></span>
+                                        <b>{{service.strServiceName}}</b><br/>
+                                        <span class="grey-text text-darken-4">{{service.dblServicePrice | currency:"Php "}}</span>
                                     </h4>
                                     <div input-field class="col s12 ddd">
                                         <select id="crEmpServSelEmp"
@@ -192,14 +192,14 @@
                                        style="margin-top: -10px;">
                                         <i class="material-icons right white-text">add_shopping_cart</i>
                                     </a>
-                                    <h5 style='font-size: 12px; line-height: 10px !important;'><b data-ng-bind="package.strPackageName"></b>
-                                        <p data-ng-bind="package.dblPackagePrice | currency:'Php '"></p></h5>
+                                    <h5 style='font-size: 12px; line-height: 10px !important;'><b>{{package.strPackageName}}</b>
+                                        <p>{{package.dblPackagePrice | currency:"P"}}</p></h5>
                                 </div>
                                 <div class="card-reveal">
                                                <span class="card-title grey-text text-darken-4"><i
                                                        class="material-icons right">close</i></span>
                                     <h4 style='font-size: 12px; line-height: 15px !important;'>
-                                        <b data-ng-bind="package.strPackageName"></b><br/>
+                                        <b>{{package.strPackageName}}</b><br/>
                                         <span class="grey-text tex 	t-darken-4"></span>
                                     </h4>
 
@@ -225,16 +225,16 @@
                                     <a class="activator grey-text text-darken-4 light btn btn-small center"
                                        style="margin-top: -10px;"><i class="material-icons right white-text">add_shopping_cart</i></a>
                                     <h5 style='font-size: 12px; line-height: 10px !important;'>
-                                        <b data-ng-bind="promo.strPromoName"></b>
-                                        <p data-ng-bind="promo.dblPromoPrice | currency:'Php '"></p></h5>
+                                        <b>{{promo.strPromoName}}</b>
+                                        <p>{{promo.dblPromoPrice | currency:"P"}}</p></h5>
                                 </div>
                                 <div class="card-reveal">
 
                                                <span class="card-title grey-text text-darken-4"><i
                                                        class="material-icons right">close</i></span>
                                     <h4 style='font-size: 12px; line-height: 15px !important;'>
-                                        <b data-ng-bind="promo.strPromoName"></b><br/>
-                                        <span class="grey-text text-darken-4" data-ng-bind="promo.dblPromoPrice | currency:'Php '"></span>
+                                        <b>{{promo.strPromoName}}</b><br/>
+                                        <span class="grey-text text-darken-4">{{promo.dblPromoPrice | currency:"Php "}}</span>
                                     </h4>
 
                                     <a class="waves-effect waves-light btn"
@@ -316,50 +316,50 @@
                                     <p>
                                         <b>Note:</b> <br>
                                             <span ng-if="vm.discountDetail.strDiscountDesc.length > 0" class="col s12">
-                                                <b>-</b><i data-ng-bind="vm.discountDetail.strDiscountName"></i>: <span data-ng-bind="vm.discountDetail.strDiscountDesc"></span>
+                                                <b>-</b><i>{{vm.discountDetail.strDiscountName}}</i>: {{vm.discountDetail.strDiscountDesc}}
                                             </span>
                                             <span ng-if="vm.discountDetail.strDiscountDesc.length < 1"
                                                   class="col s12">
-                                                <b>-</b>There's no description for <i data-ng-bind="vm.discountDetail.strDiscountName"></i>
+                                                <b>-</b>There's no description for <i>"{{vm.discountDetail.strDiscountName}}"</i>
                                             </span>
                                         <br>
                                         <b>Discount Value:</b>
-                                        <span ng-if="vm.discountDetail.intDiscountType == 1" data-ng-bind="(vm.discountDetail.stringPrice | number:0)+'%'"></span>
-                                        <span ng-if="vm.discountDetail.intDiscountType == 2" data-ng-bind="(vm.discountDetail.stringPrice | currency: 'Php ')"></span>
+                                        <span ng-if="vm.discountDetail.intDiscountType == 1">{{vm.discountDetail.stringPrice | number:0}}%</span>
+                                        <span ng-if="vm.discountDetail.intDiscountType == 2">{{vm.discountDetail.stringPrice | currency: "Php "}}</span>
                                         <br>
                                         <b class="grey-text text-darken-1">Total (w/o discount):</b>
-                                        <span class="grey-text text-darken-1" data-ng-bind="vm.sum | currency: 'Php '"></span> <br>
+                                        <span class="grey-text text-darken-1">{{vm.sum | currency: "Php "}}</span> <br>
                                         <b class="grey-text text-darken-1">Total (w/ discount):</b>
-                                        <span class="grey-text text-darken-1" data-ng-bind="vm.sumWithDiscount | currency: 'Php '"></span>
+                                        <span class="grey-text text-darken-1">{{vm.sumWithDiscount | currency: "Php "}}</span>
                                         <br>
                                         <b>Requirement/s:</b> <br>
-                                    <div class="chip" ng-repeat="req in vm.requirement" style="margin: 2px;" data-ng-bind="req">
-                                        
+                                    <div class="chip" ng-repeat="req in vm.requirement" style="margin: 2px;">
+                                        {{req}}
                                     </div>
                                     <br>
                                     <b class="grey-text text-darken-1">Item/s included:</b> <br>
-                                    <div class="chip" style="margin: 2px;" ng-if="vm.discountApplicability.length > 0" data-ng-bind="vm.discountApplicability">
-                                        
+                                    <div class="chip" style="margin: 2px;" ng-if="vm.discountApplicability.length > 0">
+                                        {{vm.discountApplicability}}
                                     </div>
                                     <div class="chip"
                                          ng-if="vm.discountApplicability.length < 1"
-                                         ng-repeat="prod in vm.prodInDiscount" style="margin: 2px;" data-ng-bind="prod.strProductName">
-                                        
+                                         ng-repeat="prod in vm.prodInDiscount" style="margin: 2px;">
+                                        {{prod.strProductName}}
                                     </div>
                                     <div class="chip"
                                          ng-if="vm.discountApplicability.length < 1"
-                                         ng-repeat="serv in vm.servInDiscount" style="margin: 2px;" data-ng-bind="serv.strServiceName">
-                                        
+                                         ng-repeat="serv in vm.servInDiscount" style="margin: 2px;">
+                                        {{serv.strServiceName}}
                                     </div>
                                     <div class="chip"
                                          ng-if="vm.discountApplicability.length < 1"
                                          ng-repeat="pack in vm.packInDiscount" style="margin: 2px;">
-                                        <span  data-ng-bind="pack.strPackageName"></span>
+                                        {{pack.strPackageName}}
                                     </div>
                                     <div class="chip"
                                          ng-if="vm.discountApplicability.length < 1"
                                          ng-repeat="promo in vm.promoInDiscount" style="margin: 2px;">
-                                        <span  data-ng-bind="promo.strPromoName"></span>
+                                        {{promo.strPromoName}}
                                     </div>
                                     </p>
                                 </div>
@@ -407,11 +407,11 @@
 
             <div class="chip" ng-repeat="products in vm.packageContainProduct" style="margin: 5px !important;">
                 <img ng-src="{{products.product.strPhotoPath}}">
-                <span data-ng-bind="products.product.strProductName"></span> (<b data-ng-bind="products.intProductQuantity"></b>)
+                {{ products.product.strProductName }} (<b>{{products.intProductQuantity}}</b>)
             </div>
             <table>
                 <tr ng-repeat="services in vm.packageContainService" style="margin: 0px !important;">
-                    <td data-ng-bind="services.service.strServiceName"></td>
+                    <td>{{services.service.strServiceName}}</td>
                     <td>
                         <div class="input-field col s12">
                             <select ng-model="vm.selEmployeePerService" id="cREmp3"
@@ -449,9 +449,32 @@
     <div id="promoListModal" class="modal modal-fixed-footer">
         <div class="modal-content">
             <h4 class="grey-text center text-darken-1">Promo Contains</h4>
-            <table>
-                <tr ng-repeat="services in vm.promoContains">
-                    <td data-ng-bind="services.service.strServiceName"></td>
+            <h5 class="purple-text">Products</h5>
+            <ul ng-repeat="products in vm.promoContainsProduct">
+                <li>
+                  <h6>{{products.product.strProductName}}</h6>
+                </li>
+            </ul>
+            <h5 class="purple-text">Services</h5>
+            <ul ng-repeat="services in vm.promoContainsService">
+                <li>
+                  <h6> {{services.service.strServiceName}}</h6>
+                </li>
+                <li>
+                  <div class="input-field col s6">
+                      <select ng-model="vm.selEmployeePerService" id="cREmp1"
+                              ng-options="employee.strEmpFirstName for employee in vm.employeeList"></select>
+                      <label for="cREmp1"><b>Employee</b></label>
+                  </div>
+                  <button id="btnAssign"
+                          class="waves-effect waves-light white-text btn-flat purple"
+                          ng-click="vm.assignEmployeePromo($index)">ASSIGN
+                  </button>
+                </li>
+            </ul>
+            <!-- <table>
+                <tr >
+                    <td>{{services.service.strServiceName}}</td>
                     <td>
                         <div class="input-field col s12">
                             <select ng-model="vm.selEmployeePerService" id="cREmp1"
@@ -467,7 +490,7 @@
                     </td>
                 </tr>
                 <tr ng-repeat="packageService in vm.promoContainsPackage">
-                    <td data-ng-bind="packageService.service.strServiceName"></td>
+                    <td>{{packageService.service.strServiceName}}</td>
                     <td>
                         <div class="input-field col s12">
                             <select ng-model="vm.selEmployeePerService" id="cREmp4"
@@ -482,7 +505,7 @@
                         </button>
                     </td>
                 </tr>
-            </table>
+            </table> -->
             <div class="container">
                 <div class="row">
 
@@ -497,7 +520,7 @@
             <button type="submit" value="Submit" id="paymentDetails.submit"
                     class="waves-effect waves-light white-text btn-flat purple"
                     style="margin-left:3px; margin-right:3px;"
-                    ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">DONE
+                    ng-click="vm.addToCart(vm.promoIndex, vm.selected); vm.sumTotal()">DONE
             </button>
         </div>
     </div>
@@ -514,8 +537,8 @@
                             <img ng-src="{{order.strPhotoPath}}" class="circle" height="30" width="30">
                                 <span style="padding-left: 5px !important; cursor: pointer !important;"
                                       title="{{order.product}} - {{order.productTotal | currency: 'Php '}}"
-                                      ng-click="vm.openEditItem($index, order);" data-ng-bind="order.product | truncate: 15">
-                                    
+                                      ng-click="vm.openEditItem($index, order);">
+                                    {{order.product | truncate: 15}}
                                 </span>
                             <button name="" title="Remove" class="secondary-content red-text transparent"
                                     style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border:0px !important;"
@@ -529,8 +552,8 @@
                             <img ng-src="{{service.strPhotoPath}}" class="circle" height="30" width="30">
                                 <span style="padding-left: 5px !important; cursor: pointer !important;"
                                       title="{{service.service}} - {{service.serviceTotal | currency: 'Php '}}"
-                                      ng-click="vm.openEditItem($index, service); vm.filterEmployee(service.idx); vm.selEmpServ(service);" data-ng-bind="service.service | truncate: 15">
-                                    
+                                      ng-click="vm.openEditItem($index, service); vm.filterEmployee(service.idx); vm.selEmpServ(service);">
+                                    {{service.service | truncate: 15}}
                                 </span>
                             <button name="" title="Remove" class="secondary-content red-text transparent"
                                     style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border:0px !important;"
@@ -544,8 +567,8 @@
                             <img ng-src="img/package.png" class="circle" height="30" width="30">
                                 <span style="padding-left: 5px !important; cursor: pointer !important;"
                                       title="{{package.package}} - {{package.packageTotal | currency: 'Php '}}"
-                                      ng-click="vm.openEditItem($index, package)" data-ng-bind="package.package | truncate: 11">
-                                    
+                                      ng-click="vm.openEditItem($index, package)">
+                                    {{package.package | truncate: 11}}
                                 </span>
                             <button name="" title="Remove" class="secondary-content red-text transparent"
                                     style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border:0px !important;"
@@ -553,20 +576,35 @@
                                 <i class="material-icons" style="padding-top: 7px !important;">clear</i>
                             </button>
                         </li>
+                        <li class="collection-item left-align"
+                            style="margin-left:0px !important; padding-left: 5px !important;"
+                            ng-repeat="promo in vm.promoOrder">
+                            <img ng-src="img/package.png" class="circle" height="30" width="30">
+                                <span style="padding-left: 5px !important; cursor: pointer !important;"
+                                      title="{{promo.promo}} - {{promo.promoTotal | currency: 'Php '}}"
+                                      ng-click="vm.openEditItem($index, promo)">
+                                    {{promo.promo | truncate: 11}}
+                                </span>
+                            <button name="" title="Remove" class="secondary-content red-text transparent"
+                                    style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border:0px !important;"
+                                    ng-click="vm.removeToCartPromo($index, promo)">
+                                <i class="material-icons" style="padding-top: 7px !important;">clear</i>
+                            </button>
+                        </li>
                     </ul>
-                    <h5 data-ng-bind="'Total:' +( vm.sum | currency: 'Php ')"></h5>
+                    <h5>Total: {{ vm.sum | currency: "Php "}}</h5>
                 </div>
             </div>
         </div>
     </div>
 
-    
+
 
     <div id="editItem" class="modal modal-fixed-footer">
         <div class="modal-content" ng-if="vm.orderToBeEdit.type == 'product'">
-            <h4 class="center" data-ng-bind="vm.orderToBeEdit.product"><br/>
+            <h4 class="center">{{vm.orderToBeEdit.product}}<br/>
                 <img class="circle" ng-src="{{vm.orderToBeEdit.strPhotoPath}}" height="150" width="150"></h4>
-            <h6 class="center" data-ng-bind="'Price:' + (vm.orderToBeEdit.productPrice | currency: 'Php ')"></h6>
+            <h6 class="center">Price: {{vm.orderToBeEdit.productPrice | currency: "Php "}}</h6>
             <div class="container">
                 <form name="changeQtyProd">
                     <div class="row">
@@ -577,17 +615,17 @@
                                    ng-model="vm.orderToBeEdit.productQuantity">
                         </div>
                         <div class="input-field col s12" style="margin-top: -10px !important;">
-                            <h5 class="center" data-ng-bind="'Total:' + ((vm.orderToBeEdit.productPrice *
-                                vm.orderToBeEdit.productQuantity) | currency: 'Php ')"></h5>
+                            <h5 class="center">Total: {{ (vm.orderToBeEdit.productPrice *
+                                vm.orderToBeEdit.productQuantity) | currency: "Php "}}</h5>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
         <div class="modal-content" ng-if="vm.orderToBeEdit.type == 'service'">
-            <h4 class="center" data-ng-bind="vm.orderToBeEdit.service"><br/>
+            <h4 class="center">{{vm.orderToBeEdit.service}}<br/>
                 <img class="circle" ng-src="{{vm.orderToBeEdit.strPhotoPath}}" height="150" width="150"></h4>
-            <h6 class="center" data-ng-bind="'Price:' + (vm.orderToBeEdit.servicePrice | currency: 'Php ')"> </h6>
+            <h6 class="center">Price: {{vm.orderToBeEdit.servicePrice | currency: "Php "}}</h6>
             <div class="container">
                 <div class="row">
                     <div class="input-field col s8 offset-s2" style="margin-top: -10px !important;">
@@ -597,8 +635,8 @@
                         </select>
                         <label for="cREmp2"><b>Employee</b></label>
                     </div>
-                    <div class="input-field col s12" style="margin-top: -10px !import	ant;">
-                        <h5 class="center" data-ng-bind="'Total:'+(vm.orderToBeEdit.servicePrice | currency: 'Php ')"></h5>
+                    <div class="input-field col s12" style="margin-top: -10px !important;">
+                        <h5 class="center">Total: {{ vm.orderToBeEdit.servicePrice | currency: "Php "}}</h5>
                     </div>
                 </div>
             </div>
@@ -658,10 +696,10 @@
                 </tfoot>
                 <tbody>
                 <tr ng-repeat="walkin in vm.walkinList">
-                    <td class="left-align" data-ng-bind="walkin.strName | uppercase"></td>
-                    <td class="right-align" data-ng-bind="walkin.strContactNo"></td>
-                    <td class="left-align" data-ng-bind="walkin.strWalkInType | uppercase"></td>
-                    <td class="left-align" data-ng-bind="walkin.strWalkInStatus | uppercase"></td>
+                    <td class="left-align">{{walkin.strName | uppercase}}</td>
+                    <td class="right-align">{{walkin.strContactNo}}</td>
+                    <td class="left-align">{{walkin.strWalkInType | uppercase}}</td>
+                    <td class="left-align">{{walkin.strWalkInStatus | uppercase}}</td>
                     <td class="center-align">
                         <button class="waves-effect waves-purple btn-flat transparent red-text text-accent-4"
                                 style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Deactivate"

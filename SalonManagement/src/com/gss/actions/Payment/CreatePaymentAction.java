@@ -53,6 +53,8 @@ public class CreatePaymentAction extends ActionSupport{
 			WalkInReceipt walkin = new WalkInReceipt();
 			int walkinID = WalkInTransRepository.getWalkInID(this.intInvoiceID);
 			walkin.createProductSalesReceipt(WalkInTransRepository.getWalkInByID(walkinID), "JEFFREY SANTOS", this.datDateOfPayment, payment, url);
+		}else if(strPaymentType.equalsIgnoreCase("reservation")) {
+			
 		}
 		
 		if(recorded == true){

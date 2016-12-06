@@ -21,6 +21,7 @@
         vm.removeToCartProduct = removeToCartProduct;
         vm.removeToCartService = removeToCartService;
         vm.removeToCartPackage = removeToCartPackage;
+        vm.removeToCartPromo = removeToCartPromo;
         vm.filterEmployee = filterEmployee;
         vm.closeNotSelectedInProd = closeNotSelectedInProd;
         vm.selEmpServ = selEmpServ;
@@ -65,7 +66,7 @@
 
         vm.packageID = '';
         vm.packageObject = [];
-        
+
         vm.promoList = {};
 
         vm.selServiceDetails = [];
@@ -468,6 +469,42 @@
             });
         }
 
+        $scope.editAppointment = function(walkin) {
+            var data = $.param({
+                'intWalkInID': walkin.intWalkInID
+            });
+            console.log("Edit Appointnemnt!");
+            $http({
+                method: 'post',
+                url: 'http://localhost:8080/SalonManagement/getWalkInByID',
+                data: data,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                var walkin = data.data.walkin;
+                vm.infoUpdateWalkin = (walkin);
+                console.log(walkin);
+                vm.walkinProdSelected = walkin.products;
+                vm.walkinServSelected = walkin.services;
+                vm.selectedProductFromWalkin = pushProduct(vm.walkinProdSelected);
+                console.log("Selected Servicios" + vm.selectedProductFromWalkin);
+                vm.selectedServiceFromWalkin = pushService(vm.walkinServSelected);
+                console.log(vm.selectedServiceFromWalkin);
+            }, function errorCallback(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                console.log("failed to fetch");
+            });
+
+            $('#editAppointment').openModal({
+                dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                opacity: .7, // Opacity of modal background
+                in_duration: 200, // Transition in duration
+                out_duration: 200, // Transition out duration
+            });
+        }
+
         function pushProduct(products) {
             var p = [];
             console.log(products);
@@ -667,8 +704,14 @@
             vm.packageOrder.splice(index, 1);
             vm.sum -= pack.packageTotal;
         }
+        
+        function removeToCartPromo(index, promo) {
+            vm.promoOrder.splice(index, 1);
+            vm.sum -= promo.promoTotal;
+        }
 
         vm.addToCart = function (index, selected) {
+            console.log(index);
             var selectedProducts = "";
             var selectedProductQuantity = "";
             var subTotalProducts = 0;
@@ -687,8 +730,6 @@
                     selectedProductQuantity += vm.productOrder[x].productQuantity + ",";
                     subTotalProducts += vm.productOrder[x].productTotal;
                 }
-
-                console.log("Product Quantity: " + vm.quantity);
 
                 selectprod = selectedProducts;
                 quantprod = selectedProductQuantity;
@@ -759,27 +800,29 @@
                 vm.selPackageDetails = [];
                 console.log("PackageList: " + JSON.stringify(vm.packageObject));
             } else if (selected == 'promo') {
+                console.log(index);
                 $('#promoListModal').closeModal();
 
                 vm.assignEmployeePromo = function (index) {
-                    console.log('Ken Pogi');
+
                     vm.selPromoDetails = [];
-                    console.log(vm.promoContains);
-                    console.log(index);
                     vm.selPromoDetails.push({
-                        intServiceID: vm.promoContains[index].service.intServiceID,
+                        intServiceID: vm.promoContainsService[index].service.intServiceID,
                         intQuantity: 1,
                         intEmployeeID: vm.selEmployeePerService.intEmpID,
                         strStatus: 'pending'
                     });
                     console.log(vm.selPromoDetails);
                 };
-
+                console.log(index);
+                var promoName = vm.promoList[index].strPromoName;
+                var promoID = vm.promoList[index].strPromoName;
+                var promoPrice = vm.promoList[index].dblPromoPrice;
                 vm.promoOrder.push({
-                    promo: vm.promoList[index].strPromoName,
-                    promoID: vm.promoList[index].strPromoName,
+                    promo: promoName,
+                    promoID: promoID,
                     promoQuantity: 1,
-                    promoTotal: vm.promoList[index].dblPromoPrice
+                    promoTotal: promoPrice
                 });
                 var selectedPromo = "";
                 var selectedPromoQuantity = "";
@@ -813,8 +856,24 @@
                 in_duration: 200, // Transition in duration
                 out_duration: 200, // Transition out duration
             });
-            vm.promoContains = vm.promoList[index].serviceList;
-            vm.promoContainsPackage = getServiceInPackage(promo.packageList);
+            var id = $.param({
+                'intPromoID': vm.promoList[index].intPromoID
+            });
+            $http({
+                method: 'post',
+                url: 'http://localhost:8080/SalonManagement/getPromoByID',
+                data: id,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data){
+                  vm.promoContainsProduct = data.data.promo.productList;
+                  vm.promoContainsService  = data.data.promo.serviceList;                
+            }, function errorCallback(response) {
+                console.log(response);
+            });
+            //vm.promoContainsPackage = getServiceInPackage(promo.packageList);
+            vm.promoIndex = index;
         }
 
         function getServiceInPackage(pack) {
@@ -860,7 +919,7 @@
             var packageObj = vm.packageObject;
             
             if(selectdiscount == "undefined,"){
-            	selectdiscount = "";
+                selectdiscount = "";
             }
             console.log(selectdiscount);
             console.log(packageObj);
@@ -885,7 +944,7 @@
             });
             
             var data = {
-            		'productString': selectprod,
+                    'productString': selectprod,
                 'productQuantity': quantprod,
                 'serviceString': selectserv,
                 'employeeAssigned': selectEmp,
@@ -923,7 +982,7 @@
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).then(function successCallback(data) {
-                	console.log(data1);
+                    console.log(data1);
                     $('#createWalkinModal').closeModal();
                     SweetAlert.swal("Oops", "Successfulyy Saved!", "success");
                 }, function errorCallback(response) {
@@ -1037,7 +1096,7 @@
                 selServEmp += vm.selectedServiceFromWalkin[i].employeeAssigned.intEmpID + ',';
                 totalserv += parseFloat(vm.selectedServiceFromWalkin[i].servPrice);
             }
-            
+
             vm.upTotal = totalprod + totalserv;
 
             var dta = $.param({
@@ -1050,7 +1109,7 @@
                 'employeeAssigned': selServEmp,
                 'strTotalPrice': vm.upTotal
             });
-            
+
             $http({
                method: 'post',
                 url: 'updateWalkIn',
@@ -1090,10 +1149,3 @@
 
     }
 })();
-
-
-
-
-
-
-
