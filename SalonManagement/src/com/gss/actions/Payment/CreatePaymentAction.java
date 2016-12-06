@@ -5,6 +5,7 @@ import javax.servlet.ServletContext;
 import org.apache.commons.lang3.time.StopWatch;
 import org.apache.struts2.StrutsStatics;
 
+import com.gss.Receipts.EventReservationReceipt;
 import com.gss.Receipts.HomeServiceReceipt;
 import com.gss.Receipts.WalkInReceipt;
 import com.gss.dao.PaymentJDBCRepositoryImpl;
@@ -65,6 +66,9 @@ public class CreatePaymentAction extends ActionSupport{
 			if(reservation.getIntReservationType() == 2) {
 				receipt.createProductSalesReceipt(reservation, "JEFFREY SANTOS", datDateOfPayment, payment, url);
 				System.out.println("Receipt was successfully created");
+			} else {
+				EventReservationReceipt receipt2 = new EventReservationReceipt(); 
+				receipt2.createProductSalesReceipt(reservation, "", datDateOfPayment, payment, url);
 			}
 		}
 		

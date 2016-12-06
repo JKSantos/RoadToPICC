@@ -144,7 +144,7 @@
                 } else if (vm.paymentDetails.invoice.dblTotalPrice == vm.paymentDetails.invoice.dblRemainingBalance) {
                     vm.paymentType = [
                         {id: 1, value: 'FULL PAYMENT', name: 'FULL PAYMENT'},
-                        {id: 2, value: 'DOWN PAYMENT', name: 'DOWN PAYMENT'},
+                        {id: 2, value: 'HALF PAYMENT', name: 'HALF PAYMENT'},
                     ];
                     console.log(vm.paymentDetails.invoice);
                 }
