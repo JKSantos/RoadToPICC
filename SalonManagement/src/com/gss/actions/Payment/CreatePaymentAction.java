@@ -42,9 +42,17 @@ public class CreatePaymentAction extends ActionSupport{
 
 		
 		String unconvertedDate = new DateHelper().convert(this.datDateOfPayment.split("/"));
-
-		Payment payment = new Payment(intPaymentID, intInvoiceID, paymentType, PriceFormatHelper.convertToDouble(dblPaymentAmount, "Php "),this.paymentType,DateHelper.parseDate(unconvertedDate));
+		int reservationID = ReservationJDBCRepository.getReservationID(intInvoiceID);
+		Reservation reservation = Reservation.getReservationByID(reservationID);
+		Payment payment = null;
 		
+		
+		if(strPaymentType.equalsIgnoreCase("reservation"))
+			payment = new Payment(intPaymentID, intInvoiceID, paymentType, reservation.getInvoice().getDblTotalPrice(),this.paymentType,DateHelper.parseDate(unconvertedDate));
+		else
+			payment = new Payment(intPaymentID, intInvoiceID, paymentType, PriceFormatHelper.convertToDouble(dblPaymentAmount, "Php "),this.paymentType,DateHelper.parseDate(unconvertedDate));
+		
+		payment.setDblPaymentAmount(PriceFormatHelper.convertToDouble(this.dblPaymentAmount, "Php "));
 		this.url = "WEB-INF/Receipts/" + NumberGenerator.localDateTime() + ".pdf";
 				
 		boolean recorded = Payment.createPayment(strPaymentType, payment, url);
@@ -58,10 +66,8 @@ public class CreatePaymentAction extends ActionSupport{
 			int walkinID = WalkInTransRepository.getWalkInID(this.intInvoiceID);
 			walkin.createProductSalesReceipt(WalkInTransRepository.getWalkInByID(walkinID), "JEFFREY SANTOS", this.datDateOfPayment, payment, url);
 		}else if(strPaymentType.equalsIgnoreCase("reservation")) {
-			int reservationID = ReservationJDBCRepository.getReservationID(intInvoiceID);
 			
 			HomeServiceReceipt receipt = new HomeServiceReceipt();
-			Reservation reservation = Reservation.getReservationByID(reservationID);
 			
 			if(reservation.getIntReservationType() == 2) {
 				receipt.createProductSalesReceipt(reservation, "JEFFREY SANTOS", datDateOfPayment, payment, url);
@@ -69,6 +75,7 @@ public class CreatePaymentAction extends ActionSupport{
 			} else {
 				EventReservationReceipt receipt2 = new EventReservationReceipt(); 
 				receipt2.createProductSalesReceipt(reservation, "", datDateOfPayment, payment, url);
+				System.out.println("HHHHHH");
 			}
 		}
 		

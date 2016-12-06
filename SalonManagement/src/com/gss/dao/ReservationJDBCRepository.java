@@ -1050,7 +1050,8 @@ public class ReservationJDBCRepository implements ReservationRepository{
 				this.includedItems = new ReservationInclusion(getAllProductOrder(this.intReservationID), getAllReservedService(this.intReservationID), getAllReservedPackage(this.intReservationID), getAllReservedPromo(this.intReservationID));
 				
 				Reservation reservation = new Reservation(this.intReservationID, this.customer, this.includedItems, this.intReservationType, this.dateCreated, this.datFrom, this.datTo, this.timFrom, this.timTo, this.strVenue, this.intLocationID, this.headCount, this.employeeAssigned, this.invoice, this.strStatus, this.strContract);	
-
+				
+				System.out.println(reservationResult.getInt(1));
 				reservationList.add(reservation);
 			}
 			

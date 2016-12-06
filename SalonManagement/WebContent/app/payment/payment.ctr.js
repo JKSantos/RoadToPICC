@@ -38,6 +38,7 @@
             for (var x = 0; x < data.orderList.length; x++) {
                 vm.paymentList.push(data.orderList[x]);
             }
+            console.log("reservation lenth: "+ data.reservationList.length);
             for (var i = 0; i < data.reservationList.length; i++) {
                 vm.paymentList.push(data.reservationList[i]);
             }

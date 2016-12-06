@@ -41,7 +41,7 @@ public class CreateReservation {
 
 	//	private Customer customer;	//important(check mo com.gss.model.Customer para malaman mo nga data nyan)
 	private ReservationInclusion includedItems;
-	private int intReservationType = 2; //important (Home Service = 1) magbabato ka ng 1 galing mob
+	private int intReservationType = 1; //important (Home Service = 1) magbabato ka ng 1 galing mob
 	private String datFrom = "";			//important
 	private String datTo = "";//if reservation is home service, this is not needed
 	private String timFrom = "";			//important

@@ -177,7 +177,7 @@ public class Reservation {
 	}
 	
 	public static String toString(int type){
-		if(type == 1)
+		if(type == 2)
 			return "HOME SERVICE";
 		else
 			return "EVENT SERVICE";

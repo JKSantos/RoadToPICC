@@ -24,7 +24,7 @@ public class CreateReservation {
 		int intReservationID = 46;
 		Customer customer;
 		ReservationInclusion includedItems;
-		int intReservationType = 2;
+		int intReservationType = 1;
 		Date dateCreated = DateHelper.parseDate("2016-03-01");
 		Date datFrom = DateHelper.parseDate("2016-03-04");
 		Date datTo = DateHelper.parseDate("2016-03-04");
@@ -58,7 +58,7 @@ public class CreateReservation {
 		includedItems = new ReservationInclusion(products, services, packages, promos);
 		
 			//ProductOrder
-			Product product = new Product(35, strEmailAddress, strEmailAddress, strEmailAddress, headCount, null, headCount, strEmailAddress, headCount);
+			Product product = new Product(37, strEmailAddress, strEmailAddress, strEmailAddress, headCount, null, headCount, strEmailAddress, headCount);
 			ProductOrder productOrder = new ProductOrder(35, product, 4, 1);
 			products.add(productOrder);
 			

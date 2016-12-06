@@ -50,7 +50,7 @@
                 </tfoot>
                 <tbody>
                 <tr ng-repeat="payment in vm.paymentList"
-                    ng-if="payment.strStatus == 'PENDING' && payment.intSalesID > 0">
+                    ng-if="payment.invoice.paymentStatus != 'PAID'  && payment.intSalesID > 0">
                     <td ng-if="payment.intSalesID > 0" class="left-align">{{ payment.strName }}</td>
                     <td ng-if="payment.intSalesID > 0" class="left-align">Product Order</td>
                     <td ng-if="payment.intSalesID > 0" class="right-align">{{ payment.datCreated | date: "MMMM/d/yyyy" }}</td>
@@ -73,7 +73,7 @@
                     </td>
                 </tr>
                 <tr ng-repeat="payment in vm.paymentList"
-                    ng-if="payment.strWalkInStatus == 'PENDING' && payment.intWalkInID > 0">
+                    ng-if="payment.invoice.paymentStatus != 'PAID' && payment.intWalkInID > 0">
                     <td ng-if="payment.intWalkInID > 0" class="left-align">{{ payment.strName }}</td>
                     <td ng-if="payment.intWalkInID > 0" class="left-align">Walk In</td>
                     <td ng-if="payment.intWalkInID > 0" class="right-align">{{ payment.datWalkIn | date: "MMMM/d/yyyy" }}</td>
@@ -93,13 +93,13 @@
                     </td>
                 </tr>
                 <tr ng-repeat="payment in vm.paymentList"
-                    ng-if="payment.strStatus == 'PENDING' && payment.intReservationID > 0">
+                    ng-if="payment.invoice.paymentStatus != 'PAID' && payment.intReservationID > 0">
                     <td ng-if="payment.intReservationID > 0" class="left-align">{{ payment.customer.strName }}</td>
                     <td ng-if="payment.intReservationID > 0" class="left-align">Reservation</td>
                     <td ng-if="payment.intReservationID > 0" class="right-align">{{ payment.dateCreated | date: "MMMM/d/yyyy" }}</td>
                     <td ng-if="payment.intReservationID > 0" class="left-align">
-                        <span ng-if="payment.intReservationType==1">HOME SERVICE</span>
-                        <span ng-if="payment.intReservationType==2">EVENT</span>
+                        <span ng-if="payment.intReservationType==2">HOME SERVICE</span>
+                        <span ng-if="payment.intReservationType==1">EVENT</span>
                     </td>
                     <td ng-if="payment.intReservationID > 0" class="right-align">
                         {{ payment.invoice.dblTotalPrice | currency: "Php " }}
