@@ -51,7 +51,7 @@
                         <div class="card-content">
                             <span class="activator grey-text text-darken-4 light"><i class="material-icons right">add_shopping_cart</i></span>
                             <h5 style='font-size: 15px; line-height: 15px !important;'><b>{{product.strProductName}}</b>
-                                <p>{{product.dblProductPrice | currency:"Php "}}</p></h5>
+                                <p data-ng-bind="product.dblProductPrice | currency: 'Php '"></p></h5>
                         </div>
                         <div class="card-reveal">
 
@@ -538,4 +538,17 @@
             <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
         </div>
     </div>
+
+    <div id="productListRequest" class="modal bottom-sheet">
+    <div class="modal-content">
+      <h4><b>Request of {{vm.requestName}}</b></h4>
+      <div class="chip" ng-repeat="req in vm.reqProduct" style="margin: 5px !important;">
+          <b>{{req.product.strProductName}}</b>
+          <span ng-if="req.intQuantity > 1"><b>({{req.intQuantity}}pcs)</b></span>
+          <span ng-if="req.intQuantity == 1"><b>({{req.intQuantity}}pc)</b></span>
+        </div>
+    </div>
+    <div class="modal-footer">
+    </div>
+  </div>
 </div>

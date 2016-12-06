@@ -37,7 +37,7 @@
         return directive;
     }
 
-    function prodSalesCtrl($scope, $window, paymentFactory, locationFactory, SweetAlert, DTOptionsBuilder, DTColumnDefBuilder) {
+    function prodSalesCtrl($scope, $http, $window, paymentFactory, locationFactory, SweetAlert, DTOptionsBuilder, DTColumnDefBuilder) {
         var vm = this;
         vm.dtInstanceCallback = dtInstanceCallback;
         vm.searchTable = searchTable;
@@ -129,7 +129,35 @@
         var sd;
 
         function reqName (request) {
-            console.log(request);
+            var data = $.param({
+                intOrderID: request.intSalesID
+            });
+            vm.requestName = request.strName;
+
+            $http({
+                method: 'post',
+                url: 'http://localhost:8080/SalonManagement/getOrderByID',
+                data: data,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                vm.productResponse = data.data.order.productList;
+                vm.reqProduct = prodReq(vm.productResponse);
+            }, function errorCallback(response) {
+
+            });
+            $('#productListRequest').openModal();
+        }
+
+        function prodReq(req) {
+            let res = [];
+
+            angular.forEach(req, function(data, i) {
+                res.push(data);
+            });
+
+            return res;
         }
 
         $scope.selectedDiscount = function (disc) {
@@ -247,36 +275,6 @@
             $scope.orderList[order.index].quantity = order.quantity;
             $scope.orderList[order.index].total = order.quantity * order.price;
             $scope.totalAmount += $scope.orderList[order.index].total;
-
-            console.log($scope.orderList[order.index]);
-
-            // var beforeTotal = order.total,
-            //     finalTotal = order.price * order.quantity,
-            //     t = 0;
-            // if (finalTotal > beforeTotal) {
-            //     t = finalTotal - beforeTotal;
-            //     console.log(t + 't');
-            //     $scope.totalAmount = $scope.totalAmount + t;
-            //     console.log($scope.totalAmount + 'totalAmt');
-            //     paymentFactory.addTotal(t, order)
-            // } else {
-            //     console.log('asdasd');
-            //     console.log(beforeTotal + '//' + finalTotal);
-            //     t = beforeTotal - finalTotal;
-            //     console.log(t + 't');
-            //     $scope.totalAmount = $scope.totalAmount - t;
-            //     console.log($scope.totalAmount + 'totalAmt');
-            //     paymentFactory.minusTotal(t, order);
-            // }
-            // $scope.orderList.splice(order.index, 1);
-            // $scope.orderList.unshift({
-            //     product: order.product,
-            //     total: $scope.totalAmount,
-            //     strPhotoPath: order.strPhotoPath,
-            //     quantity: order.quantity,
-            //     price: order.price
-            // });
-
         };
 
         function commaProducts() {
@@ -331,18 +329,22 @@
             let total = 0,
                 temp = sd,
                 status;
-            console.log(temp);
-            if(vm.seldic != '') {
-                if(temp.intDiscountType == 1) { //percent
-                    let t3 = myData.strTotalPrice * (temp.dblDiscountAmount/100);
-                    total = myData.strTotalPrice - t3;
-                } else if(temp.intDiscountType == 2) {
-                    if(myData.strTotalPrice > temp.dblDiscountAmount) {
-                        total = myData.strTotalPrice - temp.dblDiscountAmount;
-                    } else if(temp.dblDiscountAmount > myData.strTotalPrice) {
-                        total = 0.00;
+            if(typeof temp != 'undefined') {
+                if(vm.seldic != '') {
+                    if(temp.intDiscountType == 1) { //percent
+                        let t3 = myData.strTotalPrice * (temp.dblDiscountAmount/100);
+                        total = myData.strTotalPrice - t3;
+                    } else if(temp.intDiscountType == 2) {
+                        console.log(temp.dblDiscountAmount + '||' + myData.strTotalPrice);
+                        if(myData.strTotalPrice > temp.dblDiscountAmount) {
+                            total = myData.strTotalPrice - temp.dblDiscountAmount;
+                        } else if(temp.dblDiscountAmount > myData.strTotalPrice) {
+                            total = 0.00;
+                        }
                     }
                 }
+            } else {
+                total = myData.strTotalPrice;
             }
 
              var psdata = {
@@ -357,47 +359,47 @@
                 };
 
             console.log(psdata);
-            setTimeout(function () {
-                $.ajax({
-                    url: 'createOrder',
-                    type: 'post',
-                    data: psdata,
-                    dataType: 'json',
-                    async: true,
-                    success: function (data) {
-                        if (data.status == "success") {
-                            swal("Successfully created!", ".", "success");
-                            console.log($scope.customerDetails[1]);
-                            if(myData.orderType == 'delivery') {
-                                $scope.requestOrder.push({
-                                    intSalesID: data.intCreatedID,
-                                    strName: myData.strName,
-                                    intType: myData.orderType
-                                });
-                            }
-                            console.log($scope.requestOrder);
-                            $('#crProductSales').closeModal();
-                            $scope.customerDetails = [{
-                                orderType: '',
-                                contactNumber: '',
-                                name: '',
-                                Street: '',
-                                location: '',
-                                orderDetails: '',
-                                subtotal: 0
-                            }];
-                            console.log(data);
-                            $window.location.reload();
-                        } else {
-                            SweetAlert.swal("Oops", "Something went wrong!", "error");
-                        }
-                    },
-                    error: function () {
-                        vm.loadingBubble = 1;
-                        SweetAlert.swal("Oops", "Something went wrong!", "error");
-                    }
-                });
-            }, 1000);
+            // setTimeout(function () {
+            //     $.ajax({
+            //         url: 'createOrder',
+            //         type: 'post',
+            //         data: psdata,
+            //         dataType: 'json',
+            //         async: true,
+            //         success: function (data) {
+            //             if (data.status == "success") {
+            //                 swal("Successfully created!", ".", "success");
+            //                 console.log($scope.customerDetails[1]);
+            //                 if(myData.orderType == 'delivery') {
+            //                     $scope.requestOrder.push({
+            //                         intSalesID: data.intCreatedID,
+            //                         strName: myData.strName,
+            //                         intType: myData.orderType
+            //                     });
+            //                 }
+            //                 console.log($scope.requestOrder);
+            //                 $('#crProductSales').closeModal();
+            //                 $scope.customerDetails = [{
+            //                     orderType: '',
+            //                     contactNumber: '',
+            //                     name: '',
+            //                     Street: '',
+            //                     location: '',
+            //                     orderDetails: '',
+            //                     subtotal: 0
+            //                 }];
+            //                 console.log(data);
+            //                 $window.location.reload();
+            //             } else {
+            //                 SweetAlert.swal("Oops", "Something went wrong!", "error");
+            //             }
+            //         },
+            //         error: function () {
+            //             vm.loadingBubble = 1;
+            //             SweetAlert.swal("Oops", "Something went wrong!", "error");
+            //         }
+            //     });
+            // }, 1000);
         }; //end
         
         $scope.openPickUpOrder = function (request) {
@@ -473,6 +475,7 @@
 
         $scope.acceptDeliveryOrder = function (request) {
             var index = $scope.requestOrder.indexOf(request);
+            console.log(request);
             $scope.delivery = {
                 strName: request.strName,
                 strAddress: request.strAddress,
@@ -481,6 +484,7 @@
                 strStatus: request.strStatus,
                 intSalesID: request.intSalesID,
                 deliveryDate: request.deliveryDate,
+                intLocationID: request.intLocationID,
                 index: index
             };
             $('#AcceptDeliveryModal').openModal({
