@@ -1,68 +1,66 @@
-package com.gss.utilities;
+package com.gss.Receipts;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoField;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.swing.GroupLayout.Alignment;
 
 import org.apache.struts2.StrutsStatics;
-import org.apache.struts2.interceptor.ServletRequestAware;
 
+import com.gss.model.Package;
+import com.gss.model.PackageWalkIn;
 import com.gss.model.Payment;
+import com.gss.model.Product;
 import com.gss.model.ProductOrder;
-import com.gss.model.ProductSales;
+import com.gss.model.ProductWalkIn;
+import com.gss.model.Promo;
+import com.gss.model.PromoWalkIn;
 import com.gss.model.Reservation;
+import com.gss.model.ReservedPackage;
+import com.gss.model.ReservedPromo;
+import com.gss.model.ReservedService;
+import com.gss.model.Service;
+import com.gss.model.ServiceWalkIn;
 import com.gss.model.WalkIn;
-import com.itextpdf.text.Anchor;
+import com.gss.utilities.NumberGenerator;
+import com.gss.utilities.SearchPackage;
+import com.gss.utilities.SearchProduct;
+import com.gss.utilities.SearchPromo;
+import com.gss.utilities.SearchService;
 import com.itextpdf.text.BadElementException;
-import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
-import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.pdf.CMYKColor;
-import com.itextpdf.text.pdf.ColumnText;
-import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
- 
-public class Receipt extends ActionSupport implements ServletRequestAware {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class HomeServiceReceipt {
+	
 	private String cashier;
-	private ProductSales sales;
-	private WalkIn walkin;
+	private Reservation walkin;
 	private Payment payment;
 	private String orNum;
 	private String destination;
+	private double discounted;
 	
-	public String createProductSalesReceipt(ProductSales productSales, String cashier, String date, Payment payment, String path) throws IOException, NullPointerException, DocumentException{
+	public String createProductSalesReceipt(Reservation walkin, String cashier, String date, Payment payment, String path) throws IOException, NullPointerException, DocumentException{
 		
     	this.cashier = cashier;
     	this.payment = payment;
-    	this.sales = productSales;
+    	this.walkin = walkin; 
     	
     	this.orNum = NumberGenerator.localDateTime();
     	this.destination = path;
@@ -83,9 +81,9 @@ public class Receipt extends ActionSupport implements ServletRequestAware {
         document.add(getReceiptFooter());
         document.add(getTaxList());
         
-        document.add(new Phrase("Customer Name:"+ sales.getStrName() + "\n", getFont()));
-        document.add(new Phrase("Address:" + sales.getStrAddress() + "\n", getFont()));
-        document.add(new Phrase("Contact No:" + sales.getStrContactNo() + "\n\n\n", getFont()));
+        document.add(new Phrase("Customer Name:"+ walkin.getCustomer().getStrName() + "\n", getFont()));
+        document.add(new Phrase("Address:" + walkin.getCustomer().getStrAddress() + "\n", getFont()));
+        document.add(new Phrase("Contact No:" + walkin.getCustomer().getStrContactNo() + "\n\n\n", getFont()));
         
         Paragraph paragraph = new Paragraph();
         paragraph.setAlignment(Element.ALIGN_CENTER);
@@ -95,6 +93,7 @@ public class Receipt extends ActionSupport implements ServletRequestAware {
         document.add(paragraph);
         document.close();
         
+        System.out.print(this.destination);
 		return this.destination;
 	}
 	
@@ -108,15 +107,14 @@ public class Receipt extends ActionSupport implements ServletRequestAware {
     public Document createDocument(){
     	Document document = new Document(new Rectangle(350, 550), 10, 10, 10 ,10);
         try {
-        	System.out.println(">>>>>>>>>>"+this.destination);
-        	
-        	File file = new File(
-	                ((ServletContext) 
-	                		ActionContext.getContext()
-	                		.get(StrutsStatics.SERVLET_CONTEXT)) 
-	                .getRealPath(this.destination));
-        	
-			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
+			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(new File(
+	                ((ServletContext) ActionContext.getContext().get(StrutsStatics.SERVLET_CONTEXT)) 
+	                .getRealPath(this.destination)
+	            )));
+			
+			this.destination = ((ServletContext) ActionContext.getContext().get(StrutsStatics.SERVLET_CONTEXT)) 
+            .getRealPath(this.destination);
+        
 		} catch (FileNotFoundException | DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -219,14 +217,43 @@ public class Receipt extends ActionSupport implements ServletRequestAware {
         table.getDefaultCell().setUseAscender(true);
         table.getDefaultCell().setUseDescender(true);
         
-        for (int counter = 0; counter < sales.getProductList().size(); counter++) {
+        String[] serviceID = new String[walkin.getIncludedItems().getServiceList().size()];
+        String[] productID = new String[walkin.getIncludedItems().getProductList().size()];
+        String[] packageID = new String[walkin.getIncludedItems().getPackageList().size()];
+        String[] promoID = new String[walkin.getIncludedItems().getPromoList().size()];
+        
+        for(int i = 0; i < walkin.getIncludedItems().getServiceList().size(); i++){
+        	serviceID[i] = String.valueOf(walkin.getIncludedItems().getServiceList().get(i).getService().getIntServiceID());
+        }
+        
+        for(int i = 0; i < walkin.getIncludedItems().getProductList().size(); i++){
+        	productID[i] = String.valueOf(walkin.getIncludedItems().getProductList().get(i).getProduct().getIntProductID());
+        }
+        
+        for(int i = 0; i < walkin.getIncludedItems().getPackageList().size(); i++){
+        	packageID[i] = String.valueOf(walkin.getIncludedItems().getPackageList().get(i).getPackages().getIntPackageID());
+        }
+        
+        for(int i = 0; i < walkin.getIncludedItems().getPromoList().size(); i++) {
+        	promoID[i] = String.valueOf(walkin.getIncludedItems().getPromoList().get(i).getPromo().getIntPromoID());
+        }
+        
+        List<Product> productList = new SearchProduct().searchList(productID, Product.getAllProduct());
+        List<Service> serviceList = new SearchService().searchList(serviceID, Service.getAllService());
+        List<Package> packageList = new SearchPackage().searchList(packageID, Package.getAllPackageNoDetails());
+        List<Promo> promoList = new SearchPromo().searchList(promoID, Promo.getAllPromoNoDetails());
+        
+        for (int counter = 0; counter < productList.size(); counter++) {
+        	Product product = productList.get(counter);
         	
-        	ProductOrder order = sales.getProductList().get(counter);
+        	ProductOrder order = walkin.getIncludedItems().getProductList().get(counter);
         	
         	int quantity = order.getIntQuantity();
-        	String productName = order.getProduct().getStrProductName();
-        	double unit = order.getProduct().getDblProductPrice();
+        	String productName = product.getStrProductName();
+        	double unit = product.getDblProductPrice();
         	double price = unit * quantity;
+        	
+        	discounted += price;
         	
             PdfPCell qtyCell = new PdfPCell(new Phrase(String.valueOf(quantity), getFont()));
             qtyCell.setBorder(0);
@@ -245,6 +272,98 @@ public class Receipt extends ActionSupport implements ServletRequestAware {
             table.addCell(priceCell);
             table.addCell(amountCell);
         }
+        
+        
+        for (int counter = 0; counter < serviceList.size(); counter++) {
+        	Service service = serviceList.get(counter);
+        	
+        	ReservedService order = walkin.getIncludedItems().getServiceList().get(counter);
+        	
+        	int quantity = 1;
+        	String productName = service.getStrServiceName();
+
+        	double unit = service.getDblServicePrice();
+        	double price = unit * quantity;
+        	
+        	discounted += price;
+        	
+            PdfPCell qtyCell = new PdfPCell(new Phrase(String.valueOf(quantity), getFont()));
+            qtyCell.setBorder(0);
+            qtyCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            PdfPCell descCell = new PdfPCell(new Phrase(productName, getFont()));
+            descCell.setBorder(0);
+            PdfPCell priceCell = new PdfPCell(new Phrase(String.valueOf(unit), getFont()));
+            priceCell.setBorder(0);
+            priceCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            PdfPCell amountCell = new PdfPCell(new Phrase(String.valueOf(price), getFont()));
+            amountCell.setBorder(0);	
+            amountCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            
+            table.addCell(qtyCell);
+            table.addCell(descCell);
+            table.addCell(priceCell);
+            table.addCell(amountCell);
+        }
+        
+        for (int counter = 0; counter < packageList.size(); counter++) {
+        	Package packagee = packageList.get(counter);
+        	
+        	ReservedPackage order = walkin.getIncludedItems().getPackageList().get(counter);
+        	
+        	int quantity = 1;
+        	String productName = packagee.getStrPackageName();
+        	double unit = packagee.getDblPackagePrice();
+        	double price = unit * quantity;
+        	
+        	discounted += price;
+        	
+            PdfPCell qtyCell = new PdfPCell(new Phrase(String.valueOf(quantity), getFont()));
+            qtyCell.setBorder(0);
+            qtyCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            PdfPCell descCell = new PdfPCell(new Phrase(productName, getFont()));
+            descCell.setBorder(0);
+            PdfPCell priceCell = new PdfPCell(new Phrase(String.valueOf(unit), getFont()));
+            priceCell.setBorder(0);
+            priceCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            PdfPCell amountCell = new PdfPCell(new Phrase(String.valueOf(price), getFont()));
+            amountCell.setBorder(0);	
+            amountCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            
+            table.addCell(qtyCell);
+            table.addCell(descCell);
+            table.addCell(priceCell);
+            table.addCell(amountCell);
+        }	
+        
+        for (int counter = 0; counter < promoList.size(); counter++) {
+        	Promo promo = promoList.get(counter);
+        	
+        	ReservedPromo order = walkin.getIncludedItems().getPromoList().get(counter);
+        	
+        	int quantity = 1;
+        	String productName = promo.getStrPromoName();
+        	double unit = promo.getDblPromoPrice();
+        	double price = unit * quantity;
+        	
+        	discounted += price;
+        	
+            PdfPCell qtyCell = new PdfPCell(new Phrase(String.valueOf(quantity), getFont()));
+            qtyCell.setBorder(0);
+            qtyCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            PdfPCell descCell = new PdfPCell(new Phrase(productName, getFont()));
+            descCell.setBorder(0);
+            PdfPCell priceCell = new PdfPCell(new Phrase(String.valueOf(unit), getFont()));
+            priceCell.setBorder(0);
+            priceCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            PdfPCell amountCell = new PdfPCell(new Phrase(String.valueOf(price), getFont()));
+            amountCell.setBorder(0);	
+            amountCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            
+            table.addCell(qtyCell);
+            table.addCell(descCell);
+            table.addCell(priceCell);
+            table.addCell(amountCell);
+        }	
         
        
         details.add(table);
@@ -307,42 +426,65 @@ public class Receipt extends ActionSupport implements ServletRequestAware {
     	details.getDefaultCell().setUseDescender(true);
     	
     	double paymentAmount = this.payment.getDblPaymentAmount();
-    	double totalAmount = this.sales.getInvoice().getDblTotalPrice();
+    	double totalAmount = this.walkin.getInvoice().getDblTotalPrice();
     	double change = paymentAmount - totalAmount;
     	
     	int count = 0;
     	
-    	for(int i = 0; i < this.sales.getProductList().size(); i++){
-    		count += this.sales.getProductList().get(i).getIntQuantity();
+    	for(int i = 0; i < this.walkin.getIncludedItems().getProductList().size(); i++){
+    		count += this.walkin.getIncludedItems().getProductList().get(i).getIntQuantity();
     	}
     	
     	PdfPCell cellHeader = new PdfPCell(new Phrase("-----------------------"+ count +" ITEMS---------------------", getFont()));
-    	PdfPCell totalLabel = new PdfPCell(new Phrase("TOTAL", getBiggerFont(11)));
-    	PdfPCell totalValue = new PdfPCell(new Phrase(String.valueOf(totalAmount), getBiggerFont(11)));
+    	PdfPCell totalLabel2 = null;
+    	PdfPCell totalLabel1 = null;
+    	PdfPCell totalValue1 = null;
+    	PdfPCell totalValue2 = null;
+    	
+    	/*if(walkin.getInvoice().getDiscountList().size() < 1){
+	    	totalLabel1 = new PdfPCell(new Phrase("TOTAL", getBiggerFont(11)));
+	    	totalValue1 = new PdfPCell(new Phrase(String.format("%.2f", totalAmount), getBiggerFont(11)));
+    	} else {*/
+    		totalLabel1 = new PdfPCell(new Phrase("TOTAL W/O DISCOUNT", getBiggerFont(11)));
+	    	totalValue1 = new PdfPCell(new Phrase(String.format("%.2f", discounted), getBiggerFont(11)));
+	    	totalLabel2 = new PdfPCell(new Phrase("TOTAL W/ DISCOUNT", getBiggerFont(11)));
+	    	totalValue2 = new PdfPCell(new Phrase(String.format("%.2f", totalAmount), getBiggerFont(11)));
+    	//}
+    	
     	PdfPCell cashLabel = new PdfPCell(new Phrase("    Cash", getFont()));
-    	PdfPCell cashValue = new PdfPCell(new Phrase(String.valueOf(paymentAmount), getFont()));
+    	PdfPCell cashValue = new PdfPCell(new Phrase(String.format("%.2f", paymentAmount), getFont()));
     	PdfPCell changeLabel = new PdfPCell(new Phrase("CHANGE", getBiggerFont(14)));
-    	PdfPCell changeValue = new PdfPCell(new Phrase(String.valueOf(change), getBiggerFont(14)));
+    	PdfPCell changeValue = new PdfPCell(new Phrase(String.format("%.2f", change), getBiggerFont(14)));
     	PdfPCell cellfooter = new PdfPCell(new Phrase("---------------------------------------------------", getFont()));
          
     	cellHeader.setBorder(0);
-    	totalLabel.setBorder(0);
-    	totalValue.setBorder(0);
-    	totalValue.setHorizontalAlignment(Element.ALIGN_RIGHT);;
+    	totalLabel1.setBorder(0);
+    	totalValue1.setBorder(0);
+    	totalValue1.setHorizontalAlignment(Element.ALIGN_RIGHT);
+    	totalLabel2.setBorder(0);
+    	totalValue2.setBorder(0);
+    	totalValue2.setHorizontalAlignment(Element.ALIGN_RIGHT);
     	cashLabel.setBorder(0);
     	cashValue.setBorder(0);
-    	cashValue.setHorizontalAlignment(Element.ALIGN_RIGHT);;
+    	cashValue.setHorizontalAlignment(Element.ALIGN_RIGHT);
     	changeLabel.setBorder(0);
     	changeValue.setBorder(0);
-    	changeValue.setHorizontalAlignment(Element.ALIGN_RIGHT);;
+    	changeValue.setHorizontalAlignment(Element.ALIGN_RIGHT);
     	cellfooter.setBorder(0);
     	
     	cellHeader.setColspan(2);
     	cellfooter.setColspan(2);
     	
         details.addCell(cellHeader);
-        details.addCell(totalLabel);
-        details.addCell(totalValue);
+        /*if(walkin.getInvoice().getDiscountList().size() < 1) {
+        	details.addCell(totalLabel1);
+            details.addCell(totalValue1);
+        } else {*/
+        	details.addCell(totalLabel1);
+            details.addCell(totalValue1);
+            details.addCell(totalLabel2);
+            details.addCell(totalValue2);
+       // }
         details.addCell(cashLabel);
         details.addCell(cashValue);
         details.addCell(changeLabel);
@@ -358,7 +500,7 @@ public class Receipt extends ActionSupport implements ServletRequestAware {
 
     	Paragraph paragraph = new Paragraph();
     	
-    	double paymentAmount = this.sales.getInvoice().getDblTotalPrice();
+    	double paymentAmount = this.walkin.getInvoice().getDblTotalPrice();
     	double vatSale = paymentAmount - (paymentAmount * .12);
     	double vat = paymentAmount * .12;
     	
@@ -369,11 +511,11 @@ public class Receipt extends ActionSupport implements ServletRequestAware {
     	details.getDefaultCell().setUseDescender(true);
     	
     	PdfPCell vatSaleLabel = new PdfPCell(new Phrase("VAT SALE", getFont()));
-    	PdfPCell vatSaleValue = new PdfPCell(new Phrase(String.valueOf(vatSale), getFont()));
+    	PdfPCell vatSaleValue = new PdfPCell(new Phrase(String.format("%.2f", vatSale), getFont()));
     	PdfPCell totalSaleLabel = new PdfPCell(new Phrase("TOTAL SALE", getFont()));
     	PdfPCell totalSaleValue = new PdfPCell(new Phrase(String.valueOf(paymentAmount), getFont()));
     	PdfPCell vatLabel = new PdfPCell(new Phrase("12% VAT", getFont()));
-    	PdfPCell vatValue = new PdfPCell(new Phrase(String.valueOf(vat), getFont()));
+    	PdfPCell vatValue = new PdfPCell(new Phrase(String.format("%.2f", vat), getFont()));
     	PdfPCell cellfooter = new PdfPCell(new Phrase("---------------------------------------------------", getFont()));
 
 		vatSaleLabel.setBorder(0);
@@ -405,11 +547,4 @@ public class Receipt extends ActionSupport implements ServletRequestAware {
         return paragraph;
     }
 
-	@Override
-	public void setServletRequest(HttpServletRequest arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-   
 }

@@ -1,8 +1,12 @@
 package com.gss.actions.Payment;
 
+import javax.servlet.ServletContext;
+
 import org.apache.commons.lang3.time.StopWatch;
+import org.apache.struts2.StrutsStatics;
 
 import com.gss.Receipts.WalkInReceipt;
+import com.gss.dao.PaymentJDBCRepositoryImpl;
 import com.gss.dao.WalkInJDBCRepository;
 import com.gss.dao.WalkInTransRepository;
 import com.gss.model.Payment;
@@ -10,9 +14,16 @@ import com.gss.utilities.DateHelper;
 import com.gss.utilities.NumberGenerator;
 import com.gss.utilities.PriceFormatHelper;
 import com.gss.utilities.ProductSalesReceiptThread;
+import com.gss.utilities.Receipt;
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
 
-public class CreatePaymentAction {
+public class CreatePaymentAction extends ActionSupport{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int intPaymentID;			//dummy data
 	private int intInvoiceID;			//real data
 	private String strPaymentType;		//"order", "walkin", or "reservation"
@@ -36,7 +47,8 @@ public class CreatePaymentAction {
 		
 		if(strPaymentType.equals("order")){
 			ProductSalesReceiptThread thread = new ProductSalesReceiptThread();
-			thread.createProductSalesReceipt(this.intInvoiceID, "JEFFREY SANTOS", this.datDateOfPayment, payment, url);
+			new Receipt().createProductSalesReceipt(new PaymentJDBCRepositoryImpl().getProductBySalesID(this.intInvoiceID), "JEFFREY SANTOS", this.datDateOfPayment, payment, url);
+			//thread.createProductSalesReceipt(this.intInvoiceID, "JEFFREY SANTOS", this.datDateOfPayment, payment, url);
 		}else if(strPaymentType.equals("walkin")){
 			WalkInReceipt walkin = new WalkInReceipt();
 			int walkinID = WalkInTransRepository.getWalkInID(this.intInvoiceID);
@@ -45,6 +57,9 @@ public class CreatePaymentAction {
 		
 		if(recorded == true){
 			
+			/*this.url = "file:///"+((ServletContext) ActionContext.getContext().get(StrutsStatics.SERVLET_CONTEXT)) 
+            .getRealPath(url);
+			*/
 			result = "success";
 		}
 		

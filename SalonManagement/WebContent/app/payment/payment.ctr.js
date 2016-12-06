@@ -167,11 +167,11 @@
         function paymentSubmit(payment) {
             var go = 0;
             console.log(vm.paymentDetails.paymentAmount);
-            if(typeof vm.paymentDetails.paymentAmount !== 'undefined') {
+            if(typeof vm.paymentDetails.paymentAmount !== undefined) {
                 if (vm.paymentDetails.paymentType.name == 'FULL PAYMENT') {
                     var tb = vm.paymentDetails.totalBalance.replace(/[^\d.]/g, ''),
                         amt = vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '');
-                    if (amt > tb) {
+                    if (parseFloat(amt) > parseFloat(tb)) {
                         vm.fullPaymentError = 0;
                         go = 1;
                     } else {
@@ -179,7 +179,7 @@
                     }
                 } else if (vm.paymentDetails.paymentType.name == 'DOWN PAYMENT') {
                     var dp = vm.paymentDetails.totalBalance.replace(/[^\d.]/g, '') * (vm.downPayment / 100); //down payment
-                    if (vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '') < dp) {
+                    if (parseFloat(vm.paymentDetails.paymentAmount.replace(/[^\d.]/g, '')) < parseFloat(dp)) {
                         vm.downPaymentError = 1;
                     } else {
                         vm.downPaymentError = 0;
@@ -246,6 +246,9 @@
                                     success: function (data) {
                                         if (data.result == "success") {
                                             SweetAlert.swal("Successful!", ".", "success");
+
+                                            $window.open('http://localhost:8080/SalonManagement/open?path='+data.url);
+
                                             if (vm.paymentDetails.paymentType.value == 'FULL PAYMENT') {
                                                 vm.paymentList.splice(payment.index, 1);
                                             } else if (vm.paymentDetails.paymentType.value == 'DOWN PAYMENT') {
@@ -287,6 +290,24 @@
             }
         }
 
+        vm.openReceipt = function(url) {
 
+            var data = {"path":url};
+
+            $http({
+                method: 'get',
+                url: 'http://localhost:8080/SalonManagement/open?path='+url,
+                dataType: 'json',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                $window.open(data);
+                console.log(typeof data);
+
+            }, function errorCallback(response) {
+                console.log(response);
+            });
+        }
     }
 })();

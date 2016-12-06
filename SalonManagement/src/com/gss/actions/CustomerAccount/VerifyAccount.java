@@ -21,6 +21,7 @@ public class VerifyAccount {
 		
 		if(this.strVerificationCode.equals(verificationCode)){
 			this.result = CustomerRegistration.verifyAccount(this.intAccountID, this.intVerificationID);
+			System.out.println("verified");
 			return result;
 		}else{
 			this.result = "incorrect";

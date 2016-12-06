@@ -132,47 +132,66 @@
             calendarInit(vm.data);
         });
 
-        vm.getAvailableEmployeeHomeService = function(date, time){
+        vm.getAvailableEmployeeHomeService = function(date, time, timeTo){
 
-            var dateAndTime = $.param({
-                'date': date,
-                'time': time
-            });
+            if(vm.details.datFrom != null && vm.details.timeFrom != null && vm.details.timeTo != null){
+                
+            	if(vm.details.reservationType.type == 'Event') {
+            		vm.dateAndTime = $.param({
+                        'date': date,
+                        'time': time,
+                        'timeTo': timeTo, 
+                        'type': vm.details.reservationType.type
+                    });
+            	} else {
+            		vm.dateAndTime = $.param({
+                        'date': date,
+                        'time': time,
+                        'type': vm.details.reservationType.type
+                    });
+            	}
+                
+                console.log(vm.details.reservationType.type);
 
-            $http({
-                method: 'post',
-                url: 'http://localhost:8080/SalonManagement/getAvailableEmployee',
-                data: dateAndTime,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            }).then(function successCallback(data) {
-                vm.employeeList = data.data.employeeList;
-            }, function errorCallback(response) {
-                console.log(response);
-            });
+                $http({
+                    method: 'get',
+                    url: 'http://localhost:8080/SalonManagement/getAvailableEmployee?date='+date+'&time='+time+'&timeTo'+timeTo+'&type='+vm.details.reservationType.type,
+                 
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).then(function successCallback(data) {
+                    vm.employeeList = data.data.empList;
+                    console.log(vm.employeeList);
+                }, function errorCallback(response) {
+                    console.log(response);
+                });
+            }
+
+            
         }
 
         vm.getAvailableEmployeeEvent = function(date, timeFrom, timeTo){
+            if(vm.details.datFrom != null && vm.details.timeFrom != null && vm.details.timeTo != null){
+                var dateAndTime = $.param({
+                    'date': date,
+                    'time': timeFrom,
+                    'timeTo': timeTo
+                });
 
-            var dateAndTime = $.param({
-                'date': date,
-                'time': timeFrom,
-                'timeTo': timeTo
-            });
-
-            $http({
-                method: 'post',
-                url: 'http://localhost:8080/SalonManagement/getAvailableEmployee',
-                data: dateAndTime,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            }).then(function successCallback(data) {
-                vm.employeeList = data.data.employeeList;
-            }, function errorCallback(response) {
-                console.log(response);
-            });
+                $http({
+                    method: 'post',
+                    url: 'http://localhost:8080/SalonManagement/getAvailableEmployee?date='+date+'&time='+time+'&timeTo'+timeTo+'&type='+vm.details.reservationType.type,
+                    data: dateAndTime,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).then(function successCallback(data) {
+                    vm.employeeList = data.data.employeeList;
+                }, function errorCallback(response) {
+                    console.log(response);
+                });
+            }
         }
 
         locationFactory.getExtraCharges().then(function (data) {

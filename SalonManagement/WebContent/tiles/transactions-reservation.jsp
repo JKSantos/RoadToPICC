@@ -321,7 +321,7 @@
                                            clear="clear"
                                            close="close"
                                            select-years="15"
-                                           ng-change="vm.changeDatFrom(vm.details.datFrom)"/>
+                                           ng-change="vm.changeDatFrom(vm.details.datFrom); vm.getAvailableEmployeeHomeService(vm.details.datFrom, vm.details.timeFrom, vm.details.timeTo)"/>
                                     <label for="ngDateFrom" class="active"><b>Date From</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
@@ -355,7 +355,8 @@
                                            class="timepicker"
                                            type="time"
                                            ng-model="vm.details.timeFrom"
-                                           placeholder="12:00AM">
+                                           placeholder="12:00AM"
+                                           ng-change = "vm.getAvailableEmployeeHomeService(vm.details.datFrom, vm.details.timeFrom, vm.details.timeTo)">
                                     <label for="reserveTimeFrom">
                                         <b>From (Time)</b>
                                         <i class="material-icons red-text tiny">
@@ -374,7 +375,8 @@
                                            class="timepicker"
                                            type="time"
                                            ng-model="vm.details.timeTo"
-                                           placeholder="12:00AM">
+                                           placeholder="12:00AM"
+                                           ng-change="vm.getAvailableEmployeeHomeService(vm.details.datFrom, vm.details.timeFrom, vm.details.timeTo)">
                                     <label for="reserveTimeTo" class="active">
                                         <b>To (Time)</b>
                                         <i class="material-icons red-text tiny">
