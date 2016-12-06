@@ -18,6 +18,7 @@ import java.sql.Connection;
 public class CustomerRegistration {
 	
 	private static JDBCConnection jdbc = new JDBCConnection();
+	private static Verification verification = null;
 	
 	public static Verification createCustomer(CustomerAccount customer) throws SQLException{
 		
@@ -28,6 +29,7 @@ public class CustomerRegistration {
 		int codeID = 0;
 		String code = RandomStringGenerator.generateRandomString(6);
 		String message = "Good Day! Your verification code for Salon App is " + code;
+		Verification verification = null;
 		
 		try{
 			
@@ -51,13 +53,16 @@ public class CustomerRegistration {
 			con.commit();
 			con.close();
 			
-			SMSSender sender = new SMSSender();
+			try{SMSSender sender = new SMSSender();
 			sender.sendSMS(message, customer.getStrContactNo());
 			MailSender.sendEmail(customer.getStrEmail(), message);
+			}catch(Exception e){
+				System.out.println("Sending verification failed..");
+			}
+			verification = new Verification(codeID, code, accountID);
+			return verification;
 			
-			return new Verification(codeID, code, accountID); 
-			
-		}catch(Exception e){
+		}catch(SQLException e){
 			e.printStackTrace();
 			con.rollback();
 			return new Verification(0, "", 0);

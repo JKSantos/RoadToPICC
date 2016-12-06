@@ -52,11 +52,11 @@ public class CreatePaymentAction extends ActionSupport{
 		else
 			payment = new Payment(intPaymentID, intInvoiceID, paymentType, PriceFormatHelper.convertToDouble(dblPaymentAmount, "Php "),this.paymentType,DateHelper.parseDate(unconvertedDate));
 		
-		payment.setDblPaymentAmount(PriceFormatHelper.convertToDouble(this.dblPaymentAmount, "Php "));
+		
 		this.url = "WEB-INF/Receipts/" + NumberGenerator.localDateTime() + ".pdf";
 				
 		boolean recorded = Payment.createPayment(strPaymentType, payment, url);
-		
+		payment.setDblPaymentAmount(PriceFormatHelper.convertToDouble(this.dblPaymentAmount, "Php "));
 		if(strPaymentType.equals("order")){
 			ProductSalesReceiptThread thread = new ProductSalesReceiptThread();
 			new Receipt().createProductSalesReceipt(new PaymentJDBCRepositoryImpl().getProductBySalesID(this.intInvoiceID), "JEFFREY SANTOS", this.datDateOfPayment, payment, url);

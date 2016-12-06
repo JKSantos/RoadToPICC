@@ -5,17 +5,25 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
 
 import org.apache.struts2.StrutsStatics;
 
+import com.gss.dao.PackageJDBCRepository;
+import com.gss.dao.ProductJDBCRepository;
+import com.gss.dao.PromoJDBCRepository;
+import com.gss.dao.ServiceJDBCRepository;
 import com.gss.model.Contract;
+import com.gss.model.Product;
 import com.gss.model.ProductOrder;
+import com.gss.model.Promo;
 import com.gss.model.ReservedPackage;
 import com.gss.model.ReservedPromo;
 import com.gss.model.ReservedService;
+import com.gss.model.Service;
 import com.gss.testers.CreateFile;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Chunk;
@@ -37,6 +45,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.opensymphony.xwork2.ActionContext;
 import com.sun.prism.paint.Color;
+import com.gss.model.Package;
 
 public class ContractGenerator {
 	
@@ -267,7 +276,16 @@ public class ContractGenerator {
 		table.addCell(productName);
 		table.addCell(productQty);
 		
-		for(int index = 0; index < order.size(); index++){
+		List<Product> services = new ProductJDBCRepository().getAllProductsNoImage();
+		
+		List<Product> serviceList = new ArrayList<Product>();
+		
+		for(int index = 0; index < order.size(); index++) {
+			serviceList.add(new SearchProduct().search(order.get(index).getProduct().getIntProductID(), services));
+		}
+
+		
+		for(int index = 0; index < serviceList.size(); index++){
 			PdfPCell productName1 = new PdfPCell(new Phrase(order.get(index).getProduct().getStrProductName(), getFont()));
 			productName1.setHorizontalAlignment(Element.ALIGN_CENTER);
 			PdfPCell productQty1 = new PdfPCell(new Phrase(String.valueOf(order.get(index).getIntQuantity()), getFont()));
@@ -311,8 +329,16 @@ public class ContractGenerator {
 		
 		table.addCell(productName);
 		table.addCell(productQty);
+		
+		List<Service> services = new ServiceJDBCRepository().getAllServiceNoImage();
+		
+		List<Service> serviceList = new ArrayList<Service>();
+		
+		for(int index = 0; index < order.size(); index++) {
+			serviceList.add(new SearchService().search(order.get(index).getService().getIntServiceID(), services));
+		}
 
-		for(int index = 0; index < order.size(); index++){
+		for(int index = 0; index < serviceList.size(); index++){
 			PdfPCell productName1 = new PdfPCell(new Phrase(order.get(index).getService().getStrServiceName(), getFont()));
 			productName1.setHorizontalAlignment(Element.ALIGN_CENTER);
 			PdfPCell productQty1 = new PdfPCell(new Phrase(String.valueOf(order.get(index).getIntQuantity()), getFont()));
@@ -356,7 +382,15 @@ public class ContractGenerator {
 		table.addCell(productName);
 		table.addCell(productQty);
 		
-		for(int index = 0; index < order.size(); index++){
+		List<Package> services = new PackageJDBCRepository().getAllPackageNoDetails();
+		
+		List<Package> serviceList = new ArrayList<Package>();
+		
+		for(int index = 0; index < order.size(); index++) {
+			serviceList.add(new SearchPackage().search(order.get(index).getPackages().getIntPackageID(), services));
+		}
+		
+		for(int index = 0; index < serviceList.size(); index++){
 			PdfPCell productName1 = new PdfPCell(new Phrase(order.get(index).getPackages().getStrPackageName(), getFont()));
 			productName1.setHorizontalAlignment(Element.ALIGN_CENTER);
 			PdfPCell productQty1 = new PdfPCell(new Phrase(String.valueOf(order.get(index).getIntQuantity()), getFont()));
@@ -400,7 +434,15 @@ public class ContractGenerator {
 		table.addCell(productName);
 		table.addCell(productQty);
 		
-		for(int index = 0; index < order.size(); index++){
+		List<Promo> services = new PromoJDBCRepository().getAllPromoNoDetails();
+		
+		List<Promo> serviceList = new ArrayList<Promo>();
+		
+		for(int index = 0; index < order.size(); index++) {
+			serviceList.add(new SearchPromo().search(order.get(index).getPromo().getIntPromoID(), services));
+		}
+		
+		for(int index = 0; index < serviceList.size(); index++){
 			PdfPCell productName1 = new PdfPCell(new Phrase(order.get(index).getPromo().getStrPromoName(), getFont()));
 			productName1.setHorizontalAlignment(Element.ALIGN_CENTER);
 			PdfPCell productQty1 = new PdfPCell(new Phrase(String.valueOf(order.get(index).getIntQuantity()), getFont()));
