@@ -114,27 +114,11 @@
             vm.details.datTo = $filter('date')(datTo, "MMMM/d/yyyy");
         }
 
-        vm.data = [];
-        locationFactory.getReservations().then(function (data) {
-            vm.customerList = data.reservationList;
-            for (var i = 0; i < vm.customerList.length; i++) {
-                if(vm.customerList[i].strStatus == 'PENDING') {
-                    vm.data.push({
-                        title: vm.customerList[i].customer.strName,
-                        start: vm.customerList[i].datFrom,
-                        end: vm.customerList[i].datTo,
-                        allDay: false,
-                        headcount: vm.customerList[i].headcount,
-                        venue: vm.customerList[i].strVenue
-                    });
-                }
-            }
-            calendarInit(vm.data);
-        });
+     
 
         vm.getAvailableEmployeeHomeService = function(date, time, timeTo){
 
-            if(vm.details.datFrom != null && vm.details.timeFrom != null && vm.details.timeTo != null){
+            if(vm.details.datFrom != null && vm.details.timeFrom != null){
                 
             	if(vm.details.reservationType.type == 'Event') {
             		vm.dateAndTime = $.param({
@@ -167,7 +151,7 @@
                     console.log(response);
                 });
             }
-
+            console.log("Not if");
             
         }
 
@@ -196,6 +180,7 @@
 
         locationFactory.getExtraCharges().then(function (data) {
             vm.extraChargeList = data.data.extraChargeList;
+            console.log(vm.extraChargeList);
         });
 
         locationFactory.getDiscounts().then(function (data) {
@@ -327,7 +312,23 @@
         locationFactory.getLocation().then(function (data) {
             vm.locationList = data.locationList;
         });
-
+        
+        vm.data = [];
+        locationFactory.getReservations().then(function (data) {
+            vm.customerList = data.reservationList;
+            for (var i = 0; i < vm.customerList.length; i++) {
+                vm.data.push({
+                    title: vm.customerList[i].customer.strName,
+                    id: vm.customerList[i].intReservationID,
+                    start: vm.customerList[i].datFrom,
+                    end: vm.customerList[i].datTo,
+                    allDay: false,
+                    headcount: vm.customerList[i].headcount,
+                    venue: vm.customerList[i].strVenue
+                });
+            }
+            calendarInit(vm.data);
+        });
         function calendarInit(data) {
             $('#reservationCalendar').fullCalendar({
                 // put your options and callbacks here
@@ -336,11 +337,33 @@
                 textColor: 'black', // an option!
 
                 eventClick: function (calEvent, jsEvent, view) {
+                	  $('#viewDetails').openModal({
+    	                  dismissible: true, 
+    	                  opacity: .5,
+    	                  in_duration: 200, 
+    	                  out_duration: 200
+    	              });
+    	    		  var id = $.param({
+    	                  'reservationID': calEvent.id
+    	              });
 
-                    alert('Event: ' + calEvent.venue);
-                    alert('Event: ' + calEvent.headcount);
-                    // change the border color just for fun
-                    $(this).css('border-color', 'red');
+    	              $http({
+    	                  method: 'post',
+    	                  url: 'http://localhost:8080/SalonManagement/getReservationByID',
+    	                  data: id,
+    	                  headers: {
+    	                      'Content-Type': 'application/x-www-form-urlencoded'
+    	                  }
+    	              }).then(function successCallback(data) {
+    	                  console.log(data.data);
+    	                  vm.customerContainsProduct = data.data.reservation.includedItems.productList;
+    	                  vm.customerContainsService = data.data.reservation.includedItems.serviceList;
+    	                  vm.customerContainsPackage = data.data.reservation.includedItems.packageList;
+    	                  vm.cufstomerContainsPromo = data.data.reservation.includedItems.promoList;
+
+    	              }, function errorCallback(response) {
+    	            	  console.log(response);
+    	              });
                 },
                 eventMouseover: function (calEvent, event, jsEvent, view) {
                     //alert('Event: ' + calEvent.title);

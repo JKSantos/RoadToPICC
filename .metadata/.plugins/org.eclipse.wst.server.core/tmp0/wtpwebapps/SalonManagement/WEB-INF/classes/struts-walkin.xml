@@ -27,6 +27,7 @@
 
 		<action name="createWalkin" class="com.gss.actions.WalkIn.CreateIndividualWalkIn">
 			<result name="success" type="json"></result>
+			<result name="error" type="json"></result>
 		</action>
 		
 		<action name="createWalkInPage" class="com.gss.actions.WalkIn.CreateWalkInPage">

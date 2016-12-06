@@ -1,9 +1,6 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<style>
-
-</style>
 
 <div class="wrapper" ng-controller="walkinCtrl as vm" style="margin-top: 5px !important;">
     <div class="aside asideAside1 z-depth-barts z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
@@ -184,7 +181,8 @@
                 <div ng-show="vm.selected == 'package'" style="margin-top: -50px !important;">
                     <div class="row ">
                         <div class="col s3"
-                             ng-repeat="package in vm.packageList | toArray: false | filter: vm.walkinSearch">
+                             ng-repeat="package in vm.packageList | toArray: false | filter: vm.walkinSearch"
+                             ng-if="package.intPackageStatus > 0">
                             <div class="card small">
                                 <div class="card-image waves-effect waves-block waves-light">
                                     <img class="activator" ng-src="{{service.strPhotoPath}}">
@@ -451,8 +449,36 @@
     <div id="promoListModal" class="modal modal-fixed-footer">
         <div class="modal-content">
             <h4 class="grey-text center text-darken-1">Promo Contains</h4>
-            <table>
-                <tr ng-repeat="services in vm.promoContains">
+            <h5 class="purple-text">Products</h5>
+            <ul ng-repeat="products in vm.promoContainsProduct">
+                <li>
+                  <h6>{{products.product.strProductName}}</h6>
+                </li>
+            </ul>
+            <h5 class="purple-text">Services</h5>
+            <ul ng-repeat="services in vm.promoContainsService">
+                <li>
+                  <h6> {{services.service.strServiceName}}</h6>
+                </li>
+                <li>
+                  <div class="input-field col s6">
+                  		<ul ng-repeat="emp in vm.employeelist">
+                  			<li>
+                  				{{emp.strEmpFirstName}}
+                  			</li>
+                  		</ul>
+                      <select ng-model="vm.selEmployeePerService" id="cREmp1"
+                              ng-options="employee.strEmpFirstName for employee in vm.employeeList"></select>
+                      <label for="cREmp1"><b>Employee</b></label>
+                  </div>
+                  <button id="btnAssign"
+                          class="waves-effect waves-light white-text btn-flat purple"
+                          ng-click="vm.assignEmployeePromo($index)">ASSIGN
+                  </button>
+                </li>
+            </ul>
+            <!-- <table>
+                <tr >
                     <td>{{services.service.strServiceName}}</td>
                     <td>
                         <div class="input-field col s12">
@@ -484,7 +510,7 @@
                         </button>
                     </td>
                 </tr>
-            </table>
+            </table> -->
             <div class="container">
                 <div class="row">
 
@@ -499,7 +525,7 @@
             <button type="submit" value="Submit" id="paymentDetails.submit"
                     class="waves-effect waves-light white-text btn-flat purple"
                     style="margin-left:3px; margin-right:3px;"
-                    ng-click="vm.addToCart($index, vm.selected); vm.sumTotal()">DONE
+                    ng-click="vm.addToCart(vm.promoIndex, vm.selected); vm.sumTotal()">DONE
             </button>
         </div>
     </div>
@@ -555,6 +581,21 @@
                                 <i class="material-icons" style="padding-top: 7px !important;">clear</i>
                             </button>
                         </li>
+                        <li class="collection-item left-align"
+                            style="margin-left:0px !important; padding-left: 5px !important;"
+                            ng-repeat="promo in vm.promoOrder">
+                            <img ng-src="img/package.png" class="circle" height="30" width="30">
+                                <span style="padding-left: 5px !important; cursor: pointer !important;"
+                                      title="{{promo.promo}} - {{promo.promoTotal | currency: 'Php '}}"
+                                      ng-click="vm.openEditItem($index, promo)">
+                                    {{promo.promo | truncate: 11}}
+                                </span>
+                            <button name="" title="Remove" class="secondary-content red-text transparent"
+                                    style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border:0px !important;"
+                                    ng-click="vm.removeToCartPromo($index, promo)">
+                                <i class="material-icons" style="padding-top: 7px !important;">clear</i>
+                            </button>
+                        </li>
                     </ul>
                     <h5>Total: {{ vm.sum | currency: "Php "}}</h5>
                 </div>
@@ -562,7 +603,7 @@
         </div>
     </div>
 
-    
+
 
     <div id="editItem" class="modal modal-fixed-footer">
         <div class="modal-content" ng-if="vm.orderToBeEdit.type == 'product'">
@@ -687,3 +728,9 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    (function() {
+        $('select').material_select('destroy');
+    })();
+</script>

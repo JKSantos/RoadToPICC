@@ -19,12 +19,12 @@
          	class="org.apache.struts2.views.tiles.TilesResult" />
 		</result-types>
 		
-		<action name="getDependencies" class="com.gss.actions.BusinessDependencies.GetAllDependenciesAction" method="execute">
+		<action name="utilities" class="com.gss.actions.BusinessDependencies.GetAllDependenciesAction" method="execute">
 			<result name="success" type="tiles">utilities</result>
 		</action>
 		
 		<action name="updateDependencies" class="com.gss.actions.BusinessDependencies.UpdateDependenciesAction" method="execute">
-			<result name="success" type="json"></result>
+			<result name="success">/tiles/redirect-utilities.jsp</result>
 		</action>
 	</package>
 </struts>

@@ -55,7 +55,6 @@ function checkServiceNameAvailability(id) {
         dataType: 'json',
         async: true,
         success: function (data) {
-            console.log(data);
             var names = data.names;
             for(var i = 0; i < names.length; i ++) {
                 na.push(names[i]);
@@ -64,7 +63,6 @@ function checkServiceNameAvailability(id) {
             na = [];
         },
         error: function (data) {
-            console.log(data);
         }
     });
 

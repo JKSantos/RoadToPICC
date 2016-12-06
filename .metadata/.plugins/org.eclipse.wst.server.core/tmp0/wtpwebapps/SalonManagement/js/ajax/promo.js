@@ -48,7 +48,6 @@ function updatePromoTable() {
             if (promoList != null) {
                 tablepromo.clear().draw();
                 $.each(promoList, function (i, promo) {
-                    console.log(promo);
                     var price,
                         type,
                         requirement = '';
@@ -86,8 +85,8 @@ function updatePromoTable() {
 
                     if (promo.requirements.length > 0) {
                         $.each(promo.requirements, function (i, req) {
-                            if(typeof req.strRequirementName != 'undefined') {
-                                if(promo.requirements.length > 1) {
+                            if (typeof req.strRequirementName != 'undefined') {
+                                if (promo.requirements.length > 1) {
                                     requirement += req.strRequirementName + ',<br>';
                                 } else if (promo.requirements.length < 2) {
                                     requirement += req.strRequirementName + '<br>';
@@ -103,14 +102,12 @@ function updatePromoTable() {
                         availabilityYear = sub[0],
                         availabilityMonth = sub[1],
                         availabilityDay = sub[2]
-                    console.log(availabilityYear);
                     if (promo.strPromoAvailability == 'NON-EXPIRY') {
                         crPromoDate = 'NON-EXPIRY';
                     } else {
                         crPromoDate = moment("'" + availabilityMonth + '/' + availabilityDay + '/' + availabilityYear + "'", 'MM/DD/YYYY')
                             .format('LL');
                     }
-                    console.log(availabilityYear + '+' + availabilityMonth + '+' + availabilityDay);
 
                     tablepromo.row.add([
                         promo.strPromoName,
@@ -226,15 +223,11 @@ function updatePromoCreateServTable() {
                     for (var i = 0; i < type.length; i++) {
                         if (type[i] == 'walkin') {
                             walk = 1;
-                            console.log('walkin');
                         } else if (type[i] == 'homeservice') {
                             home = 1;
-                            console.log('homeservice');
                         } else if (type[i] == 'event') {
                             event = 1;
-                            console.log('event');
                         } else {
-                            console.log(type);
                         }
                     }
 
@@ -257,7 +250,6 @@ function updatePromoCreateServTable() {
                     $.each(serviceList, function (i, service) {
 
                         if (promoType == service.serviceType) {
-                            console.log(service);
                             var price = parseFloat(service.dblServicePrice).toFixed(2);
                             price = addCommas(price);
                             var checkbox = "<input type='checkbox' name='servCrPromoSelect' id='crPromoServ" + service.intServiceID + "'" +
@@ -278,7 +270,6 @@ function updatePromoCreateServTable() {
                     });
                     createPromoServTbl.draw();
                 });
-                console.log(serviceList);
 
             }
         }
@@ -311,12 +302,11 @@ function updatePromoCreatePackageTable() {
                 createPromoPackageTbl.search(this.value).draw();
             });
 
-            console.log(packageList);
 
             if (packageList != null) {
                 var promoType = 0;
 
-                $('#crPromoType').on('change', function() {
+                $('#crPromoType').on('change', function () {
                     createPromoPackageTbl.clear().draw();
 
                     var type = $(this).val(),
@@ -326,13 +316,10 @@ function updatePromoCreatePackageTable() {
                     for (var i = 0; i < type.length; i++) {
                         if (type[i] == 'walkin') {
                             walk = 1;
-                            console.log('walkin');
                         } else if (type[i] == 'homeservice') {
                             home = 1;
-                            console.log('homeservice');
                         } else if (type[i] == 'event') {
                             event = 1;
-                            console.log('event');
                         }
                     }
 
@@ -353,7 +340,7 @@ function updatePromoCreatePackageTable() {
                     }
 
                     $.each(packageList, function (i, packagedata) {
-                        if(promoType == packagedata.intPackageType) {
+                        if (promoType == packagedata.intPackageType) {
                             var cat = 'Package';
                             var price = parseFloat(packagedata.dblPackagePrice).toFixed(2);
                             price = addCommas(price);
@@ -422,7 +409,6 @@ function promoProdCompute(id) {
             if ($promoQty > promoQ) {
                 promoTotal += ($promoQty - promoQ) * $promoProductPrice;
                 promoProdShowQty = parseInt($promoQty);
-                console.log(promoProdShowQty);
                 promoTotal = Math.abs(promoTotal);
                 $('#crPromoTotal').val("Php " + parseFloat(promoTotal).toFixed(2));
                 $('#crPromoPrice').val("Php " + parseFloat(promoTotal).toFixed(2));
@@ -451,7 +437,6 @@ function promoProdCompute(id) {
 
     } else if (!(promoProductID.is(':checked'))) {
         promoChk = promoChk - 1;
-        console.log(promoChk);
         if (promoChk < 1) {
             $('#createPromoSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if (promoChk > 0) {
@@ -476,7 +461,6 @@ function promoProdCompute(id) {
 
     $('#promoProdChip' + id).click(function () {
         promoChk = promoChk - 1;
-        console.log(promoChk);
         if (promoChk < 1) {
             $('#createPromoSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if (chk > 0) {
@@ -564,7 +548,6 @@ function promoServCompute(id) {
 
     } else if (!(promoServiceID.is(':checked'))) {
         promoChk = promoChk - 1;
-        console.log(promoChk);
         if (promoChk < 1) {
             $('#createPromoSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if (promoChk > 0) {
@@ -590,7 +573,6 @@ function promoServCompute(id) {
 
     $('#promoServChip' + id).click(function () {
         promoChk = promoChk - 1;
-        console.log(promoChk);
         if (promoChk < 1) {
             $('#createPromoSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if (promoChk > 0) {
@@ -679,7 +661,6 @@ function promoPackageCompute(id) {
 
     } else if (!(promoPackageID.is(':checked'))) {
         promoChk = promoChk - 1;
-        console.log(promoChk);
         if (promoChk < 1) {
             $('#createPromoSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if (promoChk > 0) {
@@ -705,7 +686,6 @@ function promoPackageCompute(id) {
 
     $('#promoPackChip' + id).click(function () {
         promoChk = promoChk - 1;
-        console.log(promoChk);
         if (promoChk < 1) {
             $('#createPromoSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if (promoChk > 0) {
@@ -730,107 +710,153 @@ function promoPackageCompute(id) {
 }
 
 function createPromo() {
-    if ($('#updatePromoForm').valid()) {
-        // var job = document.querySelectorAll('select[name=intPackageType]:selected');
-        var promoProdSelect = [],
-            promoServSelect = [],
-            promoPackageSelect = [],
-            selectedPromoType = [],
-            requirement = [];
+    // var job = document.querySelectorAll('select[name=intPackageType]:selected');
+    var promoProdSelect = [],
+        promoServSelect = [],
+        promoPackageSelect = [],
+        selectedPromoType = [],
+        requirement = [];
 
-        $.each($("input[name=prodCrPromoSelect]:checked"), function () {
-            promoProdSelect.push($(this).val());
-        });
-        $.each($("input[name=servCrPromoSelect]:checked"), function () {
-            promoServSelect.push($(this).val());
-        });
-        $.each($("input[name=packCrPromoSelect]:checked"), function () {
-            promoPackageSelect.push($(this).val());
-        });
+    $.each($("input[name=prodCrPromoSelect]:checked"), function () {
+        promoProdSelect.push($(this).val());
+    });
+    $.each($("input[name=servCrPromoSelect]:checked"), function () {
+        promoServSelect.push($(this).val());
+    });
+    $.each($("input[name=packCrPromoSelect]:checked"), function () {
+        promoPackageSelect.push($(this).val());
+    });
 
-        var promoProductQty = $('input[name=crProdPromoQty]:enabled').map(function () {
-            return this.value;
-        }).get(); //get all the quantity enabled in product
-        var promoServiceQty = $('input[name=crServPromoQty]:enabled').map(function () {
-            return this.value;
-        }).get(); //get all the quantity enabled in service
-        var promoPackQty = $('input[name=crPackPromoQty]:enabled').map(function () {
-            return this.value;
-        }).get();
+    var promoProductQty = $('input[name=crProdPromoQty]:enabled').map(function () {
+        return this.value;
+    }).get(); //get all the quantity enabled in product
+    var promoServiceQty = $('input[name=crServPromoQty]:enabled').map(function () {
+        return this.value;
+    }).get(); //get all the quantity enabled in service
+    var promoPackQty = $('input[name=crPackPromoQty]:enabled').map(function () {
+        return this.value;
+    }).get();
 
-        var req = $('#crPromoRequirement').val();
-        requirement = req.join(',');
+    var req = $('#crPromoRequirement').val();
+    requirement = req.join(',');
 
-        selectedPromoType = $('#crPromoType').val();
+    selectedPromoType = $('#crPromoType').val();
 
-        var crWalk = 0,
-            crHome = 0,
-            crEvent = 0,
-            crPromoType = [];
+    var crWalk = 0,
+        crHome = 0,
+        crEvent = 0,
+        crPromoType = [];
 
-        for (var i = 0; i < selectedPromoType.length; i++) {
-            if (selectedPromoType[i] == 'walkin') {
-                crWalk = 1;
-            } else if (selectedPromoType[i] == 'homeservice') {
-                crHome = 1;
-            } else if (selectedPromoType[i] == 'event') {
-                crEvent = 1;
-            }
+    for (var i = 0; i < selectedPromoType.length; i++) {
+        if (selectedPromoType[i] == 'walkin') {
+            crWalk = 1;
+        } else if (selectedPromoType[i] == 'homeservice') {
+            crHome = 1;
+        } else if (selectedPromoType[i] == 'event') {
+            crEvent = 1;
         }
+    }
 
 
-        if (crWalk == 1 && crHome == 0 && crEvent == 0) {
-            crPromoType.push('1');
-        } else if (crWalk == 0 && crHome == 1 && crEvent == 0) {
-            crPromoType.push('2');
-        } else if (crWalk == 0 && crHome == 0 && crEvent == 1) {
-            crPromoType.push('3');
-        } else if (crWalk == 1 && crHome == 1 && crEvent == 0) {
-            crPromoType.push('1');
-            crPromoType.push('2');
-        } else if (crWalk == 1 && crHome == 0 && crEvent == 1) {
-            crPromoType.push('1');
-            crPromoType.push('3');
-        } else if (crWalk == 0 && crHome == 1 && crEvent == 1) {
-            crPromoType.push('2');
-            crPromoType.push('3');
-        } else if (crWalk == 1 && crHome == 1 && crEvent == 1) {
-            crPromoType.push('1');
-            crPromoType.push('2');
-            crPromoType.push('3');
+    if (crWalk == 1 && crHome == 0 && crEvent == 0) {
+        crPromoType.push('1');
+    } else if (crWalk == 0 && crHome == 1 && crEvent == 0) {
+        crPromoType.push('2');
+    } else if (crWalk == 0 && crHome == 0 && crEvent == 1) {
+        crPromoType.push('3');
+    } else if (crWalk == 1 && crHome == 1 && crEvent == 0) {
+        crPromoType.push('1');
+        crPromoType.push('2');
+    } else if (crWalk == 1 && crHome == 0 && crEvent == 1) {
+        crPromoType.push('1');
+        crPromoType.push('3');
+    } else if (crWalk == 0 && crHome == 1 && crEvent == 1) {
+        crPromoType.push('2');
+        crPromoType.push('3');
+    } else if (crWalk == 1 && crHome == 1 && crEvent == 1) {
+        crPromoType.push('1');
+        crPromoType.push('2');
+        crPromoType.push('3');
+    }
+
+
+    promoProdSelect = promoProdSelect.join(', ');
+    promoServSelect = promoServSelect.join(', ');
+    promoPackageSelect = promoPackageSelect.join(', ');
+    promoProductQty = promoProductQty.join(', ');
+    promoServiceQty = promoServiceQty.join(', ');
+    promoPackQty = promoPackQty.join(', ');
+    crPromoType = crPromoType.join(',');
+
+    var promoname = $('#crPromoName').val();
+
+
+    var x = $('#crPromoExpiration').val(),
+        splitDate = x.split('/'),
+        mo = splitDate[0],
+        da = splitDate[1],
+        yr = splitDate[2],
+        m = '';
+
+    if(mo == 'January') {
+        m = '1';
+    } else if (mo == 'February') {
+        m = '2';
+    } else if (mo == 'March') {
+        m = '3';
+    } else if (mo == 'April') {
+        m = '4';
+    } else if (mo == 'May') {
+        m = '5';
+    } else if (mo == 'June') {
+        m = '6';
+    } else if (mo == 'July') {
+        m = '7';
+    } else if (mo == 'August') {
+        m = '8';
+    } else if (mo == 'September') {
+        m = '9';
+    } else if (mo == 'October') {
+        m = '10';
+    } else if (mo == 'November') {
+        m = '11';
+    } else if (mo == 'December') {
+        m = '12';
+    }
+
+    var nonexp = yr + '/' + m + '/' + da;
+
+    console.log(nonexp);
+
+    var promodata = {
+        "strPromoName": promoname,
+        "strPromoDesc": $('#crPromoDescription').val(),
+        "strPromoGuidelines": $('#crPromoGuidelines').val(),
+        "strNonExp": $("#crPromoNonExpiry:checked").val(),
+        "strExp": $('#crPromoExpiration').val(),
+        "servicePromoSelect": promoServSelect,
+        "productPromoSelect": promoProdSelect,
+        "packagePromoSelect": promoPackageSelect,
+        "servicePromoQty": promoServiceQty,
+        "productPromoQty": promoProductQty,
+        "packagePromoQty": promoPackQty,
+        "strFree": $("input[name=crFree]:checked").val(),
+        "dblPromoPrice": $('#crPromoPrice').val().replace(/[^\d.]/g, ''),
+        "requirement": requirement,
+        "type": crPromoType
+    };
+
+    var allow = 0;
+    if($('#crPromoFree').is(':checked')) {
+        allow = 1;
+        $('.crpromoerrorcontainer').hide();
+    } else {
+        if ($("#createPromoForm").valid()) {
+            allow = 1;
         }
+    }
 
-
-        promoProdSelect = promoProdSelect.join(', ');
-        promoServSelect = promoServSelect.join(', ');
-        promoPackageSelect = promoPackageSelect.join(', ');
-        promoProductQty = promoProductQty.join(', ');
-        promoServiceQty = promoServiceQty.join(', ');
-        promoPackQty = promoPackQty.join(', ');
-        crPromoType = crPromoType.join(',');
-        console.log(crPromoType);
-
-        var promoname = $('#crPromoName').val();
-        var promodata = {
-            "strPromoName": promoname,
-            "strPromoDesc": $('#crPromoDescription').val(),
-            "strPromoGuidelines": $('#crPromoGuidelines').val(),
-            "strNonExp": $("#crPromoNonExpiry:checked").val(),
-            "strExp": $('#crPromoExpiration').val(),
-            "servicePromoSelect": promoServSelect,
-            "productPromoSelect": promoProdSelect,
-            "packagePromoSelect": promoPackageSelect,
-            "servicePromoQty": promoServiceQty,
-            "productPromoQty": promoProductQty,
-            "packagePromoQty": promoPackQty,
-            "strFree": $("input[name=crFree]:checked").val(),
-            "dblPromoPrice": $('#crPromoPrice').val().replace(/[^\d.]/g, ''),
-            "requirement": requirement,
-            "type": crPromoType
-        };
-
-        console.log(promodata);
-
+    if(allow == 1) {
         swal({
                 title: "Are you sure you want to create " + promoname + "?",
                 text: "",
@@ -851,15 +877,26 @@ function createPromo() {
                             swal("Successfully created!", ".", "success");
                             updatePromoTable();
                             $('#crPromoModal').closeModal();
+                            $("#createPromoForm")[0].reset();
+                            $('.crpromoerrorcontainer').hide();
+                            $('input[name=crProdPromoQty]').prop('disabled', 'disabled');
+                            $('input[name=crServPromoQty]').prop('disabled', 'disabled');
+                            $('input[name=crPackPromoQty]').prop('disabled', 'disabled');
+                            $('#createPromoSubmitForm').attr('disabled', true).css('opacity', '0.3');
+                            $('#crPromoBackBtn').click();
+                            $('#promoList .chip').remove();
+                            promoQ = 0; // temporary quantity
+                            $promoQty = 0; //main quantity
+                            promoTotal = 0; //total
+                            promoChk = 0;
                         },
-                        error: function () {
+                        error: function (xhr) {
+                            console.log(xhr.responseText);
                             sweetAlert("Oops...", "Something went wrong!", "error");
                         }
                     });
                 }, 1000);
             });
-    } else {
-
     }
 }
 

@@ -8,7 +8,6 @@ $('input[name=strUpdateApplicability]').on('click', function() {
    } else {
        $('#updateBDiscount').css('pointer-events', 'auto');
    }
-    console.log($(this).val());
 });
 
 
@@ -88,7 +87,6 @@ function openUpdateDiscount(id) {
 
             $('.updateDiscountChip').remove();
             $('.updateDiscountCheckbox').prop('checked', false);
-            console.log(discount);
             $('#upDiscountID').val(discount.intDiscountID);
             $('#upDiscountName').val(discount.strDiscountName);
             $('#upDiscountDetails').val(discount.strDiscountDesc);
@@ -129,7 +127,6 @@ function openUpdateDiscount(id) {
 
             var r = [];
             $.each(discount.requirements, function (i, req) {
-                console.log(req.intRequirementID);
                 r.push(req.intRequirementID);
             });
             $('select').material_select('destroy');
@@ -160,7 +157,6 @@ function openUpdateDiscount(id) {
 
                 $('#discUpProdChip' + product.intProductID).click(function () {
                     chkupdate = chkupdate - 1;
-                    console.log(chkupdate);
                     
                     if (chkupdate < 1) {
                         $('#updateDiscountSubmitBtn').attr('disabled', true).css('opacity', '0.3');
@@ -243,7 +239,6 @@ function openUpdateDiscount(id) {
 
         },
         error: function (data) {
-            console.log(data);
         }
     });
 
@@ -486,7 +481,6 @@ function updateProductDiscount(id) {
 
     } else if (!productID.is(':checked')) {
         chkupdate = chkupdate - 1;
-        console.log(chkupdate);
         if (chkupdate < 1) {
             $('#updateDiscountSubmitBtn').attr('disabled', true).css('opacity', '0.3');
         } else if (chkupdate > 0) {
@@ -499,7 +493,6 @@ function updateProductDiscount(id) {
 
     $('#discUpProdChip' + id).click(function () {
         chkupdate = chkupdate - 1;
-        console.log(chkupdate);
         if (chkupdate < 1) {
             $('#updateDiscountSubmitBtn').attr('disabled', true).css('opacity', '0.3');
         } else if (chkupdate > 0) {
@@ -556,7 +549,6 @@ function updateServiceDiscount(id) {
 
     } else if (!serviceID.is(':checked')) {
         chkupdate = chkupdate - 1;
-        console.log(chkupdate);
         if (chkupdate < 1) {
             $('#updateDiscountSubmitBtn').attr('disabled', true).css('opacity', '0.3');
         } else if (chkupdate > 0) {
@@ -569,7 +561,6 @@ function updateServiceDiscount(id) {
 
     $('#discUpServChip' + id).click(function () {
         chkupdate = chkupdate - 1;
-        console.log(chkupdate);
         if (chkupdate < 1) {
             $('#updateDiscountSubmitBtn').attr('disabled', true).css('opacity', '0.3');
         } else if (chkupdate > 0) {
@@ -626,7 +617,6 @@ function updatePackageDiscount(id) {
 
     } else if (!packageID.is(':checked')) {
         chkupdate = chkupdate - 1;
-        console.log(chkupdate);
         if (chkupdate < 1) {
             $('#updateDiscountSubmitBtn').attr('disabled', true).css('opacity', '0.3');
         } else if (chkupdate > 0) {
@@ -639,7 +629,6 @@ function updatePackageDiscount(id) {
 
     $('#discUpPackChip' + id).click(function () {
         chkupdate = chkupdate - 1;
-        console.log(chkupdate);
         if (chkupdate < 1) {
             $('#updateDiscountSubmitBtn').attr('disabled', true).css('opacity', '0.3');
         } else if (chkupdate > 0) {
@@ -696,7 +685,6 @@ function updatePromoDiscount(id) {
 
     } else if (!promoID.is(':checked')) {
         chkupdate = chkupdate - 1;
-        console.log(chkupdate);
         if (chkupdate < 1) {
             $('#updateDiscountSubmitBtn').attr('disabled', true).css('opacity', '0.3');
         } else if (chkupdate > 0) {
@@ -709,7 +697,6 @@ function updatePromoDiscount(id) {
 
     $('#discUpPromoChip' + id).click(function () {
         chkupdate = chkupdate - 1;
-        console.log(chkupdate);
         if (chkupdate < 1) {
             $('#updateDiscountSubmitBtn').attr('disabled', true).css('opacity', '0.3');
         } else if (chkupdate > 0) {
@@ -756,7 +743,6 @@ function updateDiscount() {
             var req = $('#upRequirement').val();
 
             UPrequirement = req.join(',');
-            console.log(req);
         } else {
             UPrequirement = '';
         }
@@ -778,8 +764,6 @@ function updateDiscount() {
             "requirements": UPrequirement
         };
 
-        console.log(discountData);
-
         swal({
                 title: "Are you sure you want to update " + discountname + "?",
                 text: "",
@@ -797,7 +781,6 @@ function updateDiscount() {
                         dataType: 'json',
                         async: true,
                         success: function (data) {
-                            console.log(data);
                             swal("Successfully created!", ".", "success");
                             updateDiscountTable();
                             $('#updateDiscountModal').closeModal();

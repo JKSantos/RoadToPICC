@@ -6,17 +6,11 @@
         .factory('reportsFactory', reportsFactory);
 
     function reportsFactory($http) {
-
-       var monthlyTags = [{}];
         return {
-            setMonthlyTags: function(data){
-            	monthlyTags = data;
-            	console.log(monthlyTags);
-            },
-            getMonthlyTags: function(){
-            	
-            	return monthlyTags;
-            	console.log(monthlyTags);
+            getProductTags: function () {
+                return $http.get('http://localhost:8080/SalonManagement/getProductTags').then(function (data) {
+                    return data;
+                });
             }
         }
     }

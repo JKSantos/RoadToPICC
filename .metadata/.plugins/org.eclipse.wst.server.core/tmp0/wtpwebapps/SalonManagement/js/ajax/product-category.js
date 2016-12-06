@@ -71,7 +71,6 @@ function addCategory() {
                 } else if (data.result == "existing") {
                     $("#crexistingCat").remove();
                     $("#crfailedCat").remove();
-                    console.log(data);
                     $('#addCreateCategory').show();
                     $('#addCreateCategory').append('<span id="crexistingCat" class="crexistingCat white-text"><b>Category</b> is already existing</span>');
                     $('#addCreateCategory .upfailedCat').remove();
@@ -112,7 +111,6 @@ function addUpdateCategory() {
                 } else if (data.result == "existing") {
                     $(".upexistingCat").remove();
                     $(".upfailedCat").remove();
-                    console.log(data);
                     $('.addUpdateCategory').show();
                     $('.addUpdateCategory').append('<span id="upexistingCat" class="upexistingCat white-text"><b>Category</b> is already existing</span>');
                     $('.addUpdateCategory .upfailedCat').remove();
@@ -166,9 +164,7 @@ function removeCreateCategory() {
                         $('select').material_select();
                     }
                 });
-                console.log(data.result);
             } else if (data.result == "failed") {
-                console.log('failed');
             }
         }
     });
@@ -212,9 +208,7 @@ function removeUpdateCategory() {
                         $('select').material_select();
                     }
                 });
-                console.log(data.result);
             } else if (data.result == "failed") {
-                console.log('failed');
             }
         }
     });

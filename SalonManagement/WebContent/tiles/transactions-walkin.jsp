@@ -462,6 +462,11 @@
                 </li>
                 <li>
                   <div class="input-field col s6">
+                  		<ul ng-repeat="emp in vm.employeelist">
+                  			<li>
+                  				{{emp.strEmpFirstName}}
+                  			</li>
+                  		</ul>
                       <select ng-model="vm.selEmployeePerService" id="cREmp1"
                               ng-options="employee.strEmpFirstName for employee in vm.employeeList"></select>
                       <label for="cREmp1"><b>Employee</b></label>

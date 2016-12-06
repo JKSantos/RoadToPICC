@@ -35,6 +35,54 @@
             
         </div>
     </div>
+    
+    <div id="viewDetails" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4 class="grey-text center text-darken-1">Reservation Details</h4>
+           <h5 class="purple-text">Products</h5>
+            <ul ng-repeat="products in vm.customerContainsProduct">
+                <li>
+                  <h5 ng-bind="products.product.strProductName"></h5>
+                </li>
+            </ul>
+            <h5 class="purple-text">Services</h5>
+            <ul ng-repeat="services in  vm.customerContainsService">
+                <li>
+                  <h6> {{services.service.strServiceName}}</h6>
+                </li>
+            </ul>
+            <h5 class="purple-text">Packages</h5>
+            <ul ng-repeat="packages in  vm.customerContainsPackage">
+                <li>
+                  <h6> {{packages.packages.strPackageName}}</h6>
+                </li>
+            </ul>
+            <h5 class="purple-text">Promos</h5>
+            <ul ng-repeat="promos in vm.customerContainsPromo">
+                <li>
+                  <h6> {{promos.promo.strPromoName}}</h6>
+                </li>
+            </ul> 
+           
+            <div class="container">
+                <div class="row">
+
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="red-text btn-flat transparent left" disabled
+                    style="margin:0px !important; padding:0px !important;"><i
+                    class="material-icons">error_outline</i>&nbspRequired field
+            </button>
+            <button type="submit" value="Submit" id="paymentDetails.submit"
+                    class="waves-effect waves-light white-text btn-flat purple"
+                    style="margin-left:3px; margin-right:3px;"
+                    ng-click="">DONE
+            </button>
+        </div>
+    </div>
+    
 
     <!-- Modal Structure -->
     <div id="reservationListModal" class="modal" style = "width: 70% !important; height: 80% !important; margin-top: -10px !important; border-radius: 10px;">
@@ -651,15 +699,14 @@
                             </div>
                             <div class="col s4" style="margin-top: 10px;">
                                 <div class="input-field col s12">
-                                    <select multiple ng-model="vm.selEmployees" id="cREmp"
+                                	<p>Employee</p>
+                                    <select multiple class="browser-default" ng-model="vm.selEmployees" id="cREmp"
                                             ng-options="employee.strEmpFirstName for employee in vm.employeeList">
                                         <option value="" disabled selected>Choose...</option>
                                     </select>
-                                    <label for="cREmp"><b>Employee</b>
-                                        <i class="material-icons red-text tiny">error_outline</i>
-                                    </label>
                                 </div>
                             </div>
+                            <div class="col s4"></div>
                             <div class="col s4" style="margin-top: 10px;" ng-if="vm.details.reservationType.type == 'Event'">
                                 <div class="input-field col s12">
                                     <select ng-model="vm.resPaymentType" id="crPType" material-select watch>
