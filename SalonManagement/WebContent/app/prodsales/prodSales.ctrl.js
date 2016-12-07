@@ -115,6 +115,23 @@
             console.log(vm.dependencies);
         });
 
+        locationFactory.getExtraCharges().then(function (data) {
+            var sf = data.data.extraChargeList;
+            vm.serviceFee = getSF(sf);
+        });
+
+        function getSF (sf) {
+            let servFee;
+
+            angular.forEach(sf, function (x, i) {
+                if(x.strECName.toUpperCase() == "SERVICE FEE") {
+                    servFee = x;
+                }
+            });
+
+            return servFee;
+        }
+
         $scope.changeDateGetEmp = function (date) {
             let month, m, d;
 
@@ -394,6 +411,8 @@
             } else {
                 total = myData.strTotalPrice;
             }
+            var sda = total + parseFloat(vm.serviceFee.stringPrice);
+            console.log(sda);
 
              var psdata = {
                     "intLocationID": myData.intLocationID,
@@ -403,8 +422,9 @@
                     "strContactNo": myData.strContactNo,
                     "strName": myData.strName,
                     "strStreet": myData.strStreet,
-                    "strTotalPrice": total
+                    "strTotalPrice": sda
                 };
+                console.log(psdata);
 
             setTimeout(function () {
                 $.ajax({

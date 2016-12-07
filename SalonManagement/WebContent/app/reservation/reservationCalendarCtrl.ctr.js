@@ -25,7 +25,6 @@
         });
         
         function calendarInit(data){
-        	console.log(data);
         	$(document).ready(function() {
 
                 // page is now ready, initialize the calendar...

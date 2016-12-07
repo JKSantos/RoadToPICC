@@ -298,6 +298,7 @@
                                         <p>
                                         <b>Location</b>: {{vm.loc.name}} <br>
                                         <b>Location Price</b>: {{vm.loc.price | currency: "Php "}} <br>
+                                        <b>Service Fee</b>: {{vm.serviceFee.stringPrice | currency: "Php "}}
                                         </p>
                                         <div ng-if="vm.seldic != ''">
                                             <div ng-if="vm.seldic.intDiscountType == 1">
