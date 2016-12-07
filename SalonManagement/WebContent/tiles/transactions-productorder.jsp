@@ -288,7 +288,7 @@
                                             ng-model="details.discount"
                                             ng-options="discount.strDiscountName for discount in vm.discountList"
                                             ng-change="selectedDiscount(details.discount)">
-                                            <option value="" selected>Choose...</option>
+                                            <option value="">Choose...</option>
                                     </select>
                                     <label for="crDiscount"><b>Discount</b></label>
                                 </div>
@@ -334,12 +334,12 @@
                                         </div>
                                             <div ng-if="vm.x == 0">
                                                 <p>
-                                                <b>Total</b>: {{totalAmount + vm.loc.price | currency: "Php "}}
+                                                <b>Total</b>: {{totalAmount | currency: "Php "}}
                                                 </p>
                                             </div>
                                             <div ng-if="vm.x == 1">
                                                 <p>
-                                                    <b>Total</b>: {{vm.totalAmt | currency: "Php "}}
+                                                <b>Total</b>: {{vm.totalAmt | currency: "Php "}}
                                                 </p>
                                             </div>
                                     </div>

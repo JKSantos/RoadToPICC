@@ -231,22 +231,43 @@
                 vm.seldic = disc;
                 sd = disc;
                 var t = $scope.totalAmount;
-                if(disc.intDiscountType == 1) {
-                    var per = ($scope.totalAmount + vm.loc.price) * (disc.dblDiscountAmount/100);
-                    vm.totalAmt = ($scope.totalAmount + vm.loc.price) - per;
-                } else if(disc.intDiscountType == 2) {
-                    var num1 = $scope.totalAmount + vm.loc.price,
-                        num2 = disc.dblDiscountAmount,
-                        per = 0,
-                        ttt = 0;
-                    if(num1 > num2) {
-                        ttt = ($scope.totalAmount + vm.loc.price) - disc.dblDiscountAmount;
-                        console.log(per + '//' + vm.totalAmt);
-                    } else if(num2 > num1) {
-                        per = 0.00;
-                        ttt = per;
+
+                if($scope.details.order.value == 'delivery') {
+                    if(disc.intDiscountType == 1) {
+                        var per = ($scope.totalAmount + vm.loc.price) * (disc.dblDiscountAmount/100);
+                        vm.totalAmt = ($scope.totalAmount + vm.loc.price) - per;
+                    } else if(disc.intDiscountType == 2) {
+                        var num1 = $scope.totalAmount + vm.loc.price,
+                            num2 = disc.dblDiscountAmount,
+                            per = 0,
+                            ttt = 0;
+                        if(num1 > num2) {
+                            ttt = ($scope.totalAmount + vm.loc.price) - disc.dblDiscountAmount;
+                            console.log(per + '//' + vm.totalAmt);
+                        } else if(num2 > num1) {
+                            per = 0.00;
+                            ttt = per;
+                        }
+                        vm.totalAmt = ttt;
                     }
-                    vm.totalAmt = ttt;
+                } else {
+                    if(disc.intDiscountType == 1) {
+                        var per = ($scope.totalAmount) * (disc.dblDiscountAmount/100);
+                        vm.totalAmt = $scope.totalAmount - per;
+                    } else if(disc.intDiscountType == 2) {
+                        var num1 = $scope.totalAmount,
+                            num2 = disc.dblDiscountAmount,
+                            per = 0,
+                            ttt = 0;
+                        if(num1 > num2) {
+                            ttt = $scope.totalAmount - disc.dblDiscountAmount;
+                            console.log(per + '//' + vm.totalAmt);
+                        } else if(num2 > num1) {
+                            per = 0.00;
+                            ttt = per;
+                        }
+                        vm.totalAmt = ttt;
+                    }
                 }
             } else if(disc === null) {
                 vm.x = 0;
@@ -375,6 +396,12 @@
 
         var st = paymentFactory.getSubTotal();
         $scope.setProdSalesPayment = function (custDetails) {
+            let cd = 0;
+            if($scope.details.order.value == 'delivery') {
+                cd = custDetails.location.dblLocationPrice;
+            } else {
+                cd = 0;
+            }
                 $scope.customerDetails.push({
                     orderType: custDetails.order.value,
                     strContactNo: custDetails.contact,
@@ -383,7 +410,7 @@
                     intLocationID: custDetails.location.intLocationID,
                     selectedProducts: commaProducts(),
                     productQuantity: commaQuantity(),
-                    strTotalPrice: paymentFactory.getSubTotal() + custDetails.location.dblLocationPrice
+                    strTotalPrice: paymentFactory.getSubTotal() + cd
                 });
                 console.log($scope.customerDetails);
                 $scope.saveDetails($scope.customerDetails[1]);
@@ -411,8 +438,13 @@
             } else {
                 total = myData.strTotalPrice;
             }
-            var sda = total + parseFloat(vm.serviceFee.stringPrice);
-            console.log(sda);
+
+            var sda = 0;
+            if($scope.details.order.value == 'delivery') {
+                sda = total + parseFloat(vm.serviceFee.stringPrice);
+            } else {
+                sda = total
+            }
 
              var psdata = {
                     "intLocationID": myData.intLocationID,
@@ -426,47 +458,47 @@
                 };
                 console.log(psdata);
 
-            setTimeout(function () {
-                $.ajax({
-                    url: 'createOrder',
-                    type: 'post',
-                    data: psdata,
-                    dataType: 'json',
-                    async: true,
-                    success: function (data) {
-                        if (data.status == "success") {
-                            swal("Successfully created!", ".", "success");
-                            console.log($scope.customerDetails[1]);
-                            if(myData.orderType == 'delivery') {
-                                $scope.requestOrder.push({
-                                    intSalesID: data.intCreatedID,
-                                    strName: myData.strName,
-                                    intType: myData.orderType
-                                });
-                            }
-                            console.log($scope.requestOrder);
-                            $('#crProductSales').closeModal();
-                            $scope.customerDetails = [{
-                                orderType: '',
-                                contactNumber: '',
-                                name: '',
-                                Street: '',
-                                location: '',
-                                orderDetails: '',
-                                subtotal: 0
-                            }];
-                            console.log(data);
-                            $window.location.reload();
-                        } else {
-                            SweetAlert.swal("Oops", "Something went wrong!", "error");
-                        }
-                    },
-                    error: function () {
-                        vm.loadingBubble = 1;
-                        SweetAlert.swal("Oops", "Something went wrong!", "error");
-                    }
-                });
-            }, 1000);
+            // setTimeout(function () {
+            //     $.ajax({
+            //         url: 'createOrder',
+            //         type: 'post',
+            //         data: psdata,
+            //         dataType: 'json',
+            //         async: true,
+            //         success: function (data) {
+            //             if (data.status == "success") {
+            //                 swal("Successfully created!", ".", "success");
+            //                 console.log($scope.customerDetails[1]);
+            //                 if(myData.orderType == 'delivery') {
+            //                     $scope.requestOrder.push({
+            //                         intSalesID: data.intCreatedID,
+            //                         strName: myData.strName,
+            //                         intType: myData.orderType
+            //                     });
+            //                 }
+            //                 console.log($scope.requestOrder);
+            //                 $('#crProductSales').closeModal();
+            //                 $scope.customerDetails = [{
+            //                     orderType: '',
+            //                     contactNumber: '',
+            //                     name: '',
+            //                     Street: '',
+            //                     location: '',
+            //                     orderDetails: '',
+            //                     subtotal: 0
+            //                 }];
+            //                 console.log(data);
+            //                 $window.location.reload();
+            //             } else {
+            //                 SweetAlert.swal("Oops", "Something went wrong!", "error");
+            //             }
+            //         },
+            //         error: function () {
+            //             vm.loadingBubble = 1;
+            //             SweetAlert.swal("Oops", "Something went wrong!", "error");
+            //         }
+            //     });
+            // }, 1000);
         }; //end
         
         $scope.openPickUpOrder = function (request) {
