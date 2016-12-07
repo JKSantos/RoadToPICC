@@ -868,7 +868,7 @@
                 }
             }).then(function successCallback(data){
                   vm.promoContainsProduct = data.data.promo.productList;
-                  vm.promoContainsService  = data.data.promo.serviceList;                
+                  vm.promoContainsService  = data.data.promo.serviceList;
             }, function errorCallback(response) {
                 console.log(response);
             });
