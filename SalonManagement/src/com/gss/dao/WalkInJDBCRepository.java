@@ -297,7 +297,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 		String createServiceWalkIn 			= "CALL createServiceWalkIn(?, ?, ?, ?)";
 		String createPackageWalkIn 			= "CALL createPackageWalkIn(?, ?, ?)";
 		String createEmpAssignment 			= "INSERT INTO tblEmployeeAssignment(intAssignmentStatus) VALUE(1)";
-		String createDetail					= "CALL createAssignmentDetail(?, ?, ?)";
+	f	String createDetail					= "CALL createAssignmentDetail(?, ?, ?)";
 		String createPromoWalkIn 			= "CALL createPromoWalkIn(?, ?)";
 		String createPackagePromo			= "CALL createPackagePromoWalkIn(?, ?)";
 		String createPromoService			= "CALL createPackagePromoServiceWalkIn(?, ?, ?)";
@@ -599,6 +599,174 @@ public class WalkInJDBCRepository implements WalkInRepository{
 		
 	}
 	
+	public static List<ProductQuantity> getProductsByID(int intID){
+		
+		List<WalkIn> walkin 						= new ArrayList<WalkIn>();
+		
+		List<ProductQuantity> quantities			= new ArrayList<ProductQuantity>();
+		Connection con 								= jdbc.getConnection();
+
+		int intPackageID 							= 0;
+		int intPromoID 								= 0;
+		int intPromoPackageID 						= 0;
+		
+		try{
+			
+			PreparedStatement allWalkIn 			= con.prepareStatement("SELECT intWalkInID FROM tblWalkIn WHERE intInvoiceID = ?;");
+			PreparedStatement products				= con.prepareStatement("SELECT intProductID, intQuantity FROM tblProductPurchase WHERE intWalkInID = ?;");
+			
+			PreparedStatement packages				= con.prepareStatement("SELECT intPackageID FROM tblPackageWalkIn WHERE intWalkInID = ?;");
+			PreparedStatement packageProduct		= con.prepareStatement("SELECT intProductID, intQuantity FROM tblProductPackage WHERE intPackageID = ?;");
+			
+			PreparedStatement promos				= con.prepareStatement("SELECT intPromoID FROM tblPromoWalkIn WHERE intWalkInID = ?;");
+			PreparedStatement promoProduct			= con.prepareStatement("SELECT intProductID, intProductQuantity FROM tblProductPromo WHERE intPromoID = ?");
+			PreparedStatement promoPackage			= con.prepareStatement("SELECT intPackageID FROM tblPackagePromo WHERE intPromoID = ?;");
+			PreparedStatement promoPackageProduct	= con.prepareStatement("SELECT intProductID, intQuantity FROM tblProductPackage WHERE intPackageID = ?;");
+			
+			ResultSet productSet 					= null;
+			
+			ResultSet packageSet 					= null;
+			ResultSet packageProductSet 			= null;
+			
+			ResultSet promoSet 						= null;
+			ResultSet promoProductSet 				= null;
+			ResultSet promoPackageSet 				= null;
+			ResultSet promoPackageProductSet 		= null;
+			
+			allWalkIn.setInt(1, intID);
+			ResultSet walkInResult 			= allWalkIn.executeQuery();
+			
+			while(walkInResult.next()){
+				int intWalkInID = intID;
+				
+				//Products
+				products.setInt(1, intWalkInID);
+				productSet = products.executeQuery();
+				
+				while(productSet.next()){
+					int id = intWalkInID;
+					int intProductID = productSet.getInt(1);
+					int intQuantity = productSet.getInt(2);
+					
+					ProductQuantity quantity = new ProductQuantity(id, intProductID, intQuantity);
+					quantities.add(quantity);
+				}
+				
+				products.close();
+				productSet.close();
+				
+				//Packages
+				packages.setInt(1, intWalkInID);
+				packageSet = packages.executeQuery();
+				
+				while(packageSet.next()){
+					intPackageID = packageSet.getInt(1);
+				}
+				
+				packages.close();
+				packageSet.close();
+				
+				//Product Package
+				packageProduct.setInt(1, intPackageID);
+				packageProductSet = packageProduct.executeQuery();
+				
+				while(packageProductSet.next()){
+					int id = intPackageID;
+					int intProductID = packageProductSet.getInt(1);
+					int intQuantity = packageProductSet.getInt(2);
+					
+					ProductQuantity quantity = new ProductQuantity(id, intProductID, intQuantity);
+					quantities.add(quantity);
+					System.out.println(intProductID + "---" + intQuantity);
+				}
+				
+				packageProduct.close();
+				packageProductSet.close();
+				
+				
+				//Promo
+				promos.setInt(1, intWalkInID);
+				promoSet = promos.executeQuery();
+				
+				while(promoSet.next()){
+					intPromoID = promoSet.getInt(1);
+				}
+				
+				promos.close();
+				promoSet.close();
+				
+				//Product Promo
+				promoProduct.setInt(1, intPackageID);
+				promoProductSet = promoProduct.executeQuery();
+				
+				while(promoProductSet.next()){
+					int id = intPromoID;
+					int intProductID = promoProductSet.getInt(1);
+					int intQuantity = promoProductSet.getInt(2);
+					
+					ProductQuantity quantity = new ProductQuantity(id, intProductID, intQuantity);
+					System.out.println(intProductID + "+++++" + intQuantity);
+					quantities.add(quantity);
+				}
+				
+				promoProduct.close();
+				promoProductSet.close();
+				
+				//Package Promo
+				promoPackage.setInt(1, intPromoID);
+				promoPackageSet = promoPackage.executeQuery();
+				
+				while(promoPackageSet.next()){
+					intPromoPackageID = promoPackageSet.getInt(1);
+				}
+				
+				promoPackage.close();
+				promoPackageSet.close();
+				
+				//Product Package Promo
+				promoPackageProduct.setInt(1, intPromoPackageID);
+				promoPackageProductSet = promoPackageProduct.executeQuery();
+				
+				while(promoPackageProductSet.next()){
+					int id = intPromoPackageID;
+					int intProductID = promoPackageProductSet.getInt(1);
+					int intQuantity = promoPackageProductSet.getInt(2);
+					
+					ProductQuantity quantity = new ProductQuantity(id, intProductID, intQuantity);
+					System.out.println(intProductID + ">>>>>>>" + intQuantity);
+					quantities.add(quantity);
+				}
+				
+				promoPackageProduct.close();
+				promoPackageProductSet.close();
+				
+/*				ReservationRepository repo = new ReservationJDBCRepository();
+				Invoice invoice = repo.getInvoice(intInvoiceID);
+				
+				if(invoice.getPaymentList().size() == 0){
+					paymentStatus = "UNPAID";
+				}
+			
+				try{
+					walkin.add(new WalkIn(intWalkInID, strName, "walkin", strContact, dateCreated, serviceList, productList, packageList, promoList, invoice, invoice.getPaymentList().get(0), paymentStatus, strStatus));
+				}
+				catch(IndexOutOfBoundsException ib){
+					walkin.add(new WalkIn(intWalkInID, strName, "walkin", strContact, dateCreated, serviceList, productList, packageList, promoList, invoice, null, paymentStatus, strStatus));
+				}
+*/
+			}
+		
+			allWalkIn.close();
+			walkInResult.close();
+			con.close();
+			return quantities;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	public static List<ProductQuantity> getProducts(int intID){
 		
 		List<WalkIn> walkin 						= new ArrayList<WalkIn>();
@@ -767,6 +935,38 @@ public class WalkInJDBCRepository implements WalkInRepository{
 		}
 	}
 	
+	public void updateProductStock_increment(int intInvoiceID) throws SQLException {
+		
+		Connection con = new JDBCConnection().getConnection();
+		
+		try{
+			
+			String updateStock						= "CALL updateStock_increment(?, ?);";
+			
+			List<ProductQuantity> quantities 		= WalkInJDBCRepository.getProductsByID(intInvoiceID);
+
+			PreparedStatement updateProducts	= con.prepareStatement(updateStock);
+			
+			for(int index = 0; index < quantities.size(); index++){
+				ProductQuantity quantity = quantities.get(index);
+				
+				updateProducts.setInt(1, quantity.getIntProductID());
+				updateProducts.setInt(2, quantity.getIntQuantity());
+				updateProducts.addBatch();
+			}
+			
+			updateProducts.executeBatch();
+			updateProducts.close();
+			
+			//con.commit();
+			con.close();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			con.close();
+		}
+	}
+	
 	@Override
 	public boolean cancelWalkIn(int intWalkInID) {
 		
@@ -782,6 +982,8 @@ public class WalkInJDBCRepository implements WalkInRepository{
 			
 			statement.close();
 			con.close();
+			
+			updateProductStock_increment(intWalkInID);
 			
 			return true;
 			

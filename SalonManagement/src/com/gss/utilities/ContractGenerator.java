@@ -120,7 +120,7 @@ public class ContractGenerator {
 		document.add(getSignatureField());
 		document.close();
 		
-		String root = "/Contract/";
+		String root = "WEB-INF/Contract/";
 		root += this.DESTINATION;
 		
 		return root;
@@ -391,7 +391,7 @@ public class ContractGenerator {
 		}
 		
 		for(int index = 0; index < serviceList.size(); index++){
-			PdfPCell productName1 = new PdfPCell(new Phrase(order.get(index).getPackages().getStrPackageName(), getFont()));
+			PdfPCell productName1 = new PdfPCell(new Phrase(serviceList.get(index).getStrPackageName(), getFont()));
 			productName1.setHorizontalAlignment(Element.ALIGN_CENTER);
 			PdfPCell productQty1 = new PdfPCell(new Phrase(String.valueOf(order.get(index).getIntQuantity()), getFont()));
 			productQty1.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -443,7 +443,7 @@ public class ContractGenerator {
 		}
 		
 		for(int index = 0; index < serviceList.size(); index++){
-			PdfPCell productName1 = new PdfPCell(new Phrase(order.get(index).getPromo().getStrPromoName(), getFont()));
+			PdfPCell productName1 = new PdfPCell(new Phrase(serviceList.get(index).getStrPromoName(), getFont()));
 			productName1.setHorizontalAlignment(Element.ALIGN_CENTER);
 			PdfPCell productQty1 = new PdfPCell(new Phrase(String.valueOf(order.get(index).getIntQuantity()), getFont()));
 			productQty1.setHorizontalAlignment(Element.ALIGN_CENTER);

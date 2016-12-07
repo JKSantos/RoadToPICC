@@ -279,7 +279,7 @@ public class HomeServiceReceipt {
         	
         	ReservedService order = walkin.getIncludedItems().getServiceList().get(counter);
         	
-        	int quantity = 1;
+        	int quantity = order.getIntQuantity();
         	String productName = service.getStrServiceName();
 
         	double unit = service.getDblServicePrice();
@@ -310,7 +310,7 @@ public class HomeServiceReceipt {
         	
         	ReservedPackage order = walkin.getIncludedItems().getPackageList().get(counter);
         	
-        	int quantity = 1;
+        	int quantity = order.getIntQuantity();
         	String productName = packagee.getStrPackageName();
         	double unit = packagee.getDblPackagePrice();
         	double price = unit * quantity;
@@ -340,7 +340,7 @@ public class HomeServiceReceipt {
         	
         	ReservedPromo order = walkin.getIncludedItems().getPromoList().get(counter);
         	
-        	int quantity = 1;
+        	int quantity = order.getIntQuantity();
         	String productName = promo.getStrPromoName();
         	double unit = promo.getDblPromoPrice();
         	double price = unit * quantity;

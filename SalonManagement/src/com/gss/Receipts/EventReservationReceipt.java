@@ -105,7 +105,7 @@ public class EventReservationReceipt {
 		return null;
 	}
     public Document createDocument(){
-    	Document document = new Document(new Rectangle(350, 550), 10, 10, 10 ,10);
+    	Document document = new Document(new Rectangle(350, 700), 10, 10, 10 ,10);
         try {
 			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(new File(
 	                ((ServletContext) ActionContext.getContext().get(StrutsStatics.SERVLET_CONTEXT)) 
@@ -279,7 +279,7 @@ public class EventReservationReceipt {
         	
         	ReservedService order = walkin.getIncludedItems().getServiceList().get(counter);
         	
-        	int quantity = 1;
+        	int quantity = order.getIntQuantity();
         	String productName = service.getStrServiceName();
 
         	double unit = service.getDblServicePrice();
@@ -310,7 +310,7 @@ public class EventReservationReceipt {
         	
         	ReservedPackage order = walkin.getIncludedItems().getPackageList().get(counter);
         	
-        	int quantity = 1;
+        	int quantity = order.getIntQuantity();
         	String productName = packagee.getStrPackageName();
         	double unit = packagee.getDblPackagePrice();
         	double price = unit * quantity;
@@ -340,7 +340,7 @@ public class EventReservationReceipt {
         	
         	ReservedPromo order = walkin.getIncludedItems().getPromoList().get(counter);
         	
-        	int quantity = 1;
+        	int quantity = order.getIntQuantity();
         	String productName = promo.getStrPromoName();
         	double unit = promo.getDblPromoPrice();
         	double price = unit * quantity;
@@ -442,6 +442,7 @@ public class EventReservationReceipt {
     	PdfPCell totalValue2 = null;
     	
     	double finalPrice = totalAmount;
+    	double remainingBalances = 0;
     	
     	/*if(walkin.getInvoice().getDiscountList().size() < 1){
 	    	totalLabel1 = new PdfPCell(new Phrase("TOTAL", getBiggerFont(11)));
@@ -454,14 +455,20 @@ public class EventReservationReceipt {
 	    	PdfPCell paymentType = new PdfPCell(new Phrase("Payment Type: ", getBiggerFont(11)));
 	    	PdfPCell paymentTypeValue = new PdfPCell(new Phrase(payment.getPaymentType().toUpperCase(), getBiggerFont(11)));
 	    	PdfPCell toBePaid = new PdfPCell(new Phrase("Amount to be Paid:", getBiggerFont(11)));
+	    	PdfPCell remainingBalance = new PdfPCell(new Phrase("Remaining Balance:", getBiggerFont(11)));
 	    	
-	    	if(!payment.getPaymentType().equalsIgnoreCase("FULL PAYMENT")) {
+	    	
+	    	if(payment.getPaymentType().equalsIgnoreCase("HALF PAYMENT")) {
 	    		finalPrice /= 2;
 	    		change = paymentAmount - (totalAmount / 2);	
+	    		remainingBalances = finalPrice;
+	    			
+	    	} else if(payment.getPaymentType().equalsIgnoreCase("COMPLEMENTARY PAYMENT")) {
+	    		finalPrice /= 2;
+	    		change = paymentAmount - finalPrice;	
 	    	}
-	    	
-	    	PdfPCell toBePaidValue = new PdfPCell(new Phrase(String.valueOf(String.format("%.2f", finalPrice))));
-    	
+	    	PdfPCell remainingBalanceValue = new PdfPCell(new Phrase(String.format("%.2f", remainingBalances), getBiggerFont(11)));
+	    	PdfPCell toBePaidValue = new PdfPCell(new Phrase(String.valueOf(String.format("%.2f", finalPrice)), getBiggerFont(11)));
     	PdfPCell cashLabel = new PdfPCell(new Phrase("    Cash", getFont()));
     	PdfPCell cashValue = new PdfPCell(new Phrase(String.format("%.2f", paymentAmount), getFont()));
     	PdfPCell changeLabel = new PdfPCell(new Phrase("CHANGE", getBiggerFont(14)));
@@ -492,6 +499,11 @@ public class EventReservationReceipt {
     	toBePaid.setHorizontalAlignment(Element.ALIGN_LEFT);
     	toBePaidValue.setHorizontalAlignment(Element.ALIGN_RIGHT);
     	
+    	remainingBalance.setBorder(0);
+    	remainingBalanceValue.setBorder(0);
+    	remainingBalance.setHorizontalAlignment(Element.ALIGN_LEFT);
+    	remainingBalanceValue.setHorizontalAlignment(Element.ALIGN_RIGHT);
+    	
     	cellHeader.setColspan(2);
     	cellfooter.setColspan(2);
     	
@@ -513,6 +525,8 @@ public class EventReservationReceipt {
         details.addCell(cashValue);
         details.addCell(changeLabel);
         details.addCell(changeValue);
+        details.addCell(remainingBalance);
+        details.addCell(remainingBalanceValue);
         details.addCell(cellfooter);
         
         paragraph.add(details);

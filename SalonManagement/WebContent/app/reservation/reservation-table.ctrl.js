@@ -781,7 +781,7 @@
                             async: true,
                             success: function (data) {
                             	
-                            	$window.open("localhost:8080/SalonManagement/open?path="+data.path);
+                            	$window.open('http://localhost:8080/SalonManagement/open?path='+data.path);
                                 var dd = $.param({
                                     'fineName': data.path
                                 });

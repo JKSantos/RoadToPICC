@@ -208,23 +208,25 @@ public class CreateReservation {
 				else
 					reservation = new Reservation(1, customer, includedItems, intReservationType, new Date(), DateHelper.parseDate(dateFrom), DateHelper.parseDate(dateTo), TimeHelper.parseTime(timFrom), TimeHelper.parseTime(timTo), strVenue, headCount, this.intLocationID, employeeAssigned, invoice, strStatus, contractPath);
 				
-				if(this.intReservationType == 1){
-					System.out.println("Type :" + intReservationType);
-					ContractGenerator generator = new ContractGenerator();
-					Contract contract = new Contract(DateHelper.stringDate(), "JEFFREY SANTOS", "SALON MANGEMENT SYSTEM", "189-DR. SIXTO ANTONIO AVENUE, ROSARIO PASIG CITY", this.strName.toUpperCase(), this.strAddress.toUpperCase(), reservation);
-					contractPath = generator.createContract(contract);
-					System.out.println("Path :" + contractPath);
-					reservation.setStrContract(contractPath);
-					this.path = contractPath;
-				}
 				
 			
 		int result = Reservation.createReservation(reservation);
 				
 		if(result != 1){
 			this.intCreatedID = result;
-			if(this.intReservationType == 1)
+			if(this.intReservationType == 2)
 				CustomerTransactionHelper.insertCustomerAppointment(intCreatedID, intCustID, 2);
+			
+			if(this.intReservationType == 1){
+				System.out.println("Type :" + intReservationType);
+				ContractGenerator generator = new ContractGenerator();
+				Contract contract = new Contract(DateHelper.stringDate(), "JEFFREY SANTOS", "SALON MANGEMENT SYSTEM", "189-DR. SIXTO ANTONIO AVENUE, ROSARIO PASIG CITY", this.strName.toUpperCase(), this.strAddress.toUpperCase(), reservation);
+				contractPath = generator.createContract(contract);
+				System.out.println("Path :" + contractPath);
+				reservation.setStrContract(contractPath);
+				this.path = contractPath;
+			}
+			
 			
 			return "success";	
 		}

@@ -338,6 +338,7 @@ public class ReservationJDBCRepository implements ReservationRepository{
 				ReservationUpdateStock.updateStock(ReservationUpdateStock.getProducts(reservation));
 			}
 			
+			
 			preProduct.executeBatch();
 			preService.executeBatch();
 			prePackage.executeBatch();
@@ -354,6 +355,21 @@ public class ReservationJDBCRepository implements ReservationRepository{
 			preExtra.close();
 			preEmployee.close();
 			reservationResult.close();
+			
+			String updateStock						= "CALL updateStock(?, ?);";
+			PreparedStatement updateProducts	= con.prepareStatement(updateStock);
+			
+			for(int index = 0; index < reservation.getIncludedItems().getProductList().size(); index++){
+				
+				ProductOrder product = reservation.getIncludedItems().getProductList().get(index);
+				
+				updateProducts.setInt(1, product.getProduct().getIntProductID());
+				updateProducts.setInt(2, product.getIntQuantity());
+				updateProducts.addBatch();
+			}
+			
+			updateProducts.executeBatch();
+			updateProducts.close();
 			
 			con.commit();
 			con.close();
