@@ -89,8 +89,6 @@ function addCommas(nStr) {
 }
 
 function createExtra() {
-    $('#createExtraForm').trigger("reset");
-    console.log($('#crECPrice').val());
     var extraName = $('#crECName').val(),
         extraDetails = $('#crECDetails').val(),
         extraPrice = $('#crECPrice').val().replace(/[^\d.]/g, '');
@@ -122,9 +120,13 @@ function createExtra() {
                             swal("Successfully updated!", ".", "success");
                             updateExtraTable();
                             $('#createExtraChargeModal').closeModal();
+                            $('#createExtraForm').trigger("reset");
                         } else if (data.result == "existing") {
+                            console.log(extradata);
                             sweetAlert("Oops...", "This charge is already existing!", "error");
                         } else if (data.result == "failed") {
+                            console.log('failed');
+                            console.log(extradata);
                             sweetAlert("Oops...", "Something went wrong!", "error");
                         }
                     },
@@ -174,7 +176,7 @@ function extraUpdate() {
             'strECName': $('#upECName').val(),
             'strECDetails': $('#upECDetails').val(),
             'price': $('#upECPrice').val()
-        }
+        };
         swal({
                 title: "Update this charge?",
                 text: "",
@@ -192,7 +194,6 @@ function extraUpdate() {
                         dataType: 'json',
                         async: true,
                         success: function (data) {
-                            console.log(data);
                             if(data.result == "success") {
                                 swal("Successfully updated!", ".", "success");
                                 updateExtraTable();
@@ -215,7 +216,7 @@ function extraUpdate() {
 function extraDeactivate(id) {
     var extradata = {
         'intECID': id
-    }
+    };
     swal({
             title: "Are you sure?",
             text: "",

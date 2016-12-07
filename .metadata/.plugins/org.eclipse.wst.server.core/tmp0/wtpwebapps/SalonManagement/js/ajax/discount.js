@@ -367,7 +367,6 @@ function computeProductDiscount(id) {
 
     } else if (!productID.is(':checked')) {
         chk = chk - 1;
-        console.log(chk);
         if (chk < 1) {
             $('#createDiscountSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if (chk > 0) {
@@ -380,7 +379,6 @@ function computeProductDiscount(id) {
 
     $('#discProdChip' + id).click(function () {
         chk = chk - 1;
-        console.log(chk);
         if (chk < 1) {
             $('#createDiscountSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if (chk > 0) {
@@ -438,7 +436,6 @@ function computeServiceDiscount(id) {
 
     } else if (!serviceID.is(':checked')) {
         chk = chk - 1;
-        console.log(chk);
         if (chk < 1) {
             $('#createDiscountSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if (chk > 0) {
@@ -451,7 +448,6 @@ function computeServiceDiscount(id) {
 
     $('#discServChip' + id).click(function () {
         chk = chk - 1;
-        console.log(chk);
         if (chk < 1) {
             $('#createDiscountSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if (chk > 0) {
@@ -509,7 +505,6 @@ function computePackageDiscount(id) {
 
     } else if (!packageID.is(':checked')) {
         chk = chk - 1;
-        console.log(chk);
         if (chk < 1) {
             $('#createDiscountSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if (chk > 0) {
@@ -522,7 +517,6 @@ function computePackageDiscount(id) {
 
     $('#discPackChip' + id).click(function () {
         chk = chk - 1;
-        console.log(chk);
         if (chk < 1) {
             $('#createDiscountSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if (chk > 0) {
@@ -580,7 +574,6 @@ function computePromoDiscount(id) {
 
     } else if (!promoID.is(':checked')) {
         chk = chk - 1;
-        console.log(chk);
         if (chk < 1) {
             $('#createDiscountSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if (chk > 0) {
@@ -593,7 +586,6 @@ function computePromoDiscount(id) {
 
     $('#discPromoChip' + id).click(function () {
         chk = chk - 1;
-        console.log(chk);
         if (chk < 1) {
             $('#createDiscountSubmitForm').attr('disabled', true).css('opacity', '0.3');
         } else if (chk > 0) {

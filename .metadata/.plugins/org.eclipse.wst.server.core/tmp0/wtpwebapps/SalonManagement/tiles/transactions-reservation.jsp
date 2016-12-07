@@ -35,6 +35,54 @@
             
         </div>
     </div>
+    
+    <div id="viewDetails" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4 class="grey-text center text-darken-1">Reservation Details</h4>
+           <h5 class="purple-text">Products</h5>
+            <ul ng-repeat="products in vm.customerContainsProduct">
+                <li>
+                  <h5 ng-bind="products.product.strProductName"></h5>
+                </li>
+            </ul>
+            <h5 class="purple-text">Services</h5>
+            <ul ng-repeat="services in  vm.customerContainsService">
+                <li>
+                  <h6> {{services.service.strServiceName}}</h6>
+                </li>
+            </ul>
+            <h5 class="purple-text">Packages</h5>
+            <ul ng-repeat="packages in  vm.customerContainsPackage">
+                <li>
+                  <h6> {{packages.packages.strPackageName}}</h6>
+                </li>
+            </ul>
+            <h5 class="purple-text">Promos</h5>
+            <ul ng-repeat="promos in vm.customerContainsPromo">
+                <li>
+                  <h6> {{promos.promo.strPromoName}}</h6>
+                </li>
+            </ul> 
+           
+            <div class="container">
+                <div class="row">
+
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="red-text btn-flat transparent left" disabled
+                    style="margin:0px !important; padding:0px !important;"><i
+                    class="material-icons">error_outline</i>&nbspRequired field
+            </button>
+            <button type="submit" value="Submit" id="paymentDetails.submit"
+                    class="waves-effect waves-light white-text btn-flat purple"
+                    style="margin-left:3px; margin-right:3px;"
+                    ng-click="">DONE
+            </button>
+        </div>
+    </div>
+    
 
     <!-- Modal Structure -->
     <div id="reservationListModal" class="modal" style = "width: 70% !important; height: 80% !important; margin-top: -10px !important; border-radius: 10px;">
@@ -58,7 +106,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="customer in vm.customerList.slice().reverse()"
+                <tr ng-repeat="customer in vm.customerList"
                     ng-if="customer.strStatus == 'PENDING' || customer.strStatus == 'REQUEST'">
                     <td class="left-align" style="padding: 0px !important; margin-left: 5px !important;">{{customer.customer.strName}}</td>
                     <td class="left-align" ng-if="customer.intReservationType == 1">INDIVIDUAL</td>
@@ -69,28 +117,40 @@
                     <td class="right-align">{{customer.datFrom | date: "MMMM/d/yyyy" }}</td>
                     <td class="left-align">{{customer.strStatus}}</td>
                     <td align="center-align">
+                        <button class="waves-effect waves-purple btn-flat transparent red-text text-darken-4"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Cancel"
+                                ng-if="customer.intReservationType == 1 && customer.strStatus=='PENDING'"
+                                ng-click="cancelReservation(customer, $index)">
+                            <i class='material-icons'>clear</i>
+                        </button>
                         <button class="waves-effect waves-purple btn-flat transparent grey-text text-darken-4"
                                 style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Accept"
                                 ng-if="customer.intReservationType == 1 && customer.strStatus=='REQUEST'"
-                                ng-click="acceptHomeService(customer, $index)">
+                                ng-click="acceptReservation(customer, $index)">
                             <i class='material-icons'>done</i>
                         </button>
                         <button class="middle-align waves-effect waves-purple btn-flat transparent red-text text-darken-4"
-                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Cancel"
-                                ng-if="customer.intReservationType == 1"
-                                ng-click="cancelHomeService(customer, $index);">
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Reject"
+                                ng-if="customer.intReservationType == 1 && customer.strStatus=='REQUEST'"
+                                ng-click="rejectReservation(customer, $index);">
                             <i class='material-icons'>clear</i>
                         </button>
                         <button class="waves-effect waves-purple btn-flat transparent grey-text text-darken-4"
                                 style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Accept"
                                 ng-if="customer.intReservationType == 2 && customer.strStatus=='REQUEST'"
-                                ng-click="acceptEvent(customer, $index)">
+                                ng-click="acceptReservation(customer, $index)">
                             <i class='material-icons'>done</i>
                         </button>
                         <button class="middle-align waves-effect waves-purple btn-flat transparent red-text text-darken-4"
                                 style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Cancel"
-                                ng-if="customer.intReservationType == 2"
-                                ng-click="cancelEvent(customer, $index);">
+                                ng-if="customer.intReservationType == 2 && customer.strStatus=='PENDING'"
+                                ng-click="cancelReservation(customer, $index);">
+                            <i class='material-icons'>clear</i>
+                        </button>
+                        <button class="waves-effect waves-purple btn-flat transparent red-text text-darken-4"
+                                style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Reject"
+                                ng-if="customer.intReservationType == 2 && customer.strStatus=='REQUEST'"
+                                ng-click="rejectReservation(customer, $index)">
                             <i class='material-icons'>clear</i>
                         </button>
                     </td>
@@ -196,8 +256,9 @@
                             <div class="row">
                                 <div class="input-field col s6">
                                     <select id="rType"
+                                            material-select watch
                                             ng-model="vm.details.reservationType"
-                                            ng-change="changeService();"
+                                            ng-change="changeService(); changePackage(); changePromo();"
                                             ng-options="type as type.type for type in vm.reservationType">
                                     </select>
                                     <label for="rType">
@@ -218,7 +279,7 @@
                                     <label for="crRCustType2">Company</label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <div class="input-field col s6">
+                                    <div class="input-field col s12">
                                         <input type="text" id="crRCustName" name="crRCustName"
                                                ng-pattern="/^[A-Za-z \-'`]+$/"
                                                ng-minlength="5"
@@ -286,7 +347,7 @@
                                 </div>
                                 <div class="input-field col s6"
                                      ng-if="vm.details.reservationType.id == 2">
-                                    <select name="crREventLocation" id="crREventLocation" ng-model="vm.details.location">
+                                    <select ng-model="vm.details.location" material-select watch name="crREventLocation" id="crREventLocation">
                                         <option value="" disabled selected>Choose...</option>
                                         <option ng-repeat="loc in vm.locationList" value="{{loc.intLocationID}}">{{loc.strBarangay}}, {{loc.strCity}}</option>
                                     </select>
@@ -308,7 +369,7 @@
                                            clear="clear"
                                            close="close"
                                            select-years="15"
-                                           ng-change="vm.changeDatFrom(vm.details.datFrom)"/>
+                                           ng-change="vm.changeDatFrom(vm.details.datFrom); vm.getAvailableEmployeeHomeService(vm.details.datFrom, vm.details.timeFrom, vm.details.timeTo)"/>
                                     <label for="ngDateFrom" class="active"><b>Date From</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
@@ -342,7 +403,8 @@
                                            class="timepicker"
                                            type="time"
                                            ng-model="vm.details.timeFrom"
-                                           placeholder="12:00AM">
+                                           placeholder="12:00AM"
+                                           ng-change = "vm.getAvailableEmployeeHomeService(vm.details.datFrom, vm.details.timeFrom, vm.details.timeTo)">
                                     <label for="reserveTimeFrom">
                                         <b>From (Time)</b>
                                         <i class="material-icons red-text tiny">
@@ -351,7 +413,7 @@
                                     </label>
                                 </div>
                                 <div class="input-field col s6">
-                                    <input type="text" ng-model="vm.details.headCount" id="crRHeadCount"
+                                    <input type="number" ng-model="vm.details.headCount" id="crRHeadCount"
                                            placeholder="Headcount"/>
                                     <label for="crRHeadCount"><b>Head Count</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
@@ -361,7 +423,8 @@
                                            class="timepicker"
                                            type="time"
                                            ng-model="vm.details.timeTo"
-                                           placeholder="12:00AM">
+                                           placeholder="12:00AM"
+                                           ng-change="vm.getAvailableEmployeeHomeService(vm.details.datFrom, vm.details.timeFrom, vm.details.timeTo)">
                                     <label for="reserveTimeTo" class="active">
                                         <b>To (Time)</b>
                                         <i class="material-icons red-text tiny">
@@ -495,7 +558,8 @@
 
                             <div ng-show="vm.selected == 'package'">
                                 <div class="row ">
-                                    <div class="col s2" ng-repeat="package in vm.packageList | filter: searchReservationItem">
+                                    <div class="col s2" ng-repeat="package in vm.packageList | filter: searchReservationItem"
+                                                        ng-if="package.intPackageStatus > 0">
                                         <div class="card small">
                                             <div class="card-image waves-effect waves-block waves-light">
                                                 <img class="activator" ng-src="{{service.strPhotoPath}}">
@@ -607,7 +671,6 @@
                                     </div>
                                 </div>
                             </div>
-                            {{vm.extraCharge | json}}
                             <div class="col s4" style="margin-top: 10px;">
                                 <div class="input-field col s12">
                                     <select multiple ng-model="vm.extraCharge" id="crROtherCharge"
@@ -634,14 +697,26 @@
 
                                 </div>
                             </div>
-                            <div class="col s8" style="margin-top: 10px;">
+                            <div class="col s4" style="margin-top: 10px;">
                                 <div class="input-field col s12">
-                                    <select multiple ng-model="vm.selEmployees" id="cREmp"
+                                	<p>Employee</p>
+                                    <select multiple class="browser-default" ng-model="vm.selEmployees" id="cREmp"
                                             ng-options="employee.strEmpFirstName for employee in vm.employeeList">
                                         <option value="" disabled selected>Choose...</option>
                                     </select>
-                                    <label for="cREmp"><b>Employee</b></label>
-                                    <pre>{{vm.selEmployees.intEmpID | json}}</pre>
+                                </div>
+                            </div>
+                            <div class="col s4"></div>
+                            <div class="col s4" style="margin-top: 10px;" ng-if="vm.details.reservationType.type == 'Event'">
+                                <div class="input-field col s12">
+                                    <select ng-model="vm.resPaymentType" id="crPType" material-select watch>
+                                        <option value="" disabled selected>Choose...</option>
+                                        <option value="FULL PAYMENT">FULL PAYMENT</option>
+                                        <option value="HALF PAYMENT">HALF PAYMENT</option>
+                                    </select>
+                                    <label for="cREmp"><b>Payment Type</b>
+                                        <i class="material-icons red-text tiny">error_outline</i>
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -699,7 +774,7 @@
                                 </div>
 
                                 <div class="input-field col s6">
-                                    <input type="text" name="" id="crRSumHeadCount"/>
+                                    <input type="number" name="" id="crRSumHeadCount"/>
                                     <label for="crRSumHeadCount"><b>Head Count</b></label>
                                 </div>
                             </div>
@@ -830,3 +905,9 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    (function() {
+        $('select').material_select('destroy');
+    })();
+</script>

@@ -76,6 +76,11 @@
                 return $resource('getAllReservationNoDetails').get().$promise.then(function (data) {
                    return data; 
                 });
+            },
+            getDependencies: function() {
+                return $resource('api/v1/getDependencies').get().$promise.then(function (data) {
+                   return data; 
+                });
             }
         }
     }

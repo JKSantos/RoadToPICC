@@ -19,7 +19,6 @@ $.ajax({
             $('#upPromoRequirement').append('<option value="' + req.intRequirementID + '">' + req.strRequirementName + '</option>');
             //$('#addUpRequirementSelect').append('<option value="' + req.intRequirementID + '">' + req.strRequirementName + '</option>');
         });
-        console.log(requirementName);
     },
     error: function (data) {
 
@@ -46,9 +45,7 @@ function crAddNewPromoRequirement() {
             success: function(data) {
                 var id = data.id;
                 if(id > 0) {
-                    console.log(data);
                     requirementName.push(reqname);
-                    console.log(requirementName);
                     $('select').material_select('destroy');
                     $('#crPromoRequirement').append('<option value="' + id + '" selected>' + reqname.toUpperCase() + '</option>');
                     $('#addCrPromoRequirementSelect').append('<option value="' + id + '" selected>' + reqname.toUpperCase() + '</option>');
@@ -89,10 +86,8 @@ function crRemoveNewPromoRequirement() {
         success: function(data) {
             //updateDiscountTable();
             for(var i=0; i<requirementName.length; i++) {
-                console.log(requirementName);
                 if(req.toLowerCase() == requirementName[i].toLowerCase()) {
                     var index = requirementName.indexOf(requirementName[i]);
-                    console.log(index);
                     if(index > -1) {
                         requirementName.splice(index, 1);
                     }

@@ -4,7 +4,7 @@
 <div class="wrapper" ng-controller="salesReportController">
     	<div class="main z-depth-barts" style="margin-left: 20px; margin-right: 20px;">
         <div class="col s12" style="margin-left: 20px; margin-right: 20px;">
-            <h3 class=" center light">Reservation Sales Reports</h3>
+            <h3 class=" center light">Sales Reports</h3>
             <!--<a class="btnshadow hoverable z-depth-1 waves-effect waves-light modal-trigger btn-flat purple darken-2 left white-text"-->
     
           <div class="row">
@@ -12,7 +12,7 @@
             <div class="col s7">
               <div class="card darken-1">
                 <div class="card-content white-text">
-                 <div id="containerMonthly" style="min-width: 100%; height: 100%; margin: 0 auto"></div>
+                 <div id="containerMonthly" style="min-width: 100%; height: 99%; margin: 0 auto"></div>
                 </div>
                 <div class="card-action">
                   <a class="waves-effect waves-light btn right green darken-2" ng-click = "downloadMonthly()"><i class="material-icons left">file_download</i>download</a>

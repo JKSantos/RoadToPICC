@@ -51,7 +51,7 @@
                         <div class="card-content">
                             <span class="activator grey-text text-darken-4 light"><i class="material-icons right">add_shopping_cart</i></span>
                             <h5 style='font-size: 15px; line-height: 15px !important;'><b>{{product.strProductName}}</b>
-                                <p>{{product.dblProductPrice | currency:"Php "}}</p></h5>
+                                <p data-ng-bind="product.dblProductPrice | currency: 'Php '"></p></h5>
                         </div>
                         <div class="card-reveal">
 
@@ -164,13 +164,13 @@
                                 <span title="{{ request.strName }}" ng-click="vm.reqName(request);">{{ request.strName | truncate: 10 }}</span>
                                 <button name="" title="Decline" class="secondary-content red-text transparent"
                                         style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border:0px !important;"
-                                        ng-click="declineOrder(request)">
+                                        ng-click="declineWithReason(request)">
                                     <i class="material-icons" style="padding-top: 7px !important;">clear</i>
                                 </button>
                                 <button name="" title="Accept" class="secondary-content black-text transparent"
                                         style="padding: 0px !important; margin-top: -10px !important; margin-bottom: 0 !important; border: 0px !important;"
                                         ng-if="request.intType==1 || request.intType=='delivery'"
-                                        ng-click="acceptDeliveryOrder(request)">
+                                        ng-click="acceptDeliveryOrder(request); getAvailableEmployee(request)">
                                     <i class="material-icons" style="padding-top: 7px !important;">done</i>
                                 </button>
                                 <button name="" title="Accept" class="secondary-content black-text transparent"
@@ -288,7 +288,7 @@
                                             ng-model="details.discount"
                                             ng-options="discount.strDiscountName for discount in vm.discountList"
                                             ng-change="selectedDiscount(details.discount)">
-                                            <option value="" selected>Choose...</option>
+                                            <option value="">Choose...</option>
                                     </select>
                                     <label for="crDiscount"><b>Discount</b></label>
                                 </div>
@@ -298,6 +298,7 @@
                                         <p>
                                         <b>Location</b>: {{vm.loc.name}} <br>
                                         <b>Location Price</b>: {{vm.loc.price | currency: "Php "}} <br>
+                                        <b>Service Fee</b>: {{vm.serviceFee.stringPrice | currency: "Php "}}
                                         </p>
                                         <div ng-if="vm.seldic != ''">
                                             <div ng-if="vm.seldic.intDiscountType == 1">
@@ -333,12 +334,12 @@
                                         </div>
                                             <div ng-if="vm.x == 0">
                                                 <p>
-                                                <b>Total</b>: {{totalAmount + vm.loc.price | currency: "Php "}}
+                                                <b>Total</b>: {{totalAmount | currency: "Php "}}
                                                 </p>
                                             </div>
                                             <div ng-if="vm.x == 1">
                                                 <p>
-                                                    <b>Total</b>: {{vm.totalAmt | currency: "Php "}}
+                                                <b>Total</b>: {{vm.totalAmt | currency: "Php "}}
                                                 </p>
                                             </div>
                                     </div>
@@ -425,26 +426,26 @@
             <div class="container">
                 <div class="row">
                     <h4 class="center grey-text text-darken-3">Set delivery date for <br/>
-                        <span class="grey-text text-darken-4"><b>{{delivery.strName | uppercase}}</b></span></h4>
+                        <span class="grey-text text-darken-4"><b>{{delivery.strName | uppercase}}</b></span>
+                    </h4>
 
                     <input type="hidden" ng-model="delivery.intSalesID"/>
                     <input type="hidden" ng-model="delivery.index"/>
                     <div class="container">
-                        <div class="input-field col s12" style="margin-top: 50px !important;">
-                            <select ng-model="delivery.selEmployee" id="acceptDelEmp"
-                                    ng-options="employee.strEmpFirstName for employee in employeeList">
-                                <option value="" disabled selected>Choose...</option>
-                            </select>
-                            <label for="acceptDelEmp"><b>Employee</b>
-                                <i class="material-icons tiny red-text">error_outline</i>
-                            </label>
-                        </div>
-                        <div class="input-field col s12" style="margin-top: 50px !important;">
+                        <div class="input-field col s12">
                             <input type="date" name="delDate" class="datepicker-delivery"
                                    id="deliveryDate" placeholder="August/01/2016" required
-                                   ng-model="delivery.deliveryDate"/>
+                                   ng-model="delivery.deliveryDate" ng-change="changeDateGetEmp(delivery.deliveryDate);"/>
                             <label for="deliveryDate" class="active"><b>Delivery Date</b>
                                 <i class="material-icons tiny red-text">error_outline</i></label>
+                        </div>
+                        <div class="input-field col s12" style="margin-top: 50px !important;">
+                            <select class="browser-default" ng-model="delivery.selEmployee" id="acceptDelEmp"                 ng-options="employee.strEmpFirstName for employee in employeeList">
+                                <option value="" disabled selected>Choose...</option>
+                            </select>
+                            <label for="acceptDelEmp" class="active"><b>Employee</b>
+                                <i class="material-icons tiny red-text">error_outline</i>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -457,6 +458,7 @@
             </button>
             <button id="submitDeliveryDate" class="waves-effect waves-light white-text btn-flat purple"
                     style="margin-left:3px; margin-right:3px;"
+                    ng-if="delivery.selEmployee"
                     ng-click="sendDeliveryDetails(delivery)">
                 PROCEED
             </button>
@@ -538,4 +540,26 @@
             <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
         </div>
     </div>
+
+    <div id="productListRequest" class="modal bottom-sheet">
+        <div class="modal-content">
+          <h4><b>Request of {{vm.requestName}}</b></h4>
+          <div class="chip" ng-repeat="req in vm.reqProduct" style="margin: 5px !important;">
+              <b>{{req.product.strProductName}}</b>
+              <span ng-if="req.intQuantity > 1"><b>({{req.intQuantity}}pcs)</b></span>
+              <span ng-if="req.intQuantity == 1"><b>({{req.intQuantity}}pc)</b></span>
+            </div>
+        </div>
+        <div class="modal-footer">
+        </div>
+  </div>
+    <div id="decReason" class="modal">
+        <div class="modal-content">
+          <h4>Reason for declining request</h4>
+          <textarea name="reason" id="reason" ng-model="reason" cols="30" rows="10" style="height: 100px !important;"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button ng-click="declineOrder(reason);" class="waves-effect purple waves-light btn white-text">Submit</button>
+        </div>
+      </div>
 </div>

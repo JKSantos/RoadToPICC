@@ -754,6 +754,12 @@ $(document).ready(function () {
                 required: true,
                 valueNotEquals: "default"
             },
+            hour: {
+                required: true
+            },
+            minute: {
+                required: true
+            },
             price: {
                 required: true,
                 valueNotEquals: "Php 0.00",
@@ -773,6 +779,12 @@ $(document).ready(function () {
             strItemCategory: {
                 required: "<span class='white-text'><b>Category</b>: Required</span><br/>",
                 valueNotEquals: "<span class='white-text'><b>Category</b>: Required</span><br/>"
+            },
+            hour: {
+                required: "<span class='white-text'><b>Price</b>: Required</span><br/>"
+            },
+            minute: {
+                required: "<span class='white-text'><b>Price</b>: Required</span><br/>"
             },
             price: {
                 required: "<span class='white-text'><b>Price</b>: Required</span><br/>",
@@ -906,6 +918,12 @@ $('.updateservForm').each(function () {
                 required: true,
                 valueNotEquals: "default"
             },
+            hour: {
+                required: true
+            },
+            minute: {
+                required: true
+            },
             price: {
                 required: true,
                 valueNotEquals: "Php 0.00",
@@ -925,6 +943,12 @@ $('.updateservForm').each(function () {
             strItemCategory: {
                 required: "<span class='white-text'><b>Category</b>: Required</span><br/>",
                 valueNotEquals: "<span class='white-text'><b>Category</b>: Required</span><br/>"
+            },
+            hour: {
+                required: "<span class='white-text'><b>Category</b>: Required</span><br/>"
+            },
+            minute: {
+                required: "<span class='white-text'><b>Category</b>: Required</span><br/>"
             },
             price: {
                 required: "<span class='white-text'><b>Price</b>: Required</span><br/>",

@@ -33,6 +33,10 @@
     <!--<link rel="stylesheet" type="text/css" href="css/animate.css"/>-->
 
 
+    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.js"></script>
+
+
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>
@@ -149,6 +153,8 @@
                             <li><a href="extraQueries">Fee</a></li>
                             <li><a href="promoQueries">Promo</a></li>
                             <li><a href="discountQueries">Discount</a></li>
+                            <li><a href="cancelledReservations">Cancelled Reservations</a></li>
+                            <li><a href="serviceAvailments">Service Availments</a></li>
                         </ul>
                     </div>
                 </li>
@@ -161,8 +167,8 @@
                     </a>
                     <div class="collapsible-body" style="background-color: #333333 !important;">
                         <ul class="navul">
-                            <li><a href="orderPage`">Product Purchases</a></li>
-                            <li><a href="reservationPage">Sales Reports</a></li>
+                            <li><a href="orderPage">Product Purchases</a></li>
+                            <li><a href="salesReport">Sales Reports</a></li>
                             <li><a href="productTags">Product Tags</a></li>
                         </ul>
                     </div>
@@ -170,7 +176,7 @@
             </ul>
             <ul class="collapsible collapsibleHighlight" data-collapsible="accordion">
                 <li>
-                    <a class="collapsible-header" href="getDependencies">
+                    <a class="collapsible-header" href="utilities">
                         <span class="grey-text text-lighten-3">
                             <i class="material-icons">settings</i>
                             <b>Utilities</b>
@@ -204,12 +210,11 @@
 
 <!--Import jQuery before materialize.js-->
 
-<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="js/materialize.js"></script>
 <script type="text/javascript" src="js/angular.min.js"></script>
 <script type="text/javascript" src="js/angular-animate.min.js"></script>
 <script type="text/javascript" src="js/angular-datatables.min.js"></script>
+<script type="text/javascript" src="js/angular-datatables.buttons.min.js"></script>
 <script type="text/javascript" src="js/angular-materialize.min.js"></script>
 <script type="text/javascript" src="js/bartstable.js"></script>
 <!--<script type="text/javascript" src="js/picker.date.js"></script>-->
@@ -234,13 +239,12 @@
 <script type="text/javascript" src="js/exporting.js"></script>
 <script type="text/javascript" src="js/fullcalendar.js"></script>
 <script type="text/javascript" src="js/moment.min.js"></script>
-<script type="text/javascript" src="js/ajax.js"></script>
+<!--<script type="text/javascript" src="js/ajax.js"></script>-->
 <script type="text/javascript" src="js/nouislider.min.js"></script>
 
 <!-- <script type="text/javascript" src="js/ProductsSales/ajax.js"></script> -->
 <!-- jQuery Ajax -->
 
-<script type="text/javascript" src="js/employee-account.js"></script>
 <script type="text/javascript" src="js/ajax/employee-position.js"></script>
 <script type="text/javascript" src="js/ajax/product-name.js"></script>
 <script type="text/javascript" src="js/ajax/service-name.js"></script>
@@ -293,13 +297,11 @@
 <script type="text/javascript" src="app/queries/employee/discountQueryController.ctrl.js"></script>
 <script type="text/javascript" src="app/report/reportsFactory.fac.js"></script>
 <script type="text/javascript" src="app/report/salesReportController.ctrl.js"></script>
+<script type="text/javascript" src="app/report/salesController.ctrl.js"></script>
 <script type="text/javascript" src="app/report/reservationReportController.ctrl.js"></script>
-<<<<<<< HEAD
 <script type="text/javascript" src="app/report/productTagsReportController.ctrl.js"></script>
-
-
-=======
->>>>>>> c752d6ad7eec28d34ae97cee8dc8dc71f0df716f
+<script type="text/javascript" src="app/report/cancelledReservationController.ctrl.js"></script>
+<script type="text/javascript" src="app/report/serviceAvailmentsController.ctrl.js"></script>
 </body>
 
 </html>

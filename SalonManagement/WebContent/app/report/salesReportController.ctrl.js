@@ -48,7 +48,7 @@
 				}
 			}).then(function successCallback(data) {
 				vm.pos = data.data.purchases;
-				console.log(vm.pos);
+				vm.totalPurchase = total(data.data.purchases);
 				vm.searchRep = 1;
 				vm.datFrom = '';
 				vm.datTo = '';
@@ -56,6 +56,16 @@
 
 			});
 
+		}
+
+		function total(total) {
+			let t = 0;
+
+			angular.forEach(total, function(x, i) {
+				t+= x.quantity
+			});
+
+			return t;
 		}
 
 		function printPdf(thisDiv) {

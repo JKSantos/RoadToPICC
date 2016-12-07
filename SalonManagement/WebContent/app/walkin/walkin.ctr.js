@@ -141,7 +141,6 @@
 
         locationFactory.getWalkin().then(function (data) {
             vm.walkinList = data.walkInList;
-            console.log(vm.walkinList);
         });
 
         function createWalkinOpen() {
@@ -203,7 +202,6 @@
             }
         }).then(function successCallback(data) {
             vm.promoList = data.data.promoList;
-            console.log(vm.promoList);
         }, function errorCallback(response) {
             console.log(response);
         });
@@ -223,10 +221,8 @@
             }
         }).then(function successCallback(data) {
             vm.employeeList = data.data.empList;
-            console.log(vm.employeeList);
 
         }, function errorCallback(response) {
-            console.log(response);
         });
 
         function filterEmployeeInUpdate(index, newService) {
@@ -452,10 +448,10 @@
                 console.log(walkin);
                 vm.walkinProdSelected = walkin.products;
                 vm.walkinServSelected = walkin.services;
+                vm.walkinPackSelected = walkin.packages;
                 vm.selectedProductFromWalkin = pushProduct(vm.walkinProdSelected);
-                console.log(vm.selectedProductFromWalkin);
                 vm.selectedServiceFromWalkin = pushService(vm.walkinServSelected);
-                console.log(vm.selectedServiceFromWalkin);
+                vm.selectedPackageFromWalkin = pushPackage(vm.walkinPackSelected);
             }, function errorCallback(response) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
@@ -484,17 +480,14 @@
             }).then(function successCallback(data) {
                 var walkin = data.data.walkin;
                 vm.infoUpdateWalkin = (walkin);
-                console.log(walkin);
                 vm.walkinProdSelected = walkin.products;
                 vm.walkinServSelected = walkin.services;
                 vm.selectedProductFromWalkin = pushProduct(vm.walkinProdSelected);
-                console.log("Selected Servicios" + vm.selectedProductFromWalkin);
                 vm.selectedServiceFromWalkin = pushService(vm.walkinServSelected);
-                console.log(vm.selectedServiceFromWalkin);
+                vm.selectedPackageFromWalkin = pushPackage(vm.walkinPackSelected);
             }, function errorCallback(response) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                console.log("failed to fetch");
             });
 
             $('#editAppointment').openModal({
@@ -507,12 +500,7 @@
 
         function pushProduct(products) {
             var p = [];
-            console.log(products);
             angular.forEach(products, function (prod) {
-                // p.push({
-                //     'intProductWalkInID': prod.intProductWalkInID,
-                //     'intQuantity': prod.intQuantity
-                // });
                 for (var i = 0; i < vm.productList.length; i++) {
                     if (prod.product.intProductID == vm.productList[i].intProductID) {
                         p.push({
@@ -524,17 +512,13 @@
                     }
                 }
             });
-            console.log(p);
             return p;
         }
 
         function pushService(service) {
             var p = [];
             angular.forEach(service, function (serv) {
-                // p.push({
-                //     'intProductWalkInID': prod.intProductWalkInID,
-                //     'intQuantity': prod.intQuantity
-                // });
+
                 for (var i = 0; i < vm.serviceList.length; i++) {
                     if (serv.service.intServiceID == vm.serviceList[i].intServiceID) {
                         p.push({
@@ -544,6 +528,22 @@
                         });
                     }
                 }
+            });
+            return p;
+        }
+
+        function pushPackage(ppp) {
+            var p = [];
+            angular.forEach(ppp, function (pack) {
+                // p.push({
+                //     'intProductWalkInID': prod.intProductWalkInID,
+                //     'intQuantity': prod.intQuantity
+                // });
+                console.log(pack);
+                p.push({
+                    'intPackageID': pack.packages.intPackageID,
+                    'strPackageName': pack.packages.strPackageName
+                });
             });
             return p;
         }
@@ -868,7 +868,7 @@
                 }
             }).then(function successCallback(data){
                   vm.promoContainsProduct = data.data.promo.productList;
-                  vm.promoContainsService  = data.data.promo.serviceList;                
+                  vm.promoContainsService  = data.data.promo.serviceList;
             }, function errorCallback(response) {
                 console.log(response);
             });

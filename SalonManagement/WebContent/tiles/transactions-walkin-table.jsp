@@ -84,7 +84,7 @@
                                 style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Update"
                                 ng-if="walkin.strWalkInStatus=='PENDING'"
                                 ng-click="vm.editWalkin(walkin)">
-                            <i class='material-icons'>edit</i>
+                            <i class='material-icons'>visibility</i>
                         </button>
                         <button class="waves-effect waves-purple btn-flat transparent red-text text-accent-4"
                                 style="padding-left: 10px;padding-right:10px; margin: 5px;" title="Deactivate"
@@ -198,57 +198,6 @@
                                     <b>Contact Number</b>
                                 </label>
                             </div>
-                            <div class="input-field col s12">
-                                <input type="email" id="upWalkinEmail">
-                                <label for="upWalkinEmail"><b>Email</b>
-                                </label>
-                            </div>
-                            <div class="input-field col s12">
-                                <select ng-model="vm.upSelDiscounts" id="upDiscount" material-select watch
-                                        ng-change="vm.selDiscountDetails(vm.selDiscounts);"
-                                        ng-options="discount.strDiscountName for discount in vm.discountList">
-                                    <option id="discOpt" value="" selected disabled>Choose...</option>
-                                </select>
-                                <label for="upDiscount"><b>Discounts</b></label>
-                            </div>
-                            <div class="input-field col s6">
-                                <select ng-model="newProduct.product" id="selProductEdit"
-                                        ng-options="product.strProductName for product in vm.productList">
-                                    <option value="" selected>Product</option>
-                                </select>
-                                <label for="selProductEdit"><b>Product</b></label>
-                            </div>
-                            <div class="input-field col s3">
-                                <input type="number" class="right-align" id="selPrductQty" ng-model="newProduct.qty">
-                                <label for="selPrductQty">Quantity</label>
-                            </div>
-                            <div class="input-field col s3">
-                                <button class="waves-effect waves-light btn-flat purple white-text" title="Add"
-                                        ng-click="addProduct(newProduct)">
-                                    <i class='material-icons'>add</i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="col s12">
-                            <div class="input-field col s9">
-                                <select ng-model="newService.service" id="selServiceEdit" material-select watch
-                                        ng-options="service.strServiceName for service in vm.serviceList">
-                                    <option value="" selected>Choose...</option>
-                                </select>
-                                <label for="selServiceEdit"><b>Service</b></label>
-                            </div>
-                            <div class="input-field col s3">
-                                <button class="waves-effect waves-light btn-flat purple white-text" title="Add"
-                                        ng-if="newService.service != null"
-                                        ng-click="addService(newService); vm.filterEmployeeInUpdate($index, newService);">
-                                    <i class='material-icons'>add</i>
-                                </button>
-                                <button class="btn-flat purple white-text" title="Add"
-                                        ng-if="newService.service == null"
-                                        style="opacity: 0.3; cursor: not-allowed !important;">
-                                    <i class='material-icons'>add</i>
-                                </button>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -266,8 +215,6 @@
                                             <span ng-if="selectedProduct.prodqty > 1">({{selectedProduct.prodqty}}pcs)</span>
                                             <span ng-if="selectedProduct.prodqty == 1">({{selectedProduct.prodqty}}pc)</span>
                                             <br>
-                                            <span class="red-text" style="cursor: pointer;"
-                                                  ng-click="removeFromProductList($index)">Remove</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -280,8 +227,15 @@
                                             <br>
                                             <span style="font-size: 13px !important;">Employee: {{selectedService.employeeAssigned.strEmpFirstName}}
                                             {{selectedService.employeeAssigned.strEmpLastName[0]}}.</span>
-                                            <span class="red-text" style="cursor: pointer;"
-                                                  ng-click="removeFromServiceList($index)">Remove</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col s6">
+                                    <ul class="collection">
+                                        <li class="collection-item"><b>Selected Package</b></li>
+                                        <li class="collection-item"
+                                            ng-repeat="selectedPackage in vm.selectedPackageFromWalkin">
+                                            <b>{{selectedPackage.strPackageName}}</b>
                                         </li>
                                     </ul>
                                 </div>

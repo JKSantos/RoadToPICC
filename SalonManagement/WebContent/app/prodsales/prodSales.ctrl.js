@@ -37,7 +37,7 @@
         return directive;
     }
 
-    function prodSalesCtrl($scope, $window, paymentFactory, locationFactory, SweetAlert, DTOptionsBuilder, DTColumnDefBuilder) {
+    function prodSalesCtrl($scope, $http, $window, paymentFactory, locationFactory, SweetAlert, DTOptionsBuilder, DTColumnDefBuilder) {
         var vm = this;
         vm.dtInstanceCallback = dtInstanceCallback;
         vm.searchTable = searchTable;
@@ -89,9 +89,9 @@
             }
         });
 
-        locationFactory.getEmployees().then(function (data) {
-           $scope.employeeList = data.data.employeeList;
-        });
+        // locationFactory.getEmployees().then(function (data) {
+        //    $scope.employeeList = data.data.employeeList;
+        // });
 
         locationFactory.getProducts().then(function (data) {
             $scope.productList = data.data.productList;
@@ -112,7 +112,73 @@
         locationFactory.getDependencies().then(function (data) {
             vm.dependencies = data.dependencies;
             vm.minAmt = getMinAmount(vm.dependencies);
+            console.log(vm.dependencies);
         });
+
+        locationFactory.getExtraCharges().then(function (data) {
+            var sf = data.data.extraChargeList;
+            vm.serviceFee = getSF(sf);
+        });
+
+        function getSF (sf) {
+            let servFee;
+
+            angular.forEach(sf, function (x, i) {
+                if(x.strECName.toUpperCase() == "SERVICE FEE") {
+                    servFee = x;
+                }
+            });
+
+            return servFee;
+        }
+
+        $scope.changeDateGetEmp = function (date) {
+            let month, m, d;
+
+            month = date.split('/');
+            switch(month[0]) {
+                case 'December': m = 12; break;
+                case 'November': m = 11; break;
+                case 'October': m = 10; break;
+                case 'September': m = 9; break;
+                case 'August': m = 8; break;
+                case 'July': m = 7; break;
+                case 'June': m = 6; break;
+                case 'May': m = 5; break;
+                case 'April': m = 4; break;
+                case 'March': m = 3; break;
+                case 'February': m = 2; break;
+                case 'January': m = 1; break;
+            }
+
+            d = month[2] + '-' + m + '-' + month[1]; //date yyy-mm-dd
+
+            $('#acceptDelEmp').material_select('destroy');
+            var availableEmp = $.param({
+                    date: d,
+                    locationID: vm.intLocationID,
+                    type: 'delivery'
+                });
+
+                $http({
+                    method: 'post',
+                    url: 'http://localhost:8080/SalonManagement/getAvailableEmployee',
+                    data: availableEmp,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).then(function successCallback(data) {
+                    $('#acceptDelEmp').material_select();
+                    $scope.employeeList = data.data.empList;
+                }, function errorCallback(response) {
+
+                });
+
+        }
+
+        $scope.getAvailableEmployee = function (request) {
+            vm.intLocationID = request.intLocationID;
+        }
 
         function getMinAmount (min) {
             let minAmt = 0;
@@ -122,14 +188,41 @@
                     minAmt = x.strValue;
                 }
             });
-            console.log(minAmt);
             return parseFloat(minAmt).toFixed(2);
         }
 
         var sd;
 
         function reqName (request) {
-            console.log(request);
+            var data = $.param({
+                intOrderID: request.intSalesID
+            });
+            vm.requestName = request.strName;
+
+            $http({
+                method: 'post',
+                url: 'http://localhost:8080/SalonManagement/getOrderByID',
+                data: data,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                vm.productResponse = data.data.order.productList;
+                vm.reqProduct = prodReq(vm.productResponse);
+            }, function errorCallback(response) {
+
+            });
+            $('#productListRequest').openModal();
+        }
+
+        function prodReq(req) {
+            let res = [];
+
+            angular.forEach(req, function(data, i) {
+                res.push(data);
+            });
+
+            return res;
         }
 
         $scope.selectedDiscount = function (disc) {
@@ -138,22 +231,43 @@
                 vm.seldic = disc;
                 sd = disc;
                 var t = $scope.totalAmount;
-                if(disc.intDiscountType == 1) {
-                    var per = ($scope.totalAmount + vm.loc.price) * (disc.dblDiscountAmount/100);
-                    vm.totalAmt = ($scope.totalAmount + vm.loc.price) - per;
-                } else if(disc.intDiscountType == 2) {
-                    var num1 = $scope.totalAmount + vm.loc.price,
-                        num2 = disc.dblDiscountAmount,
-                        per = 0,
-                        ttt = 0;
-                    if(num1 > num2) {
-                        ttt = ($scope.totalAmount + vm.loc.price) - disc.dblDiscountAmount;
-                        console.log(per + '//' + vm.totalAmt);
-                    } else if(num2 > num1) {
-                        per = 0.00;
-                        ttt = per;
+
+                if($scope.details.order.value == 'delivery') {
+                    if(disc.intDiscountType == 1) {
+                        var per = ($scope.totalAmount + vm.loc.price) * (disc.dblDiscountAmount/100);
+                        vm.totalAmt = ($scope.totalAmount + vm.loc.price) - per;
+                    } else if(disc.intDiscountType == 2) {
+                        var num1 = $scope.totalAmount + vm.loc.price,
+                            num2 = disc.dblDiscountAmount,
+                            per = 0,
+                            ttt = 0;
+                        if(num1 > num2) {
+                            ttt = ($scope.totalAmount + vm.loc.price) - disc.dblDiscountAmount;
+                            console.log(per + '//' + vm.totalAmt);
+                        } else if(num2 > num1) {
+                            per = 0.00;
+                            ttt = per;
+                        }
+                        vm.totalAmt = ttt;
                     }
-                    vm.totalAmt = ttt;
+                } else {
+                    if(disc.intDiscountType == 1) {
+                        var per = ($scope.totalAmount) * (disc.dblDiscountAmount/100);
+                        vm.totalAmt = $scope.totalAmount - per;
+                    } else if(disc.intDiscountType == 2) {
+                        var num1 = $scope.totalAmount,
+                            num2 = disc.dblDiscountAmount,
+                            per = 0,
+                            ttt = 0;
+                        if(num1 > num2) {
+                            ttt = $scope.totalAmount - disc.dblDiscountAmount;
+                            console.log(per + '//' + vm.totalAmt);
+                        } else if(num2 > num1) {
+                            per = 0.00;
+                            ttt = per;
+                        }
+                        vm.totalAmt = ttt;
+                    }
                 }
             } else if(disc === null) {
                 vm.x = 0;
@@ -247,36 +361,6 @@
             $scope.orderList[order.index].quantity = order.quantity;
             $scope.orderList[order.index].total = order.quantity * order.price;
             $scope.totalAmount += $scope.orderList[order.index].total;
-
-            console.log($scope.orderList[order.index]);
-
-            // var beforeTotal = order.total,
-            //     finalTotal = order.price * order.quantity,
-            //     t = 0;
-            // if (finalTotal > beforeTotal) {
-            //     t = finalTotal - beforeTotal;
-            //     console.log(t + 't');
-            //     $scope.totalAmount = $scope.totalAmount + t;
-            //     console.log($scope.totalAmount + 'totalAmt');
-            //     paymentFactory.addTotal(t, order)
-            // } else {
-            //     console.log('asdasd');
-            //     console.log(beforeTotal + '//' + finalTotal);
-            //     t = beforeTotal - finalTotal;
-            //     console.log(t + 't');
-            //     $scope.totalAmount = $scope.totalAmount - t;
-            //     console.log($scope.totalAmount + 'totalAmt');
-            //     paymentFactory.minusTotal(t, order);
-            // }
-            // $scope.orderList.splice(order.index, 1);
-            // $scope.orderList.unshift({
-            //     product: order.product,
-            //     total: $scope.totalAmount,
-            //     strPhotoPath: order.strPhotoPath,
-            //     quantity: order.quantity,
-            //     price: order.price
-            // });
-
         };
 
         function commaProducts() {
@@ -312,6 +396,12 @@
 
         var st = paymentFactory.getSubTotal();
         $scope.setProdSalesPayment = function (custDetails) {
+            let cd = 0;
+            if($scope.details.order.value == 'delivery') {
+                cd = custDetails.location.dblLocationPrice;
+            } else {
+                cd = 0;
+            }
                 $scope.customerDetails.push({
                     orderType: custDetails.order.value,
                     strContactNo: custDetails.contact,
@@ -320,7 +410,7 @@
                     intLocationID: custDetails.location.intLocationID,
                     selectedProducts: commaProducts(),
                     productQuantity: commaQuantity(),
-                    strTotalPrice: paymentFactory.getSubTotal() + custDetails.location.dblLocationPrice
+                    strTotalPrice: paymentFactory.getSubTotal() + cd
                 });
                 console.log($scope.customerDetails);
                 $scope.saveDetails($scope.customerDetails[1]);
@@ -331,18 +421,29 @@
             let total = 0,
                 temp = sd,
                 status;
-            console.log(temp);
-            if(vm.seldic != '') {
-                if(temp.intDiscountType == 1) { //percent
-                    let t3 = myData.strTotalPrice * (temp.dblDiscountAmount/100);
-                    total = myData.strTotalPrice - t3;
-                } else if(temp.intDiscountType == 2) {
-                    if(myData.strTotalPrice > temp.dblDiscountAmount) {
-                        total = myData.strTotalPrice - temp.dblDiscountAmount;
-                    } else if(temp.dblDiscountAmount > myData.strTotalPrice) {
-                        total = 0.00;
+            if(typeof temp != 'undefined') {
+                if(vm.seldic != '') {
+                    if(temp.intDiscountType == 1) { //percent
+                        let t3 = myData.strTotalPrice * (temp.dblDiscountAmount/100);
+                        total = myData.strTotalPrice - t3;
+                    } else if(temp.intDiscountType == 2) {
+                        console.log(temp.dblDiscountAmount + '||' + myData.strTotalPrice);
+                        if(myData.strTotalPrice > temp.dblDiscountAmount) {
+                            total = myData.strTotalPrice - temp.dblDiscountAmount;
+                        } else if(temp.dblDiscountAmount > myData.strTotalPrice) {
+                            total = 0.00;
+                        }
                     }
                 }
+            } else {
+                total = myData.strTotalPrice;
+            }
+
+            var sda = 0;
+            if($scope.details.order.value == 'delivery') {
+                sda = total + parseFloat(vm.serviceFee.stringPrice);
+            } else {
+                sda = total
             }
 
              var psdata = {
@@ -353,51 +454,51 @@
                     "strContactNo": myData.strContactNo,
                     "strName": myData.strName,
                     "strStreet": myData.strStreet,
-                    "strTotalPrice": total
+                    "strTotalPrice": sda
                 };
+                console.log(psdata);
 
-            console.log(psdata);
-            setTimeout(function () {
-                $.ajax({
-                    url: 'createOrder',
-                    type: 'post',
-                    data: psdata,
-                    dataType: 'json',
-                    async: true,
-                    success: function (data) {
-                        if (data.status == "success") {
-                            swal("Successfully created!", ".", "success");
-                            console.log($scope.customerDetails[1]);
-                            if(myData.orderType == 'delivery') {
-                                $scope.requestOrder.push({
-                                    intSalesID: data.intCreatedID,
-                                    strName: myData.strName,
-                                    intType: myData.orderType
-                                });
-                            }
-                            console.log($scope.requestOrder);
-                            $('#crProductSales').closeModal();
-                            $scope.customerDetails = [{
-                                orderType: '',
-                                contactNumber: '',
-                                name: '',
-                                Street: '',
-                                location: '',
-                                orderDetails: '',
-                                subtotal: 0
-                            }];
-                            console.log(data);
-                            $window.location.reload();
-                        } else {
-                            SweetAlert.swal("Oops", "Something went wrong!", "error");
-                        }
-                    },
-                    error: function () {
-                        vm.loadingBubble = 1;
-                        SweetAlert.swal("Oops", "Something went wrong!", "error");
-                    }
-                });
-            }, 1000);
+            // setTimeout(function () {
+            //     $.ajax({
+            //         url: 'createOrder',
+            //         type: 'post',
+            //         data: psdata,
+            //         dataType: 'json',
+            //         async: true,
+            //         success: function (data) {
+            //             if (data.status == "success") {
+            //                 swal("Successfully created!", ".", "success");
+            //                 console.log($scope.customerDetails[1]);
+            //                 if(myData.orderType == 'delivery') {
+            //                     $scope.requestOrder.push({
+            //                         intSalesID: data.intCreatedID,
+            //                         strName: myData.strName,
+            //                         intType: myData.orderType
+            //                     });
+            //                 }
+            //                 console.log($scope.requestOrder);
+            //                 $('#crProductSales').closeModal();
+            //                 $scope.customerDetails = [{
+            //                     orderType: '',
+            //                     contactNumber: '',
+            //                     name: '',
+            //                     Street: '',
+            //                     location: '',
+            //                     orderDetails: '',
+            //                     subtotal: 0
+            //                 }];
+            //                 console.log(data);
+            //                 $window.location.reload();
+            //             } else {
+            //                 SweetAlert.swal("Oops", "Something went wrong!", "error");
+            //             }
+            //         },
+            //         error: function () {
+            //             vm.loadingBubble = 1;
+            //             SweetAlert.swal("Oops", "Something went wrong!", "error");
+            //         }
+            //     });
+            // }, 1000);
         }; //end
         
         $scope.openPickUpOrder = function (request) {
@@ -471,8 +572,10 @@
                 });
         }; //end
 
+
         $scope.acceptDeliveryOrder = function (request) {
             var index = $scope.requestOrder.indexOf(request);
+
             $scope.delivery = {
                 strName: request.strName,
                 strAddress: request.strAddress,
@@ -481,6 +584,7 @@
                 strStatus: request.strStatus,
                 intSalesID: request.intSalesID,
                 deliveryDate: request.deliveryDate,
+                intLocationID: request.intLocationID,
                 index: index
             };
             $('#AcceptDeliveryModal').openModal({
@@ -538,10 +642,16 @@
                 });
         }; //end
 
-        $scope.declineOrder = function (request) {
+        $scope.declineWithReason = function (request) {
+            $('#decReason').openModal();
             var index = $scope.requestOrder.indexOf(request);
+            vm.reqDeclineWithReason = request;
+            vm.indexDeclineOrder = index;
+        }
+
+        $scope.declineOrder = function (reason) {
             swal({
-                    title: "Are you sure you want to decline the order of " + request.strName + "?",
+                    title: "Are you sure you want to decline the order of " + vm.reqDeclineWithReason.strName + "?",
                     text: "",
                     type: "warning",
                     showCancelButton: true,
@@ -556,14 +666,16 @@
                             url: 'declineOrder',
                             type: 'post',
                             data: {
-                                "intOrderID": request.intSalesID
+                                "intOrderID": vm.reqDeclineWithReason.intSalesID,
+                                "reason": reason
                             },
                             dataType: 'json',
                             async: true,
                             success: function (data) {
                                 if (data.result == "success") {
                                     SweetAlert.swal("The order request was declined!", ".", "success");
-                                    $scope.requestOrder.splice(index, 1);
+                                    $scope.requestOrder.splice(vm.indexDeclineOrder, 1);
+                                    $('#decReason').closeModal();
                                 } else {
                                     SweetAlert.swal("Oops", "Something went wrong!", "error");
                                 }

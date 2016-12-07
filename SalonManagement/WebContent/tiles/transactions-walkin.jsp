@@ -25,7 +25,7 @@
                         </a>
                         <a class="crWalkin z-depth-1 hoverable btn purple darken-2 left white-text"
                            style="margin-left: 15px; opacity: 0.3; cursor: not-allowed !important;" ng-disabled="true"
-                           ng-if="vm.productOrder.length == 0 && vm.serviceOrder.length == 0">
+                           ng-if="vm.productOrder.length == 0 && vm.serviceOrder.length == 0 && vm.packageOrder.length == 0 && vm.promoOrder.length == 0">
                             <i class="material-icons">add</i>
                         </a>
                         <a class="z-depth-1 hoverable waves-effect waves-light btn purple darken-2 left white-text"
@@ -450,28 +450,35 @@
         <div class="modal-content">
             <h4 class="grey-text center text-darken-1">Promo Contains</h4>
             <h5 class="purple-text">Products</h5>
-            <ul ng-repeat="products in vm.promoContainsProduct">
-                <li>
-                  <h6>{{products.product.strProductName}}</h6>
-                </li>
-            </ul>
-            <h5 class="purple-text">Services</h5>
-            <ul ng-repeat="services in vm.promoContainsService">
-                <li>
-                  <h6> {{services.service.strServiceName}}</h6>
-                </li>
-                <li>
-                  <div class="input-field col s6">
-                      <select ng-model="vm.selEmployeePerService" id="cREmp1"
-                              ng-options="employee.strEmpFirstName for employee in vm.employeeList"></select>
-                      <label for="cREmp1"><b>Employee</b></label>
+                <div class="chip" ng-repeat="products in vm.promoContainsProduct">
+                    {{products.product.strProductName}} ({{products.intProductQuantity}})
                   </div>
-                  <button id="btnAssign"
-                          class="waves-effect waves-light white-text btn-flat purple"
-                          ng-click="vm.assignEmployeePromo($index)">ASSIGN
-                  </button>
-                </li>
-            </ul>
+            <h5 class="purple-text">Services</h5>
+            <div>
+                <ul ng-repeat="services in vm.promoContainsService">
+                    <li>
+                      <h6> {{services.service.strServiceName}}</h6>
+                    </li>
+                    <li>
+                      <div class="input-field col s6">
+                            <ul ng-repeat="emp in vm.employeelist">
+                                <li>
+                                    {{emp.strEmpFirstName}}
+                                </li>
+                            </ul>
+                          <select ng-model="vm.selEmployeePerService" id="cREmp1" material-select watch
+                                  ng-options="employee.strEmpFirstName for employee in vm.employeeList">
+                                      <option value="" disabled selected>Choose</option>
+                                  </select>
+                          <label for="cREmp1"><b>Employee</b></label>
+                      </div>
+                      <button id="btnAssign"
+                              class="waves-effect waves-light white-text btn-flat purple"
+                              ng-click="vm.assignEmployeePromo($index)">ASSIGN
+                      </button>
+                    </li>
+                </ul>
+            </div>
             <!-- <table>
                 <tr >
                     <td>{{services.service.strServiceName}}</td>

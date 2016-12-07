@@ -1,0 +1,135 @@
+[33m62b8b3d[m HEAD@{0}: commit (merge): final final product order
+[33m998b0a3[m HEAD@{1}: pull: Merge made by the 'recursive' strategy.
+[33m0d5d348[m HEAD@{2}: commit: dec 6, 2016
+[33m1177b8d[m HEAD@{3}: pull: Fast-forward
+[33m01385ef[m HEAD@{4}: commit: updated prodsales
+[33m2e81595[m HEAD@{5}: pull: Merge made by the 'recursive' strategy.
+[33md78c7b1[m HEAD@{6}: commit: nov 30.2016
+[33m56ee7cb[m HEAD@{7}: commit: sales report (total) updated nov 12 12:42am
+[33m1ce00da[m HEAD@{8}: commit: Sales Report Updated nov 12 12:07am
+[33m1f174b5[m HEAD@{9}: commit: Oct 20 1033pm
+[33m523601a[m HEAD@{10}: commit: oct 18 131pm
+[33m2dcfbec[m HEAD@{11}: pull: Fast-forward
+[33m81d45df[m HEAD@{12}: commit (merge): oct 17 753pm part 2
+[33m471a37c[m HEAD@{13}: commit: oct 17 752pm
+[33m202b07a[m HEAD@{14}: commit: oct 15, 2016; 6:23pm
+[33m79ff510[m HEAD@{15}: commit: oct 15 2016:5:59pm
+[33m630981f[m HEAD@{16}: pull: Merge made by the 'recursive' strategy.
+[33m9b652ec[m HEAD@{17}: commit: oct 14 10:26pm
+[33ma50d979[m HEAD@{18}: commit: report product tags 30%
+[33m613e552[m HEAD@{19}: pull: Fast-forward
+[33m7aee583[m HEAD@{20}: commit: ok na promo
+[33me664460[m HEAD@{21}: commit: fckin promo
+[33me9d7e99[m HEAD@{22}: pull: Fast-forward
+[33mb45c088[m HEAD@{23}: commit: fckin maintenance maayos kna
+[33ma1cb537[m HEAD@{24}: commit: fee bug
+[33m5c095bc[m HEAD@{25}: commit: fixed bug in maintenance (promo and feee)
+[33m5b19fed[m HEAD@{26}: commit: dependcy sa date reservation
+[33md0025aa[m HEAD@{27}: commit: 75% transaction
+[33mb051c8a[m HEAD@{28}: pull: Merge made by the 'recursive' strategy.
+[33mf767aa5[m HEAD@{29}: commit: sana success na payment tangina
+[33mb25246e[m HEAD@{30}: commit: payment fixed?
+[33maedc2f6[m HEAD@{31}: pull: Merge made by the 'recursive' strategy.
+[33m250e3a4[m HEAD@{32}: commit: payment ttt
+[33m038638c[m HEAD@{33}: commit: fixed bug in product sales
+[33m319a756[m HEAD@{34}: pull: Merge made by the 'recursive' strategy.
+[33m0a121cc[m HEAD@{35}: commit (merge): reservation filtered items
+[33me24c5f7[m HEAD@{36}: commit: adasdasdadadadaadad xxx
+[33mba4e265[m HEAD@{37}: commit (merge): fix conflicts
+[33ma61edeb[m HEAD@{38}: commit: asdasda
+[33meb3c9c5[m HEAD@{39}: pull: Merge made by the 'recursive' strategy.
+[33m10b68a7[m HEAD@{40}: commit: sep 26
+[33maabd0a6[m HEAD@{41}: commit: updated dashboard
+[33mf4a2278[m HEAD@{42}: commit (merge): fixed merge conflict
+[33m9719b6d[m HEAD@{43}: commit: fixed reservation
+[33m5607830[m HEAD@{44}: pull: Merge made by the 'recursive' strategy.
+[33md6e0946[m HEAD@{45}: commit: 208 sept 24
+[33me25216d[m HEAD@{46}: pull: Merge made by the 'recursive' strategy.
+[33m020b654[m HEAD@{47}: commit: updating walkin update
+[33m8106725[m HEAD@{48}: pull: Fast-forward
+[33m5618548[m HEAD@{49}: commit: updataing walkin
+[33m3f849a4[m HEAD@{50}: commit (merge): updated walkin sept 24
+[33m557b17d[m HEAD@{51}: reset: moving to 557b17d
+[33m9165baa[m HEAD@{52}: reset: moving to 9165baa
+[33m8d9f351[m HEAD@{53}: pull: Merge made by the 'recursive' strategy.
+[33m0f53c26[m HEAD@{54}: commit (merge): fucking fixed
+[33m557b17d[m HEAD@{55}: commit: walkin fcking shit
+[33md30ffd2[m HEAD@{56}: pull: Merge made by the 'recursive' strategy.
+[33m9165baa[m HEAD@{57}: commit: dddd
+[33m4decf04[m HEAD@{58}: commit: discount prod/serv/pack in walkin success
+[33m30c6225[m HEAD@{59}: commit: discount in walkin updated
+[33mc1700b8[m HEAD@{60}: commit: updating walkin
+[33me6a0f60[m HEAD@{61}: commit: asdada
+[33ma6f24ca[m HEAD@{62}: commit (merge): fixed promo and package
+[33m1c585e1[m HEAD@{63}: commit: fixed package and promo
+[33mb010750[m HEAD@{64}: commit: updated req type promo
+[33m90620a8[m HEAD@{65}: pull: Merge made by the 'recursive' strategy.
+[33m0d21049[m HEAD@{66}: commit: still updateing promo maintenance
+[33m52ee88b[m HEAD@{67}: pull: Merge made by the 'recursive' strategy.
+[33m6125c3f[m HEAD@{68}: commit: promo requirement and type
+[33m98e4c25[m HEAD@{69}: pull: Merge made by the 'recursive' strategy.
+[33mbae84c2[m HEAD@{70}: commit: updating promo requirements and type
+[33m6d96144[m HEAD@{71}: commit: updated discount
+[33m205d04e[m HEAD@{72}: commit: discount
+[33m972dc31[m HEAD@{73}: commit: done requirements for discount
+[33m5774f3a[m HEAD@{74}: pull: Fast-forward
+[33m41689d5[m HEAD@{75}: commit: update discount requirements
+[33m2ab62b5[m HEAD@{76}: commit: updating requirements discount
+[33m3ae3132[m HEAD@{77}: pull: Merge made by the 'recursive' strategy.
+[33m897e852[m HEAD@{78}: pull: Merge made by the 'recursive' strategy.
+[33m6f6a007[m HEAD@{79}: commit: updating discount requirement
+[33mb8c6f29[m HEAD@{80}: commit: updating discount
+[33m8f322a6[m HEAD@{81}: commit: fixed redundancy for prod and serv
+[33mc62c0fe[m HEAD@{82}: pull: Merge made by the 'recursive' strategy.
+[33m44226ac[m HEAD@{83}: commit: pull
+[33m04d389c[m HEAD@{84}: commit: fix
+[33m8caa298[m HEAD@{85}: commit: product price fixed?
+[33m87ec7a2[m HEAD@{86}: commit: updated specialization in employee
+[33m5944822[m HEAD@{87}: commit: updating walkin edit
+[33mcc175cf[m HEAD@{88}: commit: updated accept order in product sales + employee select
+[33me362e0d[m HEAD@{89}: pull: Merge made by the 'recursive' strategy.
+[33ma2d7fc4[m HEAD@{90}: commit: asdas
+[33mcae6355[m HEAD@{91}: commit: updated redundancy of package
+[33mb1d2604[m HEAD@{92}: pull: Merge made by the 'recursive' strategy.
+[33m6bf7c96[m HEAD@{93}: commit: fixing redundancy other charge
+[33mfac1bc9[m HEAD@{94}: commit: done updating transpo maintenance
+[33mb09e888[m HEAD@{95}: pull: Merge made by the 'recursive' strategy.
+[33m7f49550[m HEAD@{96}: pull: Merge made by the 'recursive' strategy.
+[33ma0e2a31[m HEAD@{97}: commit: updating location maintenance
+[33madd1be9[m HEAD@{98}: commit: updating locatin maintenance
+[33mbab65ad[m HEAD@{99}: pull: Merge made by the 'recursive' strategy.
+[33m54b0053[m HEAD@{100}: commit: updated location maintenance
+[33m87468c9[m HEAD@{101}: pull: Merge made by the 'recursive' strategy.
+[33m7e4d208[m HEAD@{102}: commit: fixing fcking walkin
+[33mc36cfcf[m HEAD@{103}: commit: fixing walkin 3.0
+[33ma2bfb94[m HEAD@{104}: pull: Merge made by the 'recursive' strategy.
+[33mf2bff81[m HEAD@{105}: pull: Merge made by the 'recursive' strategy.
+[33m8369209[m HEAD@{106}: commit: fixing walkin 1.1
+[33m869ef42[m HEAD@{107}: pull: Merge made by the 'recursive' strategy.
+[33m073b112[m HEAD@{108}: commit: still fixing walkin 01
+[33me04bd3d[m HEAD@{109}: pull: Merge made by the 'recursive' strategy.
+[33m3cefc5e[m HEAD@{110}: pull: Merge made by the 'recursive' strategy.
+[33m7c532e7[m HEAD@{111}: commit: still fixing walkin
+[33mab21bc3[m HEAD@{112}: pull: Merge made by the 'recursive' strategy.
+[33mcbecca2[m HEAD@{113}: commit: fixing walkin
+[33mcedd65e[m HEAD@{114}: pull: Fast-forward
+[33mfae6f72[m HEAD@{115}: pull: Merge made by the 'recursive' strategy.
+[33m0ead80f[m HEAD@{116}: commit: fixing walkin
+[33m313890d[m HEAD@{117}: pull: Merge made by the 'recursive' strategy.
+[33mfd636ab[m HEAD@{118}: commit: updating walk in
+[33m79cf3cf[m HEAD@{119}: commit: mas updated na account settings
+[33mcaec6e4[m HEAD@{120}: commit (merge): updated employee account settings
+[33mf483246[m HEAD@{121}: commit: updated employee settings
+[33mb21291c[m HEAD@{122}: pull: Merge made by the 'recursive' strategy.
+[33m6f7a79d[m HEAD@{123}: commit: pull
+[33m3e1e655[m HEAD@{124}: commit: updated emp account
+[33m3d14225[m HEAD@{125}: pull: Fast-forward
+[33m53224f3[m HEAD@{126}: pull: Merge made by the 'recursive' strategy.
+[33m7d4aa7f[m HEAD@{127}: commit: updated maintenance
+[33meb184d0[m HEAD@{128}: pull: Merge made by the 'recursive' strategy.
+[33m7a338e8[m HEAD@{129}: commit: asd
+[33mfeaf38f[m HEAD@{130}: pull: Fast-forward
+[33m657ce36[m HEAD@{131}: commit: updated payment
+[33m696c72f[m HEAD@{132}: pull: Merge made by the 'recursive' strategy.
+[33m585cb14[m HEAD@{133}: commit: updated payment
+[33mda64868[m HEAD@{134}: pull: Merge made by the 'recursive

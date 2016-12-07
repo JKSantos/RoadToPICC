@@ -24,7 +24,6 @@ function deactivateDiscount(valueID, ID) {
                     dataType: 'json',
                     async: true,
                     success: function (data) {
-                        console.log(data);
                         swal("Successfully deactivated!", ".", "success");
                         $discounttr.find('td').fadeOut(300, function () {
                             $discounttr.remove();

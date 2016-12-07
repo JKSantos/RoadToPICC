@@ -13,11 +13,8 @@ function createEmployee() {
 
         var file = document.getElementById('createImage').value;
         var file1 = file.replace(/C:\\fakepath\\/i, '');
-        console.log(file1);
         var imgext = file1.split('.')[1];
         var imgname = file1.split('.')[0];
-        console.log(imgext);
-        console.log(imgname);
         // var upload = $('#createImage').val().replace(/C:\\fakepath\\/i, '');
         // var upload = document.getElementById('#createImage').value.replace(/C:\\fakepath\\/i, '');
         // var imgext = upload.split('.')[1];
@@ -31,7 +28,6 @@ function createEmployee() {
         var email = $('#createEmail').val();
         var address = $('#createAddress').val();
         var job = document.querySelectorAll('input[name=selectedJob]:checked').value;
-        console.log(job);
         // var job = $('#crSelectedJob :selected').map(function(i,el){
         //     return $(el).val();
         // });
@@ -60,12 +56,10 @@ function createEmployee() {
             async: true,
             success: function (data) {
                 if(data.result==='success'){
-                    console.log(data);
                 }
 
             },
             error: function(data) {
-                console.log('error');
             }
         });
     }
@@ -129,7 +123,6 @@ function openEmpUpdate(intEmpID) {
         async: true,
         dataType: 'json',
         success: function (data) {
-            console.log(data.employee.intEmpID);
             $('#intEmpID').val(data.employee.intEmpID);
             $('#updateEmpFname').val(data.employee.strEmpFirstName);
         },
@@ -166,10 +159,8 @@ function clickclick () {
 		dataType: 'json',
 		async: true,
 		success: function(data) {
-			console.log(data);
 		},
 		error: function(data) {
-			console.log(data);
 		}
 		
 	});

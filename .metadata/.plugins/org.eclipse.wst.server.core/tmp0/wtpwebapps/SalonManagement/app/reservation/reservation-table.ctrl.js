@@ -5,7 +5,7 @@
         .module('app')
         .controller('reservationTable', reservationTable);
 
-    function reservationTable($scope, $http, paymentFactory, locationFactory, reservationFactory, $filter, SweetAlert) {
+    function reservationTable($scope, $http, $timeout, paymentFactory, locationFactory, reservationFactory, $filter, SweetAlert) {
         var vm = this;
         vm.customerDetails = [{}];
         vm.reservationDetails = [{}];
@@ -43,11 +43,27 @@
         vm.promoList = [];
         vm.packageList = [];
         vm.details = [{}];
-        // vm.customerList = reservationFactory.getCustomers();
 
+        vm.resPaymentType = '';
+        // vm.customerList = reservationFactory.getCustomers();
+        locationFactory.getDependencies().then(function (data) {
+            vm.dependencies = data.dependencies;
+            var d = 0;
+            angular.forEach(vm.dependencies, function (i) {
+                if (i.strName == 'reservationMargin') {
+                    d = i.strValue;
+                }
+            });
+            vm.reservationMargin = d;
+        });
 
         vm.details.reservationType = vm.reservationType[0];
-        vm.currentTime = new Date();
+        $timeout(function() {
+            var t = vm.reservationMargin*24*60*60*1000;
+            vm.currentTime = new Date(new Date().getTime()+t);
+            vm.minDate = $filter('date')(vm.currentTime, "MMMM/d/yyyy");
+        }, 1000);
+
         vm.month = ['Januar', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         vm.monthShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         vm.weekdaysFull = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -55,7 +71,6 @@
         vm.today = 'Today';
         vm.clear = 'Clear';
         vm.close = 'Close';
-        vm.minDate = $filter('date')(vm.currentTime, "MMMM/d/yyyy");
         vm.onStart = function () {
             console.log('onStart');
         };
@@ -89,7 +104,6 @@
 
         function changeDatFrom(date) {
             var datFrom = new Date(date);
-            console.log(date);
 
             vm.details.datFrom = $filter('date')(datFrom, "MMMM/d/yyyy");
         }
@@ -100,29 +114,73 @@
             vm.details.datTo = $filter('date')(datTo, "MMMM/d/yyyy");
         }
 
-        vm.data = [];
-        locationFactory.getReservations().then(function (data) {
-            vm.customerList = data.reservationList;
-            console.log(vm.customerList);
-            for (var i = 0; i < vm.customerList.length; i++) {
-                vm.data.push({
-                    title: vm.customerList[i].customer.strName,
-                    start: vm.customerList[i].datFrom,
-                    end: vm.customerList[i].datTo,
-                    allDay: false,
-                    headcount: vm.customerList[i].headcount,
-                    venue: vm.customerList[i].strVenue
+     
+
+        vm.getAvailableEmployeeHomeService = function(date, time, timeTo){
+
+            if(vm.details.datFrom != null && vm.details.timeFrom != null){
+                
+            	if(vm.details.reservationType.type == 'Event') {
+            		vm.dateAndTime = $.param({
+                        'date': date,
+                        'time': time,
+                        'timeTo': timeTo, 
+                        'type': vm.details.reservationType.type
+                    });
+            	} else {
+            		vm.dateAndTime = $.param({
+                        'date': date,
+                        'time': time,
+                        'type': vm.details.reservationType.type
+                    });
+            	}
+                
+                console.log(vm.details.reservationType.type);
+
+                $http({
+                    method: 'get',
+                    url: 'http://localhost:8080/SalonManagement/getAvailableEmployee?date='+date+'&time='+time+'&timeTo'+timeTo+'&type='+vm.details.reservationType.type,
+                 
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).then(function successCallback(data) {
+                    vm.employeeList = data.data.empList;
+                    console.log(vm.employeeList);
+                }, function errorCallback(response) {
+                    console.log(response);
                 });
             }
-            calendarInit(vm.data);
-        });
+            console.log("Not if");
+            
+        }
 
-        locationFactory.getEmployees().then(function (data) {
-            vm.employeeList = data.data.employeeList;
-        });
+        vm.getAvailableEmployeeEvent = function(date, timeFrom, timeTo){
+            if(vm.details.datFrom != null && vm.details.timeFrom != null && vm.details.timeTo != null){
+                var dateAndTime = $.param({
+                    'date': date,
+                    'time': timeFrom,
+                    'timeTo': timeTo
+                });
+
+                $http({
+                    method: 'post',
+                    url: 'http://localhost:8080/SalonManagement/getAvailableEmployee?date='+date+'&time='+time+'&timeTo'+timeTo+'&type='+vm.details.reservationType.type,
+                    data: dateAndTime,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).then(function successCallback(data) {
+                    vm.employeeList = data.data.employeeList;
+                }, function errorCallback(response) {
+                    console.log(response);
+                });
+            }
+        }
 
         locationFactory.getExtraCharges().then(function (data) {
             vm.extraChargeList = data.data.extraChargeList;
+            console.log(vm.extraChargeList);
         });
 
         locationFactory.getDiscounts().then(function (data) {
@@ -149,7 +207,6 @@
             }
         }).then(function successCallback(data) {
             vm.serviceList = data.data.serviceList;
-            console.log(vm.serviceList);
         }, function errorCallback(response) {
             console.log(response);
         });
@@ -158,7 +215,6 @@
             var serviceTypeData = $.param({
                 'type': vm.details.reservationType.type
             });
-
             $http({
                 method: 'post',
                 url: 'http://localhost:8080/SalonManagement/getServiceByType',
@@ -168,31 +224,112 @@
                 }
             }).then(function successCallback(data) {
                 vm.serviceList = data.data.serviceList;
-                console.log(vm.serviceList);
             }, function errorCallback(response) {
-                console.log(response);
+                
             });
-        }
+        };
 
-        locationFactory.getPromos().then(function (data) {
-            vm.promoList = data.data.promoList;
+        var packageTypeData = $.param({
+            'type': vm.details.reservationType.type
         });
 
-        locationFactory.getPackages().then(function (data) {
+        $http({
+            method: 'post',
+            url: 'http://localhost:8080/SalonManagement/getPackageByType',
+            data: packageTypeData,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function successCallback(data) {
             vm.packageList = data.data.packageList;
+        }, function errorCallback(response) {
+            
         });
 
+        $scope.changePackage = function() {
+            var packageTypeData = $.param({
+                'type': vm.details.reservationType.type
+            });
+
+            $http({
+                method: 'post',
+                url: 'http://localhost:8080/SalonManagement/getPackageByType',
+                data: packageTypeData,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                vm.packageList = data.data.packageList;
+            }, function errorCallback(response) {
+
+            });
+        };
+
+       ///// end package
+
+        var promoTypeData = $.param({
+            'type': vm.details.reservationType.type
+        });
+
+        $http({
+            method: 'post',
+            url: 'http://localhost:8080/SalonManagement/getPromoByType',
+            data: promoTypeData,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function successCallback(data) {
+            vm.promoList = data.data.promoList;
+        }, function errorCallback(response) {
+
+        });
+
+        $scope.changePromo = function() {
+            var promoTypeData = $.param({
+                'type': vm.details.reservationType.type
+            });
+
+            $http({
+                method: 'post',
+                url: 'http://localhost:8080/SalonManagement/getPromoByType',
+                data: promoTypeData,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                vm.promoList = data.data.promoList;
+            }, function errorCallback(response) {
+
+            });
+        };
+        //end promo
+        
+        
         locationFactory.getDiscounts().then(function (data) {
             vm.discountList = data.data.discountList;
         });
 
         locationFactory.getLocation().then(function (data) {
             vm.locationList = data.locationList;
-            console.log(vm.locationList);
         });
-
+        
+        vm.data = [];
+        locationFactory.getReservations().then(function (data) {
+            vm.customerList = data.reservationList;
+            for (var i = 0; i < vm.customerList.length; i++) {
+                vm.data.push({
+                    title: vm.customerList[i].customer.strName,
+                    id: vm.customerList[i].intReservationID,
+                    start: vm.customerList[i].datFrom,
+                    end: vm.customerList[i].datTo,
+                    allDay: false,
+                    headcount: vm.customerList[i].headcount,
+                    venue: vm.customerList[i].strVenue
+                });
+            }
+            calendarInit(vm.data);
+        });
         function calendarInit(data) {
-            console.log(data);
             $('#reservationCalendar').fullCalendar({
                 // put your options and callbacks here
                 events: data,
@@ -200,11 +337,33 @@
                 textColor: 'black', // an option!
 
                 eventClick: function (calEvent, jsEvent, view) {
+                	  $('#viewDetails').openModal({
+    	                  dismissible: true, 
+    	                  opacity: .5,
+    	                  in_duration: 200, 
+    	                  out_duration: 200
+    	              });
+    	    		  var id = $.param({
+    	                  'reservationID': calEvent.id
+    	              });
 
-                    alert('Event: ' + calEvent.venue);
-                    alert('Event: ' + calEvent.headcount);
-                    // change the border color just for fun
-                    $(this).css('border-color', 'red');
+    	              $http({
+    	                  method: 'post',
+    	                  url: 'http://localhost:8080/SalonManagement/getReservationByID',
+    	                  data: id,
+    	                  headers: {
+    	                      'Content-Type': 'application/x-www-form-urlencoded'
+    	                  }
+    	              }).then(function successCallback(data) {
+    	                  console.log(data.data);
+    	                  vm.customerContainsProduct = data.data.reservation.includedItems.productList;
+    	                  vm.customerContainsService = data.data.reservation.includedItems.serviceList;
+    	                  vm.customerContainsPackage = data.data.reservation.includedItems.packageList;
+    	                  vm.cufstomerContainsPromo = data.data.reservation.includedItems.promoList;
+
+    	              }, function errorCallback(response) {
+    	            	  console.log(response);
+    	              });
                 },
                 eventMouseover: function (calEvent, event, jsEvent, view) {
                     //alert('Event: ' + calEvent.title);
@@ -212,6 +371,24 @@
 
             })
         }
+
+        $scope.cancelHomeService = function(cust, index) {
+            var resID = $.param({
+                'intReservationID': cust.intReservationID
+            });
+
+            $http({
+                method: 'post',
+                url: 'http://localhost:8080/SalonManagement/cancelReservation',
+                data: resID,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                vm.customerList.splice(index, 1);
+            }, function errorCallback(response) {
+            });
+        };
 
         function closeCard(id) {
             var prodClose = 'prodClose' + id;
@@ -462,11 +639,16 @@
             var selectedExtra = "";
             var selectedDiscount = "";
             var selectedEmployeee = "";
-            for (var i = 0; i < vm.extraChargeList.length; i++) {
-                selectedExtra += vm.extraChargeList[i].intECID + ",";
+            if(typeof vm.extraChargeList !== 'undefined') {
+                for (var i = 0; i < vm.extraChargeList.length; i++) {
+                    selectedExtra += vm.extraChargeList[i].intECID + ",";
+                }
             }
-            for (var i = 0; i < vm.selDiscounts.length; i++) {
-                selectedDiscount += vm.selDiscounts[i].intDiscountID + ",";
+
+            if(typeof vm.selDiscounts !== 'undefined') {
+                for (var i = 0; i < vm.selDiscounts.length; i++) {
+                    selectedDiscount += vm.selDiscounts[i].intDiscountID + ",";
+                }
             }
             for (var i = 0; i < vm.selEmployees.length; i++) {
                 selectedEmployeee += vm.selEmployees[i].intEmpID + ",";
@@ -476,6 +658,66 @@
             selectdiscount = selectedDiscount;
             selectemployees = selectedEmployeee;
         }
+        
+        $scope.acceptReservation = function (cust, index) {
+            var acc = $.param({
+                'intReservationID': cust.intReservationID,
+                'status': 'PENDING'
+            });
+
+            $http({
+                method: 'post',
+                url: 'http://localhost:8080/SalonManagement/updateReservationStatus',
+                data: acc,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                vm.customerList[index].strStatus = 'PENDING';
+            }, function errorCallback(response) {
+
+            });
+        };
+
+        $scope.cancelReservation = function (cust, index) {
+            var acc = $.param({
+                'intReservationID': cust.intReservationID,
+                'status': 'CANCELLED'
+            });
+
+            $http({
+                method: 'post',
+                url: 'http://localhost:8080/SalonManagement/updateReservationStatus',
+                data: acc,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                vm.customerList.splice(index, 1);
+            }, function errorCallback(response) {
+
+            });
+        };
+
+        $scope.rejectReservation = function (cust, index) {
+            var acc = $.param({
+                'intReservationID': cust.intReservationID,
+                'status': 'REJECTED'
+            });
+
+            $http({
+                method: 'post',
+                url: 'http://localhost:8080/SalonManagement/updateReservationStatus',
+                data: acc,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(data) {
+                vm.customerList.splice(index, 1);
+            }, function errorCallback(response) {
+
+            });
+        };
 
 
         vm.saveReservation = function (details) {
@@ -516,7 +758,8 @@
                 "selectedEmployees": selectemployees,
                 "selectedExtraCharges": selectextra,
                 "selectedDiscounts": selectdiscount,
-                "strTotalPrice": total
+                "strTotalPrice": total,
+                "paymentType": vm.resPaymentType
             });
             console.log(reservationData);
 
@@ -541,7 +784,6 @@
                                 var dd = $.param({
                                     'fineName': data.path
                                 });
-                                console.log(data);
 
                                 $http({
                                     method: 'post',
@@ -551,9 +793,9 @@
                                         'Content-Type': 'application/x-www-form-urlencoded'
                                     }
                                 }).then(function successCallback(data) {
-                                    alert("YES");
+                                    
                                 }, function errorCallback(response) {
-                                    alert("NO");
+
                                 });
                                 SweetAlert.swal("Successfully created!", ".", "success");
                                 $('#createReservationModal').closeModal();
@@ -614,7 +856,7 @@
                                         "selectedExtraCharges": selectextra,
                                         "selectedDiscounts": selectdiscount,
                                         "strTotalPrice": total,
-                                        "strStatus": 'PENDING'
+                                        "strStatus": 'REQUEST'
                                     });
                                 }
 

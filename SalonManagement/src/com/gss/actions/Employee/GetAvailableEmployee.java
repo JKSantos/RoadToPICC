@@ -14,7 +14,7 @@ public class GetAvailableEmployee {
 	
 	//if for delivery
 	private String locationID;
-	
+		
 	//if event
 	private String timeTo;
 	private String type;

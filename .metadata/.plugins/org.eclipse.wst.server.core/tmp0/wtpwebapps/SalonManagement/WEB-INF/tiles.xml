@@ -125,7 +125,7 @@
 
     <definition name="SalesReport" extends="baseLayout">
         <put-attribute name="title"         value="Report"/>
-        <put-attribute name="body"          value="/tiles/sales-report.jsp"/>
+        <put-attribute name="body"          value="/tiles/reports-sales-report.jsp"/>
     </definition>
 
     <definition name="home" extends="baseLayout">
@@ -141,6 +141,16 @@
     <definition name="ProductTags" extends="baseLayout">
     	<put-attribute name="title"			value="Product Tags"/>
     	<put-attribute name="body"			value="/tiles/reports-productTags.jsp"/>
+    </definition>
+
+    <definition name="cancelledReserv" extends="baseLayout">
+        <put-attribute name="title"			value="Cancelled Reservation"/>
+        <put-attribute name="body"			value="/tiles/reports-cancelledReservations.jsp"/>
+    </definition>
+
+    <definition name="serviceAvailments" extends="baseLayout">
+        <put-attribute name="title"			value="Cancelled Reservation"/>
+        <put-attribute name="body"			value="/tiles/reports-serviceAvailments.jsp"/>
     </definition>
     
     <definition name="utilities" extends="baseLayout">
