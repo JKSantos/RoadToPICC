@@ -25,7 +25,7 @@
                         </a>
                         <a class="crWalkin z-depth-1 hoverable btn purple darken-2 left white-text"
                            style="margin-left: 15px; opacity: 0.3; cursor: not-allowed !important;" ng-disabled="true"
-                           ng-if="vm.productOrder.length == 0 && vm.serviceOrder.length == 0">
+                           ng-if="vm.productOrder.length == 0 && vm.serviceOrder.length == 0 && vm.packageOrder.length == 0 && vm.promoOrder.length == 0">
                             <i class="material-icons">add</i>
                         </a>
                         <a class="z-depth-1 hoverable waves-effect waves-light btn purple darken-2 left white-text"

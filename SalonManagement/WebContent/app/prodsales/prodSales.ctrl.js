@@ -112,27 +112,8 @@
         locationFactory.getDependencies().then(function (data) {
             vm.dependencies = data.dependencies;
             vm.minAmt = getMinAmount(vm.dependencies);
+            console.log(vm.dependencies);
         });
-
-        var availableEmp = $.param({
-                date: '2016-12-06',
-                time: '01:00:00',
-                locationID: 2,
-                type: 'delivery'
-            });
-
-            $http({
-                method: 'post',
-                url: 'http://localhost:8080/SalonManagement/getAvailableEmployee',
-                data: availableEmp,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            }).then(function successCallback(data) {
-                $scope.employeeList = data.data.empList;
-            }, function errorCallback(response) {
-
-            });
 
         $scope.changeDateGetEmp = function (date) {
             let month, m, d;
@@ -153,11 +134,32 @@
                 case 'January': m = 1; break;
             }
 
-            d = month[2] + '-' + m + '-' + month[1]; //d
+            d = month[2] + '-' + m + '-' + month[1]; //date yyy-mm-dd
+
+            $('#acceptDelEmp').material_select('destroy');
+            var availableEmp = $.param({
+                    date: d,
+                    locationID: vm.intLocationID,
+                    type: 'delivery'
+                });
+
+                $http({
+                    method: 'post',
+                    url: 'http://localhost:8080/SalonManagement/getAvailableEmployee',
+                    data: availableEmp,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).then(function successCallback(data) {
+                    $('#acceptDelEmp').material_select();
+                    $scope.employeeList = data.data.empList;
+                }, function errorCallback(response) {
+
+                });
 
         }
 
-        function getAvailableEmployee (request) {
+        $scope.getAvailableEmployee = function (request) {
             vm.intLocationID = request.intLocationID;
         }
 
@@ -521,7 +523,7 @@
 
         $scope.acceptDeliveryOrder = function (request) {
             var index = $scope.requestOrder.indexOf(request);
-            console.log(request);
+
             $scope.delivery = {
                 strName: request.strName,
                 strAddress: request.strAddress,

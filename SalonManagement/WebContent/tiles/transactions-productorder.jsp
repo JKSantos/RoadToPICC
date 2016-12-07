@@ -438,28 +438,11 @@
                             <label for="deliveryDate" class="active"><b>Delivery Date</b>
                                 <i class="material-icons tiny red-text">error_outline</i></label>
                         </div>
-                        <div class="input-field col s3">
-                            <label for=""><b>Time</b>
-                            <i class="material-icons tiny red-text" style="font-size: 12px !important;">error_outline</i></label>
-                        </div>
-                        <div class="input-field col s3">
-                            <input type="number" placeholder="hh" min="0" max="24">
-                        </div>
-                        <div class="input-field col s3">
-                            <input type="number" placeholder="mm" min="0">
-                        </div>
-                        <div class="input-field col s3">
-                            <select name="ampm" id="ampm" ng-model="ampm">
-                                <option value="am" selected>AM</option>
-                                <option value="pm">PM</option>
-                            </select>
-                        </div>
                         <div class="input-field col s12" style="margin-top: 50px !important;">
-                            <select ng-model="delivery.selEmployee" id="acceptDelEmp"
-                                    ng-options="employee.strEmpFirstName for employee in employeeList">
+                            <select class="browser-default" ng-model="delivery.selEmployee" id="acceptDelEmp"                 ng-options="employee.strEmpFirstName for employee in employeeList">
                                 <option value="" disabled selected>Choose...</option>
                             </select>
-                            <label for="acceptDelEmp"><b>Employee</b>
+                            <label for="acceptDelEmp" class="active"><b>Employee</b>
                                 <i class="material-icons tiny red-text">error_outline</i>
                             </label>
                         </div>
@@ -474,6 +457,7 @@
             </button>
             <button id="submitDeliveryDate" class="waves-effect waves-light white-text btn-flat purple"
                     style="margin-left:3px; margin-right:3px;"
+                    ng-if="delivery.selEmployee"
                     ng-click="sendDeliveryDetails(delivery)">
                 PROCEED
             </button>
