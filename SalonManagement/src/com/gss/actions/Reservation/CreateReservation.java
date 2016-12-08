@@ -77,6 +77,11 @@ public class CreateReservation {
 		System.out.println(this.datFrom);
 		System.out.println(this.datTo);
 		
+		if(this.intReservationType == 1) {	
+			this.intReservationType = 2;
+		} else
+			this.intReservationType = 1;
+		
 		String[] selectedEmployees = this.selectedEmployees.split(",");
 		String[] selectedDiscounts = this.selectedDiscounts.split(",");
 		String[] selectedExtraCharges = this.selectedExtraCharges.split(",");
@@ -84,16 +89,11 @@ public class CreateReservation {
 		List<Product> prodList = Product.getAllProduct();
 		List<Service> serviceList = Service.getAllService();
 		
-		if(this.intReservationType == 1){
+		if(this.intReservationType == 2){
 			this.datTo = this.datFrom;
 		}
 		
 		Reservation reservation = null;
-		
-		if(this.intReservationType == 1) {	
-			this.intReservationType = 2;
-		} else
-			this.intReservationType = 1;
 		
 		//for invoice
 		
@@ -186,7 +186,7 @@ public class CreateReservation {
 				
 				String strStatus = "PENDING";
 				
-				if(this.intReservationType == 1)
+				if(this.intReservationType == 2)
 					strStatus = "REQUEST";
 				
 				
@@ -202,7 +202,7 @@ public class CreateReservation {
 				Customer customer = new Customer(1, this.strCustomerType, this.strCompanyName, this.strName, this.strAddress, this.strContactNo, this.strEmail);
 				
 				
-				if(this.intReservationType == 1)
+				if(this.intReservationType == 2)
 
 					reservation = new Reservation(1, customer, includedItems, intReservationType, new Date(), DateHelper.parseDate(dateFrom), DateHelper.parseDate(dateTo), TimeHelper.parseTimeHomeService(timFrom), TimeHelper.parseTimeHomeService(timFrom), strVenue, headCount, this.intLocationID, employeeAssigned, invoice, strStatus, contractPath);
 				else

@@ -113,7 +113,7 @@
                             <li><a href="serviceMaintenance">Service</a></li>
                             <li><a href="packageMaintenance">Package</a></li>
                             <li><a href="locationMaintenance">Transportation Charge</a></li>
-                            <li><a href="extraChargeMaintenance">Fee</a></li>
+                            
                             <li><a href="promoMaintenance">Promo</a></li>
                             <li><a href="discountMaintenance">Discount</a></li>
                         </ul>

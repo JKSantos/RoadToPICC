@@ -184,7 +184,7 @@
             let minAmt = 0;
 
             angular.forEach(min, function(x, i) {
-                if(x.strName == 'Minimum Purchase Price For Delivery') {
+                if(x.strName == 'minimumPurchase') {
                     minAmt = x.strValue;
                 }
             });
@@ -458,47 +458,47 @@
                 };
                 console.log(psdata);
 
-            // setTimeout(function () {
-            //     $.ajax({
-            //         url: 'createOrder',
-            //         type: 'post',
-            //         data: psdata,
-            //         dataType: 'json',
-            //         async: true,
-            //         success: function (data) {
-            //             if (data.status == "success") {
-            //                 swal("Successfully created!", ".", "success");
-            //                 console.log($scope.customerDetails[1]);
-            //                 if(myData.orderType == 'delivery') {
-            //                     $scope.requestOrder.push({
-            //                         intSalesID: data.intCreatedID,
-            //                         strName: myData.strName,
-            //                         intType: myData.orderType
-            //                     });
-            //                 }
-            //                 console.log($scope.requestOrder);
-            //                 $('#crProductSales').closeModal();
-            //                 $scope.customerDetails = [{
-            //                     orderType: '',
-            //                     contactNumber: '',
-            //                     name: '',
-            //                     Street: '',
-            //                     location: '',
-            //                     orderDetails: '',
-            //                     subtotal: 0
-            //                 }];
-            //                 console.log(data);
-            //                 $window.location.reload();
-            //             } else {
-            //                 SweetAlert.swal("Oops", "Something went wrong!", "error");
-            //             }
-            //         },
-            //         error: function () {
-            //             vm.loadingBubble = 1;
-            //             SweetAlert.swal("Oops", "Something went wrong!", "error");
-            //         }
-            //     });
-            // }, 1000);
+             setTimeout(function () {
+                 $.ajax({
+                     url: 'createOrder',
+                     type: 'post',
+                     data: psdata,
+                     dataType: 'json',
+                     async: true,
+                     success: function (data) {
+                         if (data.status == "success") {
+                             swal("Successfully created!", ".", "success");
+                             console.log($scope.customerDetails[1]);
+                             if(myData.orderType == 'delivery') {
+                                 $scope.requestOrder.push({
+                                     intSalesID: data.intCreatedID,
+                                     strName: myData.strName,
+                                     intType: myData.orderType
+                                 });
+                             }
+                             console.log($scope.requestOrder);
+                             $('#crProductSales').closeModal();
+                             $scope.customerDetails = [{
+                                 orderType: '',
+                                 contactNumber: '',
+                                 name: '',
+                                 Street: '',
+                                 location: '',
+                                 orderDetails: '',
+                                 subtotal: 0
+                             }];
+                             console.log(data);
+                             $window.location.reload();
+                         } else {
+                             SweetAlert.swal("Oops", "Something went wrong!", "error");
+                         }
+                     },
+                     error: function () {
+                         vm.loadingBubble = 1;
+                         SweetAlert.swal("Oops", "Something went wrong!", "error");
+                     }
+                 });
+             }, 1000);
         }; //end
         
         $scope.openPickUpOrder = function (request) {

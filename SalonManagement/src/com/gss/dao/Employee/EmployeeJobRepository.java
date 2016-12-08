@@ -50,7 +50,7 @@ public class EmployeeJobRepository {
 			walkinServiceRes.close();
 			
 			packageServiceStmt.setInt(1, intEmpID);
-			ResultSet packageServiceRes = packageServiceStmt.executeQuery();
+			/*ResultSet packageServiceRes = packageServiceStmt.executeQuery();
 			
 			while(packageServiceRes.next()){
 				int jobID 				= packageServiceRes.getInt(1);
@@ -65,7 +65,7 @@ public class EmployeeJobRepository {
 			}
 			
 			packageServiceStmt.close();
-			packageServiceRes.close();
+			packageServiceRes.close();*/
 			
 			promoServiceStmt.setInt(1, intEmpID);
 			ResultSet promoServiceRes = promoServiceStmt.executeQuery();
@@ -88,7 +88,7 @@ public class EmployeeJobRepository {
 			packagePromoServiceStmt.setInt(1, intEmpID);
 			ResultSet packagePromoServiceRes = packagePromoServiceStmt.executeQuery();
 			
-			while(packagePromoServiceRes.next()){
+			/*while(packagePromoServiceRes.next()){
 				int jobID 				= packagePromoServiceRes.getInt(1);
 				String transType 		= "WALKIN";
 				String jobType			= "PROMO PACKAGE";
@@ -101,7 +101,7 @@ public class EmployeeJobRepository {
 			}
 			
 			packagePromoServiceStmt.close();
-			packagePromoServiceRes.close();
+			packagePromoServiceRes.close();*/
 			
 			return jobList;
 			

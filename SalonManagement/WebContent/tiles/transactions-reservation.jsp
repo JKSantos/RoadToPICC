@@ -347,11 +347,11 @@
                                 </div>
                                 <div class="input-field col s6"
                                      ng-if="vm.details.reservationType.id == 2">
-                                    <select ng-model="vm.details.location" material-select watch name="crREventLocation" id="crREventLocation">
+                                    <select ng-model="vm.details.location" class="browser-default" material-select watch name="crREventLocation" id="crREventLocation">
                                         <option value="" disabled selected>Choose...</option>
                                         <option ng-repeat="loc in vm.locationList" value="{{loc.intLocationID}}">{{loc.strBarangay}}, {{loc.strCity}}</option>
                                     </select>
-                                    <label for="crREventVenue"><b>Location</b>
+                                    <label for="crREventVenue" class="active"><b>Location</b>
                                         <i class="material-icons red-text tiny">error_outline</i>
                                     </label>
                                 </div>
@@ -370,7 +370,7 @@
                                            close="close"
                                            select-years="15"
                                            ng-change="vm.changeDatFrom(vm.details.datFrom); vm.getAvailableEmployeeHomeService(vm.details.datFrom, vm.details.timeFrom, vm.details.timeTo)"/>
-                                    <label for="ngDateFrom" class="active"><b>Date From</b><i
+                                    <label for="ngDateFrom" class="active"><b>Date</b><i
                                             class="material-icons red-text tiny">error_outline</i></label>
                                 </div>
                                 <!--<div class="input-field col s6" ng-show="vm.details.reservationType.id == 2">-->
@@ -496,7 +496,7 @@
 
                                                 <a class="waves-effect waves-light btn"
                                                    ng-if="vm.quantity <= product.intProductQuantity"
-                                                   ng-click="vm.addToCart($index, vm.selected); vm.sumTotal(); vm.closeCard(product.intProductID);">
+                                                   ng-click="vm.addToCart($index, vm.selected); vm.sumTotal(); vm.closeCard(product.intProductID); totalDependency();">
                                                     <i class="material-icons left"
                                                        style="padding: 0px !important; margin: 0px !important;">
                                                         shopping_basket
@@ -545,7 +545,7 @@
                                                 <h6 class="grey-text text-darken-4">{{service.dblServicePrice * vm.quantity | currency: "Php "}}</h6>
 
                                                 <a class="waves-effect waves-light btn"
-                                                   ng-click="vm.addToCart($index, vm.selected); vm.sumTotal(); vm.closeService(service.intServiceID);">
+                                                   ng-click="vm.addToCart($index, vm.selected); vm.sumTotal(); vm.closeService(service.intServiceID); totalDependency();">
                                                     <i class="material-icons left"
                                                        style="padding: 0px !important; margin: 0px !important;">
                                                         shopping_basket</i>GET SERVICE
@@ -588,7 +588,7 @@
                                                     vm.quantity | currency: "Php "}}</h6>
 
                                                 <a class="waves-effect waves-light btn"
-                                                   ng-click="vm.addToCart($index, vm.selected); vm.sumTotal(); vm.closePackage(package.intPackageID);">
+                                                   ng-click="vm.addToCart($index, vm.selected); vm.sumTotal(); vm.closePackage(package.intPackageID); totalDependency();">
                                                     <i class="material-icons left"
                                                        style="padding: 0px !important; margin: 0px !important;">
                                                         shopping_basket</i>GET PACKAGE
@@ -671,28 +671,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col s4" style="margin-top: 10px;">
-                                <div class="input-field col s12">
-                                    <select multiple ng-model="vm.extraCharge" id="crROtherCharge"
-                                            ng-options="charge.strECName for charge in vm.extraChargeList">
-                                        <option value="" disabled selected>Choose...</option>
-                                    </select>
-                                    <label for="crROtherCharge"><b>Other Charges</b></label>
-                                </div>
-                            </div>
-                            <div class="col s4" style="margin-top: 10px;">
-                                <div class="input-field col s12">
-                                    <select ng-model="vm.selDiscounts" id="crRDiscount"
-                                            ng-options="discount.strDiscountName for discount in vm.discountList">
-                                        <option value="" disabled selected>Choose...</option>
-                                    </select>
-                                    <label for="crRDiscount"><b>Discounts</b></label>
-                                </div>
-                            </div>
                             <div class="col s4 z-depth-barts white" style="margin-top: 10px;">
                                 <div class="col s12">
                                     <div class="input-field col s12">
-                                        <h5 class="green-text">Total: {{vm.sum | currency: "Php"}}</h5>
+                                    	<p ng-if="vm.details.reservationType.id == 1" class="green-text">Adjustment Value: <b>x{{vm.homeAdjustment.strValue}}</b></p><br>
+                                    	<p ng-if="vm.details.reservationType.id == 2" class="green-text">Adjustment Value: <b>x{{vm.reservationAdjustment.strValue}}</b></p><br>
+                                        <p class="green-text">Total Price: <b>{{vm.sum | currency: "Php "}}</b></p> <br>
+                                        <p class="green-text">Adjusted Price: <b>{{vm.fakeSum | currency: "Php "}}</b></p>
                                     </div>
 
                                 </div>
@@ -700,7 +685,7 @@
                             <div class="col s4" style="margin-top: 10px;">
                                 <div class="input-field col s12">
                                 	<p>Employee</p>
-                                    <select multiple class="browser-default" ng-model="vm.selEmployees" id="cREmp"
+                                    <select style="height: 100px !important;" multiple class="browser-default" ng-model="vm.selEmployees" id="cREmp"
                                             ng-options="employee.strEmpFirstName for employee in vm.employeeList">
                                         <option value="" disabled selected>Choose...</option>
                                     </select>
@@ -709,14 +694,32 @@
                             <div class="col s4"></div>
                             <div class="col s4" style="margin-top: 10px;" ng-if="vm.details.reservationType.type == 'Event'">
                                 <div class="input-field col s12">
-                                    <select ng-model="vm.resPaymentType" id="crPType" material-select watch>
+                                    <select ng-model="vm.resPaymentType" class="browser-default" id="crPType" material-select watch>
                                         <option value="" disabled selected>Choose...</option>
                                         <option value="FULL PAYMENT">FULL PAYMENT</option>
                                         <option value="HALF PAYMENT">HALF PAYMENT</option>
                                     </select>
-                                    <label for="cREmp"><b>Payment Type</b>
+                                    <label for="cREmp" class="active"><b>Payment Type</b>
                                         <i class="material-icons red-text tiny">error_outline</i>
                                     </label>
+                                </div>
+                            </div>
+                            <div class="col s12" style="margin-top: 200px;">
+                                <div class="input-field col s12">
+                                    <select multiple ng-model="vm.extraCharge" id="crROtherCharge"
+                                            ng-options="charge.strECName for charge in vm.extraChargeList">
+                                        <option value="" disabled selected>Choose...</option>
+                                    </select>
+                                    <label for="crROtherCharge"><b>Other Charges</b></label>
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                <div class="input-field col s12">
+                                    <select ng-model="vm.selDiscounts" id="crRDiscount"
+                                            ng-options="discount.strDiscountName for discount in vm.discountList">
+                                        <option value="" disabled selected>Choose...</option>
+                                    </select>
+                                    <label for="crRDiscount"><b>Discounts</b></label>
                                 </div>
                             </div>
                         </div>

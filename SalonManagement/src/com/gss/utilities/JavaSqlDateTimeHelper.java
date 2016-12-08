@@ -13,7 +13,7 @@ public class JavaSqlDateTimeHelper {
 		java.util.Date date;
 		try {
 			date = sdf1.parse(dateString);
-			return new java.sql.Date(date.getTime()); 
+			return new java.sql.Date(date.getTime());
 		} catch (ParseException e) {
 			e.printStackTrace();
 			return null;

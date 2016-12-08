@@ -69,6 +69,7 @@ public class ProductSalesJDBCRepository implements ProductSalesRepository{
 			ResultSet salesID;
 			intID = 0;
 			
+			System.out.println( " TYPE :"+sales.getIntType());
 			insertProductSales.setInt(1, sales.getIntType());
 			insertProductSales.setString(2, sales.getStrName());
 			insertProductSales.setString(3, sales.getStrAddress());

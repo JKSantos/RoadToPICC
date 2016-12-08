@@ -67,7 +67,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 			insertWalkIn.setString(4, walkin.getStrWalkInType());
 			System.out.println(walkin.getAppointmentDate());
 			System.out.println(walkin.getAppointmentTime());
-			insertWalkIn.setDate(5, walkin.getAppointmentDate());
+			insertWalkIn.setString(5, walkin.getDate());
 			insertWalkIn.setTime(6, walkin.getAppointmentTime());
 			insertWalkInResult = insertWalkIn.executeQuery();
 			
@@ -297,7 +297,7 @@ public class WalkInJDBCRepository implements WalkInRepository{
 		String createServiceWalkIn 			= "CALL createServiceWalkIn(?, ?, ?, ?)";
 		String createPackageWalkIn 			= "CALL createPackageWalkIn(?, ?, ?)";
 		String createEmpAssignment 			= "INSERT INTO tblEmployeeAssignment(intAssignmentStatus) VALUE(1)";
-	f	String createDetail					= "CALL createAssignmentDetail(?, ?, ?)";
+		String createDetail					= "CALL createAssignmentDetail(?, ?, ?)";
 		String createPromoWalkIn 			= "CALL createPromoWalkIn(?, ?)";
 		String createPackagePromo			= "CALL createPackagePromoWalkIn(?, ?)";
 		String createPromoService			= "CALL createPackagePromoServiceWalkIn(?, ?, ?)";
@@ -953,6 +953,8 @@ public class WalkInJDBCRepository implements WalkInRepository{
 				updateProducts.setInt(1, quantity.getIntProductID());
 				updateProducts.setInt(2, quantity.getIntQuantity());
 				updateProducts.addBatch();
+				
+				System.out.println("Adding stock...");;
 			}
 			
 			updateProducts.executeBatch();

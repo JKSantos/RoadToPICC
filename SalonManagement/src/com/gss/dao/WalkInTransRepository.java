@@ -22,6 +22,7 @@ import com.gss.model.PromoWalkIn;
 import com.gss.model.Service;
 import com.gss.model.ServiceWalkIn;
 import com.gss.model.WalkIn;
+import com.gss.utilities.SearchPackage;
 import com.gss.model.Package;
 
 public class WalkInTransRepository {
@@ -121,12 +122,14 @@ public class WalkInTransRepository {
 			packageStmt.setInt(1, walkinID);
 			ResultSet packageSet = packageStmt.executeQuery();
 			
+			List<Package> packageLists = Package.getAllPackageNoDetails();
+			
 			while(packageSet.next()){
 				
 				List<ServiceWalkIn> packageServices = new ArrayList<ServiceWalkIn>();
 				
 				int id = packageSet.getInt(1);
-				Package pack = Package.createNullPackage(packageSet.getInt(3));
+				Package pack = new SearchPackage().search(packageSet.getInt(3), packageLists);
 				int assigmentID = packageSet.getInt(4);
 				
 				PreparedStatement servPackStmt = con.prepareStatement(packageServiceQuery);

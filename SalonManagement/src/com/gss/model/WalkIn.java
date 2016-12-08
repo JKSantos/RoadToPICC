@@ -24,6 +24,7 @@ public class WalkIn {
 	private Payment payment;
 	private String strWalkInStatus;
 	private String strPaymentStatus;
+	private String date;
 
 	public WalkIn(int intWalkInID, String strWalkInType, String strName, String strContactNo, Date datWalkIn,
 			List<ServiceWalkIn> services, List<ProductWalkIn> products, List<PackageWalkIn> packages,
@@ -148,5 +149,13 @@ public class WalkIn {
 
 	public void setAppointmentTime(Time appointmentTime) {
 		this.appointmentTime = appointmentTime;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 }

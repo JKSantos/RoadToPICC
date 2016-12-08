@@ -66,6 +66,8 @@ public class CreateOrderAction{
 
 		int result = salesService.createProductSales(sales);
 		
+		System.out.println("HAYS BAT AYAW MACREATE");
+		
 		if(result != 0){
 			
 			if(this.orderType.equalsIgnoreCase("delivery"))

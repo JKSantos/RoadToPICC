@@ -48,6 +48,7 @@
         // vm.customerList = reservationFactory.getCustomers();
         locationFactory.getDependencies().then(function (data) {
             vm.dependencies = data.dependencies;
+            console.log(vm.dependencies);
             var d = 0;
             angular.forEach(vm.dependencies, function (i) {
                 if (i.strName == 'reservationMargin') {
@@ -55,7 +56,34 @@
                 }
             });
             vm.reservationMargin = d;
+            vm.homeAdjustment = getHomeAdjustment(vm.dependencies);
+            console.log(vm.homeAdjustment);
+            vm.reservationAdjustment = getReservAdjustment(vm.dependencies);
         });
+        
+        function getHomeAdjustment(dependency) {
+        	var h;
+        	
+        	angular.forEach(dependency, function(x, i) {
+        		if(x.strName.toUpperCase() == 'HOMEADJUSTMENT') {
+        			h = x;
+        		}
+        	});
+        	
+        	return h;
+        }
+        
+        function getReservAdjustment(dependency) {
+        	var h;
+        	
+        	angular.forEach(dependency, function(x, i) {
+        		if(x.strName.toUpperCase() == 'RESERVATIONADJUSTMENT') {
+        			h = x;
+        		}
+        	});
+        	
+        	return h;
+        }
 
         vm.details.reservationType = vm.reservationType[0];
         $timeout(function() {
@@ -719,9 +747,25 @@
             });
         };
 
-
+        $scope.totalDependency = function () {
+        	let fakeSum = 0;
+        	if(vm.details.reservationType.id == 1) { //Home Service
+        		fakeSum += vm.sum;
+        		vm.fakeSum = fakeSum * parseFloat(vm.homeAdjustment.strValue);
+        	} else if(vm.details.reservationType.id == 2) { //event?
+        		fakeSum += vm.sum;
+        		vm.fakeSum = fakeSum * parseFloat(vm.reservationAdjustment.strValue);
+        	}
+        }
+        
         vm.saveReservation = function (details) {
             toString();
+            console.log(vm.homeAdjustment);
+            if(vm.details.reservationType.id == 1) { //Home Service
+            	vm.sum = vm.sum * parseFloat(vm.homeAdjustment.strValue);
+            } else if(vm.details.reservationType.id == 2) { //event?
+            	vm.sum = vm.sum * parseFloat(vm.reservationAdjustment.strValue);
+            }
             var name = vm.details.name;
             var address = vm.details.address;
             var contact = vm.details.contact;
@@ -781,7 +825,8 @@
                             async: true,
                             success: function (data) {
                             	
-                            	$window.open('http://localhost:8080/SalonManagement/open?path='+data.path);
+                            	if(data.path != null)
+                            		$window.open('http://localhost:8080/SalonManagement/open?path='+data.path);
                                 var dd = $.param({
                                     'fineName': data.path
                                 });

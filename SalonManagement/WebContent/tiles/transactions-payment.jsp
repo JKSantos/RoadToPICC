@@ -200,26 +200,26 @@
                         <label for="paymentDetails.remainingBalance" class="active"><b>Remaining Balance</b></label>
                     </div>
                     <div class="input-field col s6">
-                        <select id="paymentDetails.type"
+                        <select id="paymentDetails.type" class="browser-default"
                                 material-select watch
                                 ng-model="vm.paymentDetails.paymentType"
                                 ng-if="vm.paymentDetails.type == 'order'"
                                 ng-options="pay.name for pay in vm.paymentType track by pay.id">
                         </select>
-                        <select id="paymentDetails.type"
+                        <select id="paymentDetails.type" class="browser-default"
                                 material-select watch
                                 ng-model="vm.paymentDetails.paymentType"
                                 ng-if="vm.paymentDetails.type == 'reservation'"
                                 ng-change="paymentChange();"
                                 ng-options="pay.name for pay in vm.paymentType track by pay.id">
                         </select>
-                        <select id="paymentDetails.type"
+                        <select id="paymentDetails.type" class="browser-default"
                                 material-select watch
                                 ng-model="vm.paymentDetails.paymentType"
                                 ng-if="vm.paymentDetails.type == 'walkin'"
                                 ng-options="pay.name for pay in vm.paymentType track by pay.id">
                         </select>
-                        <label><b>Payment Type</b>
+                        <label class="active"><b>Payment Type</b>
                             <i class="material-icons tiny red-text">error_outline</i>
                         </label>
                     </div>

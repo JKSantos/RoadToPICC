@@ -11,6 +11,7 @@ public class GetWalkInByID {
 	
 	public String execute(){
 		this.walkin = WalkInTransRepository.getWalkInByID(intWalkInID);
+		//this.walkin
 		
 		return "success";
 	}

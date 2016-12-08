@@ -224,6 +224,12 @@ public class CreateIndividualWalkIn extends ActionSupport{
 			//do nothing
 		}
 		
+		walkin.setDate(this.appointmentTime.replaceAll("/", "-"));
+		
+		if(walkin.getDate().equals("")) {
+			walkin.setDate("2016-01-01");
+		}
+		
 		int result = service.createWalkIn(walkin);
 		
 		if(result == 0){

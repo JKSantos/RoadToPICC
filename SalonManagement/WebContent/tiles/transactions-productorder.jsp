@@ -276,10 +276,11 @@
                                 </div>
                                 <div class="input-field col s6" id="crDivOrderLoc"
                                      ng-if="details.order.id == 2">
-                                    <select ng-options="location.strBarangay for location in locationList" material-select watch ng-model="details.location" id="crOrderLoc"
+                                    <select class="browser-default"
+                                     ng-options="location.strBarangay for location in locationList" material-select watch ng-model="details.location" id="crOrderLoc"
                                     ng-change="locationPrice(details.location);">
                                     </select>
-                                    <label for="crOrderLoc"><b>Location</b>
+                                    <label for="crOrderLoc" class="active"><b>Location</b>
                                         <i class="material-icons red-text tiny">error_outline</i>
                                     </label>
                                 </div>

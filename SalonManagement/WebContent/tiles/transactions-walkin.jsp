@@ -13,7 +13,6 @@
                             <option value="product">Product</option>
                             <option value="service">Service</option>
                             <option value="package">Package</option>
-                            <option value="promo">Promo</option>
                         </select>
                         <label for="discountFilter"><b>Select</b></label>
                     </div>

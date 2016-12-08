@@ -485,6 +485,7 @@
                 vm.selectedProductFromWalkin = pushProduct(vm.walkinProdSelected);
                 vm.selectedServiceFromWalkin = pushService(vm.walkinServSelected);
                 vm.selectedPackageFromWalkin = pushPackage(vm.walkinPackSelected);
+                console.log(vm.selectedPackageFromWalkin);
             }, function errorCallback(response) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
